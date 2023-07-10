@@ -7,8 +7,8 @@ package:
   version: {{ version }}
 
 source:
-  url: /home/tomsail/apps/telemac.tar.gz
-  sha256: 6ee77a34b1b827463b7a61e00149b1781af7db340d329b8e36bdcd85ae545553
+  url: https://github.com/tomsail/telemac-conda/archive/refs/tags/v8.4.tar.gz
+  #sha256: 6ee77a34b1b827463b7a61e00149b1781af7db340d329b8e36bdcd85ae545553
 
 build:
   noarch: python
