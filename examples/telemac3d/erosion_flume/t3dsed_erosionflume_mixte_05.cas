@@ -1,0 +1,118 @@
+/-------------------------------------------------------------------/
+/   TELEMAC-3D      -  cas test EROSION_FLUME                       /
+/                          MJ aout 2014                             /
+/-------------------------------------------------------------------/
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+FORTRAN FILE                    = 'user_fortran'
+GEOMETRY FILE                   = geo_erosionflume.slf
+BOTTOM TOPOGRAPHY FILE          = semis3.xyz
+BOUNDARY CONDITIONS FILE        = geo_erosionflume.cli
+3D RESULT FILE                  = r3d_erosionflume_mixte-05.slf
+2D RESULT FILE                  = r2d_erosionflume_mixte-05.slf
+COMPUTATION CONTINUED = YES
+PREVIOUS COMPUTATION FILE = r3d_canaltest_0.slf
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+TITLE                                  = 'Castest 3dsed ErosionFlume'
+VARIABLES FOR 2D GRAPHIC PRINTOUTS     = 'U,V,H,S,B,TA*'
+VARIABLES FOR 3D GRAPHIC PRINTOUTS     = 'Z,U,V,W,RHO,TA*'
+/
+GRAPHIC PRINTOUT PERIOD                = 100
+LISTING PRINTOUT PERIOD                = 20
+MASS-BALANCE                           = YES
+INITIAL TIME SET TO ZERO               = YES
+TIME STEP                              = 0.2
+NUMBER OF TIME STEPS                   = 200
+/--------------------------------------------------
+/ VERTICAL MESH
+/--------------------------------------------------
+NUMBER OF HORIZONTAL LEVELS                     : 10
+/--------------------------------------------------
+/ TIDAL FLATS
+/--------------------------------------------------
+TIDAL FLATS                                     : YES
+TREATMENT OF NEGATIVE DEPTHS                    : 2
+THRESHOLD FOR SEDIMENT FLUX CORRECTION ON TIDAL FLATS : 0.001 / !!!
+THRESHOLD FOR VISCOSITY CORRECTION ON TIDAL FLATS : 0.001
+/--------------------------------------------------
+/     SOURCE TERMS
+/--------------------------------------------------
+NUMBER OF BOTTOM SMOOTHINGS                     : 2
+LAW OF BOTTOM FRICTION                          : 3
+FRICTION COEFFICIENT FOR THE BOTTOM             : 50.
+/
+/VERTICAL TURBULENCE MODEL                       : 2
+/MIXING LENGTH MODEL = 3 / Nezu and Nakagawa
+/HORIZONTAL TURBULENCE MODEL                     : 1
+/COEFFICIENT FOR HORIZONTAL DIFFUSION OF VELOCITIES : 0.1
+/COEFFICIENT FOR VERTICAL DIFFUSION OF VELOCITIES : 1.E-6
+/
+VERTICAL TURBULENCE MODEL                       : 3
+HORIZONTAL TURBULENCE MODEL                     : 3
+PRECONDITIONING FOR DIFFUSION OF K-EPSILON      : 34
+/--------------------------------------------------
+/	ADVECTION-DIFFUSION
+/--------------------------------------------------
+SCHEME FOR ADVECTION OF VELOCITIES              : 1
+NON-HYDROSTATIC VERSION                         : YES
+FREE SURFACE GRADIENT COMPATIBILITY             : 0.5
+TREATMENT OF FLUXES AT THE BOUNDARIES           : 1;1
+/
+/ACCURACY FOR DIFFUSION OF VELOCITIES            : 1.E-6
+PRECONDITIONING FOR DIFFUSION OF VELOCITIES     : 34
+/---------------------------------------------------------------------/
+/     PROPAGATION                                                     /
+/---------------------------------------------------------------------/
+SOLVER FOR PROPAGATION                              : 2
+ACCURACY FOR PPE                                    : 1.E-6
+IMPLICITATION FOR DEPTH                             : 1.
+/
+MASS-LUMPING FOR DEPTH                              : 1.
+MASS-LUMPING FOR DIFFUSION                          : 1.
+/
+/INITIAL CONDITIONS               = 'CONSTANT ELEVATION'
+/INITIAL ELEVATION                = 10.13
+/----------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------
+PRESCRIBED FLOWRATES             = 0;0.1
+PRESCRIBED ELEVATIONS            = 9.9;10.13
+/----------------------------------------------------------------
+/	SEDIMENTS
+/----------------------------------------------------------------
+NUMBER OF TRACERS = 2
+NAMES OF TRACERS  = 'sand            g/l             ';
+                    'mud             g/l             '
+SOLVER FOR DIFFUSION OF THE SEDIMENT : 7
+OPTION OF SOLVER FOR DIFFUSION OF THE SEDIMENT : 5
+/
+SCHEME FOR ADVECTION OF TRACERS                 = 14
+INITIAL VALUES OF TRACERS                       = 0.D0; 0.D0
+PRESCRIBED TRACERS VALUES                       = 0.;0.;1.;0.
+TRACERS VERTICAL PROFILES                       = 1;1;1;1
+/
+SEDIMENT                              = YES
+COHESIVE SEDIMENT                     = NO
+MIXED SEDIMENT                        = YES
+INITIAL PERCENTAGE OF NON COHESIVE SEDIMENT = 0.5D0
+/
+NUMBER OF SEDIMENT BED LAYERS = 1
+INITIAL THICKNESS OF SEDIMENT LAYERS  = 5.D-2
+MUD CONCENTRATIONS PER LAYER     = 900.D0   / top first...downwards
+/
+CRITICAL EROSION SHEAR STRESS OF THE MUD LAYERS = 1.D0
+EROSION COEFFICIENT                             = 5.D-3
+CRITICAL SHEAR STRESS FOR DEPOSITION            = 5.D-1
+/
+CONSTANT SEDIMENT SETTLING VELOCITY             = 1.5D-3
+/ non cohesif
+MEAN DIAMETER OF THE SEDIMENT = 4.D-4
+SETTLING VELOCITY OF SANDS    = 6.3D-3
+/
+/ DEFAULT VALUES UNTIL V8P0 KEPT FOR NON REGRESSION
+IMPLICITATION FOR VELOCITIES = 1.
+ACCURACY FOR PROPAGATION = 1.E-6
+SCHEME OPTION FOR ADVECTION OF TRACERS = 1
+SCHEME FOR ADVECTION OF K-EPSILON = 1

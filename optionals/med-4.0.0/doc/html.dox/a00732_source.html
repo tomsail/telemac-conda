@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier:  Fichier source de MEDmeshElementWr.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_21ff39c74838e10d1b918a45b9d185d5.html">src</a></li><li class="navelem"><a class="el" href="dir_48027acf4688ac8b76ff5eb90d59af4a.html">ci</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">MEDmeshElementWr.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00732.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00581.html">med_config.h</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00589.html">med_outils.h</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a01055_ga9fdfc7b5f7d3159b4e9b02f7f2c4bbe5.html#ga9fdfc7b5f7d3159b4e9b02f7f2c4bbe5">   48</a></span>&#160;<a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> <a class="code" href="a01055_ga9fdfc7b5f7d3159b4e9b02f7f2c4bbe5.html#ga9fdfc7b5f7d3159b4e9b02f7f2c4bbe5">MEDmeshElementWr</a>(<span class="keyword">const</span> <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a>                  fid,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                      <span class="keyword">const</span> <span class="keywordtype">char</span>            * <span class="keyword">const</span>  meshname,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>                  numdt,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>                  numit,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>                dt,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470">med_entity_type</a>          entitype,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a>        geotype,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_afcd26ca66a179b9aa82f5c90602c4ed8.html#afcd26ca66a179b9aa82f5c90602c4ed8">med_connectivity_mode</a>    cmode,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37d">med_switch_mode</a>          switchmode,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>                  nentity,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>         * <span class="keyword">const</span>  connectivity,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a>                 withelementname,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                      <span class="keyword">const</span> <span class="keywordtype">char</span>            * <span class="keyword">const</span>  elementname,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a>                 withelementnumber,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>         * <span class="keyword">const</span>  elementnumber,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a>                 withfamnumber,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                      <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>         * <span class="keyword">const</span>  famnumber) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a>           _ret       = -1;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordflow">if</span> ( (_ret = <a class="code" href="a01055_ga091f97ef25e5bb96e3d941b85131cea9.html#ga091f97ef25e5bb96e3d941b85131cea9">MEDmeshElementConnectivityWr</a>(fid,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                            meshname,</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                                            numdt,</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                                            numit,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                            dt,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                            entitype,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                            geotype,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                                            cmode,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                                            switchmode,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                                            nentity,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                            connectivity) ) &lt; 0 ) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a377256003f35c6b58a85a2a465e36637.html#a377256003f35c6b58a85a2a465e36637">MED_ERR_CALL</a>,<a class="code" href="a00582_aaaf11c912310b2b8513c9afcbfb01f03.html#aaaf11c912310b2b8513c9afcbfb01f03">MED_ERR_API</a>,<span class="stringliteral">&quot;MEDmeshElementConnectivityWr&quot;</span>);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordflow">if</span> ( withelementname )</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span> ( (_ret =  <a class="code" href="a01055_ga3be091e7873665850c5adc47f8a69ed1.html#ga3be091e7873665850c5adc47f8a69ed1">MEDmeshEntityNameWr</a>(fid,</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                                      meshname,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                      numdt,</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                                      numit,</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                                      entitype,</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                      geotype,</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                                      nentity,</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                                      elementname) ) &lt; 0 ) {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a377256003f35c6b58a85a2a465e36637.html#a377256003f35c6b58a85a2a465e36637">MED_ERR_CALL</a>,<a class="code" href="a00582_aaaf11c912310b2b8513c9afcbfb01f03.html#aaaf11c912310b2b8513c9afcbfb01f03">MED_ERR_API</a>,<span class="stringliteral">&quot;MEDmeshEntityNameWr&quot;</span>);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordflow">if</span> ( withelementnumber )</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> ( (_ret =  <a class="code" href="a01055_ga792ce0b4bff70ca6ca593b7a271e47eb.html#ga792ce0b4bff70ca6ca593b7a271e47eb">MEDmeshEntityNumberWr</a>(fid,</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                        meshname,</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                                        numdt,</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                                        numit,</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                                        entitype,</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                        geotype,</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                                        nentity,</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                        elementnumber) ) &lt; 0 ) {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a377256003f35c6b58a85a2a465e36637.html#a377256003f35c6b58a85a2a465e36637">MED_ERR_CALL</a>,<a class="code" href="a00582_aaaf11c912310b2b8513c9afcbfb01f03.html#aaaf11c912310b2b8513c9afcbfb01f03">MED_ERR_API</a>,<span class="stringliteral">&quot;MEDmeshEntityNumberWr&quot;</span>);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="keywordflow">if</span> (withfamnumber)</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">if</span> ( (_ret =  <a class="code" href="a01055_gab5dbe1721785e8565d5897349b526c43.html#gab5dbe1721785e8565d5897349b526c43">MEDmeshEntityFamilyNumberWr</a>(fid,</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                                              meshname,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                                              numdt,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                                              numit,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                                              entitype,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                                              geotype,</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                                              nentity,</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                                              famnumber) ) &lt; 0 ) {</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a377256003f35c6b58a85a2a465e36637.html#a377256003f35c6b58a85a2a465e36637">MED_ERR_CALL</a>,<a class="code" href="a00582_aaaf11c912310b2b8513c9afcbfb01f03.html#aaaf11c912310b2b8513c9afcbfb01f03">MED_ERR_API</a>,<span class="stringliteral">&quot;MEDmeshEntityFamilyNumberWr&quot;</span>);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  _ret = 0;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; ERROR:</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="keywordflow">return</span> _ret;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
+<div class="ttc" id="a00577_afcd26ca66a179b9aa82f5c90602c4ed8_html_afcd26ca66a179b9aa82f5c90602c4ed8"><div class="ttname"><a href="a00577_afcd26ca66a179b9aa82f5c90602c4ed8.html#afcd26ca66a179b9aa82f5c90602c4ed8">med_connectivity_mode</a></div><div class="ttdeci">med_connectivity_mode</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00252">med.h:252</a></div></div>
+<div class="ttc" id="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba_html_abd29d7c6abaef5da2a5ed1b73464f0ba"><div class="ttname"><a href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a></div><div class="ttdeci">herr_t med_err</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00327">med.h:327</a></div></div>
+<div class="ttc" id="a00591_a07852156956867e0134fc219d370b8d4_html_a07852156956867e0134fc219d370b8d4"><div class="ttname"><a href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a></div><div class="ttdeci">#define MED_ERR_(rt, r1, r2, r3)</div><div class="ttdef"><b>Definition:</b> <a href="a00591_source.html#l00158">med_utils.h:158</a></div></div>
+<div class="ttc" id="a01055_ga3be091e7873665850c5adc47f8a69ed1_html_ga3be091e7873665850c5adc47f8a69ed1"><div class="ttname"><a href="a01055_ga3be091e7873665850c5adc47f8a69ed1.html#ga3be091e7873665850c5adc47f8a69ed1">MEDmeshEntityNameWr</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDmeshEntityNameWr(const med_idt fid, const char *const meshname, const med_int numdt, const med_int numit, const med_entity_type entitype, const med_geometry_type geotype, const med_int nentity, const char *const name)</div><div class="ttdoc">Cette routine permet d&#39;écrire les noms d&#39;un type d&#39;entité d&#39;un maillage. </div><div class="ttdef"><b>Definition:</b> <a href="a00739_source.html#l00039">MEDmeshEntityNameWr.c:39</a></div></div>
+<div class="ttc" id="a00577_a0d451e4036adbb12b14cb16d7db0c37d_html_a0d451e4036adbb12b14cb16d7db0c37d"><div class="ttname"><a href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37d">med_switch_mode</a></div><div class="ttdeci">med_switch_mode</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00094">med.h:94</a></div></div>
+<div class="ttc" id="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a_html_ab1eab99ca56ac95ce5b1c0e4ae0f095a"><div class="ttname"><a href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a></div><div class="ttdeci">double med_float</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00331">med.h:331</a></div></div>
+<div class="ttc" id="a01055_ga091f97ef25e5bb96e3d941b85131cea9_html_ga091f97ef25e5bb96e3d941b85131cea9"><div class="ttname"><a href="a01055_ga091f97ef25e5bb96e3d941b85131cea9.html#ga091f97ef25e5bb96e3d941b85131cea9">MEDmeshElementConnectivityWr</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDmeshElementConnectivityWr(const med_idt fid, const char *const meshname, const med_int numdt, const med_int numit, const med_float dt, const med_entity_type entitype, const med_geometry_type geotype, const med_connectivity_mode cmode, const med_switch_mode switchmode, const med_int nentity, const med_int *const connectivity)</div><div class="ttdoc">Cette routine permet d&#39;écrire dans un maillage le tableau des connectivités pour un type géométrique ...</div><div class="ttdef"><b>Definition:</b> <a href="a00730_source.html#l00042">MEDmeshElementConnectivityWr.c:42</a></div></div>
+<div class="ttc" id="a00577_aab0e957294723517d5c3641bb71b0470_html_aab0e957294723517d5c3641bb71b0470"><div class="ttname"><a href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470">med_entity_type</a></div><div class="ttdeci">med_entity_type</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00141">med.h:141</a></div></div>
+<div class="ttc" id="a00582_a377256003f35c6b58a85a2a465e36637_html_a377256003f35c6b58a85a2a465e36637"><div class="ttname"><a href="a00582_a377256003f35c6b58a85a2a465e36637.html#a377256003f35c6b58a85a2a465e36637">MED_ERR_CALL</a></div><div class="ttdeci">#define MED_ERR_CALL</div><div class="ttdef"><b>Definition:</b> <a href="a00582_source.html#l00045">med_err.h:45</a></div></div>
+<div class="ttc" id="a00577_a88dc15143f934cc7b771bc89f46372dc_html_a88dc15143f934cc7b771bc89f46372dc"><div class="ttname"><a href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a></div><div class="ttdeci">int med_int</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00337">med.h:337</a></div></div>
+<div class="ttc" id="a00581_html"><div class="ttname"><a href="a00581.html">med_config.h</a></div></div>
+<div class="ttc" id="a01055_ga792ce0b4bff70ca6ca593b7a271e47eb_html_ga792ce0b4bff70ca6ca593b7a271e47eb"><div class="ttname"><a href="a01055_ga792ce0b4bff70ca6ca593b7a271e47eb.html#ga792ce0b4bff70ca6ca593b7a271e47eb">MEDmeshEntityNumberWr</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDmeshEntityNumberWr(const med_idt fid, const char *const meshname, const med_int numdt, const med_int numit, const med_entity_type entitype, const med_geometry_type geotype, const med_int nentity, const med_int *const number)</div><div class="ttdoc">Cette routine permet d&#39;écrire les numéros d&#39;un type d&#39;entité d&#39;un maillage. </div><div class="ttdef"><b>Definition:</b> <a href="a00741_source.html#l00039">MEDmeshEntityNumberWr.c:39</a></div></div>
+<div class="ttc" id="a00577_afa4ec8284026c8c5545e5333475fb65a_html_afa4ec8284026c8c5545e5333475fb65a"><div class="ttname"><a href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a></div><div class="ttdeci">hid_t med_idt</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00326">med.h:326</a></div></div>
+<div class="ttc" id="a00589_html"><div class="ttname"><a href="a00589.html">med_outils.h</a></div></div>
+<div class="ttc" id="a00577_html"><div class="ttname"><a href="a00577.html">med.h</a></div></div>
+<div class="ttc" id="a00577_a23f7fa6d76886ed3c91dc33b59190dee_html_a23f7fa6d76886ed3c91dc33b59190dee"><div class="ttname"><a href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a></div><div class="ttdeci">med_bool</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00257">med.h:257</a></div></div>
+<div class="ttc" id="a01055_ga9fdfc7b5f7d3159b4e9b02f7f2c4bbe5_html_ga9fdfc7b5f7d3159b4e9b02f7f2c4bbe5"><div class="ttname"><a href="a01055_ga9fdfc7b5f7d3159b4e9b02f7f2c4bbe5.html#ga9fdfc7b5f7d3159b4e9b02f7f2c4bbe5">MEDmeshElementWr</a></div><div class="ttdeci">med_err MEDmeshElementWr(const med_idt fid, const char *const meshname, const med_int numdt, const med_int numit, const med_float dt, const med_entity_type entitype, const med_geometry_type geotype, const med_connectivity_mode cmode, const med_switch_mode switchmode, const med_int nentity, const med_int *const connectivity, const med_bool withelementname, const char *const elementname, const med_bool withelementnumber, const med_int *const elementnumber, const med_bool withfamnumber, const med_int *const famnumber)</div><div class="ttdoc">Cette routine permet l&#39;écriture d&#39;un type d&#39;élément d&#39;un maillage non structuré pour une séquence de ...</div><div class="ttdef"><b>Definition:</b> <a href="a00732_source.html#l00048">MEDmeshElementWr.c:48</a></div></div>
+<div class="ttc" id="a00577_a1043613afc3cd2e24785dfc7c0452ab8_html_a1043613afc3cd2e24785dfc7c0452ab8"><div class="ttname"><a href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a></div><div class="ttdeci">int med_geometry_type</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00191">med.h:191</a></div></div>
+<div class="ttc" id="a00582_aaaf11c912310b2b8513c9afcbfb01f03_html_aaaf11c912310b2b8513c9afcbfb01f03"><div class="ttname"><a href="a00582_aaaf11c912310b2b8513c9afcbfb01f03.html#aaaf11c912310b2b8513c9afcbfb01f03">MED_ERR_API</a></div><div class="ttdeci">#define MED_ERR_API</div><div class="ttdef"><b>Definition:</b> <a href="a00582_source.html#l00108">med_err.h:108</a></div></div>
+<div class="ttc" id="a01055_gab5dbe1721785e8565d5897349b526c43_html_gab5dbe1721785e8565d5897349b526c43"><div class="ttname"><a href="a01055_gab5dbe1721785e8565d5897349b526c43.html#gab5dbe1721785e8565d5897349b526c43">MEDmeshEntityFamilyNumberWr</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDmeshEntityFamilyNumberWr(const med_idt fid, const char *const meshname, const med_int numdt, const med_int numit, const med_entity_type entitype, const med_geometry_type geotype, const med_int nentity, const med_int *const number)</div><div class="ttdoc">Cette routine permet l&#39;écriture des numéros de famille d&#39;un type d&#39;entité d&#39;un maillage. </div><div class="ttdef"><b>Definition:</b> <a href="a00736_source.html#l00039">MEDmeshEntityFamilyNumberWr.c:39</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

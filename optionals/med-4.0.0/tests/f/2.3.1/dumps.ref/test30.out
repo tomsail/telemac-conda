@@ -1,0 +1,27 @@
+Indiquez le fichier med a decrire : 
+0
+Maillage de nom : maa1                             et de dimension :   3
+0
+Nombre de joints :   1
+Joint numero :   1
+0
+Nom du joint               : joint                           
+Description du joint       : joint avec le sous-domaine 2                                                                                                                                                                            
+Domaine en regard          :   2
+Maillage en regard         : maa1                            
+  0
+  0    3
+correspondance entre les types : (   3/   0) et (   3/   0)
+nombre de type de couples d'entite en regard    3
+Correspondance   1 :    1 et    2
+Correspondance   2 :    3 et    4
+Correspondance   3 :    5 et    6
+  0
+  0    3
+correspondance entre les types : (   3/   0) et (   0/ 203)
+nombre de type de couples d'entite en regard    3
+Correspondance   1 :    1 et    2
+Correspondance   2 :    3 et    4
+Correspondance   3 :    5 et    6
+ -1
+ 0

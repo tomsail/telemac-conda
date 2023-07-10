@@ -1,0 +1,135 @@
+\chapter{3D coupling}
+%
+% - Purpose & Problem description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved and specify how the numerical solution will be validated
+%
+\section{Purpose}
+%
+This test case has been created to test the coupling between \tomawac and
+\telemac3. Four different coupling are tested here:
+\begin{itemize}
+\item In the first one that we will call the classical one, the forces due to
+  waves are constant along the depth of water. This coupling is very close to
+  the coupling that is made with telemac2d.
+\item In the second coupling that we will call 3D coupling, all the
+quantities are dependant of the depth. This coupling is closer to what
+happen in reality. For more detail about the second coupling the reader can
+read \cite{Teles2013}.
+\item The third coupling is like the first one but \tomawac and \telemac3 are
+  defined on different domains and meshes using TEL2TOM technique
+  (see \cite{breugem2019} for a detailed description). The mesh of \tomawac is twice coarser and a little bit larger. 
+\item The forth coupling is a 3D coupling where \tomawac and \telemac3 are
+  defined on different domains and meshes.
+\end{itemize}
+%
+\section{Description of the problem}
+We took the geometry from the classical test case 'littoral', a coupling case
+between \tomawac and \telemac2 and Sisyphe
+\section{Geometry and Mesh}
+%
+The beach is 1000 m long, 200 m wide with a regular mesh with
+elements size of the order $\Delta x=20$~m and $\Delta y=5$~m
+ The beach slope (Y=200m) is 5\%.
+ The water depth along the open boundary (Y=0) is h=10m
+We use a trianglular regular grid.  
+The mesh is as shown on Figure \ref{3Dcouplingmesh}
+
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/fond.png}
+ \caption{2D mesh of the domain in the two first coupling.}
+\label{3Dcouplingmesh}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/mesh5T3D.png}
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/mesh5WAC.png}
+ \caption{2D mesh of the domain in the two last coupling. \telemac3 up and \tomawac bottom}
+\label{3Dcouplingmesh2}
+\end{figure}
+
+
+\subsection{Wave conditions}
+Incoming waves (waves height , period and directions) are imposed offshore at
+$y=0$, such that $H_s=1$~m, $T_p=8$~s. The Jonswap spectrum is used. The waves
+direction is $30$~deg relative to the $y-$axis.
+
+$\Rightarrow $ Offshore (Y=0): Offshore wave imposed/no littoral current/no
+set up
+
+Tomawac:
+The wave height is imposed on the offshore boundary (5 4 4) (Hs=1m), for a
+wave period (Tp=8s).
+
+Telemac2D:
+The current and free surface are imposed to 0 along the offshore boundary
+(5 5 5).
+
+\section{Results}
+The results are presented Figures \ref{figres3Dcoupl2} (Velocity U on a
+vertical plan) \ref{figres3Dcoupl3} (velocity on the bottom)
+\ref{figres3Dcoupl}(Wave heigth Hm0) with the classical coupling.
+
+On Figures \ref{figres3Dcoupl4}, \ref{figres3Dcoupl5} and \ref{figres3Dcoupl6},
+we present the results of the 3D coupling. 
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/HM01.png}
+ \caption{Wave Heigth calculated by \tomawac.}
+\label{figres3Dcoupl}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/resultscoupVert.png}
+ \caption{Celerity U on a vertical plan at x=500.}
+\label{figres3Dcoupl2}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/resultshori.png}
+\caption{Celerity U on the bottom calculated by \telemac3d.}
+\label{figres3Dcoupl3}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/HM03.png}
+\caption{Wave Heigth calculated by \tomawac with the 3D coupling.}
+\label{figres3Dcoupl4}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/resultscoupVert3.png}
+\caption{Celerity U on a vertical plan at x=500.}
+\label{figres3Dcoupl5}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/resultshori3.png}
+\caption{Celerity U on the bottom calculated by \telemac3d with the 3D
+  coupling.}
+\label{figres3Dcoupl6}
+\end{figure}
+
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/HM05.png}
+ \caption{Wave Heigth calculated by \tomawac with a claccical coupling on different meshes }
+\label{figres3Dcoupl7}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/HM07.png}
+ \caption{Wave Heigth calculated by \tomawac with a real coupling coupling on different meshes }
+\label{figres3Dcoupl8}
+\end{figure}

@@ -1,0 +1,43 @@
+/********************************************************************/
+/                ARTEMIS STEERING FILE                               /
+/********************************************************************/
+/--------------------------------------------------------------------/
+/     FILES
+/--------------------------------------------------------------------/
+FORTRAN FILE                       :  user_fortran
+BOUNDARY CONDITIONS FILE           : 'geo_flamanville.cli'
+GEOMETRY FILE                      : 'geo_flamanville.slf'
+BINARY DATA FILE 1                 : 'bi1_flamanville.slf'
+/
+RESULTS FILE                       : 'r2d_flamanville.slf'
+/
+/--------------------------------------------------------------------/
+/ VARIOUS INPUTS-OUTPUTS
+/--------------------------------------------------------------------/
+TITLE : 'FLAMANVILLE - AGITATION IN THE INTAKE CHANNEL'
+VARIABLES FOR GRAPHIC PRINTOUTS    : HS,ZF,INC,QB,C
+/--------------------------------------------------------------------/
+/ DISCRETIZATION - WAVE REPRESENTATION
+/--------------------------------------------------------------------/
+MONODIRECTIONAL RANDOM WAVE        : YES
+PEAK PERIOD    : 13.
+GAMMA          : 3.
+NUMBER OF PERIODS          : 10
+MINIMUM SPECTRAL PERIOD    : 6.
+MAXIMUM SPECTRAL PERIOD    : 26.
+/--------------------------------------------------------------------/
+/ INITIAL CONDITIONS
+/--------------------------------------------------------------------/
+INITIAL CONDITIONS   : 'CONSTANT ELEVATION'
+INITIAL WATER LEVEL  : 12.71
+/--------------------------------------------------------------------/
+/ CALCULATION OPTIONS
+/--------------------------------------------------------------------/
+BREAKING              : YES
+MATRIX STORAGE        : 3
+/
+/for parallel calculations using n processors
+/add PARALLEL PROCESSORS : n
+/replace SOLVER : 8 by SOLVER : 9
+SOLVER                : 8
+/

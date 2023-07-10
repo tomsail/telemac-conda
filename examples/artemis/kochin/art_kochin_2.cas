@@ -1,0 +1,67 @@
+/---------------------------------------------------------------------
+/ ARTEMIS Version v7p0
+/ CALCUL AUTO DE TETAP DANS LE CAS D'UNE ONDE RADIALE
+/---------------------------------------------------------------------
+/
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,FICHIERS
+/---------------------------------------------------------------------
+/
+RESULTS FILE                ='r2d_kochin_2.slf'
+/
+BOUNDARY CONDITIONS FILE    ='geo_kochin.cli'
+/
+FORTRAN FILE                ='user_fortran_2'
+/
+GEOMETRY FILE               ='geo_kochin.slf'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GENERALITES
+/---------------------------------------------------------------------
+/
+TITLE ='AUTOMATIC TETAP CALCULATION FOR RADIAL WAVE POTENTIAL'
+/
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GRAPHIQUES ET LISTING
+/---------------------------------------------------------------------
+/
+WAVE HEIGHTS SMOOTHING          : NO
+/
+VARIABLES FOR GRAPHIC PRINTOUTS :'HS,PHAS,ZF,INC,QB,C,PHIR,PHII,K'
+/
+/
+/---------------------------------------------------------------------
+/ EQUATIONS CONDITIONS INITIALES
+/---------------------------------------------------------------------
+/
+INITIAL CONDITIONS          : 'CONSTANT ELEVATION'
+/
+INITIAL WATER LEVEL         : 0.D0
+/
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES
+/---------------------------------------------------------------------
+/
+/--------------------------------------------------------------------/
+/ OPTIONS DU CALCUL
+/--------------------------------------------------------------------/
+MATRIX STORAGE : 3
+/
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES,SOLVEUR
+/---------------------------------------------------------------------
+/
+/SOLVER =8
+SOLVER=3
+AUTOMATIC TETAP CALCULATION : YES
+SUB-ITERATIONS ACCURACY FOR TETAP=1E-4
+/---------------------------------------------------------------------
+/ PARAMETRES PHYSIQUES
+/---------------------------------------------------------------------
+/
+WAVE PERIOD = 8.D0
+DIRECTION OF WAVE PROPAGATION : 0.D0

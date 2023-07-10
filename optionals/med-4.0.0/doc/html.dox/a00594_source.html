@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier:  Fichier source de med_versioned_cfi.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_4355a2d485e74099746b5ef7b7753b0d.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">med_versioned_cfi.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00594.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#ifndef MED_VERSIONED_CFI_H</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#define MED_VERSIONED_CFI_H</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00599.html">medC_win_dll.h</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;stdarg.h&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">/* Interfaces versionnées de l&#39;API MED */</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/* Toutes les routines versionnées doivent avoir</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">   un premier paramètre de type int foo  même s&#39;il</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">   n&#39;est pas utilisé (cf : MEDOuvrirXYZ(int ,...)*/</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">/* Il faut ajouter une ligne dans le fichier misc/MEDversionedApi.cxx */</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00581.html">med_config.h</a>&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a00594_acc9dd57605aa3b1e0feafc7ec2e1df7a.html#acc9dd57605aa3b1e0feafc7ec2e1df7a">   32</a></span>&#160;<span class="preprocessor">#define nedffamc231 F77_FUNC(edffamc231,EDFFAMC231)</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a00594_a46e363726c4d60cff6d1489c32ddf3bb.html#a46e363726c4d60cff6d1489c32ddf3bb">   33</a></span>&#160;<span class="preprocessor">#define nedffamc232 F77_FUNC(edffamc232,EDFFAMC232)</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00594_acc9dd57605aa3b1e0feafc7ec2e1df7a.html#acc9dd57605aa3b1e0feafc7ec2e1df7a">nedffamc231</a>(<span class="keywordtype">int</span> foo,...);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00594_a46e363726c4d60cff6d1489c32ddf3bb.html#a46e363726c4d60cff6d1489c32ddf3bb">nedffamc232</a>(<span class="keywordtype">int</span> foo,...);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="a00599_html"><div class="ttname"><a href="a00599.html">medC_win_dll.h</a></div></div>
+<div class="ttc" id="a00594_a46e363726c4d60cff6d1489c32ddf3bb_html_a46e363726c4d60cff6d1489c32ddf3bb"><div class="ttname"><a href="a00594_a46e363726c4d60cff6d1489c32ddf3bb.html#a46e363726c4d60cff6d1489c32ddf3bb">nedffamc232</a></div><div class="ttdeci">#define nedffamc232</div><div class="ttdef"><b>Definition:</b> <a href="a00594_source.html#l00033">med_versioned_cfi.h:33</a></div></div>
+<div class="ttc" id="a00581_html"><div class="ttname"><a href="a00581.html">med_config.h</a></div></div>
+<div class="ttc" id="a00594_acc9dd57605aa3b1e0feafc7ec2e1df7a_html_acc9dd57605aa3b1e0feafc7ec2e1df7a"><div class="ttname"><a href="a00594_acc9dd57605aa3b1e0feafc7ec2e1df7a.html#acc9dd57605aa3b1e0feafc7ec2e1df7a">nedffamc231</a></div><div class="ttdeci">#define nedffamc231</div><div class="ttdef"><b>Definition:</b> <a href="a00594_source.html#l00032">med_versioned_cfi.h:32</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

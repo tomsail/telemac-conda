@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier:  Fichier source de med_err.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_4355a2d485e74099746b5ef7b7753b0d.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">med_err.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00582.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#ifndef MED_ERR</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#define MED_ERR</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a00582_a5f1517bb87d59165d237e1b4712be24c.html#a5f1517bb87d59165d237e1b4712be24c">   22</a></span>&#160;<span class="preprocessor">#define MED_ERR_UNDEFINED -1</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a00582_a92354d1153d9e053407f2f8c0dedbda7.html#a92354d1153d9e053407f2f8c0dedbda7">   24</a></span>&#160;<span class="preprocessor">#define MED_ERR_CREATE -100</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a00582_ac3d72eee2022402ffdc5851d2dc98584.html#ac3d72eee2022402ffdc5851d2dc98584">   25</a></span>&#160;<span class="preprocessor">#define MED_ERR_READ -200</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a00582_ada9ad358d137c53e288ff59d49e45541.html#ada9ad358d137c53e288ff59d49e45541">   26</a></span>&#160;<span class="preprocessor">#define MED_ERR_WRITE -300</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a00582_a444c5e2cb5b9f60b769909297300ac14.html#a444c5e2cb5b9f60b769909297300ac14">   27</a></span>&#160;<span class="preprocessor">#define MED_ERR_CLOSE -400</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a00582_a6b994e29644b2927bb7280e1d6c3025b.html#a6b994e29644b2927bb7280e1d6c3025b">   28</a></span>&#160;<span class="preprocessor">#define MED_ERR_ACCESS -500</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a00582_a178c1b2dbb8f7d19a7507ca798edf8f9.html#a178c1b2dbb8f7d19a7507ca798edf8f9">   29</a></span>&#160;<span class="preprocessor">#define MED_ERR_SELECT -600</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a00582_a25c2c816e8ffeed49218ff5c54b88557.html#a25c2c816e8ffeed49218ff5c54b88557">   30</a></span>&#160;<span class="preprocessor">#define MED_ERR_INIT -700</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a00582_acd0fe131855d42614cfd4be148090790.html#acd0fe131855d42614cfd4be148090790">   31</a></span>&#160;<span class="preprocessor">#define MED_ERR_RANGE -800</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a00582_aa8ef45a3a4ff1ff0bced55a49ee51fe2.html#aa8ef45a3a4ff1ff0bced55a49ee51fe2">   32</a></span>&#160;<span class="preprocessor">#define MED_ERR_NULL -900</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a00582_a8602e84379369af85425513ddce86c50.html#a8602e84379369af85425513ddce86c50">   33</a></span>&#160;<span class="preprocessor">#define MED_ERR_NOTNULL -1000</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a00582_a0bbda4699e6c5e9a9c3189b702e6f6e6.html#a0bbda4699e6c5e9a9c3189b702e6f6e6">   34</a></span>&#160;<span class="preprocessor">#define MED_ERR_OPEN -1100</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a00582_a506ecb6acbf55ae5bfd0e67a44df4710.html#a506ecb6acbf55ae5bfd0e67a44df4710">   35</a></span>&#160;<span class="preprocessor">#define MED_ERR_DOESNTEXIST -1200</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a00582_add62721a58cc720bd2cdea796d56df80.html#add62721a58cc720bd2cdea796d56df80">   36</a></span>&#160;<span class="preprocessor">#define MED_ERR_UNRECOGNIZED -1300</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a00582_a5a17f3bad93080ab05839ddef1420c9e.html#a5a17f3bad93080ab05839ddef1420c9e">   37</a></span>&#160;<span class="preprocessor">#define MED_ERR_INVALID -1400</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a00582_aae79dbb5809e0ebce1dd979d4c7785cd.html#aae79dbb5809e0ebce1dd979d4c7785cd">   38</a></span>&#160;<span class="preprocessor">#define MED_ERR_DELETE -1500</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a00582_ab3653c4ca30e2111b25a0854a875f5f1.html#ab3653c4ca30e2111b25a0854a875f5f1">   39</a></span>&#160;<span class="preprocessor">#define MED_ERR_NOTEQUAL -1600</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a00582_a9fd09ea411c5af2b56f3d56d03d077f8.html#a9fd09ea411c5af2b56f3d56d03d077f8">   40</a></span>&#160;<span class="preprocessor">#define MED_ERR_EXIST -1700</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a00582_a2c6948b94e0a8c6bf4d01deeed012778.html#a2c6948b94e0a8c6bf4d01deeed012778">   41</a></span>&#160;<span class="preprocessor">#define MED_ERR_MOUNT -1800</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a00582_a9a39367f1fcf674f2b9efb8bc9f6b04c.html#a9a39367f1fcf674f2b9efb8bc9f6b04c">   42</a></span>&#160;<span class="preprocessor">#define MED_ERR_UMOUNT -1900</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a00582_a4ec6ce8749472d6eb8df34e5e40a83a4.html#a4ec6ce8749472d6eb8df34e5e40a83a4">   43</a></span>&#160;<span class="preprocessor">#define MED_ERR_ULINK -2100</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a00582_a65ef0d86e6f6ff88cfe5757570c7cdcb.html#a65ef0d86e6f6ff88cfe5757570c7cdcb">   44</a></span>&#160;<span class="preprocessor">#define MED_ERR_COUNT -2200</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a00582_a377256003f35c6b58a85a2a465e36637.html#a377256003f35c6b58a85a2a465e36637">   45</a></span>&#160;<span class="preprocessor">#define MED_ERR_CALL -2300</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a00582_aed14abea7a3fd2a958663c81017bf902.html#aed14abea7a3fd2a958663c81017bf902">   46</a></span>&#160;<span class="preprocessor">#define MED_ERR_VISIT -2400</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a00582_ac990abd7e11a2fc76d90acf80a54eac9.html#ac990abd7e11a2fc76d90acf80a54eac9">   47</a></span>&#160;<span class="preprocessor">#define MED_ERR_COPY -2500</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a00582_a0b48478fa0b69768d512b207a7cc1568.html#a0b48478fa0b69768d512b207a7cc1568">   48</a></span>&#160;<span class="preprocessor">#define MED_ERR_USE -2600</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a00582_a1df52f619d59a9a20bb30d3d3ab55d10.html#a1df52f619d59a9a20bb30d3d3ab55d10">   52</a></span>&#160;<span class="preprocessor">#define MED_ERR_UNDEFINED_MSG &quot;Erreur indéfinie &quot;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a00582_ab6df1a218f2275a428347a1bf0fc48c7.html#ab6df1a218f2275a428347a1bf0fc48c7">   53</a></span>&#160;<span class="preprocessor">#define MED_ERR_CREATE_MSG &quot;Erreur à la création &quot;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a00582_af9bf0f88ab0b78913a47c2879cca9bb1.html#af9bf0f88ab0b78913a47c2879cca9bb1">   54</a></span>&#160;<span class="preprocessor">#define MED_ERR_READ_MSG &quot;Erreur à la lecture &quot;</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a00582_aa4e2ce8141b1ac3353a2aa1dba377aae.html#aa4e2ce8141b1ac3353a2aa1dba377aae">   55</a></span>&#160;<span class="preprocessor">#define MED_ERR_WRITE_MSG &quot;Erreur à l&#39;écriture &quot;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a00582_a072966342277dd7f2049939782eda5e1.html#a072966342277dd7f2049939782eda5e1">   56</a></span>&#160;<span class="preprocessor">#define MED_ERR_CLOSE_MSG &quot;Erreur à la fermeture &quot;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a00582_a5fa05da37a37d0a3ee837ddef822aefe.html#a5fa05da37a37d0a3ee837ddef822aefe">   57</a></span>&#160;<span class="preprocessor">#define MED_ERR_ACCESS_MSG &quot;Erreur d&#39;accès &quot;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a00582_a66d10790f802cfa8dc196ebba3f96e19.html#a66d10790f802cfa8dc196ebba3f96e19">   58</a></span>&#160;<span class="preprocessor">#define MED_ERR_SELECT_MSG &quot;Erreur de sélection &quot;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a00582_a230934427aecf7a6d673050171bce8d2.html#a230934427aecf7a6d673050171bce8d2">   59</a></span>&#160;<span class="preprocessor">#define MED_ERR_INIT_MSG &quot;Erreur d&#39;initialisation &quot;</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a00582_a9332c35df0f9e45d1bb134920cdf789d.html#a9332c35df0f9e45d1bb134920cdf789d">   60</a></span>&#160;<span class="preprocessor">#define MED_ERR_RANGE_MSG &quot;Erreur de domaine de définition &quot;</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a00582_a1785b4a98f5b07d2c3be7926a8b0587b.html#a1785b4a98f5b07d2c3be7926a8b0587b">   61</a></span>&#160;<span class="preprocessor">#define MED_ERR_NULL_MSG &quot;Erreur de valeur attendue nulle &quot;</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a00582_a68ef2cc01689bfd815ab067633f44fb8.html#a68ef2cc01689bfd815ab067633f44fb8">   62</a></span>&#160;<span class="preprocessor">#define MED_ERR_NOTNULL_MSG &quot;Erreur de valeur attendue non nulle &quot;</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a00582_a01df0c02cb6e5934e752298192455fea.html#a01df0c02cb6e5934e752298192455fea">   63</a></span>&#160;<span class="preprocessor">#define MED_ERR_OPEN_MSG &quot;Erreur à l&#39;ouverture &quot;</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a00582_a54a4884705b4d0a8b2927de3a74ee67a.html#a54a4884705b4d0a8b2927de3a74ee67a">   64</a></span>&#160;<span class="preprocessor">#define MED_ERR_DOESNTEXIST_MSG &quot;Erreur de non existence &quot;</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="a00582_a35adae36faf4579f74ff1451cffe722b.html#a35adae36faf4579f74ff1451cffe722b">   65</a></span>&#160;<span class="preprocessor">#define MED_ERR_UNRECOGNIZED_MSG &quot;Erreur de valeur non reconnue &quot;</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a00582_a8650f6a2cfbbf817257fbbe75c2d6437.html#a8650f6a2cfbbf817257fbbe75c2d6437">   66</a></span>&#160;<span class="preprocessor">#define MED_ERR_INVALID_MSG &quot;Erreur de valeur invalide &quot;</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a00582_a8239d06a3c1bef7437cd5b971a645e00.html#a8239d06a3c1bef7437cd5b971a645e00">   67</a></span>&#160;<span class="preprocessor">#define MED_ERR_DELETE_MSG &quot;Erreur de suppression &quot;</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a00582_ad7402aa536970f5b20767e7f13d1a1a3.html#ad7402aa536970f5b20767e7f13d1a1a3">   68</a></span>&#160;<span class="preprocessor">#define MED_ERR_NOTEQUAL_MSG &quot;Erreur d&#39;égalité &quot;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a00582_ac4f35b4f46c1f4379924e4ff562712b8.html#ac4f35b4f46c1f4379924e4ff562712b8">   69</a></span>&#160;<span class="preprocessor">#define MED_ERR_EXIST_MSG &quot;Erreur d&#39;existence &quot;</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a00582_a7144805f04a4fcc751589d62faa625af.html#a7144805f04a4fcc751589d62faa625af">   70</a></span>&#160;<span class="preprocessor">#define MED_ERR_MOUNT_MSG &quot;Erreur au montage de l&#39;objet &quot;</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a00582_a1c495c0bb685436c088bb8e094a7e717.html#a1c495c0bb685436c088bb8e094a7e717">   71</a></span>&#160;<span class="preprocessor">#define MED_ERR_UMOUNT_MSG &quot;Erreur au démontage de l&#39;objet &quot;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a00582_a511879dc2d903ff2d6a185d9fac070ef.html#a511879dc2d903ff2d6a185d9fac070ef">   72</a></span>&#160;<span class="preprocessor">#define MED_ERR_ULINK_MSG &quot;Erreur dans la destruction du lien &quot;</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a00582_a6e4dd282f62527672a59a78ee2722740.html#a6e4dd282f62527672a59a78ee2722740">   73</a></span>&#160;<span class="preprocessor">#define MED_ERR_COUNT_MSG &quot;Erreur de comptage &quot;</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a00582_a9b8d432c8152889460476cbe6ce693b5.html#a9b8d432c8152889460476cbe6ce693b5">   74</a></span>&#160;<span class="preprocessor">#define MED_ERR_CALL_MSG &quot;Erreur d&#39;appel &quot;</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a00582_a306667a58637faa90e48ccc04307cb2f.html#a306667a58637faa90e48ccc04307cb2f">   75</a></span>&#160;<span class="preprocessor">#define MED_ERR_VISIT_MSG &quot;Erreur d&#39;exploration &quot;</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a00582_a6dd75796dc6aaec07e8624896e087518.html#a6dd75796dc6aaec07e8624896e087518">   76</a></span>&#160;<span class="preprocessor">#define MED_ERR_COPY_MSG &quot;Erreur de copie &quot;</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a00582_adb0284a7a0faa5428552f7446d465d6f.html#adb0284a7a0faa5428552f7446d465d6f">   77</a></span>&#160;<span class="preprocessor">#define MED_ERR_USE_MSG &quot;Erreur d&#39;utilisation  &quot;</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a00582_a768428f78b9f7416a35939e54404fca7.html#a768428f78b9f7416a35939e54404fca7">   81</a></span>&#160;<span class="preprocessor">#define MED_ERR_FILE -1</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a00582_a8767f86ed60bd189b0e714b775846f24.html#a8767f86ed60bd189b0e714b775846f24">   82</a></span>&#160;<span class="preprocessor">#define MED_ERR_MESH -2</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a00582_a579942b871af7c8ce93acb88a575f1b4.html#a579942b871af7c8ce93acb88a575f1b4">   83</a></span>&#160;<span class="preprocessor">#define MED_ERR_SUPPORT_MESH -3</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a00582_ac6b822e8e8bbe20037191577a04a463e.html#ac6b822e8e8bbe20037191577a04a463e">   84</a></span>&#160;<span class="preprocessor">#define MED_ERR_ENTITY -4</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a00582_a38bf9df90daf196c5171a8a756c1a175.html#a38bf9df90daf196c5171a8a756c1a175">   85</a></span>&#160;<span class="preprocessor">#define MED_ERR_STRUCT_ELEMENT -5</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a00582_a21b161b9c2e54a5b96e0d0a73aa0940b.html#a21b161b9c2e54a5b96e0d0a73aa0940b">   86</a></span>&#160;<span class="preprocessor">#define MED_ERR_FAMILY -6</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="a00582_a0cfa3a047072f5881dc98d15c22e8317.html#a0cfa3a047072f5881dc98d15c22e8317">   87</a></span>&#160;<span class="preprocessor">#define MED_ERR_GROUP -7</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a00582_ada54cea0286293e0c155a0dc7e006c4e.html#ada54cea0286293e0c155a0dc7e006c4e">   88</a></span>&#160;<span class="preprocessor">#define MED_ERR_LOCALIZATION -8</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="a00582_a930b0046ab5ee59eba6a85b7d98eb40c.html#a930b0046ab5ee59eba6a85b7d98eb40c">   89</a></span>&#160;<span class="preprocessor">#define MED_ERR_INTERPOLATION -9</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="a00582_a56c28cd068a46a59d0692b642a560324.html#a56c28cd068a46a59d0692b642a560324">   90</a></span>&#160;<span class="preprocessor">#define MED_ERR_FIELD -10</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="a00582_ac0df2155b5b1dac6dd170200ba28ddaa.html#ac0df2155b5b1dac6dd170200ba28ddaa">   91</a></span>&#160;<span class="preprocessor">#define MED_ERR_JOINT -11</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a00582_a2a30a97f3fd5a2961e657aeb19cccfb1.html#a2a30a97f3fd5a2961e657aeb19cccfb1">   92</a></span>&#160;<span class="preprocessor">#define MED_ERR_FILTER -12</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="a00582_a422b2f1b0d06225813610e0527ab871e.html#a422b2f1b0d06225813610e0527ab871e">   93</a></span>&#160;<span class="preprocessor">#define MED_ERR_PROFILE -13</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a00582_a08439402952e302f30d2838f21b7fefe.html#a08439402952e302f30d2838f21b7fefe">   94</a></span>&#160;<span class="preprocessor">#define MED_ERR_SCALAR -14</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="a00582_ab77c7f02bf909884d577f240e5435d7d.html#ab77c7f02bf909884d577f240e5435d7d">   95</a></span>&#160;<span class="preprocessor">#define MED_ERR_MEMSPACE -15</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="a00582_ad29aff715756708ef7b8118f4c256dd4.html#ad29aff715756708ef7b8118f4c256dd4">   96</a></span>&#160;<span class="preprocessor">#define MED_ERR_DISKSPACE -16</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="a00582_ae9cecfecbca4769bf789da4ed2c944be.html#ae9cecfecbca4769bf789da4ed2c944be">   97</a></span>&#160;<span class="preprocessor">#define MED_ERR_DATASET -17</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="a00582_a3e3ac48003b7eac5a1aecac139bcc201.html#a3e3ac48003b7eac5a1aecac139bcc201">   98</a></span>&#160;<span class="preprocessor">#define MED_ERR_DATAGROUP -18</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="a00582_a839396052811187e23547f71d50ab39b.html#a839396052811187e23547f71d50ab39b">   99</a></span>&#160;<span class="preprocessor">#define MED_ERR_ATTRIBUTE -19</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="a00582_a261e7c0d219ad77a0fa55747f0ad66a4.html#a261e7c0d219ad77a0fa55747f0ad66a4">  100</a></span>&#160;<span class="preprocessor">#define MED_ERR_PROPERTY -20</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="a00582_a48aa5447fc10b5a8f315da660e860953.html#a48aa5447fc10b5a8f315da660e860953">  101</a></span>&#160;<span class="preprocessor">#define MED_ERR_INTERLACINGMODE -21</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a00582_ab3d5932043d08e77c1bd4f5089be04bb.html#ab3d5932043d08e77c1bd4f5089be04bb">  102</a></span>&#160;<span class="preprocessor">#define MED_ERR_PARAMETER -22</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="a00582_a13579736db8ffd37161c68a31d53416c.html#a13579736db8ffd37161c68a31d53416c">  103</a></span>&#160;<span class="preprocessor">#define MED_ERR_ACCESSMODE -23</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a00582_a975aed8d7eaf4771f23349886aa0ac79.html#a975aed8d7eaf4771f23349886aa0ac79">  104</a></span>&#160;<span class="preprocessor">#define MED_ERR_GEOMETRIC -24</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="a00582_a0e7de9a00cde7449af382b9106f15ad0.html#a0e7de9a00cde7449af382b9106f15ad0">  105</a></span>&#160;<span class="preprocessor">#define MED_ERR_DATASPACE -25</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a00582_a545fb734dbe4a30fe889fea090bcaa78.html#a545fb734dbe4a30fe889fea090bcaa78">  106</a></span>&#160;<span class="preprocessor">#define MED_ERR_FILESPACE -26</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="a00582_a2ec0222aa0c17207c83adbae3ceef9ba.html#a2ec0222aa0c17207c83adbae3ceef9ba">  107</a></span>&#160;<span class="preprocessor">#define MED_ERR_LIBRARY -27</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="a00582_aaaf11c912310b2b8513c9afcbfb01f03.html#aaaf11c912310b2b8513c9afcbfb01f03">  108</a></span>&#160;<span class="preprocessor">#define MED_ERR_API -28</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="a00582_a634ff08e9b6c1b3ca378de570b6a12a5.html#a634ff08e9b6c1b3ca378de570b6a12a5">  109</a></span>&#160;<span class="preprocessor">#define MED_ERR_STORAGEMODE -29</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="a00582_ab0383946023a47c452a2c9e40bcc9ace.html#ab0383946023a47c452a2c9e40bcc9ace">  110</a></span>&#160;<span class="preprocessor">#define MED_ERR_COMPUTINGSTEP -30</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a00582_a2c9c0b0f383c6c59fd4aa0756a89c043.html#a2c9c0b0f383c6c59fd4aa0756a89c043">  111</a></span>&#160;<span class="preprocessor">#define MED_ERR_HDFTYPE -31</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="a00582_a1202baa7f8e5463f0f1f342a775da0a0.html#a1202baa7f8e5463f0f1f342a775da0a0">  112</a></span>&#160;<span class="preprocessor">#define MED_ERR_LINK -32</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="a00582_a403d4fc1d5e4d1bfad4a2cfb2080d1de.html#a403d4fc1d5e4d1bfad4a2cfb2080d1de">  113</a></span>&#160;<span class="preprocessor">#define MED_ERR_DATATYPE -33</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="a00582_af3ba3d962b8b58a6e596ffcde6714c07.html#af3ba3d962b8b58a6e596ffcde6714c07">  114</a></span>&#160;<span class="preprocessor">#define MED_ERR_MEDDATATYPE -34</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="a00582_a466f5fbbddddb7c1929c44716d905d72.html#a466f5fbbddddb7c1929c44716d905d72">  115</a></span>&#160;<span class="preprocessor">#define MED_ERR_CONNECTIVITYMODE -35</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="a00582_ab0342a1162c071af790330b44a05d5da.html#ab0342a1162c071af790330b44a05d5da">  116</a></span>&#160;<span class="preprocessor">#define MED_ERR_GRIDTYPE -36</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="a00582_a4cbd5cae9ae4eea146ad9c6058c4812f.html#a4cbd5cae9ae4eea146ad9c6058c4812f">  117</a></span>&#160;<span class="preprocessor">#define MED_ERR_AXISTYPE -37</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="a00582_aa7139fc2b81b46898914f65ce24e564e.html#aa7139fc2b81b46898914f65ce24e564e">  118</a></span>&#160;<span class="preprocessor">#define MED_ERR_EQUIVALENCE -38</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="a00582_a9ad6121d5dfe32ade5e50b7401574050.html#a9ad6121d5dfe32ade5e50b7401574050">  119</a></span>&#160;<span class="preprocessor">#define MED_ERR_SUBDOMAINJOINT -39</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="a00582_aedebe9a10ab7845482ee3e2374591b03.html#aedebe9a10ab7845482ee3e2374591b03">  120</a></span>&#160;<span class="preprocessor">#define MED_ERR_STRUCT -40</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="a00582_ad504d957cb02be4e45b5c820575ebdfe.html#ad504d957cb02be4e45b5c820575ebdfe">  121</a></span>&#160;<span class="preprocessor">#define MED_ERR_INTERP -41</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="a00582_a33e7b0fc5f80ffecd67d407b844f059a.html#a33e7b0fc5f80ffecd67d407b844f059a">  122</a></span>&#160;<span class="preprocessor">#define MED_ERR_MESHTYPE -42</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="a00582_a2ab18546402d1599d1da15aee55f02e5.html#a2ab18546402d1599d1da15aee55f02e5">  123</a></span>&#160;<span class="preprocessor">#define MED_ERR_CORRESPONDENCE -43</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="a00582_a82099b6734b66018df5505febebcfa02.html#a82099b6734b66018df5505febebcfa02">  124</a></span>&#160;<span class="preprocessor">#define MED_ERR_DIMENSION -44</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="a00582_a706ca2f305879b4976dc094db9ee5211.html#a706ca2f305879b4976dc094db9ee5211">  125</a></span>&#160;<span class="preprocessor">#define MED_ERR_FILEVERSION -45</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="a00582_a0fecb11a843951ea0805b6ff08223e19.html#a0fecb11a843951ea0805b6ff08223e19">  126</a></span>&#160;<span class="preprocessor">#define MED_ERR_MEMFILE -46</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="a00582_a0f455652e03d1ef884076a6713ce72a4.html#a0f455652e03d1ef884076a6713ce72a4">  127</a></span>&#160;<span class="preprocessor">#define MED_ERR_CLASS -47</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="a00582_ad824855b4091cf4da765648675f531c3.html#ad824855b4091cf4da765648675f531c3">  129</a></span>&#160;<span class="preprocessor">#define MED_ERR_FILE_MSG &quot;du fichier &quot;</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="a00582_a543edbef3a7d3fbb35e4ef0a21b321c4.html#a543edbef3a7d3fbb35e4ef0a21b321c4">  130</a></span>&#160;<span class="preprocessor">#define MED_ERR_MESH_MSG &quot;du maillage &quot;</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="a00582_a4d941f2d2b4a654d591c139707067242.html#a4d941f2d2b4a654d591c139707067242">  131</a></span>&#160;<span class="preprocessor">#define MED_ERR_SUPPORT_MESH_MSG &quot;du maillage support &quot;</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="a00582_ad9c04a0bc41cf8146c2bd00a61d898ab.html#ad9c04a0bc41cf8146c2bd00a61d898ab">  132</a></span>&#160;<span class="preprocessor">#define MED_ERR_ENTITY_MSG &quot;de l&#39;entité &quot;</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="a00582_a55befe5c0e7aab817a19a9a4f4feb040.html#a55befe5c0e7aab817a19a9a4f4feb040">  133</a></span>&#160;<span class="preprocessor">#define MED_ERR_STRUCT_ELEMENT_MSG &quot;de l&#39;élément de structure &quot;</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="a00582_a189d9d9eb8f255566cc56714998c3472.html#a189d9d9eb8f255566cc56714998c3472">  134</a></span>&#160;<span class="preprocessor">#define MED_ERR_FAMILY_MSG &quot;de la famille &quot;</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="a00582_a771e0042c9088f89b0ede80d624500ed.html#a771e0042c9088f89b0ede80d624500ed">  135</a></span>&#160;<span class="preprocessor">#define MED_ERR_GROUP_MSG &quot;du groupe &quot;</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="a00582_a616c3ef83ceb236521bb5eb18418f5ed.html#a616c3ef83ceb236521bb5eb18418f5ed">  136</a></span>&#160;<span class="preprocessor">#define MED_ERR_LOCALIZATION_MSG &quot;de la localisation des points d&#39;intégration &quot;</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="a00582_a3da6b9cfa55a8d8da69867f628d369d1.html#a3da6b9cfa55a8d8da69867f628d369d1">  137</a></span>&#160;<span class="preprocessor">#define MED_ERR_INTERPOLATION_MSG &quot;de la fonction d&#39;interpolation &quot;</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="a00582_ab4734b03e97f4abcfed59bcc87711a84.html#ab4734b03e97f4abcfed59bcc87711a84">  138</a></span>&#160;<span class="preprocessor">#define MED_ERR_FIELD_MSG &quot;du champ résultat &quot;</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="a00582_aea85f52ae89ab1c51665a3d45214eb7b.html#aea85f52ae89ab1c51665a3d45214eb7b">  139</a></span>&#160;<span class="preprocessor">#define MED_ERR_JOINT_MSG &quot;du joint &quot;</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="a00582_a32cc55f14f2a259148c0a90582514f0c.html#a32cc55f14f2a259148c0a90582514f0c">  140</a></span>&#160;<span class="preprocessor">#define MED_ERR_FILTER_MSG &quot;du filtre &quot;</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="a00582_ad6dc0c6e8cc1d28f6b753961ec147069.html#ad6dc0c6e8cc1d28f6b753961ec147069">  141</a></span>&#160;<span class="preprocessor">#define MED_ERR_PROFILE_MSG &quot;du profil &quot;</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="a00582_ad05a2e25f72261ed91f8c0079a138660.html#ad05a2e25f72261ed91f8c0079a138660">  142</a></span>&#160;<span class="preprocessor">#define MED_ERR_SCALAR_MSG &quot;des valeurs scalaires &quot;</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="a00582_a98affcf4b0a5a254f7e2bb1bdf46dcda.html#a98affcf4b0a5a254f7e2bb1bdf46dcda">  143</a></span>&#160;<span class="preprocessor">#define MED_ERR_LIBRARY_MSG &quot;du numéro de version de la librairie &quot;</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="a00582_a8b8f2b34b00f4887f0ec5eac488d9d6e.html#a8b8f2b34b00f4887f0ec5eac488d9d6e">  144</a></span>&#160;<span class="preprocessor">#define MED_ERR_MEMSPACE_MSG &quot;du memspace &quot;</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="a00582_a849b2ae15093096e2c9d573807046a83.html#a849b2ae15093096e2c9d573807046a83">  145</a></span>&#160;<span class="preprocessor">#define MED_ERR_DISKSPACE_MSG &quot;du dataspace &quot;</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="a00582_a4904d28392aa8ce5414642005cf505bd.html#a4904d28392aa8ce5414642005cf505bd">  146</a></span>&#160;<span class="preprocessor">#define MED_ERR_DATASET_MSG &quot;du dataset &quot;</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="a00582_a174fc231ef7ee25d2c3c63dd16a3ad34.html#a174fc231ef7ee25d2c3c63dd16a3ad34">  147</a></span>&#160;<span class="preprocessor">#define MED_ERR_DATAGROUP_MSG &quot;du groupe &quot;</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="a00582_ae18bac04e580d6b92afc2261f8db339f.html#ae18bac04e580d6b92afc2261f8db339f">  148</a></span>&#160;<span class="preprocessor">#define MED_ERR_ATTRIBUTE_MSG &quot;d&#39;attribut &quot;</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="a00582_ae8dd78dd89ff078eca168017a785fba3.html#ae8dd78dd89ff078eca168017a785fba3">  149</a></span>&#160;<span class="preprocessor">#define MED_ERR_PROPERTY_MSG &quot;de propriété &quot;</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="a00582_a5ff27abcd3e235ba20bbe4859c49f531.html#a5ff27abcd3e235ba20bbe4859c49f531">  150</a></span>&#160;<span class="preprocessor">#define MED_ERR_INTERLACINGMODE_MSG &quot;d&#39;entrelacement &quot;</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="a00582_a0ab956aecef786d65857c6b3d214624a.html#a0ab956aecef786d65857c6b3d214624a">  151</a></span>&#160;<span class="preprocessor">#define MED_ERR_PARAMETER_MSG &quot;du paramètre &quot;</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="a00582_a3f47fb2f3e881eea45f60b9d8df9f479.html#a3f47fb2f3e881eea45f60b9d8df9f479">  152</a></span>&#160;<span class="preprocessor">#define MED_ERR_ACCESSMODE_MSG &quot;du mode d&#39;accès &quot;</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="a00582_a7eb4afa0eee8cd6e97cee0f246421d5a.html#a7eb4afa0eee8cd6e97cee0f246421d5a">  153</a></span>&#160;<span class="preprocessor">#define MED_ERR_GEOMETRIC_MSG &quot;du type géométrique &quot;</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="a00582_ad35415ef8f8410838589d48ccb450416.html#ad35415ef8f8410838589d48ccb450416">  154</a></span>&#160;<span class="preprocessor">#define MED_ERR_DATASPACE_MSG &quot;du dataspace &quot;</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="a00582_a472f8dd3be69d36df3fecd21283b7cbb.html#a472f8dd3be69d36df3fecd21283b7cbb">  155</a></span>&#160;<span class="preprocessor">#define MED_ERR_FILESPACE_MSG  &quot;du filespace &quot;</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="a00582_a0096a451cb9c3763c08a4282fffe3fe9.html#a0096a451cb9c3763c08a4282fffe3fe9">  156</a></span>&#160;<span class="preprocessor">#define MED_ERR_API_MSG  &quot;de l&#39;API &quot;</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="a00582_a121019ad3018918f00ae545861af20a5.html#a121019ad3018918f00ae545861af20a5">  157</a></span>&#160;<span class="preprocessor">#define MED_ERR_STORAGEMODE_MSG &quot;de mode de stockage &quot;</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="a00582_abb7f10595c1b52679371328c2f3197b4.html#abb7f10595c1b52679371328c2f3197b4">  158</a></span>&#160;<span class="preprocessor">#define MED_ERR_COMPUTINGSTEP_MSG &quot;de l&#39;étape de calcul &quot;</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="a00582_a3705db2423e86ff972a87a5ba666cd7a.html#a3705db2423e86ff972a87a5ba666cd7a">  159</a></span>&#160;<span class="preprocessor">#define MED_ERR_HDFTYPE_MSG &quot;du type hdf &quot;</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="a00582_a0baf0297d07a2d1dee960c68ae7f3539.html#a0baf0297d07a2d1dee960c68ae7f3539">  160</a></span>&#160;<span class="preprocessor">#define MED_ERR_LINK_MSG &quot;du lien &quot;</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="a00582_a34d95597cf863e304e920c89c1b123c5.html#a34d95597cf863e304e920c89c1b123c5">  161</a></span>&#160;<span class="preprocessor">#define MED_ERR_DATATYPE_MSG &quot;du datatype &quot;</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="a00582_a0fa2f1e84fdb2d872ef000c14bce58e4.html#a0fa2f1e84fdb2d872ef000c14bce58e4">  162</a></span>&#160;<span class="preprocessor">#define MED_ERR_MEDDATATYPE_MSG &quot;du datatatype med demandé &quot;</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="a00582_a9ed405d696446f009c3bc9f05542def7.html#a9ed405d696446f009c3bc9f05542def7">  163</a></span>&#160;<span class="preprocessor">#define MED_ERR_CONNECTIVITYMODE_MSG &quot;du mode de connectivité &quot;</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="a00582_a184934f055a177695cb04ab9b43089c1.html#a184934f055a177695cb04ab9b43089c1">  164</a></span>&#160;<span class="preprocessor">#define MED_ERR_GRIDTYPE_MSG &quot;du type de grille &quot;</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno"><a class="line" href="a00582_afb8dd58c1223f3ce21f2f3d2bf8d018f.html#afb8dd58c1223f3ce21f2f3d2bf8d018f">  165</a></span>&#160;<span class="preprocessor">#define MED_ERR_AXISTYPE_MSG &quot;du type de repère &quot;</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="a00582_ad773d624931cbbfd90ef299c6753e876.html#ad773d624931cbbfd90ef299c6753e876">  166</a></span>&#160;<span class="preprocessor">#define MED_ERR_EQUIVALENCE_MSG &quot;de l&#39;équivalence &quot;</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="a00582_acb048ee3e62de7c01717abaa94da88cd.html#acb048ee3e62de7c01717abaa94da88cd">  167</a></span>&#160;<span class="preprocessor">#define MED_ERR_SUBDOMAINJOINT_MSG &quot;de joint  &quot;</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="a00582_ae62ce8d55416b44eb6196c50c002b55a.html#ae62ce8d55416b44eb6196c50c002b55a">  168</a></span>&#160;<span class="preprocessor">#define MED_ERR_STRUCT_MSG &quot;de l&#39;élément de structure &quot;</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="a00582_a8e803669a9af1e3992ab3944ec8d4eef.html#a8e803669a9af1e3992ab3944ec8d4eef">  169</a></span>&#160;<span class="preprocessor">#define MED_ERR_INTERP_MSG &quot;de l&#39;interpolation &quot;</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="a00582_a3327d7e6b00412757ec30aa446e8b18b.html#a3327d7e6b00412757ec30aa446e8b18b">  170</a></span>&#160;<span class="preprocessor">#define MED_ERR_PARAM_MSG &quot;du parametre &quot;</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="a00582_a5b257d38cb0ef65f7b13983fcf76ca98.html#a5b257d38cb0ef65f7b13983fcf76ca98">  171</a></span>&#160;<span class="preprocessor">#define MED_ERR_MESHTYPE_MSG &quot;du type de maillage&quot;</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="a00582_ac7a366516f0da7ab9f13ac93c9e204bd.html#ac7a366516f0da7ab9f13ac93c9e204bd">  172</a></span>&#160;<span class="preprocessor">#define MED_ERR_CORRESPONDENCE_MSG &quot;de la correspondance &quot;</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="a00582_a564d4128828be1d097a0c037d228acfa.html#a564d4128828be1d097a0c037d228acfa">  173</a></span>&#160;<span class="preprocessor">#define MED_ERR_DIMENSION_MSG &quot;de dimension&quot;</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="a00582_a1c5e74aab1d8ba92227385e3b8cbc9b9.html#a1c5e74aab1d8ba92227385e3b8cbc9b9">  174</a></span>&#160;<span class="preprocessor">#define MED_ERR_FILEVERSION_MSG &quot;de version de fichier&quot;</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="a00582_ae558fd09bc536a59318379955761e468.html#ae558fd09bc536a59318379955761e468">  175</a></span>&#160;<span class="preprocessor">#define MED_ERR_MEMFILE_MSG &quot;de fichier mémoire&quot;</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="a00582_af5672506fee50f69a985ad9a630d0f0c.html#af5672506fee50f69a985ad9a630d0f0c">  176</a></span>&#160;<span class="preprocessor">#define MED_ERR_CLASS_MSG &quot;du type d&#39;objet MED&quot;</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="comment">/*COMPLEMENTS*/</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="a00582_ab2ea3733a01825c0084f62a7f727e47d.html#ab2ea3733a01825c0084f62a7f727e47d">  179</a></span>&#160;<span class="preprocessor">#define MED_ERR_VALUE_MSG &quot;de valeur &quot;</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="a00582_a9b13a518b7f1f209e57fdb800026fffa.html#a9b13a518b7f1f209e57fdb800026fffa">  180</a></span>&#160;<span class="preprocessor">#define MED_ERR_SIZE_MSG &quot;de taille &quot;</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="a00582_a698ac3930baa4d7333890f4c95112fe0.html#a698ac3930baa4d7333890f4c95112fe0">  181</a></span>&#160;<span class="preprocessor">#define MED_ERR_GSIZE_MSG &quot;de taille trop grande &quot;</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="a00582_a5b411a7f5e824f241ad3dc8903bfbc3c.html#a5b411a7f5e824f241ad3dc8903bfbc3c">  182</a></span>&#160;<span class="preprocessor">#define MED_ERR_LSIZE_MSG &quot;de taille trop petite &quot;</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="a00582_adf48af4a59e857483e68254f6425c2c2.html#adf48af4a59e857483e68254f6425c2c2">  183</a></span>&#160;<span class="preprocessor">#define MED_ERR_ID_MSG &quot;d&#39;identifiant &quot;</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="a00582_a5480d7d24c68a1ad12eea7ffa307c5c2.html#a5480d7d24c68a1ad12eea7ffa307c5c2">  184</a></span>&#160;<span class="preprocessor">#define MED_ERR_ARRAY_MSG &quot;(tableau) &quot;</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="a00582_a9220c421d9a9c7808651251e2c06a54b.html#a9220c421d9a9c7808651251e2c06a54b">  185</a></span>&#160;<span class="preprocessor">#define MED_ERR_MODE_MSG &quot;en mode &quot;</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="a00582_aa35348e6336aba621b22ab3378e2ba27.html#aa35348e6336aba621b22ab3378e2ba27">  186</a></span>&#160;<span class="preprocessor">#define MED_ERR_PARALLEL_MSG &quot;en parallelisme &quot;</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="a00582_a8e0d679d49f3c5a3824e510e04cd7942.html#a8e0d679d49f3c5a3824e510e04cd7942">  187</a></span>&#160;<span class="preprocessor">#define MED_ERR_ACCESS2_MSG &quot;du mode d&#39;accès &quot;</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="a00582_a858ea78464cce732f1bc9ce4bf5fab82.html#a858ea78464cce732f1bc9ce4bf5fab82">  188</a></span>&#160;<span class="preprocessor">#define MED_ERR_FORBIDDEN_MSG &quot;interdit(e) &quot;</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="a00582_a3465f75018bc1aaefeb3fd79cd2d01e7.html#a3465f75018bc1aaefeb3fd79cd2d01e7">  189</a></span>&#160;<span class="preprocessor">#define MED_ERR_TYPEOF_MSG &quot;de type &quot;</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="a00582_aab20717ee6d24b3833a4708656c327d4.html#aab20717ee6d24b3833a4708656c327d4">  190</a></span>&#160;<span class="preprocessor">#define MED_ERR_NAME_MSG &quot;de nom &quot;</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="a00582_aa1affd3ee23414745279fb205d22afd4.html#aa1affd3ee23414745279fb205d22afd4">  191</a></span>&#160;<span class="preprocessor">#define MED_ERR_INTERNAL_MSG &quot;interne &quot;</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="a00582_ad371aa81d112655bc34a8e5a6e1548cc.html#ad371aa81d112655bc34a8e5a6e1548cc">  192</a></span>&#160;<span class="preprocessor">#define MED_ERR_NBR_MSG &quot;nombre de &quot;</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment">/* Pour générer la table :</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">  for i in `grep &#39;MED_ERR_&#39; med_err.h | grep -v &#39;MSG&#39; | awk &#39;{print $2}&#39; `; do echo &quot;{ $i , ${i}_MSG },&quot;; done</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="comment">/* typedef struct _med_err_tab_entry { */</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="comment">/*   int errno; */</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="comment">/*   const char* const mesg; */</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment">/* } med_err_tab_entry; */</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">/* med_err_tab_entry MED_TAB_ERR[]={ */</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="comment">/*   { MED_ERR_UNDEFINED , MED_ERR_UNDEFINED_MSG }, */</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment">/*   { MED_ERR_CREATE , MED_ERR_CREATE_MSG }, */</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="comment">/*   { MED_ERR_READ , MED_ERR_READ_MSG }, */</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="comment">/*   { MED_ERR_WRITE , MED_ERR_WRITE_MSG }, */</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="comment">/*   { MED_ERR_CLOSE , MED_ERR_CLOSE_MSG }, */</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="comment">/*   { MED_ERR_ACCESS , MED_ERR_ACCESS_MSG }, */</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="comment">/*   { MED_ERR_SELECT , MED_ERR_SELECT_MSG }, */</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="comment">/*   { MED_ERR_INIT , MED_ERR_INIT_MSG }, */</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="comment">/*   { MED_ERR_FILE , MED_ERR_FILE_MSG }, */</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="comment">/*   { MED_ERR_MESH , MED_ERR_MESH_MSG }, */</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="comment">/*   { MED_ERR_SUPPORT_MESH , MED_ERR_SUPPORT_MESH_MSG }, */</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment">/*   { MED_ERR_ENTITY , MED_ERR_ENTITY_MSG }, */</span></div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="comment">/*   { MED_ERR_STRUCT_ELEMENT , MED_ERR_STRUCT_ELEMENT_MSG }, */</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment">/*   { MED_ERR_FAMILY , MED_ERR_FAMILY_MSG }, */</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="comment">/*   { MED_ERR_GROUP , MED_ERR_GROUP_MSG }, */</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="comment">/*   { MED_ERR_LOCALIZATION , MED_ERR_LOCALIZATION_MSG }, */</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="comment">/*   { MED_ERR_INTERPOLATION , MED_ERR_INTERPOLATION_MSG }, */</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="comment">/*   { MED_ERR_FIELD , MED_ERR_FIELD_MSG }, */</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="comment">/*   { MED_ERR_JOINT , MED_ERR_JOINT_MSG }, */</span></div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="comment">/*   { MED_ERR_FILTER , MED_ERR_FILTER_MSG }, */</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="comment">/*   { MED_ERR_PROFILE , MED_ERR_PROFILE_MSG }, */</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="comment">/*   { MED_ERR_SCALAR , MED_ERR_SCALAR_MSG }, */</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="comment">/*   { MED_ERR_MEMSPACE , MED_ERR_MEMSPACE_MSG }, */</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="comment">/*   { MED_ERR_DISKSPACE , MED_ERR_DISKSPACE_MSG }, */</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="comment">/*   { MED_ERR_DATASET , MED_ERR_DATASET_MSG }, */</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="comment">/*   { MED_ERR_DATAGROUP , MED_ERR_DATAGROUP_MSG }, */</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="comment">/*   { MED_ERR_ATTRIBUTE , MED_ERR_ATTRIBUTE_MSG } */</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="comment">/* } */</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

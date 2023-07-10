@@ -1,0 +1,73 @@
+ some text
+ nActions             =                1
+ nGrainClass          =                3
+ time                 =        250.000000000000     
+ xx                   =       -11.10000    
+ xx                   =       -11.10000    
+ xx                   =       -11.10000    
+ xx                   =       -11.10000    
+ xx                   =       -11.10000    
+ xx                   =       -11.10000    
+ ActionType ++++++++++                 1
+ ActionTypeStr              Dig_by_time                                                                                                                     
+ FieldDig                   201_Abschnitt_1_2_1000m**2                                                                                                      
+ FieldDigID                            4
+ ReferezLevel               -1aaaa                                                                                                                          
+ TimeStart                     2.00000000000000     
+ TimeEnd                       52.0000000000000     
+ TimeRepeat                   -11.1000000000000     
+ DigVolume                     100.000000000000     
+ DigRate                     -0.200000000000000     
+ DigDepth                    -1.110000000000000E+035
+ DigPlanar                   F
+ CritDepth                   -1.110000000000000E+035
+ MinVolume                   -0.100000000000000     
+ MinVolumeRadius             -0.100000000000000     
+ FieldDump                  202_Abschnitt_6_7_1000m**2                                                                                                      
+ FieldDumpID                           5
+ DumpVolume                   0.000000000000000E+000
+ DumpRate                     1.000000000000000E-003
+ DumpPlanar                  F
+ GrainClass                   0.000000000000000E+000
+ GrainClass                   0.000000000000000E+000
+ GrainClass                    1.00000000000000     
+ FirstTimeActive             F
+ State                                 9
+ nts                                  50
+ tsCount                              51
+ sumInput                     -11.1000000000000     
+ dt_ts                        -11.1000000000000     
+ dz_ts                        2.000000000000000E-003
+ dz_dt                        -11.1000000000000     
+ dzTot                        0.100000000000000     
+ dzCL_ts                      0.000000000000000E+000
+ dzCL_ts                      0.000000000000000E+000
+ dzCL_ts                      2.853273173286652E-017
+ A-END  ============================================
+ info text: time      =       250.000000000000     
+ nFields              =               5
+ xx                   =             -11
+ xx                   =             -11
+ xx                   =             -11
+ xx                   =             -11
+ ipid                 =               0
+ Field name           =    100_Fahrrinne_Widenings_4950m**2                                                                                                
+ Field index          =               1
+ Field nNodeToDig     =            -999
+ F-END
+ Field name           =    110_Fahrrinne_Widenings_2475m**2                                                                                                
+ Field index          =               2
+ Field nNodeToDig     =            -999
+ F-END
+ Field name           =    200_VK_Feld_890m**2                                                                                                             
+ Field index          =               3
+ Field nNodeToDig     =            -999
+ F-END
+ Field name           =    201_Abschnitt_1_2_1000m**2                                                                                                      
+ Field index          =               4
+ Field nNodeToDig     =            -999
+ F-END
+ Field name           =    202_Abschnitt_6_7_1000m**2                                                                                                      
+ Field index          =               5
+ Field nNodeToDig     =            -999
+ F-END

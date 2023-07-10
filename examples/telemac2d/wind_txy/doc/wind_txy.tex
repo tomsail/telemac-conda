@@ -1,0 +1,181 @@
+\chapter{Wind depending on time and space (wind\_txy)}
+%
+\section{Purpose}
+
+This test case presents the hydrodynamics study resulting from wind set-up in a
+closed rectangular basin or channel.
+Contrary to the wind example, here the wind depends on time and space
+(\telkey{OPTION FOR WIND} = 3).
+2 examples are given:
+\begin{itemize}
+\item the first one uses an atmospheric data file written in ASCII,
+\item the second one uses an atmospheric data file written in binary.
+\end{itemize}
+These are examples on how to manage wind or meteo data if depending on time
+and space and not standardly done by \telemac{2D}.
+
+\section{Description}
+
+\subsection{Geometry and mesh}
+
+This test case models the hydrodynamics behaviours due to wind blowing 
+in a closed rectangular basin. The geometry dimensions of basin are 100~m wide 
+and  500~m long. The basin has a flat bottom and the water depth is equal to 2~m depth. 
+The mesh is irregular in the basin. The mesh is shown in Figure \ref{t2d:windtxy:fig:mesh}. 
+It is composed of 551 triangular elements (319 nodes) and the size of triangles
+ranges between 14~m and 24~m.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/Mesh.png}
+ \caption{Mesh.}
+ \label{t2d:windtxy:fig:mesh}
+\end{figure}
+
+\subsection{Initial conditions}
+
+The computation is a continuation of the wind example with steady state with constant wind
+blowing on the channel.
+
+\subsection{Boundary conditions}
+
+The boundary conditions are:
+\begin{itemize}
+\item For the solid walls, a slip condition in the basin is used for the velocity,
+\item No bottom friction,
+\item The wind stress at the surface is imposed.
+\end{itemize}
+The wind conditions allowing to compute the wind stress are :
+\begin{itemize}
+\item The wind velocity is interpolated depending on 5 stations at coordinates (0;0), (500;0), (500;100), (0;100), (250;50) and linearly depending on time. The interpolation is implemented in the user Fortran subroutines,
+\item The coefficient of wind influence is
+ $a_{wind} \frac{\rho_{air}}{\rho_{water}} = 1.2615 \cdot 10^{-3}$ 
+ with $\rho_{air}$, $\rho_{water}$ which are respectively the air density 
+ and the water density and with $a_{wind}$ an adimentional coefficient.
+\end{itemize}
+
+\subsection{Physical parameters}
+
+The turbulent viscosity is constant with velocity 
+diffusivity equal to 0~m$^2$/s.
+
+As the wind depends on time and space and there is no unique way to manage it,
+the treatment of wind conditions is done by changing the standard \telfile{METEO}
+subroutine and adding a new subroutine called \telfile{IDWM\_T2D}.
+Moreover, as the formats of the \telkey{BINARY ATMOSPHERIC DATA FILE} or the
+\telkey{ASCII ATMOSPHERIC DATA FILE} are not the one managed by the
+\telfile{METEO\_TELEMAC} module, the keyword
+\telkey{FREE FORMAT FOR ATMOSPHERIC DATA FILE} is activated.
+In the case of the \telkey{BINARY ATMOSPHERIC DATA FILE}, the two keywords
+\telkey{ORIGINAL DATE OF TIME} and \telkey{ORIGINAL HOUR OF TIME} have to be
+filled in.
+
+\subsection{Numerical parameters}
+
+The time step is 5~s. The simulation duration is then 100~s after the restart.
+For numerical resolution, conjugate gradient on a normal equation 
+is used for solving the propagation step (option 3 = default).
+The characteristics scheme (scheme 1) is used to solve the advection of velocities.
+The implicitation coefficients for depth and velocities are equal to 0.5.
+
+\section{Results}
+
+Figures \ref{t2d:windtxy:fig:FreeSurf0}, \ref{t2d:windtxy:fig:FreeSurf50s},
+\ref{t2d:windtxy:fig:FreeSurftf} show the free surface field at initial time,
+after 50~s and at final time (= 100~s) for the ASCII format.
+Figures \ref{t2d:windtxy:fig:Velo0}, \ref{t2d:windtxy:fig:Velo50s},
+\ref{t2d:windtxy:fig:Velotf} show the velocity field and streamlines
+at initial time, after 50~s and at final time (= 100~s) for the ASCII format.
+Figures \ref{t2d:windtxy:fig:FreeSurfbin0}, \ref{t2d:windtxy:fig:FreeSurfbin50s},
+\ref{t2d:windtxy:fig:FreeSurfbintf} show the free surface field at initial time,
+after 50~s and at final time (= 100~s) for the binary format.
+Figures \ref{t2d:windtxy:fig:Velobin0}, \ref{t2d:windtxy:fig:Velobin50s},
+\ref{t2d:windtxy:fig:Velobintf} show the velocity field and streamlines at
+initial time, after 50~s and at final time (= 100~s) for the binary format.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurface0.png}
+ \caption{Free surface along basin at initial time step (ASCII format).}
+ \label{t2d:windtxy:fig:FreeSurf0}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurface50s.png}
+ \caption{Free surface along basin at 50~s (ASCII format).}
+ \label{t2d:windtxy:fig:FreeSurf50s}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurfacetf.png}
+ \caption{Free surface along basin at final time step (ASCII format).}
+ \label{t2d:windtxy:fig:FreeSurftf}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityStream0.png}
+ \caption{Wind velocity and streamlines at initial time step (ASCII format).}
+ \label{t2d:windtxy:fig:Velo0}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityStream50s.png}
+ \caption{Wind velocity and streamlines at 50~s (ASCII format).}
+ \label{t2d:windtxy:fig:Velo50s}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityStreamtf.png}
+ \caption{Wind velocity and streamlines at final time step (ASCII format).}
+ \label{t2d:windtxy:fig:Velotf}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurfacebin0.png}
+ \caption{Free surface along basin at initial time step (binary format).}
+ \label{t2d:windtxy:fig:FreeSurfbin0}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurfacebin50s.png}
+ \caption{Free surface along basin at 50~s (binary format).}
+ \label{t2d:windtxy:fig:FreeSurfbin50s}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurfacebintf.png}
+ \caption{Free surface along basin at final time step (binary format).}
+ \label{t2d:windtxy:fig:FreeSurfbintf}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityStreambin0.png}
+ \caption{Wind velocity and streamlines at initial time step (binary format).}
+ \label{t2d:windtxy:fig:Velobin0}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityStreambin50s.png}
+ \caption{Wind velocity and streamlines at 50~s (binary format).}
+ \label{t2d:windtxy:fig:Velobin50s}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityStreambintf.png}
+ \caption{Wind velocity and streamlines at final time step (binary format).}
+ \label{t2d:windtxy:fig:Velobintf}
+\end{figure}
+
+\section{Conclusion}
+\telemac{2D} is able to compute wind generated flows when depending on time and space.

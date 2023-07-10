@@ -1,0 +1,115 @@
+\documentclass[a4paper,10pt]{article}
+
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P0}
+
+\subsection*{Validation du noyau de calcul permanent et transcritique}
+
+\subsection*{\emph{Ecoulement transcritique dans un convergent }}
+
+\subsection*{Numéro du cas test : 17}
+
+\subsection*{Auteur : N. Goutal}
+
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+	Ce cas test a pour but de valider le noyau de calcul en régime permanent , dans le cas d'un canal rectangulaire dont la largeur diminue (convergent). La validation se fait par comparaison avec les résultats du noyau transcritique (l'état permanent est alors obtenu par convergence). La solution obtenue avec le noyau transcritique non permanent sert de référence. 
+
+\subsection*{Données géométriques}
+
+	Le calcul est réalisé dans un canal de pente nulle, de longueur 500 m, dont chaque section en travers est de forme rectangulaire avec un rétrécissement d'un facteur 5 ($10\mbox{ } m$ à $2\mbox{ }m$ en $10\mbox{ }m$ de longueur) 
+	
+	
+	\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=0,scale=0.75]{Figure1.eps}
+  \label{Imag1}
+ \end{center}
+\end{figure}
+
+
+	
+
+\subsection*{Données physiques}
+
+Prise en compte du frottement : non
+\begin{itemize} 
+ \item Conditions aux limites : 
+ \begin{itemize}
+  \item Cote imposée à l'aval égale à $2.5\mbox{ } m$
+  \item Débit imposé à l'amont constant égal à $20 \mbox{ }m^3.s^{-1}$
+  \end{itemize}
+ \item Conditions initiales : aucune 
+ 
+\end{itemize} 
+ 
+
+
+\subsection*{Données numériques}
+
+	Le domaine a été divisé en 1000 mailles de longueur constante égale à $0.5\mbox{ } m$.
+Le pas de planimétrage est homogène dans le domaine égal à $0.50\mbox{ } m$.
+
+
+
+\subsection*{Résultats}
+
+	La ligne d'eau calculée avec le noyau permanent en régime transcritique est comparée avec la ligne d'eau convergée du régime transitoire avec une taille de maille égale à $0.5\mbox{ } m$. Les résultats donnés avec les 2 schémas sont similaires. Par contre, si le maillage est plus grossier, on note une différence d'environ $20\mbox{ } cm$ à l'amont. L'écart est du à une différence de précision des 2 schémas. Le schéma du noyau permanent basé sur les différences finies est d'ordre 2, tandis que le schéma du noyau non permanent transcritique est d'ordre 1. \\
+A l'aide du calcul de l'énergie spécifique pour chaque hauteur d'eau amont et aval et de l'énergie spécifique minimale correspondant à la hauteur critique pour chaque largeur de canal, on montre que l'écoulement est quasi-critique au niveau de la partie rétrécie et que le ressaut est positionné juste en aval de la fin du rétrécissement 
+
+
+	
+
+
+
+	
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure2.eps}
+  \caption{Comparaison des cotes}
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+Sur la figure~\ref{fig3}, sont comparés les débits calculés avec les 2 noyaux de calcul. On remarque un pic de débit au doit du ressaut dans le cas du noyau transcritique. 
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure3.eps}
+  \caption{Comparaison des débits }
+  \label{fig3}
+ \end{center}
+\end{figure}
+
+
+
+\subsection*{Conclusion}
+
+	Le noyau de calcul permanent fournit la bonne position du ressaut et les résultats sont en accord avec ceux obtenus par convergence du noyau transitoire transcritique. 
+
+
+
+
+
+
+%
+% fin du document
+%
+\end{document}          

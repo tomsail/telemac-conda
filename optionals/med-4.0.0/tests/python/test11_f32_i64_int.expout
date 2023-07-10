@@ -1,0 +1,253 @@
+
+Maillage de nom : |maa1| , de dimension : 3 , et de type MED_UNSTRUCTURED_MESH
+
+	 -Dimension de l'espace : 3
+
+	 -Description du maillage : |Maillage vide|
+
+	 -Noms des axes : |x               y               z               |
+
+	 -Unités des axes : |cm              cm              cm              |
+
+	 -Type de repère : MED_CARTESIAN
+
+	 -Nombre d'étapes de calcul : 0
+
+	 -Unité des dates : |s|
+
+Nombre de champs : 3 
+
+
+Champ numero : 1 
+
+Nom du champ : |champ entier| de type MED_INT64
+
+Nombre de composantes : |3|
+
+Nom des composantes : |comp1           comp2           comp3           |
+
+Unites des composantes : |unit1           unit2           unit3           | 
+
+Unites des dates  : |s| 
+
+Le maillage associé est |maa2|
+
+Nombre de séquences de calcul |1|
+
+	Le maillage |maa2| est porte par un fichier distant |./testfoo.med|
+
+
+  +Pas de Temps n.-1 (0.000000) [unknown], n. d'ordre -1, avec 1 valeur(s) par entité.
+
+	- Il y a 5 entités qui portent des valeurs en mode 2. Chaque entite MED_NODE de type geometrique MED_NO_GEOTYPE associes au profile || a 1 valeurs associées 
+
+[0L, 1L, 0L, 0L, 11L, 0L, 0L, 21L, 0L, 0L, 31L, 0L, 0L, 41L, 0L]
+
+	- Profil : MED_NO_PROFILE
+
+  +Pas de Temps n.-1 (0.000000) [unknown], n. d'ordre -1, avec 1 valeur(s) par entité.
+
+	- Il y a 3 entités qui portent des valeurs en mode 2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profile |PROFIL(champ2)| a 1 valeurs associées 
+
+[0L, 0L, 2L, 0L, 0L, 22L, 0L, 0L, 42L]
+
+	- Profil : |PROFIL(champ2)| de taille 3
+	
+[1, 3, 5]
+
+
+
+  +Pas de Temps n.-1 (0.000000) [unknown], n. d'ordre -1, avec 1 valeur(s) par entité.
+
+	- Il y a 5 entités qui portent des valeurs en mode 2. Chaque entite MED_DESCENDING_FACE de type geometrique MED_TRIA6 associes au profile || a 1 valeurs associées 
+
+[0L, 0L, 2L, 0L, 0L, 12L, 0L, 0L, 22L, 0L, 0L, 32L, 0L, 0L, 42L]
+
+	- Profil : MED_NO_PROFILE
+
+  +Pas de Temps n.-1 (0.000000) [unknown], n. d'ordre -1, avec 1 valeur(s) par entité.
+
+	- Il y a 5 entités qui portent des valeurs en mode 2. Chaque entite MED_DESCENDING_EDGE de type geometrique MED_SEG2 associes au profile || a 1 valeurs associées 
+
+[0L, 0L, 0L, 10L, 0L, 0L, 20L, 0L, 0L, 30L, 0L, 0L, 40L, 0L, 0L]
+
+	- Profil : MED_NO_PROFILE
+
+Champ numero : 2 
+
+Nom du champ : |champ entier 3| de type MED_INT64
+
+Nombre de composantes : |2|
+
+Nom des composantes : |comp1           comp2           |
+
+Unites des composantes : |unit1           unit2           | 
+
+Unites des dates  : |s| 
+
+Le maillage associé est |maa1|
+
+Nombre de séquences de calcul |1|
+
+
+  +Pas de Temps n.-1 (0.000000) [unknown], n. d'ordre -1, avec 1 valeur(s) par entité.
+
+	- Il y a 20 entités qui portent des valeurs en mode 2. Chaque entite MED_CELL de type geometrique MED_QUAD4 associes au profile || a 1 valeurs associées 
+
+[0L, 0L, 10L, 0L, 20L, 0L, 30L, 0L, 40L, 0L, 50L, 0L, 60L, 0L, 70L, 0L, 80L, 0L, 90L, 0L, 100L, 0L, 110L, 0L, 120L, 0L, 130L, 0L, 140L, 0L, 150L, 0L, 160L, 0L, 170L, 0L, 180L, 0L, 190L, 0L]
+
+	- Profil : MED_NO_PROFILE
+
+  +Pas de Temps n.-1 (0.000000) [unknown], n. d'ordre -1, avec 4 valeur(s) par entité.
+
+	- Il y a 5 entités qui portent des valeurs en mode 2. Chaque entite MED_NODE_ELEMENT de type geometrique MED_QUAD4 associes au profile || a 4 valeurs associées 
+
+[0L, 1L, 10L, 11L, 20L, 21L, 30L, 31L, 40L, 41L, 50L, 51L, 60L, 61L, 70L, 71L, 80L, 81L, 90L, 91L, 100L, 101L, 110L, 111L, 120L, 121L, 130L, 131L, 140L, 141L, 150L, 151L, 160L, 161L, 170L, 171L, 180L, 181L, 190L, 191L]
+
+	- Profil : MED_NO_PROFILE
+
+  +Pas de Temps n.-1 (0.000000) [unknown], n. d'ordre -1, avec 4 valeur(s) par entité.
+
+	- Il y a 3 entités qui portent des valeurs en mode 2. Chaque entite MED_NODE_ELEMENT de type geometrique MED_QUAD4 associes au profile |PROFIL(champ2)| a 4 valeurs associées 
+
+[0L, 1L, 10L, 11L, 20L, 21L, 30L, 31L, 80L, 81L, 90L, 91L, 100L, 101L, 110L, 111L, 160L, 161L, 170L, 171L, 180L, 181L, 190L, 191L]
+
+	- Profil : |PROFIL(champ2)| de taille 3
+	
+[1, 3, 5]
+
+
+
+Champ numero : 3 
+
+Nom du champ : |champ reel| de type MED_FLOAT32
+
+Nombre de composantes : |2|
+
+Nom des composantes : |comp1           comp2           |
+
+Unites des composantes : |unit1           unit2           | 
+
+Unites des dates  : |s| 
+
+Le maillage associé est |maa1|
+
+Nombre de séquences de calcul |6|
+
+
+  +Pas de Temps n.-1 (0.000000) [unknown], n. d'ordre -1, avec 6 valeur(s) par entité.
+
+	- Il y a 1 entités qui portent des valeurs en mode 2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profile || a 6 valeurs associées 
+
+	- Modèle de localisation des points de Gauss de nom |Model n1|
+
+[0.0, 1.0, 2.0, 3.0, 10.0, 11.0, 12.0, 13.0, 20.0, 21.0, 22.0, 23.0]
+
+	- Profil : MED_NO_PROFILE
+
+  +Pas de Temps n.1 (5.500000) [unknown], n. d'ordre -1, avec 3 valeur(s) par entité.
+
+	- Il y a 2 entités qui portent des valeurs en mode 2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profile || a 3 valeurs associées 
+
+	- Modèle de localisation des points de Gauss de nom |Model n2|
+
+[0.0, 0.0, 2.0, 0.0, 10.0, 0.0, 12.0, 0.0, 20.0, 0.0, 22.0, 0.0]
+
+	- Profil : MED_NO_PROFILE
+
+  +Pas de Temps n.1 (5.500000) [unknown], n. d'ordre 1, avec 6 valeur(s) par entité.
+
+	- Il y a 1 entités qui portent des valeurs en mode 2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profile || a 6 valeurs associées 
+
+	- Modèle de localisation des points de Gauss de nom |Model n1|
+
+[0.0, 1.0, 0.0, 3.0, 0.0, 11.0, 0.0, 13.0, 0.0, 21.0, 0.0, 23.0]
+
+	- Profil : MED_NO_PROFILE
+
+  +Pas de Temps n.1 (5.500000) [unknown], n. d'ordre 2, avec 3 valeur(s) par entité.
+
+	- Il y a 2 entités qui portent des valeurs en mode 2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profile || a 3 valeurs associées 
+
+	- Modèle de localisation des points de Gauss de nom |Model n2|
+
+[0.0, 0.0, 2.0, 0.0, 10.0, 0.0, 12.0, 0.0, 20.0, 0.0, 22.0, 0.0]
+
+	- Profil : MED_NO_PROFILE
+
+  +Pas de Temps n.2 (5.600000) [unknown], n. d'ordre 2, avec 1 valeur(s) par entité.
+
+	- Il y a 1 entités qui portent des valeurs en mode 2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profile |PROFIL(champ(1))| a 1 valeurs associées 
+
+[2.0, 3.0]
+
+	- Profil : |PROFIL(champ(1))| de taille 1
+	
+[2]
+
+
+
+  +Pas de Temps n.2 (5.600000) [unknown], n. d'ordre 2, avec 3 valeur(s) par entité.
+
+	- Il y a 1 entités qui portent des valeurs en mode 2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profile |PROFIL(champ(1b))| a 3 valeurs associées 
+
+	- Modèle de localisation des points de Gauss de nom |Model n2|
+
+[12.0, 13.0, 20.0, 21.0, 22.0, 23.0]
+
+	- Profil : |PROFIL(champ(1b))| de taille 1
+	
+[2]
+
+
+
+  +Pas de Temps n.3 (5.700000) [unknown], n. d'ordre 2, avec 1 valeur(s) par entité.
+
+	- Il y a 1 entités qui portent des valeurs en mode 2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profile |PROFIL(champ(1))| a 1 valeurs associées 
+
+[0.0, 3.0]
+
+	- Profil : |PROFIL(champ(1))| de taille 1
+	
+[2]
+
+
+
+Nombre de profils stockes : 3
+
+	- Profil n°1 de nom |PROFIL(champ(1))| et de taille 1
+	[2]
+	- Profil n°2 de nom |PROFIL(champ(1b))| et de taille 1
+	[2]
+	- Profil n°3 de nom |PROFIL(champ2)| et de taille 3
+	[1, 3, 5]
+
+Nombre de liens stockes : 1
+
+
+	- Lien n°1 de nom |maa2| et de taille 13
+
+		|./testfoo.med|
+
+
+
+Nombre de localisations stockees : 2
+
+	- Loc. n°1 de nom |Model n1| de dimension |2| avec 6 pts de GAUSS 
+
+	  Coordonnees de l'element de reference de type MED_TRIA6 :
+		
+[-1.0, 1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0]
+
+
+	  Localisation des points de GAUSS : 
+		
+[-0.816847572980458, 0.6336951459609159, -0.816847572980458, -0.816847572980458, 0.6336951459609159, -0.816847572980458, -0.78779396366386, -0.10610301816807, -0.10610301816807, -0.78779396366386, -0.10610301816807, -0.10610301816807]
+
+
+	  Poids associes aux points de GAUSS :
+		
+[0.2199034872910644, 0.2199034872910644, 0.2199034872910644, 0.4467631793562, 0.4467631793562, 0.4467631793562]
+
+
+

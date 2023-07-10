@@ -1,0 +1,166 @@
+\renewcommand{\labelitemi}{$\triangleright$}
+
+\chapter{Mass exchange between suspended frazil ice and ice cover}
+%
+% - Purpose & Problem description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved and specify how the numerical solution will be validated
+%
+\section{Purpose}
+
+The aim of this test case is to test the implementation of the frazil buoyancy velocity and deposition at the free surface. 
+The accumulation of frazil at the surface and the formation of slush ice is modeled and described with its thickness and surface ice fraction.
+
+\section{Description}
+
+\subsection{Geometry, mesh and bathymetry}
+The domain is a long flat-bottom flume, boxed within $(x=0, y=0)$ and $(x=10,000, y=150)$, its length being $10km$ along the x-axis and its width being $150m$ along the y-axis. The channel has a slope of 1:10,000 between the elevation $5m$ (upstream) and $4m$ (downstream).
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/mesh.png}
+    \end{center}
+    \caption{Domain mesh.}
+    \label{fig:prec_mesh}
+\end{figure}
+
+The mesh of the domain was created with a uniform density of about $0.35m$, resulting in a mesh with $4800$ elements and $2807$ vertices (cf. figure \ref{fig:prec_mesh}).
+
+\subsection{Initial conditions}
+
+A hydrodynamics steady state condition is established first separately to reach a constant and uniform water depth of $6.6265m$ and a constant and uniform discharge of $300m^3/s$.
+Water temperature is initially set at $0.05^\circ C$. Initial frazil volume fraction is set to $0$. These values are also used for the upstream boundary condition. Figure \ref{fig:prec_profile} shows the initial water elevation profile.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.85\textwidth]}{../img/profile_elevation.png}
+    \end{center}
+    \caption{Initial elevation profile.}
+    \label{fig:prec_profile}
+\end{figure}
+
+\subsection{Boundary conditions}
+
+There are two solid boundaries and 2 open boundaries.
+The solid boundaries are on either side of the length of the flume, considered as solid walls with perfect slip conditions.
+The open boundaries are at $(x=0)$ for the upstream and at $(x=10,000)$ for the downstream of the flume. A constant discharge of $300m^3/s$ is imposed at the upstream boundary with a temperature set to $0.05^{\circ} C$. A constant water level is set at $6.6265m$ at the downstream boundary.
+A first simulation is carried out with for the hydrodynamics only to get to a steady state equilibrium of a constant and uniform water depth of $6.6265m$ and a constant and uniform discharge of $300m^3/s$ along the entire length of the flume.
+
+
+\subsection{Atmospheric drivers}
+
+For this test case, linear heat exchanges are used i.e. within the \khione steering file:
+\begin{itemize}
+	\item\textit{ATMOSPHERE-WATER EXCHANGE MODEL = 0}
+\end{itemize}
+
+With this model, the net heat flux received by water trought the water/air interface is expressed as:
+\begin{equation}
+\phi^* = \phi_R + \alpha + \beta (T_{air} - T_{water})
+\end{equation}
+where $\phi_R$ the net solar radiation flux, which depends on the solar constant $I_{so}$ and the latitude but
+also atmospheric properties like the nebulosity and the visibility. $\alpha$ and $\beta$ are two coefficient that
+are set to $-50W.m^{-2}$ and $20W.m^{-2}.K^{-1}$ by default. $I_{so}$ is set to zero in
+the \khione steering file: \textit{SOLAR CONSTANT = 0.}.
+Air temperature is set to $-20 ^{\circ}C$.
+
+\subsection{Physical parameters}
+
+In order to balance the slope and the discharge through the flume, a Manning friction law is used, with a coefficient of $0.025$.
+
+Physical properties related to frazil growth rate are defined in the \khione steering file. 
+In this test case, $N_u$, $r$, $R$ are defined with their default values.
+
+Physical properties related to the mass-exchanges between suspended frazil ice and the ice cover are defined as: 
+\begin{itemize}
+	\item\textit{MODEL FOR MASS EXCHANGE BETWEEN FRAZIL AND ICE COVER = 1}
+	\item\textit{FRAZIL UNDER COVER DEPOSITION PROBABILITY = 1.}
+\end{itemize}
+Finally, the ice cover parameters are set as:
+\begin{itemize}
+	\item\textit{DYNAMIC ICE COVER = YES}
+	\item\textit{INITIAL COVER CONCENTRATION VALUE = 0.}
+	\item\textit{INITIAL COVER THICKNESS VALUE = 0.}
+	\item\textit{PRESCRIBED COVER CONCENTRATION VALUES = 0.;0.}
+	\item\textit{PRESCRIBED COVER THICKNESS VALUES = 0.;0.}
+\end{itemize}
+
+\subsection{Numerical parameters}
+The time step is set to $1s$ and the number of timestep is set to $10800$ which leads to a simulation time of $3h$.
+
+\section{Results}
+The figures \ref{fig:prec_temp} and \ref{fig:prec_Cf} show the temperature and the frazil concentration along the flume at different times. The surface ice fraction and thickness are also plotted along the flume in figures \ref{fig:prec_Ci} and \ref{fig:prec_ti}.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.9\textwidth]}{../img/profile_T.png}
+    \end{center}
+    \caption{Water temperature along the flume.}
+    \label{fig:prec_temp}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.9\textwidth]}{../img/profile_Cf.png}
+    \end{center}
+    \caption{Frazil ice concentration along the flume.}
+    \label{fig:prec_Cf}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.9\textwidth]}{../img/profile_Ci.png}
+    \end{center}
+    \caption{Ice cover surface fraction along the flume.}
+    \label{fig:prec_Ci}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.9\textwidth]}{../img/profile_ti.png}
+    \end{center}
+    \caption{Ice cover thickness along the flume.}
+    \label{fig:prec_ti}
+\end{figure}
+
+On figures \ref{fig:prec_2d_frazil} and \ref{fig:prec_2d_temperature} the frazil concentration and temperature are plotted along the flume at final time. 
+Figure \ref{fig:prec_prec} shows the surface fraction of the ice cover at the final time, and \ref{fig:prec_thick} shows the thickness of the ice cover.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/T-2d_scalarmap_-1.png}
+    \end{center}
+    \caption{Water temperature along the flume at final time.}
+    \label{fig:prec_2d_temperature}
+\end{figure}
+
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/Cf-2d_scalarmap_-1.png}
+    \end{center}
+    \caption{Frazil ice concentration along the flume at final time.}
+    \label{fig:prec_2d_frazil}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/Ci-2d_scalarmap_-1.png}
+    \end{center}
+    \caption{Ice cover surface fraction at final time.}
+    \label{fig:prec_prec}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/ti-2d_scalarmap_-1.png}
+    \end{center}
+    \caption{Ice cover thickness at the final time.}
+    \label{fig:prec_thick}
+\end{figure}
+
+\section{Conclusions}
+
+\khione{} is able to simulate the deposition of suspended frazil ice at the free surface (slush ice formation). 
+
+\renewcommand{\labelitemi}{\textbullet}

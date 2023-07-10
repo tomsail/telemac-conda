@@ -1,0 +1,61 @@
+/
+/  4 elements and 5 points in this case : will not work in parallel !!!!!
+/
+/--------------------------------------------------------------------
+/             FICHIER DES PARAMETRES DE TOMAWAC
+/--------------------------------------------------------------------
+/     FICHIERS
+/--------------------------------------------------------------------
+GEOMETRY FILE = 'geo_TW.slf'
+BOUNDARY CONDITIONS FILE = 'geo_TW.cli'
+/
+2D RESULTS FILE = 'r2d_turningwind.slf'
+PUNCTUAL RESULTS FILE = 'spe_turningwind.slf'
+/--------------------------------------------------------------------
+/ DIVERS ENTREES-SORTIES
+/--------------------------------------------------------------------
+TITLE = 'CAS TEST DE VENT DE 20 M/S TOURNANT BRUSQUEMENT DE 60 DEG'
+PERIOD FOR GRAPHIC PRINTOUTS = 16
+VARIABLES FOR 2D GRAPHIC PRINTOUTS = 'HM0,DMOY,FM01,FPD,VX,VY,CD'
+PERIOD FOR LISTING PRINTOUTS = 30
+ABSCISSAE OF SPECTRUM PRINTOUT POINTS = 0.
+ORDINATES OF SPECTRUM PRINTOUT POINTS = 0.
+/--------------------------------------------------------------------
+/ DISCRETISATION
+/--------------------------------------------------------------------
+TIME STEP = 900.
+NUMBER OF TIME STEP = 128
+NUMBER OF ITERATIONS FOR THE SOURCE TERMS = 1
+NUMBER OF DIRECTIONS = 12
+MINIMAL FREQUENCY = 0.04177248
+FREQUENTIAL RATIO = 1.1
+NUMBER OF FREQUENCIES = 26
+/--------------------------------------------------------------------
+/ OPTIONS DU CALCUL
+/--------------------------------------------------------------------
+SPECTRUM TAIL FACTOR = 5.
+INFINITE DEPTH = YES
+SPHERICAL COORDINATES = NO
+CONSIDERATION OF A STATIONARY CURRENT = NO
+CONSIDERATION OF A WIND = YES
+STATIONARY WIND = NO
+CONSIDERATION OF PROPAGATION = NO
+CONSIDERATION OF SOURCE TERMS = YES
+/--------------------------------------------------------------------
+/ SPECTRE INITIAL
+/--------------------------------------------------------------------
+TYPE OF INITIAL DIRECTIONAL SPECTRUM = 4
+INITIAL PHILLIPS CONSTANT = 0.024
+INITIAL PEAK FREQUENCY = 0.3
+INITIAL MAIN DIRECTION 1 = 90.
+INITIAL DIRECTIONAL SPREAD 1 = 1.
+INITIAL PEAK FACTOR = 1.0
+/--------------------------------------------------------------------
+/ TERMES SOURCES
+/--------------------------------------------------------------------
+WINDS FILE FORMAT = 3
+BINARY WINDS FILE = 'wind.slf'
+WIND GENERATION = 1
+WHITE CAPPING DISSIPATION = 1
+BOTTOM FRICTION DISSIPATION = 0
+NON-LINEAR TRANSFERS BETWEEN FREQUENCIES = 1

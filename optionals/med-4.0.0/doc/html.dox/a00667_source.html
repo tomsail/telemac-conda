@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier:  Fichier source de MEDfilterAllocate.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_21ff39c74838e10d1b918a45b9d185d5.html">src</a></li><li class="navelem"><a class="el" href="dir_48027acf4688ac8b76ff5eb90d59af4a.html">ci</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">MEDfilterAllocate.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00667.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00581.html">med_config.h</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00589.html">med_outils.h</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a01050_ga47410be6d049065e980828936de3324a.html#ga47410be6d049065e980828936de3324a">   35</a></span>&#160;<a class="code" href="a00536.html">med_filter</a>* <a class="code" href="a01050_ga47410be6d049065e980828936de3324a.html#ga47410be6d049065e980828936de3324a">MEDfilterAllocate</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> nfilter) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a>      _ret=0;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <a class="code" href="a00536.html">med_filter</a> * _filter=NULL;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">int</span>          _i=0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a>      _memspace[<a class="code" href="a00577_a4b7f799439de53b0769d20495f78d0b5.html#a4b7f799439de53b0769d20495f78d0b5">MED_MAX_FILTER_SPACES</a>]=<a class="code" href="a00577_a00e74831ab633135c731114858546d4d.html#a00e74831ab633135c731114858546d4d">MED_MAX_FILTER_SPACES_INIT</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a>      _diskspace[<a class="code" href="a00577_a4b7f799439de53b0769d20495f78d0b5.html#a4b7f799439de53b0769d20495f78d0b5">MED_MAX_FILTER_SPACES</a>]=<a class="code" href="a00577_a00e74831ab633135c731114858546d4d.html#a00e74831ab633135c731114858546d4d">MED_MAX_FILTER_SPACES_INIT</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  _filter=(<a class="code" href="a00536.html">med_filter</a>*)calloc(nfilter,<span class="keyword">sizeof</span>(<a class="code" href="a00536.html">med_filter</a>));</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordflow">for</span> (_i=0;_i&lt;nfilter;++_i) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="a00588_a0e4a5f055093a30a2d55fa5733d665a0.html#a0e4a5f055093a30a2d55fa5733d665a0">_MEDsetFilter</a>(<a class="code" href="a00577_a4b7f799439de53b0769d20495f78d0b5.html#a4b7f799439de53b0769d20495f78d0b5">MED_MAX_FILTER_SPACES</a>,_memspace, _diskspace,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                       0, 0, 0, 0, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da8c2ff3c323a55ab7c52781f9ca5b9fb4">MED_UNDEF_INTERLACE</a>,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                       <a class="code" href="a00577_aec58bf534f1c011ffb82609d9f5ca929.html#aec58bf534f1c011ffb82609d9f5ca929">MED_NO_FILTER_SIZE</a>, <a class="code" href="a00577_a17a743ec2d3972eb23c9501a572f4a8f.html#a17a743ec2d3972eb23c9501a572f4a8f">MED_NO_PROFILE_SIZE</a>,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                       <a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8da15a2a29e37e912bca05ed6f60170767c">MED_UNDEF_STMODE</a>, <a class="code" href="a00577_aaa89a5e5e6d32de69614b70cf74e29cc.html#aaa89a5e5e6d32de69614b70cf74e29cc">MED_NO_PROFILE</a>, &amp;_filter[_i] ) &lt;0) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a25c2c816e8ffeed49218ff5c54b88557.html#a25c2c816e8ffeed49218ff5c54b88557">MED_ERR_INIT</a>,<a class="code" href="a00582_a2a30a97f3fd5a2961e657aeb19cccfb1.html#a2a30a97f3fd5a2961e657aeb19cccfb1">MED_ERR_FILTER</a>,<span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    _filter[_i].<a class="code" href="a00536_a3f26eb94dc669bf948c271e56ea22fe4.html#a3f26eb94dc669bf948c271e56ea22fe4">nspaces</a>=0;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordflow">return</span> _filter;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
+<div class="ttc" id="a00536_html"><div class="ttname"><a href="a00536.html">med_filter</a></div><div class="ttdoc">Filtre de sélection. </div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00350">med.h:350</a></div></div>
+<div class="ttc" id="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba_html_abd29d7c6abaef5da2a5ed1b73464f0ba"><div class="ttname"><a href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a></div><div class="ttdeci">herr_t med_err</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00327">med.h:327</a></div></div>
+<div class="ttc" id="a00591_a07852156956867e0134fc219d370b8d4_html_a07852156956867e0134fc219d370b8d4"><div class="ttname"><a href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a></div><div class="ttdeci">#define MED_ERR_(rt, r1, r2, r3)</div><div class="ttdef"><b>Definition:</b> <a href="a00591_source.html#l00158">med_utils.h:158</a></div></div>
+<div class="ttc" id="a00588_a0e4a5f055093a30a2d55fa5733d665a0_html_a0e4a5f055093a30a2d55fa5733d665a0"><div class="ttname"><a href="a00588_a0e4a5f055093a30a2d55fa5733d665a0.html#a0e4a5f055093a30a2d55fa5733d665a0">_MEDsetFilter</a></div><div class="ttdeci">MEDC_EXPORT med_err _MEDsetFilter(const med_int nspaces, const med_idt *const memspace, const med_idt *const diskspace, const med_int nentity, const med_int nvaluesperentity, const med_int nconstituentpervalue, const med_int constituentselect, const med_switch_mode switchmode, const med_int filterarraysize, const med_int profilearraysize, const med_storage_mode storagemode, const char *const profilename, med_filter *const filter)</div></div>
+<div class="ttc" id="a01050_ga47410be6d049065e980828936de3324a_html_ga47410be6d049065e980828936de3324a"><div class="ttname"><a href="a01050_ga47410be6d049065e980828936de3324a.html#ga47410be6d049065e980828936de3324a">MEDfilterAllocate</a></div><div class="ttdeci">med_filter * MEDfilterAllocate(const int nfilter)</div><div class="ttdoc">Alloue un tableau de filtres de taille nfilter. </div><div class="ttdef"><b>Definition:</b> <a href="a00667_source.html#l00035">MEDfilterAllocate.c:35</a></div></div>
+<div class="ttc" id="a00577_a4b7f799439de53b0769d20495f78d0b5_html_a4b7f799439de53b0769d20495f78d0b5"><div class="ttname"><a href="a00577_a4b7f799439de53b0769d20495f78d0b5.html#a4b7f799439de53b0769d20495f78d0b5">MED_MAX_FILTER_SPACES</a></div><div class="ttdeci">#define MED_MAX_FILTER_SPACES</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00344">med.h:344</a></div></div>
+<div class="ttc" id="a00577_a17a743ec2d3972eb23c9501a572f4a8f_html_a17a743ec2d3972eb23c9501a572f4a8f"><div class="ttname"><a href="a00577_a17a743ec2d3972eb23c9501a572f4a8f.html#a17a743ec2d3972eb23c9501a572f4a8f">MED_NO_PROFILE_SIZE</a></div><div class="ttdeci">#define MED_NO_PROFILE_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00304">med.h:304</a></div></div>
+<div class="ttc" id="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d_html_a3f7b3a3c5ddcaba3fa1741a367503c8da15a2a29e37e912bca05ed6f60170767c"><div class="ttname"><a href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8da15a2a29e37e912bca05ed6f60170767c">MED_UNDEF_STMODE</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00106">med.h:106</a></div></div>
+<div class="ttc" id="a00577_aec58bf534f1c011ffb82609d9f5ca929_html_aec58bf534f1c011ffb82609d9f5ca929"><div class="ttname"><a href="a00577_aec58bf534f1c011ffb82609d9f5ca929.html#aec58bf534f1c011ffb82609d9f5ca929">MED_NO_FILTER_SIZE</a></div><div class="ttdeci">#define MED_NO_FILTER_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00374">med.h:374</a></div></div>
+<div class="ttc" id="a00581_html"><div class="ttname"><a href="a00581.html">med_config.h</a></div></div>
+<div class="ttc" id="a00536_a3f26eb94dc669bf948c271e56ea22fe4_html_a3f26eb94dc669bf948c271e56ea22fe4"><div class="ttname"><a href="a00536_a3f26eb94dc669bf948c271e56ea22fe4.html#a3f26eb94dc669bf948c271e56ea22fe4">med_filter::nspaces</a></div><div class="ttdeci">med_int nspaces</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00352">med.h:352</a></div></div>
+<div class="ttc" id="a00577_a0d451e4036adbb12b14cb16d7db0c37d_html_a0d451e4036adbb12b14cb16d7db0c37da8c2ff3c323a55ab7c52781f9ca5b9fb4"><div class="ttname"><a href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da8c2ff3c323a55ab7c52781f9ca5b9fb4">MED_UNDEF_INTERLACE</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00098">med.h:98</a></div></div>
+<div class="ttc" id="a00577_a00e74831ab633135c731114858546d4d_html_a00e74831ab633135c731114858546d4d"><div class="ttname"><a href="a00577_a00e74831ab633135c731114858546d4d.html#a00e74831ab633135c731114858546d4d">MED_MAX_FILTER_SPACES_INIT</a></div><div class="ttdeci">#define MED_MAX_FILTER_SPACES_INIT</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00345">med.h:345</a></div></div>
+<div class="ttc" id="a00577_aaa89a5e5e6d32de69614b70cf74e29cc_html_aaa89a5e5e6d32de69614b70cf74e29cc"><div class="ttname"><a href="a00577_aaa89a5e5e6d32de69614b70cf74e29cc.html#aaa89a5e5e6d32de69614b70cf74e29cc">MED_NO_PROFILE</a></div><div class="ttdeci">#define MED_NO_PROFILE</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00278">med.h:278</a></div></div>
+<div class="ttc" id="a00577_afa4ec8284026c8c5545e5333475fb65a_html_afa4ec8284026c8c5545e5333475fb65a"><div class="ttname"><a href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a></div><div class="ttdeci">hid_t med_idt</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00326">med.h:326</a></div></div>
+<div class="ttc" id="a00589_html"><div class="ttname"><a href="a00589.html">med_outils.h</a></div></div>
+<div class="ttc" id="a00577_html"><div class="ttname"><a href="a00577.html">med.h</a></div></div>
+<div class="ttc" id="a00582_a25c2c816e8ffeed49218ff5c54b88557_html_a25c2c816e8ffeed49218ff5c54b88557"><div class="ttname"><a href="a00582_a25c2c816e8ffeed49218ff5c54b88557.html#a25c2c816e8ffeed49218ff5c54b88557">MED_ERR_INIT</a></div><div class="ttdeci">#define MED_ERR_INIT</div><div class="ttdef"><b>Definition:</b> <a href="a00582_source.html#l00030">med_err.h:30</a></div></div>
+<div class="ttc" id="a00582_a2a30a97f3fd5a2961e657aeb19cccfb1_html_a2a30a97f3fd5a2961e657aeb19cccfb1"><div class="ttname"><a href="a00582_a2a30a97f3fd5a2961e657aeb19cccfb1.html#a2a30a97f3fd5a2961e657aeb19cccfb1">MED_ERR_FILTER</a></div><div class="ttdeci">#define MED_ERR_FILTER</div><div class="ttdef"><b>Definition:</b> <a href="a00582_source.html#l00092">med_err.h:92</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

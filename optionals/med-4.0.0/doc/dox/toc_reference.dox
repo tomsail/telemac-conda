@@ -1,0 +1,31 @@
+/*! @defgroup MEDequivalence Guide de référence du module MEDequivalence
+    @defgroup MEDfamily Guide de référence du module MEDfamily
+    @defgroup MEDfield Guide de référence du module MEDfield
+    @defgroup MEDfile Guide de référence du module MEDfile
+    @defgroup MEDfilter Guide de référence du module MEDfilter
+    @defgroup MEDinterp Guide de référence du module MEDinterp
+    @defgroup MEDlibrary Guide de référence du module MEDlibrary
+    @defgroup MEDlink Guide de référence du module MEDlink
+    @defgroup MEDlocalization Guide de référence du module MEDlocalization
+    @defgroup MEDmesh Guide de référence du module MEDmesh
+    @defgroup MEDparameter Guide de référence du module MEDparameter
+    @defgroup MEDprofile Guide de référence du module MEDprofile
+    @defgroup MEDstructElement Guide de référence du module MEDstructElement
+    @defgroup MEDsubdomainJoint Guide de référence du module MEDsubdomainJoint
+    @defgroup MEDsupportMesh Guide de référence du module MEDsupportMesh
+    @defgroup MEDequivalenceFortran Guide de référence du module fortran MEDequivalence
+    @defgroup MEDfamilyFortran Guide de référence du module fortran MEDfamily
+    @defgroup MEDfieldFortran Guide de référence du module fortran MEDfield
+    @defgroup MEDfileFortran Guide de référence du module fortran MEDfile
+    @defgroup MEDfilterFortran Guide de référence du module fortran MEDfilter
+    @defgroup MEDinterpFortran Guide de référence du module fortran MEDinterp
+    @defgroup MEDlibraryFortran Guide de référence du module fortran MEDlibrary
+    @defgroup MEDlinkFortran Guide de référence du module fortran MEDlink
+    @defgroup MEDlocalizationFortran Guide de référence du module fortran MEDlocalization
+    @defgroup MEDmeshFortran Guide de référence du module fortran MEDmesh
+    @defgroup MEDparameterFortran Guide de référence du module fortran MEDparameter
+    @defgroup MEDprofileFortran Guide de référence du module fortran MEDprofile
+    @defgroup MEDstructElementFortran Guide de référence du module fortran MEDstructElement
+    @defgroup MEDsubdomainJointFortran Guide de référence du module fortran MEDsubdomainJoint
+    @defgroup MEDsupportFortran Guide de référence du module fortran MEDsupportMesh
+*/

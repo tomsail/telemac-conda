@@ -1,0 +1,44 @@
+#!/bin/sh
+#
+# Use this shell script to add to or replace various shell
+# variables defined prior to this shell script's execution.
+# The make program is called immediatly after processing 
+# this shell script and the variables listed below are
+# supplied to the make command.
+#
+# NOTE: Most of these have been set based on the current
+#       value of $PLATFORM.  If you decide to modify one
+#       of these it is best to do so based on the value of
+#       $PLATFORM.
+#
+# This shell script is executed by Runmake.
+#
+# At this point assume the following variables are set:
+#
+#  $LIBBASENAME  ... Base name for the library to be created.
+#  $CCOMP        ... Name of the c compiler 
+#  $CFLAGS       ... flags for the c compiler 
+#  $FCOMP        ... Name of the fortran compiler 
+#  $FFLAGS       ... flags for the fortran compiler
+#  $FLIBS        ... extra libraries needed to link fortran.
+#  $LDFLAGS      ... flags needed by ld command to make the 
+#                    addon shared library
+#  $ADDONLIBDIR  ... name of the directory where Add-On libraries are stored.
+#  $TECLIBDIR    ... name of the directory where Tecplot libraries are stored.
+#  $PLATFORM     ... current platform
+#  $LIBEXT       ... extension used on shared object libraries for
+#                    this platform.
+#
+FCOMP="pgf90"
+FFLAGS=" -c -byteswapio "
+CCOMP="pgcc"
+#
+#
+# Example:  If $PLATFORM is "sgix.62" then add "-woff 1234" to the C compile flags:
+#
+#  if test "$PLATFORM" = "sgix.62" ; then
+#    CFLAGS="$CFLAGS -woff 1234"
+#  fi
+#
+#
+

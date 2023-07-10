@@ -1,0 +1,79 @@
+/---------------------------------------------------------------------
+/ ARTEMIS blackcrappie oct 2018
+/---------------------------------------------------------------------
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,FICHIERS
+/---------------------------------------------------------------------
+/
+GEOMETRY FILE                    :'geo_westcoast.slf'
+BOUNDARY CONDITIONS FILE         :'geo_westcoast.cli'
+FORTRAN FILE                     : f90
+/
+TOMAWAC OUTER SPECTRAL FILE      :'tom_westcoast.spe'
+TOMAWAC OUTER RESULT FILE        :'tom_westcoast.slf'
+TOMAWAC LIQUID BOUNDARY FILE     :'tom_westcoast.lqd'
+/
+RESULTS FILE                     :'r2d_westcoast.slf'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GENERALITES
+/---------------------------------------------------------------------
+/
+TITLE ='WEST COAST OF IRELAND'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GRAPHIQUES ET LISTING
+/---------------------------------------------------------------------
+/
+WAVE HEIGHTS SMOOTHING           : NO
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  :'HS,ZF,C,CG,QB,INC'
+/
+/---------------------------------------------------------------------
+/ EQUATIONS CONDITIONS INITIALES
+/---------------------------------------------------------------------
+/
+INITIAL CONDITIONS               : 'CONSTANT ELEVATION'
+INITIAL WATER LEVEL              = 4.2
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES
+/---------------------------------------------------------------------
+/
+/--------------------------------------------------------------------
+/ OPTIONS
+/--------------------------------------------------------------------
+MATRIX STORAGE =3
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES,SOLVEUR
+/---------------------------------------------------------------------
+/
+SOLVER =8
+/SOLVER =9
+/PARALLEL PROCESSORS = 12
+/
+NESTING WITHIN TOMAWAC OUTER MODEL = 2
+INSTANT FOR READING TOMAWAC SPECTRUM = 2400.0
+COORDINATES OF THE REFERENCE F SPECTRUM = 166790. ; 413180.
+/
+PHASE REFERENCE COORDINATES  : 166000.0; 412800.0
+/
+/---------------------------------------------------------------------
+/ PHYSICAL PARAMETERS
+/---------------------------------------------------------------------
+/
+BREAKING                         : YES
+/
+MULTIDIRECTIONAL RANDOM WAVE     : YES
+/
+NUMBER OF PERIODS                : 5
+MINIMUM SPECTRAL PERIOD          = 2.5
+MAXIMUM SPECTRAL PERIOD          = 150.
+/
+NUMBER OF DIRECTIONS             : 9
+MINIMUM ANGLE OF PROPAGATION     = -20.0
+MAXIMUM ANGLE OF PROPAGATION     = 80.0
+/
+/

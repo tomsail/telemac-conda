@@ -1,0 +1,99 @@
+/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
+/*/                                                                 /*/
+/*/ Transport of particles in an obstructed channel flow            /*/
+/*/                                                                 /*/
+/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
+/
+/ no Part
+/   0 procs : 0h00m00s
+/   1 procs : 1h48m42s
+/   2 procs : 0h52m36s
+/   4 procs : 0h21m40s
+/   8 procs : 0h16m05s
+/ with 1000 Part
+/   0 procs : 0h00m00s
+/   1 procs : 1h52m00s
+/   2 procs : 0h00m00s
+/   4 procs : 0h28m39s
+/   8 procs : 0h22m32s
+/ with 10000 Part
+/   0 procs : 2h28m11s
+/   1 procs : 2h25m43s
+/   2 procs : 1h41m27s
+/   4 procs : 1h30m56s
+/   8 procs : 1h29m37s
+/-----------------------------------------------------------------------/
+/                      COMPUTING ENVIRONMENT
+/-----------------------------------------------------------------------/
+/
+FORTRAN FILE : './user_fortran2'
+BOUNDARY CONDITIONS FILE           : './geo_canal_algae.cli'
+GEOMETRY FILE                      : './geo_canal_algae2.slf'
+RESULTS FILE                       : './r2d_canal_algae2.slf'
+FORMATTED RESULTS FILE : 'polygons_particle.txt'
+COMPUTATION CONTINUED = YES
+PREVIOUS COMPUTATION FILE = './ini_canal_algae_en.slf'
+INITIAL TIME SET TO ZERO = YES
+/----------------------------------------------------------------------/
+/                     ALGAE OPTIONS
+/----------------------------------------------------------------------/
+MAXIMUM NUMBER OF DROGUES = 1000
+PRINTOUT PERIOD FOR DROGUES = 200
+/ASCII DROGUES FILE = './alg_pos2.dat'
+BINARY DROGUES FILE = './alg_pos2.pcl'
+DROGUES FILE FORMAT = BKBINPCL
+DROGUES INITIAL POSITIONING DATA FILE = 'ini_pos.i2s'
+FORMAT OF THE DROGUES POSITIONING DATA FILE = BKASCI2S
+INITIAL DROGUES SAMPLING DENSITY = 2000.0; 2000.0; 1000.0; 0.0
+DURATION BEFORE ALGAE RELEASE = 5.0; 10.0; 15.0; 0.0
+ALGAE TRANSPORT MODEL = YES
+DIAMETER OF ALGAE = 0.006; 0.006; 0.006; 0.006
+DENSITY OF ALGAE = 2200.0; 2200.0; 2200.0; 2200.0
+ALGAE TYPE = 1; 1; 1; 1
+NUMBER OF ALGAE CLASSES = 4
+SECURITY COEFFICIENT FOR SCARACT = 10.0
+/
+/----------------------------------------------------------------------/
+/                     GENERAL OPTIONS
+/----------------------------------------------------------------------/
+/
+TITLE : 'CANAL ALGAE 2'
+/
+EQUATIONS                                       : 'SAINT-VENANT FE'
+VARIABLES FOR GRAPHIC PRINTOUTS                 :
+'U,V,H,K,E'
+TIME STEP                                       : 0.0025
+NUMBER OF TIME STEPS                            : 12000
+GRAPHIC PRINTOUT PERIOD                         : 200
+LISTING PRINTOUT PERIOD                         : 1000
+/
+/---------------------------------------------------------------------/
+/                     INITIAL CONDITIONS
+/---------------------------------------------------------------------/
+/
+INITIAL CONDITIONS                              : 'CONSTANT ELEVATION'
+INITIAL ELEVATION                               : 0.3
+/
+/----------------------------------------------------------------------/
+/                     CONDITIONS ON THE LIMITS
+/----------------------------------------------------------------------/
+/
+LAW OF BOTTOM FRICTION                          : 3
+FRICTION COEFFICIENT                            : 66.471
+PRESCRIBED FLOWRATES                            : 0.0;0.3
+PRESCRIBED ELEVATIONS                           : 0.27;0.3
+/
+/----------------------------------------------------------------------/
+/                     NUMERICAL OPTIONS
+/----------------------------------------------------------------------/
+/
+TURBULENCE MODEL                                : 3
+/
+SOLVER ACCURACY                                 : 1.E-6
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER         : 500
+TREATMENT OF THE LINEAR SYSTEM                  : 2
+SOLVER                                          : 7
+/
+SUPG OPTION                                     : 1;2
+SOLVER OPTION                                   : 3
+DISCRETIZATIONS IN SPACE                        : 12 ; 11

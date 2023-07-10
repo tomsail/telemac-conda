@@ -1,0 +1,69 @@
+/----------------------------------------------------------------------
+/
+/ Steering file for the hydrodynamics: TELEMAC-2D
+/
+TITLE = 'WATER FLOWING DOWN A LONG FLUME'
+/
+/----------------------------------------------------------------------
+/  FILES
+/----------------------------------------------------------------------
+/
+GEOMETRY FILE                = 'geo_longflume.slf'
+BOUNDARY CONDITIONS FILE     = 'geo_longflume.cli'
+RESULTS FILE                 = 'r2d_growth.slf'
+/
+/----------------------------------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------------------------------
+/
+EQUATIONS                        = 'SAINT-VENANT FV'
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'U,V,H,B,S,T*'
+/
+GRAPHIC PRINTOUT PERIOD          = 10
+LISTING PRINTOUT PERIOD          = 600
+MASS-BALANCE                     = YES
+TIME STEP                        = 1.
+DESIRED COURANT NUMBER           = 0.9
+VARIABLE TIME-STEP               = YES
+DURATION                         = 3600
+/
+/----------------------------------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------------------------------
+/
+ORIGINAL DATE OF TIME      = 2016;12;2
+ORIGINAL HOUR OF TIME      = 0;0;0
+INITIAL TIME SET TO ZERO   = YES
+/
+COMPUTATION CONTINUED      = YES
+PREVIOUS COMPUTATION FILE  = 'ini_longflume.slf'
+/
+INITIAL VALUES OF TRACERS  = 2.E-2
+/
+/----------------------------------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------------------------------
+/
+PRESCRIBED FLOWRATES          = 0.0    ; 300
+PRESCRIBED ELEVATIONS         = 6.6265 ;  0.0
+VELOCITY PROFILES             = 1      ;  1
+/
+CONTINUITY CORRECTION      = YES
+/
+/ BOUND1 ( TEMPERATURE; FRAZIL ); BOUND2 ...
+PRESCRIBED TRACERS VALUES  =     0.0   ;  2.E-2
+/
+/----------------------------------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------------------------------
+/
+LAW OF BOTTOM FRICTION  = 3
+FRICTION COEFFICIENT    = 40.
+/
+/----------------------------------------------------------------------
+/  THERMIC PROCESS
+/----------------------------------------------------------------------
+/
+COUPLING WITH                = 'KHIONE'
+KHIONE STEERING FILE         = 'ice_frazil_growth.cas'
+ASCII ATMOSPHERIC DATA FILE  = 't2d_frazil_growth_meteo.lqd'

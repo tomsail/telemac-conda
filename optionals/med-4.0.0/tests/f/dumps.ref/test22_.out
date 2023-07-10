@@ -1,0 +1,38 @@
+           0
+ Ouverture du fichier test21.med
+           0
+ Nombre de variables scalaires :            2
+           0
+ - Scalaire de nom : VariableEntiere                                                 
+   de type entier
+   Description associee : Une premiere description                                                                                                                                                                                
+   Nombre de valeurs :            2
+   Unite : ms              
+           0
+    Valeur            1
+      - Aucun pas de temps
+      - Aucun numero ordre
+           0
+      - Valeur :           56
+           0
+    Valeur            2
+      - Pas de temps de numero            1
+       de valeur :    5.5000000000000000     
+      - Aucun numero ordre
+           0
+      - Valeur :         -789
+           0
+ - Scalaire de nom : VariableFlottante                                               
+   de type flottant
+   Description associee : Une seconde description                                                                                                                                                                                 
+   Nombre de valeurs :            1
+   Unite : ms              
+           0
+    Valeur            1
+      - Pas de temps de numero            1
+       de valeur :    5.5000000000000000     
+      - Numero ordre :            2
+           0
+      - Valeur :    67.980000000000004     
+           0
+ Fermeture du fichier test21.med

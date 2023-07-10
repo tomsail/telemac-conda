@@ -1,0 +1,157 @@
+\documentclass[a4paper,10pt]{article}
+
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P0}
+
+\subsection*{Validation des noyaux de calcul permanent}
+
+\subsection*{\emph{Canal rectangulaire avec débit d'apport.}}
+
+\subsection*{Numéro du cas test : 5}
+
+\subsection*{Auteur : N. Goutal}
+
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+	Ce cas test a pour but de valider le noyau de calcul en régime permanent et en régime transitoire transcritique, dans le cas d'un canal rectangulaire avec un débit d'apport.
+
+\subsection*{Données géométriques}
+
+	Le calcul est réalisé dans un canal de pente nulle, de longueur $4990\mbox{ } m$, dont chaque section en travers est de forme rectangulaire de $1\mbox{ } m$ de large. La géométrie du canal est décrite par 2 profils en travers situés aux abscisses $X = 0\mbox{ } m$ et $ X =4990\mbox{ } m$. Le débit d'apport est situé au niveau de l'abscisse $X = 2500\mbox{ } m$.
+
+
+\subsection*{Données physiques}
+
+Prise en compte du frottement : oui
+\begin{itemize} 
+ \item Coefficient de Strickler:
+ \begin{itemize} 
+ \item lit mineur : $90\mbox{ } m^{1/3}.s^{-1}$
+ \end{itemize}
+ \item Conditions aux limites : 
+ \begin{itemize}
+  \item Imposée à l'aval égale à $1\mbox{ } m$
+  \item Débit imposé à l'amont constant égal à $1\mbox{ } m^3.s^{-1}$
+  \end{itemize}
+ \item Conditions initiales : aucune pour le noyau permanent 
+  \begin{itemize}
+  \item Un débit constant et cote variant linéairement
+  \end{itemize}
+ \item Débit d'apport : constant égal à $1\mbox{ } m^3.s^{-1}$
+\end{itemize} 
+ 
+
+
+\subsection*{Données numériques}
+
+	Le domaine a été divisé en 499 mailles de longueur constante égale à $10 \mbox{ } m$.
+Le pas de planimétrage est homogène dans le domaine égal à $10 \mbox{ } m$ (2 pas de planimétrage).
+
+
+\subsection*{Solution analytique}
+
+	L'équation de conservation de la quantité de mouvement s'écrit :
+
+
+\begin{equation}
+  \frac{\partial}{\partial x}\left(\displaystyle \frac{Q^2}{Lh}+\frac{1}{2}gLh^2\right)=\displaystyle \gamma _{apport}
+\end{equation}
+\\
+avec\\
+\\
+$Q$ : 	débit total ($m^3.s^{-1}$)
+\\
+$L$ : 	largeur du domaine ($m$)
+\\
+$h$ : 	hauteur d'eau ($m$)
+
+\vspace{0.3cm}
+
+	Or, dans la version actuelle de MASCARET, le terme correspondant au débit d'apport n'est pas traité; il est donc considéré comme nul (cela revient à dire que la quantité de mouvement n'est pas conservée).
+\\
+\\
+Ainsi, en discrétisant cette équation par la méthode des différences finies, et en négligeant le second membre, on obtient ($L = 1\mbox{ }m$) :
+\\
+\begin{equation}
+\left [ \frac{2}{h_{1}+h_{2}}\times \frac{Q^{2}_{1}-Q^{2}_{2}}{\Delta x}\right ] +\left [ \frac {(Q_{1}+Q_{2})^{2}}{(h_{1}+h_{2})^2}+g \times \frac{h_{1}+h_{2}}{2}\right ] \frac{\Delta h }{\Delta x}=0
+\end{equation}
+
+\vspace{0.3cm}
+
+L'indice 1 correspond à la section de calcul en amont de l'apport, l'indice 2 correspond à la section de calcul en aval de l'apport.
+
+\vspace{0.3cm}
+
+Application numérique :\\
+$Q_{1} = 1\mbox{ } m^3.s^{-1}$ 
+\\
+$Q_{2} = 2\mbox{ } m^3.s^{-1}$
+\\
+$h_{1} = 1.703 \mbox{ } m$
+\\
+$h_{2} = 1.580 \mbox{ } m$
+\\
+$\Delta x = 10 \mbox{ } m$
+
+\vspace{0.3cm}
+
+Ces valeurs donnent $\Delta h_{analytique} = 0.120\mbox{ }m$\
+
+
+\subsection*{Résultats}
+
+	La figure suivante compare les lignes d'eau obtenues avec le noyau permanent à celles obtenues avec le noyau  transitoire transcritique. Les deux noyaux donnent des résultats quasi - identiques.
+La perte de charge calculée au niveau de l'apport vaut $\Delta h_{calculee} = 0.123 \mbox{ }m$. Il y a un écart de $3\mbox{ } mm$ par rapport à la valeur analytique. Cet écart peut provenir du fait que la solution analytique a été calculée de façon approchée par la méthode des différences finies et non par résolution exacte de l'équation différentielle mais également du calcul, puisque la solution calculée est une valeur approchée.
+
+	
+
+
+
+	
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure1.eps}
+  \caption{Comparaison des hauteurs d'eau calculées}
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure2.eps}
+  \caption{Débits ($m^3.s^{-1}$)pour les noyaux permanent et transitoire}
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+\vspace{5cm}
+
+\subsection*{Conclusion}
+
+	
+	Le traitement des termes d'apport est satisfaisant. D'autre part, les écarts entre les deux versions sont quasiment nuls.
+
+
+
+
+
+%
+% fin du document
+%
+\end{document}          

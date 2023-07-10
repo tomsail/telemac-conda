@@ -1,0 +1,19 @@
+/**********************************************************************/
+/                         STEERING FILE FOR                            /
+/                 EXAMPLE OF TRIGRID  FILE TREATMENT                   /
+/             GLOBAL MESH - BATHYMETRY IN TRIGRID FILE                 /
+/**********************************************************************/
+/
+/
+UNIVERSAL FILE                          : 'grille.dat'
+GEOMETRY FILE FOR TELEMAC               : 'geo_tot.slf'
+BOUNDARY CONDITIONS FILE                : 'geo_tot.slf'
+MESH ADDITIONAL DATA FILE               : 'trian.dat'
+/
+MESH GENERATOR                          : TRIGRID
+BOTTOM CORRECTION OF TRIGRID            : 270.
+BATHYMETRY IN THE UNIVERSAL FILE        : YES
+/
+ELIMINATION OF BACKWARD DEPENDENCIES    : YES
+OVERSTRESSED TRIANGLES CUTTING          : YES
+MINIMUM DISTANCE BETWEEN TWO POINTS     : 0.

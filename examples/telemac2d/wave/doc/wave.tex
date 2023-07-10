@@ -1,0 +1,107 @@
+\chapter{Propagation of waves in a channel (wave)}
+
+\section{Purpose}
+To assess the properties of \telemac{2D} for the propagation of a long
+wave in a rectilinear channel without resistance effects.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Description}
+
+\subsection{Analytical solution}
+This case corresponds to the analytical solution of the shallow water equations
+without variation in the $y$ direction, without diffusion and without advection, and
+with the assumption $H_0 >> H$, where $H$ is the water depth and $H_0$ is the mean water depth:
+\begin{equation}\label{eq:wave-system}
+    \left\{\begin{array}{l}
+    \dfrac{\partial H}{\partial t} + H_0 \dfrac{\partial U}{\partial x}=0\medskip\\
+    \dfrac{\partial U}{\partial t} = -g \dfrac{\partial H}{\partial x}=0
+  \end{array}\right.
+\end{equation}
+A solution to this problem is:
+\begin{equation}
+    \left\{\begin{array}{l}
+    H = H_0 + A\text{sin}\left(\dfrac{2\pi t}{T} - \dfrac{2\pi x}{T\sqrt{gH_0}}\right)\medskip\\
+    U = A\sqrt{\dfrac{g}{H_0}} \text{sin}\left(\dfrac{2\pi t}{T} - \dfrac{2\pi x}{T\sqrt{gH_0}}\right)
+  \end{array}\right.
+\end{equation}
+with $A$ the amplitude of the wave and $T$ its period.
+
+In this example, a 16~m long and 0.3~m wide channel with constant depth
+of 10~m is considered. At the channel entrance, a sinusoidal water surface
+elevation is imposed, that corresponds to the analytical solution.
+No bed resistance occurs and the advection step of \telemac{2D} is skipped in order
+to solve the system (\ref{eq:wave-system}).
+
+\subsection{Geometry and mesh}
+The domain is a channel with a size of 16~m $\times$ 0.3~m. The bottom is horizontal and
+the water depth at rest is equal to 10~m.
+The domain is meshed with 3,840 triangular elements and 2,247 nodes.
+Triangles are obtained by dividing rectagular elements on their diagonals.
+The mean size of obtained triangles is about 0.07~m (see Figure \ref{fig:wave:mesh}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Mesh.png}
+ \caption{Mesh.}
+ \label{fig:wave:mesh}
+\end{figure}
+
+\subsection{Initial conditions}
+The initial velocity is zero and the water level is horizontal, with a water depth of 10~m.
+\subsection{Boundary conditions}
+The incident water wave is imposed on the channel's entrance as follows:
+\begin{equation}
+    H = 10 + 0.05 \text{sin}\left( \dfrac{2\pi t}{0.5} \right)
+\end{equation}
+so that $H_0$ = 10~m, $A$ = 0.05~m, $T$ = 0.5~s.
+A free surface elevation of 10~m is imposed on channel's outlet.
+The Thompson boundary conditions are applied for open boundaries.
+The lateral boundaries are considered as solid walls with slip condition.
+\subsection{Physical parameters}
+The physical parameters used for this case are:
+\begin{enumerate}
+\item No friction (\telkey{LAW OF BOTTOM FRICTION} set to 0),
+\item No diffusion.
+\end{enumerate}
+\subsection{Numerical parameters}
+\begin{enumerate}
+\item Simulation type: propagation without advection,
+\item Type of element: Linear triangle (P1) for velocities and $h$,
+\item Solver: GMRES (solver 7) with an accuracy of 10$^{-6}$,
+\item Implicitation for depth and for velocity: 0.5,
+\item Time Step: 0.0025~s,
+\item Simulation duration: 5~s.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+The solution produced by \telemac{2D} shows very good agreement with
+the exact solution (see Figures \ref{fig:wave1} and \ref{fig:wave2}).
+The incident water wave is properly propagated in the channel.
+
+\begin{figure}
+    \includegraphicsmaybe{[width=\textwidth]}{../img/FreeSurface_t1.png}
+    \includegraphicsmaybe{[width=\textwidth]}{../img/FreeSurface_t2.png}
+    \includegraphicsmaybe{[width=\textwidth]}{../img/FreeSurface_t3.png}
+    \includegraphicsmaybe{[width=\textwidth]}{../img/FreeSurface_t4.png}
+    \caption{Wave example: shape of the free-surface at the times 1.25, 2.5, 3.75 and 5.0 seconds. The colors correspond span
+    from $H$ = 9.95~m (blue) to $H$ = 10.05~m (red).}
+    \label{fig:wave1}
+\end{figure}
+\begin{figure}
+    \includegraphicsmaybe{[width=\textwidth]}{../img/FreeSurface_Y0_5.png}
+    \caption{Wave example: final free-surface profile ($t$ = 5~s).}
+    \label{fig:wave2}
+\end{figure}
+
+The celerity of the wave is exactly $c = \sqrt{g.H_0}$.
+The phase of the wave is correct. The amplitude of the wave is nearly
+the same at the channel entrance and at the outlet. A very small
+difference between the surface elevation computed by \telemac{2D}
+and the exact solution is observed. The maximum error is lower
+than 3~\% on the amplitude of the wave.
+There is no reflection of the wave on the open boundary at the outlet
+of the channel thanks to the Thompson boundary conditions.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+\telemac{2D} accurately reproduces the propagation of surface long waves in
+terms of celerity, phase and amplitude.

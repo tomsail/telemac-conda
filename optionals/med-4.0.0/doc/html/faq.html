@@ -1,0 +1,176 @@
+<A NAME="____Foire aux questions du modèle MED____">
+<TABLE>
+<TR>
+<TD>
+<UL>
+<LI> <A HREF="#1.">Introduction</A> 
+<LI> <A HREF="#2.">Liste des questions</A>
+<OL>
+<LI> <A HREF="#2.1">A quoi correspondent les modes de stockage mémoire MED_FULL_INTERLACE et MED_NO_INTERLACE ? Comment les utiliser au sein d'une interface MED ? </A>
+<LI> <A HREF="#2.2">Peut-on stocker les éléments d'un maillage à la fois en connectivité nodale et descendante ?</A>
+<LI> <A HREF="#2.3">Quelle est la règle exacte à appliquer pour stocker des mailles de dimension inférieure à celle du maillage ?</A>
+<LI> <A HREF="#2.4">Doit-on avoir systématiquement dans un maillage MED les numéros et les noms des noeuds/éléments ?</A>
+<LI> <A HREF="#2.5">Quelle régle appliquer pour la définition des noms et numéros des familles d'un maillage ?</A>
+<LI> <A HREF="#2.6">Doit-on utiliser les numéros optionnels lors de la définition des connectivités ?</A>
+<LI> <A HREF="#2.7">Comment sont numérotés les élements ?</A>   
+<LI> <A HREF="#2.8">Combien de coordonnées dois-je définir pour les noeuds d'un maillage de dimension 2 dans un espace de dimension 3  ?</A>
+<LI> <A HREF="#2.9">A quoi correspondent exactement les équivalences entre éléments au sein d'un maillage ?</A>
+</OL>
+</UL>
+</TD>
+</TR>
+</TABLE>
+
+<HR NOSHADE><!-- ======================================================================= --><!--debut zone speciale a cette page-->
+
+<H1> <A NAME="1.">Introduction</A></H1>
+
+<P>
+Cette rubrique constitue une "Foire Aux Questions".
+</P>
+<P>
+Elle a pour but de fournir des réponses simples
+aux questions les plus fréquemment posées par les utilisateurs
+en charge de développer une interface MED.
+</P> 
+
+<H1> <A NAME="2.">Liste des questions</A></H1>
+
+<UL>
+<LI> <B><A NAME="2.1">Question 1</A></B>
+<UL>
+<LI> <B>Enoncé : </B> A quoi correspondent les modes de stockage mémoire MED_FULL_INTERLACE et MED_NO_INTERLACE ? Comment les utiliser au sein d'une interface MED ? 
+<LI> <B>Réponse : </B>
+Dans MED, on a la possibilité d'utiliser deux modes de stockage des données en mémoire :
+<UL>
+<LI> <i>MED_FULL_INTERLACE</i> : Mode entrelacé. 
+<LI> <i>MED_NO_INTERLACE</i> : Mode non entrelacé.
+</UL>
+
+<P>
+Ces deux modes de représentation permettent au développeur d'indiquer comment sont
+rangées ses données en mémoire. Cela peut s'appliquer aux :
+<OL>
+<LI> Coordonnées des noeuds.
+<LI> Connectivités des mailles/faces/arêtes.
+<LI> Composantes des champs de résultats.
+</OL>
+</P>
+
+<P> 
+<i>Exemple d'utilisation</i> : Mode de stockage des coordonnées des noeuds définies dans un repère cartésien
+   de dimension 3 dans un tableau mono-dimensionnel en mémoire :
+<UL>
+<LI> En mode entrelacé (MED_FULL_INTERLACE) : X1, Y1, Z1, X2, Y2, Z2, .... , Xn, Yn, Zn.
+<LI> En mode non entrelacé (MED_NO_INTERLACE) : X1, X2, ..., Xn, Y1, Y2, ..., Yn, Z1, Z2, ..., Zn
+</UL> 
+</P>
+</UL>
+<LI> <B><A NAME="2.2">Question 2</A></B>
+<UL>
+<LI> <B>Enoncé :</B> Peut-on stocker les éléments d'un maillage à la fois en connectivité nodale et descendante ? 
+<LI> <B>Réponse : </B> La connectivité des mailles peut être au choix décrite soit en connectivité nodale
+(<i>MED_NODAL</i>) soit en connectivité descendante (<i>MED_DESCENDING</i>). 
+
+<P>Il est possible dans un fichier MED de stocker
+les 2 modes de connectivité. Cependant dans ce cas de figure les deux descriptions doivent être complètes
+(on ne peut pas définir une partie du maillage en connectivité nodale et l'autre en connectivité 
+descendante). De la même manière, il n'y a pas de contrôle de cohérence des données entre les 2 modes
+de connectivité.
+</P> 
+</UL>
+<LI> <B><A NAME="2.3">Question 3</A></B>
+<UL>
+<LI> <B>Enoncé : </B> Quelle est la règle exacte à appliquer pour stocker des mailles de dimension inférieure à celle du maillage ?
+<LI> <B>Réponse : </B>
+Il n'y a plus de règle spécifique à appliquer depuis MED-fichier V2.2. La règle définie pour 
+MED-fichier V2.1 est caduque (numéros supplémentaires pour la description de la connectivité des mailles de 
+dimension inférieure à celle du maillage).
+
+</UL>
+<LI> <B><A NAME="2.4">Question 4</A></B>
+<UL>
+<LI> <B>Enoncé : </B> Doit-on avoir systématiquement dans un maillage MED les numéros et les noms des noeuds/éléments ?
+<LI> <B>Réponse : </B>
+Les noms et les numéros que l'on peut associer aux noeuds et aux éléments d'un maillage sont
+optionnels. S'ils existent, ils doivent porter sur toutes les entités du maillage. 
+
+
+</UL>
+<LI> <B><A NAME="2.5">Question 5</A></B>
+<UL>
+<LI> <B>Enoncé : </B> Quelle régle appliquer pour la définition des noms et numéros des familles d'un maillage ?
+<LI> <B>Réponse : </B>
+Les conventions sur la d&eacute;finition des familles
+d'un maillage MED sont les suivantes :
+<ul>
+<LI> On trouve dans un maillage :
+<UL>
+<LI> La famille de num&eacute;ro 0 qui ne comporte aucun groupe.
+<LI> Z&eacute;ro ou plusieurs familles des noeuds dont le num&eacute;ro doit &ecirc;tre strictement positif.
+<LI> Z&eacute;ro ou plusieurs familles d'&eacute;l&eacute;ments (mailles/faces/ar&ecirc;tes) dont le num&eacute;ro doit &ecirc;tre strictement n&eacute;gatif.
+</UL>
+<LI> La création de la famille vide de num&eacute;ro 0 est obligatoire, elle constitue la famille
+     de r&eacute;f&eacute;rence pour tous les noeuds et les &eacute;l&eacute;ments qui n'appartiennent
+     &agrave; aucun groupe et n'ont aucun attribut. 
+     Cependant l'écriture du numéro de famille 0 pour les noeuds ou les éléments est optionelle s'ils appartiennent tous à la famille 0.
+<LI> Une famille de noeuds peut porter le m&ecirc;me nom qu'un famille
+     d'&eacute;l&eacute;ments. Par contre les familles d'&eacute;l&eacute;ments (respectivement de noeuds) doivent 
+     toutes avoir des noms diff&eacute;rents.
+<LI> Le num&eacute;ro de famille est le lien existant entre la famille consid&eacute;r&eacute;e et 
+     une entit&eacute; du maillage (noeud, maille, face ou ar&ecirc;te). Ce num&eacute;ro doit
+     &ecirc;tre unique dans chaque famille d'un maillage.
+</UL>
+</P>
+
+</UL>
+
+<LI> <B><A NAME="2.6">Question 6</A></B>
+<UL>
+<LI> <B>Enoncé : </B> Doit-on utiliser les numéros optionnels lors de la définition des connectivités ?
+<LI> <B>Réponse : </B>
+Quelque soit le type de connectivité (nodale/descendante), la numérotation optionnelle si elle est présente n'est jamais utilisée dans la définition des connectivités.
+</P>
+<P>
+</UL>
+
+<LI> <B><A NAME="2.7">Question 7</A></B>
+<UL>
+<LI> <B>Enoncé : </B> Comment sont numérotés les élements ?
+<LI><B>Réponse : </B>
+Tous les éléments ont une numérotation propre à leur type géométrique. 
+Par exemple, la définition d'une connectivité descendante MED_HEXA8 se base sur des faces MED_QUAD4 numérotés de 1..nq où nq correspond au nombre de faces MED_QUAD4.
+Une numérotion globale implicite existe sur les éléments, elle consiste à parcourir l'ensemble des types géométrique dans l'ordre de définition du modèle de données.
+</P>
+<P>
+</UL>
+
+<LI> <B><A NAME="2.8">Question 8</A></B>
+<UL>
+<LI> <B>Enoncé : </B> Combien de coordonnées dois-je définir pour les noeuds d'un maillage de dimension 2 dans un espace de dimension 3  ?
+<LI><B>Réponse : </B>
+La dimension de l'espace est par défaut celle du maillage. La dimension du maillage est égale à la dimension de l'élément géométrique de plus grande dimension. Un maillage de dimension 2 s'il est défini dans
+un espace de dimension 3 n'est pas forcément plan, il faut donc définir trois coordonnées pour chacun des noeuds du maillage.
+</P>
+<P>
+</UL>
+
+<LI> <B><A NAME="2.9">Question 9</A></B>
+<UL>
+<LI> <B>Enoncé : </B> A quoi correspondent exactement les équivalences entre éléments au sein d'un maillage ?
+<LI> <B>Réponse : </B>
+Une équivalence est une liste de correspondances 2 à 2 entre
+des entités (noeuds, mailles, faces, arêtes) d'un même type. Les correspondances
+entre entités sont stockées 2 à 2 en mémoire et dans les fichier MED.
+</P>
+<P>
+<i>Exemple </i> : La liste suivante {1,2,3,4,5,6}  appliquée à des entités de type MED_TRIA3,
+signifie qu'on a les 3 correspondances suivantes dans le maillage:
+<UL>
+<LI> Triangles 1 et 2.
+<LI> Triangles 3 et 4.
+<LI> Triangles 5 et 6.
+</UL>
+</UL>
+</P>
+</UL>

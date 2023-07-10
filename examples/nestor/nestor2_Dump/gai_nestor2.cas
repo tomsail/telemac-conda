@@ -1,0 +1,86 @@
+/----------------------------------------------------------------------|
+NESTOR                        = YES
+NESTOR ACTION FILE            = _DigActions.dat
+NESTOR POLYGON FILE           = _DigPolys.dat
+NESTOR SURFACE REFERENCE FILE = _DigRefLevel.dat
+
+ORIGINAL DATE OF TIME         = 2000;1;1    / year , month  , day
+ORIGINAL HOUR OF TIME         = 0;0;0         / hours, minutes, seconds
+/----------------------------------------------------------------------|
+/
+GEOMETRY FILE                 = geo_nestor2.slf
+BOUNDARY CONDITIONS FILE      = geo_nestor2_mor.cli
+/
+RESULTS FILE                  = gai_nestor2.slf
+/
+GEOMETRY FILE FORMAT          = SERAFIND
+RESULTS FILE FORMAT           = SERAFIND
+/
+/----------------------------------------------------------------------|
+/  GENERAL AND OUTPUT
+/----------------------------------------------------------------------|
+TITLE : 'nestor2_Dump'
+VARIABLES FOR GRAPHIC PRINTOUTS           =
+'E,H,*A**,D50,R,B,U,V,S,M'
+/E,H,*A**,D50,QSBL,QS*,QS10,TOB,R,B,KS,*ES,U,V,S,M,N,P,ZRL'
+/ E    : bottom evolution (m)
+/ H    : water depth (m)
+/ *A** : kAi="fraction of non cohesive sediment of class i, in k layer
+/ D50  : Mean grain diameter
+/ QSBL : bed load transport rate (kg/(m*s)
+/ QS*  : QSi="solid transport load of class i
+/ QS10 :
+/ TOB  : Bed Shear stress (Totalfriction) (N/m2)
+/ R    : non erodable bottom
+/ B    : bottom elevation (m)
+/ KS   : total bed roughness (m)
+/ *ES  : kES = thickness of the k layer
+/ U    : velocity along x axis (m/s)
+/ V    : velocity along y axis (m/s)
+/ S    : free surface elevation (m)
+/ M    : bed-load discharge (kg/(m*s))
+/ N    : bed-load discharge along x axis (kg/(m*s))
+/ P    : bed-load discharge along y axis (kg/(m*s))
+/----------------------------------------------
+/ SISYPHE NUMERICAL ALGORITHMS
+/----------------------------------------------
+MASS-BALANCE                             = YES
+ZERO                                     = 1e-12
+/TETA                                     = 0.5
+/MASS-LUMPING                             = YES
+/
+/----------------------------------------------
+/ PHYSICAL PARAMETERS - HYDRODYNAMICS
+/----------------------------------------------
+/
+/ 0: wird berechnet: ks = 3*D50
+/ 1: wird berechnet: ks : max(3*d50 ripple height)
+/
+/----------------------------------------------
+/ PHYSICAL PARAMETERS - BED LOAD
+/----------------------------------------------
+CLASSES TYPE OF SEDIMENT     =  'NCO';'NCO';'NCO';'NCO'
+CLASSES SEDIMENT DENSITY     = 2650.D0; 2650.D0; 2650.D0; 2650.D0
+CLASSES SHIELDS PARAMETERS   = 0.047  ;  0.047 ;  0.047 ;  0.047
+CLASSES SETTLING VELOCITIES  = -9     ; -9     ; -9     ; -9
+CLASSES SEDIMENT DIAMETERS   = 0.10D-3; 0.11D-3; 1.91D-3; 2.00D-3
+CLASSES INITIAL FRACTION     = 0.2D0  ;0.2D0   ;0.2D0   ;0.4D0
+BED LOAD FOR ALL SANDS   = YES
+SUSPENSION FOR ALL SANDS = NO
+BED-LOAD TRANSPORT FORMULA FOR ALL SANDS = 1
+MPM COEFFICIENT                          = 0.D0    / reduce bedload transport to zero
+
+
+
+NUMBER OF LAYERS FOR INITIAL STRATIFICATION = 2
+LAYERS NON COHESIVE BED POROSITY            = 0.4D0 ;0.4D0
+CONSTANT ACTIVE LAYER THICKNESS             = YES
+ACTIVE LAYER THICKNESS                      = 0.20D0
+/
+/
+SLOPE EFFECT                   = YES
+FORMULA FOR DEVIATION          = 2
+PARAMETER FOR DEVIATION        = 0.85
+FORMULA FOR SLOPE EFFECT       = 2
+FRICTION ANGLE OF THE SEDIMENT = 35
+

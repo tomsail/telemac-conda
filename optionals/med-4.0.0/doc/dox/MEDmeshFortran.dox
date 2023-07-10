@@ -1,0 +1,963 @@
+/**\ingroup MEDmeshFortran
+   \fn subroutine  mmhcre(integer fid, character *(*) name, integer sdim, integer mdim, integer mtype, character *(*) desc, character *(*) dtunit, integer stype, integer atype, character *(*) aname, character *(*) aunit, integer cret)
+   \brief \MEDmeshCrBrief
+   \param fid \fid
+   \param name \meshname
+   \param sdim \spacedim
+   \param mdim  \meshdim
+   \param mtype \meshtype
+   \param desc \description
+   \param dtunit \description
+   \param dtunit \dtunit
+   \param stype \sortingtype
+   \param atype \axistype
+   \param aname \axisname
+   \param aunit \axisunit
+   \param cret \error
+   \see MEDmeshCr
+   \details \MEDmeshCrDetails
+*/
+
+
+/**\ingroup MEDmeshFortran
+   \fn subroutine  mmhnmh(integer fid, integer n, integer cret)
+   \brief \MEDnMeshBrief
+   \param fid \fid
+   \param n \nmesh
+   \param cret \error
+   \see MEDnMesh
+   \details \MEDnMeshDetails
+*/
+
+
+/**\ingroup MEDmeshFortran
+   \fn subroutine  mmhnax(integer fid, integer it, integer naxis, integer cret)
+   \brief \MEDmeshnAxisBrief
+   \param fid \fid
+   \param it \meshit
+   \param naxis \naxis
+   \param cret \error
+   \see MEDmeshnAxis
+   \details \MEDmeshnAxisDetails
+*/
+
+
+/**\ingroup MEDmeshFortran
+   \fn subroutine   mmhnan(integer fid, character*(*) name, integer naxis, integer cret)
+   \brief \MEDmeshnAxisByNameBrief
+   \param fid \fid
+   \param name \meshname
+   \param naxis \naxis
+   \param cret \error
+   \see MEDmeshnAxisByName
+   \details \MEDmeshnAxisByNameDetails
+*/
+
+
+/**\ingroup MEDmeshFortran
+   \fn subroutine mmhmii(integer fid, integer it, character*(*) name, integer sdim, integer mdim, integer mtype, character *(*) desc, character *(*) dtunit, integer stype, integer nstep, integer atype, character *(*) aname, character *(*) aunit, integer cret)
+   \brief \MEDmeshInfoBrief
+   \param fid \fid
+   \param it  \meshit
+   \param name \meshname
+   \param sdim \spacedim
+   \param mdim \meshdim
+   \param mtype \meshtype
+   \param desc \description
+   \param dtunit \dtunit
+   \param stype \sortingtype
+   \param nstep \nstep
+   \param atype \axistype
+   \param aname \axisname
+   \param aunit \axisunit
+   \param cret \error
+   \see MEDmeshInfo
+   \details \MEDmeshInfoDetails
+*/
+
+
+/**\ingroup MEDmeshFortran
+   \fn subroutine mmhmin(integer fid, character*(*) name, integer sdim, integer mdim, integer mtype, character *(*) desc, character *(*) dtunit, integer stype, integer nstep, integer atype, character *(*) aname, character *(*) aunit, integer cret)
+   \brief \MEDmeshInfoByNameBrief
+   \param fid \fid
+   \param name \meshname
+   \param sdim \spacedim
+   \param mdim \meshdim
+   \param mtype \meshtype
+   \param desc \description
+   \param dtunit \dtunit
+   \param stype \sortingtype
+   \param nstep \nstep
+   \param atype \axistype
+   \param aname \axisname
+   \param aunit \axisunit
+   \param cret \error
+   \see MEDmeshInfoByName
+   \details \MEDmeshInfoByNameDetails
+*/
+
+
+/**\ingroup MEDmeshFortran
+   \fn subroutine  mmhunw(integer fid, character*(*) name,  integer cret)
+   \brief \MEDmeshUniversalNameWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param cret \error
+   \see MEDmeshUniversalNameWr
+   \details \MEDmeshUniversalNameWrDetails
+*/
+
+
+/**\ingroup MEDmeshFortran
+   \fn subroutine  mmhunr(integer fid, character*(*) name,  character *(*) uname, integer cret)
+   \brief \MEDmeshUniversalNameRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param uname \univname
+   \param cret \error
+   \MEDmeshUniversalNameRdBrief
+*/
+
+
+/**\ingroup MEDmeshFortran
+   \fn subroutine mmhatw(integer fid, character*(*) name, integer nin, integer nvn, integer nnc, integer cret)
+   \brief \MEDmeshAttributeWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param nin \isolatednodes
+   \param nvn \verticesnodes
+   \param nnc \cellmaxnodes
+   \param cret \error
+   \see MEDmeshAttributeWr
+   \details \MEDmeshAttributeWrDetails
+*/
+
+
+/**\ingroup MEDmeshFortran
+   \fn subroutine mmhatr(integer fid, character*(*) name, integer nin, integer nvn, integer nnc, integer cret)
+   \brief \MEDmeshAttributeRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param nin \isolatednodes
+   \param nvn \verticesnodes
+   \param nnc \cellmaxnodes
+   \param cret \error
+   \see MEDmeshAttributeRd
+   \details \MEDmeshAttributeRdDetails
+*/
+
+
+/**\ingroup MEDmeshFortran
+   \fn subroutine  mmhgtw(integer fid, character*(*) name, integer gtype,integer cret)
+   \brief \MEDmeshGridTypeWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param gtype \gridtype
+   \param cret \error
+   \see MEDmeshGridTypeWr
+   \details \MEDmeshGridTypeWrDetails
+   \see mmhcre
+*/
+
+
+/**\ingroup MEDmeshFortran
+   \fn subroutine  mmhgtr(integer fid, character*(*) name, integer gtype,integer cret)
+   \brief \MEDmeshGridTypeRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param gtype \gridtype
+   \param cret \error
+   \see MEDmeshGridTypeRd
+   \details \MEDmeshGridTypeRdDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhgsw(integer fid , character*(*) name, integer numdt, integer numit, real*8 dt, integer:dimension(*) st, integer cret)
+   \brief \MEDmeshGridStructWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param st \gridstruct
+   \param cret \error
+   \see MEDmeshGridStructWr
+   \details \MEDmeshGridStructWrDetails
+*/
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhgcw(integer fid , character*(*) name, integer numdt, integer numit, real*8 dt, integer axis, integer size, real*8:dimension(*) index, integer cret)
+   \brief \MEDmeshGridIndexCoordinateWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param axis \axis
+   \param size \indexsize
+   \param index \gridindex
+   \param cret \error
+   \see MEDmeshGridIndexCoordinateWr
+   \details \MEDmeshGridIndexCoordinateWrDetails
+   \remarks \li
+   \MEDmeshGridIndexCoordinateWrRem
+   \see mmhcow
+*/
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhgsr(integer fid , character*(*) name, integer numdt, integer numit, integer:dimension(*) st, integer cret)
+   \brief \MEDmeshGridStructRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param st \gridstruct
+   \param cret \error
+   \see MEDmeshGridStructRd
+   \details \MEDmeshGridStructRdDetails
+*/
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhgcr(integer fid , character*(*) name, integer numdt, integer numit, integer axis, real*8:dimension(*) index, integer cret)
+   \brief \MEDmeshGridIndexCoordinateRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param axis \axis
+   \param index \gridindex
+   \param cret \error
+   \see MEDmeshGridIndexCoordinateRd
+   \details \MEDmeshGridIndexCoordinateRdDetails
+*/
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhcow(integer fid , character*(*) name, integer numdt, integer numit, real*8 dt, integer swm, integer n, real*8:dimension(*) coo, integer cret)
+   \brief \MEDmeshNodeCoordinateWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param swm \switchmode
+   \param n \nentity
+   \param coo \coordinate
+   \param cret \error
+   \see MEDmeshNodeCoordinateWr
+   \details \MEDmeshNodeCoordinateWrDetails
+   \remarks \li
+   \MEDmeshNodeCoordinateWrgridRem1
+   \see mmhcpw
+   \see mmhcaw
+   \see mmhgcw
+*/
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhcpw(integer fid , character*(*) name, integer numdt, integer numit, real*8 dt, integer stm, character *(*) pname, integer swm, integer dim, integer n, real*8:dimension(*) coo, integer cret)
+   \brief \MEDmeshNodeCoordinateWithProfileWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param stm \storagemode
+   \param pname \profilename
+   \param swm \switchmode
+   \param dim \dimselect
+   \param n \nentity
+   \param coo \coordinate
+   \param cret \error
+   \see MEDmeshNodeCoordinateWithProfileWr
+   \details \MEDmeshNodeCoordinateWithProfileWrDetails
+   \remarks \li
+   \MEDmeshNodeCoordinateWrnogridRem
+   \see mmhcow
+   \see mmhcaw
+*/
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhcaw(integer fid , character*(*) name, integer numdt, integer numit, real*8 dt, integer*8:dimension(*) flt, real*8:dimension(*) coo, integer cret)
+   \brief \MEDmeshNodeCoordinateAdvancedWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param flt \filter
+   \param coo \coordinate
+   \param cret \error
+   \see MEDmeshNodeCoordinateAdvancedWr
+   \details \MEDmeshNodeCoordinateAdvancedWrDetails
+   \remarks \li
+   \MEDmeshNodeCoordinateWrnogridRem
+   \see mmhcow
+   \see mmhcpw
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhcor(integer fid , character*(*) name, integer numdt, integer numit, integer swm, real*8:dimension(*) coo, integer cret)
+   \brief \MEDmeshNodeCoordinateRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param swm \switchmode
+   \param coo \coordinate
+   \param cret \error
+   \see MEDmeshNodeCoordinateRd
+   \details \MEDmeshNodeCoordinateRdDetails
+*/
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhcpr(integer fid , character*(*) name, integer numdt, integer numit, integer stm, character *(*) pname, integer swm, integer dim, real*8:dimension(*) coo, integer cret)
+   \brief \MEDmeshNodeCoordinateWithProfileRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param stm \storagemode
+   \param pname \profilename
+   \param swm \switchmode
+   \param dim \dimselect
+   \param coo \coordinate
+   \param cret \error
+   \see MEDmeshNodeCoordinateWithProfileRd
+   \details \MEDmeshNodeCoordinateWithProfileRdDetails
+*/
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhcar(integer fid , character*(*) name, integer numdt, integer numit, integer*8:dimension(*) flt, real*8:dimension(*) coo, integer cret)
+   \brief \MEDmeshNodeCoordinateAdvancedRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param flt \filter
+   \param coo \coordinate
+   \param cret \error
+   \see MEDmeshNodeCoordinateAdvancedRd
+   \details \MEDmeshNodeCoordinateAdvancedRdDetails
+*/
+
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhenw(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype,integer n, integer:dimension(*) num, integer cret)
+   \brief \MEDmeshEntityNumberWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param n \nentity
+   \param num \number
+   \param cret \error
+   \see MEDmeshEntityNumberWr
+   \details \MEDmeshEntityNumberWrDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhenr(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype, integer:dimension(*) num, integer cret)
+   \brief \MEDmeshEntityNumberRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param num \number
+   \param cret \error
+   \see MEDmeshEntityNumberRd
+   \details \MEDmeshEntityNumberRdDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhfnw(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype,integer n, integer:dimension(*) num, integer cret)
+   \brief \MEDmeshEntityFamilyNumberWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param n \nentity
+   \param num \number
+   \param cret \error
+   \see MEDmeshEntityFamilyNumberWr
+   \details \MEDmeshEntityFamilyNumberWrDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhfnr(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype, integer:dimension(*) num, integer cret)
+   \brief \MEDmeshEntityFamilyNumberRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param num \number
+   \param cret \error
+   \see MEDmeshEntityFamilyNumberRd
+   \details \MEDmeshEntityFamilyNumberRdDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmheaw(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype,integer n, character*(*) ename, integer cret)
+   \brief \MEDmeshEntityNameWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param n \nentity
+   \param ename \name
+   \param cret \error
+   \see MEDmeshEntityNameWr
+   \details \MEDmeshEntityNameWrDetails
+*/
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhear(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype, character*(*) ename, integer cret)
+   \brief \MEDmeshEntityNameRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param ename \name
+   \param cret \error
+   \see MEDmeshEntityNameRd
+   \details \MEDmeshEntityNameRdDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhnme(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype,integer datype, integer cmode, integer chgt, integer tsf, integer n, integer cret)
+   \brief \MEDmeshnEntityBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param datype \datatype
+   \param cmode \cmode
+   \param chgt \changement
+   \param tsf \transformation
+   \param n \nent
+   \param cret \error
+   \see MEDmeshnEntity
+   \details \MEDmeshnEntityDetails
+   \remarks
+   \htmlinclude MEDmeshnEntity.html
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhnep(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype,integer datype, integer cmode, integer stm, character *(*) pname, integer psize, integer chgt, integer tsf, integer n, integer cret)
+   \brief \MEDmeshnEntityWithProfileBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param datype \datatype
+   \param cmode \cmode
+   \param stm \storagemode
+   \param pname \profilename
+   \param psize \profilesize
+   \param chgt \changement
+   \param tsf \transformation
+   \param n \nent
+   \param cret \error
+   \see MEDmeshnEntityWithProfile
+   \details \MEDmeshnEntityWithProfileDetails
+   \remarks
+   \htmlinclude MEDmeshnEntity.html
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhcyw(integer fid , character*(*) name, integer numdt, integer numit,  real*8 dt, integer entype, integer geotype, integer cmode, integer swm,integer n, integer:dimension(*) con, integer cret)
+   \brief \MEDmeshElementConnectivityWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param entype \entitype
+   \param geotype \geotype
+   \param cmode \cmode
+   \param swm \switchmode
+   \param n \nentity
+   \param con \connectivity
+   \param cret \error
+   \see MEDmeshElementConnectivityWr
+   \details \MEDmeshElementConnectivityWrDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhcyr(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype, integer cmode, integer swm, integer:dimension(*) con, integer cret)
+   \brief \MEDmeshElementConnectivityRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param cmode \cmode
+   \param swm \switchmode
+   \param con \connectivity
+   \param cret \error
+   \see MEDmeshElementConnectivityRd
+   \details \MEDmeshElementConnectivityRdDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhypw(integer fid , character*(*) name, integer numdt, integer numit,  real*8 dt, integer entype, integer geotype, integer cmode, integer stm, character *(*) pname, integer swm, integer dim, integer n, integer:dimension(*) con, integer cret)
+   \brief \MEDmeshElementConnectivityWithProfileWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param entype \entitype
+   \param geotype \geotype
+   \param cmode \cmode
+   \param stm \storagemode
+   \param pname \profilename
+   \param swm \switchmode
+   \param dim \dimselect
+   \param n \nentity
+   \param con \connectivity
+   \param cret \error
+   \see MEDmeshElementConnectivityWithProfileWr
+   \details \MEDmeshElementConnectivityWithProfileWrDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhyaw(integer fid , character*(*) name, integer numdt, integer numit,  real*8 dt, integer entype, integer geotype, integer cmode, integer*8:dimension(*) flt, integer:dimension(*) con, integer cret)
+   \brief \MEDmeshElementConnectivityAdvancedWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param entype \entitype
+   \param geotype \geotype
+   \param cmode \cmode
+   \param flt \filter
+   \param con \connectivity
+   \param cret \error
+   \see MEDmeshElementConnectivityAdvancedWr
+   \details \MEDmeshElementConnectivityAdvancedWrDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhypr(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype, integer cmode, integer stm, character *(*) pname, integer swm, integer dim, integer n, integer:dimension(*) con, integer cret)
+   \brief \MEDmeshElementConnectivityWithProfileRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param cmode \cmode
+   \param stm \storagemode
+   \param pname \profilename
+   \param swm \switchmode
+   \param dim \dimselect
+   \param n \nentity
+   \param con \connectivity
+   \param cret \error
+   \see MEDmeshElementConnectivityWithProfileRd
+   \details \MEDmeshElementConnectivityWithProfileRdDetails
+*/
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhyar(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype, integer cmode, integer*8:dimension(*) flt, integer:dimension(*) con, integer cret)
+   \brief \MEDmeshElementConnectivityAdvancedRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param cmode \cmode
+   \param flt \filter
+   \param con \connectivity
+   \param cret \error
+   \see MEDmeshElementConnectivityAdvancedRd
+   \details \MEDmeshElementConnectivityAdvancedRdDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine   mmhnow(integer fid , character*(*) name, integer numdt, integer numit, real*8 dt, integer swm, integer n, real*8:dimension(*) coo, integer iname, character*(*) nname, integer inum, integer:dimension(*) num, integer ifam, integer:dimension(*) fam, integer cret)
+   \brief \MEDmeshNodeWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param swm \switchmode
+   \param n \nentity
+   \param coo \coordinate
+   \param iname \withnodename
+   \param nname \nodename
+   \param inum \withnodenumber
+   \param num \nodenumber
+   \param ifam \withfamnumber
+   \param fam \famnumber
+   \param cret \error
+   \see MEDmeshNodeWr
+   \details \MEDmeshNodeWrDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine   mmhnor(integer fid , character*(*) name, integer numdt, integer numit, integer swm, real*8:dimension(*) coo, integer iname, character*(*) nname, integer inum, integer:dimension(*) num, integer ifam, integer:dimension(*) fam, integer cret)
+   \brief \MEDmeshNodeRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param swm \switchmode
+   \param coo \coordinate
+   \param iname \withnodename
+   \param nname \nodename
+   \param inum \withnodenumber
+   \param num \nodenumber
+   \param ifam \withfamnumber
+   \param fam \famnumber
+   \param cret \error
+   \see MEDmeshNodeRd
+   \details \MEDmeshNodeRdDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhelw(integer fid , character*(*) name, integer numdt, integer numit, real*8 dt, integer entype, integer geotype, integer cmode, integer swm, integer n, integer:dimension(*) con, integer iname, character*(*) nname, integer inum, integer:dimension(*) num, integer ifam, integer:dimension(*) fam, integer cret)
+   \brief \MEDmeshElementWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param entype \entitype
+   \param geotype \geotype
+   \param cmode \cmode
+   \param swm \switchmode
+   \param n \nentity
+   \param con \connectivity
+   \param iname \withnodename
+   \param nname \nodename
+   \param inum \withnodenumber
+   \param num \nodenumber
+   \param ifam \withfamnumber
+   \param fam \famnumber
+   \param cret \error
+   \see MEDmeshElementWr
+   \details \MEDmeshElementWrDetails
+*/
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhelr(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype, integer cmode, integer swm, integer:dimension(*) con, integer iname, character*(*) nname, integer inum, integer:dimension(*) num, integer ifam, integer:dimension(*) fam, integer cret)
+   \brief \MEDmeshElementRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param cmode \cmode
+   \param swm \switchmode
+   \param con \connectivity
+   \param iname \withnodename
+   \param nname \nodename
+   \param inum \withnodenumber
+   \param num \nodenumber
+   \param ifam \withfamnumber
+   \param fam \famnumber
+   \param cret \error
+   \see MEDmeshElementRd
+   \details \MEDmeshElementRdDetails
+*/
+
+/** \ingroup MEDmeshFortran
+    \fn subroutine  mmhpgw(integer fid , character*(*) name, integer numdt, integer numit,  real*8 dt, integer entype, integer cmode, integer isize, integer:dimension(*) index, integer:dimension(*) con, integer cret)
+    \brief \MEDmeshPolygonWrBrief
+    \param fid \fid
+    \param name \meshname
+    \param numdt \numdt
+    \param numit \numit
+    \param dt \dt
+    \param entype \entitype
+    \param cmode \cmode
+    \param isize \indexsize
+    \param index \polyindex
+    \param con \connectivity
+    \param cret \error
+    \see MEDmeshPolygonWr
+    \details \MEDmeshPolygonWrDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+    \fn subroutine  mmhpgr(integer fid , character*(*) name, integer numdt, integer numit,  integer entype, integer cmode, integer:dimension(*) index, integer:dimension(*) con, integer cret)
+    \brief \MEDmeshPolygonRdBrief
+    \param fid \fid
+    \param name \meshname
+    \param numdt \numdt
+    \param numit \numit
+    \param entype \entitype
+    \param cmode \cmode
+    \param index \polyindex
+    \param con \connectivity
+    \param cret \error
+    \see MEDmeshPolygonRd
+    \details \MEDmeshPolygonRdDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+    \fn subroutine  mmhphw(integer fid , character*(*) name, integer numdt, integer numit,  real*8 dt, integer entype, integer cmode, integer fisize, integer:dimension(*) findex, integer nisize, integer:dimension(*) nindex, integer:dimension(*) con, integer cret)
+    \brief \MEDmeshPolyhedronWrBrief
+    \param fid \fid
+    \param name \meshname
+    \param numdt \numdt
+    \param numit \numit
+    \param dt \dt
+    \param entype \entitype
+    \param cmode \cmode
+    \param fisize \faceindexsize
+    \param findex \faceindex
+    \param nisize \nodeindexsize
+    \param nindex \nodeindex
+    \param con \connectivity
+    \param cret \error
+    \see MEDmeshPolyhedronWr
+    \details \MEDmeshPolyhedronWrDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+    \fn subroutine  mmhphr(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer cmode, integer:dimension(*) findex, integer:dimension(*) nindex, integer:dimension(*) con, integer cret)
+    \brief \MEDmeshPolyhedronRdBrief
+    \param fid \fid
+    \param name \meshname
+    \param numdt \numdt
+    \param numit \numit
+    \param entype \entitype
+    \param cmode \cmode
+    \param findex \faceindex
+    \param nindex \nodeindex
+    \param con \connectivity
+    \param cret \error
+    \see MEDmeshPolyhedronRd
+    \details \MEDmeshPolyhedronRdDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhgnw(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype,integer n, integer:dimension(*) num, integer cret)
+   \brief \MEDmeshGlobalNumberWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param n \nentity
+   \param num \number
+   \param cret \error
+   \see MEDmeshGlobalNumberWr
+   \details \MEDmeshGlobalNumberWrDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmhgnr(integer fid , character*(*) name, integer numdt, integer numit, integer entype, integer geotype, integer:dimension(*) num, integer cret)
+   \brief \MEDmeshGlobalNumberRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param entype \entitype
+   \param geotype \geotype
+   \param num \number
+   \param cret \error
+   \see MEDmeshGlobalNumberRd
+   \details \MEDmeshGlobalNumberRdDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+    \fn subroutine  mmhcsc(integer fid , character*(*) name, integer numdt1, integer numit1,  integer numdt2, integer numit2, real*8 dt2,  integer cret)
+    \brief \MEDmeshComputationStepCrBrief
+    \param fid \fid
+    \param name \meshname
+    \param numdt1 \numdt1
+    \param numit1 \numit1
+    \param numdt2 \numdt2
+    \param numit2 \numit2
+    \param dt2 \dt2
+    \param cret \error
+    \see MEDmeshComputationStepCr
+    \details \MEDmeshComputationStepCrDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+    \fn subroutine mmhcsi(integer fid , character*(*) name, integer csit, integer numdt, integer numit,  real*8 dt,  integer cret)
+    \brief \MEDmeshComputationStepInfoBrief
+    \param fid \fid
+    \param name \meshname
+    \param csit \csit
+    \param numdt \numdt
+    \param numit \numit
+    \param dt \dt
+    \param cret \error
+    \see MEDmeshComputationStepInfo
+    \details \MEDmeshComputationStepInfoDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+    \fn subroutine mmhcsr(integer fid , character*(*) name, integer numdt, integer numit, real*8 dt, integer cret)
+    \brief \MEDmeshComputationStepDtRdBrief
+    \param fid \fid
+    \param name \meshname
+    \param numdt \numdt
+    \param numit \numit
+    \param dt \dt
+    \param cret \error
+    \see MEDmeshComputationStepDtRd
+    \details \MEDmeshComputationStepDtRdDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+    \fn subroutine mmhstr(integer fid , character*(*) name, integer stype, integer cret)
+    \brief \MEDmeshSortingTypeRdBrief
+    \param fid \fid
+    \param name \meshname
+    \param stype \sortingtype
+    \param cret \error
+    \see MEDmeshSortingTypeRd
+    \details \MEDmeshSortingTypeRdDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine mmheni(integer fid, character*(*) name, integer numdt, integer numit, integer entype, integer it, character*(*) geoname, integer geotype, integer cret)
+  \brief \MEDmeshEntityInfoBrief
+  \param fid \fid
+  \param name \meshname
+  \param numdt \numdt
+  \param numit \numit
+  \param entype \entitype
+  \param it \geotypeit
+  \param geoname \geotypename
+  \param geotype \geotype
+  \param cret  \error
+  \see MEDmeshEntityInfo
+  \details \MEDmeshEntityInfoDetails
+*/
+
+
+/** \ingroup MEDmeshFortran
+    \fn subroutine mmhtfw(integer fid, character*(*) name, integer numdt, integer numit, real*8 dt, real*8:dimension(*) tsf, integer cret)
+   \brief \MEDmeshNodeCoordinateTrsfWrBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param tsf \coordinatetrsf
+   \param cret  \error
+   \see MEDmeshNodeCoordinateTrsfWr
+   \details \MEDmeshNodeCoordinateTrsfWrDetails
+   \remarks
+   \li \MEDmeshNodeCoordinateTrsfRm1
+   \li \MEDmeshNodeCoordinateTrsfRm2
+   \li \MEDmeshNodeCoordinateTrsfRm3
+*/
+
+/** \ingroup MEDmeshFortran
+    \fn subroutine mmhtfr(integer fid, character*(*) name, integer numdt, integer numit, real*8:dimension(*) tsf, integer cret)
+   \brief \MEDmeshNodeCoordinateTrsfRdBrief
+   \param fid \fid
+   \param name \meshname
+   \param numdt \numdt
+   \param numit \numit
+   \param tsf \coordinatetrsf
+   \param cret  \error
+   \see MEDmeshNodeCoordinateTrsfRd
+   \details \MEDmeshNodeCoordinateTrsfRdDetails
+   \remarks
+   \li \MEDmeshNodeCoordinateTrsfRm1
+   \li \MEDmeshNodeCoordinateTrsfRm2
+   \li \MEDmeshNodeCoordinateTrsfRm3
+*/
+
+
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhaaw(integer fid , character*(*) mname, integer dtype, integer numdt, integer numit,  integer entype, integer geotype, integer*8:dimension(*) flt, integer:dimension(*) val, integer cret)
+  \brief \MEDmeshEntityAttributeAdvancedBrief{d'écrire}
+  \param fid \fid
+  \param mname \meshname
+  \param dtype \datatype
+  \param numdt \numdt
+  \param numit \numit
+  \param entype \entitype
+  \param geotype \geotype
+  \param flt \filter
+  \param val \attributevalue
+  \param cret  \error
+  \details \MEDmeshEntityAttributeAdvancedDetails{d'écrire}
+  \remarks
+  \MEDmeshEntityAttributeAdvancedRem
+*/
+
+
+/** \ingroup MEDmeshFortran
+   \fn subroutine  mmhaar(integer fid , character*(*) mname, integer dtype, integer numdt, integer numit,  integer entype, integer geotype, integer*8:dimension(*) flt, integer:dimension(*) val, integer cret)
+  \brief \MEDmeshEntityAttributeAdvancedBrief{de lire}
+  \param fid \fid
+  \param mname \meshname
+  \param dtype \datatype
+  \param numdt \numdt
+  \param numit \numit
+  \param entype \entitype
+  \param geotype \geotype
+  \param flt \filter
+  \param val \attributevalue
+  \param cret  \error
+  \details \MEDmeshEntityAttributeAdvancedDetails{de lire}
+  \remarks
+  \MEDmeshEntityAttributeAdvancedRem
+*/
+
+
+
+
+
+

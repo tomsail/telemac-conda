@@ -1,0 +1,23 @@
+/**********************************************************************/
+/
+/           FICHIER DE DECLARATION DES MOTS CLES DU CODE               /
+/                            POSTEL 3D                                 /
+/
+/**********************************************************************/
+/
+/
+GEOMETRY FILE     : geo_flume_slope.slf
+3D RESULT FILE : f3d_flume_slope_set1.slf
+/
+VERTICAL CROSS SECTION FILE      : tov
+/
+NUMBER OF HORIZONTAL CROSS SECTIONS : 0
+NUMBER OF VERTICAL CROSS SECTIONS   : 1
+/
+NUMBER OF FIRST RECORD FOR CROSS SECTIONS : 1
+PRINTOUT PERIOD FOR CROSS SECTIONS : 25
+/
+ABSCISSAE OF THE VERTICES OF VERTICAL CROSS SECTION 1 : 0.;2500.
+ORDINATES OF THE VERTICES OF VERTICAL CROSS SECTION 1 : 0.;0.
+/ORDINATES OF THE VERTICES OF VERTICAL CROSS SECTION 1 : 0.5;0.5
+DISTORSION BETWEEN VERTICAL AND HORIZONTAL   : 100.

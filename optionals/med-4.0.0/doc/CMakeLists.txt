@@ -1,0 +1,4 @@
+if(MEDFILE_BUILD_DOC)
+  ADD_SUBDIRECTORY(dox)
+  ADD_SUBDIRECTORY(html.dox)
+endif()

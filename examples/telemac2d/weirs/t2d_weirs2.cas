@@ -1,0 +1,98 @@
+/---------------------------------------------------------------------
+/ TELEMAC2D Version v8p2 13 oct. 2020
+/ nom inconnu
+/---------------------------------------------------------------------
+TITLE   = 'WEIRS IN A CHANNEL 2'
+
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES, FICHIERS
+/---------------------------------------------------------------------
+
+NAMES OF TRACERS           ='TRACER 1        [g/l]'
+
+RESULTS FILE              ='res_weir2.slf'
+
+BOUNDARY CONDITIONS FILE ='geo_weirs2.cli'
+
+LIQUID BOUNDARIES FILE    ='t2d_weirs2.liq'
+
+PREVIOUS COMPUTATION FILE        ='init_weirs2.slf'
+
+WEIRS DATA FILE      ='weirs2.txt'
+
+WEIRS DISCHARGE OUTPUT FILE ='Qweirs2.csv'
+
+GEOMETRY FILE               ='geo_weirs2.slf'
+
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES, GENERALITES
+/---------------------------------------------------------------------
+
+COMPUTATION CONTINUED =VRAI
+
+
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES, GRAPHIQUES ET LISTING
+/---------------------------------------------------------------------
+
+VARIABLES FOR GRAPHIC PRINTOUTS =U,V,B,H,S,T1
+
+GRAPHIC PRINTOUT PERIOD   =30
+
+MASS-BALANCE                        =true
+
+LISTING FOR PRINTOUT PERIOD = 360
+
+
+/---------------------------------------------------------------------
+/ EQUATIONS
+/---------------------------------------------------------------------
+
+FRICTION COEFFICIENT      =50
+
+INITIAL VALUES OF TRACERS =0
+
+LAW OF BOTTOM FRICTION  =3
+
+
+/---------------------------------------------------------------------
+/ EQUATIONS, CONDITIONS LIMITES
+/---------------------------------------------------------------------
+
+OPTION FOR LIQUID BOUNDARIES =1;1
+
+PRESCRIBED FLOWRATES                      =100;0
+
+VELOCITY PROFILES                  =1;1
+
+PRESCRIBED ELEVATIONS                      =0;76
+
+PRESCRIBED TRACERS VALUES       =100;0
+/---------------------------------------------------------------------
+/ EQUATIONS, TRACEUR
+/---------------------------------------------------------------------
+
+NUMBER OF TRACERS =1
+
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES
+/---------------------------------------------------------------------
+
+NUMBER OF WEIRS               =126
+
+NUMBER OF TIME STEPS         =4320
+
+COMPATIBLE COMPUTATION OF FLUXES     =true
+
+TREATMENT OF THE LINEAR SYSTEM =2
+
+TIME STEP                   =10.0
+
+TYPE OF WEIRS                =2
+
+
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES, SOLVEUR
+/---------------------------------------------------------------------
+
+SOLVER =1

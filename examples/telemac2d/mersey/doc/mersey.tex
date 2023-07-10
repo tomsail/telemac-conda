@@ -1,0 +1,143 @@
+\chapter{Tidal flow in the Mersey estuary (mersey) }
+\section{Purpose}
+To illustrate that \telemac{2D} is capable of simulating the hydrodynamics
+(tidal currents and water elevations) in an estuarial zone due to long
+period tidal wave forcing, with the covering/uncovering of tidal flats.
+
+\subsection{Approach}
+This case simulates the flow in the Mersey estuary on the west coast of
+England. Tide hydrodynamics in this area is complex, with large tidal
+range (up to 9~m on spring tide), extensive intertidal areas and an unusual
+tide curve: in the upper reaches of the estuary, the tide ebbs for a large
+proportion of the tidal period, and then floods very rapidly.
+
+A sinusoidal water elevation is prescribed at the maritime open boundary
+to simulate a mean spring tide wave.
+The river discharge is neglected at the upstream end of the model.
+
+\section{Description}
+
+\subsection{Geometry and mesh}
+The size of the domain is around 40~km $\times$ 33~km.
+
+Water depth at rest = 9.2~m.
+
+The mesh is dense in the river and at the mouth.
+\begin{itemize}
+\item 4,490 triangular elements,
+\item 2,429 nodes,
+\item Maximum size range: from 200 to 1,500~m.
+\end{itemize}
+
+\subsection{Boundaries}
+\begin{itemize}
+\item Domain entrance $\dsp H = 5.15+4.05\cos(\frac{\pi}{2}\frac{t}{44700})$,
+\item Lateral boundaries: solid walls with slip condition.
+\end{itemize}
+
+\subsection{Bottom}
+Strickler formula with friction coefficient = 50~m$^{1/3}$/s.
+
+The mesh and the topography are shown in Figures \ref{fig:mersey:Mesh} and
+\ref{fig:mersey:Bathy}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=.9\textwidth]}{../img/Mesh.png}
+  \caption{2D-mesh of the mersey case.}\label{fig:mersey:Mesh}
+\end{figure}
+
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=.9\textwidth]}{../img/Bathy.png}
+  \caption{Bathymetry of the mersey case.}\label{fig:mersey:Bathy}
+\end{figure}
+
+\subsection{Physical parameters}
+The model of turbulence is constant viscosity
+with velocity diffusivity  equal to 0.2~m$^2$/s.
+
+\subsection{Numerical parameters}
+Type of advection:
+\begin{itemize}
+\item Methods of characteristics on velocities (scheme \#1),
+\item Conservative + modified SUPG on depth (mandatory scheme).
+\end{itemize}
+The type of element is linear triangle (P1) for $h$ and quasi bubble triangle
+for velocities.
+\begin{itemize}
+\item Implicitation for depth and velocities = 0.6,
+\item Solver: Conjugate gradient on a normal equation with solver accuracy = 10$^{-3}$,
+\item \telkey{BOTTOM SMOOTHINGS} = 1,
+\item Time step = 50~s,
+\item Simulation duration = 44,700~s (a little bit more than 12~h and a half).
+\end{itemize}
+
+\section{Results}
+% !!! VALUE of total volume lost TO BE CHECKED !!!
+The total volume lost is 0.2 $\times$ 10$^{-2}$~m$^3$, in comparison to the
+initial volume in the domain (0.289417x10$^{10}$~m$^3$ ).
+The error represents 7 $\times$ 10$^{-13}$ which is the machine precision.
+The final balance of water volume is excellent.
+
+Figures \ref{fig:mersey:WD22} and \ref{fig:mersey:WD44} show the water depths at
+high tide and low tide in the domain.
+Tidal flats are represented.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=.9\textwidth]}{../img/Water_depth22.png}
+ \caption{Water depth at $t$ = 22,350~s.}
+ \label{fig:mersey:WD22}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=.9\textwidth]}{../img/Water_depth44.png}
+ \caption{Water depth at $t$ = 44,700~s.}
+ \label{fig:mersey:WD44}
+\end{figure}
+
+Figure \ref{fig:mersey:WDTS} shows the evolutions of the free surface
+elevation at four different points:
+\begin{itemize}
+\item at the open boundary (1), where the tide is regular and symmetric,
+\item at the mouth of the Mersey river (2), where a small asymmetry of the curve
+  and a drift in time is observed,
+\item in the estuary (3 and 4), where the tide is very asymmetric and a
+  significant drift in time occurs.
+\end{itemize}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=.9\textwidth]}{../img/timeserie.png}
+ \caption{Free surface at points (318,021 ; 400,340), (331,444 ; 395,025),
+ (337,922 ; 383,132) and (348,256 ; 380,434).}
+ \label{fig:mersey:WDTS}
+\end{figure}
+
+Figure \ref{fig:mersey:Velocity} and \ref{fig:mersey:Velocity40} show the
+velocity fields at ebb tide and flow tide, when the velocities are maximum.
+There is an acceleration of the flow induced by the narrowing of the river.
+At flow tide, the velocities decrease in the estuary and are near to zero 15~km
+far from the mouth of the river.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=.9\textwidth]}{../img/Velocity_arrows.png}
+ \caption{Velocity at $t$ = 11,200~s.}
+ \label{fig:mersey:Velocity}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=.9\textwidth]}{../img/Velocity_arrows40.png}
+ \caption{Velocity at $t$ = 40,000~s.}
+ \label{fig:mersey:Velocity40}
+\end{figure}
+
+\section{Conclusion}
+\telemac{2D} is capable of simulating the hydrodynamics (tidal currents and
+water surface elevations) in an estuarial zone due to long period tidal wave
+forcing, with covering and uncovering of tidal flats.

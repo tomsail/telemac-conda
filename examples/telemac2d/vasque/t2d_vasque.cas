@@ -1,0 +1,60 @@
+/
+/   CAS TELEMAC-2D
+/
+/   HP C3700 compilateur HP          : 5 s  5.7 JMH LE 19/04/2007
+/   HP C3700 compilateur Nag         : 7 s  5.7 JMH LE 19/04/2007
+/   Dell 2.8 MHz compilateur pgi 6.2 : 2 s  5.7 JMH LE 19/04/2007
+/
+/   HP C3700 compilateur HP          : 2 s  5.8 JMH LE 26/11/2007
+/   HP C3700 compilateur Nag         : 5 s  5.8 JMH LE 26/12/2007
+/   Dell 2.8 MHz compilateur pgi 6.2 : 1 s  5.8 JMH LE 19/12/2007
+/
+/   HP C3700 compilateur HP          : 2 s  5.9 JMH LE 16/10/2008
+/   HP C3700 compilateur Nag         : 8 s  5.9 JMH LE 17/10/2008
+/   Dell 2.8 MHz compilateur pgi 6.2 : 1 s  5.9 JMH LE 16/10/2008
+/
+/   HP C3700 compilateur HP          : 3 s  6.0 JMH LE 24/11/2009
+/   HP C3700 compilateur Nag         : 5 s  6.0 JMH LE 27/11/2009
+/   Dell 2.8 MHz compilateur Intel   : 2 s  6.0 JMH LE 26/11/2009
+/
+/   Version 6.2
+/
+/   HP C3700 compilateur HP          : 2 s  24/05/2012
+/
+FORTRAN FILE             : 'user_fortran'
+BOUNDARY CONDITIONS FILE : geo_vasque.cli
+GEOMETRY FILE            : geo_vasque.slf
+RESULTS FILE             : r2d_vasque.slf
+/
+/----------------------------------------------------------------------/
+/                     OPTIONS GENERALES
+/----------------------------------------------------------------------/
+TITLE = 'TELEMAC 2D : DECOUVREMENT SUR UNE VASQUE$'
+VARIABLES FOR GRAPHIC PRINTOUTS : 'U,V,H,B,S'
+TIME STEP = 1.
+NUMBER OF TIME STEPS = 300
+GRAPHIC PRINTOUT PERIOD : 100
+LISTING PRINTOUT PERIOD = 100
+/ 1 : LAMINAIRE  3 : K-EPSILON
+TURBULENCE MODEL = 1
+LAW OF BOTTOM FRICTION : 3
+FRICTION COEFFICIENT = 40.
+VELOCITY DIFFUSIVITY = 1.E-2
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER : 100
+SOLVER ACCURACY = 1.E-4
+IMPLICITATION FOR DEPTH = 0.6
+IMPLICITATION FOR VELOCITY = 0.6
+MASS-BALANCE : YES
+SOLVER : 3
+TYPE OF ADVECTION : 1;5
+/
+/ VALEUR FACTICE, VOIR FONCTION SL
+PRESCRIBED ELEVATIONS : 0.
+/
+/ CAS DE REPOS INITIAL, QUI DOIT LE RESTER (ENLEVER LA FONCTION Q DU PROGRAMME PRINCIPAL)
+/
+/CONDITIONS INITIALES : 'COTE CONSTANTE'
+/COTE INITIALE : -0.4
+/
+/ DEFAULT VALUE UNTIL V8P1 KEPT FOR NON REGRESSION
+TREATMENT OF THE LINEAR SYSTEM = 1

@@ -1,0 +1,75 @@
+/---------------------------------------------------------------------
+/ ARTEMIS Version v6p2 juillet 2012
+/ FRICTION
+/---------------------------------------------------------------------
+/
+/---------------------------------------------------------------------
+/ FILE INPUTS-OUTPUTS
+/---------------------------------------------------------------------
+/
+/
+RESULTS FILE                ='r2d_friction.slf'
+/
+BOUNDARY CONDITIONS FILE    ='geo_friction.cli'
+/
+FORTRAN FILE                = f90
+/
+GEOMETRY FILE               ='geo_friction.slf'
+/
+/---------------------------------------------------------------------
+/ GENERAL SETTINGS
+/---------------------------------------------------------------------
+/
+TITLE ='FRICTION'
+/
+/---------------------------------------------------------------------
+/ LISTING
+/---------------------------------------------------------------------
+/
+WAVE HEIGHTS SMOOTHING          = NO
+/
+VARIABLES FOR GRAPHIC PRINTOUTS =
+'HS,PHAS,ZS,ZF,INC,D,FX,FY,SXX,SXY,SYY'
+NUMBER OF PRIVATE VARIABLES     = 4
+/
+/---------------------------------------------------------------------
+/ INITIAL CONDITIONS
+/---------------------------------------------------------------------
+/
+INITIAL CONDITIONS  ='CONSTANT ELEVATION'
+/
+INITIAL WATER LEVEL = 0.
+/
+/--------------------------------------------------------------------/
+/ OPTIONS
+/--------------------------------------------------------------------/
+/
+MATRIX STORAGE = 3
+/
+/---------------------------------------------------------------------
+/ NUMERICAL PARAMETERS,SOLVER
+/---------------------------------------------------------------------
+/
+SOLVER =8
+/
+/for parallel calculations using n processors
+/add PARALLEL PROCESSORS = n
+/replace SOLVER = 8 by SOLVER = 9 for the direct solver
+/
+/---------------------------------------------------------------------
+/ PHYSICAL PARAMETERS
+/---------------------------------------------------------------------
+/
+WAVE PERIOD  = 2.0
+/
+DIRECTION OF WAVE PROPAGATION = 0.
+/
+FRICTION = YES
+BOTTOM FRICTION LAW = 2
+SKIN ROUGHNESS ONLY = NO
+/
+DIAMETER90 = 0.7E-3
+DIAMETER50 = 0.22E-3
+/
+PHASE REFERENCE COORDINATES : 0.; 2.
+/

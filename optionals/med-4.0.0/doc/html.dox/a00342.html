@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: c/test4.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">c/test4.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/******************************************************************************</span></div>
+<div class="line"><span class="comment"> * - Nom du fichier : test4.c</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * - Description : ecriture des noeuds d&#39;un maillage MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *****************************************************************************/</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#ifdef DEF_LECT_ECR</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_RDWR</span></div>
+<div class="line"><span class="preprocessor">#elif DEF_LECT_AJOUT</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_RDEXT</span></div>
+<div class="line"><span class="preprocessor">#else</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_CREAT</span></div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a name="a0"></a><a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">{</div>
+<div class="line">  <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> ret = 0;</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line">  <span class="comment">/* la dimension du maillage */</span></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> mdim = 2;</div>
+<div class="line">  <span class="comment">/* nom du maillage de longueur maxi MED_NAME_SIZE */</span></div>
+<div class="line">  <span class="keywordtype">char</span> maa[<a name="a1"></a><a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1] = <span class="stringliteral">&quot;maa1&quot;</span>;</div>
+<div class="line">  <span class="comment">/* le nombre de noeuds */</span></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nnoe = 4;</div>
+<div class="line">  <span class="comment">/* table des coordonnees</span></div>
+<div class="line"><span class="comment">      (dimension * nombre de noeuds) */</span></div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> coo[8] = {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0};</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> coo_2[8] = {0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0};</div>
+<div class="line">  <span class="comment">/* tables des noms et des unites des coordonnees</span></div>
+<div class="line"><span class="comment">      (dimension*MED_SNAME_SIZE+1) */</span></div>
+<div class="line">  <span class="comment">/*                                  12345678901234561234567890123456*/</span></div>
+<div class="line">  <span class="keywordtype">char</span> nomcoo[2*<a name="a2"></a><a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;x               y               &quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> unicoo[2*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;cm              cm              &quot;</span>;</div>
+<div class="line">  <span class="comment">/* tables des noms, numeros, numeros de familles des noeuds</span></div>
+<div class="line"><span class="comment">     autant d&#39;elements que de noeuds - les noms ont pout longueur</span></div>
+<div class="line"><span class="comment">     MED_SNAME_SIZE */</span></div>
+<div class="line">  <span class="comment">/*                                  1234567890123456123456789012345612345678901234561234567890123456*/</span></div>
+<div class="line">  <span class="keywordtype">char</span> nomnoe[4*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;nom1            nom2            nom3            nom4            &quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> numnoe[4] = {1,2,3,4};</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nufano[4] = {0,1,2,2};</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Creation du fichier &quot;test4.med&quot; */</span></div>
+<div class="line">  <span class="comment">/* ouverture du fichier */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((fid = <a name="a3"></a><a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;test4.med&quot;</span>,<a name="a4"></a><a class="code" href="a00853_a29a43500a889d39744e184ece0d749be.html#a29a43500a889d39744e184ece0d749be">MODE_ACCES</a>)) &lt; 0){</div>
+<div class="line">    <a name="a5"></a><a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;ouverture du fichier : &quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Creation du maillage &quot;maa&quot; de type MED_NON_STRUCURE</span></div>
+<div class="line"><span class="comment">     et de dimension 2 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a name="a6"></a><a class="code" href="a01055_ga6007c3f1a62732e7a46c5eca232be78a.html#ga6007c3f1a62732e7a46c5eca232be78a">MEDmeshCr</a>( fid, maa, mdim, mdim, <a name="a7"></a><a class="code" href="a00577_a821a4dd94c5c6b095318432bdec8d8a1.html#a821a4dd94c5c6b095318432bdec8d8a1a3719e53a4838d222f0a58148292fda41">MED_UNSTRUCTURED_MESH</a>,</div>
+<div class="line">             <span class="stringliteral">&quot;un maillage pour test4&quot;</span>,<span class="stringliteral">&quot;s&quot;</span>, <a name="a8"></a><a class="code" href="a00577_a5b97067a30629cd60470d074691d6798.html#a5b97067a30629cd60470d074691d6798ae896b6adfbde9870b4e875e5167eddd0">MED_SORT_DTIT</a>,</div>
+<div class="line">                 <a name="a9"></a><a class="code" href="a00577_a57867e4bed1d104c865cfc9d23c9204d.html#a57867e4bed1d104c865cfc9d23c9204da682ef7f1042079519664eae87f90297e">MED_CARTESIAN</a>, nomcoo, unicoo) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation du maillage : &quot;</span>); <a name="a10"></a><a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ecriture des coordonnees des noeuds en mode MED_FULL_INTERLACE :</span></div>
+<div class="line"><span class="comment">     (X1,Y1, X2,Y2, X3,Y3, ...) dans un repere cartesien */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a name="a11"></a><a class="code" href="a01055_gab2a6fcbbb0dfb0dba573320ed07f503b.html#gab2a6fcbbb0dfb0dba573320ed07f503b">MEDmeshNodeCoordinateWr</a>(fid,maa,<a name="a12"></a><a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a name="a13"></a><a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,<a name="a14"></a><a class="code" href="a00577_a609885580ce660eb5b7c80074d64f93f.html#a609885580ce660eb5b7c80074d64f93f">MED_UNDEF_DT</a>,</div>
+<div class="line">                              <a name="a15"></a><a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>,nnoe,  coo) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ecriture des coordonnees des noeuds&quot;</span>);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ecriture des attributs des noeuds du maillage  */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a name="a16"></a><a class="code" href="a01055_gafbb2485cb626a969c442fac4370c4f99.html#gafbb2485cb626a969c442fac4370c4f99">MEDmeshAttributeWr</a>(fid,maa, 0, nnoe, 0) &lt; 0 ) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ecriture des attributs des noeuds du maillage&quot;</span>);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ecriture des noms des noeuds (optionnel dans un maillage MED) */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a name="a17"></a><a class="code" href="a01055_ga3be091e7873665850c5adc47f8a69ed1.html#ga3be091e7873665850c5adc47f8a69ed1">MEDmeshEntityNameWr</a>(fid,maa,<a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,<a name="a18"></a><a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f">MED_NODE</a>,<a name="a19"></a><a class="code" href="a00577_a9a2843c7d6eacffdd9377b5bfb8a6de3.html#a9a2843c7d6eacffdd9377b5bfb8a6de3">MED_NONE</a>,nnoe,nomnoe) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ecriture des noms des noeuds&quot;</span>);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ecriture des numeros des noeuds (optionnel dans un maillage MED) */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a name="a20"></a><a class="code" href="a01055_ga792ce0b4bff70ca6ca593b7a271e47eb.html#ga792ce0b4bff70ca6ca593b7a271e47eb">MEDmeshEntityNumberWr</a>(fid,maa,<a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,<a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f">MED_NODE</a>,<a class="code" href="a00577_a9a2843c7d6eacffdd9377b5bfb8a6de3.html#a9a2843c7d6eacffdd9377b5bfb8a6de3">MED_NONE</a>,nnoe,numnoe) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ecriture des numeros des noeuds&quot;</span>);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ecriture des numeros de famille des noeuds */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a name="a21"></a><a class="code" href="a01055_gab5dbe1721785e8565d5897349b526c43.html#gab5dbe1721785e8565d5897349b526c43">MEDmeshEntityFamilyNumberWr</a>(fid,maa,<a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,<a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f">MED_NODE</a>,<a class="code" href="a00577_a9a2843c7d6eacffdd9377b5bfb8a6de3.html#a9a2843c7d6eacffdd9377b5bfb8a6de3">MED_NONE</a>,nnoe,nufano) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ecriture des numeros de familles des noeuds&quot;</span>);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ecriture des coordonnees des noeuds en mode MED_FULL_INTERLACE :</span></div>
+<div class="line"><span class="comment">     (X1,Y1, X2,Y2, X3,Y3, ...) dans un repere cartesien */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01055_gab2a6fcbbb0dfb0dba573320ed07f503b.html#gab2a6fcbbb0dfb0dba573320ed07f503b">MEDmeshNodeCoordinateWr</a>(fid,maa,0,5,0.5,</div>
+<div class="line">                              <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>,nnoe, coo_2) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ecriture des coordonnees des noeuds&quot;</span>);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ecriture des coordonnees des noeuds en mode MED_FULL_INTERLACE :</span></div>
+<div class="line"><span class="comment">     (X1,Y1, X2,Y2, X3,Y3, ...) dans un repere cartesien */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01055_gab2a6fcbbb0dfb0dba573320ed07f503b.html#gab2a6fcbbb0dfb0dba573320ed07f503b">MEDmeshNodeCoordinateWr</a>(fid,maa,2,0,2.0,</div>
+<div class="line">                              <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>,nnoe,  coo) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ecriture des coordonnees des noeuds&quot;</span>);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/*TODO : Ecrire un test de comparaison next prev et ordre de découverte itératif */</span></div>
+<div class="line">  <a name="a22"></a><a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,maa,-1,-1,0,2,0.25);</div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,maa,0,2,0,3,0.35);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Fermeture du fichier */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a name="a23"></a><a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la fermeture du fichier test4.med&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">return</span> ret;</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+</div><!-- fragment --> </div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

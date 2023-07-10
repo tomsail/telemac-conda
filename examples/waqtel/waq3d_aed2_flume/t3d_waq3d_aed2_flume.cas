@@ -1,0 +1,86 @@
+/--------------------------------------------------------------/
+/   TELEMAC-3D      -  waq3d_aed2_canal                        /
+/                          MJ sept 2016                        /
+/                                                              /
+/ test case for t3d waqtel aed2 coupling with flow velocities  /
+/ geometry and hydraulics from test case CANAL                 /
+/--------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+GEOMETRY FILE             = geo_waq3d_aed2_flume.slf
+BOUNDARY CONDITIONS FILE  = geo_waq3d_aed2_flume.cli
+3D RESULT FILE            = r3d_waq3d_aed2_flume.slf
+2D RESULT FILE            = r2d_waq3d_aed2_flume.slf
+COMPUTATION CONTINUED     = YES
+PREVIOUS COMPUTATION FILE = ini_waq3d_aed2_flume.slf
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+TITLE = 'AED2 canal'
+VARIABLES FOR 2D GRAPHIC PRINTOUTS =
+U,V,H,S,TA1,TA3,TA8,TA9,TA10,TA13,TA15,TA16
+VARIABLES FOR 3D GRAPHIC PRINTOUTS =
+Z,U,V,W,TA1,TA3,TA8,TA9,TA10,TA13,TA15,TA16
+GRAPHIC PRINTOUT PERIOD = 10
+LISTING PRINTOUT PERIOD = 10
+MASS-BALANCE = YES
+INITIAL TIME SET TO ZERO = YES
+TIME STEP = 1.
+NUMBER OF TIME STEPS = 160
+/--------------------------------------------------
+/  VERTICAL MESH
+/--------------------------------------------------
+NUMBER OF HORIZONTAL LEVELS : 10
+/--------------------------------------------------
+/  SOURCE TERMS
+/--------------------------------------------------
+LAW OF BOTTOM FRICTION : 5
+FRICTION COEFFICIENT FOR THE BOTTOM : 0.001
+HORIZONTAL TURBULENCE MODEL : 1
+VERTICAL TURBULENCE MODEL   : 2
+MIXING LENGTH MODEL         : 3
+/COEFFICIENT FOR HORIZONTAL DIFFUSION OF VELOCITIES = 0.D0
+/COEFFICIENT FOR VERTICAL DIFFUSION OF VELOCITIES   = 1.D-6
+/--------------------------------------------------
+/  ADVECTION-DIFFUSION
+/--------------------------------------------------
+SCHEME FOR ADVECTION OF VELOCITIES : 1
+/--------------------------------------------------
+/  PROPAGATION
+/--------------------------------------------------
+/SOLVER FOR PROPAGATION : 2
+/IMPLICITATION FOR DEPTH      : 0.6
+/IMPLICITATION FOR VELOCITIES : 0.6
+/--------------------------------------------------
+/  BOUNDARY CONDITIONS
+/--------------------------------------------------
+PRESCRIBED FLOWRATES      = 0.;50. /downstream;upstream
+PRESCRIBED ELEVATIONS     = 0.5;0.
+PRESCRIBED TRACERS VALUES = 0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;
+0;0;0;
+20.;0;225;1600.5;7.5;27.6;12;0.3;5;0.1;80;80;7;7;0.2;0.2;0;0;0;0;0.5;
+0.1;0.005;0;0
+/--------------------------------------------------
+/  WATER QUALITY
+/--------------------------------------------------
+COUPLING WITH         = 'WAQTEL'
+WAQTEL STEERING FILE  = 'aed2_steer.cas'
+WATER QUALITY PROCESS = 13
+MAXIMUM NUMBER OF TRACERS = 30
+/NUMBER OF TRACERS = 2
+/NAMES OF TRACERS : 'TEMPERATURE     DEGRE C ';'SALINITE        g/l'
+/ 25 INITIAL VALUES ARE MANDATORY, AS MANY AS THE NUMBER OF TRACERS
+/ COMPUTED IN AED2
+INITIAL VALUES OF TRACERS: 20.;0.;225.;1600.5;7.5;27.6;12.;0.3;5.;0.1;
+80.;80.;7.;7.;0.2;0.2;0.;0.;0.;0.;0.5;0.1;0.005;0.;0.
+/--------------------------------------------------
+/  TRACERS
+/--------------------------------------------------
+/ EVERY SCHEME FOR ADVECTION OF TRACERS, SCHEME OPTION FOR ADVECTION OF TRACERS
+/ IS THE SAME AS THE FIRST ONE
+/COEFFICIENT FOR VERTICAL DIFFUSION OF TRACERS   = 1.D-2
+/COEFFICIENT FOR HORIZONTAL DIFFUSION OF TRACERS = 1.D-2
+SCHEME FOR ADVECTION OF TRACERS = 5
+SCHEME OPTION FOR ADVECTION OF TRACERS = 4

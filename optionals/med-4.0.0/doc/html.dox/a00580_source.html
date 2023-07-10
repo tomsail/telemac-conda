@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier:  Fichier source de MED23meshIterators.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_922008759471ca0eb310ac45b5f91be6.html">tools</a></li><li class="navelem"><a class="el" href="dir_efbbbf9a00bcdd198d2d9a09b02d2899.html">mdump</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">MED23meshIterators.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00580.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00581.html">med_config.h</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a00580_a26adffc03739134d36767f9649c32d4e.html#a26adffc03739134d36767f9649c32d4e">   22</a></span>&#160;<a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470">med_entity_type</a> <a class="code" href="a00580_a26adffc03739134d36767f9649c32d4e.html#a26adffc03739134d36767f9649c32d4e">MED23MESH_GET_ENTITY_TYPE</a>[<a class="code" href="a00577_aa44c5ecb51943c3feac8fbe5ce8b6783.html#aa44c5ecb51943c3feac8fbe5ce8b6783">MED_N_ENTITY_TYPES</a>+2]={</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a21532aedbec80567c572e5105766b5e9">MED_UNDEF_ENTITY_TYPE</a>,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>,</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a9168c75d6fb79842aeb30740f5146d25">MED_DESCENDING_FACE</a>,</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470aecea01a443c5512ff49ddba9f992aa0e">MED_DESCENDING_EDGE</a>,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f">MED_NODE</a>,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a809ee1b85589bf7c0cf796b7212abc25">MED_NODE_ELEMENT</a>,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470abdd6b14142920f599bbe4e97c4bb921e">MED_STRUCT_ELEMENT</a>,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a21532aedbec80567c572e5105766b5e9">MED_UNDEF_ENTITY_TYPE</a></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a00580_a6010081961def7d7d61732532e67b9f5.html#a6010081961def7d7d61732532e67b9f5">   33</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> <a class="code" href="a00580_a6010081961def7d7d61732532e67b9f5.html#a6010081961def7d7d61732532e67b9f5">MED23MESH_GET_ENTITY_TYPENAME</a>[<a class="code" href="a00577_aa44c5ecb51943c3feac8fbe5ce8b6783.html#aa44c5ecb51943c3feac8fbe5ce8b6783">MED_N_ENTITY_TYPES</a>+2]={</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="stringliteral">&quot;MED_UNDEF_ENTITY_TYPE&quot;</span>,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="stringliteral">&quot;MED_MAILLE&quot;</span>,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="stringliteral">&quot;MED_FACE&quot;</span>,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="stringliteral">&quot;MED_ARETE&quot;</span>,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="stringliteral">&quot;MED_NOEUD&quot;</span>,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="stringliteral">&quot;MED_NOEUD_MAILLE&quot;</span>,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="stringliteral">&quot;MED_STRUCT_ELEMENT&quot;</span>,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="stringliteral">&quot;MED_UNDEF_ENTITY_TYPE&quot;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a00580_af0e9e20a00e3b4594f67e408c2dbd1af.html#af0e9e20a00e3b4594f67e408c2dbd1af">   44</a></span>&#160;<a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> <a class="code" href="a00580_af0e9e20a00e3b4594f67e408c2dbd1af.html#af0e9e20a00e3b4594f67e408c2dbd1af">MED23MESH_GET_CELL_GEOMETRY_TYPE</a>[<a class="code" href="a00577_abd42d91233c317ca8eb9b592e4502053.html#abd42d91233c317ca8eb9b592e4502053">MED_N_CELL_FIXED_GEO</a>+2]={</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <a class="code" href="a00577_a865361460bec98f2ec3f5bb3237b9264.html#a865361460bec98f2ec3f5bb3237b9264">MED_NO_GEOTYPE</a>,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="a00577_aae1e86a4a1fce025bdadecb5e3e4a705.html#aae1e86a4a1fce025bdadecb5e3e4a705">MED_POINT1</a>,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="a00577_a29927daaa1a87f2129295a68264ad526.html#a29927daaa1a87f2129295a68264ad526">MED_SEG2</a>,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="a00577_abcdb0eb0e7fc585c10f8986c105135fb.html#abcdb0eb0e7fc585c10f8986c105135fb">MED_SEG3</a>,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670.html#a4a1eb7ba296742a6f5eb8b5b23b39670">MED_TRIA3</a>,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <a class="code" href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a>,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <a class="code" href="a00577_ac44f7967364889697b30b672df222578.html#ac44f7967364889697b30b672df222578">MED_QUAD8</a>,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <a class="code" href="a00577_a8924ab0dac0ab1a0c090e0d7fe842a8f.html#a8924ab0dac0ab1a0c090e0d7fe842a8f">MED_TETRA4</a>,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <a class="code" href="a00577_a75d946428ccdd04653de5eae5ecdcd9a.html#a75d946428ccdd04653de5eae5ecdcd9a">MED_TETRA10</a>,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <a class="code" href="a00577_ab17f50e219313c79659dabf1fe160dca.html#ab17f50e219313c79659dabf1fe160dca">MED_HEXA8</a>,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="a00577_ace855a144ec03695afcaa291b7fc9c3b.html#ace855a144ec03695afcaa291b7fc9c3b">MED_HEXA20</a>,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <a class="code" href="a00577_ab7d645843b7016f7f36cb4c5af870683.html#ab7d645843b7016f7f36cb4c5af870683">MED_PENTA6</a>,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <a class="code" href="a00577_a775f9f630433766a8ee409075adce171.html#a775f9f630433766a8ee409075adce171">MED_PENTA15</a>,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <a class="code" href="a00577_ab92b8cb47f5ce38304cf2fe1fccbde98.html#ab92b8cb47f5ce38304cf2fe1fccbde98">MED_PENTA18</a>,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <a class="code" href="a00577_afce5ab3f1962b80e2f9791b98d82bf9e.html#afce5ab3f1962b80e2f9791b98d82bf9e">MED_PYRA5</a>,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <a class="code" href="a00577_ad210e6eb7da4ae0d169813c2979ed640.html#ad210e6eb7da4ae0d169813c2979ed640">MED_PYRA13</a>,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <a class="code" href="a00577_a16443cb756f57ecfa39bcdd58f0edf54.html#a16443cb756f57ecfa39bcdd58f0edf54">MED_SEG4</a>,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <a class="code" href="a00577_a17766b9d3ba4c1c46576a97d24e74236.html#a17766b9d3ba4c1c46576a97d24e74236">MED_TRIA7</a>,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <a class="code" href="a00577_affd84bc502815e1d695a5a1254b1017c.html#affd84bc502815e1d695a5a1254b1017c">MED_QUAD9</a>,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <a class="code" href="a00577_a10724d7331cfcd5f4cd066d025ed1469.html#a10724d7331cfcd5f4cd066d025ed1469">MED_OCTA12</a>,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="a00577_aebd94e8163062a93f3d013bfc76eab01.html#aebd94e8163062a93f3d013bfc76eab01">MED_HEXA27</a>,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <a class="code" href="a00577_a85eec62d6ac09df04ee4e0ca89586273.html#a85eec62d6ac09df04ee4e0ca89586273">MED_POLYGON</a>,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <a class="code" href="a00577_a7def769876447072a38f819eb69bcda5.html#a7def769876447072a38f819eb69bcda5">MED_POLYGON2</a>,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <a class="code" href="a00577_ae08587b134662b257542c6b64e6a998a.html#ae08587b134662b257542c6b64e6a998a">MED_POLYHEDRON</a>,</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="a00577_a865361460bec98f2ec3f5bb3237b9264.html#a865361460bec98f2ec3f5bb3237b9264">MED_NO_GEOTYPE</a></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;};</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a00580_a94fcf666992c8d2b9c2a244c8846597f.html#a94fcf666992c8d2b9c2a244c8846597f">   73</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> <a class="code" href="a00580_a94fcf666992c8d2b9c2a244c8846597f.html#a94fcf666992c8d2b9c2a244c8846597f">MED23MESH_GET_CELL_GEOMETRY_TYPENAME</a>[<a class="code" href="a00577_abd42d91233c317ca8eb9b592e4502053.html#abd42d91233c317ca8eb9b592e4502053">MED_N_CELL_FIXED_GEO</a>+2]={</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="stringliteral">&quot;(AUCUN)&quot;</span>,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="stringliteral">&quot;MED_POINT1&quot;</span>,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="stringliteral">&quot;MED_SEG2&quot;</span>,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="stringliteral">&quot;MED_SEG3&quot;</span>,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="stringliteral">&quot;MED_TRIA3&quot;</span>,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="stringliteral">&quot;MED_TRIA6&quot;</span>,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="stringliteral">&quot;MED_QUAD4&quot;</span>,</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="stringliteral">&quot;MED_QUAD8&quot;</span>,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="stringliteral">&quot;MED_TETRA4&quot;</span>,</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="stringliteral">&quot;MED_TETRA10&quot;</span>,</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="stringliteral">&quot;MED_HEXA8&quot;</span>,</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="stringliteral">&quot;MED_HEXA20&quot;</span>,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="stringliteral">&quot;MED_PENTA6&quot;</span>,</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="stringliteral">&quot;MED_PENTA15&quot;</span>,</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="stringliteral">&quot;MED_PENTA18&quot;</span>,</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="stringliteral">&quot;MED_PYRA5&quot;</span>,</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="stringliteral">&quot;MED_PYRA13&quot;</span>,</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="stringliteral">&quot;MED_SEG4&quot;</span>,</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="stringliteral">&quot;MED_TRIA7&quot;</span>,</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="stringliteral">&quot;MED_QUAD9&quot;</span>,</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="stringliteral">&quot;MED_OCTA12&quot;</span>,</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="stringliteral">&quot;MED_HEXA27&quot;</span>,</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="stringliteral">&quot;MED_POLYGONE&quot;</span>,</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="stringliteral">&quot;MED_POLYGONE2&quot;</span>,</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="stringliteral">&quot;MED_POLYEDRE&quot;</span>,</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="stringliteral">&quot;(AUCUN)&quot;</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="a00580_a265caa1aa74e1e10e28dc178d4310169.html#a265caa1aa74e1e10e28dc178d4310169">  103</a></span>&#160;<a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> <a class="code" href="a00580_a265caa1aa74e1e10e28dc178d4310169.html#a265caa1aa74e1e10e28dc178d4310169">MED23MESH_GET_FACE_GEOMETRY_TYPE</a>[<a class="code" href="a00577_ab0fae842b07280cb7fb20f10a68076ee.html#ab0fae842b07280cb7fb20f10a68076ee">MED_N_FACE_FIXED_GEO</a>+2]={</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <a class="code" href="a00577_a865361460bec98f2ec3f5bb3237b9264.html#a865361460bec98f2ec3f5bb3237b9264">MED_NO_GEOTYPE</a>,</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <a class="code" href="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670.html#a4a1eb7ba296742a6f5eb8b5b23b39670">MED_TRIA3</a>,</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <a class="code" href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a>,</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <a class="code" href="a00577_ac44f7967364889697b30b672df222578.html#ac44f7967364889697b30b672df222578">MED_QUAD8</a>,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <a class="code" href="a00577_a17766b9d3ba4c1c46576a97d24e74236.html#a17766b9d3ba4c1c46576a97d24e74236">MED_TRIA7</a>,</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <a class="code" href="a00577_affd84bc502815e1d695a5a1254b1017c.html#affd84bc502815e1d695a5a1254b1017c">MED_QUAD9</a>,</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <a class="code" href="a00577_a85eec62d6ac09df04ee4e0ca89586273.html#a85eec62d6ac09df04ee4e0ca89586273">MED_POLYGON</a>,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <a class="code" href="a00577_a7def769876447072a38f819eb69bcda5.html#a7def769876447072a38f819eb69bcda5">MED_POLYGON2</a>,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <a class="code" href="a00577_a865361460bec98f2ec3f5bb3237b9264.html#a865361460bec98f2ec3f5bb3237b9264">MED_NO_GEOTYPE</a></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;};</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="a00580_aea28b0b954eb3078d94d72f94b9b8ecc.html#aea28b0b954eb3078d94d72f94b9b8ecc">  116</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> <a class="code" href="a00580_aea28b0b954eb3078d94d72f94b9b8ecc.html#aea28b0b954eb3078d94d72f94b9b8ecc">MED23MESH_GET_FACE_GEOMETRY_TYPENAME</a>[<a class="code" href="a00577_ab0fae842b07280cb7fb20f10a68076ee.html#ab0fae842b07280cb7fb20f10a68076ee">MED_N_FACE_FIXED_GEO</a>+2]={</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="stringliteral">&quot;(AUCUN)&quot;</span>,</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="stringliteral">&quot;MED_TRIA3&quot;</span>,</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="stringliteral">&quot;MED_TRIA6&quot;</span>,</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="stringliteral">&quot;MED_QUAD4&quot;</span>,</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <span class="stringliteral">&quot;MED_QUAD8&quot;</span>,</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="stringliteral">&quot;MED_TRIA7&quot;</span>,</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="stringliteral">&quot;MED_QUAD9&quot;</span>,</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="stringliteral">&quot;MED_POLYGONE&quot;</span>,</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="stringliteral">&quot;MED_POLYGONE2&quot;</span>,</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="stringliteral">&quot;(AUCUN)&quot;</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;};</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="a00580_aa4166e33353c664eeb2433ee854326fd.html#aa4166e33353c664eeb2433ee854326fd">  129</a></span>&#160;<a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> <a class="code" href="a00580_aa4166e33353c664eeb2433ee854326fd.html#aa4166e33353c664eeb2433ee854326fd">MED23MESH_GET_EDGE_GEOMETRY_TYPE</a>[<a class="code" href="a00577_abc947dde9b1b8982162dde8888a79ab4.html#abc947dde9b1b8982162dde8888a79ab4">MED_N_EDGE_FIXED_GEO</a>+2]={</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <a class="code" href="a00577_a865361460bec98f2ec3f5bb3237b9264.html#a865361460bec98f2ec3f5bb3237b9264">MED_NO_GEOTYPE</a>,</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <a class="code" href="a00577_a29927daaa1a87f2129295a68264ad526.html#a29927daaa1a87f2129295a68264ad526">MED_SEG2</a>,</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <a class="code" href="a00577_abcdb0eb0e7fc585c10f8986c105135fb.html#abcdb0eb0e7fc585c10f8986c105135fb">MED_SEG3</a>,</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  <a class="code" href="a00577_a16443cb756f57ecfa39bcdd58f0edf54.html#a16443cb756f57ecfa39bcdd58f0edf54">MED_SEG4</a>,</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <a class="code" href="a00577_a865361460bec98f2ec3f5bb3237b9264.html#a865361460bec98f2ec3f5bb3237b9264">MED_NO_GEOTYPE</a></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;};</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="a00580_a336ec5001b58647b03039bc154509be7.html#a336ec5001b58647b03039bc154509be7">  137</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code" href="a00580_a336ec5001b58647b03039bc154509be7.html#a336ec5001b58647b03039bc154509be7">MED23MESH_GET_EDGE_GEOMETRY_TYPENAME</a>[<a class="code" href="a00577_abc947dde9b1b8982162dde8888a79ab4.html#abc947dde9b1b8982162dde8888a79ab4">MED_N_EDGE_FIXED_GEO</a>+2]={</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="stringliteral">&quot;(AUCUN)&quot;</span>,</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  <span class="stringliteral">&quot;MED_SEG2&quot;</span>,</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  <span class="stringliteral">&quot;MED_SEG3&quot;</span>,</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  <span class="stringliteral">&quot;MED_SEG4&quot;</span>,</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="stringliteral">&quot;(AUCUN)&quot;</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;};</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="a00580_a4bde90e343b637303644dc778ad0ffdb.html#a4bde90e343b637303644dc778ad0ffdb">  145</a></span>&#160;<a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> <a class="code" href="a00580_a4bde90e343b637303644dc778ad0ffdb.html#a4bde90e343b637303644dc778ad0ffdb">MED23MESH_GET_NODE_GEOMETRY_TYPE</a>[<a class="code" href="a00577_a94482e307ec77322dcfd9bde0e8f705f.html#a94482e307ec77322dcfd9bde0e8f705f">MED_N_NODE_FIXED_GEO</a>+2]={</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <a class="code" href="a00577_a865361460bec98f2ec3f5bb3237b9264.html#a865361460bec98f2ec3f5bb3237b9264">MED_NO_GEOTYPE</a>,</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <a class="code" href="a00577_a865361460bec98f2ec3f5bb3237b9264.html#a865361460bec98f2ec3f5bb3237b9264">MED_NO_GEOTYPE</a>,</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  MED_NO_GEOTYPE</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;};</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;</div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="a00580_a6127a8d6e655f8263fdfda8361e91add.html#a6127a8d6e655f8263fdfda8361e91add">  151</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span> * <a class="code" href="a00580_a6127a8d6e655f8263fdfda8361e91add.html#a6127a8d6e655f8263fdfda8361e91add">MED23MESH_GET_NODE_GEOMETRY_TYPENAME</a>[<a class="code" href="a00577_a94482e307ec77322dcfd9bde0e8f705f.html#a94482e307ec77322dcfd9bde0e8f705f">MED_N_NODE_FIXED_GEO</a>+2]={</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  <span class="stringliteral">&quot;(AUCUN)&quot;</span>,</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <span class="stringliteral">&quot;(AUCUN)&quot;</span>,</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <span class="stringliteral">&quot;(AUCUN)&quot;</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;};</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
+<div class="ttc" id="a00577_a24ea9c52f5bde41d9a072925249ec06c_html_a24ea9c52f5bde41d9a072925249ec06c"><div class="ttname"><a href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a></div><div class="ttdeci">#define MED_QUAD4</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00201">med.h:201</a></div></div>
+<div class="ttc" id="a00577_aa44c5ecb51943c3feac8fbe5ce8b6783_html_aa44c5ecb51943c3feac8fbe5ce8b6783"><div class="ttname"><a href="a00577_aa44c5ecb51943c3feac8fbe5ce8b6783.html#aa44c5ecb51943c3feac8fbe5ce8b6783">MED_N_ENTITY_TYPES</a></div><div class="ttdeci">#define MED_N_ENTITY_TYPES</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00144">med.h:144</a></div></div>
+<div class="ttc" id="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670_html_a4a1eb7ba296742a6f5eb8b5b23b39670"><div class="ttname"><a href="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670.html#a4a1eb7ba296742a6f5eb8b5b23b39670">MED_TRIA3</a></div><div class="ttdeci">#define MED_TRIA3</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00200">med.h:200</a></div></div>
+<div class="ttc" id="a00577_a85970ad0ffaf58419c2afa36e43b1ea3_html_a85970ad0ffaf58419c2afa36e43b1ea3"><div class="ttname"><a href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a></div><div class="ttdeci">#define MED_TRIA6</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00202">med.h:202</a></div></div>
+<div class="ttc" id="a00580_a265caa1aa74e1e10e28dc178d4310169_html_a265caa1aa74e1e10e28dc178d4310169"><div class="ttname"><a href="a00580_a265caa1aa74e1e10e28dc178d4310169.html#a265caa1aa74e1e10e28dc178d4310169">MED23MESH_GET_FACE_GEOMETRY_TYPE</a></div><div class="ttdeci">med_geometry_type MED23MESH_GET_FACE_GEOMETRY_TYPE[MED_N_FACE_FIXED_GEO+2]</div><div class="ttdef"><b>Definition:</b> <a href="a00580_source.html#l00103">MED23meshIterators.c:103</a></div></div>
+<div class="ttc" id="a00577_a85eec62d6ac09df04ee4e0ca89586273_html_a85eec62d6ac09df04ee4e0ca89586273"><div class="ttname"><a href="a00577_a85eec62d6ac09df04ee4e0ca89586273.html#a85eec62d6ac09df04ee4e0ca89586273">MED_POLYGON</a></div><div class="ttdeci">#define MED_POLYGON</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00220">med.h:220</a></div></div>
+<div class="ttc" id="a00577_ab0fae842b07280cb7fb20f10a68076ee_html_ab0fae842b07280cb7fb20f10a68076ee"><div class="ttname"><a href="a00577_ab0fae842b07280cb7fb20f10a68076ee.html#ab0fae842b07280cb7fb20f10a68076ee">MED_N_FACE_FIXED_GEO</a></div><div class="ttdeci">#define MED_N_FACE_FIXED_GEO</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00240">med.h:240</a></div></div>
+<div class="ttc" id="a00577_a7def769876447072a38f819eb69bcda5_html_a7def769876447072a38f819eb69bcda5"><div class="ttname"><a href="a00577_a7def769876447072a38f819eb69bcda5.html#a7def769876447072a38f819eb69bcda5">MED_POLYGON2</a></div><div class="ttdeci">#define MED_POLYGON2</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00221">med.h:221</a></div></div>
+<div class="ttc" id="a00577_aab0e957294723517d5c3641bb71b0470_html_aab0e957294723517d5c3641bb71b0470a9168c75d6fb79842aeb30740f5146d25"><div class="ttname"><a href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a9168c75d6fb79842aeb30740f5146d25">MED_DESCENDING_FACE</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00141">med.h:141</a></div></div>
+<div class="ttc" id="a00577_aab0e957294723517d5c3641bb71b0470_html_aab0e957294723517d5c3641bb71b0470a809ee1b85589bf7c0cf796b7212abc25"><div class="ttname"><a href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a809ee1b85589bf7c0cf796b7212abc25">MED_NODE_ELEMENT</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00142">med.h:142</a></div></div>
+<div class="ttc" id="a00580_a6010081961def7d7d61732532e67b9f5_html_a6010081961def7d7d61732532e67b9f5"><div class="ttname"><a href="a00580_a6010081961def7d7d61732532e67b9f5.html#a6010081961def7d7d61732532e67b9f5">MED23MESH_GET_ENTITY_TYPENAME</a></div><div class="ttdeci">const char *const MED23MESH_GET_ENTITY_TYPENAME[MED_N_ENTITY_TYPES+2]</div><div class="ttdef"><b>Definition:</b> <a href="a00580_source.html#l00033">MED23meshIterators.c:33</a></div></div>
+<div class="ttc" id="a00577_ab7d645843b7016f7f36cb4c5af870683_html_ab7d645843b7016f7f36cb4c5af870683"><div class="ttname"><a href="a00577_ab7d645843b7016f7f36cb4c5af870683.html#ab7d645843b7016f7f36cb4c5af870683">MED_PENTA6</a></div><div class="ttdeci">#define MED_PENTA6</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00209">med.h:209</a></div></div>
+<div class="ttc" id="a00577_a17766b9d3ba4c1c46576a97d24e74236_html_a17766b9d3ba4c1c46576a97d24e74236"><div class="ttname"><a href="a00577_a17766b9d3ba4c1c46576a97d24e74236.html#a17766b9d3ba4c1c46576a97d24e74236">MED_TRIA7</a></div><div class="ttdeci">#define MED_TRIA7</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00203">med.h:203</a></div></div>
+<div class="ttc" id="a00577_abd42d91233c317ca8eb9b592e4502053_html_abd42d91233c317ca8eb9b592e4502053"><div class="ttname"><a href="a00577_abd42d91233c317ca8eb9b592e4502053.html#abd42d91233c317ca8eb9b592e4502053">MED_N_CELL_FIXED_GEO</a></div><div class="ttdeci">#define MED_N_CELL_FIXED_GEO</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00236">med.h:236</a></div></div>
+<div class="ttc" id="a00577_a8924ab0dac0ab1a0c090e0d7fe842a8f_html_a8924ab0dac0ab1a0c090e0d7fe842a8f"><div class="ttname"><a href="a00577_a8924ab0dac0ab1a0c090e0d7fe842a8f.html#a8924ab0dac0ab1a0c090e0d7fe842a8f">MED_TETRA4</a></div><div class="ttdeci">#define MED_TETRA4</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00207">med.h:207</a></div></div>
+<div class="ttc" id="a00577_a16443cb756f57ecfa39bcdd58f0edf54_html_a16443cb756f57ecfa39bcdd58f0edf54"><div class="ttname"><a href="a00577_a16443cb756f57ecfa39bcdd58f0edf54.html#a16443cb756f57ecfa39bcdd58f0edf54">MED_SEG4</a></div><div class="ttdeci">#define MED_SEG4</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00199">med.h:199</a></div></div>
+<div class="ttc" id="a00580_aa4166e33353c664eeb2433ee854326fd_html_aa4166e33353c664eeb2433ee854326fd"><div class="ttname"><a href="a00580_aa4166e33353c664eeb2433ee854326fd.html#aa4166e33353c664eeb2433ee854326fd">MED23MESH_GET_EDGE_GEOMETRY_TYPE</a></div><div class="ttdeci">med_geometry_type MED23MESH_GET_EDGE_GEOMETRY_TYPE[MED_N_EDGE_FIXED_GEO+2]</div><div class="ttdef"><b>Definition:</b> <a href="a00580_source.html#l00129">MED23meshIterators.c:129</a></div></div>
+<div class="ttc" id="a00577_aab0e957294723517d5c3641bb71b0470_html_aab0e957294723517d5c3641bb71b0470abdd6b14142920f599bbe4e97c4bb921e"><div class="ttname"><a href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470abdd6b14142920f599bbe4e97c4bb921e">MED_STRUCT_ELEMENT</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00142">med.h:142</a></div></div>
+<div class="ttc" id="a00577_a29927daaa1a87f2129295a68264ad526_html_a29927daaa1a87f2129295a68264ad526"><div class="ttname"><a href="a00577_a29927daaa1a87f2129295a68264ad526.html#a29927daaa1a87f2129295a68264ad526">MED_SEG2</a></div><div class="ttdeci">#define MED_SEG2</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00197">med.h:197</a></div></div>
+<div class="ttc" id="a00577_affd84bc502815e1d695a5a1254b1017c_html_affd84bc502815e1d695a5a1254b1017c"><div class="ttname"><a href="a00577_affd84bc502815e1d695a5a1254b1017c.html#affd84bc502815e1d695a5a1254b1017c">MED_QUAD9</a></div><div class="ttdeci">#define MED_QUAD9</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00205">med.h:205</a></div></div>
+<div class="ttc" id="a00577_aab0e957294723517d5c3641bb71b0470_html_aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f"><div class="ttname"><a href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f">MED_NODE</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00141">med.h:141</a></div></div>
+<div class="ttc" id="a00577_a10724d7331cfcd5f4cd066d025ed1469_html_a10724d7331cfcd5f4cd066d025ed1469"><div class="ttname"><a href="a00577_a10724d7331cfcd5f4cd066d025ed1469.html#a10724d7331cfcd5f4cd066d025ed1469">MED_OCTA12</a></div><div class="ttdeci">#define MED_OCTA12</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00212">med.h:212</a></div></div>
+<div class="ttc" id="a00577_ab92b8cb47f5ce38304cf2fe1fccbde98_html_ab92b8cb47f5ce38304cf2fe1fccbde98"><div class="ttname"><a href="a00577_ab92b8cb47f5ce38304cf2fe1fccbde98.html#ab92b8cb47f5ce38304cf2fe1fccbde98">MED_PENTA18</a></div><div class="ttdeci">#define MED_PENTA18</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00215">med.h:215</a></div></div>
+<div class="ttc" id="a00577_afce5ab3f1962b80e2f9791b98d82bf9e_html_afce5ab3f1962b80e2f9791b98d82bf9e"><div class="ttname"><a href="a00577_afce5ab3f1962b80e2f9791b98d82bf9e.html#afce5ab3f1962b80e2f9791b98d82bf9e">MED_PYRA5</a></div><div class="ttdeci">#define MED_PYRA5</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00208">med.h:208</a></div></div>
+<div class="ttc" id="a00580_aea28b0b954eb3078d94d72f94b9b8ecc_html_aea28b0b954eb3078d94d72f94b9b8ecc"><div class="ttname"><a href="a00580_aea28b0b954eb3078d94d72f94b9b8ecc.html#aea28b0b954eb3078d94d72f94b9b8ecc">MED23MESH_GET_FACE_GEOMETRY_TYPENAME</a></div><div class="ttdeci">const char *const MED23MESH_GET_FACE_GEOMETRY_TYPENAME[MED_N_FACE_FIXED_GEO+2]</div><div class="ttdef"><b>Definition:</b> <a href="a00580_source.html#l00116">MED23meshIterators.c:116</a></div></div>
+<div class="ttc" id="a00577_ae08587b134662b257542c6b64e6a998a_html_ae08587b134662b257542c6b64e6a998a"><div class="ttname"><a href="a00577_ae08587b134662b257542c6b64e6a998a.html#ae08587b134662b257542c6b64e6a998a">MED_POLYHEDRON</a></div><div class="ttdeci">#define MED_POLYHEDRON</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00222">med.h:222</a></div></div>
+<div class="ttc" id="a00577_aab0e957294723517d5c3641bb71b0470_html_aab0e957294723517d5c3641bb71b0470"><div class="ttname"><a href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470">med_entity_type</a></div><div class="ttdeci">med_entity_type</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00141">med.h:141</a></div></div>
+<div class="ttc" id="a00577_aab0e957294723517d5c3641bb71b0470_html_aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67"><div class="ttname"><a href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00141">med.h:141</a></div></div>
+<div class="ttc" id="a00577_abc947dde9b1b8982162dde8888a79ab4_html_abc947dde9b1b8982162dde8888a79ab4"><div class="ttname"><a href="a00577_abc947dde9b1b8982162dde8888a79ab4.html#abc947dde9b1b8982162dde8888a79ab4">MED_N_EDGE_FIXED_GEO</a></div><div class="ttdeci">#define MED_N_EDGE_FIXED_GEO</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00244">med.h:244</a></div></div>
+<div class="ttc" id="a00581_html"><div class="ttname"><a href="a00581.html">med_config.h</a></div></div>
+<div class="ttc" id="a00580_a6127a8d6e655f8263fdfda8361e91add_html_a6127a8d6e655f8263fdfda8361e91add"><div class="ttname"><a href="a00580_a6127a8d6e655f8263fdfda8361e91add.html#a6127a8d6e655f8263fdfda8361e91add">MED23MESH_GET_NODE_GEOMETRY_TYPENAME</a></div><div class="ttdeci">const char * MED23MESH_GET_NODE_GEOMETRY_TYPENAME[MED_N_NODE_FIXED_GEO+2]</div><div class="ttdef"><b>Definition:</b> <a href="a00580_source.html#l00151">MED23meshIterators.c:151</a></div></div>
+<div class="ttc" id="a00580_a94fcf666992c8d2b9c2a244c8846597f_html_a94fcf666992c8d2b9c2a244c8846597f"><div class="ttname"><a href="a00580_a94fcf666992c8d2b9c2a244c8846597f.html#a94fcf666992c8d2b9c2a244c8846597f">MED23MESH_GET_CELL_GEOMETRY_TYPENAME</a></div><div class="ttdeci">const char *const MED23MESH_GET_CELL_GEOMETRY_TYPENAME[MED_N_CELL_FIXED_GEO+2]</div><div class="ttdef"><b>Definition:</b> <a href="a00580_source.html#l00073">MED23meshIterators.c:73</a></div></div>
+<div class="ttc" id="a00577_aab0e957294723517d5c3641bb71b0470_html_aab0e957294723517d5c3641bb71b0470aecea01a443c5512ff49ddba9f992aa0e"><div class="ttname"><a href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470aecea01a443c5512ff49ddba9f992aa0e">MED_DESCENDING_EDGE</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00141">med.h:141</a></div></div>
+<div class="ttc" id="a00577_ace855a144ec03695afcaa291b7fc9c3b_html_ace855a144ec03695afcaa291b7fc9c3b"><div class="ttname"><a href="a00577_ace855a144ec03695afcaa291b7fc9c3b.html#ace855a144ec03695afcaa291b7fc9c3b">MED_HEXA20</a></div><div class="ttdeci">#define MED_HEXA20</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00216">med.h:216</a></div></div>
+<div class="ttc" id="a00577_ad210e6eb7da4ae0d169813c2979ed640_html_ad210e6eb7da4ae0d169813c2979ed640"><div class="ttname"><a href="a00577_ad210e6eb7da4ae0d169813c2979ed640.html#ad210e6eb7da4ae0d169813c2979ed640">MED_PYRA13</a></div><div class="ttdeci">#define MED_PYRA13</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00213">med.h:213</a></div></div>
+<div class="ttc" id="a00577_a775f9f630433766a8ee409075adce171_html_a775f9f630433766a8ee409075adce171"><div class="ttname"><a href="a00577_a775f9f630433766a8ee409075adce171.html#a775f9f630433766a8ee409075adce171">MED_PENTA15</a></div><div class="ttdeci">#define MED_PENTA15</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00214">med.h:214</a></div></div>
+<div class="ttc" id="a00577_aab0e957294723517d5c3641bb71b0470_html_aab0e957294723517d5c3641bb71b0470a21532aedbec80567c572e5105766b5e9"><div class="ttname"><a href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a21532aedbec80567c572e5105766b5e9">MED_UNDEF_ENTITY_TYPE</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00143">med.h:143</a></div></div>
+<div class="ttc" id="a00577_a865361460bec98f2ec3f5bb3237b9264_html_a865361460bec98f2ec3f5bb3237b9264"><div class="ttname"><a href="a00577_a865361460bec98f2ec3f5bb3237b9264.html#a865361460bec98f2ec3f5bb3237b9264">MED_NO_GEOTYPE</a></div><div class="ttdeci">#define MED_NO_GEOTYPE</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00229">med.h:229</a></div></div>
+<div class="ttc" id="a00577_aae1e86a4a1fce025bdadecb5e3e4a705_html_aae1e86a4a1fce025bdadecb5e3e4a705"><div class="ttname"><a href="a00577_aae1e86a4a1fce025bdadecb5e3e4a705.html#aae1e86a4a1fce025bdadecb5e3e4a705">MED_POINT1</a></div><div class="ttdeci">#define MED_POINT1</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00195">med.h:195</a></div></div>
+<div class="ttc" id="a00577_aebd94e8163062a93f3d013bfc76eab01_html_aebd94e8163062a93f3d013bfc76eab01"><div class="ttname"><a href="a00577_aebd94e8163062a93f3d013bfc76eab01.html#aebd94e8163062a93f3d013bfc76eab01">MED_HEXA27</a></div><div class="ttdeci">#define MED_HEXA27</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00217">med.h:217</a></div></div>
+<div class="ttc" id="a00577_abcdb0eb0e7fc585c10f8986c105135fb_html_abcdb0eb0e7fc585c10f8986c105135fb"><div class="ttname"><a href="a00577_abcdb0eb0e7fc585c10f8986c105135fb.html#abcdb0eb0e7fc585c10f8986c105135fb">MED_SEG3</a></div><div class="ttdeci">#define MED_SEG3</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00198">med.h:198</a></div></div>
+<div class="ttc" id="a00580_af0e9e20a00e3b4594f67e408c2dbd1af_html_af0e9e20a00e3b4594f67e408c2dbd1af"><div class="ttname"><a href="a00580_af0e9e20a00e3b4594f67e408c2dbd1af.html#af0e9e20a00e3b4594f67e408c2dbd1af">MED23MESH_GET_CELL_GEOMETRY_TYPE</a></div><div class="ttdeci">med_geometry_type MED23MESH_GET_CELL_GEOMETRY_TYPE[MED_N_CELL_FIXED_GEO+2]</div><div class="ttdef"><b>Definition:</b> <a href="a00580_source.html#l00044">MED23meshIterators.c:44</a></div></div>
+<div class="ttc" id="a00580_a26adffc03739134d36767f9649c32d4e_html_a26adffc03739134d36767f9649c32d4e"><div class="ttname"><a href="a00580_a26adffc03739134d36767f9649c32d4e.html#a26adffc03739134d36767f9649c32d4e">MED23MESH_GET_ENTITY_TYPE</a></div><div class="ttdeci">med_entity_type MED23MESH_GET_ENTITY_TYPE[MED_N_ENTITY_TYPES+2]</div><div class="ttdef"><b>Definition:</b> <a href="a00580_source.html#l00022">MED23meshIterators.c:22</a></div></div>
+<div class="ttc" id="a00577_a94482e307ec77322dcfd9bde0e8f705f_html_a94482e307ec77322dcfd9bde0e8f705f"><div class="ttname"><a href="a00577_a94482e307ec77322dcfd9bde0e8f705f.html#a94482e307ec77322dcfd9bde0e8f705f">MED_N_NODE_FIXED_GEO</a></div><div class="ttdeci">#define MED_N_NODE_FIXED_GEO</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00248">med.h:248</a></div></div>
+<div class="ttc" id="a00577_ac44f7967364889697b30b672df222578_html_ac44f7967364889697b30b672df222578"><div class="ttname"><a href="a00577_ac44f7967364889697b30b672df222578.html#ac44f7967364889697b30b672df222578">MED_QUAD8</a></div><div class="ttdeci">#define MED_QUAD8</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00204">med.h:204</a></div></div>
+<div class="ttc" id="a00580_a336ec5001b58647b03039bc154509be7_html_a336ec5001b58647b03039bc154509be7"><div class="ttname"><a href="a00580_a336ec5001b58647b03039bc154509be7.html#a336ec5001b58647b03039bc154509be7">MED23MESH_GET_EDGE_GEOMETRY_TYPENAME</a></div><div class="ttdeci">const char * MED23MESH_GET_EDGE_GEOMETRY_TYPENAME[MED_N_EDGE_FIXED_GEO+2]</div><div class="ttdef"><b>Definition:</b> <a href="a00580_source.html#l00137">MED23meshIterators.c:137</a></div></div>
+<div class="ttc" id="a00577_html"><div class="ttname"><a href="a00577.html">med.h</a></div></div>
+<div class="ttc" id="a00580_a4bde90e343b637303644dc778ad0ffdb_html_a4bde90e343b637303644dc778ad0ffdb"><div class="ttname"><a href="a00580_a4bde90e343b637303644dc778ad0ffdb.html#a4bde90e343b637303644dc778ad0ffdb">MED23MESH_GET_NODE_GEOMETRY_TYPE</a></div><div class="ttdeci">med_geometry_type MED23MESH_GET_NODE_GEOMETRY_TYPE[MED_N_NODE_FIXED_GEO+2]</div><div class="ttdef"><b>Definition:</b> <a href="a00580_source.html#l00145">MED23meshIterators.c:145</a></div></div>
+<div class="ttc" id="a00577_ab17f50e219313c79659dabf1fe160dca_html_ab17f50e219313c79659dabf1fe160dca"><div class="ttname"><a href="a00577_ab17f50e219313c79659dabf1fe160dca.html#ab17f50e219313c79659dabf1fe160dca">MED_HEXA8</a></div><div class="ttdeci">#define MED_HEXA8</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00210">med.h:210</a></div></div>
+<div class="ttc" id="a00577_a1043613afc3cd2e24785dfc7c0452ab8_html_a1043613afc3cd2e24785dfc7c0452ab8"><div class="ttname"><a href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a></div><div class="ttdeci">int med_geometry_type</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00191">med.h:191</a></div></div>
+<div class="ttc" id="a00577_a75d946428ccdd04653de5eae5ecdcd9a_html_a75d946428ccdd04653de5eae5ecdcd9a"><div class="ttname"><a href="a00577_a75d946428ccdd04653de5eae5ecdcd9a.html#a75d946428ccdd04653de5eae5ecdcd9a">MED_TETRA10</a></div><div class="ttdeci">#define MED_TETRA10</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00211">med.h:211</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

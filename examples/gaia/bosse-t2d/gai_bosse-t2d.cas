@@ -1,0 +1,22 @@
+/----------------------------------------------------------------------
+/                          GAIA
+/----------------------------------------------------------------------
+GEOMETRY FILE                   = geo_bosse-t2d.slf
+BOUNDARY CONDITIONS FILE        = geo_bosse-t2d.cli
+RESULTS FILE                    = gai_bosse-t2d.slf
+TITLE                           = 'Bosse-t2d'
+NUMBER OF PRIVATE ARRAYS        = 1
+NAMES OF PRIVATE VARIABLES      = 'EXACT SOLUTION'
+VARIABLES FOR GRAPHIC PRINTOUTS ='U,S,H,B,E,TOB,M,A'
+MASS-BALANCE                    = YES
+/----------------------------------------------------------------------
+/ PHYSICAL PARAMETERS
+/----------------------------------------------------------------------
+CLASSES TYPE OF SEDIMENT                 = NCO
+CLASSES SEDIMENT DENSITY                 = 2650.0
+BED LOAD FOR ALL SANDS                   =  YES
+BED-LOAD TRANSPORT FORMULA FOR ALL SANDS = 30  /Engelund Hansen
+SLOPE EFFECT                             = NON
+CLASSES SEDIMENT DIAMETERS               = 0.000150
+LAYERS NON COHESIVE BED POROSITY         = 0.375
+/

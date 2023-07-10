@@ -1,0 +1,63 @@
+/-------------------------------------------------------------------/
+/                        TELEMAC-2D                                 /
+/              TRANSCRITICAL BUMP CASE WITH FRICTION                /
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+FORTRAN FILE                    = 'user_fortran_friction'
+GEOMETRY FILE                   = geo_bump_friction.slf
+BOUNDARY CONDITIONS FILE        = geo_bump_friction.cli
+RESULTS FILE                    = r2d_bump.slf
+FORMATTED RESULTS FILE          = 'mass_matrix_tf.txt'
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE = 'TELEMAC 2D: TRANSCRITICAL BUMP CASE'
+/
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,S,B,Q,F,H,N,O,R'
+NUMBER OF PRIVATE ARRAYS        = 6
+/
+GRAPHIC PRINTOUT PERIOD         = 1000
+LISTING PRINTOUT PERIOD         = 1000
+/
+DURATION                        = 120
+VARIABLE TIME-STEP              = YES
+DESIRED COURANT NUMBER          = 0.9
+MASS-BALANCE                    = YES
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS              = 'CONSTANT ELEVATION'
+INITIAL ELEVATION               = 0.4
+/
+/----------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------
+/
+PRESCRIBED FLOWRATES            = 0.;2.
+PRESCRIBED ELEVATIONS           = 0.4;0.
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 3
+FRICTION COEFFICIENT            = 40.
+TURBULENCE MODEL                = 1
+VELOCITY DIFFUSIVITY            = 0.
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+/SCHEMES
+EQUATIONS                       = 'SAINT-VENANT FV'
+/
+FINITE VOLUME SCHEME            = 5
+H CLIPPING = NO

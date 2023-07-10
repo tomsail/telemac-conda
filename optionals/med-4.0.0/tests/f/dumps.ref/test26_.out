@@ -1,0 +1,95 @@
+           0
+ Ouverture du fichier test25.med
+           0
+ Nombre de maillages :            1
+           0
+ Maillage : maa1                                                            
+ Dimension :            3
+           0
+ Nombre de mailles MED_POLYEDRE :            2
+           0
+ Taille de la connectivite :            9
+ Taille du tableau indexf :            3
+           0
+ Lecture de la connectivite des polyedres
+ Connectivite nodale
+           0
+ Lecture de la connectivite des polyedres
+ Connectivite descendante
+           0
+ Lecture des noms
+           0
+ Lecture des numeros
+           0
+ Lecture des numeros de famille
+ Affichage des resultats
+ >> Maille polyhedre            1
+ ---- Connectivite nodale    ---- : 
+    - Face            1
+               1
+               2
+               3
+    - Face            2
+               4
+               5
+               6
+    - Face            3
+               7
+               8
+               9
+    - Face            4
+              10
+              11
+              12
+ ---- Connectivite descendante ---- : 
+    - Face            1
+    => Numero :            1
+    => Type   :          203
+    - Face            2
+    => Numero :            2
+    => Type   :          203
+    - Face            3
+    => Numero :            3
+    => Type   :          203
+    - Face            4
+    => Numero :            4
+    => Type   :          203
+ ---- Nom                    ---- : poly1           
+ ---- Numero                 ----:             0
+ ---- Numero de famille      ---- :            0
+ >> Maille polyhedre            2
+ ---- Connectivite nodale    ---- : 
+    - Face            1
+              13
+              14
+              15
+    - Face            2
+              16
+              17
+              18
+    - Face            3
+              19
+              20
+              21
+    - Face            4
+              22
+              23
+              24
+ ---- Connectivite descendante ---- : 
+    - Face            1
+    => Numero :            5
+    => Type   :          203
+    - Face            2
+    => Numero :            6
+    => Type   :          203
+    - Face            3
+    => Numero :            7
+    => Type   :          203
+    - Face            4
+    => Numero :            8
+    => Type   :          203
+ ---- Nom                    ---- : poly2           
+ ---- Numero                 ----:            -1
+ ---- Numero de famille      ---- :           -1
+           0
+ Fermeture du fichier

@@ -1,0 +1,86 @@
+\chapter{Turbidity channel}
+%
+
+% - Purpose & Problem description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved and specify how the numerical solution will be validated
+%
+\section{Purpose}
+The purpose of this case is to demonstrate that \telemac{3d} coupled with \gaia{} are able to simulate the plunging of a turbidity current.
+A schematic reservoir is built and we compare \telemac{3d} with empirical formulae regarding the location of the plunging point and the vertical velocity profile.\\
+
+Turbidity currents occur in reservoirs where the density of the incoming flow is significantly different from that of the still water of the lake. This difference of density is mainly due to the concentration of suspended sediments. The capability of a numerical model to reproduce the plunging of a turbidity current depends on the correct simulation of the vertical stratification.
+
+\section{Problem setup}
+
+The model is a straight flume, 1000~m long, 10~m wide, with a slope of 0.2\%. The upstream discharge is 2~m$^3$s$^{-1}$, a downstream water depth of 1.5~m is prescribed. An upstream sediment concentration is prescribed (50~g/l), the downstream output of sediment is free.\\
+
+The friction is simulated with a Nikuradse law and a roughness lentgh of 0.01~m.\\
+
+The initial condition is a stationary flow without sediment simulated with the same hydrodynamic boundary conditions (see Figure \ref{fig:turbidity:initial}).\\
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/initial_state.png}
+ \caption{Initial condition.}
+ \label{fig:turbidity:initial}
+\end{figure}
+
+The sediment are cohesive with a settling velocity of 0.1~mm/s. The initial bed does not contain any sediment. Critical shear stresses for deposition and erosion are respectively 0.1 and 1000~Pa.
+
+%
+\section{Numerical setup}
+
+Horizontal mesh size is 1~m, 30 vertical layers with constant elevation are used. The vertical mesh between nodes of coordinates (5 ; 10) to (5 ; 50) can be seen on Figure \ref{fig:turbidity:mesh:section}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/res_mesh_section.png}
+  \caption{Vertical mesh}\label{fig:turbidity:mesh:section}
+\end{figure}
+
+The time step is set to 0.5~s.\\
+
+The k-$\epsilon$ turbulence model has been chosen.
+
+
+\section{Results}
+
+\subsection{Plunging point}
+
+Figure \ref{fig:turbidity:slice:conc} shows the concentration in the reservoir after 6000~s. We can compare the location of the simulated plunging point with an empirical assessment.\\
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/slice_conc.png}
+  \caption{Concentration at the final state, slice along the central axis of the channel.}\label{fig:turbidity:slice:conc}
+\end{figure}
+
+Several empirical and theoretical studies between 1970 and 1990 have established a relationship between upstream flow characteristics and depth, $H_p$, at the plunging point [1]. For a straight flume with constant slope, it writes:
+\begin{equation}
+H_p=K \left(\frac{q_0^2}{\sqrt{g'}}\right)^{1/3}
+\label{eq:plung}
+\end{equation}
+Where  $g'=g\frac{\rho-\rho_0}{\rho_0}$, $g$ is the gravity. $K$ is a coefficient from 1.3 [2] to 1.6 [3].
+
+In the simulation, the plunging point is located at y=700~m. Using the theoretical formula with $K$=1.6, we estimate the position of the plunging point at 654~m.
+% To do
+%Several runs with upstream concentration from 10~gl$^{-1}$ to 150~gl$^{-1}$ have been performed. Figure~\ref{fig:prop} shows the concentration in the reservoir. The plunging of the turbid flow is well reproduced and the higher the concentration is, the nearer the plunging point is. Figure~\ref{fig:plongee} plots the location of the modeled plunging points compared to Equation~\ref{eq:plung}
+
+%\subsection{Vertical velocity profile}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Reference}
+
+\begin{itemize}
+\item  Garcia, M. Sedimentation engineering: processes, measurements, modeling, and practice, ASCE, 2008
+\item Singh, B. \& Shah, Plunging phenomenon of density currents in reservoirs, La Houille Blanche, 1971
+\item Farell, G. \& Stefan, H. , Mathemathical modelling of plunging reservoir flows, Journal of Hydraulic Research, 1988 , 26 , 525-537
+
+\end{itemize}
+
+
+

@@ -1,0 +1,71 @@
+      integer MED_FULL_INTERLACE, MED_NO_INTERLACE
+      integer MED_NO_PFLMOD, MED_GLOBAL, MED_COMPACT
+      integer MED_LECTURE,MED_LECTURE_ECRITURE
+      integer MED_LECTURE_AJOUT,MED_CREATION
+      integer MED_NON_STRUCTURE, MED_STRUCTURE
+      integer MED_GRILLE_CARTESIENNE, MED_GRILLE_POLAIRE
+      integer MED_GRILLE_STANDARD
+      integer MED_MAILLE, MED_FACE, MED_ARETE, MED_NOEUD
+      integer MED_NOEUD_MAILLE,MED_NOEUD_FACE,MED_NOEUD_ARETE
+      integer MED_COOR, MED_CONN, MED_NOM, MED_NUM, MED_FAM
+      integer MED_COOR_IND1,MED_COOR_IND2,MED_COOR_IND3 
+      integer MED_INT32, MED_INT64,MED_FLOAT64,MED_INT
+      integer MED_POINT1,MED_SEG2,MED_SEG3,MED_TRIA3,MED_TRIA6
+      integer MED_QUAD4,MED_QUAD8,MED_TETRA4,MED_TETRA10,MED_HEXA8
+      integer MED_HEXA20,MED_PENTA6,MED_PENTA15,MED_PYRA5,MED_PYRA13 
+      integer MED_POLYGONE, MED_POLYEDRE, MED_NONE
+      integer MED_NOD, MED_DESC
+      integer MED_CART, MED_CYL, MED_SPHER
+      logical MED_FAUX, MED_VRAI
+      integer MED_GROUPE, MED_ATTR
+      integer MED_COMP, MED_DTYPE
+      integer MED_HDF_VERSION, MED_VERSION,MED_FICH_DES
+      integer MED_NOPG, MED_NOPF,MED_NOPDT
+      integer MED_NONOR,MED_DIM1,MED_ALL
+      character*32 MED_NOPFL,MED_NOGAUSS, MED_NOREF
+      character*32 MED_GAUSS_ELNO
+
+      parameter (MED_MAILLE=0,MED_FACE=1,MED_ARETE=2,MED_NOEUD=3)
+      parameter (MED_NOEUD_MAILLE=4)
+      parameter (MED_FULL_INTERLACE=0, MED_NO_INTERLACE=1)
+      parameter (MED_NO_PFLMOD=0, MED_GLOBAL=1, MED_COMPACT=2)
+      parameter (MED_LECTURE=0,MED_LECTURE_ECRITURE=1)
+      parameter (MED_LECTURE_AJOUT=2,MED_CREATION=3)
+      parameter (MED_NON_STRUCTURE=0,MED_STRUCTURE=1)
+      parameter (MED_GRILLE_CARTESIENNE=0,MED_GRILLE_POLAIRE=1)
+      parameter (MED_GRILLE_STANDARD=2)
+      parameter (MED_COOR=0,MED_CONN=1,MED_NOM=2,MED_NUM=3,MED_FAM=4)
+      parameter (MED_COOR_IND1=5,MED_COOR_IND2=6,MED_COOR_IND3=7)
+      parameter (MED_INT32=24, MED_INT64=26,MED_FLOAT64=6,MED_INT=28)
+      parameter (MED_POINT1=1,MED_SEG2=102,MED_SEG3=103,MED_TRIA3=203)
+      parameter (MED_TRIA6=206,MED_QUAD4=204,MED_QUAD8=208)
+      parameter (MED_TETRA4=304,MED_TETRA10=310,MED_HEXA8=308)
+      parameter (MED_HEXA20=320,MED_PENTA6=306)
+      parameter (MED_PENTA15=315,MED_PYRA5=305,MED_PYRA13=313)
+      parameter (MED_POLYGONE = 400, MED_POLYEDRE = 500, MED_NONE=0)
+      parameter (MED_NOD=0, MED_DESC=1)
+      parameter (MED_CART=0,MED_CYL=1, MED_SPHER=2)
+      parameter (MED_FAUX=.FALSE.,MED_VRAI=.TRUE.)
+      parameter (MED_GROUPE=0, MED_ATTR=1)
+      parameter (MED_COMP=0, MED_DTYPE=1)
+      parameter (MED_HDF_VERSION=0, MED_VERSION=1,MED_FICH_DES=2)
+      parameter (MED_NOPG = 1, MED_NOPF = 0)
+      parameter (MED_NOPDT = -1, MED_NONOR = -1, MED_DIM1 = 1)
+      parameter (MED_ALL = 0)
+      parameter (MED_NOPFL='                                ')
+      parameter (MED_NOGAUSS='                                ')
+      parameter (MED_NOREF='                                ')
+      parameter (MED_GAUSS_ELNO='MED_GAUSS_ELNO                  ')
+
+      integer MED_NBR_GEOMETRIE_MAILLE
+      integer MED_NBR_GEOMETRIE_FACE
+      integer MED_NBR_GEOMETRIE_ARETE
+      parameter (MED_NBR_GEOMETRIE_MAILLE=15,MED_NBR_GEOMETRIE_FACE=4)
+      parameter (MED_NBR_GEOMETRIE_ARETE = 2)
+
+      integer MED_MAILLAGE
+      integer MED_CHAMP
+      parameter (MED_MAILLAGE= 0)
+      parameter (MED_CHAMP= 1)
+
+

@@ -1,0 +1,133 @@
+\chapter{Flow in a channel with bottom friction (canal)}
+
+\section{Description}
+\bigskip
+This study case verifies that \telemac{3D} is able to compute the free
+surface evolution along a channel with bottom friction.
+
+This example also checks that \telemac{3D} is able to deal with stage-discharge
+curves.
+
+\bigskip
+The chosen configuration is a straight channel 500~m long and 100~m wide
+with a flat horizontal bottom without slope.
+Four different cases are studied:
+\begin{itemize}
+\item A 2D computation using \telemac{2D},
+\item A 3D computation with hydrostatic option,
+\item A 3D computation with non-hydrostatic option,
+\item A 3D computation with non-hydrostatic option and
+a stage-discharge curve $Z = f(Q)$ at the exit.
+\end{itemize}
+In all cases, the flow establishes a steady flow where the free surface
+is influenced by the friction on the bottom. \\
+Note that the velocity diffusion is constant in horizontal direction
+and equal to $0.1~\text{m}^2.\text{s}^{-1}$ with the non-hydrostatic 
+option and with \telemac{2D} usage, whereas with the hydrostatic option, 
+it is null. In the vertical direction, the turbulent viscosity uses 
+Nezu and Nakagawa mixing length model for the three \telemac{3D} computations.
+
+\subsection{Initial and boundary conditions}
+
+\bigskip
+This test is initialised by a steady flow (3D cases initialised 
+from the 2D case result file, Figures 
+\ref{t3d:canal:fig:veloH} and \ref{t3d:canal:fig:freeSurface}).
+
+\bigskip
+The boundary conditions are:
+\begin{itemize}
+\item For the solid walls, a slip condition on channel banks is used for the velocities,
+\item On the bottom, Strickler law with friction coefficient equal to
+50~$\text{m}^{1/3}.\text{s}^{-1}$ is imposed,
+\item Upstream a flowrate equal to 50~$\text{m}^{3}.\text{s}^{-1}$ is imposed,
+\item Downstream the water level is equal to 0.5~m for the first three
+computations.
+For the last computation, elevation is also prescribed but by giving a
+stage-discharge curve $Z = f(Q)$.
+\end{itemize}
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/veloH.png}
+ \caption{Horizontal velocity obtained at the steady state.}
+ \label{t3d:canal:fig:veloH}
+\end{figure}
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/freeSurfac.png}
+ \caption{Free surface at the steady state.}
+ \label{t3d:canal:fig:freeSurface}
+\end{figure}
+
+\subsection{Mesh and numerical parameters}
+\bigskip
+The mesh (Figure \ref{t3d:canal:fig:meshH} and \ref{t3d:canal:fig:meshV})  
+is composed of 551 triangular elements (319 nodes) with 10 planes  
+regularly spaced on the vertical, to form prism elements.\\
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Mesh.png}
+ \caption{Horizontal mesh.}
+ \label{t3d:canal:fig:meshH}
+\end{figure}
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/MeshV.png}
+ \caption{Vertical mesh.}
+ \label{t3d:canal:fig:meshV}
+\end{figure}
+
+
+\bigskip
+The time step is 2~s for a simulated period of 4,000~s for the 2D computation
+then 2,000~s more for 3D computations.
+
+\bigskip
+This case is computed both with the hydrostatic pressure assumption and the non-hydrostatic version. 
+To solve the advection, the method of characteristics
+is used for the velocities (scheme 1). The GMRES 
+(Generalized Minimal Residual Method, scheme 7) is used to solve 
+the vertical velocity.  The implicitation coefficients 
+for depth and velocities are equal to 0.6.
+
+For the 2D resolution, the conjugate gradient
+is used for solving the propagation step (option 1) and
+the implicitation coefficients 
+for depth and velocities are respectively equal to 1 and 0.55. 
+
+\section{Results}
+
+\bigskip
+In Figure \ref{t3d:canal:fig:profiles}, the three free surface profiles
+corresponding to the first three simulations are compared.
+These three results are in good agreement.
+We can also observe that the flow is completely symmetric without
+any influence of the space discretisation.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/free_surface.png}
+ \caption{Comparison of the free surface profiles between the 2D 
+ computation  and the 3D computations 
+ with hydrostatic and non-hydrostatic options. }
+ \label{t3d:canal:fig:profiles}
+ \end{figure}
+
+The same comments can be done when comparing classical prescribed boundary
+conditions and boundary conditions with stage-discharge curve,
+see Figure \ref{t3d:canal:fig:profiles:sta-dis-cur}.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/free_surface_sta_dis.png}
+ \caption{Comparison of the free surface profiles between the computations
+ without or with stage-discharge curves.}
+ \label{t3d:canal:fig:profiles:sta-dis-cur}
+\end{figure}
+
+\section{Conclusion}
+
+To conclude, \telemac{3D} is able to take into account correctly the bottom
+friction term and stage-discharge curves.

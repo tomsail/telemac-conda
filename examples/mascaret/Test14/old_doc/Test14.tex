@@ -1,0 +1,150 @@
+\documentclass[a4paper,10pt]{article}
+
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P0}
+
+\subsection*{Validation du noyau transitoire fluvial }
+
+\subsection*{\emph{Cas d'un écoulement non  permanent en lit composé; étude de la propagation d'une crue}}
+
+\subsection*{Numéro du cas test : 14}
+
+\subsection*{Auteur : N. GOUTAL }
+
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+	Ce cas test a pour but de valider le noyau de calcul REZO dans le cas d'un écoulement non permanent (propagation d'une crue) en lit composé. L'écoulement est modélisé sur une longueur supérieure à la longueur sur laquelle la crue va se propager, de manière à s'affranchir de la condition limite aval.
+
+
+\subsection*{Données géométriques}
+
+	Le calcul est réalisé dans un canal prismatique de pente uniforme ($0.0001$) et de longueur $400\mbox{ } km$. Les sections en travers sont définies à partir de quatre profils : un profil à l'extrémité amont du bief, un profil à l'abscisse $X = 10\mbox{ } km$, un profil à l'abscisse $X = 20\mbox{ } km$ et un profil à l'extrémité aval du bief. Le lit majeur s'approfondit progressivement. Il y a deux zones de stockage : une en rive droite et une en rive gauche. Ces zones de stockage font qu'on ne peut pas comparer les résultats avec le noyau transitoire transcritique car la fonctionnalité  "zone de stockage " n'est pas valide.
+	
+	
+
+\subsection*{Données physiques}
+
+	Prise en compte du frottement : oui
+
+\begin{itemize} 
+ \item Coefficient de Strickler :
+  \begin{itemize}
+  \item  lit mineur : $35\mbox{ } m^{1/3}.s^{-1}$
+  \item lit majeur : $15\mbox{ } m^{1/3}.s^{-1}$
+  \end{itemize}
+ \item Conditions aux limites : 
+  \begin{itemize}
+  \item Débit imposé à l'amont (onde de crue) :
+
+\vspace{0.3cm}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline Temps($s$) & Débit($m^{3}.s^{-1}$) \\ 
+\hline $ 0 $ & $ 300 $ \\ 
+\hline $ 14400 $ & $ 1000 $ \\ 
+\hline $ 28800 $ & $ 300 $ \\ 
+\hline $ 43200 $ & $ 300 $ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+\vspace{0.3cm}
+
+  \item Loi hauteur / débit imposée à l'aval (provenant du régime uniforme) :
+
+\vspace{0.3cm}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline Cote($m$) & Débit($m^{3}.s^{-1}$) \\ 
+\hline $ 18.5 $ & $ 100 $ \\ 
+\hline $ 20.617 $ & $ 300 $ \\ 
+\hline $ 22.814 $ & $ 1000 $ \\ 
+\hline 
+\end{tabular} 
+\end{center} 
+
+\vspace{0.3cm}
+
+  \end{itemize}
+ \item Condition initiale :
+ \begin{itemize}
+ 
+ \item ligne d'eau du régime uniforme (débit constant égal à $ 300\mbox{ }m^{3}.s^{-1}$)
+ 
+  
+  \end{itemize}
+\end{itemize}
+
+\vspace{0.3cm}
+
+
+
+
+
+\subsection*{Données numériques}
+
+	Le domaine a été divisé en mailles de $500\mbox{ }m$.
+	Le pas de planimétrage est homogène dans le domaine égal à $25\mbox{ } cm$ (40 pas de planimétrage). Le pas de temps est de $5\mbox{ }min$ et le calcul est mené pendant $12\mbox{ } h$. 
+
+
+
+\subsection*{Resultats}
+
+	Sur la figure~\ref{fig1}, les résultats sont illustrés à plusieurs sections : la section origine (où est imposée la condition limite sur le débit), la section d'abscisse $X = 5\mbox{ }km$, la section d'abscisse $X = 10\mbox{ }km$ et la section d'abscisse $X = 15\mbox{ }km$. En $X=15\mbox{ }km$, le résultat avec la version 7.0 est comparé avec celui de la version 5.0. On remarque le parfait accord entre les 2 versions.  La norme sup de la différence entre les 2 résultats est de $5.10^{-4} \mbox{ }m$. Ce qui donne en erreur relative $10^{-5}$.\\
+On remarque bien l'atténuation de l'onde de crue au fur et à mesure de son déplacement dans le bief. La figure~\ref{fig2} compare les lignes d'eau obtenues après convergence avec la version MASCARET V7P0 et la version MASCARET V5P0. On ne remarque quasiment aucun écart entre les deux versions du code.
+
+
+
+\subsection*{Conclusion}
+
+	Le noyau de calcul fluvial transitoire de mascaret V7P0 réagit de la même façon que dans l'ancienne version dans le cas d'un écoulement non permanent en lit composé. D'autre part, le comportement physique est cohérent. 
+
+	
+	
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure1.eps}
+  \caption{Propagation du débit mineur}
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure2.eps}
+  \caption{Ligne d'eau au dernier pas de temps}
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+%
+% fin du document
+%
+\end{document}          

@@ -1,0 +1,155 @@
+/**\ingroup MEDsubdomainJointFortran
+   \fn subroutine msdjcr(integer fid, character*(*) lmname, character*(*) jname,  character*(*) des, integer dom,  character*(*) rmname, integer cret)
+   \brief \MEDsubdomainJointCrBrief
+   \param fid \fid
+   \param lmname \localmeshname
+   \param jname \jointname
+   \param des \description
+   \param dom \domainnumber
+   \param rmname \remotemeshname
+   \param cret \error
+   \details
+   \MEDsubdomainJointCrDetails
+   \par Remarques
+   \MEDjointDef
+*/
+
+
+/**\ingroup MEDsubdomainJointFortran
+   \fn subroutine msdcrw(integer fid,character*(*) lmname,character*(*) jname,integer numdt,integer numit,integer entlcl,integer geolcl,integer entdst,integer geodst, integer n,integer:dimension(*) corrtab, integer cret)
+   \brief \MEDsubdomainCorrespondenceWrBrief
+   \param fid \fid
+   \param lmname \localmeshname
+   \param jname \jointname
+   \param numdt \numdt
+   \param numit \numit
+   \param entlcl \localentitype
+   \param geolcl \localgeotype
+   \param entdst \remoteentitype
+   \param geodst \remotegeotype
+   \param n \nentity
+   \param corrtab \correspondence
+   \param cret \error
+   \details
+   \MEDsubdomainCorrespondenceWrDetails
+   \par Remarques
+   \MEDjointDef
+*/
+
+
+/**\ingroup MEDsubdomainJointFortran
+   \fn subroutine msdcrr(integer fid,character*(*) lmname,character*(*) jname,integer numdt,integer numit,integer entlcl,integer geolcl,integer entdst,integer geodst, integer:dimension(*) corrtab, integer cret)
+   \brief \MEDsubdomainCorrespondenceRdBrief
+   \param fid \fid
+   \param lmname \localmeshname
+   \param jname \jointname
+   \param numdt \numdt
+   \param numit \numit
+   \param entlcl \localentitype
+   \param geolcl \localgeotype
+   \param entdst \remoteentitype
+   \param geodst \remotegeotype
+   \param corrtab \correspondence
+   \param cret \error
+   \details
+   \MEDsubdomainCorrespondenceRdDetails
+   \par Remarques
+   \MEDjointDef
+*/
+
+/**\ingroup MEDsubdomainJointFortran
+   \fn subroutine msdnjn(integer fid,character*(*) maa, integer n, integer cret)
+   \brief \MEDnSubdomainJointBrief
+   \param fid \fid
+   \param maa \meshname
+   \param n \nJoint
+   \param cret \error
+   \details
+   \MEDnSubdomainJointDetails
+   \par Remarques
+   \MEDjointDef
+*/
+
+/**\ingroup MEDsubdomainJointFortran
+   \fn subroutine msdjni(integer fid,character*(*) lmname,integer ind,character*(*) jname,character*(*) des,integer dom,character*(*) rmname, integer nstep, integer ncor, integer cret)
+   \brief \MEDsubdomainJointInfoBrief
+   \param fid \fid
+   \param lmname \localmeshname
+   \param ind \jointit
+   \param jname \jointname
+   \param des \description
+   \param dom \domainnumber
+   \param rmname \remotemeshname
+   \param nstep \nstep
+   \param ncor \nocstpncorrespondence
+   \param cret \error
+   \details
+   \MEDsubdomainJointInfoDetails
+   \par Remarques
+   \MEDjointDef
+*/
+
+/**\ingroup MEDsubdomainJointFortran
+   \fn subroutine msdszi(integer fid, character*(*) mname, character*(*) jname,integer numdt, integer numit,integer it, integer letype, integer lgtype,integer retype, integer rgtype,integer ncor, integer cret)
+   \brief \MEDsubdomainCorrespondenceSizeInfoBrief
+   \param fid \fid
+   \param mname \meshname
+   \param jname \jointname
+   \param numdt \numdt
+   \param numit \numit
+   \param it \corit
+   \param letype \localentitype
+   \param lgtype \localgeotype
+   \param retype \remoteentitype
+   \param rgtype \remotegeotype
+   \param ncor \nentitycor
+   \param cret \error
+   \details
+   \MEDsubdomainCorrespondenceSizeInfoDetails
+   \par Remarques
+   \MEDjointDef
+*/
+
+
+
+/**\ingroup MEDsubdomainJointFortran
+   \fn subroutine msdcsz(integer fid,character*(*) mname,character*(*) jname,integer numdt, integer numit, integer letype, integer lgtype,integer retype,integer rgtype,integer ncor, integer cret)
+   \brief \MEDsubdomainCorrespondenceSizeBrief
+   \param fid \fid
+   \param mname \meshname
+   \param jname \jointname
+   \param numdt \numdt
+   \param numit \numit
+   \param letype \localentitype
+   \param lgtype \localgeotype
+   \param retype \remoteentitype
+   \param rgtype \remotegeotype
+   \param ncor \nentitycor
+   \param cret \error
+   \details
+   \MEDsubdomainCorrespondenceSizeDetails
+   \par Remarques
+   \MEDjointDef
+*/
+
+/**\ingroup MEDsubdomainJointFortran
+   \fn subroutine msdcsi(integer fid,character*(*) mname, character*(*) jname, integer ind, integer numdt, integer numit, integer ncor, integer cret)
+   \brief \MEDsubdomainComputingStepInfoBrief
+   \param fid \fid
+   \param mname \meshname
+   \param jname \jointname
+   \param ind \csit
+   \param numdt \numdt
+   \param numit \numit
+   \param ncor \ncorrespondence
+   \param cret \error
+   \details
+   \MEDsubdomainComputingStepInfoDetails
+   \par Remarques
+   \MEDjointDef
+*/
+
+
+
+
+

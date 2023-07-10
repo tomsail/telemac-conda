@@ -1,0 +1,3280 @@
+!                   ***************************
+                    SUBROUTINE LECDON_TELEMAC3D
+!                   ***************************
+!
+     &(MOTCAR,FILE_DESC,PATH,NCAR,
+     & CAS_FILE,DICO_FILE,
+     & GAIA_CAS_FILE,GAIA_DICO_FILE)
+!
+!***********************************************************************
+! TELEMAC3D   V8P4
+!***********************************************************************
+!
+!brief    READS THE STEERING FILE USING DAMOCLES.
+!+        SETS SOME DEFAULT VALUES.
+!+        CHECKS SOME INCONSISTENCIES.
+!
+!history  J-M HERVOUET (LNHE)
+!+        02/04/2012
+!+        V6P2
+!+   A clean restart implemented: RESTART_MODE and restart file.
+!
+!history  J-M HERVOUET (LNHE)
+!+        18/01/2013
+!+        V6P3
+!+   Keyword for spherical coordinates added.
+!
+!history  J-M HERVOUET (LNHE)
+!+        18/04/2013
+!+        V6P3
+!+   New keyword FILE FOR 2D CONTINUATION added, and coherence checked.
+!+   Look for T3DS2D.
+!
+!history  C. VILLARET & T. BENSON & D. KELLY (HR-WALLINGFORD)
+!+        27/02/2014
+!+        V7P0
+!+   New developments in sediment merged on 25/02/2014.
+!
+!history  J-M HERVOUET (EDF LAB LNHE)
+!+        12/09/2014
+!+        V7P0
+!+   Variable SORG2D(37) set to false if .NOT.S3D_SEDI
+!
+!history  G. ANTOINE (EDF LAB, LNHE)
+!+        19/09/2014
+!+        V7P0
+!+   Adding 3 keywords for mixed sediment
+!
+!history  J-M HERVOUET (EDF LAB, LNHE)
+!+        18/05/2015
+!+        V7P1
+!+  Adding CHECK_MESH for the keyword 'CHECKING THE MESH'
+!
+!history  J-M HERVOUET (EDF LAB, LNHE)
+!+        25/06/2015
+!+        V7P1
+!+  Adding vertical velocity of sources and diffusion coefficient of
+!+  tracers given per tracer.
+!
+!history  A. JOLY (EDF LAB, LNHE)
+!+        27/08/2015
+!+        V7P1
+!+   Imposed flowrates on the bed.
+!
+!history  J-M HERVOUET (EDF LAB, LNHE)
+!+        28/09/2015
+!+        V7P1
+!+  Allocating arrays with new keywords.
+!
+!history  J-M HERVOUET (EDF LAB, LNHE)
+!+        16/11/2015
+!+        V7P1
+!+  Checking that wave driven currents will be given if they have to be
+!+  taken into account.
+!
+!history  J-M HERVOUET (EDF LAB, LNHE)
+!+        01/02/2016
+!+        V7P1
+!+  Adding the line CALL MAJUS(COUPLING) like in Telemac-2D.
+!
+!history  J-M HERVOUET (EDF LAB, LNHE)
+!+        25/02/2016
+!+        V7P2
+!+  Adaptation to the possibility of OPT_HNEG=3 for new advection 15.
+!+  (the latter not yet implemented in Telemac-3D).
+!
+!history  C-T PHAM (EDF LAB, LNHE)
+!+        29/02/2016
+!+        V7P2
+!+  Changes for the filling of tracer arrays
+!
+!history  J-M HERVOUET (EDF LAB, LNHE)
+!+        22/03/2016
+!+        V7P2
+!+  New keywords and options for distributive schemes. All like in 2D.
+!
+!history  J-M HERVOUET (EDF LAB, LNHE)
+!+        31/05/2016
+!+        V7P2
+!+  Scheme for advection of tracers (SCHCTA) completed when there are
+!+  several tracers and not the corresponding number of values given.
+!+  Previously the default value 5 was given. Exit of S3D_PVSCO and S3D_PVSNCO
+!+  precluded when no sediment. A section reading sediment parameters
+!+  is now executed also IF(S3D_MIXTE)...
+!
+!history  J-M HERVOUET (EDF LAB, LNHE)
+!+        27/08/2016
+!+        V7P2
+!+  Checking the number of values of the tracers at sources, and
+!+  stop if wrong.
+!
+!history  J-M HERVOUET (EDF LAB, LNHE)
+!+        15/09/2016
+!+        V7P2
+!+  Default values of COEFFICIENT FOR HORIZONTAL DIFFUSION OF VELOCITIES
+!+  managed differently. The missing values are completed with the last
+!+  value given by the user, not by 1.D-6.
+!
+!history  M JODEAU (EDF LAB, LNHE)
+!+        08/2016
+!+        V7P3
+!+  Water quality: AED2 coupling
+!
+!history  C.-T. PHAM (EDF, LNHE)
+!+        01/03/2017
+!+        V7P2
+!+   Allowing k-epsilon model on a direction and not on the other.
+!
+!history  S.E. BOURBAN (HRW)
+!+        07/06/2017
+!+        V7P3
+!+        Re-working NAMETRAC to avoid conflicting naming convention
+!+        between user defined tracers, water quality processes and
+!+        ice processes in 2d.
+!
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!| FILE_DESC      |<->| STORES STRINGS 'SUBMIT' OF DICTIONARY
+!| MOTCAR         |<->| KEYWORD IN CHARACTER
+!| NCAR           |-->| NUMBER OF LETTERS IN STRING PATH
+!| PATH           |-->| FULL PATH TO CODE DICTIONARY
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!
+      USE DECLARATIONS_SPECIAL
+      USE BIEF
+      USE INTERFACE_TELEMAC3D, ONLY : NOMVAR_2D_IN_3D,NOMVAR_TELEMAC3D
+      USE DECLARATIONS_TELEMAC
+      USE DECLARATIONS_TELEMAC3D
+      USE METEO_TELEMAC
+      USE DECLARATIONS_WAQTEL, ONLY: WAQPROCESS,IND_SF,IND_CSF,IND_CSF2,
+     &                               KIN_MICROPOL
+#if defined HAVE_AED2
+      USE T3D_AED2
+      USE DECLARATIONS_WAQTEL, ONLY : NWQVARS,NWQBEN,NWQDIAGS
+#endif
+      USE DECLARATIONS_GAIA, ONLY: SCHADVSED,OPTADV_SED,SLVSED,SCHDSED,
+     &                             SED0,DNUSEDH,DNUSEDV,NPRESED,
+     &                             NVERPROSED,VERPROSED,PRESED,SORTIS,
+     &                             NSEDSCE,SEDSCE
+      USE DECLARATIONS_KHIONE, ONLY: NC_FRA,FRZL0,IND_FRA,IND_DTI,
+     &                               IND_DCI,CONC0,THI0,DYN_ICOVER,
+     &                               NPREFRZL,PREFRZL,SCHDFRZL,
+     &                               DNUFRZLH,DNUFRZLV,SLVFRZL,
+     &                               OPTADV_FRZL,SCHADVFRZL
+!
+      USE DECLARATIONS_SPECIAL
+      IMPLICIT NONE
+!
+!+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+!
+      CHARACTER(LEN=PATH_LEN), INTENT(INOUT) :: MOTCAR(MAXKEYWORD)
+      CHARACTER(LEN=PATH_LEN), INTENT(INOUT) :: FILE_DESC(4,MAXKEYWORD)
+      CHARACTER(LEN=PATH_LEN), INTENT(IN)    :: PATH
+      INTEGER, INTENT(IN)               :: NCAR
+      !API
+      CHARACTER(LEN=PATH_LEN), INTENT(IN)    :: CAS_FILE
+      CHARACTER(LEN=PATH_LEN), INTENT(IN)    :: DICO_FILE
+      CHARACTER(LEN=PATH_LEN), OPTIONAL, INTENT(IN)    :: GAIA_CAS_FILE
+      CHARACTER(LEN=PATH_LEN), OPTIONAL, INTENT(IN)    :: GAIA_DICO_FILE
+!
+!+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+!
+      LOGICAL CONVEC,YES2D,GRAP_PRINT2D
+      INTEGER I,J,K,NTRTOT,ITRAC,TEMP_SCHDTA,NFR,NTRACE1
+      INTEGER NTRACET
+!
+      CHARACTER(LEN=8) MNEMO(MAXVAR)
+      CHARACTER(LEN=8) MNEM3(MAXVA3)
+!
+      CHARACTER(LEN=PATH_LEN) NOM_CAS,NOM_DIC
+      CHARACTER(LEN=24), PARAMETER :: CODE1='TELEMAC3D               '
+      CHARACTER(LEN=PATH_LEN) MOTCAR_GAIA(MAXKEYWORD)
+      CHARACTER(LEN=PATH_LEN) MOTCAR_KHIONE(MAXKEYWORD)
+      CHARACTER(LEN=PATH_LEN) MOTCAR_WAQTEL(MAXKEYWORD)
+      CHARACTER(LEN=PATH_LEN) FILE_DESC_GAIA(4,MAXKEYWORD)
+      CHARACTER(LEN=PATH_LEN) FILE_DESC_KHIONE(4,MAXKEYWORD)
+      CHARACTER(LEN=PATH_LEN) FILE_DESC_WAQTEL(4,MAXKEYWORD)
+      DOUBLE PRECISION, ALLOCATABLE :: TRACER_TMP(:)
+!
+!-----------------------------------------------------------------------
+!
+!     ARRAYS NEEDED TO CALL DAMOCLES
+!
+      INTEGER            ADRESS(4,MAXKEYWORD),DIMEN(4,MAXKEYWORD)
+      INTEGER            MOTINT(MAXKEYWORD),TROUVE(4,MAXKEYWORD)
+      DOUBLE PRECISION   MOTREA(MAXKEYWORD)
+      LOGICAL            MOTLOG(MAXKEYWORD)
+      CHARACTER(LEN=72)  MOTCLE(4,MAXKEYWORD,2)
+      CHARACTER(LEN=PATH_LEN) DUMMY, DUMMY2
+      LOGICAL DOC
+      INTEGER :: ID_DICO, ID_CAS
+!
+!     LOCAL_NSUSP_TEL is a copy of nsusp_tel
+!     (i.e. is the total number of suspended sediments) which is known
+!      only after lecdon_gaia
+      INTEGER :: LOCAL_NSUSP_TEL
+      INTEGER :: DIMTOT
+!
+!-----------------------------------------------------------------------
+!
+      INTRINSIC MAX,MOD
+!
+!-----------------------------------------------------------------------
+!
+      CHARACTER(LEN=2) CHAR2
+!
+!-----------------------------------------------------------------------
+!
+      DO I=1,MAXVAR
+        MNEMO(I) = REPEAT(' ',8)
+        MNEM3(I) = REPEAT(' ',8)
+      ENDDO
+      WRITE(LU,102)
+!
+102   FORMAT(1X,/,19X, '********************************************',/,
+     &            19X, '*               LECDON:                    *',/,
+     &            19X, '*        BEFORE CALLING DAMOCLES           *',/,
+     &            19X, '********************************************',/)
+!
+!-----------------------------------------------------------------------
+! 3D CASE, SO YES2D SET TO FALSE
+!
+      YES2D=.FALSE.
+!
+! INITIALISATIONS TO CALL DAMOCLES:
+! STRINGS MUST BE EQUAL TO ' ' (ONE BLANK CHARACTER)
+!
+      DO K=1,MAXKEYWORD
+        MOTCAR(K)(1:1)=' '
+        DIMEN(1,K) = 0
+        DIMEN(2,K) = 0
+        DIMEN(3,K) = 0
+        DIMEN(4,K) = 0
+      ENDDO
+!
+! DO NOT PRINT THE DICTIONARY OUT
+!
+      DOC = .FALSE.
+!
+!-----------------------------------------------------------------------
+!     OPENS THE DICTIONARY AND STEERING FILES
+!-----------------------------------------------------------------------
+!
+      NOM_DIC=REPEAT(' ',PATH_LEN)
+      NOM_CAS=REPEAT(' ',PATH_LEN)
+      IF(NCAR.GT.0) THEN
+!
+        NOM_DIC=PATH(1:NCAR)//'T3DDICO'
+        NOM_CAS=PATH(1:NCAR)//'T3DCAS'
+!
+      ELSE
+!
+        NOM_DIC='T3DDICO'
+        NOM_CAS='T3DCAS'
+!
+      ENDIF
+      IF((CAS_FILE(1:1).NE.' ').AND.(DICO_FILE(1:1).NE.' ')) THEN
+        NOM_DIC=DICO_FILE
+        NOM_CAS=CAS_FILE
+      ENDIF
+!
+      CALL GET_FREE_ID(ID_DICO)
+      OPEN(ID_DICO,FILE=NOM_DIC,FORM='FORMATTED',ACTION='READ')
+      CALL GET_FREE_ID(ID_CAS)
+      OPEN(ID_CAS,FILE=NOM_CAS,FORM='FORMATTED',ACTION='READ')
+!
+!-----------------------------------------------------------------------
+!
+      CALL DAMOCLE( ADRESS , DIMEN  , MAXKEYWORD , DOC , LNG    , LU ,
+     &              MOTINT , MOTREA , MOTLOG , MOTCAR  , MOTCLE ,
+     &              TROUVE , ID_DICO, ID_CAS , .FALSE. , FILE_DESC )
+!
+!-----------------------------------------------------------------------
+!     CLOSES THE DICTIONARY AND STEERING FILES
+!-----------------------------------------------------------------------
+!
+      CLOSE(ID_DICO)
+      CLOSE(ID_CAS)
+!
+!     DECODES THE SUBMIT STRINGS
+!
+      CALL READ_SUBMIT(T3D_FILES,MAXLU_T3D,FILE_DESC,MAXKEYWORD)
+!
+!-----------------------------------------------------------------------
+!
+!     RETRIEVES FILES NUMBERS IN TELEMAC-3D FORTRAN PARAMETERS
+!
+      DO I=1,MAXLU_T3D
+        IF(T3D_FILES(I)%TELNAME.EQ.'T3DGEO') THEN
+          T3DGEO=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DCLI') THEN
+          T3DCLI=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DPRE') THEN
+          T3DPRE=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DRES') THEN
+          T3DRES=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DFON') THEN
+          T3DFON=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DHYD') THEN
+          T3DHYD=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DFO1') THEN
+          T3DFO1=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DFO2') THEN
+          T3DFO2=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DBI1') THEN
+          T3DBI1=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DBI2') THEN
+          T3DBI2=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3ATMA') THEN
+          T3ATMA=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3ATMB') THEN
+          T3ATMB=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DBND') THEN
+          T3DBND=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DL93') THEN
+          T3DL93 = I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DSED') THEN
+          S3D_T3DSED=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DSUS') THEN
+          T3DSUS=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DREF') THEN
+          T3DREF=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DIMP') THEN
+          T3DIMP=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DDL1') THEN
+          T3DDL1=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DDL2') THEN
+          T3DDL2=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DDL3') THEN
+          T3DDL3=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DDL4') THEN
+          T3DDL4=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DDL5') THEN
+          T3DDL5=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DDL6') THEN
+          T3DDL6=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DDL7') THEN
+          T3DDL7=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DDL8') THEN
+          T3DDL8=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DDL9') THEN
+          T3DDL9=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DL10') THEN
+          T3DL10=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DL11') THEN
+          T3DL11=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DPAR') THEN
+          T3DPAR=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DVEF') THEN
+          T3DVEF=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DRBI') THEN
+          T3DRBI=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DRFO') THEN
+          T3DRFO=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DRF1') THEN
+          T3DRF1=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DRF2') THEN
+          T3DRF2=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DRF3') THEN
+          T3DRF3=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DRF4') THEN
+          T3DRF4=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DRF5') THEN
+          T3DRF5=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DRF6') THEN
+          T3DRF6=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DMIG') THEN
+          T3DMIG=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DRST') THEN
+          T3DRST=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DHAR') THEN
+          T3DHAR=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DTID') THEN
+          T3DTID=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DBDD') THEN
+          T3DBDD=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DBB1') THEN
+          T3DBB1=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DBB2') THEN
+          T3DBB2=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DFLO') THEN
+          T3DFLO=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DBLO') THEN
+          T3DBLO=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DS2D') THEN
+          T3DS2D=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DBUS') THEN
+          T3DBUS=I
+        ELSEIF(T3D_FILES(I)%TELNAME.EQ.'T3DGTM') THEN
+          T3DGTM=I
+        ENDIF
+      ENDDO
+!
+!-----------------------------------------------------------------------
+!
+!     COUPLING IN BIEF DECLARATIONS
+      COUPLING = MOTCAR(ADRESS(4,62))(1:74)
+      CALL MAJUS(COUPLING)
+!
+!-----------------------------------------------------------------------
+!
+!     READING FIRST 3 KEYWORDS THAT WILL BE DIMENSIONS TO ARRAYS THAT
+!     WILL STORE OTHER KEYWORDS, THEN ALLOCATING THESE ARRAYS
+!
+      MAXFRO = MOTINT(ADRESS(1,121))
+      MAXSCE = MOTINT(ADRESS(1,122))
+      MAXTRA = MOTINT(ADRESS(1,123))
+      MAXBLB = MOTINT(ADRESS(1,124))
+!
+!     ALLOCATING
+!
+      ALLOCATE(FRTYPE(MAXFRO))
+      ALLOCATE(DEBIMP(MAXFRO))
+      ALLOCATE(COTIMP(MAXFRO))
+      ALLOCATE(VITIMP(MAXFRO))
+      ALLOCATE(FLUX_BOUNDARIES(MAXFRO))
+      ALLOCATE(TRACER(MAXTRA*MAXFRO))
+      ALLOCATE(PTS_CURVES(MAXFRO))
+      ALLOCATE(STA_DIS_CURVES(MAXFRO))
+      ALLOCATE(PROFVEL(MAXFRO))
+      ALLOCATE(VERPROVEL(MAXFRO))
+      ALLOCATE(VERPROTRA(MAXFRO*MAXTRA))
+      ALLOCATE(DIRFLU(0:MAXFRO))
+      ALLOCATE(OKQ3(MAXFRO))
+      ALLOCATE(OKSL3(MAXFRO))
+      ALLOCATE(OKTR3(MAXFRO,MAXTRA))
+      ALLOCATE(OKVIT3(MAXFRO))
+      ALLOCATE(BND_TIDE(MAXFRO))
+      ALLOCATE(ISCE(MAXSCE))
+      ALLOCATE(KSCE(MAXSCE))
+      ALLOCATE(XSCE(MAXSCE))
+      ALLOCATE(YSCE(MAXSCE))
+      ALLOCATE(ZSCE(MAXSCE))
+      ALLOCATE(QSCE(MAXSCE))
+      ALLOCATE(QSCE2(MAXSCE))
+      ALLOCATE(TASCE(MAXSCE,MAXTRA))
+      ALLOCATE(USCE(MAXSCE))
+      ALLOCATE(VSCE(MAXSCE))
+      ALLOCATE(WSCE(MAXSCE))
+      ALLOCATE(OKDEBSCE(MAXSCE))
+      ALLOCATE(OKTRSCE(MAXSCE,MAXTRA))
+      ALLOCATE(SCHCTA(MAXTRA))
+      ALLOCATE(TRAIN(MAXTRA))
+      ALLOCATE(TRAC0(MAXTRA))
+      ALLOCATE(T0AC(MAXTRA))
+      ALLOCATE(BETAC(MAXTRA))
+      ALLOCATE(DNUTAH(MAXTRA))
+      ALLOCATE(DNUTAV(MAXTRA))
+      ALLOCATE(S_ADV(5+MAXTRA))
+      ALLOCATE(NOM_ADV(5+MAXTRA))
+      ALLOCATE(CALCFLU(5+MAXTRA))
+      ALLOCATE(CALCRAIN(5+MAXTRA))
+      ALLOCATE(SLVDTA(MAXTRA))
+      ALLOCATE(NAMETRAC(MAXTRA))
+      ALLOCATE(BEDFLO(MAXBLB))
+      ALLOCATE(BEDQAREA(MAXBLB))
+      ALLOCATE(OPTADV_TR(MAXTRA))
+      ALLOCATE(TRACER_TMP(MAXTRA*MAXFRO))
+!
+!     INITIALISING
+!
+      DO K=1,MAXFRO
+        FRTYPE(K)=1
+        PROFVEL(K)=1
+        STA_DIS_CURVES(K)=0
+        BND_TIDE(K)=0
+        OKQ3(K)=.TRUE.
+        OKSL3(K)=.TRUE.
+        OKVIT3(K)=.TRUE.
+      ENDDO
+      DO ITRAC=1,MAXTRA
+        DO K=1,MAXFRO
+          OKTR3(K,ITRAC)=.TRUE.
+        ENDDO
+      ENDDO
+      DO K=1,MAXSCE
+        OKDEBSCE(K)=.TRUE.
+      ENDDO
+      DO ITRAC=1,MAXTRA
+        DO K=1,MAXSCE
+          OKTRSCE(K,ITRAC)=.TRUE.
+        ENDDO
+      ENDDO
+      DO ITRAC=1,MAXTRA
+        DNUTAH(ITRAC)=1.D-6
+        DNUTAV(ITRAC)=1.D-6
+        SCHCTA(ITRAC)=5
+        SLVDTA(ITRAC)%PRECON=2
+        SLVDTA(ITRAC)%SLV=1
+        SLVDTA(ITRAC)%EPS=1.D-8
+        SLVDTA(ITRAC)%NITMAX=60
+        SLVDTA(ITRAC)%KRYLOV=5
+        BETAC(ITRAC)=0.D0
+        T0AC(ITRAC)=0.D0
+      ENDDO
+!
+!-----------------------------------------------------------------------
+! GETS VALUES ACCORDING TO THE KEYWORDS
+!
+! INTEGER KEYWORDS
+!
+      NIT       = MAX(MOTINT(ADRESS(1, 1)),0)
+      NPLAN     = MAX(MOTINT(ADRESS(1, 2)),2)
+!
+!     THE NUMBER OF TRACERS DEPENDS ON VARIOUS ASPECTS INLCLUDING:
+!     - WATER QUALITY PROCESSES
+!     - OTHERS POSSIBLE
+!
+!     USER DEFINED NUMBER OF TRACERS
+      NTRAC     = MAX(MOTINT(ADRESS(1, 3)),0)
+!     INITIALISES AND READS THE NAMES OF TRACERS
+      NTRTOT=DIMEN(4,56)
+      IF( NTRTOT.GT.NTRAC ) NTRAC = NTRTOT
+!     CHECKING THE MAX TRACER NUMBER WITH INITIAL NTRAC
+      IF(NTRAC.GT.MAXTRA) THEN
+        WRITE(LU,*) 'LECDON: TRACERS NUMBER         =',NTRAC
+        WRITE(LU,*) '        BIGGER THAN MAX NUMBER =',MAXTRA
+        WRITE(LU,*) '        INCREASE THE VALUE OF THE KEYWORD '//
+     &              'MAXIMUM NUMBER OF TRACERS'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+      IF( NTRAC.GT.0 ) THEN
+        DO I=1,NTRAC
+          WRITE(CHAR2,'(I2)') I
+          IF(LNG.EQ.LNG_FR) THEN
+            NAMETRAC(I) =  'TRACEUR '//ADJUSTL(CHAR2)//'      '
+     &                   // '??              '
+          ELSEIF(LNG.EQ.LNG_EN) THEN
+            NAMETRAC(I) =  'TRACER '//ADJUSTL(CHAR2)//'       '
+     &                   // '??              '
+          ENDIF
+        ENDDO
+      ENDIF
+      IF( NTRTOT.GT.0 ) THEN
+        DO I=1,NTRTOT
+          NAMETRAC(I) = MOTCAR(ADRESS(4,56)+I-1)(1:32)
+        ENDDO
+      ENDIF
+!
+!     INITIALISATION OF WAQ INDICES (REGARDELESS OF COUPLING)
+!
+!     TODO: DO THE SAME WITH S3D_SEDI
+!
+      WAQPROCESS = MOTINT( ADRESS(1,127) )
+!
+!     SPECIFIC RULES BETWEEN PROCESSES OF WAQPROCESS
+!
+!     AED2 SHOULD BE USED TOGETHER WITH THERMAL PROCESSES AT LEAST
+      IF( INCLUS(COUPLING,'WAQTEL') ) THEN
+        IF( 13*INT(WAQPROCESS/13).EQ.WAQPROCESS ) THEN
+#if defined HAVE_AED2
+!     READING OF THE AED2 STEERING FILE
+          CALL GET_FREE_ID(I)
+          CALL INIT_AED2_MODELS(I,PATH,NWQVARS,NWQBEN,NWQDIAGS)
+#else
+          WRITE(LU,*) 'ERROR: AED2 LIBRARY NOT COMPILED'
+          CALL PLANTE(1)
+          STOP
+#endif
+        ENDIF
+      ENDIF
+!
+!     SETTING OF WAQ INDICES (INCLUDING OF COUPLING)
+!
+      IF( INCLUS(COUPLING,'WAQTEL') ) THEN
+        DUMMY = ' '
+        CALL LECDON_TELEMAC3D_WAQTEL(MOTCAR_WAQTEL,FILE_DESC_WAQTEL,
+     &                               PATH,NCAR,DUMMY,DUMMY)
+      ENDIF
+!
+!     ADD TRACER CONTRIBUTION FOR ICE PROCESSES
+      IF( INCLUS(COUPLING,'KHIONE') )THEN
+        DUMMY = ' '
+        CALL LECDON_TELEMAC3D_KHIONE(MOTCAR_KHIONE,FILE_DESC_KHIONE,
+     &                               PATH,NCAR,DUMMY,DUMMY)
+      ENDIF
+!
+      IND_SED = 0
+      LOCAL_NSUSP_TEL = 0
+      IF( INCLUS(COUPLING,'GAIA') ) THEN
+        DUMMY = ' '
+        DUMMY2 = ' '
+        IF(PRESENT(GAIA_CAS_FILE)) THEN
+          DUMMY = GAIA_CAS_FILE
+          DUMMY2 = GAIA_DICO_FILE
+        ENDIF
+        ! This will increase ntrac by adding the tracer from gaia
+        ! It will also set ind_sed (which points to the first gaia
+        ! tracer)
+        CALL LECDON_TELEMAC3D_GAIA(MOTCAR_GAIA,FILE_DESC_GAIA,PATH,
+     &                             NCAR,DUMMY,DUMMY2,LOCAL_NSUSP_TEL)
+      ENDIF
+!
+!     CHECKING THE MAX TRACER NUMBER
+!
+      IF(NTRAC.GT.MAXTRA) THEN
+        WRITE(LU,*) 'LECDON: TRACERS NUMBER         =',NTRAC
+        WRITE(LU,*) '        BIGGER THAN MAX NUMBER =',MAXTRA
+        WRITE(LU,*) '        INCREASE THE VALUE OF THE KEYWORD '//
+     &              'MAXIMUM NUMBER OF TRACERS'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!     LOCATING TRACERS OF IMPORTANCE TO TELEMAC-3D
+!
+      IND_T=0
+      IND_S=0
+      IF( NTRAC.GT.0 ) THEN
+        DO I=1,NTRAC
+          IF(NAMETRAC(I)(1:11).EQ.'TEMPERATURE') IND_T = I
+          IF(NAMETRAC(I)(1: 7).EQ.'SALINIT')     IND_S = I
+        ENDDO
+      ENDIF
+!
+      MIXING    = MAX(MOTINT(ADRESS(1, 4)),0)
+      NFLOT_MAX = MAX(MOTINT(ADRESS(1, 5)),0)
+      FLOPRD    = MAX(MOTINT(ADRESS(1, 6)),1)
+      GRAPRD    = MAX(MOTINT(ADRESS(1, 7)),1)
+      LISPRD    = MAX(MOTINT(ADRESS(1, 8)),1)
+      GRADEB    = MAX(MOTINT(ADRESS(1, 9)),0)
+      LISDEB    = MAX(MOTINT(ADRESS(1,10)),0)
+      LISFON    = MAX(MOTINT(ADRESS(1,11)),0)
+      NSOUSI    = MAX(MOTINT(ADRESS(1,12)),1)
+!     NPLINT    = MAX(MIN(MOTINT(ADRESS(1,13)),NPLAN-1),1)
+      ITURBV    = MOTINT(ADRESS(1,14))
+      LISRUF    = MOTINT(ADRESS(1,15))
+      LISRUL    = MOTINT(ADRESS(1,16))
+      IORDRH    = MOTINT(ADRESS(1,17))
+!
+      SCHCVI    = MOTINT(ADRESS(1,18))
+!     SCHEME FOR THE ADVECTION OF TRACERS, DEFAULT INITIALLY SET TO 5
+      IF(NTRAC.GT.0) THEN
+        IF(DIMEN(1,19).LT.NTRAC.AND.DIMEN(1,19).GT.0) THEN
+          DO K=1,DIMEN(1,19)
+            SCHCTA(K) = MOTINT(ADRESS(1,19)+K-1)
+          ENDDO
+!         COMPLETING WITH THE LAST VALUE GIVEN
+          DO K=DIMEN(1,19)+1,NTRAC
+            SCHCTA(K) = MOTINT(ADRESS(1,19)+DIMEN(1,19)-1)
+          ENDDO
+        ELSEIF(DIMEN(1,19).EQ.NTRAC) THEN
+          DO K=1,NTRAC
+            SCHCTA(K) = MOTINT(ADRESS(1,19)+K-1)
+          ENDDO
+        ENDIF
+      ENDIF
+!     ADDING VALUES FOR SEDIMENTS AFTER TRACERS IN SCHCTA
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0) THEN
+        DO K=IND_SED,IND_SED+LOCAL_NSUSP_TEL-1
+          ISUSP=K-IND_SED+1
+          SCHCTA(K)=SCHADVSED(ISUSP)
+        ENDDO
+      ENDIF
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'KHIONE').AND.IND_FRA.GT.0) THEN
+        DO K=IND_FRA,IND_FRA+NC_FRA-1
+          SCHCTA(K)=SCHADVFRZL
+        ENDDO
+      ENDIF
+!
+!     IF MICROPOL MODULE IS ACTIVATED, TRACERS BOTTOM SEDIMENT (IND_SF)
+!     AND MICROPOLLUTANT ADSORBED BY BOTTOM SEDIMENT (IND_CSF)
+!     ARE NEITHER ADVECTED NOR DIFFUSED (NO DIFFUSION DONE IN TELEMAC3D)
+!
+      IF(INCLUS(COUPLING,'WAQTEL').AND.
+     &   7*INT(WAQPROCESS/7).EQ.WAQPROCESS) THEN
+        SCHCTA(IND_SF)  = 0
+        SCHCTA(IND_CSF) = 0
+        IF(KIN_MICROPOL.EQ.2) THEN
+          SCHCTA(IND_CSF2) = 0
+        ENDIF
+      ENDIF
+!
+      DAMPING   = MOTINT(ADRESS(1,20))
+      SCHCKE    = MOTINT(ADRESS(1,21))
+      SCHCH     = MOTINT(ADRESS(1,22))
+      SCHDVI    = MOTINT(ADRESS(1,23))
+      SCHDTA    = MOTINT(ADRESS(1,24))
+!
+!     POSSIBLE CHANGE IN SCHDTA IF SEDIMENTS
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0) THEN
+        TEMP_SCHDTA = SCHDTA
+        SCHDTA = SCHDSED
+        IF(IND_SED.GT.1.AND.TEMP_SCHDTA.NE.SCHDTA) THEN
+!         CASE WITH TRACERS AND SEDIMENTS AT THE SAME TIME
+          WRITE(LU,*) '!!! WARNING !!!'
+          WRITE(LU,*) 'DIFFERENT VALUES FOR SCHEME FOR DIFFUSION:'
+          WRITE(LU,*) TEMP_SCHDTA,' FOR TRACERS'
+          WRITE(LU,*) SCHDTA,' FOR SEDIMENTS.'
+          WRITE(LU,*) 'ONLY THE VALUE FOR SEDIMENTS IS KEPT'
+        ENDIF
+      ENDIF
+!
+!     POSSIBLE CHANGE IN SCHDTA IF SEDIMENTS
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'KHIONE').AND.IND_FRA.GT.0) THEN
+        TEMP_SCHDTA = SCHDTA
+        SCHDTA = SCHDFRZL
+        IF(IND_FRA.GT.1.AND.TEMP_SCHDTA.NE.SCHDTA) THEN
+!         CASE WITH TRACERS AND SEDIMENTS AT THE SAME TIME
+          WRITE(LU,*) '!!! WARNING !!!'
+          WRITE(LU,*) 'DIFFERENT VALUES FOR SCHEME FOR DIFFUSION:'
+          WRITE(LU,*) TEMP_SCHDTA,' FOR TRACERS'
+          WRITE(LU,*) SCHDTA,' FOR SEDIMENTS.'
+          WRITE(LU,*) 'ONLY THE VALUE FOR SEDIMENTS IS KEPT'
+        ENDIF
+      ENDIF
+!
+      KFROTL    = MOTINT(ADRESS(1,25))
+      SCHDKE    = MOTINT(ADRESS(1,26))
+!
+      SLVDVI%PRECON  =  MOTINT(ADRESS(1,27))
+!     PRECONDITIONING FOR DIFFUSION OF TRACERS,
+!     DEFAULT INITIALLY SET TO 2
+      IF(NTRAC.GT.0) THEN
+        IF(DIMEN(1,28).LT.NTRAC.AND.DIMEN(1,28).GT.0) THEN
+          DO K=1,DIMEN(1,28)
+            SLVDTA(K)%PRECON = MOTINT(ADRESS(1,28)+K-1)
+          ENDDO
+!         COMPLETING WITH THE LAST VALUE GIVEN
+          DO K=DIMEN(1,28)+1,NTRAC
+            SLVDTA(K)%PRECON = MOTINT(ADRESS(1,28)+DIMEN(1,28)-1)
+          ENDDO
+        ELSEIF(DIMEN(1,28).GE.NTRAC) THEN
+          DO K=1,NTRAC
+            SLVDTA(K)%PRECON = MOTINT(ADRESS(1,28)+K-1)
+          ENDDO
+!       ELSE = 2 (DEFAULT VALUE), SEE ABOVE
+        ENDIF
+      ENDIF
+      S3D_SLVDSE%NITMAX  =  MOTINT(ADRESS(1,29))
+      SLVDKE%PRECON  =  MOTINT(ADRESS(1,30))
+      SLVPRO%PRECON  =  MOTINT(ADRESS(1,31))
+!     SLVW%PRECON    =  MOTINT(ADRESS(1,32))
+!
+      SLVDVI%SLV = MOTINT(ADRESS(1,33))
+!     SOLVER FOR DIFFUSION OF TRACERS, DEFAULT INITIALLY SET TO 1
+      IF(NTRAC.GT.0) THEN
+        IF(DIMEN(1,34).LT.NTRAC.AND.DIMEN(1,34).GT.0) THEN
+          DO K=1,DIMEN(1,34)
+            SLVDTA(K)%SLV = MOTINT(ADRESS(1,34)+K-1)
+          ENDDO
+!         COMPLETING WITH THE LAST VALUE GIVEN
+          DO K=DIMEN(1,34)+1,NTRAC
+            SLVDTA(K)%SLV = MOTINT(ADRESS(1,34)+DIMEN(1,34)-1)
+          ENDDO
+        ELSEIF(DIMEN(1,34).GE.NTRAC) THEN
+          DO K=1,NTRAC
+            SLVDTA(K)%SLV = MOTINT(ADRESS(1,34)+K-1)
+          ENDDO
+!       ELSE = 1 (DEFAULT VALUE), SEE ABOVE
+        ENDIF
+      ENDIF
+      PERCOU_WAC = MOTINT(ADRESS(1,35))
+      SLVDKE%SLV = MOTINT(ADRESS(1,36))
+      SLVPRO%SLV = MOTINT(ADRESS(1,37))
+!     SLVW%SLV   = MOTINT(ADRESS(1,38))
+!
+      SLVDVI%NITMAX    = MOTINT(ADRESS(1,39))
+!     MAXIMUM NUMBER OF ITERATIONS FOR DIFFUSION OF TRACERS,
+!     DEFAULT INITIALLY SET TO 60
+      IF(NTRAC.GT.0) THEN
+        IF(DIMEN(1,40).LT.NTRAC.AND.DIMEN(1,40).GT.0) THEN
+          DO K=1,DIMEN(1,40)
+            SLVDTA(K)%NITMAX = MOTINT(ADRESS(1,40)+K-1)
+          ENDDO
+!         COMPLETING WITH THE LAST VALUE GIVEN
+          DO K=DIMEN(1,40)+1,NTRAC
+            SLVDTA(K)%NITMAX = MOTINT(ADRESS(1,40)+DIMEN(1,40)-1)
+          ENDDO
+        ELSEIF(DIMEN(1,40).GE.NTRAC) THEN
+          DO K=1,NTRAC
+            SLVDTA(K)%NITMAX = MOTINT(ADRESS(1,40)+K-1)
+          ENDDO
+        ENDIF
+      ENDIF
+!     ADDING VALUES FOR SEDIMENTS AFTER TRACERS IN SLVDTA
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0) THEN
+        DO ITRAC=IND_SED,IND_SED+LOCAL_NSUSP_TEL-1
+          ISUSP=ITRAC-IND_SED+1
+          SLVDTA(ITRAC)%SLV=SLVSED(ISUSP)%SLV
+          SLVDTA(ITRAC)%PRECON=SLVSED(ISUSP)%PRECON
+          SLVDTA(ITRAC)%NITMAX=SLVSED(ISUSP)%NITMAX
+        ENDDO
+      ENDIF
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'KHIONE').AND.IND_FRA.GT.0) THEN
+        DO ITRAC=IND_FRA,IND_FRA+NC_FRA-1
+          SLVDTA(ITRAC)%SLV=SLVFRZL(1)%SLV
+          SLVDTA(ITRAC)%PRECON=SLVFRZL(1)%PRECON
+          SLVDTA(ITRAC)%NITMAX=SLVFRZL(1)%NITMAX
+        ENDDO
+      ENDIF
+
+
+      PERCOU_SIS       = MOTINT(ADRESS(1,41))
+      SLVDKE%NITMAX    = MOTINT(ADRESS(1,42))
+      SLVPRO%NITMAX    = MOTINT(ADRESS(1,43))
+!     SLVW%NITMAX      = MOTINT(ADRESS(1,44))
+!
+!     NCSIZE    =     MOTINT(ADRESS(1,45))
+!     NUMBER OF PROCESSORS (ALREADY IN INIT_FILES2; MUST BE THE
+!     SAME, BUT IT CAN (ERRONEOUSLY) BE DIFFERENT WHEN COUPLING).
+      IF(NCSIZE.NE.MOTINT(ADRESS(1,45))) THEN
+        WRITE(LU,*) 'DIFFERENT NUMBER OF PARALLEL PROCESSORS:'
+        WRITE(LU,*) 'DECLARED BEFORE (CASE OF COUPLING ?):',NCSIZE
+        WRITE(LU,*) 'TELEMAC-3D :',MOTINT(ADRESS(1,45))
+        WRITE(LU,*) 'VALUE ',NCSIZE,' IS KEPT'
+      ENDIF
+!
+      TRBAVI    =     MOTINT(ADRESS(1,46))
+      TRBATA    =     MOTINT(ADRESS(1,47))
+      BC_BOTTOM =     MOTINT(ADRESS(1,48))
+      TRBAKE    =     MOTINT(ADRESS(1,49))
+!
+! NEW ONES 60,61 (50++ FOR SEDIMENT)
+!
+      LVMAC     =     MOTINT(ADRESS(1,61))
+      NPRIV     =     MOTINT(ADRESS(1,62))
+      KFROT     =     MOTINT(ADRESS(1,64))
+      S3D_NCOUCH=     MOTINT(ADRESS(1,65))
+!
+!     NUMBER OF DIRECTIONS FOR DIFFERENTIATED VARIABLES
+      AD_NUMOFDIR  = MOTINT( ADRESS(1,69) )
+!
+! NON-HYDROSTATIC
+!
+      SLVPOI%PRECON = MOTINT( ADRESS(1,71) )
+      SLVPOI%SLV    = MOTINT( ADRESS(1,72) )
+      SLVPOI%NITMAX = MOTINT( ADRESS(1,73) )
+!
+!     FOLLOWING LINES ARE DONE LATER
+!     SLVDVI%KRYLOV = MOTINT( ADRESS(1,74) )
+!     SLVDTA(1)%KRYLOV = MOTINT( ADRESS(1,75) )
+!     SLVDKE%KRYLOV = MOTINT( ADRESS(1,76) )
+!     SLVPRO%KRYLOV = MOTINT( ADRESS(1,77) )
+! SLVPRJ NO MORE USED
+!     SLVPRJ%PRECON = MOTINT( ADRESS(1,78) )
+!     SLVPRJ%SLV    = MOTINT( ADRESS(1,79) )
+!     SLVPRJ%NITMAX = MOTINT( ADRESS(1,80) )
+!     FOLLOWING LINE IS DONE LATER
+!     SLVPOI%KRYLOV = MOTINT( ADRESS(1,81) )
+      RSTPRD        = MOTINT( ADRESS(1,79) )
+      RESTART_RECORD= MOTINT( ADRESS(1,80) )
+      START_RECORD  = MOTINT( ADRESS(1,82) )
+!     FOLLOWING LINES ARE DONE LATER
+!     SLVPRJ%KRYLOV = MOTINT( ADRESS(1,83) )
+!     S3D_SLVDSE%KRYLOV = MOTINT( ADRESS(1,84) )
+      ITURBH        = MOTINT( ADRESS(1,85) )
+      PROTYP        = MOTINT( ADRESS(1,86) )
+      PROTYP0       = PROTYP
+      OPTASS        = MOTINT( ADRESS(1,87) )
+      OPTASS2D      = OPTASS
+!     ??????        = MOTINT( ADRESS(1,88)     )
+!     ??????        = MOTINT( ADRESS(1,88) + 1 )
+      DENLAW        = MOTINT( ADRESS(1,89) )
+      OPTBAN        = MOTINT( ADRESS(1,90) )
+      MARDAT(1)     = MOTINT( ADRESS(1,91) )
+      MARDAT(2)     = MOTINT( ADRESS(1,91) + 1 )
+      MARDAT(3)     = MOTINT( ADRESS(1,91) + 2 )
+      MARTIM(1)     = MOTINT( ADRESS(1,92) )
+      MARTIM(2)     = MOTINT( ADRESS(1,92) + 1 )
+      MARTIM(3)     = MOTINT( ADRESS(1,92) + 2 )
+!     COMPUTING OFFSET IN SECOND FROM DATE
+      IF(ANY(MARDAT.NE.0).OR.ANY(MARTIM.NE.0)) THEN
+        TEL_OFFSET = DATE_MJD2SEC(MARDAT, MARTIM)
+      ELSE
+        TEL_OFFSET = 0.D0
+      ENDIF
+!     HYDSTEP       = MOTINT( ADRESS(1,94) )
+      NBUSE         = MOTINT( ADRESS(1,58) )
+      OPTBUSE       = MOTINT( ADRESS(1,57) )
+      DIRFLU(0)=0
+      DO K=1,MAXFRO
+        PROFVEL(K)=1
+        DIRFLU(K)=1
+        VERPROVEL(K)=1
+        STA_DIS_CURVES(K)=0
+      ENDDO
+      DO K=1,MAXFRO*MAXTRA
+        VERPROTRA(K)=1
+      ENDDO
+      IF(DIMEN(1,95).GT.0) THEN
+        DO K=1,DIMEN(1,95)
+          PROFVEL(K) = MOTINT( ADRESS(1,95) + K-1 )
+        ENDDO
+      ENDIF
+      TRANSF= MOTINT( ADRESS(1,96) )
+      ITRAC_AMR = MOTINT( ADRESS(1,32) )
+!
+      IF(DIMEN(1,97).GT.0) THEN
+        DO K=1,DIMEN(1,97)
+          DIRFLU(K) = MOTINT( ADRESS(1,97) + K-1 )
+        ENDDO
+      ENDIF
+      IF(DIMEN(1,98).GT.0) THEN
+        DO K=1,DIMEN(1,98)
+          VERPROVEL(K) = MOTINT( ADRESS(1,98) + K-1 )
+        ENDDO
+      ENDIF
+      IF(DIMEN(1,99).GT.0) THEN
+        DO K=1,DIMEN(1,99)
+          VERPROTRA(K) = MOTINT( ADRESS(1,99) + K-1 )
+        ENDDO
+      ENDIF
+      IF(INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0) THEN
+!       SEDIMENT VERTICAL PROFILES ADDED TO TRACER VERTICAL PROFILES
+        DIMTOT=DIMEN(1,99)+NVERPROSED
+        DO I=1,DIMTOT
+          IF(I.GT.DIMEN(1,99)) THEN
+            VERPROTRA(I)=VERPROSED(I-DIMEN(1,99))
+          ENDIF
+        ENDDO
+      ENDIF
+      OPTSUP(1)=1
+      IF(DIMEN(1,100).GT.0) THEN
+        DO K=1,MAX(DIMEN(1,100),4)
+          OPTSUP(K) = MOTINT( ADRESS(1,100) + K-1 )
+        ENDDO
+      ENDIF
+!     SO FAR THE SUPG MATRIX IS THE SAME FOR ALL ADVECTIONS
+!     SEE IN PRECON
+!     OPTSUP(2)=OPTSUP(1)  (THIS IS DEPTH, NO LONGER USED)
+      OPTSUP(3)=OPTSUP(1)
+      OPTSUP(4)=OPTSUP(1)
+      WAQPRD=MOTINT( ADRESS(1,101) )
+!     KEYWORD: ORIGIN COORDINATES, GOT WITH GET_MESH_ORIG IN TELEMAC2D_INIT
+!     I_ORIG = MOTINT( ADRESS(1,102)   )
+!     J_ORIG = MOTINT( ADRESS(1,102)+1 )
+!     KEYWORD: STAGE-DISCHARGE CURVES
+      IF(DIMEN(1,103).NE.0) THEN
+        DO K=1,DIMEN(1,103)
+          STA_DIS_CURVES(K) = MOTINT( ADRESS(1,103) + K-1 )
+        ENDDO
+      ENDIF
+!     KEYWORD: DEBUGGER
+      DEBUG = MOTINT( ADRESS(1,104) )
+!     KEYWORD: RECORD IN THE WAVE DRIVEN CURRENTS FILE
+      NPTH = MOTINT( ADRESS(1,105) )
+!     KEYWORD: TREATMENT OF NEGATIVE DEPTHS
+      OPT_HNEG = MOTINT( ADRESS(1,106) )
+!     KEYWORD: SKIN FRICTION
+      S3D_ICR= MOTINT( ADRESS(1,107) )
+!
+      S3D_ICQ=  MOTINT( ADRESS(1,108) )
+      IF(S3D_ICQ.NE.1.AND.S3D_ICQ.NE.3) THEN
+        WRITE(LU,1402) S3D_ICQ
+1402    FORMAT('ERROR ON THE REFERENCE CONCENTRATION: ',1I3)
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+      DO K=1,MAXFRO
+        FRTYPE(K)=1
+      ENDDO
+      THOMFR=.FALSE.
+      IF(DIMEN(1,109).GT.0) THEN
+        DO K=1,DIMEN(1,109)
+          FRTYPE(K) = MOTINT( ADRESS(1,109) + K-1 )
+          IF(FRTYPE(K).EQ.2) THOMFR=.TRUE.
+        ENDDO
+      ENDIF
+!     KEYWORD: VERTICAL VELOCITY DERIVATIVES
+      LINLOG = MOTINT( ADRESS(1,110) )
+!     OPTION FOR TIDAL BOUNDARY CONDITIONS (TIDALTYPE IS DEDUCED FROM BND_TIDE)
+      TIDALTYPE=0
+!     NFRLIQ IS INITILIASED HERE AND WILL BE CHECKED WHEN FRONT2 IS CALLED
+      NFRLIQ=DIMEN(1,111)
+      IF(DIMEN(1,111).GT.0) THEN
+        DO K=1,DIMEN(1,111)
+          BND_TIDE(K) = MOTINT( ADRESS(1,111) + K-1 )
+          TIDALTYPE=MAX(TIDALTYPE,BND_TIDE(K))
+        ENDDO
+      ENDIF
+!     INPUT TIDAL DATA BASE
+      TIDALDB = MOTINT(ADRESS(1,112))
+!     GEOGRAPHIC SYSTEM IN WHICH THE NUMERICAL MODEL IS BUILT (TIDAL MODEL)
+      GEOSYST = MOTINT(ADRESS(1,113))
+!     ZONE NUMBER WHEN USING A PLANE PROJECTION,
+!     ASSOCIATED TO GEOGRAPHIC SYSTEM (TIDAL MODEL)
+      NUMZONE = MOTINT(ADRESS(1,114))
+!     MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES
+      MAXADV = MOTINT(ADRESS(1,115))
+!     OPTION FOR CHARACTERISTICS
+      OPTCHA = MOTINT(ADRESS(1,116))
+!     MAXIMUM NUMBER OF GAUSS POINTS FOR WEAK CHARACTERISTICS
+      NGAUSS = MOTINT(ADRESS(1,117))
+!     NUMBER OF 2D PRIVATE ARRAYS
+      NPRIV2D = MOTINT(ADRESS(1,118))
+! TBE + CV
+      S3D_HIND_TYPE= MOTINT(ADRESS(1,125))
+      S3D_FLOC_TYPE= MOTINT(ADRESS(1,126))
+!     OPTION OF ATMOSPHERE-WATER EXCHANGE MODEL
+!      CHANGED TO WAQTEL
+!      ATMOSEXCH = MOTINT(ADRESS(1,50))
+!     NUMBERS OF THE POINT TO CALIBRATE HIGH WATER (SCHEMATIC TIDES)
+      ICALHWB = MOTINT(ADRESS(1,119))
+      ICALHWG = MOTINT(ADRESS(1,120))
+!     OPTION FOR THE COMPUTATION OF THE LATERAL BOUNDARY CONDITIONS OF K
+      OPTBCKE = MOTINT(ADRESS(1,56))
+!     OPTION FOR WIND MANAGEMENT
+      OPTWIND = MOTINT(ADRESS(1,60))
+!
+!     KEYWORD 57 BY JACQUES, TO BE MERGED
+!
+!     SCHEME OPTION FOR ADVECTION OF VELOCITIES
+      OPTADV_VI=1
+      IF(SCHCVI.EQ.1) THEN
+!       CHARACTERISTICS
+        OPTADV_VI=OPTCHA
+      ELSEIF(SCHCVI.EQ.2) THEN
+!       SUPG
+        OPTADV_VI=OPTSUP(1)
+      ENDIF
+!     SCHEME OPTION FOR ADVECTION OF VELOCITIES
+!     HAS PRIORITY WHEN PRESENT
+      IF(TROUVE(1,59).EQ.2) THEN
+        OPTADV_VI = MOTINT(ADRESS(1,59))
+!       WEAK CHARACTERISTICS MEMORY ALLOCATIONS ARE TRIGGERED BY OPTCHA
+        IF(SCHCVI.EQ.1.AND.OPTADV_VI.EQ.2) OPTCHA=2
+      ENDIF
+!     SCHEME OPTION FOR ADVECTION OF K-EPSILON
+      OPTADV_KE=1
+      IF(SCHCKE.EQ.1) THEN
+!       CHARACTERISTICS
+        OPTADV_KE=OPTCHA
+      ELSEIF(SCHCKE.EQ.2) THEN
+!       SUPG
+        OPTADV_KE=OPTSUP(4)
+      ENDIF
+!     SCHEME OPTION FOR ADVECTION OF K-EPSILON
+!     HAS PRIORITY WHEN PRESENT
+      IF(TROUVE(1,63).EQ.2) THEN
+        OPTADV_KE = MOTINT(ADRESS(1,63))
+!       WEAK CHARACTERISTICS MEMORY ALLOCATIONS ARE TRIGGERED BY OPTCHA
+        IF(SCHCKE.EQ.1.AND.OPTADV_KE.EQ.2) OPTCHA=2
+      ENDIF
+!
+!     SCHEME OPTION FOR ADVECTION OF TRACERS
+      IF(NTRAC.GT.0) THEN
+!       IF SCHEME OPTION FOR ADVECTION OF TRACERS NOT PRESENT
+!       VALUES TAKEN FROM PREVIOUSLY USED KEYWORDS
+        DO ITRAC=1,NTRAC
+        ! DEFAULT VALUE CHANGED IN V8P1 FROM 1 (EXPLICIT) TO 4 (IMPLICIT)
+          OPTADV_TR(ITRAC)=4
+          IF(SCHCTA(ITRAC).EQ.1) THEN
+!           CHARACTERISTICS
+            OPTADV_TR(ITRAC)=OPTCHA
+          ELSEIF(SCHCTA(ITRAC).EQ.2) THEN
+!           SUPG
+            OPTADV_TR(ITRAC)=OPTSUP(3)
+          ENDIF
+        ENDDO
+!       SCHEME OPTION FOR ADVECTION OF TRACERS
+!       HAS PRIORITY WHEN PRESENT
+        IF(TROUVE(1,66).EQ.2) THEN
+          DO ITRAC=1,MIN(NTRAC,DIMEN(1,66))
+            OPTADV_TR(ITRAC) = MOTINT(ADRESS(1,66)+ITRAC-1)
+!           WEAK CHARACTERISTICS MEMORY ALLOCATIONS TRIGGERED BY OPTCHA
+            IF(SCHCTA(ITRAC).EQ.1.AND.OPTADV_TR(ITRAC).EQ.2) OPTCHA=2
+          ENDDO
+!         MISSING VALUES COMPLETED WITH LAST VALUE GIVEN
+          IF(DIMEN(1,66).LT.NTRAC) THEN
+            DO ITRAC=DIMEN(1,66)+1,NTRAC
+              OPTADV_TR(ITRAC) = MOTINT(ADRESS(1,66)+DIMEN(1,66)-1)
+!             WEAK CHARACTERISTICS MEMORY ALLOCATIONS TRIGGERED BY OPTCHA
+              IF(SCHCTA(ITRAC).EQ.1.AND.OPTADV_TR(ITRAC).EQ.2) THEN
+                OPTCHA=2
+              ENDIF
+            ENDDO
+          ENDIF
+        ENDIF
+      ENDIF
+!     ADDING VALUES FOR SEDIMENTS AFTER TRACERS IN OPTADV_TR
+!
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0) THEN
+        DO K=IND_SED,IND_SED+LOCAL_NSUSP_TEL-1
+          ISUSP=K-IND_SED+1
+          OPTADV_TR(K)=OPTADV_SED(ISUSP)
+          IF(SCHCTA(K).EQ.1) THEN
+!           CHARACTERISTICS
+            OPTADV_TR(K)=OPTCHA
+          ELSEIF(SCHCTA(K).EQ.2) THEN
+!           SUPG
+            OPTADV_TR(K)=OPTSUP(3)
+          ENDIF
+          IF(SCHCTA(K).EQ.1.AND.OPTADV_TR(K).EQ.2) OPTCHA=2
+        ENDDO
+      ENDIF
+!     ADDING VALUES FOR FRAZIL AFTER TRACERS IN OPTADV_TR
+!
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'KHIONE').AND.IND_FRA.GT.0) THEN
+        DO K=IND_FRA,IND_FRA+NC_FRA-1
+          ISUSP=K-IND_FRA+1
+          OPTADV_TR(K)=OPTADV_FRZL
+          IF(SCHCTA(K).EQ.1) THEN
+!           CHARACTERISTICS
+            OPTADV_TR(K)=OPTCHA
+          ELSEIF(SCHCTA(K).EQ.2) THEN
+!           SUPG
+            OPTADV_TR(K)=OPTSUP(3)
+          ENDIF
+          IF(SCHCTA(K).EQ.1.AND.OPTADV_TR(K).EQ.2) OPTCHA=2
+        ENDDO
+      ENDIF
+!
+!     NUMBER OF CORRECTIONS OF DISTRIBUTIVE SCHEMES
+      NCO_DIST = MOTINT(ADRESS(1,67))
+!     NUMBER OF SUB-STEPS OF DISTRIBUTIVE SCHEMES
+      NSP_DIST = MOTINT(ADRESS(1,68))
+!
+! REAL KEYWORDS
+!
+      DT        = MOTREA(ADRESS(2, 1))
+      GRAV      = MOTREA(ADRESS(2, 2))
+      FCOR      = MOTREA(ADRESS(2, 3))
+      FAIR      = MOTREA(ADRESS(2, 4))
+      CST_WINDX = MOTREA(ADRESS(2, 5))
+      CST_WINDY = MOTREA(ADRESS(2, 6))
+!
+      IF(NTRAC.GT.0) THEN
+        IF(TROUVE(2,8).EQ.2.AND.DIMEN(2,8).EQ.NTRAC) THEN
+          DO I=1,NTRAC
+            BETAC(I)  = MOTREA(ADRESS(2, 8)+I-1)
+          ENDDO
+        ELSEIF(DENLAW.EQ.4) THEN
+          WRITE(LU,*) 'WITH DENSITY LAW = 4 GIVE THE KEYWORDS'
+          WRITE(LU,*) 'BETA EXPANSION COEFFICIENT FOR TRACERS'
+          WRITE(LU,*) 'AND STANDARD VALUE FOR TRACERS'
+          WRITE(LU,*) 'FOR ALL TRACERS'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+        IF(TROUVE(2,9).EQ.2.AND.DIMEN(2,9).GE.NTRAC) THEN
+          DO I=1,NTRAC
+            T0AC(I)  = MOTREA(ADRESS(2, 9)+I-1)
+          ENDDO
+        ELSEIF(DENLAW.EQ.4) THEN
+          WRITE(LU,*) 'WITH DENSITY LAW = 4 GIVE THE KEYWORDS'
+          WRITE(LU,*) 'BETA EXPANSION COEFFICIENT FOR TRACERS'
+          WRITE(LU,*) 'AND STANDARD VALUE FOR TRACERS'
+          WRITE(LU,*) 'FOR ALL TRACERS'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+      ENDIF
+!
+      RHO0      = MOTREA(ADRESS(2,10))
+      RUGOF0    = MOTREA(ADRESS(2,11))
+      RUGOL0    = MOTREA(ADRESS(2,12))
+!
+      IF(KFROT.NE.0.AND.TROUVE(2,11).NE.2) THEN
+        WRITE(LU,2717) KFROT
+2717    FORMAT(1X,'THE LAW OF BOTTOM FRICTION ',1I2,' IS ASKED',/,1X,
+     &            'GIVE THE CORRESPONDING FRICTION COEFFICIENT')
+        CALL PLANTE(1)
+        STOP
+      ELSEIF(TROUVE(1,64).NE.2) THEN
+        WRITE(LU,2719)
+2719    FORMAT(1X,'NO FRICTION LAW IS PRESCRIBED!')
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+! (...THE SAME ZERO FOR ALL SOLVERS...)
+!
+      SLVDVI%ZERO = MOTREA(ADRESS(2,13))
+      SLVDTA(1)%ZERO = MOTREA(ADRESS(2,13))
+      IF(NTRAC.GT.1) THEN
+        DO K=2,NTRAC
+          SLVDTA(K)%ZERO = SLVDTA(1)%ZERO
+        ENDDO
+      ENDIF
+!     NO KEY-WORD FOR THIS ONE
+      S3D_SLVDSE%ZERO = SLVDTA(1)%ZERO
+      SLVDKE%ZERO = MOTREA(ADRESS(2,13))
+      SLVPRO%ZERO = MOTREA(ADRESS(2,13))
+!     SLVW%ZERO   = MOTREA(ADRESS(2,13))
+      SLVPOI%ZERO = MOTREA(ADRESS(2,13))
+!     SLVPRJ%ZERO = MOTREA(ADRESS(2,13))
+!
+      HMIN      = MOTREA(ADRESS(2,14))
+      HAULIN    = MOTREA(ADRESS(2,15))
+      DNUVIH    = MOTREA(ADRESS(2,16))
+      DNUVIV    = MOTREA(ADRESS(2,17))
+!
+      IF(NTRAC.GT.0) THEN
+        IF(TROUVE(2,18).GE.1.AND.DIMEN(2,18).EQ.NTRAC) THEN
+          DO I=1,NTRAC
+            DNUTAH(I) = MOTREA(ADRESS(2,18)+I-1)
+          ENDDO
+        ELSEIF(TROUVE(2,18).GE.1.AND.
+     &         DIMEN(2,18).LT.NTRAC.AND.DIMEN(2,18).GT.0) THEN
+!         READING WHAT HAS BEEN GIVEN
+          DO I=1,DIMEN(2,18)
+            DNUTAH(I) = MOTREA(ADRESS(2,18)+I-1)
+          ENDDO
+!         COMPLETING WITH THE LAST GIVEN
+          DO I=DIMEN(2,18)+1,NTRAC
+            DNUTAH(I) = MOTREA(ADRESS(2,18)+DIMEN(2,18)-1)
+          ENDDO
+        ENDIF
+        IF(TROUVE(2,19).GE.1.AND.DIMEN(2,19).EQ.NTRAC) THEN
+          DO I=1,NTRAC
+            DNUTAV(I) = MOTREA(ADRESS(2,19)+I-1)
+          ENDDO
+        ELSEIF(TROUVE(2,19).GE.1.AND.
+     &         DIMEN(2,19).LT.NTRAC.AND.DIMEN(2,19).GT.0) THEN
+!         READING WHAT HAS BEEN GIVEN
+          DO I=1,DIMEN(2,19)
+            DNUTAV(I) = MOTREA(ADRESS(2,19)+I-1)
+          ENDDO
+!         COMPLETING WITH THE LAST GIVEN
+          DO I=DIMEN(2,19)+1,NTRAC
+            DNUTAV(I) = MOTREA(ADRESS(2,19)+DIMEN(2,19)-1)
+          ENDDO
+        ENDIF
+      ENDIF
+!     ADDING VALUES FOR SEDIMENTS AFTER TRACERS IN DNUTAH AND DNUTAV
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0) THEN
+        DO ITRAC=IND_SED,IND_SED+LOCAL_NSUSP_TEL-1
+          ISUSP=ITRAC-IND_SED+1
+          DNUTAH(ITRAC)=DNUSEDH(ISUSP)
+          DNUTAV(ITRAC)=DNUSEDV(ISUSP)
+        ENDDO
+      ENDIF
+!     ADDING VALUES FOR FRAZIL AFTER TRACERS IN DNUTAH AND DNUTAV
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'KHIONE').AND.IND_FRA.GT.0) THEN
+        DO ITRAC=IND_FRA,IND_FRA+NC_FRA-1
+          ISUSP=ITRAC-IND_FRA+1
+          DNUTAH(ITRAC)=DNUFRZLH(ISUSP)
+          DNUTAV(ITRAC)=DNUFRZLV(ISUSP)
+        ENDDO
+      ENDIF
+!
+!
+      IF(NTRAC.GT.0) THEN
+        IF(TROUVE(2,20).EQ.2.AND.DIMEN(2,20).GE.NTRAC) THEN
+          DO I=1,NTRAC
+            TRAC0(I) = MOTREA(ADRESS(2,20)+I-1)
+          ENDDO
+        ELSEIF(INCLUS(COUPLING,'KHIONE')) THEN
+          DO I=1,NTRAC
+            IF(DIMEN(2,20).GE.I) THEN
+              TRAC0(I) = MOTREA(ADRESS(2,20)+I-1)
+            ENDIF
+          ENDDO
+        ELSEIF(IND_SED.EQ.0) THEN
+          WRITE(LU,*) 'GIVE THE KEY-WORD'
+          WRITE(LU,*) 'INITIAL VALUES OF TRACERS'
+          WRITE(LU,*) 'FOR ALL TRACERS'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+      ENDIF
+!     ADDING VALUES FOR SEDIMENTS AFTER TRACERS IN TRAC0
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0) THEN
+        DO ITRAC=IND_SED,IND_SED+LOCAL_NSUSP_TEL-1
+          ISUSP=ITRAC-IND_SED+1
+          TRAC0(ITRAC)=SED0(ISUSP)
+        ENDDO
+      ENDIF
+!
+!     ADDING VALUES FOR FRAZIL AFTER TRACERS IN TRAC0
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'KHIONE').AND.IND_FRA.GT.0) THEN
+        DO ITRAC=IND_FRA,IND_FRA+NC_FRA-1
+          ISUSP=ITRAC-IND_FRA+1
+          TRAC0(ITRAC)=FRZL0(ISUSP)
+        ENDDO
+        IF(DYN_ICOVER) THEN
+          DO ITRAC=1,NTRAC
+            IF(ITRAC.EQ.IND_DCI) TRAC0(ITRAC) = CONC0
+            IF(ITRAC.EQ.IND_DTI) TRAC0(ITRAC) = THI0
+          ENDDO
+        ENDIF
+      ENDIF
+!
+      S3D_SLVDSE%EPS    = MOTREA(ADRESS(2,21))
+      SLVDVI%EPS    = MOTREA(ADRESS(2,22))
+!     ACCURACY FOR DIFFUSION OF TRACERS, DEFAULT INITIALLY SET TO 1.D-8
+      IF(NTRAC.GT.0) THEN
+        IF(DIMEN(2,23).LT.NTRAC.AND.DIMEN(2,23).GT.0) THEN
+          DO K=1,DIMEN(2,23)
+            SLVDTA(K)%EPS = MOTREA(ADRESS(2,23)+K-1)
+          ENDDO
+!         COMPLETING WITH THE LAST VALUE GIVEN
+          DO K=DIMEN(2,23)+1,NTRAC
+            SLVDTA(K)%EPS = MOTREA(ADRESS(2,23)+DIMEN(2,23)-1)
+          ENDDO
+        ELSEIF(DIMEN(2,23).GE.NTRAC) THEN
+          DO K=1,NTRAC
+            SLVDTA(K)%EPS = MOTREA(ADRESS(2,23)+K-1)
+          ENDDO
+        ENDIF
+      ENDIF
+!     ADDING VALUES FOR SEDIMENTS AFTER TRACERS IN SLVDTA
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0) THEN
+        DO ITRAC=IND_SED,IND_SED+LOCAL_NSUSP_TEL-1
+          ISUSP=ITRAC-IND_SED+1
+          SLVDTA(ITRAC)%EPS=SLVSED(ISUSP)%EPS
+        ENDDO
+      ENDIF
+!     ADDING VALUES FOR SEDIMENTS AFTER TRACERS IN SLVDTA
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'KHIONE').AND.IND_FRA.GT.0) THEN
+        DO ITRAC=IND_FRA,IND_FRA+NC_FRA-1
+          ISUSP=ITRAC-IND_FRA+1
+          SLVDTA(ITRAC)%EPS=SLVFRZL(1)%EPS
+        ENDDO
+      ENDIF
+      HLIM          = MOTREA(ADRESS(2,24))
+      S3D_HSED      = MOTREA(ADRESS(2,36)) ! CV
+      SLVDKE%EPS    = MOTREA(ADRESS(2,25))
+      SLVPRO%EPS    = MOTREA(ADRESS(2,26))
+!     SLVW%EPS      = MOTREA(ADRESS(2,27))
+!
+      TETAH     = MOTREA(ADRESS(2,28))
+      TETAU     = MOTREA(ADRESS(2,29))
+      AGGLOH    = MOTREA(ADRESS(2,30))
+      AGGLOU    = MOTREA(ADRESS(2,31))
+!
+!       VALUES OF TRACERS IN THE RAIN
+!
+      IF(NTRAC.GT.0) THEN
+        DO I=1,NTRAC
+          TRAIN(I) = 0.D0
+        ENDDO
+        IF(TROUVE(2,32).EQ.2) THEN
+          DO I=1,DIMEN(2,32)
+            TRAIN(I) = MOTREA(ADRESS(2,32)+I-1)
+          ENDDO
+        ENDIF
+!       RAIN TEMPERATURE SHOULD BE AT LEAST 1 DEGREE
+        IF(IND_T.NE.0) THEN
+          TRAIN(IND_T) = MAX(TRAIN(I),1.D0)
+        ENDIF
+      ENDIF
+!
+      NDEBIT=DIMEN(2,33)
+      DO I=1,NDEBIT
+        DEBIMP(I) = MOTREA(ADRESS(2,33)+I-1)
+      ENDDO
+!
+      NCOTE=DIMEN(2,34)
+      DO I=1,NCOTE
+        COTIMP(I) = MOTREA(ADRESS(2,34)+I-1)
+      ENDDO
+!
+      NVIT=DIMEN(2,35)
+      DO I=1,NVIT
+        VITIMP(I) = MOTREA(ADRESS(2,35)+I-1)
+      ENDDO
+!
+!     MINIMUM VOLUMES, DISTANCE BETWEEN PLANES AND HEIGHT FOR 3D ELEMENTS
+!
+      MINIMUM_VOLUME = MOTREA(ADRESS(2,37))
+      DISMIN_BOT = MOTREA(ADRESS(2,38))
+      DISMIN_SUR = MOTREA(ADRESS(2,39))
+      MIN_DZ     = MOTREA(ADRESS(2,40))
+!
+      HMIN_VIT_IC = MOTREA(ADRESS(2,41))
+      HMIN_VIT_BC = MOTREA(ADRESS(2,42))
+!
+! BED BOUNDARY CONDITIONS
+!
+      BEDBOU=MOTLOG( ADRESS(3,68) )
+      IF(BEDBOU) THEN
+        NBEDFLO=DIMEN(2,68)
+        DO I=1,NBEDFLO
+          BEDFLO(I) = MOTREA(ADRESS(2,68)+I-1)
+        ENDDO
+      ENDIF
+!
+!
+!     CHECKING THE SIZE OF KEY-WORD TREATMENT OF FLUXES AT THE BOUNDARIES
+!     SOME USERS THINK IT IS A SINGLE VALUE FOR ALL BOUNDARIES
+!
+      IF(TROUVE(1,97).EQ.2.AND.
+     &    DIMEN(1,97).LT.MAX(NDEBIT,NCOTE,NVIT)) THEN
+        WRITE(LU,*) 'THE KEY-WORD'
+        WRITE(LU,*) 'TREATMENT OF FLUXES AT THE BOUNDARIES'
+        WRITE(LU,*) 'MUST BE A LIST OF ',
+     &               MAX(NDEBIT,NCOTE,NVIT),
+     &              ' VALUES AT LEAST'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+! CV : TURBULENCE MODEL CONSTANTS
+!  7.0
+      KARMAN= MOTREA( ADRESS(2, 65) )
+      PRANDTL= MOTREA( ADRESS(2, 66) )
+      FICT = MOTREA( ADRESS(2, 67) )
+!
+! NON-HYDROSTATIC
+!
+      SLVPOI%EPS = MOTREA( ADRESS(2, 71) )
+!     FOR MOTREA( ADRESS(2, 72) ) SEE AFTER REAL 87
+!     SLVPRJ%EPS = MOTREA( ADRESS(2, 73) )
+!     ?????      = MOTREA( ADRESS(2, 74) )
+!     PHILAT     = MOTREA( ADRESS(2, 75) )
+!     DELTA      = MOTREA( ADRESS(2, 76) )
+      LATIT      = MOTREA( ADRESS(2, 77) )
+      LONGIT     = MOTREA( ADRESS(2, 78) )
+      NORD       = MOTREA( ADRESS(2, 79) )
+!
+!     THE NUMBER OF SOURCES IS CONSIDERED TO BE THE NUMBER OF
+!     ABSCISSAE GIVEN
+!
+      NPTSCE=DIMEN(2,80)
+      IF(DIMEN(2,80).EQ.0) NPTSCE=DIMEN(2,83)
+      NSCE = NPTSCE + 2*NBUSE
+!
+      IF(DIMEN(2,83).EQ.NPTSCE) THEN
+        DO I=1,NPTSCE
+          QSCE(I) = MOTREA(ADRESS(2,83)+I-1)
+        ENDDO
+      ELSE
+        WRITE(LU,*) 'WRONG NUMBER OF DISCHARGES OF SOURCES'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+      NREJETI=DIMEN(1,70)
+      IF(NREJETI.GT.0) THEN
+!     SOURCES GIVEN BY GLOBAL NODE NUMBERS
+        IF(NREJETI.NE.NPTSCE) THEN
+          WRITE(LU,194)
+          WRITE(LU,*) DIMEN(2,83),' DISCHARGE OF SOURCES GIVEN'
+          WRITE(LU,*) NREJETI,' NODE NUMBERS FOR SOURCES FOUND '
+          WRITE(LU,195)
+          CALL PLANTE(1)
+          STOP
+        ELSE
+          DO I=1,NREJETI
+            ISCE(I)=MOTINT(ADRESS(1,70)+I-1)
+          ENDDO
+        ENDIF
+      ELSE
+!     SOURCES GIVEN BY COORDINATES
+        DO I=1,NPTSCE
+          XSCE(I) = MOTREA(ADRESS(2,80)+I-1)
+        ENDDO
+!
+        IF(DIMEN(2,81).EQ.NPTSCE) THEN
+          DO I=1,NPTSCE
+            YSCE(I) = MOTREA(ADRESS(2,81)+I-1)
+          ENDDO
+        ELSE
+          WRITE(LU,*) 'WRONG NUMBER OF ORDINATES OF SOURCES'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+!
+      ENDIF
+      IF(DIMEN(2,82).EQ.NPTSCE) THEN
+        DO I=1,NPTSCE
+          ZSCE(I) = MOTREA(ADRESS(2,82)+I-1)
+        ENDDO
+      ELSE
+        WRITE(LU,*) 'WRONG NUMBER OF ELEVATIONS OF SOURCES'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!
+      IF(NTRAC.GT.0.AND.NPTSCE.GT.0) THEN
+        DIMTOT=DIMEN(2,84)
+        IF(INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0) THEN
+          DIMTOT=DIMEN(2,84)+NSEDSCE
+        ENDIF
+        IF(DIMTOT.NE.NTRAC*NPTSCE) THEN
+          WRITE(LU,*) 'WRONG NUMBER OF'
+          WRITE(LU,*) 'VALUE OF THE TRACERS AT THE SOURCES'
+          WRITE(LU,*) DIMEN(2,84),' GIVEN'
+          WRITE(LU,*) NTRAC*NPTSCE,' EXPECTED'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+        IF(IND_SED.EQ.0) THEN
+!         ONLY TRACERS AND NOT SEDIMENTS
+          DO I=1,NTRAC
+            DO J=1,NPTSCE
+              TASCE(J,I) = MOTREA(ADRESS(2,84)+((J-1)*NTRAC)+I-1)
+            ENDDO
+          ENDDO
+        ELSE
+!         CHECK IF THERE ARE TRACERS (IN ADDITION TO SEDIMENTS)
+          IF(NTRAC.GT.LOCAL_NSUSP_TEL) THEN
+            DO ITRAC=1,NTRAC-LOCAL_NSUSP_TEL
+              DO J=1,NPTSCE
+                TASCE(J,ITRAC)=MOTREA(ADRESS(2,84)+(J-1)*
+     &          (NTRAC-LOCAL_NSUSP_TEL)+ITRAC-1)
+              ENDDO
+            ENDDO
+          ENDIF
+!         ADDING VALUES OF SUSPENDED SEDIMENTS
+          DO ITRAC=IND_SED,IND_SED+LOCAL_NSUSP_TEL-1
+            ISUSP=ITRAC-IND_SED+1
+            DO J=1,NPTSCE
+              TASCE(J,ITRAC)=SEDSCE(J,ISUSP)
+            ENDDO
+          ENDDO
+        ENDIF
+      ENDIF
+      IF(NTRAC.GT.0) THEN
+        NTRACER=DIMEN(2,85)
+        IF(NTRACER.GT.0) THEN
+!         TRACER WILL BE TRACER(NFRLIQ,NTRAC) BUT NFRLIQ UNKNOWN
+          DO I=1,NTRACER
+            TRACER(I)=MOTREA(ADRESS(2,85)+I-1)
+          ENDDO
+        ENDIF
+        IF(INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0.AND.
+     &    NPRESED.GT.0) THEN
+!         NUMBER OF BOUNDARIES
+          NFR=NPRESED/LOCAL_NSUSP_TEL
+!         TOTAL NUMBER OF TRACERS
+          NTRACET = NTRACER / NFR + LOCAL_NSUSP_TEL
+!         NUMBER OF TRACERS BEFORE SEDIMENTS
+          NTRACE1 = NTRACER/NFR
+!         SAVE TRACER TABLE
+          DO K=1,NTRACER
+            TRACER_TMP(K) = TRACER(K)
+          ENDDO
+!         TOTAL NUMBER OF PRESCRIBED TRACER + SEDIMENTS
+          NTRACER = DIMEN(2,85)+NPRESED
+          DO K=1,NTRACER
+!           BOUNDARY WE ARE IN (STARTING AT 0)
+            I = (K - 1) / NTRACET
+            IF(K.LE.NTRACE1+NTRACET*I) THEN ! ORIGINAL TABLE
+              TRACER(K) = TRACER_TMP(K-I*LOCAL_NSUSP_TEL)
+            ELSE ! SEDIMENT VALUES
+              TRACER(K) = PRESED(K-(I+1)*NTRACE1)
+            ENDIF
+          ENDDO
+        ENDIF
+      ENDIF
+!
+!     PRESCRIBED FRAZIL AND ICE COVER VALUES
+!
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'KHIONE').AND.IND_FRA.GT.0
+     &   .AND.NPREFRZL.GT.0) THEN
+!       TOTAL NUMBER OF TRACERS
+        IF(DYN_ICOVER) THEN
+!         NUMBER OF BOUNDARIES
+          NFR = NPREFRZL / (NC_FRA + 2)
+          NTRACET = NTRACER / NFR + NC_FRA + 2
+        ELSE
+          NFR = NPREFRZL / NC_FRA
+          NTRACET = NTRACER / NFR + NC_FRA
+        ENDIF
+!       NUMBER OF TRACERS BEFORE KHIONE
+        NTRACE1 = NTRACER / NFR
+!       SAVE TRACER TABLE
+        DO K=1,NTRACER
+          TRACER_TMP(K) = TRACER(K)
+        ENDDO
+!       TOTAL NUMBER OF VALUES PRESCRIBED
+        NTRACER = NTRACER + NPREFRZL
+        DO K=1,NTRACER
+!         BOUNDARY WE ARE IN (STARTING AT 0)
+          I = (K - 1) / NTRACET
+          IF(K.LE.NTRACE1+NTRACET*I) THEN ! ORIGINAL TABLE
+            TRACER(K) = TRACER_TMP(K-I*(NTRACET-NTRACE1))
+          ELSE ! FRAZIL VALUES
+            TRACER(K) = PREFRZL(K-(I+1)*NTRACE1)
+          ENDIF
+        ENDDO
+      ENDIF
+      DEALLOCATE(TRACER_TMP)
+!
+      NREJEU = DIMEN(2,86)
+      IF(NREJEU.EQ.NPTSCE) THEN
+        DO I=1,NPTSCE
+          USCE(I) = MOTREA(ADRESS(2,86)+I-1)
+        ENDDO
+      ELSEIF(NREJEU.EQ.0) THEN
+        DO I=1,NPTSCE
+          USCE(I) = 0.D0
+        ENDDO
+      ELSE
+        WRITE(LU,*) 'WRONG NUMBER OF VELOCITIES OF SOURCES ALONG X'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+      IF(DIMEN(2,87).EQ.NPTSCE) THEN
+        DO I=1,NPTSCE
+          VSCE(I) = MOTREA(ADRESS(2,87)+I-1)
+        ENDDO
+      ELSEIF(DIMEN(2,87).EQ.0) THEN
+        DO I=1,NPTSCE
+          VSCE(I) = 0.D0
+        ENDDO
+      ELSE
+        WRITE(LU,*) 'WRONG NUMBER OF VELOCITIES OF SOURCES ALONG Y'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+      IF(DIMEN(2,72).EQ.NPTSCE) THEN
+        DO I=1,NPTSCE
+          WSCE(I) = MOTREA(ADRESS(2,72)+I-1)
+        ENDDO
+      ELSEIF(DIMEN(2,72).EQ.0) THEN
+        DO I=1,NPTSCE
+          WSCE(I) = 0.D0
+        ENDDO
+      ELSE
+        WRITE(LU,*) 'WRONG NUMBER OF VELOCITIES OF SOURCES ALONG Z'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+
+      NREJEU = NREJEU + 2*NBUSE
+!
+! END OF SOGREAH ADDITIONS
+!
+      COTINI = MOTREA( ADRESS(2, 88) )
+      HAUTIN = MOTREA( ADRESS(2, 89) )
+      TETADI = MOTREA( ADRESS(2, 90) )
+      S3D_D50= MOTREA( ADRESS(2, 91) )
+!     RELEASE 5.5 : MASS-LUMPING FOR DIFFUSION
+      AGGLOD = MOTREA( ADRESS(2, 92) )
+!     RELEASE 5.7 :
+      DUREE  = MOTREA( ADRESS(2, 93) )
+      NIT=MAX(NIT,INT(DUREE/DT+0.5))
+      TETAZCOMP = MOTREA( ADRESS(2, 94) )
+      CST_RAINFALL = MOTREA( ADRESS(2, 95) )
+      S3D_KSPRATIO= MOTREA( ADRESS(2, 96) )
+      S3D_AC    = MOTREA( ADRESS(2, 97) )
+      HWIND     = MOTREA( ADRESS(2, 98) )
+!     COEFFICIENT TO CALIBRATE TIDAL RANGE
+      CTIDE     = MOTREA( ADRESS(2, 99) )
+!     COEFFICIENT TO CALIBRATE TIDAL VELOCITIES
+      CTIDEV    = MOTREA( ADRESS(2,100) )
+!     COEFFICIENT TO CALIBRATE SEA LEVEL (TIDAL MODEL)
+      MSL       = MOTREA( ADRESS(2,101) )
+!     MASS-LUMPING FOR WEAK CHARACTERISTICS
+      S3D_AGGLOW= MOTREA( ADRESS(2,102) )
+      S3D_CGEL= MOTREA( ADRESS(2,103) )
+      S3D_CINI= MOTREA( ADRESS(2,104) )
+!     SETTLING VELOCITY OF SANDS
+      S3D_WCS0= MOTREA( ADRESS(2,105) )
+!     INITIAL PERCENTAGE OF NON COHESIVE SEDIMENT
+      S3D_PVSNCO0= MOTREA( ADRESS(2,106) )
+!
+!     COEFFICIENT TO CALIBRATE THE ATMOSPHERE-WATER EXCHANGE MODEL
+!     MOVED TO WAQTEL
+!      C_ATMOS   = MOTREA( ADRESS(2,37) )
+!
+!     ATMOSPHERIC PRESSURE VALUE
+      CST_PATMOS = MOTREA( ADRESS(2,107) )
+!     VALUE OF AIR TEMPERATURE
+      CST_TAIR   = MOTREA( ADRESS(2,73) )
+!     VALUE OF CLOUD COVER
+      CST_CLDC   = MOTREA( ADRESS(2,74) )
+!     VALUE OF SOLAR RADIATION
+      CST_RAY3   = MOTREA( ADRESS(2,75) )
+!     VALUE OF RELATIVE HUMIDITY
+      CST_HREL   = MOTREA( ADRESS(2,76) )
+!     STAGE-DISCHARGE CURVES RELAXATION COEFFICIENT
+      RELAX_STA_DIS = MOTREA( ADRESS(2, 69) )
+!
+! LOGICAL KEYWORDS
+!
+      DEBU      = .NOT.MOTLOG(ADRESS(3,1))
+      CONVEC    = MOTLOG(ADRESS(3, 2))
+!     PROP      = MOTLOG(ADRESS(3, 4))
+      CORIOL    = MOTLOG(ADRESS(3, 5))
+      VENT      = MOTLOG(ADRESS(3, 6))
+      ATMOS     = MOTLOG(ADRESS(3, 7))
+      RAZTIM    = MOTLOG(ADRESS(3, 8))
+      S3D_SEDI  = MOTLOG(ADRESS(3, 9))
+      IF(S3D_SEDI.AND.NTRAC.EQ.0) THEN
+        WRITE(LU,*)
+        WRITE(LU,*) 'WITH SEDIMENT AT LEAST ONE TRACER NEEDED'
+        WRITE(LU,*)
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+      IF(S3D_SEDI.AND.COUPLING(1:72).EQ.'GAIA') THEN
+        WRITE(LU,*)
+        WRITE(LU,*)'SEDI3D AND GAIA CANNOT BE USED SIMULTANEOUSLY'
+        WRITE(LU,*)
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+      MSKUSE       = MOTLOG(ADRESS(3,10))
+      BANDEC       = MOTLOG(ADRESS(3,11))
+      PROLIN       = MOTLOG(ADRESS(3,12))
+      BILMAS       = MOTLOG(ADRESS(3,13))
+      INFMAS       = MOTLOG(ADRESS(3,14))
+      RAIN         = MOTLOG(ADRESS(3,15))
+      INCHYD       = MOTLOG(ADRESS(3,16))
+      SPHERI       = MOTLOG(ADRESS(3,17))
+      MAREE        = MOTLOG(ADRESS(3,18))
+      VALID        = MOTLOG(ADRESS(3,19))
+      RESTART_MODE = MOTLOG(ADRESS(3,20))
+!     This one is in declarations_telemac.f
+      CHECK_MESH   = MOTLOG(ADRESS(3,21))
+      FAIRACCU     = MOTLOG(ADRESS(3,22))
+      VITINI_TPXO  = MOTLOG(ADRESS(3,23))
+      KEEP_LONLAT  = MOTLOG(ADRESS(3,31))
+      S3D_TASSE    = MOTLOG(ADRESS(3,51))
+      FREE_ATMO    = MOTLOG(ADRESS(3,59))
+      LISFON_AFTER = MOTLOG(ADRESS(3,60))
+! OBSOLE REPLACED BY S3D_ITASS
+!      S3D_GIBSON   = MOTLOG(ADRESS(3,52))
+!      S3D_TURBWC   = MOTLOG(ADRESS(3,53))
+      LISTIN       = MOTLOG(ADRESS(3,61))
+
+!     SYMBOLIC LINEAR SOLVER FOR AD
+      AD_SYMBLINSOLV  = MOTLOG( ADRESS(3,32) )
+!     RESET DERIVATIVES FOR AD
+      AD_LINSOLV_RESETDERIV  = MOTLOG( ADRESS(3,33) )
+!
+!     SYMBOLIC LINEAR SOLVER FOR AD
+      AD_LINSOLV_DERIVATIVE_CONVERGENCE  = MOTLOG( ADRESS(3,34) )
+!     3D COUPLING
+      BOT_MOMENT = MOTLOG(ADRESS(3,69))
+!
+! NON-HYDROSTATIC
+!
+      CLDYN     = MOTLOG( ADRESS(3,70) )
+      NONHYD    = MOTLOG( ADRESS(3,71) )
+      DPWAVEQ   = MOTLOG( ADRESS(3,72) )
+!
+! SEDIMENT CONSOLIDATION (CURRENTLY NOT USED...)
+!
+!     CONSOL    = MOTLOG( ADRESS(3,73) )
+!
+! CONSISTENT PROJECTION (CURRENTLY NOT USED...)
+!
+!     CONPRO    = MOTLOG( ADRESS(3,74) )
+!
+      SUIT2     = MOTLOG( ADRESS(3,75) )
+! COHESIVE SEDIMENT
+      S3D_SEDCO = MOTLOG( ADRESS(3,76) )
+! SALINITY AND TEMPERATURE OUTPUT FOR DELWAQ
+      SALI_DEL  = MOTLOG( ADRESS(3,77) )
+      TEMP_DEL  = MOTLOG( ADRESS(3,78) )
+      VELO_DEL  = MOTLOG( ADRESS(3,79) )
+      DIFF_DEL  = MOTLOG( ADRESS(3,80) )
+! WAVE DRIVEN CURRENTS
+      COUROU    = MOTLOG( ADRESS(3,81) )
+!     BYPASS VOID VOLUMES
+      BYPASS    = MOTLOG( ADRESS(3,82) )
+!     VELOCITY PROJECTED ON SOLID LATERAL BOUNDARIES
+      VELPROLAT = MOTLOG( ADRESS(3,83) )
+!     VELOCITY PROJECTED ON BOTTOM
+      VELPROBOT = MOTLOG( ADRESS(3,84) )
+!     OIL SPILL MODEL
+      SPILL_MODEL=MOTLOG( ADRESS(3,85) )
+!     INFERENCE OF MINOR CONSTITUENTS OF TPXO TIDAL DATABASE
+      INTMICON  = MOTLOG( ADRESS(3,86) )
+! TBE + CV
+      S3D_READ_TOCE=  MOTLOG( ADRESS(3,87))
+      S3D_HINDER=  MOTLOG( ADRESS(3,90))
+      S3D_FLOC=  MOTLOG( ADRESS(3,91))
+!     MIXED SEDIMENT
+      S3D_MIXTE=  MOTLOG( ADRESS(3,92))
+!     LOGICAL S3D_SEDNCO IS DEDUCED FROM S3D_MIXTE AND S3D_SEDCO
+      S3D_SEDNCO=S3D_MIXTE.EQV.S3D_SEDCO
+!     CONTINUITY CORRECTION ON OPEN BOUNDARIES
+      CONCOR=  MOTLOG( ADRESS(3,93))
+!
+      PARTEL_CONCAT = MOTLOG(ADRESS(3,58))
+      IF(NCSIZE.LE.1) PARTEL_CONCAT=.FALSE.
+!
+!     FOR NEXT LOGICAL, USE 21 TO 50 AND OTHER AVAILABLE NUMBERS !!!!!!!!!!!!
+!
+! CHARACTER KEYWORDS (APPROPRIATELY TRUNCATED!)
+!
+      TITCAS    = MOTCAR(ADRESS(4, 1))(1:72)
+      SORT3D    = MOTCAR(ADRESS(4, 2))(1:72)
+      CALL MAJUS(SORT3D)
+!     ADDING VARIABLES FOR 3D GRAPHIC PRINTOUT IN CASE OF SUSP SEDIMENTS
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0) THEN
+!       CHECK IF SUSP SEDIMENT AND OTHER VARIABLES ARE IN GRAPHIC
+!       PRINTOUT OF GAIA
+        IF(INCLUS(SORTIS,'CS').OR.INCLUS(SORTIS,'SVX').OR.
+     &    INCLUS(SORTIS,'SVY').OR.INCLUS(SORTIS,'SVZ')) THEN
+          GRAP_PRINT2D=.FALSE.
+!         CHECK WHICH SEDIMENTS ARE REQUESTED AND ADD THEM TO SORT3D
+          CALL CHECK_SORTGAI(SORTIS,MAXVAR,SORT3D,IND_SED,YES2D,
+     &                       GRAP_PRINT2D)
+        ENDIF
+      ENDIF
+      SORT2D    = MOTCAR(ADRESS(4, 3))(1:72)
+      CALL MAJUS(SORT2D)
+!     ADDING VARIABLES FOR 2D GRAPHIC PRINTOUT IN CASE OF SUSP SEDIMENTS
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0) THEN
+!       CHECK IF SUSP SEDIMENT IS IN GRAPHIC PRINTOUT OF GAIA
+        IF(INCLUS(SORTIS,'C2DS')) THEN
+!         CHECK WHICH SEDIMENTS ARE REQUESTED AND ADD THEM TO SORT2D
+          GRAP_PRINT2D=.TRUE.
+          CALL CHECK_SORTGAI(SORTIS,MAXVAR,SORT2D,IND_SED,YES2D,
+     &                       GRAP_PRINT2D)
+        ENDIF
+      ENDIF
+!
+! FILENAMES FROM THE STEERING FILE
+!
+!     4 TO 5 : READ AND USED BY LAUNCHING PROCEDURE
+      T3D_FILES(T3DGEO)%NAME=MOTCAR( ADRESS(4, 6) )
+      IF(T3D_FILES(T3DGEO)%NAME(1:1).EQ.' ') THEN
+        WRITE(LU,*) 'THE FOLLOWING KEYWORD IS MANDATORY:'
+        WRITE(LU,*) 'GEOMETRY FILE (FICHIER DE GEOMETRIE)'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!     NOMFOR                =MOTCAR( ADRESS(4, 7) )
+!     NOMCAS                =MOTCAR( ADRESS(4, 8) )
+      T3D_FILES(T3DCLI)%NAME=MOTCAR( ADRESS(4, 9) )
+      IF(T3D_FILES(T3DCLI)%NAME(1:1).EQ.' ') THEN
+        WRITE(LU,*) 'THE FOLLOWING KEYWORD IS MANDATORY:'
+        WRITE(LU,*) 'BOUNDARY CONDITIONS FILE '//
+     &              '(FICHIER DES CONDITIONS AUX LIMITES)'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+      T3D_FILES(T3DPRE)%NAME=MOTCAR( ADRESS(4,10) )
+      T3D_FILES(T3DRES)%NAME=MOTCAR( ADRESS(4,11) )
+!     GOTM STEERING FILE
+      T3D_FILES(T3DGTM)%NAME=MOTCAR( ADRESS(4,14) )
+      T3D_FILES(T3DFON)%NAME=MOTCAR( ADRESS(4,16) )
+!     T3D_FILES(T3DSCO)%NAME=MOTCAR( ADRESS(4,17) )
+!     2D RESULTS FILE
+      T3D_FILES(T3DHYD)%NAME=MOTCAR( ADRESS(4,18) )
+      IF(T3D_FILES(T3DRES)%NAME(1:1).EQ.' '.AND.
+     &   T3D_FILES(T3DHYD)%NAME(1:1).EQ.' ') THEN
+        WRITE(LU,*) 'ONE OF THE FOLLOWING KEYWORDS IS MANDATORY:'
+        WRITE(LU,*) '3D RESULT FILE'
+        WRITE(LU,*) 'OR 2D RESULT FILE'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+      T3D_FILES(T3DFO1)%NAME=MOTCAR( ADRESS(4,19) )
+      T3D_FILES(T3DFO2)%NAME=MOTCAR( ADRESS(4,20) )
+      T3D_FILES(T3DBI1)%NAME=MOTCAR( ADRESS(4,21) )
+      T3D_FILES(T3DBI2)%NAME=MOTCAR( ADRESS(4,22) )
+      T3D_FILES(T3DBUS)%NAME=MOTCAR( ADRESS(4,50) )
+      T3D_FILES(T3ATMA)%NAME=MOTCAR( ADRESS(4,33) )
+      T3D_FILES(T3ATMB)%NAME=MOTCAR( ADRESS(4,34) )
+      T3D_FILES(T3DBND)%NAME=MOTCAR( ADRESS(4,32) )
+      T3D_FILES(T3DL93)%NAME=MOTCAR( ADRESS(4,35) )
+      T3D_FILES(T3DREF)%NAME=MOTCAR( ADRESS(4,55) )
+!     MIGRHYCAR STEERING FILE
+      T3D_FILES(T3DMIG)%NAME=MOTCAR( ADRESS(4,57) )
+!     LIQUID BOUNDARY FILE
+      T3D_FILES(T3DIMP)%NAME=MOTCAR( ADRESS(4,58) )
+!     HARMONIC CONSTANTS FILE
+      T3D_FILES(T3DHAR)%NAME=MOTCAR( ADRESS(4,86) )
+!     TIDAL MODEL FILE
+      T3D_FILES(T3DTID)%NAME=MOTCAR( ADRESS(4,87) )
+      T3D_FILES(T3DTID)%FMT=MOTCAR( ADRESS(4,17) )(1:8)
+!     TIDE DATA BASE FILE
+      T3D_FILES(T3DBDD)%NAME=MOTCAR( ADRESS(4,88) )
+!     BINARY TIDE DATABASE FILE 1 (FOR SATELLITE ALTIMETRY)
+      T3D_FILES(T3DBB1)%NAME=MOTCAR( ADRESS(4,89) )
+!     BINARY TIDE DATABASE FILE 2 (FOR SATELLITE ALTIMETRY)
+      T3D_FILES(T3DBB2)%NAME=MOTCAR( ADRESS(4,90) )
+!
+!     INITIAL CONDITIONS
+      CDTINI    = MOTCAR(ADRESS(4,59))(1:72)
+!
+!     BINGEO    = MOTCAR(ADRESS(4,24))(1:3)
+!     CALL MAJUS(BINGEO)
+!     BINRES    = MOTCAR(ADRESS(4,25))(1:3)
+!     CALL MAJUS(BINRES)
+!     BINPRE    = MOTCAR(ADRESS(4,26))(1:3)
+!     CALL MAJUS(BINPRE)
+!     BINHYD    = MOTCAR(ADRESS(4,27))(1:3)
+!     CALL MAJUS(BINHYD)
+!     FORMAT OF THE GEOMETRY FILE
+      T3D_FILES(T3DGEO)%FMT = MOTCAR( ADRESS(4,29) )(1:8)
+      CALL MAJUS(T3D_FILES(T3DGEO)%FMT)
+!     FORMAT OF THE 3D RESULTS FILE
+      T3D_FILES(T3DRES)%FMT = MOTCAR( ADRESS(4,30) )(1:8)
+      CALL MAJUS(T3D_FILES(T3DRES)%FMT)
+!     FORMAT OF THE 2D RESULTS FILE
+      T3D_FILES(T3DHYD)%FMT = MOTCAR( ADRESS(4,28) )(1:8)
+      CALL MAJUS(T3D_FILES(T3DHYD)%FMT)
+!     FORMAT OF THE PREVIOUS COMPUTATION RESULTS FILE
+      T3D_FILES(T3DPRE)%FMT = MOTCAR( ADRESS(4,31) )(1:8)
+      CALL MAJUS(T3D_FILES(T3DPRE)%FMT)
+!     FORMAT OF THE ATMOSPHERIC FILE
+      T3D_FILES(T3ATMB)%FMT = MOTCAR( ADRESS(4,41) )(1:8)
+      CALL MAJUS(T3D_FILES(T3ATMB)%FMT)
+!     FORMAT OF THE BOUNDARY FILE
+      T3D_FILES(T3DBND)%FMT = MOTCAR( ADRESS(4,23) )(1:8)
+      CALL MAJUS(T3D_FILES(T3DBND)%FMT)
+!
+      ELEMENT = MOTCAR(ADRESS(4,60))(1:72)
+!
+!     TELEMAC3D DISCRETISATION TYPES: 3D, 2D HORIZONTAL BOUNDARY,
+!     2D VERTICAL BOUNDARY
+!
+      IF(ELEMENT(1:5).EQ.'PRISM') THEN
+        IELM3  = 41     ! TELEMAC3D PRISMS
+        IELM2H = 11     ! TRIANGULAR BOTTOM AND SURFACE
+        IELM2V = 71     ! QUADRILATERAL LATERAL BOUNDARIES
+      ELSEIF(ELEMENT(1:5).EQ.'TETRA') THEN
+        IELM3  = 51     ! PRISMS CUT INTO TETRAHEDRONS
+        IELM2H = 11     ! TRIANGULAR BOTTOM AND SURFACE
+        IELM2V = 61     ! TRIANGULAR LATERAL BOUNDARIES
+      ELSE
+        WRITE(LU,*) 'UNKNOWN ELEMENT: ',ELEMENT
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+      CALL MAJUS(COUPLING)
+      CALL MAJUS(COUPLING)
+!     63-71 : DELWAQ FILES
+      T3D_FILES(T3DDL1)%NAME=MOTCAR( ADRESS(4,63) )
+      T3D_FILES(T3DDL2)%NAME=MOTCAR( ADRESS(4,64) )
+      T3D_FILES(T3DDL3)%NAME=MOTCAR( ADRESS(4,65) )
+      T3D_FILES(T3DDL5)%NAME=MOTCAR( ADRESS(4,66) )
+      T3D_FILES(T3DDL6)%NAME=MOTCAR( ADRESS(4,67) )
+      T3D_FILES(T3DDL7)%NAME=MOTCAR( ADRESS(4,68) )
+      T3D_FILES(T3DL11)%NAME=MOTCAR( ADRESS(4,69) )
+      T3D_FILES(T3DDL4)%NAME=MOTCAR( ADRESS(4,70) )
+      T3D_FILES(T3DDL8)%NAME=MOTCAR( ADRESS(4,71) )
+!
+      T3D_FILES(T3DDL9)%NAME=MOTCAR( ADRESS(4,76) )
+      T3D_FILES(T3DL10)%NAME=MOTCAR( ADRESS(4,77) )
+!     STAGE-DISCHARGE CURVES FILE
+      T3D_FILES(T3DPAR)%NAME=MOTCAR( ADRESS(4,72) )
+!     SOURCES FILE (MUST BE ALSO NOMVEF IN TELEMAC-2D)
+      T3D_FILES(T3DVEF)%NAME=MOTCAR( ADRESS(4,73) )
+!     BINARY RESULTS FILE
+      T3D_FILES(T3DRBI)%NAME=MOTCAR( ADRESS(4,74) )
+!     FORMATTED RESULTS FILE
+      T3D_FILES(T3DRFO)%NAME=MOTCAR( ADRESS(4,75) )
+      T3D_FILES(T3DRF1)%NAME=MOTCAR( ADRESS(4,42) )
+      T3D_FILES(T3DRF2)%NAME=MOTCAR( ADRESS(4,43) )
+      T3D_FILES(T3DRF3)%NAME=MOTCAR( ADRESS(4,44) )
+      T3D_FILES(T3DRF4)%NAME=MOTCAR( ADRESS(4,45) )
+      T3D_FILES(T3DRF5)%NAME=MOTCAR( ADRESS(4,46) )
+      T3D_FILES(T3DRF6)%NAME=MOTCAR( ADRESS(4,47) )
+!
+!     76 AND 77: SEE IN DELWAQ FILES ABOVE
+!
+!     FORMAT OF THE REFERENCE FILE
+      T3D_FILES(T3DREF)%FMT = MOTCAR( ADRESS(4,78) )(1:8)
+      CALL MAJUS(T3D_FILES(T3DREF)%FMT)
+!     FORMAT OF THE BINARY DATA FILE 1
+      T3D_FILES(T3DBI1)%FMT = MOTCAR( ADRESS(4,79) )(1:8)
+      CALL MAJUS(T3D_FILES(T3DBI1)%FMT)
+!     RESTART FILE
+      T3D_FILES(T3DRST)%NAME=MOTCAR( ADRESS(4,85) )
+!     RESTART FILE FORMAT
+      T3D_FILES(T3DRST)%FMT = MOTCAR( ADRESS(4,84) )(1:8)
+!     ASCII DROGUES FILE
+      T3D_FILES(T3DFLO)%NAME=MOTCAR( ADRESS(4,91) )
+!     BINARY DROGUES FILE
+      T3D_FILES(T3DBLO)%NAME=MOTCAR( ADRESS(4,102) )
+!     BINARY DROGUES FILE FORMAT
+      T3D_FILES(T3DBLO)%FMT = MOTCAR( ADRESS(4,103) )(1:8)
+!     2D CONTINUATION FILE
+      T3D_FILES(T3DS2D)%NAME=MOTCAR( ADRESS(4,92) )
+!     FORMAT OF THE 2D CONTINUATION FILE
+      T3D_FILES(T3DS2D)%FMT = MOTCAR( ADRESS(4,93) )(1:8)
+!     NAMES OF 2D PRIVATE VARIABLES
+      N_NAMES_PRIV2D=DIMEN(4,94)
+      IF(N_NAMES_PRIV2D.GT.0) THEN
+        DO I=1,N_NAMES_PRIV2D
+          NAMES_PRIVE2D(I) = MOTCAR(ADRESS(4,94)+I-1)(1:32)
+        ENDDO
+      ENDIF
+!
+!-----------------------------------------------------------------------
+! SEDIMENT - EX-LECSED.F
+!
+! INTEGERS
+!
+      S3D_ITASS    = MOTINT(ADRESS(1,51))
+!
+      S3D_SLVDSE%SLV    = MOTINT(ADRESS(1,52))
+      S3D_SLVDSE%PRECON = MOTINT(ADRESS(1,53))
+!
+! CV : VERTICAL ADVECTION SCHEME
+!
+      S3D_SETDEP= MOTINT( ADRESS(1,54))
+!
+! REALS
+!
+      S3D_RHOS  = MOTREA(ADRESS(2,51))
+      S3D_TOCD  = MOTREA(ADRESS(2,52))
+      S3D_EPAI0 = MOTREA(ADRESS(2,54))
+      S3D_DTC   = MOTREA(ADRESS(2,55))
+      S3D_CFMAX = MOTREA(ADRESS(2,56))
+      S3D_MPART = MOTREA(ADRESS(2,57))
+!
+      S3D_TURBA = MOTREA(ADRESS(2,59))
+      S3D_TURBB = MOTREA(ADRESS(2,60))
+      S3D_WCHU0 = MOTREA(ADRESS(2,61))
+      IF(S3D_SEDI.AND.S3D_WCHU0.LT.0.D0) THEN
+        WRITE(LU,*)'NEGATIVE SETTLING VELOCITY'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+      S3D_XKV=   MOTREA(ADRESS(2,63))
+!
+! sediment bed layers initialization
+!
+      IF(S3D_SEDI.AND.(S3D_SEDCO.OR.S3D_MIXTE).AND.S3D_NCOUCH.GT.0) THEN
+        IF(DIMEN(2,53).NE.S3D_NCOUCH) THEN
+          WRITE(LU,*)'MUD CONCENTRATIONS PER LAYER'
+          WRITE(LU,*)'GIVE A VALUE PER LAYER'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+        IF(DIMEN(2,58).NE.S3D_NCOUCH) THEN
+          WRITE(LU,*)'CRITICAL EROSION SHEAR STRESS OF THE MUD LAYERS'
+          WRITE(LU,*)'GIVE A VALUE PER LAYER'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+        IF(DIMEN(2,64).NE.S3D_NCOUCH) THEN
+          WRITE(LU,*)'INITIAL THICKNESS OF SEDIMENT LAYERS'
+          WRITE(LU,*)'GIVE A VALUE PER LAYER'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+        DO K = 1,S3D_NCOUCH
+          S3D_CONC_LAYER(K)=MOTREA( ADRESS(2,53) + K-1 )
+          S3D_TOCE_LAYER(K)=MOTREA( ADRESS(2,58) + K-1 )
+          S3D_ES_LAYER(K)  =MOTREA( ADRESS(2,64) + K-1 )
+        ENDDO
+!       multilayer consolidation
+        IF(S3D_TASSE) THEN
+          IF(DIMEN(2,62).NE.S3D_NCOUCH) THEN
+            WRITE(LU,*)'RESIDENCE TIME FOR MUD'
+            WRITE(LU,*)'GIVE A VALUE PER LAYER'
+            CALL PLANTE(1)
+            STOP
+          ENDIF
+          DO K = 1,S3D_NCOUCH
+            S3D_TREST(K) = MOTREA(ADRESS(2,62)+K-1)
+          ENDDO
+        ENDIF
+      ENDIF
+!
+! S3D_CFDEP no longer used, replaced by S3D_CONC(1)
+!
+!        IF(S3D_SEDCO) THEN
+!          S3D_CFDEP=S3D_CONC_LAYER(S3D_NCOUCH)
+!        ELSE
+!           S3D_CFDEP=(1.D0-S3D_XKV)* S3D_RHOS
+!        ENDIF
+!....CV
+!
+! CHARACTERS
+!
+      T3D_FILES(S3D_T3DSED)%NAME=MOTCAR( ADRESS(4,51) )
+      T3D_FILES(T3DSUS)%NAME=MOTCAR( ADRESS(4,52) )
+!
+      S3D_BIRSED= MOTCAR(ADRESS(4,53))(1:3)
+      CALL MAJUS(S3D_BIRSED)
+!     BISUIS    = MOTCAR(ADRESS(4,54))(1:3)
+!     CALL MAJUS(BISUIS)
+!
+!-----------------------------------------------------------------------
+! INFORMS THE USER THAT NO LISTING WILL APPEAR
+!
+      IF(LISTIN) THEN
+        WRITE(LU,104)
+      ELSE
+        WRITE(LU,*) '*** NO LISTING REQUIRED ***'
+      ENDIF
+104   FORMAT(1X,/,19X, '********************************************',/,
+     &            19X, '*               LECDON:                    *',/,
+     &            19X, '*        AFTER CALLING DAMOCLES            *',/,
+     &            19X, '*        CHECKING OF DATA  READ            *',/,
+     &            19X, '*         IN THE STEERING FILE             *',/,
+     &            19X, '********************************************',/)
+!
+!-----------------------------------------------------------------------
+! DEDUCES OTHER PARAMETERS
+!-----------------------------------------------------------------------
+! SEDIMENT CONCENTRATION IS THE LAST ACTIVE TRACER BY DEFINITION
+!
+! SEDIMENT CONCENTRATION IS ONE OF ACTIVE TRACERS
+! TA(1,NTRAC) --> SEDIMENT CONCENTRATION IF SEDIMENTOLOGY
+!
+      IF (S3D_SEDI) THEN
+        WRITE(LU,112)
+112   FORMAT(/,'WARNING: THE SEDIMENT CONCENTRATION IS THE LAST',
+     &       /,'=======  TRACER OF THE ARRAY OF ACTIVE TRACERS')
+!
+      ENDIF
+!
+!-----------------------------------------------------------------------
+! SPECIAL TREATMENT IF PARALLELISM
+!
+      IF(NCSIZE.GT.1.AND.BANDEC.AND.OPTBAN.EQ.2) THEN
+        OPTBAN=1
+        WRITE(LU,122)
+122     FORMAT(/,'ATTENTION: YOU HAVE CHOSEN PARALLEL MODE,',
+     &         /,'=========  THE TIDAL FLATS TREATMENT IS SET TO 1')
+!
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+      IF(OPT_HNEG.LT.0.OR.OPT_HNEG.GT.2) THEN
+        WRITE(LU,*) 'TREATMENT OF NEGATIVE DEPTHS'
+        WRITE(LU,*) 'MUST BE BETWEEN 0 AND 2'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     WITH SOME OTHER TIDAL FLATS VERSIONS OF DISTRIBUTIVE ADVECTION SCHEMES
+!     POSITIVE DEPTHS MUST BE TREATED WITH OPTION 3
+!
+!      IF(BANDEC.AND.OPTBAN.EQ.1.AND.OPT_HNEG.NE.3) THEN
+!        IF(SCHCVI.EQ.ADV_PSI_TF.OR.SCHCKE.EQ.ADV_PSI_TF) THEN
+!          WRITE(LU,*) 'WITH ADVECTION SCHEME'
+!          WRITE(LU,*) ADV_PSI_TF
+!          WRITE(LU,*) 'TREATMENT OF NEGATIVE DEPTHS'
+!          WRITE(LU,*) 'MUST BE EQUAL TO 3'
+!          CALL PLANTE(1)
+!          STOP
+!        ENDIF
+!        IF(NTRAC.GT.0) THEN
+!          DO K=1,NTRAC
+!            IF(SCHCTA(K).EQ.ADV_PSI_TF) THEN
+!              WRITE(LU,*) 'WITH ADVECTION SCHEME'
+!              WRITE(LU,*) ADV_PSI_TF
+!              WRITE(LU,*) 'TREATMENT OF NEGATIVE DEPTHS'
+!              WRITE(LU,*) 'MUST BE EQUAL TO 3'
+!              CALL PLANTE(1)
+!              STOP
+!            ENDIF
+!          ENDDO
+!        ENDIF
+!      ENDIF
+!
+!     WITH TETRAHEDRA, LEO POSTMA SCHEME IS REPLACED BY N-SCHEME
+!
+      IF(IELM3.EQ.51) THEN
+        IF(SCHCVI.EQ.ADV_LPO.OR.SCHCVI.EQ.ADV_LPO_TF) THEN
+          WRITE(LU,*) 'WITH TETRAHEDRA ADVECTION SCHEME'
+          WRITE(LU,*) ADV_LPO,' OR ',ADV_LPO_TF
+          WRITE(LU,*) 'IS REPLACED BY'
+          WRITE(LU,*) ADV_NSC,' OR ',ADV_NSC_TF
+          SCHCVI=SCHCVI+1
+        ENDIF
+        IF(SCHCKE.EQ.ADV_LPO.OR.SCHCKE.EQ.ADV_LPO_TF) THEN
+          WRITE(LU,*) 'WITH TETRAHEDRA ADVECTION SCHEME'
+          WRITE(LU,*) ADV_LPO,' OR ',ADV_LPO_TF
+          WRITE(LU,*) 'IS REPLACED BY'
+          WRITE(LU,*) ADV_NSC,' OR ',ADV_NSC_TF
+          SCHCKE=SCHCKE+1
+        ENDIF
+        IF(NTRAC.GT.0) THEN
+          DO K=1,NTRAC
+            IF(SCHCTA(K).EQ.ADV_LPO.OR.SCHCTA(K).EQ.ADV_LPO_TF) THEN
+              WRITE(LU,*) 'WITH TETRAHEDRA ADVECTION SCHEME'
+              WRITE(LU,*) ADV_LPO,' OR ',ADV_LPO_TF
+              WRITE(LU,*) 'IS REPLACED BY'
+              WRITE(LU,*) ADV_NSC,' OR ',ADV_NSC_TF
+              SCHCTA(K)=SCHCTA(K)+1
+            ENDIF
+          ENDDO
+        ENDIF
+      ENDIF
+!
+!-----------------------------------------------------------------------
+! GENERALISED SIGMA TRANSFORMATION REQUIRES SPECIAL TREATMENT
+! OF ADVECTION TERMS
+!
+      SIGMAG=.TRUE.
+      IF(TRANSF.EQ.1.OR.TRANSF.EQ.2) SIGMAG=.FALSE.
+!
+!-----------------------------------------------------------------------
+!
+      IELMH = 11
+!
+      IELMU = IELMH
+!
+      PRODUC = 1
+!
+      IF(.NOT.BANDEC) THEN
+        OPTBAN = 0
+        OPT_HNEG = 0
+      ENDIF
+      IF(OPTBAN.EQ.2) THEN
+        MSK  = .TRUE.
+!       WITH A NEGATIVE HMIN, MASKBD WILL FAIL
+        HMIN = MAX(HMIN,0.D0)
+      ELSEIF(MSKUSE) THEN
+        MSK  = .TRUE.
+      ELSE
+!       MASKING BY THE USER DOES NOT APPEAR TO HAVE
+!       BEEN ENVISAGED
+        MSK = .FALSE.
+      ENDIF
+!
+!     TO KEEP DHN FREE FOR CALLING CONTIN
+!
+      IF(IORDRH.EQ.2.AND.NONHYD) IORDRH=1
+!
+!     SUPG OPTIONS
+!
+      IF(SCHCH.EQ.5) THEN
+        OPTSUP(2) = 0
+      ELSE
+        WRITE(LU,*) 'SCHEME FOR ADVECTION OF DEPTH'
+        WRITE(LU,*) 'MUST NOW ALWAYS BE EQUAL TO 5'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!     OPTION FOR DIFFUSION OF VELOCITY
+!
+      OPDVIT = 1
+!     OPTSOU : TREATMENT OF SOURCES, NORMAL (1) OR DIRAC (2)
+      OPTSOU    = MOTINT( ADRESS(1,55) )
+      TETAD  = 1.D0
+!
+!-----------------------------------------------------------------------
+! SETS VARIABLES WHEN THE ADVECTION STEP IS NOT REQUIRED
+!
+      IF(.NOT.CONVEC) THEN
+        SCHCVI = 0
+        SCHCKE = 0
+      ENDIF
+      IF(NTRAC.GT.0.AND..NOT.CONVEC) THEN
+        DO K=1,NTRAC
+          SCHCTA(K) = 0
+        ENDDO
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     K-E IN ONE DIRECTION AND K-W IN THE OTHER ONE CANNOT BE COMBINED
+!
+      IF(    (ITURBV.EQ.3.AND.ITURBH.EQ.7)
+     &   .OR.(ITURBV.EQ.7.AND.ITURBH.EQ.3)) THEN
+        WRITE(LU,*) 'LECDON:'
+        WRITE(LU,*) 'HORIZONTAL AND VERTICAL TURBULENCE MODELS '
+        WRITE(LU,*) 'CANNOT BE K-EPSILON IN ONE DIRECTION'
+        WRITE(LU,*) 'AND K-OMEGA IN THE OTHER ONE'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     IF NO K-EPSILON, K-W, SPALART OR DES MODELS:
+!                                 CORRESPONDING ADVECTION SCHEME SET TO 0
+!
+      IF(ITURBV.NE.3.AND.ITURBH.NE.3.AND.
+     &   ITURBV.NE.5.AND.ITURBH.NE.5.AND.
+     &   ITURBV.NE.7.AND.ITURBH.NE.7.AND.
+     &   ITURBV.NE.9.AND.ITURBH.NE.9) THEN
+        SCHCKE = 0
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     IF SMAGORINSKI IS SELECTED FOR VERTICAL TURBULENCE
+!     IT IS MANDATORY FOR HORIZONTAL TURBULENCE
+!     AND NOT REVERSE !!!!!!!!!!!
+!
+      IF(ITURBV.EQ.4.AND.ITURBH.NE.4) THEN
+        ITURBH = 4
+        WRITE(LU,*) 'LECDON: HORIZONTAL TURBULENCE MODEL SET TO 4'
+      ENDIF
+!
+      IF(ITURBH.NE.1.AND.ITURBH.NE.3.AND.
+     &   ITURBH.NE.4.AND.ITURBH.NE.7.AND.
+     &   ITURBH.NE.5.AND.ITURBH.NE.9)THEN
+        WRITE(LU,*)
+     &  'LECDON: UNKNOWN HORIZONTAL TURBULENCE MODEL: ',ITURBH
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+      IF(ITURBV.NE.1.AND.ITURBV.NE.2.AND.ITURBV.NE.3.AND.
+     &   ITURBV.NE.4.AND.ITURBV.NE.5.AND.ITURBV.NE.6.AND.
+     &   ITURBV.NE.7.AND.ITURBV.NE.9) THEN
+        WRITE(LU,*)
+     &  'LECDON: UNKNOWN VERTICAL TURBULENCE MODEL: ',ITURBV
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!    IF SPALART IN HORIZONTAL, THEN SPALART FOR VERTICAL
+!
+      IF(ITURBV.EQ.5.AND.ITURBH.NE.5.OR.
+     &   ITURBV.NE.5.AND.ITURBH.EQ.5)THEN
+        WRITE(LU,999)ITURBV,ITURBH
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+999   FORMAT(1X,'LECDON: SPALART-ALLMARAS MODEL SHOULD BE USED',
+     &       /,1X,'FOR BOTH HORIZONTAL VERTICAL DIRECTIONS',
+     &       /,1X,'YOUR ACTUAL CHOICES ARE:',I4,'AND ',I4)
+!
+!-----------------------------------------------------------------------
+!
+! BUILDS ARRAY CONV INDICATING IF THERE ARE VARIABLES TO BE TREATED
+! FOR EACH ADVECTION SCHEME (15 IS THE MAXIMUM CONVENTION)
+!
+!     SIZE OF N_ADV GIVEN IN DECLARATIONS_TELEMAC3D
+      DO I=0,15
+        N_ADV(I)=0
+      ENDDO
+!
+      IF(SCHCVI.EQ.8.OR.SCHCKE.EQ.8) THEN
+        WRITE(LU,*) 'ADVECTION SCHEME 8 IS NOW NUMBER ',ADV_LPO
+      ENDIF
+      IF(SCHCVI.EQ.9.OR.SCHCKE.EQ.9) THEN
+        WRITE(LU,*) 'ADVECTION SCHEME 9 IS NOW NUMBER ',ADV_LPO_TF
+      ENDIF
+      IF(NTRAC.GT.0) THEN
+        DO K=1,NTRAC
+          IF(SCHCTA(K).EQ.8) THEN
+            WRITE(LU,*) 'ADVECTION SCHEME 8 IS NOW NUMBER ',ADV_LPO
+          ENDIF
+          IF(SCHCTA(K).EQ.9) THEN
+            WRITE(LU,*) 'ADVECTION SCHEME 9 IS NOW NUMBER ',ADV_LPO_TF
+          ENDIF
+        ENDDO
+      ENDIF
+!
+      IF(  SCHCVI.NE.0      .AND.SCHCVI.NE.ADV_CAR.AND.SCHCVI.NE.ADV_SUP
+     &.AND.SCHCVI.NE.ADV_LPO.AND.SCHCVI.NE.ADV_NSC.AND.SCHCVI.NE.ADV_PSI
+     &.AND.SCHCVI.NE.ADV_LPO_TF.AND.SCHCVI.NE.ADV_NSC_TF) THEN
+        WRITE(LU,*)
+     &  'LECDON: SCHEME FOR ADVECTION OF VELOCITIES UNKNOWN: ',   SCHCVI
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+      IF(SCHCVI.EQ.ADV_LPO_TF.OR.SCHCVI.EQ.ADV_NSC_TF) THEN
+        IF(BANDEC.AND.(OPTASS.NE.3..OR.OPTBAN.NE.1..OR.
+     &     OPT_HNEG.NE.2.OR.ABS(AGGLOH-1.D0).GT.0.01D0)) THEN
+          WRITE(LU,*) 'SCHEME FOR ADVECTION OF VELOCITIES = ',SCHCVI
+          WRITE(LU,*) 'WITH TIDAL FLATS = YES'
+          WRITE(LU,*) 'FOLLOWING OPTIONS ARE MANDATORY:'
+          WRITE(LU,*) 'MATRIX STORAGE = 3 (DEFAULT)'
+          WRITE(LU,*) 'AND OPTION FOR THE TREATMENT OF TIDAL FLATS = 1'
+     &             // ' (DEFAULT)'
+          WRITE(LU,*) 'AND TREATMENT OF NEGATIVE DEPTHS = 2'
+          WRITE(LU,*) 'AND MASS-LUMPING FOR DEPTH = 1.'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+      ENDIF
+!
+      IF(NTRAC.GT.0) THEN
+      DO K=1,NTRAC
+        IF(  SCHCTA(K).NE.0         .AND.SCHCTA(K).NE.ADV_CAR
+     &  .AND.SCHCTA(K).NE.ADV_SUP   .AND.SCHCTA(K).NE.ADV_LPO
+     &  .AND.SCHCTA(K).NE.ADV_NSC   .AND.SCHCTA(K).NE.ADV_PSI
+     &  .AND.SCHCTA(K).NE.ADV_LPO_TF.AND.SCHCTA(K).NE.ADV_NSC_TF) THEN
+          WRITE(LU,*)
+     &    'LECDON: SCHEME FOR ADVECTION OF TRACERS UNKNOWN: ', SCHCTA(K)
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+        IF(SCHCTA(K).EQ.ADV_LPO_TF.OR.SCHCTA(K).EQ.ADV_NSC_TF) THEN
+          IF(BANDEC.AND.(OPTASS.NE.3..OR.OPTBAN.NE.1..OR.
+     &       OPT_HNEG.NE.2.OR.ABS(AGGLOH-1.D0).GT.0.01D0)) THEN
+            WRITE(LU,*) 'SCHEME FOR ADVECTION OF TRACERS = ',SCHCTA(K)
+            WRITE(LU,*) 'WITH TIDAL FLATS = YES'
+            WRITE(LU,*) 'FOLLOWING OPTIONS ARE MANDATORY:'
+            WRITE(LU,*) 'MATRIX STORAGE = 3 (DEFAULT)'
+            WRITE(LU,*) 'AND OPTION FOR THE TREATMENT OF TIDAL FLATS'
+     &               // ' = 1 (DEFAULT)'
+            WRITE(LU,*) 'AND TREATMENT OF NEGATIVE DEPTHS = 2'
+            WRITE(LU,*) 'AND MASS-LUMPING FOR DEPTH = 1.'
+            CALL PLANTE(1)
+            STOP
+          ENDIF
+        ENDIF
+      ENDDO
+      ENDIF
+!
+      IF(  SCHCKE.NE.0      .AND.SCHCKE.NE.ADV_CAR.AND.SCHCKE.NE.ADV_SUP
+     &.AND.SCHCKE.NE.ADV_LPO.AND.SCHCKE.NE.ADV_NSC.AND.SCHCKE.NE.ADV_PSI
+     &.AND.SCHCKE.NE.ADV_LPO_TF.AND.SCHCKE.NE.ADV_NSC_TF) THEN
+        WRITE(LU,*)
+     &  'LECDON: SCHEME FOR ADVECTION OF K-EPSILON UNKNOWN: ', SCHCKE
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+      IF(SCHCKE.EQ.ADV_LPO_TF.OR.SCHCKE.EQ.ADV_NSC_TF) THEN
+        IF(BANDEC.AND.(OPTASS.NE.3..OR.OPTBAN.NE.1..OR.
+     &     OPT_HNEG.NE.2.OR.ABS(AGGLOH-1.D0).GT.0.01D0)) THEN
+          WRITE(LU,*) 'SCHEME FOR ADVECTION OF K-EPSILON = ',SCHCKE
+          WRITE(LU,*) 'WITH TIDAL FLATS = YES'
+          WRITE(LU,*) 'FOLLOWING OPTIONS ARE MANDATORY:'
+          WRITE(LU,*) 'MATRIX STORAGE = 3 (DEFAULT)'
+          WRITE(LU,*) 'AND OPTION FOR THE TREATMENT OF TIDAL FLATS = 1'
+     &             // ' (DEFAULT)'
+          WRITE(LU,*) 'AND TREATMENT OF NEGATIVE DEPTHS = 2'
+          WRITE(LU,*) 'AND MASS-LUMPING FOR DEPTH = 1.'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+      IF(OPTBAN.EQ.1.AND.OPT_HNEG.EQ.2) THEN
+        IF(ABS(AGGLOH-1.D0).GT.0.01D0) THEN
+          WRITE(LU,*) 'TREATMENT OF NEGATIVE DEPTHS = 2'
+          WRITE(LU,*) 'MASS-LUMPING FOR DEPTH MUST BE EQUAL TO 1.'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+      IF(OPTASS.NE.3) THEN
+        IF(SCHCVI.EQ.ADV_LPO.OR.
+     &     SCHCVI.EQ.ADV_LPO_TF.OR.
+     &     SCHCVI.EQ.ADV_NSC_TF.OR.
+     &     (SCHCVI.EQ.ADV_NSC.AND.OPTADV_VI.EQ.4).OR.
+     &     (SCHCVI.EQ.ADV_PSI.AND.OPTADV_VI.EQ.4)) THEN
+          WRITE(LU,*) 'LECDON:'
+          WRITE(LU,*) 'SCHEME FOR ADVECTION OF VELOCITIES: ',SCHCVI
+          IF((SCHCVI.EQ.ADV_NSC.AND.OPTADV_VI.EQ.4).OR.
+     &       (SCHCVI.EQ.ADV_PSI.AND.OPTADV_VI.EQ.4)) THEN
+            WRITE(LU,*) 'SCHEME OPTION FOR ADVECTION OF VELOCITIES: ',
+     &                  OPTADV_VI
+            WRITE(LU,*) 'I.E. LIPS FOR ADVECTION OF VELOCITIES'
+          ENDIF
+          WRITE(LU,*) 'MATRIX STORAGE = 3 MANDATORY'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+        IF(NTRAC.GT.0) THEN
+        DO K=1,NTRAC
+          IF(SCHCTA(K).EQ.ADV_LPO.OR.
+     &       SCHCTA(K).EQ.ADV_LPO_TF.OR.
+     &       SCHCTA(K).EQ.ADV_NSC_TF.OR.
+     &       (SCHCTA(K).EQ.ADV_NSC.AND.OPTADV_TR(K).EQ.4).OR.
+     &       (SCHCTA(K).EQ.ADV_PSI.AND.OPTADV_TR(K).EQ.4)) THEN
+            WRITE(LU,*) 'LECDON:'
+            WRITE(LU,*) 'SCHEME FOR ADVECTION OF TRACERS: ',SCHCTA(K)
+            IF((SCHCTA(K).EQ.ADV_NSC.AND.OPTADV_TR(K).EQ.4).OR.
+     &         (SCHCTA(K).EQ.ADV_PSI.AND.OPTADV_TR(K).EQ.4)) THEN
+              WRITE(LU,*) 'SCHEME OPTION FOR ADVECTION OF TRACERS: ',
+     &                    OPTADV_TR(K)
+              WRITE(LU,*) 'I.E. LIPS FOR ADVECTION OF TRACER ',K
+            ENDIF
+            WRITE(LU,*) 'MATRIX STORAGE = 3 MANDATORY'
+            CALL PLANTE(1)
+            STOP
+          ENDIF
+        ENDDO
+        ENDIF
+        IF(SCHCKE.EQ.ADV_LPO.OR.
+     &     SCHCKE.EQ.ADV_LPO_TF.OR.
+     &     SCHCKE.EQ.ADV_NSC_TF.OR.
+     &     (SCHCKE.EQ.ADV_NSC.AND.OPTADV_KE.EQ.4).OR.
+     &     (SCHCKE.EQ.ADV_PSI.AND.OPTADV_KE.EQ.4)) THEN
+          WRITE(LU,*) 'LECDON:'
+          WRITE(LU,*) 'SCHEME FOR ADVECTION OF K-EPSILON: ',SCHCKE
+          IF((SCHCKE.EQ.ADV_NSC.AND.OPTADV_KE.EQ.4).OR.
+     &       (SCHCKE.EQ.ADV_PSI.AND.OPTADV_KE.EQ.4)) THEN
+            WRITE(LU,*) 'SCHEME OPTION FOR ADVECTION OF K-EPSILON: ',
+     &                  OPTADV_KE
+            WRITE(LU,*) 'I.E. LIPS FOR ADVECTION OF K-EPSILON'
+          ENDIF
+          WRITE(LU,*) 'MATRIX STORAGE = 3 MANDATORY'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+      ENDIF
+!
+!     LIST OF VARIABLES TO BE ADVECTED BY A SCHEME I (AT INDEX I IN LIST)
+!     LIST OF ALL VARIABLES TO BE ADVECTED (AT INDEX 0)
+!
+      IF(SCHCVI.GT.0) THEN
+        N_ADV(SCHCVI)=N_ADV(SCHCVI)+1
+        N_ADV(0     )=N_ADV(0     )+1
+        LIST_ADV(N_ADV(SCHCVI),SCHCVI)=1   ! U
+        LIST_ADV(N_ADV(0     ),0     )=1   ! U
+        N_ADV(SCHCVI)=N_ADV(SCHCVI)+1
+        N_ADV(0     )=N_ADV(0     )+1
+        LIST_ADV(N_ADV(SCHCVI),SCHCVI)=2   ! V
+        LIST_ADV(N_ADV(0     ),0     )=2   ! V
+        IF(NONHYD) THEN
+          N_ADV(SCHCVI)=N_ADV(SCHCVI)+1
+          N_ADV(0     )=N_ADV(0     )+1
+          LIST_ADV(N_ADV(SCHCVI),SCHCVI)=3   ! W
+          LIST_ADV(N_ADV(0     ),0     )=3   ! W
+        ENDIF
+      ENDIF
+      IF(SCHCKE.GT.0.AND.(ITURBH.EQ.3.OR.ITURBH.EQ.7.OR.
+     &                    ITURBV.EQ.3.OR.ITURBV.EQ.7)    ) THEN
+        N_ADV(SCHCKE)=N_ADV(SCHCKE)+1
+        N_ADV(0     )=N_ADV(0     )+1
+        LIST_ADV(N_ADV(SCHCKE),SCHCKE)=4   ! AK
+        LIST_ADV(N_ADV(0     ),0     )=4   ! AK
+        N_ADV(SCHCKE)=N_ADV(SCHCKE)+1
+        N_ADV(0     )=N_ADV(0     )+1
+        LIST_ADV(N_ADV(SCHCKE),SCHCKE)=5   ! EP
+        LIST_ADV(N_ADV(0     ),0     )=5   ! EP
+!
+!     FOR SPALART AND DES MODELS
+!
+      ELSEIF(SCHCKE.GT.0.AND.(ITURBH.EQ.5.OR.ITURBV.EQ.5.OR.
+     &                        ITURBH.EQ.9.OR.ITURBV.EQ.9))THEN
+        N_ADV(SCHCKE)=N_ADV(SCHCKE)+1
+        N_ADV(0     )=N_ADV(0     )+1
+        LIST_ADV(N_ADV(SCHCKE),SCHCKE)=4   ! NUT
+        LIST_ADV(N_ADV(0     ),0     )=4   ! NUT
+      ENDIF
+      IF(NTRAC.GT.0) THEN
+        DO I=1,NTRAC
+          IF(SCHCTA(I).GT.0) THEN
+            N_ADV(SCHCTA(I))=N_ADV(SCHCTA(I))+1
+            N_ADV(0        )=N_ADV(0        )+1
+            LIST_ADV(N_ADV(SCHCTA(I)),SCHCTA(I))=5+I   ! TA%ADR(I)%P
+            LIST_ADV(N_ADV(0        ),0        )=5+I   ! TA%ADR(I)%P
+          ENDIF
+        ENDDO
+      ENDIF
+!
+!     ADVECTION SCHEME OF ALL ADVECTED VARIABLES, WITH THE NUMBERING
+!     GIVEN BY LIST
+!
+      S_ADV(1) = SCHCVI
+      S_ADV(2) = SCHCVI
+      S_ADV(3) = SCHCVI
+      S_ADV(4) = SCHCKE
+      S_ADV(5) = SCHCKE
+      IF(NTRAC.GT.0) THEN
+        DO I=1,NTRAC
+          S_ADV(5+I)=SCHCTA(I)
+        ENDDO
+      ENDIF
+!
+!-----------------------------------------------------------------------
+! SETS VARIABLES WHEN THE DIFFUSION STEP IS NOT REQUIRED
+! Q? WHAT HAPPENS WHEN SUPG ADVECTION IS REQUIRED, BUT NO DIFFUSION
+!
+      IF(NTRAC.EQ.0) SCHDTA = 0
+      IF(ITURBV.NE.3.AND.ITURBH.NE.3.AND.
+     &   ITURBV.NE.7.AND.ITURBH.NE.7.AND.
+     &   ITURBV.NE.5.AND.ITURBH.NE.5.AND.
+     &   ITURBV.NE.9.AND.ITURBH.NE.9)THEN
+        SCHDKE = 0
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+! BUILDS ARRAY DIF INDICATING IF THERE ARE VARIABLES TO BE TREATED
+! FOR EACH DIFFUSION SCHEME
+!
+      DIF(0) = .FALSE.
+      DIF(1) = .FALSE.
+      DIF(2) = .FALSE.
+!
+      IF(SCHDVI.LT.0.OR.SCHDVI.GT.2.OR.
+     &   SCHDTA.LT.0.OR.SCHDTA.GT.2.OR.
+     &   SCHDKE.LT.0.OR.SCHDKE.GT.2) THEN
+        WRITE(LU,*) 'KEYWORDS SCHEME FOR DIFFUSION OF...'
+        WRITE(LU,*) 'MUST BE BETWEEN 0 AND 2'
+        WRITE(LU,*) 'HERE THEY ARE ',SCHDVI,SCHDTA,SCHDKE
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+      DIF(SCHDVI) = .TRUE.
+      DIF(SCHDTA) = .TRUE.
+      DIF(SCHDKE) = .TRUE.
+!
+!-----------------------------------------------------------------------
+! KRYLOV SPACE DIMENSION (VALID FOR GMRES, %SLV=7)
+!
+      SLVDVI%KRYLOV = MOTINT(ADRESS(1,74))
+!     OPTION OF SOLVER FOR DIFFUSION OF TRACERS,
+!     DEFAULT INITIALLY SET TO 1.D-8
+      IF(NTRAC.GT.0) THEN
+        IF(DIMEN(1,75).LT.NTRAC.AND.DIMEN(1,75).GT.0) THEN
+          DO K=1,DIMEN(1,75)
+            SLVDTA(K)%KRYLOV = MOTINT(ADRESS(1,75)+K-1)
+          ENDDO
+!         COMPLETING WITH THE LAST VALUE GIVEN
+          DO K=DIMEN(1,75)+1,NTRAC
+            SLVDTA(K)%KRYLOV = MOTINT(ADRESS(1,75)+DIMEN(1,75)-1)
+          ENDDO
+        ELSEIF(DIMEN(1,75).GE.NTRAC) THEN
+          DO K=1,NTRAC
+            SLVDTA(K)%KRYLOV = MOTINT(ADRESS(1,75)+K-1)
+          ENDDO
+        ENDIF
+      ENDIF
+      SLVDKE%KRYLOV = MOTINT(ADRESS(1,76))
+      SLVPRO%KRYLOV = MOTINT(ADRESS(1,77))
+!     NO LONGER USED
+!     SLVW%KRYLOV   = 5
+      S3D_SLVDSE%KRYLOV = MOTINT(ADRESS(1,84))
+      SLVPOI%KRYLOV = MOTINT(ADRESS(1,81))
+!     SLVPRJ%KRYLOV = MOTINT(ADRESS(1,83))
+!
+!     ADDING VALUES FOR SEDIMENTS AFTER TRACERS IN SLVDTA FOR KRYLOV
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'GAIA').AND.IND_SED.GT.0) THEN
+        DO ITRAC=IND_SED,IND_SED+LOCAL_NSUSP_TEL-1
+          ISUSP=ITRAC-IND_SED+1
+          SLVDTA(ITRAC)%KRYLOV=SLVSED(ISUSP)%KRYLOV
+        ENDDO
+      ENDIF
+!     ADDING VALUES FOR FRAZIL AFTER TRACERS IN SLVDTA FOR KRYLOV
+      IF(NTRAC.GT.0.AND.INCLUS(COUPLING,'KHIONE').AND.IND_FRA.GT.0) THEN
+        DO ITRAC=IND_FRA,IND_FRA+NC_FRA-1
+          SLVDTA(ITRAC)%KRYLOV=SLVFRZL(1)%KRYLOV
+        ENDDO
+      ENDIF
+!-----------------------------------------------------------------------
+!  NAMES OF THE VARIABLES FOR THE RESULTS AND GEOMETRY FILES:
+!-----------------------------------------------------------------------
+!
+!     TABLE OF LOGICALS FOR VARIABLES OUTPUT
+!
+!     FOR 2D
+!
+      CALL NOMVAR_2D_IN_3D(TEXTE,TEXTPR,MNEMO,NTRAC,MAXTRA,NAMETRAC,
+     &                     N_NAMES_PRIV2D,NAMES_PRIVE2D)
+      CALL SORTIE(SORT2D , MNEMO , MAXVAR , SORG2D )
+!     OUTPUTS WHICH ARE NOT RELEVANT OR NOT PROGRAMMED
+      SORG2D( 9) = .FALSE.
+      SORG2D(10) = .FALSE.
+      SORG2D(11) = .FALSE.
+      SORG2D(12) = .FALSE.
+      SORG2D(20) = .FALSE.
+      SORG2D(21) = .FALSE.
+      SORG2D(22) = .FALSE.
+      IF(.NOT.S3D_SEDI) THEN
+        SORG2D(23) = .FALSE.
+        SORG2D(24) = .FALSE.
+        SORG2D(25) = .FALSE.
+        SORG2D(26) = .FALSE.
+        SORG2D(32) = .FALSE.
+        SORG2D(33) = .FALSE.
+        SORG2D(34) = .FALSE.
+        SORG2D(37) = .FALSE.
+        SORG2D(ADR_TRAC_2D+2*NTRAC+S3D_NCOUCH-1)=.FALSE.
+        SORG2D(ADR_TRAC_2D+2*NTRAC+S3D_NCOUCH)  =.FALSE.
+      ENDIF
+      IF(.NOT.VENT) THEN
+        SORG2D(16) = .FALSE.
+        SORG2D(17) = .FALSE.
+      ENDIF
+!
+!     DIFFERENT HERE FROM TELEMAC-2D
+!     CALL SORTIE(VARIMP , MNEMO , MAXVAR , SORIMP )
+!     SORIMP NOT USED SO FAR
+      DO I=1,MAXVAR
+        SORIMP(I) = .FALSE.
+      ENDDO
+!
+!     FOR 3D
+!
+      CALL NOMVAR_TELEMAC3D(TEXT3,TEXTP3,MNEM3,NTRAC,MAXTRA,
+     &                      NAMETRAC)
+      CALL SORTIE(SORT3D , MNEM3 , MAXVA3 , SORG3D )
+!
+!     FOR RESTART FILE
+!
+      DO I=1,MAXVA3
+        SORIS3(I)=.FALSE.
+        SOREST(I)=.FALSE.
+      ENDDO
+!     Z
+      SOREST(1)=.TRUE.
+!     U
+      SOREST(2)=.TRUE.
+!     V
+      SOREST(3)=.TRUE.
+!     W
+      SOREST(4)=.TRUE.
+!     K AND EPSILON
+      IF(ITURBH.EQ.3.OR.ITURBV.EQ.3.OR.ITURBH.EQ.7.OR.ITURBV.EQ.7.OR.
+     &   ITURBH.EQ.5.OR.ITURBV.EQ.5.OR.ITURBH.EQ.9.OR.ITURBV.EQ.9.OR.
+     &   ITURBV.EQ.6) THEN
+        SOREST(8)=.TRUE.
+        SOREST(9)=.TRUE.
+      ENDIF
+!     NON HYDROSTATIC PRESSURE
+      IF(NONHYD) SOREST(12)=.TRUE.
+!     UCONV,VCONV,WCONV,DM1
+      SOREST(14)=.TRUE.
+      SOREST(15)=.TRUE.
+      IF(NONHYD) SOREST(16)=.TRUE.
+      SOREST(18)=.TRUE.
+!     DH AND HN IN A SINGLE 3D ARRAY
+      SOREST(19)=.TRUE.
+      IF(N_ADV(ADV_CAR).GT.0) THEN
+        SOREST(20)=.TRUE.
+        SOREST(21)=.TRUE.
+      ENDIF
+!     UD,VD,WD
+      SOREST(22)=.TRUE.
+      SOREST(23)=.TRUE.
+      IF(NONHYD) SOREST(24)=.TRUE.
+!     TRACERS
+      IF(NTRAC.GT.0) THEN
+        DO I=1,NTRAC
+          SOREST(ADR_TRAC+I-1)=.TRUE.
+        ENDDO
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     RESTART FILE
+!
+      IF(RESTART_MODE) THEN
+        IF(T3D_FILES(T3DRST)%NAME.EQ.' ') THEN
+          WRITE(LU,*) 'THE RESTART FILE IS MISSING'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     NO K AND NO EPSILON IF NOT K-EPSILON OR K-OMEGA MODELS
+!
+      IF(ITURBV.NE.3.AND.ITURBH.NE.3.AND.
+     &   ITURBV.NE.7.AND.ITURBH.NE.7.AND.
+     &   ITURBV.NE.5.AND.ITURBH.NE.5.AND.
+     &   ITURBV.NE.9.AND.ITURBH.NE.9.AND.
+     &   ITURBV.NE.6) THEN
+        SORG3D(8)=.FALSE.
+        SORG3D(9)=.FALSE.
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     NO RICHARDSON IF NO MIXING LENGTH AND NO K-EPSILON
+!
+      IF(ITURBV.NE.2.AND.ITURBV.NE.3) THEN
+        SORG3D(10)=.FALSE.
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     VARIABLES WHICH DO NOT EXIST WITHOUT NON-HYDROSTATIC OPTION
+!
+      IF(.NOT.NONHYD) THEN
+!       NO DYNAMIC PRESSURE
+        SORG3D(12)=.FALSE.
+!       NO HYDROSTATIC PRESSURE
+        SORG3D(13)=.FALSE.
+!       NO W ADVECTION
+        SORG3D(16)=.FALSE.
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     NO STOKES VELOCITY IF NO 3D COUPLING WITH TOMAWAC
+!
+      IF(.NOT.INCLUS(COUPLING,'TOMAWACT3D')) THEN
+        SORG3D(29)=.FALSE.
+        SORG3D(30)=.FALSE.
+        SORG3D(31)=.FALSE.
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+! IN CASE OF A VALIDATION, A REFERENCE FILE SHOULD BE GIVEN
+!
+      IF(VALID.AND.T3D_FILES(T3DREF)%NAME(1:1).EQ.' ') THEN
+        IF(LISTIN) THEN
+          WRITE(LU,1005)
+        ENDIF
+1005    FORMAT(1X,'LECDON: A VALIDATION IS ASKED, SO A',/,
+     &         9X,'REFERENCE FILE IS NECESSARY',/,
+     &         9X,'(KEY-WORD: REFERENCE FILE)',/,
+     &         9X,'FOR COMPARISON. INTERRUPTION OF PROGRAM',
+     &  ////)
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!  CHECKS THE TRACERS USED IN THE DENSITY LAW
+!
+      IF(DENLAW.NE.0.AND.NTRAC.EQ.0) THEN
+        WRITE(LU,*) 'LECDON: WITH DENSITY LAW # 0'
+        WRITE(LU,*) '        AT LEAST 1 TRACER IS REQUIRED'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!  CHECKS THE MAX TRACER NUMBER
+!
+      IF(NTRAC.GT.MAXTRA) THEN
+        WRITE(LU,*) 'LECDON: TRACERS NUMBER BIGGER THAN MAX NUMBER'
+        WRITE(LU,*) '        MODIFIY THE VALUE OF THE KEYWORD:'
+        WRITE(LU,*) '        MAXIMUM NUMBER OF TRACERS'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!  CHECKS THE EXISTENCE OF RELEVANT TRACERS FOR DELWAQ
+!
+      IF(IND_T.EQ.0.AND.TEMP_DEL) THEN
+        WRITE(LU,*) 'KEYWORD TEMPERATURE FOR DELWAQ = YES'
+        WRITE(LU,*) 'BUT TRACER WITH NAME TEMPERATURE IS MISSING'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+      IF(IND_S.EQ.0.AND.SALI_DEL) THEN
+        WRITE(LU,*) 'KEYWORD SALINITY FOR DELWAQ = YES'
+        WRITE(LU,*) 'BUT TRACER WITH NAME SALINITY IS MISSING'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!  CHECKS THE EXISTENCE OF RELEVANT TRACERS FOR THE DENSITY LAW
+!
+      IF( (DENLAW.EQ.1.AND. IND_T.EQ.0                ) .OR.
+     &    (DENLAW.EQ.2.AND.               IND_S.EQ.0  ) .OR.
+     &    (DENLAW.EQ.3.AND.(IND_T.EQ.0.OR.IND_S.EQ.0) ) .OR.
+     &    (DENLAW.EQ.6.AND.(IND_T.EQ.0.OR.IND_S.EQ.0) )      ) THEN
+!
+        WRITE(LU,*) 'LECDON: WITH DENSITY LAW = ',DENLAW
+        IF(IND_T.EQ.0.AND.
+     &     (DENLAW.EQ.1.OR.DENLAW.EQ.3.OR.DENLAW.EQ.6)) THEN
+          WRITE(LU,*) '        ONE TRACER MUST BE THE TEMPERATURE'
+        ENDIF
+        IF(IND_S.EQ.0.AND.
+     &     (DENLAW.EQ.2.OR.DENLAW.EQ.3.OR.DENLAW.EQ.6)) THEN
+          WRITE(LU,*) '        ONE TRACER MUST BE THE SALINITY'
+        ENDIF
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!  CROUT TYPE PRECONDITIONING WITH GMRES: NOT ON VECTOR MACHINES
+!
+162     FORMAT(1X,'LECDON: KEY-WORDS SOLVERS AND PRECONDITONING:',/,1X,
+     &            'ON VECTOR MACHINES,',/,1X,
+     &            'DO NOT USE GMRES + CROUT',///)
+      IF(LVMAC.NE.1) THEN
+!
+        IF(SLVDVI%SLV.EQ.7.AND.SLVDVI%PRECON.NE.0) THEN
+          IF(MOD(SLVDVI%PRECON, 7).EQ.0.OR.
+     &       MOD(SLVDVI%PRECON,11).EQ.0.OR.
+     &       MOD(SLVDVI%PRECON,13).EQ.0    ) THEN
+            WRITE(LU,162)
+            CALL PLANTE(1)
+            STOP
+          ENDIF
+        ENDIF
+        IF(SLVPRO%SLV.EQ.7.AND.SLVPRO%PRECON.NE.0) THEN
+          IF(MOD(SLVPRO%PRECON, 7).EQ.0.OR.
+     &       MOD(SLVPRO%PRECON,11).EQ.0.OR.
+     &       MOD(SLVPRO%PRECON,13).EQ.0    ) THEN
+            WRITE(LU,162)
+            CALL PLANTE(1)
+            STOP
+          ENDIF
+        ENDIF
+        IF(NTRAC.GT.0) THEN
+        DO K=1,NTRAC
+        IF(SLVDTA(K)%SLV.EQ.7.AND.SLVDTA(K)%PRECON.NE.0) THEN
+          IF(MOD(SLVDTA(K)%PRECON, 7).EQ.0.OR.
+     &       MOD(SLVDTA(K)%PRECON,11).EQ.0.OR.
+     &       MOD(SLVDTA(K)%PRECON,13).EQ.0    ) THEN
+            WRITE(LU,162)
+            CALL PLANTE(1)
+            STOP
+          ENDIF
+        ENDIF
+        ENDDO
+        ENDIF
+        IF(SLVDKE%SLV.EQ.7.AND.SLVDKE%PRECON.NE.0) THEN
+          IF(MOD(SLVDKE%PRECON, 7).EQ.0.OR.
+     &       MOD(SLVDKE%PRECON,11).EQ.0.OR.
+     &       MOD(SLVDKE%PRECON,13).EQ.0    ) THEN
+            WRITE(LU,162)
+            CALL PLANTE(1)
+            STOP
+          ENDIF
+        ENDIF
+!
+      ENDIF
+!
+!  CROUT-TYPE PRECONDITIONING AND PARALLELISM :
+!
+172   FORMAT(1X,'WITH PARALLELISM = 2',/,1X,
+     &          'CROUT-TYPE PRECONDITIONNING DOWNGRADED',///)
+      IF(NCSIZE.GT.1) THEN
+        IF(SLVDVI%PRECON.NE.0) THEN
+          IF(MOD(SLVDVI%PRECON, 7).EQ.0.OR.
+     &       MOD(SLVDVI%PRECON,11).EQ.0.OR.
+     &       MOD(SLVDVI%PRECON,13).EQ.0    ) THEN
+            WRITE(LU,172)
+          ENDIF
+        ENDIF
+        IF(SLVPRO%PRECON.NE.0) THEN
+          IF(MOD(SLVPRO%PRECON, 7).EQ.0.OR.
+     &       MOD(SLVPRO%PRECON,11).EQ.0.OR.
+     &       MOD(SLVPRO%PRECON,13).EQ.0    ) THEN
+            WRITE(LU,172)
+          ENDIF
+        ENDIF
+        IF(NTRAC.GT.0) THEN
+        DO K=1,NTRAC
+        IF(SLVDTA(K)%PRECON.NE.0) THEN
+          IF(MOD(SLVDTA(K)%PRECON, 7).EQ.0.OR.
+     &       MOD(SLVDTA(K)%PRECON,11).EQ.0.OR.
+     &       MOD(SLVDTA(K)%PRECON,13).EQ.0    ) THEN
+            WRITE(LU,172)
+          ENDIF
+        ENDIF
+        ENDDO
+        ENDIF
+        IF(SLVDKE%PRECON.NE.0) THEN
+          IF(MOD(SLVDKE%PRECON, 7).EQ.0.OR.
+     &       MOD(SLVDKE%PRECON,11).EQ.0.OR.
+     &       MOD(SLVDKE%PRECON,13).EQ.0    ) THEN
+            WRITE(LU,172)
+          ENDIF
+        ENDIF
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+      IF(LISTIN) THEN
+        WRITE(LU,201) TITCAS
+ 201    FORMAT(/1X,'EXITING LECDON. NAME OF THE STUDY:',/,1X,A72,/)
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+! EDGE-BASED STORAGE MANDATORY FOR DELWAQ
+!
+      IF(INCLUS(COUPLING,'DELWAQ').AND.OPTASS.NE.3) THEN
+        WRITE(LU,2025)
+2025    FORMAT(1X,'WITH COUPLING WITH DELWAQ, EDGE-BASED STORAGE',/,1X,
+     &            'IS MANDATORY',///)
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     SUPG GIVES NON-SYMMETRIC MATRICES, HENCE NOT ALL SOLVERS POSSIBLE
+!
+      IF(SCHCVI.EQ.ADV_SUP.AND.(SLVDVI%SLV.EQ.1.OR.
+     &                          SLVDVI%SLV.EQ.2    ) ) THEN
+        WRITE(LU,2027)
+2027    FORMAT(1X,'CONJUGATE GRADIENT AND CONJUGATE RESIDUAL',/,1X,
+     &            'ONLY FOR SYMMETRIC MATRICES',/,1X,
+     &            'WITH SUPG, THE DIFFUSION MATRIX',/,1X,
+     &            'FOR VELOCITIES IS NOT SYMMETRIC',/,1X,
+     &            'CHOOSE SOLVER GMRES FOR EXAMPLE : 7')
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+      IF(SCHCKE.EQ.ADV_SUP.AND.(SLVDKE%SLV.EQ.1.OR.
+     &                          SLVDKE%SLV.EQ.2    ) ) THEN
+        WRITE(LU,2029)
+2029    FORMAT(1X,'CONJUGATE GRADIENT AND CONJUGATE RESIDUAL',/,1X,
+     &            'ONLY FOR SYMMETRIC MATRICES',/,1X,
+     &            'WITH SUPG, THE DIFFUSION MATRIX',/,1X,
+     &            'FOR K AND EPSILON IS NOT SYMMETRIC',/,1X,
+     &            'CHOOSE SOLVER GMRES FOR EXAMPLE : 7')
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+      IF(NTRAC.GT.0) THEN
+        DO K=1,NTRAC
+          IF(SCHCTA(K).EQ.ADV_SUP.AND.(SLVDTA(K)%SLV.EQ.1.OR.
+     &                                 SLVDTA(K)%SLV.EQ.2 )   ) THEN
+          WRITE(LU,2031)
+2031      FORMAT(1X,'CONJUGATE GRADIENT AND CONJUGATE RESIDUAL',/,1X,
+     &              'ONLY FOR SYMMETRIC MATRICES',/,1X,
+     &              'WITH SUPG, THE DIFFUSION MATRIX OF TRACERS',/,1X,
+     &              'IS NOT SYMMETRIC.',/,1X,
+     &              'CHOOSE SOLVER GMRES FOR EXAMPLE : 7')
+          CALL PLANTE(1)
+          STOP
+          ENDIF
+        ENDDO
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!  CHOICE FOR TIDAL DATA BASE TO DO BY THE USER
+!
+      IF(TIDALTYPE.NE.0.AND.TIDALDB.EQ.-1) THEN
+        WRITE(LU,*) 'CHOOSE THE TIDAL DATA BASE'
+        WRITE(LU,*) 'AMONG THE POSSIBLE CHOICES:'
+        WRITE(LU,*) '  -1: JMJ,'
+        WRITE(LU,*) '  -2: TPXO,'
+        WRITE(LU,*) '  -3: LEGOS-NEA.'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!  CHECKS THE EXISTENCE OF TIDAL DATA BASE FILES WHEN USING TPXO
+!
+      IF(TIDALTYPE.NE.0.AND.TIDALDB.EQ.2
+     &   .AND.T3D_FILES(T3DBB1)%NAME(1:1).EQ.' ') THEN
+        WRITE(LU,*) 'TO USE TPXO TIDAL DATA BASE'
+        WRITE(LU,*) 'PLEASE GIVE A BINARY DATABASE 1 FOR TIDE FILE'
+        CALL PLANTE(1)
+        STOP
+      ELSEIF(TIDALTYPE.NE.0.AND.TIDALDB.EQ.2
+     &       .AND.T3D_FILES(T3DBB2)%NAME(1:1).EQ.' ') THEN
+        WRITE(LU,*) 'TO USE TPXO TIDAL DATA BASE'
+        WRITE(LU,*) 'PLEASE GIVE A BINARY DATABASE 2 FOR TIDE FILE'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!  CHECKS THE EXISTENCE OF LAMBERT 93 CONVERSION FILE WHEN USING LAMBERT
+!  WHEN USING LAMBERT 93 PROJECTION AND TPXO
+!
+      IF(TIDALTYPE.NE.0.AND.TIDALDB.EQ.2.AND.GEOSYST.EQ.4
+     &   .AND.NUMZONE.EQ.93.AND.T3D_FILES(T3DL93)%NAME(1:1).EQ.' ') THEN
+        WRITE(LU,*) 'TO USE TPXO TIDAL DATA BASE'
+        WRITE(LU,*) 'AND LAMBERT 93 PROJECTION'
+        WRITE(LU,*) 'PLEASE GIVE THE LAMBERT 93 CONVERSION FILE'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!  POSITIVE COEFFICIENT TO CALIBRATE TIDAL RANGE EXPECTED
+!
+      IF(CTIDE.LT.0) THEN
+        WRITE(LU,*) 'COEFFICIENT TO CALIBRATE TIDAL RANGE'
+        WRITE(LU,*) 'HAVE TO BE GREATER OR EQUAL 0'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!  POSITIVE COEFFICIENT TO CALIBRATE TIDAL VELOCITIES EXPECTED
+!
+      IF(CTIDEV.LT.0) THEN
+        WRITE(LU,*) 'COEFFICIENT TO CALIBRATE TIDAL VELOCITIES'
+        WRITE(LU,*) 'HAVE TO BE GREATER OR EQUAL 0'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+! COHERENCE FOR THE GENERATING FORCE OF THE TIDE
+!
+      IF(MAREE) THEN
+        IF(SPHERI) THEN
+          CORIOL = .TRUE.
+          WRITE(LU,5001)
+5001      FORMAT(1X,'LECDON : COMPUTATION WITH THE TIDE-GENERATING FORCE
+     & AND THE CORIOLIS FORCE')
+        ELSE
+          WRITE(LU,4003)
+4003      FORMAT(1X,'LECDON : COMPUTATION WITH TIDE-GENERATING FORCE',/,
+     &      10X,'IMPOSSIBLE IN CARTESIAN COORDINATES')
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!  SPATIAL PROJECTION TYPE CHECKED IF SPHERICAL COORDINATES ASKED
+!
+      IF(SPHERI) THEN
+        IF(PROTYP.NE.2.AND.PROTYP.NE.3) THEN
+          WRITE(LU,*) 'SPATIAL PROJECTION TYPE: ',PROTYP
+          WRITE(LU,*) 'IMPOSSIBLE WITH SPHERICAL COORDINATES'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!  IF SPHERICAL COORDINATES ASKED AND MODELLING TIDE,
+!  GEOSYST IS AUTOMATICALLY SET TO 5 IF NOT YET
+!
+      IF(SPHERI) THEN
+        IF(TIDALTYPE.NE.0.AND.GEOSYST.NE.5) THEN
+          GEOSYST = 5
+          WRITE(LU,*) 'GEOGRAPHIC SYSTEM AUTOMATICALLY SET TO 5'
+          WRITE(LU,*) 'WHEN MODELLING TIDE WITH SPHERICAL COORDINATES'
+        ENDIF
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!  CHECKING COHERENCE FOR 2D COMPUTATION CONTINUED
+!
+      IF(SUIT2) THEN
+        IF(T3D_FILES(T3DS2D)%NAME(1:1).EQ.' ') THEN
+          WRITE(LU,*) '2D CONTINUATION:'
+          WRITE(LU,*) 'GIVE A: FILE FOR 2D CONTINUATION'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+!       BOTH TYPES OF CONTINUATIONS ARE FORBIDDEN
+        IF(.NOT.DEBU) THEN
+          WRITE(LU,*) '2D CONTINUATION & CONTINUATION CONTINUED:'
+          WRITE(LU,*) 'CANNOT BE BOTH SET TO TRUE'
+          CALL PLANTE(1)
+          STOP
+        ENDIF
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!   REACTS IF A PREVIOUS COMPUTATION FILE IS REQUIRED, BUT NOT PROVIDED
+!
+      IF(.NOT.DEBU.AND.T3D_FILES(T3DPRE)%NAME(1:1).EQ.' ') THEN
+        IF(LISTIN) THEN
+          WRITE(LU,152)
+        ENDIF
+152     FORMAT(1X,'LECDON : A CONTINUED COMPUTATION REQUIRED, ',/,
+     &         1X,' A PREVIOUS COMPUTATION FILE IS NECESSARY',/)
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     ATMOSPHERE-WATER EXCHANGE MODEL AND WIND COMPATIBILITY
+      IF( INCLUS(COUPLING,'WAQTEL').AND..NOT.VENT.AND.
+     &   (11*INT(WAQPROCESS/11).EQ.WAQPROCESS.OR.
+     &    13*INT(WAQPROCESS/13).EQ.WAQPROCESS) ) THEN
+!
+        WRITE(LU,182)
+ 182    FORMAT(///,1X,'BEWARE! ATMOSPHERE-WATER EXCHANGE',/,1X,
+     &                'MODEL ACTIVATED, BUT NOT THE WIND.',/,1X,
+     &                'THE HORIZONTAL COMPONENTS OF WIND',/,1X,
+     &                'ARE NOT TAKEN INTO ACCOUNT',/,1X,
+     &                'OUTSIDE THIS MODULE',///)
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     ATMOSPHERE-WATER EXCHANGE MODEL AND ATMOSPHERIC PRESSURE COMPATIBILITY
+      IF( INCLUS(COUPLING,'WAQTEL').AND..NOT.ATMOS.AND.
+     &   (11*INT(WAQPROCESS/11).EQ.WAQPROCESS.OR.
+     &    13*INT(WAQPROCESS/13).EQ.WAQPROCESS) ) THEN
+!
+        WRITE(LU,184)
+ 184    FORMAT(///,1X,'BEWARE! ATMOSPHERE-WATER EXCHANGE',/,1X,
+     &                'MODEL ACTIVATED, BUT NOT THE PRESSURE,',/,1X,
+     &                'WHICH IS NOT TAKEN INTO ACCOUNT',/,1X,
+     &                'OUTSIDE THIS MODULE',///)
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     CONSISTENCY OF KEYWORDS ON WAVE DRIVEN CURRENTS
+!
+      IF(COUROU.AND..NOT.INCLUS(COUPLING,'TOMAWAC').AND.
+     &   T3D_FILES(T3DBI1)%NAME.EQ.' ') THEN
+        WRITE(LU,186)
+186     FORMAT(1X,'LECDON: WAVE DRIVEN CURRENTS ARE REQUESTED, ',/,8X,
+     &  ' EITHER IN A FILE OR BY COUPLING WITH TOMAWAC',/)
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     ATMOSPHERE-WATER EXCHANGE MODEL AND TEMPERATURE COMPATIBILITY
+      IF( INCLUS(COUPLING,'WAQTEL').AND.IND_T.EQ.0.AND.
+     &   (11*INT(WAQPROCESS/11).EQ.WAQPROCESS.OR.
+     &    13*INT(WAQPROCESS/13).EQ.WAQPROCESS) ) THEN
+!
+        WRITE(LU,188)
+ 188    FORMAT(///,1X,'WARNING! ATMOSPHERE-WATER EXCHANGE',/,1X,
+     &                'MODEL ACTIVATED, BUT THERE IS NO',/,1X,
+     &                'TEMPERATURE IN THE FLOW',///)
+        CALL PLANTE(1)
+      ENDIF
+!-----------------------------------------------------------------------
+!
+!     3D COUPLING WITH TOMAWAC NOT IMPLEMENTED IN SPHERICAL COORDINATES
+      IF(INCLUS(COUPLING,'TOMAWACT3D').AND.SPHERI)THEN
+!
+        WRITE(LU,189)
+ 189    FORMAT(///,1X,'3D COUPLING WITH TOMAWAC NOT IMPLEMENTED'
+     &               ,'IN SPHERICAL COORDINATES',/,1X,///)
+        CALL PLANTE(1)
+      ENDIF
+!-----------------------------------------------------------------------
+!
+!     FOR 3D COUPLING WITH TOMAWAC, HYDROSTATIC HYPOTHESIS IS NECESSARY
+      IF(INCLUS(COUPLING,'TOMAWACT3D').AND.NONHYD)THEN
+!
+        WRITE(LU,190)
+        WRITE(LU,191)
+ 190    FORMAT(///,1X,'3D COUPLING WITH TOMAWAC IS BASED ON'
+     &               , ' HYDROSTATIC HYPOTHESIS',/,1X,///)
+ 191    FORMAT(///,1X,'YOU ARE USING NON HYDROSTATIC HYPOTHESIS'
+     &            ,/,1X,///)
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     COMPATIBILITY BETWEEN VARIABLES FOR GAIA AND S3D_SEDI
+      IF(INCLUS(COUPLING,'GAIA  ')) THEN
+        S3D_SETDEP=-1
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     COMPATIBILITY BETWEEN OPTWIND AND WAQTEL FOR WIND VELOCITIES
+!     IF AN ASCII ATMOSPHERIC DATA FILE IS GIVEN
+      IF((OPTWIND.EQ.2.OR.OPTWIND.EQ.3).AND.INCLUS(COUPLING,'WAQTEL')
+     &   .AND.T3D_FILES(T3ATMA)%NAME(1:1).NE.' ') THEN
+        WRITE(LU,*) 'WARNING: WIND DATA ARE EXPECTED TO BE COMPATIBLE '
+     &           // 'WITH WAQTEL I.E. WIND VELOCITIES + OTHER METEO '
+     &           // 'DATA. YOU CANNOT RUN WITH ONLY WIND VELOCITIES '
+     &           // 'IN THE ASCII ATMOSPHERIC DATA FILE'
+      ENDIF
+!
+!-----------------------------------------------------------------------
+!
+!     IN CASE OF CULVERTS, A CULVERTS DATA FILE HAS TO BE GIVEN
+!
+      IF(NBUSE.GT.0.AND.T3D_FILES(T3DBUS)%NAME(1:1).EQ.' ') THEN
+        WRITE(LU,*) 'LECDON: NUMBER OF CULVERTS > 0'
+        WRITE(LU,*) 'PLEASE GIVE A CULVERTS DATA FILE'
+        CALL PLANTE(1)
+        STOP
+      ENDIF
+!
+!-----------------------------------------------------------------------
+194   FORMAT(/,80('+'),/,'FOLLOWING ERROR DETECTED: ',/)
+195   FORMAT(/,80('+'))
+
+!-----------------------------------------------------------------------
+!
+      RETURN
+      END

@@ -1,0 +1,99 @@
+MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES : 30
+/
+/  CASE PROVIDED BY JACEK JANKOWSKI (BAW) FOR COMPARISON WITH UNTRIM
+/  THE MESH IS COMPATIBLE WITH UNTRIM
+/
+/  CASE WITH TIDAL FLATS AND VERY LARGE TIME-STEP
+/  TREATED WITH WAVE EQUATION AND ELEMENT MASKING
+/  PLUS EDGE-BASED STORAGE, WITH SEGMENT PRECONDITIONING
+/
+MASS-LUMPING ON H : 1.
+/
+/   Version 6.2
+/
+/   64 s (DT=120)  24/05/2012
+/
+/   Version 6.3
+/
+/   13 s (DT=120)  05/06/2013  HP Z600 Linux 1 processor
+/
+/======================================================================
+/ Telemac2D: Wesel-Xanten minimalistic mw-1965 Q(Wesel)
+/ The Rhine River, Rhein-km 812.5 - 821.5
+/======================================================================
+/
+FORTRAN FILE                    : 'user_fortran'
+GEOMETRY FILE                   : geo_wesel.slf
+BOUNDARY CONDITIONS FILE        : geo_wesel.cli
+RESULTS FILE                    : r2d_wesel_pos.slf
+LIQUID BOUNDARIES FILE          : t2d_wesel.qsl
+FORMATTED DATA FILE 1           : fo1_wesel.txt
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE : 'Wesel-Xanten, Rhein km 812.5 - 821.5 UnTRIM mesh'
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'U,V,S,B,H'
+/
+/TIME STEP =  1. NUMBER OF TIME STEPS = 43200
+/TIME STEP =  2. NUMBER OF TIME STEPS = 21600
+/TIME STEP =  4. NUMBER OF TIME STEPS = 10800
+/TIME STEP =  8. NUMBER OF TIME STEPS =  5400
+/TIME STEP = 16. NUMBER OF TIME STEPS =  2700
+/TIME STEP = 25. NUMBER OF TIME STEPS =  1728
+/TIME STEP = 32. NUMBER OF TIME STEPS =  1350
+/TIME STEP = 50. NUMBER OF TIME STEPS =   864
+/TIME STEP = 64. NUMBER OF TIME STEPS =   675
+TIME STEP = 120.
+NUMBER OF TIME STEPS =   360
+GRAPHIC PRINTOUT PERIOD = 360
+/
+LISTING PRINTOUT PERIOD = 40
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS : 'SPECIAL'
+/
+/----------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------
+/
+PRESCRIBED FLOWRATES = 1061.;0.0
+PRESCRIBED ELEVATIONS = 0.0;11.82
+VELOCITY PROFILES = 3;3
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+/0: no bottom friction  1: linear friction law
+/2: Chezy 3: Strickler 4: Manning 5: Nikuradse
+LAW OF BOTTOM FRICTION = 5
+/0.02 ... 0.2
+FRICTION COEFFICIENT = 0.035  /0.02 ... 0.2
+TURBULENCE MODEL = 1
+VELOCITY DIFFUSIVITY = 2.
+/TURBULENCE MODEL = 2
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+/
+TIDAL FLATS : YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS : 1
+TREATMENT OF NEGATIVE DEPTHS : 2
+CONTINUITY CORRECTION : YES
+TYPE OF ADVECTION : 1;5
+SUPG OPTION :       2;0
+MASS-BALANCE = YES
+DISCRETIZATIONS IN SPACE : 11;11
+PRECONDITIONING : 11
+TREATMENT OF THE LINEAR SYSTEM : 2
+SOLVER = 8
+SOLVER ACCURACY = 1.E-5
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER = 300
+IMPLICITATION FOR DEPTH : 1.
+IMPLICITATION FOR VELOCITY : 1.

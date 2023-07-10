@@ -1,0 +1,74 @@
+/
+/-------------------------------------------------------------------/
+/   TELEMAC-2D   -  VALIDATION TEST CASE  -                         /
+/                       SOLITARY WAVE                               /
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+FORTRAN FILE                    = 'user_fortran'
+BOUNDARY CONDITIONS FILE        = geo_triangular_shelf.cli
+GEOMETRY FILE                   = geo_triangular_shelf.slf
+RESULTS FILE                    = r2d_triangular_shelf.slf
+NUMBER OF PRIVATE ARRAYS        = 1
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE                           = 'TRIANGULAR SHELF'
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,S,B,H'
+GRAPHIC PRINTOUT PERIOD         = 100
+LISTING PRINTOUT PERIOD         = 100
+/NUMBER OF TIME STEPS            = 3000
+TIME STEP                       = 0.05
+VARIABLE TIME-STEP              = YES
+DURATION                        = 20.
+EQUATIONS                       = 'SAINT-VENANT FV'
+FINITE VOLUME SCHEME            = 6
+DESIRED COURANT NUMBER          = 0.8
+/FREE SURFACE GRADIENT COMPATIBILITY = 0.9
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS              = 'CONSTANT ELEVATION'
+INITIAL ELEVATION               = 0.
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 2
+FRICTION COEFFICIENT            = 180.
+TURBULENCE MODEL                = 1
+DIFFUSION OF VELOCITY           = NO
+/
+/----------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------
+/
+PRESCRIBED ELEVATIONS           = 0.;0.
+OPTION FOR LIQUID BOUNDARIES    = 2;2
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+/
+/PROPAGATION                     = YES
+MASS-BALANCE                    = YES
+/
+/  KEYWORDS COMMENTED BECAUSE FV SCHEMES ARE USED
+/
+/TREATMENT OF THE LINEAR SYSTEM  = 2
+/CONTINUITY CORRECTION           = YES
+/ADVECTION                       = NO
+/SOLVER                          = 7
+/SOLVER OPTION                   = 2
+/SOLVER ACCURACY                         = 1.E-6
+/MAXIMUM NUMBER OF ITERATIONS FOR SOLVER = 200
+/IMPLICITATION FOR DEPTH         = 0.5
+/IMPLICITATION FOR VELOCITY      = 0.5

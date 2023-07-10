@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: Concepts et fonctionnalit&eacute;s de base pour cr&eacute;er et lire un param&egrave;tre num&eacute;rique</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li class="current"><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Concepts et fonctionnalit&eacute;s de base pour cr&eacute;er et lire un param&egrave;tre num&eacute;rique </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="____Concepts et fonctionnalit&eacute;s de base pour cr&eacute;er et lire un param&egrave;tre num&eacute;rique____"></a>  <br />
+ </p>
+<h3>Cr&eacute;er un param&egrave;tre num&eacute;rique</h3>
+<p>L'&eacute;criture de param&egrave;tres num&eacute;riques dans un fichier MED est optionnelle : un fichier MED peut en contenir de 0 &agrave; plusieurs. Le mode d'&eacute;criture pour chaque param&egrave;tre consiste &agrave; cr&eacute;er le param&egrave;tre dont le type peut &ecirc;tre entier ou r&eacute;el comme pour les champs de r&eacute;sultats. La cr&eacute;ation d'un param&egrave;tre num&eacute;rique se fait via la routine <a class="el" href="a01056_gaf3af9c3b18de36efbdeac94d2525c189.html#gaf3af9c3b18de36efbdeac94d2525c189">MEDparameterCr</a> / <a class="el" href="a00795_ad5f4ceb2d1e7943af3bd6c2a6f929c62.html#ad5f4ceb2d1e7943af3bd6c2a6f929c62">mprcre</a>. Il est possible ensuite d'&eacute;crire des valeurs pour un param&egrave;tre selon plusieurs s&eacute;quences de calcul avec la routine <a class="el" href="a01056_gaf9f3d4c46c165c19d134fe7376c20250.html#gaf9f3d4c46c165c19d134fe7376c20250">MEDparameterValueWr</a> / <a class="el" href="a00795_a99bec3cc757528195350e04d5b35e86e.html#a99bec3cc757528195350e04d5b35e86e">mprrvw</a> <a class="el" href="a00795_af29cd57823bb45f7d3b99a57121b6fe7.html#af29cd57823bb45f7d3b99a57121b6fe7">mprivw</a>. </p>
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/******************************************************************************</span></div>
+<div class="line"><span class="comment"> * - Nom du fichier : test21.c</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * - Description : ecriture de valeurs scalaires numeriques dans un fichier MED</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *****************************************************************************/</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#ifdef DEF_LECT_ECR</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_RDWR</span></div>
+<div class="line"><span class="preprocessor">#elif DEF_LECT_AJOUT</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_RDEXT</span></div>
+<div class="line"><span class="preprocessor">#else</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_CREAT</span></div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">{</div>
+<div class="line">  <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> ret;</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line">  <span class="keywordtype">char</span> nom_scalaire1[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1] = <span class="stringliteral">&quot;VariableEntiere&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> description1[<a class="code" href="a00577_ab69710ecf9f5257080a943579852d0f0.html#ab69710ecf9f5257080a943579852d0f0">MED_COMMENT_SIZE</a>+1] = <span class="stringliteral">&quot;Une premiere description&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> nom_scalaire2[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1] = <span class="stringliteral">&quot;VariableFlottante&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> description2[<a class="code" href="a00577_ab69710ecf9f5257080a943579852d0f0.html#ab69710ecf9f5257080a943579852d0f0">MED_COMMENT_SIZE</a>+1] = <span class="stringliteral">&quot;Une seconde description&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> vali1 = 56;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> vali2 = -789;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> valr1 = 67.98;</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">/* Creation du fichier test21.med */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;test21.med&quot;</span>,<a class="code" href="a00853_a29a43500a889d39744e184ece0d749be.html#a29a43500a889d39744e184ece0d749be">MODE_ACCES</a>)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation du fichier test21.med&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">/* Creation d&#39;un variable scalaire entiere */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01056_gaf3af9c3b18de36efbdeac94d2525c189.html#gaf3af9c3b18de36efbdeac94d2525c189">MEDparameterCr</a>(fid,nom_scalaire1,<a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cda68b79221679f7b78dc1aec384ef30340">MED_INT</a>,description1,<span class="stringliteral">&quot;ms&quot;</span>) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation d&#39;une variable scalaire enti�re&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Creation d&#39;une variable scalaire entiere \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ecriture d&#39;un valeur sans pas de temps et sans numero d&#39;ordre*/</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01056_gaf9f3d4c46c165c19d134fe7376c20250.html#gaf9f3d4c46c165c19d134fe7376c20250">MEDparameterValueWr</a>(fid,nom_scalaire1,<a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,MED_NO_IT,MED_UNDEF_DT,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) &amp;vali1) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ecriture d&#39;une valeur entiere&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Ecriture d&#39;une valeur entiere sans pas de temps \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ecriture d&#39;une valeur entiere avec 1 pas de temps et sans numero d&#39;ordre */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01056_gaf9f3d4c46c165c19d134fe7376c20250.html#gaf9f3d4c46c165c19d134fe7376c20250">MEDparameterValueWr</a>(fid,nom_scalaire1,1,MED_NO_IT,5.5,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) &amp;vali2) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ecriture d&#39;une valeur entiere&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Ecriture d&#39;une valeur entiere avec pas de temps \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Creation d&#39;un variable scalaire flottante */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01056_gaf3af9c3b18de36efbdeac94d2525c189.html#gaf3af9c3b18de36efbdeac94d2525c189">MEDparameterCr</a>(fid,nom_scalaire2,<a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a>,description2,<span class="stringliteral">&quot;ms&quot;</span>) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation d&#39;une variable scalaire flottante&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Creation d&#39;une variable scalaire flottante \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ecriture d&#39;une valeur reelle avec 1 pas de temps et 1 numero d&#39;ordre */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01056_gaf9f3d4c46c165c19d134fe7376c20250.html#gaf9f3d4c46c165c19d134fe7376c20250">MEDparameterValueWr</a>(fid, nom_scalaire2, 1, 2, 5.5, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) &amp;valr1) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ecriture d&#39;une valeur flottante&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Ecriture d&#39;une valeur reelle avec pas de temps et numero d&#39;ordre \n&quot;</span>);</div>
+<div class="line">  </div>
+<div class="line">  <span class="comment">/* Fermeture du fichier */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la fermeture du fichier&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --> <h3>Lire un param&egrave;tre num&eacute;rique</h3>
+<p>Le mode de lecture des param&egrave;tres num&eacute;riques se calque sur celui des champs et des maillages. L'acc&egrave;s aux param&egrave;tres stock&eacute;s dans un fichier peut se faire via deux approches possibles : acc&egrave;s par le nom ou via un it&eacute;rateur. La routine <a class="el" href="a01056_ga48d7a4cbee91786b3e94e81faebe4bde.html#ga48d7a4cbee91786b3e94e81faebe4bde">MEDparameterInfoByName</a> / <a class="el" href="a00795_af8ad5f6807e33683777a965ed8e6437c.html#af8ad5f6807e33683777a965ed8e6437c">mprpin</a> permet de lire les informations relatives &agrave; un param&egrave;tre dont on conna&icirc;t le nom. Les informations lues correspondent &agrave; celles &eacute;crites par la routine <a class="el" href="a01056_gaf3af9c3b18de36efbdeac94d2525c189.html#gaf3af9c3b18de36efbdeac94d2525c189">MEDparameterCr</a> / <a class="el" href="a00795_ad5f4ceb2d1e7943af3bd6c2a6f929c62.html#ad5f4ceb2d1e7943af3bd6c2a6f929c62">mprcre</a>. </p>
+<p>Si on utilise l'approche it&eacute;rative, il est tout d'abord n&eacute;cessaire de lire le nombre de param&egrave;tre dans le fichier avec la routine <a class="el" href="a01056_ga693246cff2c77c5fdb81342186024606.html#ga693246cff2c77c5fdb81342186024606">MEDnParameter</a> / <a class="el" href="a00795_af88169a747c4a7ffaca0fc083559a426.html#af88169a747c4a7ffaca0fc083559a426">mprnpr</a>, avant d'it&eacute;rer sur tous ces param&egrave;tres. La routine <a class="el" href="a01056_gacdc74c528616344f69becee2929bb2ae.html#gacdc74c528616344f69becee2929bb2ae">MEDparameterInfo</a> / <a class="el" href="a00795_a083e501688dc8837df590d757b55d9e2.html#a083e501688dc8837df590d757b55d9e2">mprpri</a> permet de r&eacute;cup&eacute;rer les informations relative &agrave; chaque param&egrave;tre dont le nombre de s&eacute;quence de calcul (au m&ecirc;me titre que MEDparameterInfoByName / mprpin). Il s'agit ensuite d'it&eacute;rer sur chaque s&eacute;quence de calcul afin d'une part de r&eacute;cup&eacute;rer les informations relatives &agrave; cette s&eacute;quence avec la routine <a class="el" href="a01056_ga2f7f5bf087e626b7bd4ae00def048fb8.html#ga2f7f5bf087e626b7bd4ae00def048fb8">MEDparameterComputationStepInfo</a> / <a class="el" href="a00795_acf53fc579ae1662afb46bdaadb1fec1c.html#acf53fc579ae1662afb46bdaadb1fec1c">mprcsi</a> et d'autre part de lire la valeur du param&egrave;tre avec la routine <a class="el" href="a01056_gaed7e34ecca2549e75b5126a4dd75d37c.html#gaed7e34ecca2549e75b5126a4dd75d37c">MEDparameterValueRd</a> / <a class="el" href="a00795_a6cc13c959d8ea207513234a4657d0800.html#a6cc13c959d8ea207513234a4657d0800">mprrvr</a> <a class="el" href="a00795_a3c46e70fcca8f18a78eb527e3f0c6cf1.html#a3c46e70fcca8f18a78eb527e3f0c6cf1">mprivr</a>.</p>
+<p>Le cas d'utilisation suivant donne une approche g&eacute;n&eacute;rique pour lire tous les param&egrave;tres num&eacute;riques d'un fichier MED.</p>
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/******************************************************************************</span></div>
+<div class="line"><span class="comment"> * - Nom du fichier : test22.c</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * - Description : lecture de valeurs scalaires numeriques crees dans test21.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *****************************************************************************/</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#ifdef DEF_LECT_ECR</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_RDWR</span></div>
+<div class="line"><span class="preprocessor">#elif DEF_LECT_AJOUT</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_RDEXT</span></div>
+<div class="line"><span class="preprocessor">#else</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_CREAT</span></div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">{</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line">  <span class="keywordtype">char</span> nom_scalaire[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1];</div>
+<div class="line">  <span class="keywordtype">char</span> description[<a class="code" href="a00577_ab69710ecf9f5257080a943579852d0f0.html#ab69710ecf9f5257080a943579852d0f0">MED_COMMENT_SIZE</a>+1];</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> vali;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> valr;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> i,n,npdt,j;</div>
+<div class="line">  <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cd">med_field_type</a> type;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> numdt,numo;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> dt;</div>
+<div class="line">  <span class="keywordtype">char</span> dt_unit[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1];</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ouverture du fichier test21.med en lecture seule */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;test21.med&quot;</span>,<a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85a616bf8345c622a34f0787f42eb400f25">MED_ACC_RDONLY</a>)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ouverture du fichier test21.med&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Lecture du nombre de variable scalaire */</span></div>
+<div class="line">  n = <a class="code" href="a01056_ga693246cff2c77c5fdb81342186024606.html#ga693246cff2c77c5fdb81342186024606">MEDnParameter</a>(fid);</div>
+<div class="line">  <span class="keywordflow">if</span> (n &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture du nombre de variable scalaire&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Nombre de variables scalaires dans test21.med = &quot;</span>IFORMAT<span class="stringliteral">&quot;\n&quot;</span>,n);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Lecture des infos sur les variables (type,description) */</span></div>
+<div class="line">  <span class="keywordflow">for</span> (i=1;i&lt;=n;i++) {</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="a01056_gacdc74c528616344f69becee2929bb2ae.html#gacdc74c528616344f69becee2929bb2ae">MEDparameterInfo</a>(fid, i, nom_scalaire, &amp;type, description, dt_unit, &amp;npdt) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des infos sur la variable d&#39;indice : &quot;</span>);</div>
+<div class="line">      <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(i);</div>
+<div class="line">      <span class="keywordflow">return</span> -1;</div>
+<div class="line">    }</div>
+<div class="line">    printf(<span class="stringliteral">&quot;- Scalaire n°&quot;</span>IFORMAT<span class="stringliteral">&quot; de nom %s \n&quot;</span>,i,nom_scalaire);</div>
+<div class="line">    <span class="keywordflow">if</span> (type == <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a>)</div>
+<div class="line">      printf(<span class="stringliteral">&quot;  Type flottant. \n&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">else</span></div>
+<div class="line">      printf(<span class="stringliteral">&quot;  Type entier. \n&quot;</span>);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;  Description associee : [%s] \n&quot;</span>,description);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;  Nombre de pas de temps : &quot;</span>IFORMAT<span class="stringliteral">&quot; \n&quot;</span>,npdt);</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">for</span> (j=1;j&lt;=npdt;j++) {</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> (<a class="code" href="a01056_ga2f7f5bf087e626b7bd4ae00def048fb8.html#ga2f7f5bf087e626b7bd4ae00def048fb8">MEDparameterComputationStepInfo</a>(fid,nom_scalaire,j,&amp;numdt,&amp;numo,&amp;dt) &lt; 0) {</div>
+<div class="line">        <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des informations sur le pas de temps d&#39;indice :&quot;</span>);</div>
+<div class="line">        <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(j);</div>
+<div class="line">        <span class="keywordflow">return</span> -1;</div>
+<div class="line">      }</div>
+<div class="line"></div>
+<div class="line">      printf(<span class="stringliteral">&quot;   Valeur n°&quot;</span>IFORMAT<span class="stringliteral">&quot; : \n&quot;</span>,j);</div>
+<div class="line">      <span class="keywordflow">if</span> (numdt == <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>)</div>
+<div class="line">        printf(<span class="stringliteral">&quot;   - Aucun de pas de temps \n&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">else</span></div>
+<div class="line">        printf(<span class="stringliteral">&quot;   - Pas de de temps de numero &quot;</span>IFORMAT<span class="stringliteral">&quot; de valeur %f [%s] \n&quot;</span>,numdt,dt,dt_unit);</div>
+<div class="line">      <span class="keywordflow">if</span> (numo == MED_NO_IT)</div>
+<div class="line">        printf(<span class="stringliteral">&quot;   - Aucun numero d&#39;ordre \n&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">else</span></div>
+<div class="line">        printf(<span class="stringliteral">&quot;   - Numero d&#39;ordre : &quot;</span>IFORMAT<span class="stringliteral">&quot; \n&quot;</span>,numo);</div>
+<div class="line"></div>
+<div class="line">      <span class="comment">/* Lecture de la valeur flottante associee au pas de temps */</span></div>
+<div class="line">      <span class="keywordflow">if</span> (type == <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a>) {</div>
+<div class="line">        <span class="keywordflow">if</span> (<a class="code" href="a01056_gaed7e34ecca2549e75b5126a4dd75d37c.html#gaed7e34ecca2549e75b5126a4dd75d37c">MEDparameterValueRd</a>(fid,nom_scalaire,numdt,numo,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *) &amp;valr) &lt; 0) {</div>
+<div class="line">          <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture de la valeur flottante : &quot;</span>);</div>
+<div class="line">          <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nom_scalaire); <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numdt);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numo);</div>
+<div class="line">          <span class="keywordflow">return</span> -1;</div>
+<div class="line">        }</div>
+<div class="line">        printf(<span class="stringliteral">&quot;    - Valeur : %f \n&quot;</span>,valr);</div>
+<div class="line">      } <span class="keywordflow">else</span> {</div>
+<div class="line">        <span class="comment">/* Lecture de la valeur scalaire associee au pas de temps */</span></div>
+<div class="line">        <span class="keywordflow">if</span> (<a class="code" href="a01056_gaed7e34ecca2549e75b5126a4dd75d37c.html#gaed7e34ecca2549e75b5126a4dd75d37c">MEDparameterValueRd</a>(fid,nom_scalaire,numdt,numo,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *) &amp;vali) &lt; 0) {</div>
+<div class="line">          <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture de la valeur entiere : &quot;</span>);</div>
+<div class="line">          <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nom_scalaire); <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numdt);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numo);</div>
+<div class="line">          <span class="keywordflow">return</span> -1;</div>
+<div class="line">        }</div>
+<div class="line">        printf(<span class="stringliteral">&quot;    - Valeur : &quot;</span>IFORMAT<span class="stringliteral">&quot; \n&quot;</span>,vali);</div>
+<div class="line">      }</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Fermeture du fichier */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la fermeture du fichier &quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --></div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:48 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

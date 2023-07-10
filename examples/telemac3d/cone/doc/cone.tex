@@ -1,0 +1,248 @@
+\chapter{Advection of tracers with a rotating cone (cone)}
+
+\section{Purpose}
+This test shows the performance of the finite element advection schemes of
+\telemac{3D} for passive scalar transport in a time dependent case.
+It shows the advection of a tracer (or any other passive scalar)
+in a square basin with flat frictionless bottom.
+%and with closed boundaries.
+
+%--------------------------------------------------------------------------------------------------
+\section{Description}
+
+\subsection{Geometry and mesh}
+
+The domain is a 20.1~m long square.
+The 2D mesh is made from a regular grid from which every square is cut in half,
+with 8,978 elements and 4,624 nodes.
+6 planes are regularly spaced on the vertical (see Figure \ref{t3d:cone:fig:meshV}).
+
+\begin{figure}[h!]
+\centering
+\includegraphicsmaybe{[width=0.6\textwidth]}{../img/cone_mesh.png}
+\caption{2D domain and mesh of the cone test case.}
+\label{t3d:cone:mesh}
+\end{figure}
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/cone_meshV.png}
+ \caption{Initial vertical mesh.}
+ \label{t3d:cone:fig:meshV}
+\end{figure}
+
+\subsection{Initial condition}
+
+The water depth is constant in time and in space, equal to 1~m.
+The velocity field is constant in time as well and is divergence free:
+\begin{equation*}
+  \vec{u}=\left\{
+         \begin{array}{l}
+          u(x,y)=-(y-y_0) \\
+          v(x,y)=(x-x_0)
+         \end{array}\right.
+\end{equation*}
+With $x_0$ = 10.05~m and $y_0$ = 10.05~m.
+The initial value for the tracer is given by the Gaussian function
+off-centered 4.95~m to the right of $(x_0, y_0)$:
+\begin{equation*}
+c^0(x,y)=e^{-\frac{1}{2}[(x-15)^2+(y-10.2)^2]}
+\end{equation*}
+
+\subsection{Analytic solution}
+
+The tracer is described by a Gaussian function and is submitted to a rotating
+velocity field.
+After one period, we expect that the tracer function has the same position and
+the same values as the initial condition (i.e. maximum value equal to 1 at the center).
+The analytical solution for the tracer $c$ is given by:
+\begin{equation*}
+c(x,y,t)=e^{-\frac{1}{2}[X^2+Y^2]}
+\end{equation*}
+with:
+\begin{equation*}
+\left\{
+    \begin{array}{ll}
+        X = x - x_0 - R \cos(\omega t) \\
+        Y = y - y_0 - R \sin(\omega t)
+    \end{array}
+\right.
+\end{equation*}
+where $R$ = 4.95~m.
+
+\subsection{Physical parameters}
+
+In this case, the tracer advection equation is solved using fixed hydrodynamic conditions.
+No bottom friction is imposed and the diffusivities of velocities and tracers are set to zero.
+Angular velocity of the rotating cone $\omega$ is equal to 1 rad.s$^{-1}$ which gives a
+rotation period equal to $T=2\pi$ (6.2831854820251465~s).
+
+Diffusion for velocities or tracers are both set to 0.
+
+\subsection{Numerical parameters}
+
+The simulation time is set to one period of rotation.
+The time step is chosen in order to do the whole period in 64 steps, so it is
+equal to 0.098174771~s.
+
+The hydrostatic version is used.
+
+For tracers advection, nearly all the numerical schemes available in \telemac{3D}
+are tested (except strong characteristics which are known to be non conservative).
+For weak characteristics the number of Gauss points is set to the single
+possible choice: 6.
+For distributive schemes, like predictor-corrector (PC) schemes (scheme 4 and 5
+with options 2 or 3) and locally implicit schemes (LIPS: scheme 4 and 5 with option 4),
+the number of corrections is set to 5, which is usually sufficient to converge
+to accurate results.
+For the locally implicit schemes (scheme 4 and 5 with option 4), the number of
+sub-steps is equal to 10.
+
+The conjugate gradient is used to solve every linear system except when solving
+the diffusion of tracers for the SUPG scheme (= 2) for which GMRES is used
+with Krylov dimension equal to 10.
+In this last case only diagonal preconditioning is used (2 = default option)
+whereas the combo 34 (= 17 $\times$ 2) is possible for other advection schemes
+(and conjugate gradient).
+
+Accuracy for solving the tracers diffusion step is set to 10$^{-12}$.
+
+%--------------------------------------------------------------------------------------------------
+\section{Results}
+
+\subsection{Comparison of schemes}
+
+The final contour maps after one rotation of the cone are plotted for each
+scheme in Figures \ref{t3d:cone:profiles1} and \ref{t3d:cone:profiles2}.
+
+White areas mean the values are outside [0;1].
+The shape of the Gaussian function is rather distorted with SUPG (2) and original
+MURD schemes (PSI, N, Leo Postma, respectively 5, 4 and 3 with scheme option = 1).
+Using corrections (Predictor-Correction or LIPS) improve the results with less
+distorded shapes combined to a peak better computed (and closer to 1):
+i.e. schemes 4 or 5 with scheme option 2, 3 or 4.
+NERD schemes (13 and 14) give lightly better results than MURD schemes,
+but are more diffusive than using corrections from MURD schemes.
+Weak characteristics give the best results for the peak after one period
+but some values are negative that is a strong drawback for tracers.
+SUPG also computes many negative values in addition to a quite distorded shape.
+%One dimensional profiles are also extracted from
+%slice plane $(x,y=10,z)$ at $t=T/2$ and $t=T$ on figure \ref{t3d:cone:1dslice}.
+
+%\newpage
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_EX.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_WCHAR.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_NERD13.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_NERD14.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_LIPS.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_SUPG.png}
+\end{minipage}
+  \caption{Cone test: contour maps of tracer after one period of rotation, for the advection schemes of \telemac{3D}.}
+ \label{t3d:cone:profiles1}
+\end{figure}
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_PSIPC1.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_NPC1.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_PSIPC2.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_NPC2.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_PSI.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_N.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/figure_LPO.png}
+\end{minipage}
+ \caption{Cone test: contour maps of tracer after one period of rotation, for the advection schemes of \telemac{3D}.}
+ \label{t3d:cone:profiles2}
+\end{figure}
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/figure_1d_halfT.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/figure_1d_T.png}
+\end{minipage}
+\caption{1D solution along slice plane $(x,y)$, $y=10$ at $t=T/2$ (left) and $t=T$ (right).}
+\label{t3d:cone:1dslice}
+\end{figure}
+
+%\newpage
+
+\subsection{Maximum principle}
+
+The minimum value of the Gaussian function is measured after one rotation.
+The maximum value is computed as well, in order to check the respect of the
+maximum principle (or monotonicity).
+Results are shown in Figures \ref{t3d:cone:minmax}.
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/t3d_cone_maxT.png}
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/t3d_cone_minT.png}
+\caption{Maximum and minimum values of tracer after one rotation of the cone.}
+\label{t3d:cone:minmax}
+\end{figure}
+
+As already shown in the previous section, weak characteristics and SUPG compute
+negative values which is a strong drawback when modelling tracers.
+
+MURD family schemes (all other advection schemes) satisfy the maximum principle
+as seen in Figures \ref{t3d:cone:minmax} (no value outside [0, 1]).
+
+%\subsection{Accuracy}
+%
+% TO BE DONE
+%
+%In order to evaluate the behaviour of the scheme, the error norms $L^1, L^2, L^{\infty}$ are computed.
+%Error norms are integrated over time to take into account the unsteady nature of the problem.
+%The error norms integrated over time for one rotation of the cone are reported in figure \ref{t3d:cone:error_timeintegrals}.
+%
+%\begin{figure}[H]
+%\centering
+%\includegraphicsmaybe{[width=0.9\textwidth]}{../img/t3d_cone_errors_timeintegrals.png}
+%\caption{Error norms integrated over time for one rotation of the cone.}
+%\label{t3d:cone:error_timeintegrals}
+%\end{figure}
+
+\section{Conclusion}
+\telemac{3D} is able to model passive scalar transport problems.

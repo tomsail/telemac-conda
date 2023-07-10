@@ -1,0 +1,232 @@
+% case name
+\chapter{Equilibrium of a stratified flow above a bump (bump\_static)}
+%
+% - Purpose & Description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved, the geometry and specify how the numerical solution will be validated
+%
+\section{Purpose}
+%
+This test case belongs to a benchmark of CFD codes with analytical solutions.
+Its aim was to study the behavior of different codes, focusing on situations
+where the density variations have a crucial influence on the hydrodynamical
+process.
+This study was carried out during Lamia Abbas's post-doctoral \cite{Abbas2015}
+in 2014-2015.
+
+This test case demonstrates the ability of \telemac{3D} to preserve
+equilibria for stratified flows.
+The example only shows the results for one specific 2D mesh and one distribution
+of planes over the vertical.
+
+%
+\section{Description}
+%
+A 3~m long and 2~m wide channel with a specific bottom is considered.
+The bottom elevation $z_f$is defined by a bump at the bottom:
+\begin{equation}
+  z_f(x,y) = \max \left(0,0.25-1.246(x-1.2)^2\right),
+\end{equation}
+see Figure \ref{fig:bump_static:bathy}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/res_z_bottom_map.png}
+  \caption{Bottom elevation.}\label{fig:bump_static:bathy}
+\end{figure}
+
+The tracer used is temperature.
+The density is considered as a function of the water temperature:
+\begin{equation}
+  \rho(T) = \rho_0 \left(1 - \alpha (T-T_0)^2\right),
+\end{equation}
+where $\rho_0$ = 999.972~kg.m$^{-3}$, $T_0$ = 4~$^{\circ}$C
+and $\alpha$ = 7.10$^{-6}$.
+
+There are two layers of water with different temperatures.
+As the density depends on water temperature, the initial state
+is chosen nearly stable \emph{i.e.} the heavier fluid is below the lighter.
+Above the bump, the initial temperature condition follows the bottom elevation
+as shown in Figure \ref{fig:bump_static:temp_ic:section}.
+
+%
+\section{Computational options}
+%
+\subsection{Mesh}
+%
+The triangular mesh is composed of 5,250 triangular elements (element size
+$\approx$ 0.05~m) and 2,745 nodes (see Figure \ref{fig:bump_static:mesh}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/res_mesh.png}
+  \caption{Horizontal mesh.}\label{fig:bump_static:mesh}
+\end{figure}
+
+To build the 3D mesh of prisms, 40 planes are regularly spaced over the vertical.
+The vertical mesh between nodes of coordinates (0 ; 1) to (3 ; 1) can be seen
+in Figure \ref{fig:bump_static:mesh:section}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/res_mesh_section.png}
+  \caption{Vertical mesh at initial.}\label{fig:bump_static:mesh:section}
+\end{figure}
+
+The classical $\sigma$ transformation is used, but as the free surface does not
+move during the computation, the mesh can be considered as fixed.\\
+
+During Lamia Abbas's post-doctoral, 3 other 2D grids were used:
+\begin{itemize}
+\item one coarser grid with 1,279 elements (2D) with element size $\approx$ 0.1~m,
+\item two finer grids with 22,012 resp. 132,876 elements (2D) with element
+size $\approx$ 0.025~m resp. 0.01~m.
+\end{itemize}
+
+Moreover, 3 different vertical distributions were tested:
+\begin{itemize}
+\item two coarser vertical distributions with 10 resp. 20 horizontal planes
+  leading to $\approx$ 0.1~m resp. 0.05~m vertical height,
+\item one finer vertical distribution with 100 horizontal planes leading to
+  $\approx$ 0.01~m.
+\end{itemize}
+
+To summarize, the different grids tested during the post-doc were:
+\begin{small}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+N & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+\hline 
+$dl$ (m) & 0,1 & 0,05 & 0,025 & 0,01 & 0,1 & 0,1 & 0,1 & 0,05\\
+\hline
+$dz$ (m) & 0,1 & 0,05 & 0,025 & 0,01 & 0,05 & 0,025 & 0,01 & 0,025\\
+\hline
+\# elements 2D & 1,279 & 5,250 & 22,012 & 132,876 & 1,279 & 1,279 & 1,279 & 5,250\\
+\hline
+\# elements 3D & 11,511 & 99,750 & 858,468 & 13,154,724 & 24,301 & 49,881 & 126,621 & 204,750\\
+\hline
+\end{tabular}
+\end{center}
+\end{small}
+
+\subsubsection{Remarks}
+Meshes \#1, 2, 3 and 4 are isotropic and more and more refined.
+Meshes \#1, 5, 6 and 7 (resp. 2 and 8) have the same horizontal discretisation
+and a bigger and bigger number of horizontal planes (from 10 to 100).
+
+\subsection{Physical parameters}
+%
+The turbulent viscosities for both velocities and tracers are constant,
+also both for horizontal and vertical directions:
+$\nu$ = 0.003~m$^2$/s and $\nu_T$ = 0.
+%Turbulence model (both horizontal and vertical): constant model\\
+%Anisotropic viscosity for velocity: 0.003~m$^2$/s\\
+%Anisotropic viscosity for tracer: 0~m$^2$/s\\
+No wind is taken into account.
+%
+\subsection{Initial and Boundary Conditions}
+%
+%\subsubsection{Initial conditions}
+%
+The initial free surface elevation is 1 m with a fluid at rest.
+%Flow at rest: Constant elevation (= 1~m) and no velocity\\
+The initial temperature depends on elevation, defined as:
+\begin{equation}
+  T_0(x,y,z) = \left\{
+  \begin{tabular}{rl}
+    25 $^{\circ}$C & if $z-z_f >$ 0.66~m,\\
+    7  $^{\circ}$C & else
+  \end{tabular}
+  \right.
+\end{equation}
+see Figure \ref{fig:bump_static:temp_ic:section}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/res_temp_IC_section.png}
+  \caption{Initial condition for temperature.}\label{fig:bump_static:temp_ic:section}
+\end{figure}
+
+%
+%\subsubsection{Boundary conditions}
+%
+There are only closed lateral boundaries with free slip condition and no
+friction at the bottom.
+%
+\subsection{General parameters}
+%
+The time step is 0.5~s for a simulated period of 100~s.
+%
+\subsection{Numerical parameters}
+%
+The non-hydrostatic version of \telemac{3D} is used.
+To solve the advection steps, the N-type MURD scheme is chosen for the
+velocities and the PSI-type MURD scheme for the temperature.
+%
+% - Results:
+%     We comment in this part the numerical results against the reference ones,
+%     giving understanding keys and making assumptions when necessary.
+%
+\section{Results}
+%
+If the diffusion of the tracer is not accounted, \emph{i.e.} if $\nu_{T} = 0$
+for both horizontal and vertical directions, the system will reach a stable
+equilibrium characterized by:
+\begin{equation}
+ \frac{\partial T}{\partial x} = 0 \quad \textrm{ and } \quad \frac{\partial T}{\partial y} = 0 \quad \forall x, y , z \in \Omega.
+\end{equation}
+Then the expected level of the thermocline will be $H_{eq}$ = 0.7098~m (see
+\cite{Abbas2015}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/res_temp_section.png}
+  \caption{Temperature after 100~s.}\label{fig:bump_static:temp:section}
+\end{figure}
+
+% \caption{\footnotesize Initial state and expected equilibrium.}
+%
+\subsubsection{Required calculations}
+%\subsubsection{Remarks}
+A bias exists in the reference solution because the initial quantities of warm
+and cold waters depend on the 3D mesh. This bias is constant and decreases when
+refining the mesh.
+
+Moreover, it is difficult to determine the exact location of the thermocline
+with computations.
+Indeed, due to numerical diffusion and interpolations done by the code or
+post-treatment tools, the mixing layer is more or less big.
+For all these reasons, two points can be investigated:
+\begin{itemize}
+\item A comparison between the distribution of the temperature at the equilibrium
+  and the expected position of the thermocline $H_{eq}$,
+% \caption{\footnotesize TELEMAC-3D results after \SI{100}{s}. The black line is the reference solution.}
+\item Evaluation of the diffusion by mesuring the mixed water defined as:
+  $Q_m = \int_{0}^{L} (Z_2 - Z_1) dx$
+  with $Z_1$ and $Z_2$ defined such as $T(x,Z_1)$ = 10~$^{\circ}$C
+  and $T(x,Z_2)$ = 22~$^{\circ}$C.
+% \caption{\footnotesize Comparison of the mixed layer.}
+\end{itemize}
+
+Here, as we do not compare different codes or meshes, we only look at the
+location of the expected thermocline.
+
+\subsubsection{Planes distribution}
+Results for the different $\sigma$ planes distribution are not discussed here,
+but the user can refer to \cite{Abbas2015} for more informations.
+
+A suitable distribution of horizontal planes (a $\sigma$ transformation for the
+first 3 bottom planes and $z$ for the ones above so that a maximum number of
+horizontal planes around the thermocline) enables to greatly improve the results
+with a reasonable number of elements.
+
+The Automatic Mesh Refinement option (\telkey{MESH TRANSFORMATION} = 5) enables
+to save the use of some extra planes and may give correct results for such
+applications.
+
+See \cite{Abbas2015} for more informations.
+%
+\section{Conclusion}
+%
+\telemac{3D} is able to preserve equilibria for stratified flows.

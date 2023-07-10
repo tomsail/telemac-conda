@@ -1,0 +1,50 @@
+           0
+ Ouverture du fichier test23.med
+           0
+ Nombre de maillages :            1
+           0
+ Maillage : maa1                                                            
+ Dimension :            2
+           0
+ Nombre de mailles MED_POLYGONE :            3
+           0
+ Taille de la connectivite :           16
+           0
+ Lecture de la connectivite des polygones
+           0
+ Lecture des noms
+           0
+ Lecture des numeros
+           0
+ Lecture des numeros de famille
+ Affichage des resultats
+ >> Maille polygone            1
+ ---- Connectivite      ---- : 
+           1
+           2
+           3
+           4
+           5
+ ---- Numero            ----:             0
+ ---- Numero de famille ---- :            0
+ >> Maille polygone            2
+ ---- Connectivite      ---- : 
+           6
+           7
+           8
+           9
+          10
+          11
+ ---- Numero            ----:            -1
+ ---- Numero de famille ---- :           -1
+ >> Maille polygone            3
+ ---- Connectivite      ---- : 
+          12
+          13
+          14
+          15
+          16
+ ---- Numero            ----:            -2
+ ---- Numero de famille ---- :           -2
+           0
+ Fermeture du fichier

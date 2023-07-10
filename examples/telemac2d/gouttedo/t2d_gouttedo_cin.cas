@@ -1,0 +1,37 @@
+EQUATIONS : 'SAINT-VENANT FV'
+/
+FORTRAN FILE             : 'user_fortran'
+BOUNDARY CONDITIONS FILE : geo_gouttedo.cli
+GEOMETRY FILE            : geo_gouttedo.slf
+RESULTS FILE             : r2d_gouttedo_cin.slf
+/
+/ 0:ROE 1:CINETIQUE ORDRE 1  2:CINETIQUE ORDRE 2
+FINITE VOLUME SCHEME : 1
+FINITE VOLUME SCHEME SPACE ORDER : 2
+VARIABLE TIME-STEP : YES
+DURATION : 4.
+DESIRED COURANT NUMBER :  0.9
+/----------------------------------------------------------------------
+/                     OPTIONS GENERALES
+/----------------------------------------------------------------------
+TITLE = 'TELEMAC 2D : DROPLET IN A BASIN'
+VARIABLES FOR GRAPHIC PRINTOUTS : 'U,V,H,T*'
+TIME STEP = 0.04
+NUMBER OF TIME STEPS = 100
+GRAPHIC PRINTOUT PERIOD : 5
+LISTING FOR PRINTOUT PERIOD = 10
+LAW OF BOTTOM FRICTION : 3
+FRICTION COEFFICIENT = 40.
+/----------------------------------------------------------------------
+/     PROPAGATION
+/----------------------------------------------------------------------
+TURBULENCE MODEL : 1
+VELOCITY DIFFUSIVITY = 0.D0
+/---------------------------------------------------------------
+MASS-BALANCE : YES
+INITIAL CONDITIONS : 'PARTICULAR'
+/TYPE OF ADVECTION   : 2;5
+/----------------------------------------------------------------------
+NUMBER OF TRACERS : 1
+NAMES OF TRACERS : 'TRACER 1        NO UNIT'
+DIFFUSION OF VELOCITY               = NO

@@ -1,0 +1,24 @@
+Maillage de nom : |maa1| , de dimension : 2 , et de type 0
+	 -Dimension de l'espace : 2
+	 -Description du maillage : |un maillage pour test14|
+	 -Noms des axes : |x               y               |
+	 -Unités des axes : |cm              cm              |
+	 -Type de repère : 0
+	 -Nombre d'étapes de calcul : 1
+	 -Unité des dates : |s|
+Nombre de noeuds : 4 
+Type de repere : 0 
+Nom des coordonnees : 
+|x               | |y               | 
+Unites des coordonnees : 
+|cm              | |cm              | 
+Coordonnees des noeuds : 
+0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 1.000000 1.000000 
+Noms des noeuds : 
+ |nom1            |  |nom2            |  |nom3            |  |nom4            | 
+Numeros des noeuds : 
+1 2 3 4 
+Présence de numeros des familles des noeuds : 1
+
+Numeros des familles des noeuds : 
+0 1 2 2 

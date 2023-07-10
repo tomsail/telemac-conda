@@ -1,0 +1,5 @@
+[variables]
+"Concentration Température de l'eau";"C1";"";11
+[resultats]
+        0.0;"  1";"   1";        0.00;        7.00000000000
+        0.0;"  1";"   2";    15000.00;        7.00000000000

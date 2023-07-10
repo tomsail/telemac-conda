@@ -1,0 +1,23 @@
+# Initialize Autotest
+# Le fichier package.m4 est automatiquement importé
+# Il est possible de déporter l'initialisation et autres traitements dans un fichier local.at
+# et ne garder ici que les include, nous n'utilisons pas cette possibilité.
+AT_INIT([Post-installation usescases suite for PYTHON])
+
+# Common
+m4_include(UsesCase_MEDmesh_1.atpy)
+m4_include(UsesCase_MEDmesh_4.atpy)
+m4_include(UsesCase_MEDmesh_6.atpy)
+m4_include(UsesCase_MEDmesh_9.atpy)
+m4_include(UsesCase_MEDmesh_10.atpy)
+m4_include(UsesCase_MEDmesh_13.atpy)
+m4_include(UsesCase_MEDmesh_15.atpy)
+m4_include(UsesCase_MEDmesh_2.atpy)
+m4_include(UsesCase_MEDmesh_3.atpy)
+m4_include(UsesCase_MEDmesh_5.atpy)
+m4_include(UsesCase_MEDmesh_7.atpy)
+m4_include(UsesCase_MEDmesh_8.atpy)
+m4_include(UsesCase_MEDmesh_11.atpy)
+m4_include(UsesCase_MEDmesh_12.atpy)
+m4_include(UsesCase_MEDmesh_14.atpy)
+m4_include(UsesCase_MEDmesh_16.atpy)

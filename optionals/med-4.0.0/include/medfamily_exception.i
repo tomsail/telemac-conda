@@ -1,0 +1,6 @@
+%MedException(MEDfamilyCr)
+%MedException(MEDnFamily)
+%MedException(MEDnFamilyGroup)
+%MedException(MEDfamilyInfo)
+%MedException(MEDnFamily23Attribute)
+%MedException(MEDfamily23Info)

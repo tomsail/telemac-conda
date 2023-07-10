@@ -1,0 +1,59 @@
+/----------------------------------------------------------------------
+/
+/ This case validates the effect of ice cover on the hydrodynamics
+/    in a long flume.
+/
+/ Setting up a steady state hydrodynamics for use as continuation file
+/
+/ Steering file for the hydrodynamics: KHIONE
+/
+TITLE = 'CLOGGING AT THE END OF A LONG FLUME'
+/
+/----------------------------------------------------------------------
+/  FILES
+/----------------------------------------------------
+/
+GEOMETRY FILE                = 'geo_slowflume.slf'
+BOUNDARY CONDITIONS FILE     = 'geo_slowflume.cli'
+RESULTS FILE                 = 'ice_clogging.slf'
+CLOGGING RESULTS FILE        = 'ice_clogging_v01.prn'
+/
+/----------------------------------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------------
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'F1'
+/
+GRAPHIC PRINTOUT PERIOD          = 60
+LISTING PRINTOUT PERIOD          = 10
+/
+/----------------------------------------------------------------------
+/  PHYSICAL PROPERTIES ( THERMAL BUDGET )
+/----------------------------------------------------
+/
+ATMOSPHERE-WATER EXCHANGE MODEL = 0
+PRESCRIBED FRAZIL CONCENTRATION VALUES  = 0.;0.
+INITIAL FRAZIL CONCENTRATION VALUES = 0.
+/
+/----------------------------------------------------------------------
+/  NUMERICAL PROPERTIES ( THERMAL BUDGET )
+/----------------------------------------------------
+/
+SCHEME FOR ADVECTION OF TRACERS = 4
+COEFFICIENT FOR DIFFUSION OF FRAZIL = 0.
+SCHEME OPTION FOR ADVECTION OF TRACERS = 1
+/
+/----------------------------------------------------------------------
+/  CLOGGING ICE PARAMETERS
+/----------------------------------------------------
+/
+CLOGGING ON BARS = YES
+CLOGGED BOUNDARY NUMBERS       = 1
+POROSITY OF ACCUMULATED ICE    = 0.67
+ANGLE OF ACCUMULATED ICE       = 35.
+/
+/ NO TRANSVERSAL BARS                   . SECTIONS 1 ........ ;
+PHYSICAL CHARACTERISTICS OF THE INTAKE RACK  = 0.2; 0.00; 0.2;0.01
+/
+/----------------------------------------------------------------------
+/

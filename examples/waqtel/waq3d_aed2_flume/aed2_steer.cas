@@ -1,0 +1,31 @@
+/ First attempt to generate a steering file
+/  for waq module of the Telemac system
+/     here case of coupling with AED2
+/
+WAQ CASE TITLE                = 'WAQ AED2 FLUME: VALIDATION CASE'
+GEOMETRY FILE                 = geo_waq3d_aed2_flume.slf
+BOUNDARY CONDITIONS FILE      = geo_waq3d_aed2_flume.cli
+/
+/-----------------------
+/ WATER QUALITY PROCESS         = 13
+/   OPTIONS ARE
+/       2- O2 PROCESS
+/       3- BIOMASS PROCESS
+/       5- EUTRO PROCESS
+/       7- MICROPOL PROCESS
+/      11- THERMIC PROCESS
+/      13- AED2 LIBRARY
+/      17- DEGRADATION LAW
+/      19- GHOST PROCESS IN WAITING TO MERGE WITH ICE MODELLING
+/-----------------------
+/
+AED2 STEERING FILE               = 'aed2.nml'
+AED2 PHYTOPLANKTON STEERING FILE = 'aed2_phyto_pars.nml'
+/AED2 ZOOPLANKTON STEERING FILE   = 'aed2_zoop_pars.nml'
+/AED2 PATHOGEN STEERING FILE      = 'aed2_pathogen_pars.nml'
+/
+/----------------------------
+/ EXCHANGE WITH ATMOSPHERE
+/----------------------------
+/
+SECCHI DEPTH =0.9

@@ -1,0 +1,154 @@
+# Nombre de Breches
+3
+# Definition de la Breche amont
+# Largeur d'emprise du polygone de définition de la breche
+50.0
+# Option pour la gestion de l'ouverture
+2
+# Duree d'ouverture de la breche (0.0 = ouverture instantanee)
+300.0
+# option for erosion type
+2
+# Cote finale de la breche
+5.9
+# Cote de controle de la breche
+7.2
+# Nombre de points decrivant la polyligne
+34
+# Description de la polyligne
+2000.00	40.00
+2003.00	40.00
+2006.01	40.00
+2009.01	40.00
+2012.01	40.00
+2015.02	40.00
+2018.02	40.00
+2021.02	40.00
+2024.02	40.00
+2027.03	40.00
+2030.03	40.00
+2033.03	40.00
+2036.04	40.00
+2039.04	40.00
+2042.04	40.00
+2045.05	40.00
+2048.05	40.00
+2051.05	40.00
+2054.05	40.00
+2057.06	40.00
+2060.06	40.00
+2063.06	40.00
+2066.07	40.00
+2069.07	40.00
+2072.07	40.00
+2075.08	40.00
+2078.08	40.00
+2081.08	40.00
+2084.08	40.00
+2087.09	40.00
+2090.09	40.00
+2093.09	40.00
+2096.10	40.00
+2099.10	40.00
+# Definition de la Breche centrale
+# Largeur d'emprise du polygone de définition de la breche
+60.0
+# Option pour la gestion de l'ouverture
+3
+# Duree d'ouverture de la breche (0.0 = ouverture instantanee)
+900.0
+# option for erosion type
+2
+# Cote finale de la breche
+5.5
+# Numéro (maillage global) du point de controle de la breche
+9406
+# Cote de controle de la breche
+6.0
+# Nombre de points decrivant la polyligne
+34
+# Description de la polyligne
+2450.45	40.00
+2453.45	40.00
+2456.46	40.00
+2459.46	40.00
+2462.46	40.00
+2465.47	40.00
+2468.47	40.00
+2471.47	40.00
+2474.47	40.00
+2477.48	40.00
+2480.48	40.00
+2483.48	40.00
+2486.49	40.00
+2489.49	40.00
+2492.49	40.00
+2495.50	40.00
+2498.50	40.00
+2501.50	40.00
+2504.50	40.00
+2507.51	40.00
+2510.51	40.00
+2513.51	40.00
+2516.52	40.00
+2519.52	40.00
+2522.52	40.00
+2525.53	40.00
+2528.53	40.00
+2531.53	40.00
+2534.53	40.00
+2537.54	40.00
+2540.54	40.00
+2543.54	40.00
+2546.55	40.00
+2549.55	40.00
+# Definition de la Breche aval
+# Largeur d'emprise du polygone de définition de la breche
+50.0
+# Option pour la gestion de l'ouverture
+1
+# Instant d'ouverture de la breche
+500.0
+# Duree d'ouverture de la breche (0.0 = ouverture instantanee)
+600.0
+# option for erosion type
+2
+# Cote finale de la breche
+5.0
+# Nombre de points decrivant la polyligne
+34
+# Description de la polyligne
+2900.90	40.00
+2903.90	40.00
+2906.91	40.00
+2909.91	40.00
+2912.91	40.00
+2915.92	40.00
+2918.92	40.00
+2921.92	40.00
+2924.92	40.00
+2927.93	40.00
+2930.93	40.00
+2933.93	40.00
+2936.94	40.00
+2939.94	40.00
+2942.94	40.00
+2945.95	40.00
+2948.95	40.00
+2951.95	40.00
+2954.96	40.00
+2957.96	40.00
+2960.96	40.00
+2963.96	40.00
+2966.97	40.00
+2969.97	40.00
+2972.97	40.00
+2975.98	40.00
+2978.98	40.00
+2981.98	40.00
+2984.99	40.00
+2987.99	40.00
+2990.99	40.00
+2993.99	40.00
+2997.00	40.00
+3000.00	40.00

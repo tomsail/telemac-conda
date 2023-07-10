@@ -1,0 +1,136 @@
+<A NAME="____Concepts et fonctionnalit&eacute; de base pour cr&eacute;er et lire un champ de r&eacute;sultat____">
+</A>
+<P>
+<A HREF="#1.">Cr&eacute;er un champ de r&eacute;sultat</A> 
+</P> 
+<P>
+<A HREF="#2.">Lire un champ de r&eacute;sultats</A> 
+</P> 
+<P>
+<A HREF="#3.">Cr&eacute;er des s&eacute;quences de calcul dans un champ de
+r&eacute;sultats</A> 
+</P>
+<P>
+<A HREF="#4.">Lire un champ de r&eacute;sultats avec des s&eacute;quences de
+calcul</A> 
+</P>
+<H3><A NAME="1.">Cr&eacute;er un champ de r&eacute;sultat</A></H3>
+<P>La routine \ref MEDfieldCr / \ref mfdcre permet de cr&eacute;er un
+champ de r&eacute;sultat dans un fichier MED. Un champ est identifi&eacute;
+par son nom qui est une cha&icirc;ne de \ref MED_NAME_SIZE
+caract&egrave;res. Un champ de r&eacute;sultat est constitu&eacute;
+d'une ou plusieurs composantes scalaires. A un champ est associ&eacute;
+un type et les valeurs correspondant aux diff&eacute;rentes
+composantes sont toutes du m&ecirc;me type qui peut &ecirc;tre \ref
+MED_FLOAT64 (r&eacute;el), \ref MED_INT (entier). Chaque composante
+se voit attribuer un nom et une unit&eacute;. Les valeurs du champ
+sont associ&eacute;e aux entit&eacute;s d'un seul maillage.</P>
+<P>La routine \ref MEDfieldValueWr / \ref mfdrvw \ref mfdivw permet
+d'&eacute;crire dans un champ des valeurs correspondant &agrave; un
+r&eacute;sultat portant sur un type d'entit&eacute; g&eacute;om&eacute;trique
+d'un maillage donn&eacute;. Si le champ porte sur plusieurs types
+d'entit&eacute;, il faut donc appeler cette routine autant de fois
+qu'il y a de types diff&eacute;rents. Les valeurs du champ peuvent
+porter sur les noeuds, les &eacute;l&eacute;ments, les points de
+Gauss des &eacute;l&eacute;ments, les noeuds par &eacute;l&eacute;ment.
+Nous ne traitons dans un premier temps que les champs aux noeuds et
+aux &eacute;l&eacute;ments.</P>
+<P STYLE="font-style: normal">Le cas d'utilisation suivant permet de
+cr&eacute;er un champ Temp&eacute;rature &agrave; une composante. Les
+r&eacute;sultats de ce champ portent sur les noeuds et les &eacute;l&eacute;ments
+du maillage. A noter que le maillage se trouvant dans un fichier
+diff&eacute;rent de celui du champ, il est possible d'indiquer le nom
+et le chemin d'acc&egrave;s au fichier contenant le maillage en
+cr&eacute;ant un lien avec la routine \ref MEDlinkWr / \ref mlnliw.
+Le lien porte alors le nom du maillage.</P>
+<P>\include UsesCase_MEDfield_1.c</P>
+<H3><A NAME="2.">Lire un champ de r&eacute;sultats</A></H3>
+<P>Comme pour les maillages, l'acc&egrave;s aux champs stock&eacute;s
+dans un fichier se fait via deux approches possibles : acc&egrave;s
+par le nom ou via un it&eacute;rateur. La routine \ref
+MEDfieldInfoByName / \ref mfdfin permet de lire les informations
+relatives &agrave; un champ dont on conna&icirc;t le nom. Les
+informations lues correspondent &agrave; celles &eacute;crites par la
+routine \ref MEDfieldCr / \ref mfdcre.</P>
+<P>Il est ensuite n&eacute;cessaire pour chaque type d'entit&eacute;
+pr&eacute;sent dans le maillage de conna&icirc;tre le nombre de
+valeurs &agrave; lire avec la routine \ref MEDfieldnValue / \ref
+mfdnva. Le nombre de valeurs ainsi obtenu, permet de calculer la z&ocirc;ne
+m&eacute;moire &agrave; allouer en vue de lire ces donn&eacute;es (&agrave;
+savoir le nombre de valeurs * nombre de composantes du champ). Enfin
+la routine \ref MEDfieldValueRd / \ref mfdrvr \ref mfdivr permet de
+lire les valeurs associ&eacute;es &agrave; un type d'entit&eacute;
+donn&eacute;.</P>
+<P STYLE="font-style: normal">Le cas d'utilisation suivant montre
+comment lire les donn&eacute;es du champ &eacute;crites dans le cas
+d'utilisation pr&eacute;c&eacute;dent. 
+</P>
+<P>\include UsesCase_MEDfield_2.c</P>
+<P>Une approche plus g&eacute;n&eacute;rique dans la lecture d'un
+champ est donn&eacute;e dans l'exemple suivant. La routine \ref
+MEDnField / \ref mfdnfd va lire le nombre de champ dans le fichier.
+Il s'agit ensuite d'it&eacute;rer sur ces champs. La routine \ref
+MEDfieldInfo / \ref mfdfdi permet de lire les informations relatives
+&agrave; un champ &agrave; partir d'un it&eacute;rateur. La routine
+\ref MEDfieldnComponent / \ref mfdnfc permet de r&eacute;cup&eacute;rer
+le nombre de composante du champ en vue de dimensionner la taille des
+param&egrave;tres utiles &agrave; la routine MEDfieldInfo.</P>
+<P>Une fois les informations g&eacute;n&eacute;rales du champ
+connues, il est n&eacute;cessaire pour chaque type d'entit&eacute;
+pr&eacute;sent dans le maillage de conna&icirc;tre le nombre de
+valeurs &agrave; lire avec la routine \ref MEDfieldnValue / \ref
+mfdnva. Le nombre de valeurs ainsi obtenu, permet de calculer la z&ocirc;ne
+m&eacute;moire &agrave; allouer en vue de lire ces donn&eacute;es (&agrave;
+savoir le nombre de valeurs * nombre de composantes du champ). Enfin
+la routine \ref MEDfieldValueRd / \ref mfdrvr \ref mfdivr permet de
+lire les valeurs associ&eacute;es &agrave; un type d'entit&eacute;
+donn&eacute;. Pour les mailles et le cas &eacute;ch&eacute;ant les
+faces et les ar&ecirc;tes, il est possible d'it&eacute;rer sur le
+nombre de type g&eacute;om&eacute;trique pr&eacute;-d&eacute;fini
+dans le mod&egrave;le. Par exemple pour les mailles, cette valeur est
+fix&eacute;e par le param&egrave;tre constant \ref
+MED_N_CELL_FIXED_GEO.</P>
+<P>\include UsesCase_MEDfield_3.c</P>
+<H3><A NAME="3.">Cr&eacute;er des s&eacute;quences de calcul dans un champ de
+r&eacute;sultats</A></H3>
+<P>Une s&eacute;quence de calcul correspond &agrave; une date (pas de
+temps) et/ou une &eacute;tape it&eacute;rative (num&eacute;ro
+d'ordre). Les valeurs d'un champ peuvent porter sur une s&eacute;quence
+de calcul autre que la s&eacute;quence initiale (\ref MED_NO_DT, \ref
+MED_NO_IT) utilis&eacute;e par d&eacute;faut. La d&eacute;finition de
+la s&eacute;quence de calcul se fait lors de la l'&eacute;criture des
+valeurs du champ avec la routine \ref MEDfieldValueWr / \ref mfdrvw
+\ref mfdivw qui prend en param&egrave;tres le pas de temps et le
+num&eacute;ro d'ordre.</P>
+<P STYLE="font-style: normal">Il est possible de r&eacute;f&eacute;rencer
+l'&eacute;tape d'&eacute;volution d'un maillage &agrave; laquelle
+l'&eacute;tape de calcul correspond le cas &eacute;ch&eacute;ant avec
+la routine \ref MEDfieldComputingStepMeshWr / \ref mfdcmw. Par d&eacute;faut
+les valeurs du champ se rapportent au maillage initial (MED_NO_DT,
+MED_NO_IT).</P>
+<P>\include UsesCase_MEDfield_4.c</P>
+<H3><A NAME="4.">Lire un champ de r&eacute;sultats avec des s&eacute;quences de
+calcul</A></H3>
+<P>A la lecture, le nombre de s&eacute;quence de calcul du champ peut
+est r&eacute;cup&eacute;r&eacute; par les routines \ref
+MEDfieldInfoByName / \ref mfdfin et \ref MEDfieldInfo / \ref mfdfdi.
+Il s'agit ensuite d'it&eacute;rer sur ce nombre de s&eacute;quence
+afin de lire les valeurs portant sur les entit&eacute;s du maillage.
+La routine \ref MEDfieldComputingStepMeshInfo / \ref mfdcmi permet de
+r&eacute;cup&eacute;rer les informations relatives &agrave; la
+s&eacute;quence de calcul (pas de temps et num&eacute;ro d'ordre),
+ainsi que l'&eacute;tape d'&eacute;volution du maillage
+correspondante. La routine \ref MEDfieldComputingStepInfo / \ref
+mfdcsi permet de r&eacute;cup&eacute;rer les informations relatives &agrave;
+la s&eacute;quence de calcul sans se pr&eacute;occuper du maillage
+dans le cas d'un maillage non &eacute;volutif. 
+</P>
+<P>\include UsesCase_MEDfield_5.c</P>
+<P>Le cas d'utilisation suivant fournit une approche g&eacute;n&eacute;rique
+pour lire les valeurs portant sur les mailles du maillage pour toutes
+les s&eacute;quences de calcul de tous les champs d'un fichier MED.</P>
+<P>\include UsesCase_MEDfield_6.c</P>
+<P><BR><BR>
+</P>
+</BODY>
+</HTML>

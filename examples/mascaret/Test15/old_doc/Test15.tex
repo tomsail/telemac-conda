@@ -1,0 +1,209 @@
+\documentclass[a4paper,10pt]{article}
+
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P0}
+
+\subsection*{Validation des noyaux de calcul transitoires en régime fluvial et transcritique}
+
+\subsection*{\emph{Ecoulement non permanent en présence d'une diffluence}}
+
+\subsection*{Numéro du cas test : 15}
+
+\subsection*{Auteur : N. Goutal }
+
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+	Ce cas test a un double but :
+	
+	\vspace{0.3cm}
+\begin{itemize}
+  \item valider le noyau de calcul transitoire transcritique et plus particulièrement la modélisation de la zone de confluence dans le cas d'un écoulement non permanent diffluent.
+  \item valider le noyau de calcul transitoire en régime fluvial , en comparant la ligne d'eau avec celle calculée par le noyau de calcul transitoire en régime transcritique.
+\end{itemize}
+
+\subsection*{Données géométriques}
+
+	Le réseau est le suivant :
+	
+	\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=0,scale=0.70]{Figure1.eps}
+  
+  \label{Imag1}
+ \end{center}
+\end{figure}
+
+
+Les principales variables sont :
+\\
+$Q_{p}$ : Débit d'entrée varie de $0.03$ à $0.07\mbox{ } m^3.s^{-1}$
+\\
+$L_{p}$ : Largeur du canal aval 
+\\
+$Q_{l}$ : Débit dans le défluent varie de $0.01$ à $0.03\mbox{ } m^3.s^{-1}$
+\\
+$L_{l}$ : Largeur de la diffluence
+\\
+$\alpha$ : $120^{\circ}$
+\\
+$Q_{t}$ : Débit d'entrée varie de $0.03$ à $0.06\mbox{ } m^3.s^{-1}$
+\\
+
+Le bief principal est un bief rectangulaire de pente uniforme ($0.001$), de longueur $10.8\mbox{ }m$ et de largeur $0.8\mbox{ } m$. Les sections en travers sont définies à partir de 4 profils : un profil à l'extrémité amont, un profil à l'extrémité aval un profil en C et un autre en E. Ces deux derniers profils permettent de définir la zone de confluence.\\
+Le bief correspondant à l'affluent est un bief rectangulaire de pente uniforme ($0.001$), de longueur 3 m et dont la largeur évolue progressivement vers une largeur constante égale à $0.3\mbox{ }m$. Les sections en travers sont définies à partir de deux profils : un profil à l'extrémité amont et un profil à l'extrémité aval.
+
+La modélisation est à lit unique. 
+Le but de ce test est de valider la modélisation de la confluence à partir d'un modèle local 2D\footnote{F. Maurel,\emph{Traitement des confluents dans le logiciel MASCARET 4.0 - Principe et méthodes de validation}, Rapport HE-43/96/067/A} dans le cas du noyau transcritique transitoire et de s'assurer qu'on retrouve une perte de charge au niveau de la confluence. Pour ce faire, un modèle 2D a été réalisé à l'aide du logiciel Télémac 2D.  Ce cas de validation est issu d'un ensemble de travaux plus complets sur la modélisation des zones de confluence dans le cadre d'une modélisation monodimensionnelle. 
+
+
+\subsection*{Données physiques, écoulement non permanent}
+
+	Prise en compte du frottement : oui
+	\\
+\begin{itemize} 
+ \item Conditions aux limites : 
+  \begin{itemize}
+  \item débit imposé à l'amont du bief principal :
+  \vspace{0.3cm}
+  
+  \begin{center}
+  \begin{tabular}{|c|c|}
+\hline Temps($s$) & Débit($m^{3}.s^{-1}$) \\ 
+\hline $0$ & $0.03$ \\ 
+\hline $28800$ & $0.03$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+\vspace{0.3cm}
+  \item débit imposé à l'aval de l'affluent :
+  \vspace{0.3cm}
+  \begin{center}
+  \begin{tabular}{|c|c|}
+\hline Temps($s$) & Débit($m^{3}.s^{-1}$) \\ 
+\hline $0$ & $0.01$ \\ 
+\hline $28800$ & $0.01$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+\vspace{0.3cm}
+  \end{itemize}
+
+
+  \item cotes imposées à l'aval du bief principal :
+  \vspace{0.3cm}
+  \begin{center}
+\begin{tabular}{|c|c|}
+\hline Temps($s$) &Cote($m$) \\ 
+\hline $ 0 $ & $ 0.91 $ \\ 
+\hline $ 86400 $ & $ 0.91 $ \\ 
+
+\hline 
+\end{tabular} 
+\end{center} 
+\vspace{0.3cm}
+\item Condition initiale : ligne d'eau permanente correspondant à un débit constant
+
+\end{itemize}
+
+\subsubsection*{Modélisation de la zone de confluence pour le noyau transitoire transcritique }
+
+
+\vspace{0.3cm}
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=0,scale=0.85]{Figure2.eps}
+  \label{Imag1}
+ \end{center}
+\end{figure}
+ $\mbox{ }$\\
+ABSCISSE DE L'AFFLUENT DU CONFLUENT 1 :-0.3608;0.2165;0.05
+\\
+ORDONNEE DE L'AFFLUENT DU CONFLUENT 1 : 0.0;0.0;0.59
+\\
+ANGLE DE L'AFFLUENT DU CONFLUENT 1 : 180.0;0.0;60.0
+
+\subsubsection*{Modélisation de la confluence pour le noyau transitoire fluvial }
+
+
+
+
+Les hypothèses à la zone de confluence sont les suivantes : égalité des cotes et continuité des débits. Ce qui signifie que la zone de confluence est réduite à un point. 
+On a augmenté la longueur du bief principal amont et du bief principal aval en ajoutant 2 profils afin de prendre en compte la longueur de la zone de confluence.
+
+
+
+
+\subsection*{Données numériques}
+
+	Le pas de maillage est de $0.05\mbox{ } m$ dans les trois biefs. Le pas de planimétrage est homogène égal à $0.01\mbox{ } m$. 
+
+
+
+\subsection*{Résultats}
+
+	Pour analyser les résultats, on calcule la perte de charge obtenue au niveau de la confluence avec le noyau transcritique transitoire avec celle obtenue avec la modélisation 2D. La comparaison sera faite aux points M,N et L (voir le premier schéma).
+
+Le graphe~\ref{fig3} résume l'ensemble des résultats obtenus  pour cette configuration géométrique selon le débit à l'aval. On a représenté d'une part l'erreur relative de hauteur d'eau aux points M et N (aussi notés 1 et 2) par rapport aux résultats du code Télémac considéré comme référence. On peut en conclure que la modélisation de la zone de confluence avec la cellule 2D est tout-à-fait correcte. L'erreur relative sur les hauteurs d'eau aux points 1 et 2 par rapport à la solution bidimensionnelle n'excède pas $5 \%$.
+
+La figure~\ref{fig4} compare les résultats convergés en terme de hauteur d'eau avec les 2 noyaux non permanents. Le calcul avec le noyau transcritique permet de représenter l'abaissement de la hauteur d'eau à la confluence liée à la différence de charge tandis que le calcul avec le noyau fluvial transitoire impose l'égalité des côtes au niveau de la zone de confluence. 
+
+La figure~\ref{fig5} compare la ligne d'eau obtenue en modélisant le sous-tirage exercé par le bief 3 par un apport négatif de débit. Dans ce cas, la modélisation numérique ne tient pas compte dans l'équation de conservation de la quantité de mouvement du terme dû au sous-tirage. Ainsi observe - t'on un décrochage important dans la ligne d'eau. 
+
+
+\subsection*{Conclusion}
+
+	La comparaison des hauteurs d'eau avec les résultats de Télémac 2D a permis de montrer le bon comportement de la cellule 2D pour modéliser la zone de confluence en cas de défluence. 
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure3.eps}
+  \caption{Erreur relative sur les hauteurs d'eau}
+  \label{fig3}
+ \end{center}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure4.eps}
+  \caption{Comparaison des 2 modélisations}
+  \label{fig4}
+ \end{center}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure5.eps}
+  \caption{Comparaison des différentes modélisations}
+  \label{fig5}
+ \end{center}
+\end{figure}
+
+
+
+
+
+
+
+
+
+%
+% fin du document
+%
+\end{document}          

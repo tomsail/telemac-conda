@@ -1,0 +1,78 @@
+/ Initial tracer set to:
+/ (1 + 2*nu*dt * (2 pi / L)^2))*sin(2 pi/L x)*sin(2 pi/L y)
+/ Theoretical solution after one time-step:
+/ sin(2 pi/L x)*sin(2 pi/L y)
+
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES, FICHIERS
+/---------------------------------------------------------------------
+
+NAMES OF TRACERS = 'Traceur 1       NO DIMENSION'
+/STEERING FILE = 't2d_convergence.cas'
+RESULTS FILE = 'r2d_convergence.slf'
+BOUNDARY CONDITIONS FILE = 'geo_convergence.cli'
+GEOMETRY FILE = 'geo_convergence.slf'
+FORTRAN FILE = 'user_fortran'
+
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES, GENERALITES
+/---------------------------------------------------------------------
+
+/-------------------------------------------------------------------
+/                     OPTIONS GENERALES
+/-------------------------------------------------------------------
+
+TITLE = 'TELEMAC 2D : CONVERGENCE ON TRACER DIFFUSION'
+
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES, GRAPHIQUES ET LISTING
+/---------------------------------------------------------------------
+
+/LISTING PRINTOUT PERIOD = 1
+VARIABLES FOR GRAPHIC PRINTOUTS = 'H,S,B,T1'
+/GRAPHIC PRINTOUT PERIOD = 1
+
+/---------------------------------------------------------------------
+/ ETUDE DE CONVERGENCE
+/---------------------------------------------------------------------
+
+CONVERGENCE STUDY = YES
+REFINEMENT LEVELS = 3
+
+/---------------------------------------------------------------------
+/ EQUATIONS
+/---------------------------------------------------------------------
+
+LAW OF BOTTOM FRICTION = 0
+ADVECTION = NO
+DIFFUSION OF VELOCITY = NO
+INITIAL VALUES OF TRACERS = 0.
+IMPLICITATION COEFFICIENT OF TRACERS = 0.
+ACCURACY FOR DIFFUSION OF TRACERS = 1.E-10
+COEFFICIENT FOR DIFFUSION OF TRACERS = 1.0
+
+/---------------------------------------------------------------------
+/ EQUATIONS, CONDITIONS INITIALES
+/---------------------------------------------------------------------
+
+INITIAL CONDITIONS = 'CONSTANT ELEVATION'
+INITIAL ELEVATION = 2.
+
+/---------------------------------------------------------------------
+/ EQUATIONS, TRACEUR
+/---------------------------------------------------------------------
+
+NUMBER OF TRACERS = 1
+
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES
+/---------------------------------------------------------------------
+
+NUMBER OF TIME STEPS = 1
+TIME STEP = 1.
+
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES, SOLVEUR
+/---------------------------------------------------------------------
+
+SOLVER FOR DIFFUSION OF TRACERS = 1

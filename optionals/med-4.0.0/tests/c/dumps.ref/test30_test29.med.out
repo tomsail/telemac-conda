@@ -1,0 +1,51 @@
+Maillage de nom : |maa1| , de dimension : 3 , et de type 0
+	 -Dimension de l'espace : 3
+	 -Description du maillage : |un maillage pour test29|
+	 -Noms des axes : |x               y               z               |
+	 -Unités des axes : |cm              cm              cm              |
+	 -Type de repère : 0
+	 -Nombre d'étapes de calcul : 0
+	 -Unité des dates : |s|
+
+Nombre de joints : 1 
+Joint numero : 1 
+Nom du joint: |joint| 
+Description du joint      : |joint avec le sous-domaine 2| 
+Domaine en regard         : 2 
+Maillage distant          : |maa1| 
+Nombre d'étapes de calcul : 1 
+Nombre de correspondance pour (NO_DT,NO_IT) : 2 
+ typ_ent_local = 3
+ typ_geo_local = 0
+ typ_ent_distant = 3
+ typ_geo_distant = 0
+nb de couples d'entites en regard |noeud/noeud|: 3 
+Correspondance 1 : 1 et 2 
+Correspondance 2 : 3 et 4 
+Correspondance 3 : 5 et 6 
+ typ_ent_local = 3
+ typ_geo_local = 0
+ typ_ent_distant = 0
+ typ_geo_distant = 203
+nb de couples d'entites en regard |noeud/TRIA3|: 3 
+Correspondance 1 : 10 et 20 
+Correspondance 2 : 30 et 40 
+Correspondance 3 : 50 et 60 
+ ncor = 1
+ typ_ent_local = 3
+ typ_geo_local = 0
+ typ_ent_distant = 0
+ typ_geo_distant = 203
+nb de couples d'entites en regard |------|: 3 
+Correspondance 1 : 10 et 20 
+Correspondance 2 : 30 et 40 
+Correspondance 3 : 50 et 60 
+ ncor = 2
+ typ_ent_local = 3
+ typ_geo_local = 0
+ typ_ent_distant = 3
+ typ_geo_distant = 0
+nb de couples d'entites en regard |------|: 3 
+Correspondance 1 : 1 et 2 
+Correspondance 2 : 3 et 4 
+Correspondance 3 : 5 et 6 

@@ -1,0 +1,15 @@
+#Control Section for flowrate (Coarse maillage)
+6   -1
+StartChannel
+2 1432
+LeftChannel
+72 1502
+MiddleChannel
+144 1574
+RightChannel
+214 1644
+EndChannel
+285 1715
+
+Channel(x=2000)
+51 1481

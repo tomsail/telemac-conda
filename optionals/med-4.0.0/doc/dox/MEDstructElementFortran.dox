@@ -1,0 +1,416 @@
+/**\ingroup MEDstructElementFortran
+   \fn subroutine  msecre(integer fid, character*(*) mname, integer mdim, character*(*) smname, integer setype, integer sgtype, integer etype, integer cret)
+  \brief \MEDstructElementCrBrief
+  \param fid \fid
+  \param mname \modelname
+  \param mdim \modeldim
+  \param smname \supportmeshname
+  \param setype \sentitytype
+  \param sgtype \sgeotype
+  \param etype \mgeotype
+  \param cret  \error
+  \see MEDstructElementCr
+  \details \MEDstructElementCrDetails
+   \li   \MEDstructElementCrmodelnameCm
+   \li   \MEDstructElementCrsupportmeshnameCm1
+   \li   \MEDstructElementCrsupportmeshnameCm2
+   \li   \MEDstructElementCrsupportmeshnameCm3
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine  msense(integer fid, integer n, integer cret)
+   \brief \MEDnStructElementBrief
+   \param fid \fid
+   \param n \nStructElement
+   \param cret  \error
+   \see MEDnStructElement
+   \details \MEDnStructElementDetails
+*/
+
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine msesei(integer fid, integer it, character*(*) mname, integer mgtype, integer mdim, character*(*) smname, integer setype, integer snnode, integer sncell, integer sgtype, integer ncatt, integer ap, integer nvatt, integer cret)
+  \brief \MEDstructElementInfoBrief
+  \param fid                   \fid
+  \param it                    \mit
+  \param mname             \modelname
+  \param mgtype              \mgeotype
+  \param mdim              \modeldim
+  \param smname       \supportmeshname
+  \param setype           \sentitytype
+  \param snnode             \snnode
+  \param sncell             \sncell
+  \param sgtype              \sgeotype
+  \param ncatt \nconstantattribute
+  \param ap            \anyprofile
+  \param nvatt \nvariableattribute
+  \param cret  \error
+  \see MEDstructElementInfo
+  \details \MEDstructElementInfoDetails
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine msesin(integer fid, character*(*) mname, integer mgtype, integer mdim, character*(*) smname, integer setype, integer snnode, integer sncell, integer sgtype, integer ncatt, integer ap, integer nvatt, integer cret)
+  \brief \MEDstructElementInfoByNameBrief
+  \param fid                   \fid
+  \param mname             \modelname
+  \param mgtype              \mgeotype
+  \param mdim              \modeldim
+  \param smname       \supportmeshname
+  \param setype           \sentitytype
+  \param snnode             \snnode
+  \param sncell             \sncell
+  \param sgtype              \sgeotype
+  \param ncatt \nconstantattribute
+  \param ap            \anyprofile
+  \param nvatt \nvariableattribute
+  \param cret  \error
+  \return \error
+
+  \see MEDstructElementInfoByName
+  \details \MEDstructElementInfoByNameDetails
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine msesen(integer fid, integer mgtype, character*(*) mname, integer cret)
+   \brief \MEDstructElementNameBrief
+   \param fid \fid
+   \param mgtype \mgeotype
+   \param mname \modelname
+   \param cret  \error
+  \see MEDstructElementName
+  \details \MEDstructElementNameDetails
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine msesgt(integer fid, character*(*) mname, integer gtype, integer cret)
+   \brief \MEDstructElementGeotypeBrief
+   \param fid \fid
+   \param mname \modelname
+   \retval gtype \mgeotype
+   \param cret  \error
+   \see MEDstructElementGeotype
+   \details \MEDstructElementGeotypeDetails
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine msevac(integer fid, character*(*) mname, character*(*) aname, integer atype, integer anc, integer cret)
+   \brief \MEDstructElementVarAttCrBrief
+   \param fid                 \fid
+   \param mname           \modelname
+   \param aname          \varattname
+   \param atype          \varatttype
+   \param anc       \ncomponent
+   \param cret  \error
+   \see MEDstructElementVarAttCr
+   \details \MEDstructElementVarAttCrDetails
+*/
+
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine msevni(integer fid, character*(*) mname, character*(*) aname, integer atype, integer anc, integer cret)
+  \brief \MEDstructElementVarAttInfoByNameBrief
+  \param fid                 \fid
+  \param mname           \modelname
+  \param aname          \varattname
+  \param atype          \varatttype
+  \param anc       \ncomponent
+  \param cret  \error
+  \see MEDstructElementVarAttInfoByName
+  \details \MEDstructElementVarAttInfoByNameDetails
+*/
+
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine msevai(integer fid, character*(*) mname, integer it, character*(*) aname, integer atype, integer anc, integer cret)
+  \brief \MEDstructElementVarAttInfoBrief
+  \param fid                 \fid
+  \param mname           \modelname
+  \param it               \attit
+  \param aname          \varattname
+  \param atype          \varatttype
+  \param anc       \ncomponent
+  \param cret  \error
+  \see MEDstructElementVarAttInfo
+  \details \MEDstructElementVarAttInfoDetails
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine mseasz(integer atype, integer size, integer cret)
+   \brief \MEDstructElementAttSizeofBrief
+   \param atype          \atttype
+   \param size \sizeofatttype
+   \param cret  \error
+   \see MEDstructElementAttSizeof
+   \details \MEDstructElementAttSizeofDetails
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine mseraw(integer fid, character*(*) mname,  character*(*) aname, integer atype, integer anc, integer setype,real*8:dimension(*) val, integer cret)
+  \brief \MEDstructElementConstAttWrBrief Les valeurs sont reelles.
+  \param fid \fid
+  \param mname \elementname
+  \param aname \constattname
+  \param atype \constatttype
+  \param anc \ncomponent
+  \param setype \sentitytype
+  \param val \value
+  \param cret  \error
+  \see MEDstructElementConstAttWr
+  \details \MEDstructElementConstAttWrDetails
+  \remarks \MEDstructElementConstAttswitchCm
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine mseiaw(integer fid, character*(*) mname,  character*(*) aname, integer atype, integer anc, integer setype,integer:dimension(*) val, integer cret)
+  \brief \MEDstructElementConstAttWrBrief Les valeurs sont entieres.
+  \param fid \fid
+  \param mname \elementname
+  \param aname \constattname
+  \param atype \constatttype
+  \param anc \ncomponent
+  \param setype \sentitytype
+  \param val \value
+  \param cret  \error
+  \see MEDstructElementConstAttWr
+  \details \MEDstructElementConstAttWrDetails
+  \remarks \MEDstructElementConstAttswitchCm
+*/
+
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine msesaw(integer fid, character*(*) mname,  character*(*) aname, integer atype, integer anc, integer setype,character*(*) val, integer cret)
+  \brief \MEDstructElementConstAttWrBrief Les valeurs sont des chaines de caracteres.
+  \param fid \fid
+  \param mname \elementname
+  \param aname \constattname
+  \param atype \constatttype
+  \param anc \ncomponent
+  \param setype \sentitytype
+  \param val \value
+  \param cret  \error
+  \see MEDstructElementConstAttWr
+  \details \MEDstructElementConstAttWrDetails
+  \remarks \MEDstructElementConstAttswitchCm
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine mserpw(integer fid, character*(*) mname,  character*(*) aname, integer atype, integer anc, integer setype,character*(*) pname, real*8:dimension(*) val, integer cret)
+  \brief \MEDstructElementConstAttWithProfileWrBrief Les valeurs sont reelles.
+  \param fid \fid
+  \param mname \elementname
+  \param aname \constattname
+  \param atype \constatttype
+  \param anc \ncomponent
+  \param setype \sentitytype
+  \param pname \profilename
+  \param val \value
+  \param cret  \error
+  \see MEDstructElementConstAttWithProfileWr
+  \details \MEDstructElementConstAttWithProfileWrDetails
+  \remarks \MEDstructElementConstAttswitchCm
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine mseipw(integer fid, character*(*) mname,  character*(*) aname, integer atype, integer anc, integer setype,character*(*) pname, integer:dimension(*) val, integer cret)
+  \brief \MEDstructElementConstAttWithProfileWrBrief Les valeurs sont entieres.
+  \param fid \fid
+  \param mname \elementname
+  \param aname \constattname
+  \param atype \constatttype
+  \param anc \ncomponent
+  \param setype \sentitytype
+  \param pname \profilename
+  \param val \value
+  \param cret  \error
+  \see MEDstructElementConstAttWithProfileWr
+  \details \MEDstructElementConstAttWithProfileWrDetails
+  \remarks \MEDstructElementConstAttswitchCm
+*/
+
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine msespw(integer fid, character*(*) mname,  character*(*) aname, integer atype, integer anc, integer setype,character*(*) pname, character*(*) val, integer cret)
+  \brief \MEDstructElementConstAttWithProfileWrBrief Les valeurs sont des chaines de caracteres.
+  \param fid \fid
+  \param mname \elementname
+  \param aname \constattname
+  \param atype \constatttype
+  \param anc \ncomponent
+  \param setype \sentitytype
+  \param pname \profilename
+  \param val \value
+  \param cret  \error
+  \see MEDstructElementConstAttWithProfileWr
+  \details \MEDstructElementConstAttWithProfileWrDetails
+  \remarks \MEDstructElementConstAttswitchCm
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine msecni(integer fid, character*(*) mname,  character*(*) aname, integer atype, integer anc, integer setype,character*(*) pname, integer psize, integer cret)
+  \brief \MEDstructElementConstAttInfoByNameBrief
+  \param fid                   \fid
+  \param mname             \modelname
+  \param aname          \constattname
+  \param atype          \constatttype
+  \param anc         \ncomponent
+  \param setype           \sentitytype
+  \param pname           \profilename
+  \param psize           \profilesize
+  \param cret  \error
+  \see MEDstructElementConstAttInfoByName
+  \details \MEDstructElementConstAttInfoByNameDetails
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine msecai(integer fid, character*(*) mname,  integer it, character*(*) aname, integer atype, integer anc, integer setype,character*(*) pname, integer psize, integer cret)
+  \brief \MEDstructElementConstAttInfoBrief
+  \param fid                   \fid
+  \param mname             \modelname
+  \param it                 \attit
+  \param aname          \constattname
+  \param atype          \constatttype
+  \param anc         \ncomponent
+  \param setype           \sentitytype
+  \param pname           \profilename
+  \param psize           \profilesize
+  \param cret  \error
+  \see MEDstructElementConstAttInfo
+  \details \MEDstructElementConstAttInfoDetails
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine mserar(integer fid, character*(*) mname,  character*(*) aname, real*8:dimension(*) val, integer cret)
+   \brief \MEDstructElementConstAttRdBrief Les valeurs lues sont reelles.
+   \param fid                   \fid
+   \param mname             \modelname
+   \param aname          \constattname
+   \param val                 \value
+   \param cret  \error
+   \see MEDstructElementConstAttRd
+   \details \MEDstructElementConstAttRdDetails
+   \remarks \MEDstructElementConstAttswitchCm
+*/
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine mseiar(integer fid, character*(*) mname,  character*(*) aname, integer:dimension(*) val, integer cret)
+   \brief \MEDstructElementConstAttRdBrief Les valeurs lues sont entieres.
+   \param fid                   \fid
+   \param mname             \modelname
+   \param aname          \constattname
+   \param val                 \value
+   \param cret  \error
+   \see MEDstructElementConstAttRd
+   \details \MEDstructElementConstAttRdDetails
+   \remarks \MEDstructElementConstAttswitchCm
+*/
+
+
+/**\ingroup MEDstructElementFortran
+   \fn subroutine msesar(integer fid, character*(*) mname,  character*(*) aname, character*(*) val, integer cret)
+   \brief \MEDstructElementConstAttRdBrief Les valeurs lues sont des chaines de caracteres.
+   \param fid                   \fid
+   \param mname             \modelname
+   \param aname          \constattname
+   \param val                 \value
+   \param cret  \error
+   \see MEDstructElementConstAttRd
+   \details \MEDstructElementConstAttRdDetails
+   \remarks \MEDstructElementConstAttswitchCm
+*/
+
+/** \ingroup MEDstructElementFortran
+    \fn subroutine mmhraw(integer fid, character*(*) name, integer numdt, integer numit, integer geotype, character*(*) aname, integer n, real*8:dimension(*) val, integer cret) 
+  \brief \MEDmeshStructElementVarAttWrBrief L'attribut est de type reel.
+  \param fid           \fid
+  \param name      \meshname
+  \param numdt         \numdt
+  \param numit         \numit
+  \param geotype       \mgeotype
+  \param aname    \varattname
+  \param n    \nentity
+  \param val         \value
+  \param cret  \error
+  \see MEDmeshStructElementVarAttWr
+  \details \MEDmeshStructElementVarAttWrDetails
+*/
+
+
+/** \ingroup MEDstructElementFortran
+    \fn subroutine mmhiaw(integer fid, character*(*) name, integer numdt, integer numit, integer geotype, character*(*) aname, integer n, integer:dimension(*) val, integer cret) 
+  \brief \MEDmeshStructElementVarAttWrBrief L'attribut est de type entier.
+  \param fid           \fid
+  \param name      \meshname
+  \param numdt         \numdt
+  \param numit         \numit
+  \param geotype       \mgeotype
+  \param aname    \varattname
+  \param n    \nentity
+  \param val         \value
+  \param cret  \error
+  \see MEDmeshStructElementVarAttWr
+  \details \MEDmeshStructElementVarAttWrDetails
+*/
+
+/** \ingroup MEDstructElementFortran
+    \fn subroutine mmhsaw(integer fid, character*(*) name, integer numdt, integer numit, integer geotype, character*(*) aname, integer n, character*(*) val, integer cret) 
+  \brief \MEDmeshStructElementVarAttWrBrief L'attribut est de type chaine de caractere.
+  \param fid           \fid
+  \param name      \meshname
+  \param numdt         \numdt
+  \param numit         \numit
+  \param geotype       \mgeotype
+  \param aname    \varattname
+  \param n    \nentity
+  \param val         \value
+  \param cret  \error
+  \see MEDmeshStructElementVarAttWr
+  \details \MEDmeshStructElementVarAttWrDetails
+*/
+
+
+/** \ingroup MEDstructElementFortran
+    \fn subroutine mmhrar(integer fid, character*(*) name, integer numdt, integer numit, integer geotype, character*(*) aname, real*8:dimension(*) val, integer cret) 
+  \brief \MEDmeshStructElementVarAttRdBrief L'attribut est de type reel.
+  \param fid           \fid
+  \param name      \meshname
+  \param numdt         \numdt
+  \param numit         \numit
+  \param geotype       \mgeotype
+  \param aname    \varattname
+  \param val         \value
+  \param cret  \error
+  \see MEDmeshStructElementVarAttRd
+  \details \MEDmeshStructElementVarAttRdDetails
+*/
+
+
+/** \ingroup MEDstructElementFortran
+    \fn subroutine mmhiar(integer fid, character*(*) name, integer numdt, integer numit, integer geotype, character*(*) aname, integer:dimension(*) val, integer cret) 
+  \brief \MEDmeshStructElementVarAttRdBrief L'attribut est de type entier.
+  \param fid           \fid
+  \param name      \meshname
+  \param numdt         \numdt
+  \param numit         \numit
+  \param geotype       \mgeotype
+  \param aname    \varattname
+  \param val         \value
+  \param cret  \error
+  \see MEDmeshStructElementVarAttRd
+  \details \MEDmeshStructElementVarAttRdDetails
+*/
+
+/** \ingroup MEDstructElementFortran
+    \fn subroutine mmhsar(integer fid, character*(*) name, integer numdt, integer numit, integer geotype, character*(*) aname, character*(*) val, integer cret) 
+  \brief \MEDmeshStructElementVarAttRdBrief L'attribut est de type chaine de caractere.
+  \param fid           \fid
+  \param name      \meshname
+  \param numdt         \numdt
+  \param numit         \numit
+  \param geotype       \mgeotype
+  \param aname    \varattname
+  \param val         \value
+  \param cret  \error
+  \see MEDmeshStructElementVarAttRd
+  \details \MEDmeshStructElementVarAttRdDetails
+*/

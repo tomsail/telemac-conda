@@ -1,0 +1,76 @@
+/
+/  HP C3700                     : 27 s   5.5  24/11/2004
+/
+/  HP C3700 compilateur HP      : 23 s   5.7  17/04/2007
+/  HP C3700 compilateur Nag     : 55 s   5.7  17/04/2007
+/  Dell 2.8 MHz compilateur pgi : 16 s   5.7  19/04/2007
+/
+/  HP C3700 compilateur HP      : 21 s   5.8  13/11/2007
+/  HP C3700 compilateur Nag     : 56 s   5.8  20/12/2007
+/  Dell 2.8 MHz compilateur pgi : 16 s   5.8  19/12/2007
+/
+/  HP C3700 compilateur HP      : 12 s   5.9  15/10/2008  (4 procs OK)
+/  HP C3700 compilateur Nag     : 38 s   5.9  16/10/2008
+/  Dell 2.8 MHz compilateur pgi :  9 s   5.9  15/10/2008
+/
+/  HP C3700 compilateur HP        : 11 s   6.0  23/11/2009
+/  HP C3700 compilateur Nag       : 30 s   6.0  25/11/2009
+/  Dell 2.8 MHz compilateur Intel : 06 s   6.0  24/11/2009
+/
+/  HP C3700 compilateur HP        : 11 s   6.1  21/12/2010
+/
+/
+/
+FORTRAN FILE             : 'user_fortran'
+BOUNDARY CONDITIONS FILE : geo_bosse-t2d.cli
+GEOMETRY FILE            : geo_bosse-t2d.slf
+RESULTS FILE             : r2d_bosse-t2d.slf
+SISYPHE STEERING FILE    : sis_bosse-t2d.cas
+/----------------------------------------------------------------------/
+/                       GENERAL OPTIONS
+/----------------------------------------------------------------------/
+TITLE = 'TELEMAC 2D : Cas5'
+COUPLING WITH : 'SISYPHE'
+COUPLING PERIOD FOR SISYPHE= 1
+TIME STEP = 0.1
+NUMBER OF TIME STEPS = 100000
+MASS-BALANCE : YES
+GRAPHIC PRINTOUT PERIOD = 10000
+LISTING PRINTOUT PERIOD = 10000
+VARIABLES FOR GRAPHIC PRINTOUTS : 'U,V,S,B,F,H,L'
+/----------------------------------------------------------------------
+/                      NUMERICAL SCHEME AND SOLVER
+/----------------------------------------------------------------------/
+SOLVER : 7 / gmres
+SOLVER OPTION :3 / Krylov space dimension
+SOLVER ACCURACY = 1.E-6
+IMPLICITATION FOR DEPTH = 0.6
+IMPLICITATION FOR VELOCITY = 0.6
+DISCRETIZATIONS IN SPACE : 11 ; 11 /triangle lineaire
+MASS-LUMPING ON H : 1. / stability + efficiency
+TYPE OF ADVECTION = 1;5 / 1 characteristics (u + v)
+SUPG OPTION         = 1;0 / 1 supg classical (u + v)
+FREE SURFACE GRADIENT COMPATIBILITY : 0.9 / supression oscillations
+/
+/----------------------------------------------------------------------
+/                    EQUATIONS AND PARAMETERS
+/----------------------------------------------------------------------/
+WATER DENSITY = 1000.
+LAW OF BOTTOM FRICTION = 3 /Strickler
+FRICTION COEFFICIENT = 50
+TURBULENCE MODEL = 1 /constant viscosity
+VELOCITY DIFFUSIVITY = 1.E-5
+EQUATIONS : 'SAINT-VENANT FE'
+/MINIMUM VALUE OF DEPTH = 0.1
+/
+/----------------------------------------------------------------------
+/               INITIAL CONDITIONS AND BOUNDARY CONDITIONS
+/----------------------------------------------------------------------/
+INITIAL CONDITIONS : 'CONSTANT ELEVATION'
+INITIAL ELEVATION = 0.6
+PRESCRIBED FLOWRATES : 0.25 ; 0.25
+PRESCRIBED ELEVATIONS = 0.6
+/----------------------------------------------------------------------/
+/
+/ DEFAULT VALUE UNTIL V8P1 KEPT FOR NON REGRESSION
+TREATMENT OF THE LINEAR SYSTEM = 1

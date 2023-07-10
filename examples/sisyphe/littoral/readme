@@ -1,0 +1,40 @@
+!
+! Littoral test case : 3 way coupling between Telemac-2d, Tomawac and Sisyphe
+! C. Villaret (13/05/2013)
+! P. Tassi (01/07/2013)
+!
+% Description of test case
+This is the classical test case of a rectilinear beach with sloping bed
+The model allows to calculate the littoral transport.
+! 
+This test case illustrates the effect of waves which is :
+1.  to generate the current induced littoral current parallel to the beach
+2.  to increase the sand transport rate using the Bijker sand transport formula.
+
+%  Geometry: 
+ The beach is 1000 m long, 200 m wide
+ The beach slope (Y=200m) is 5% and defined in corfon.f
+ The water depth along the open boundary (Y=0) is h=10m
+We use a trianglular regular grid 
+
+% Boundary conditions
+--> Offshore (Y=0): Offshore wave imposed/no littoral current/no set up 
+Tomawac:
+The wave height is imposed on the offshore boudary (5 4 4) (Hs=1m), for a wave period (Tp=8s).
+TelemacD:
+The current and free surface are imposed to 0 along the offshore boundary (5 5 5).
+
+--> Left and right hand side of the domain (X=0, X=1000m):recirculation condition 
+Tomawac:
+The wave height is imposed on the offshore boudary (5 4 4), based on the model solution, calculated  at the center line of the domain. 
+This is done in Limwac.f (princi_tom.f)
+Telemac :
+the model solution for the current (4 5 5) on the center line of the model domain are copied on both right and hand side.
+This is done in bord.f (princi_tel.f). The method we used does not work in parallel!
+
+% Model results 
+Results (littoral current and transport rates) as well as wave set up/set down are in good agreement with expectations from theoretical classical results (Longuet Higgins.The model is able to reproduce the wave induced current, as well as the effect of set down/set up as the waves dissipate in the breaking zone.
+The sediment transport rate is located in the near shore breaking zone, where the longshore current is generated.
+Similar results for the littoral transport could be obtained by using an integrated formula (e.g. CERC formula).
+
+

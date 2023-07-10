@@ -1,0 +1,549 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: parallel/filterBlockOfentities.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">parallel/filterBlockOfentities.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#define MAX(a,b) ((a) &gt; (b) ? (a) : (b))</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="a00591.html">med_utils.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="a00581.html">med_config.h</a>&quot;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;assert.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#if TIME_WITH_SYS_TIME</span></div>
+<div class="line"><span class="preprocessor"># include &lt;sys/time.h&gt;</span></div>
+<div class="line"><span class="preprocessor"># include &lt;time.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#else</span></div>
+<div class="line"><span class="preprocessor"># if HAVE_SYS_TIME_H</span></div>
+<div class="line"><span class="preprocessor">#  include &lt;sys/time.h&gt;</span></div>
+<div class="line"><span class="preprocessor"># else</span></div>
+<div class="line"><span class="preprocessor">#  include &lt;time.h&gt;</span></div>
+<div class="line"><span class="preprocessor"># endif</span></div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#ifndef HAVE_UNISTD_H</span></div>
+<div class="line"><span class="preprocessor">#error &quot;unistd.h required.&quot;</span></div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="a00560.html">getBlocksOfEntitiesPartition.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="a00556.html">generateDatas.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="a00558.html">generateFilterArray.h</a>&quot;</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#ifdef DEF_LECT_ECR</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_RDWR</span></div>
+<div class="line"><span class="preprocessor">#elif DEF_LECT_AJOUT</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_RDEXT</span></div>
+<div class="line"><span class="preprocessor">#else</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_CREAT</span></div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*Valeur de l&#39;enum dans med.h.in*/</span></div>
+<div class="line"><span class="comment">/* #define MED_NO_INTERLACE 2 */</span></div>
+<div class="line"><span class="comment">/* #define MED_FULL_INTERLACE 1 */</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/* #ifndef USER_INTERLACE */</span></div>
+<div class="line"><span class="comment">/* #define USER_INTERLACE MED_FULL_INTERLACE */</span></div>
+<div class="line"><span class="comment">/* #warning &quot;Defining MED_FULL_INTERLACE mode...&quot; */</span></div>
+<div class="line"><span class="comment">/* #endif */</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/* #if USER_INTERLACE == MED_NO_INTERLACE */</span></div>
+<div class="line"><span class="comment">/* #define generateDatas generateNoIDatas */</span></div>
+<div class="line"><span class="comment">/* #warning &quot;Using generateNoIDatas...&quot; */</span></div>
+<div class="line"><span class="comment">/* #elif USER_INTERLACE == MED_FULL_INTERLACE */</span></div>
+<div class="line"><span class="comment">/* #define generateDatas generateFullIDatas */</span></div>
+<div class="line"><span class="comment">/* #warning &quot;Using generateFullIDatas...&quot; */</span></div>
+<div class="line"><span class="comment">/* #else */</span></div>
+<div class="line"><span class="comment">/* #error &quot;The USER_INTERLACE macro value match neither MED_NO_INTERLACE nor MED_FULL_INTERLACE&quot; */</span></div>
+<div class="line"><span class="comment">/* #endif */</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/* #define USER_MODE MED_COMPACT */</span></div>
+<div class="line"></div>
+<div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line">  MPI_Info info;</div>
+<div class="line">  MPI_Comm comm;</div>
+<div class="line">  <span class="keywordtype">int</span>      mpi_size;</div>
+<div class="line">  <span class="keywordtype">int</span>      mpi_rank;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>  nentitiesfiltered;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> *filterarray;</div>
+<div class="line">} <a name="_a0"></a><a class="code" href="a00529.html">COM_info</a>;</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> <a name="a1"></a><a class="code" href="a00554_a82ffe860a77620850697b19f9efa6964.html#a82ffe860a77620850697b19f9efa6964">generateFieldFile</a>( <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> nentities, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> nvaluesperentity, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> nconstituentpervalue,</div>
+<div class="line">                           <span class="keyword">const</span> <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37d">med_switch_mode</a> constituentmode,<a name="a2"></a><a class="code" href="a00560_a0840a3697d10d765b337ab481cd77c75.html#a0840a3697d10d765b337ab481cd77c75">GetBlocksOfEntitiesType</a> getBlockOfEntities, <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nbblocksperproc,</div>
+<div class="line">                           <a name="a3"></a><a class="code" href="a00556_a5b9bda3997e43cc099fcdaaba5d688ac.html#a5b9bda3997e43cc099fcdaaba5d688ac">GenerateDataType</a> generateDatas,</div>
+<div class="line">                           <span class="keyword">const</span> <a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8d">med_storage_mode</a> storagemode, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> profilearraysize,  <span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> fieldnameprefix,  <a class="code" href="a00529.html">COM_info</a> * <span class="keyword">const</span> cominfo ) {</div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*     static int   _fileno=0; */</span></div>
+<div class="line">    <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a>      _ret=-1;</div>
+<div class="line">    <span class="keywordtype">char</span>         _filename   [255]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">    <span class="keywordtype">char</span>         _meshname[<a name="a4"></a><a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;Empty mesh&quot;</span>;</div>
+<div class="line">    <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>      _meshdim=3;</div>
+<div class="line">    <span class="keywordtype">char</span>         _meshcomponentname[3*<a name="a5"></a><a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;x               y               z               &quot;</span>;</div>
+<div class="line">    <span class="keywordtype">char</span>         _meshcomponentunit[3*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;cm              cm              cm              &quot;</span>;</div>
+<div class="line">    <span class="keywordtype">char</span>         _fieldname  [<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">    <span class="keywordtype">char</span>         *componentname,*componentunit;</div>
+<div class="line">    <span class="keywordtype">char</span>         _profilename[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<a name="a6"></a><a class="code" href="a00577_aaa89a5e5e6d32de69614b70cf74e29cc.html#aaa89a5e5e6d32de69614b70cf74e29cc">MED_NO_PROFILE</a>;</div>
+<div class="line">    <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>       *_profilearray=0;</div>
+<div class="line">    <span class="keywordtype">int</span>          _i=0,_j=0,_k=0, _lastusedrank=0;</div>
+<div class="line">    <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a>     _blocksize=0,_lastblocksize=0,_count=0,_stride=0,_start=0,_index=0;</div>
+<div class="line">    <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>    *_arrayvalues;</div>
+<div class="line">    <a name="_a7"></a><a class="code" href="a00536.html">med_filter</a>   filter = <a name="a8"></a><a class="code" href="a00577_a12fb4e45273e33fdbad01821ca0d3ea8.html#a12fb4e45273e33fdbad01821ca0d3ea8">MED_FILTER_INIT</a>;</div>
+<div class="line">    <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a>     _nusedentities        = nentities;</div>
+<div class="line">    <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a>     _io_count                = nbblocksperproc;</div>
+<div class="line">    <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a>      _fidseq,_fid;</div>
+<div class="line"></div>
+<div class="line">    MPI_Info info     = cominfo-&gt;<a name="a9"></a><a class="code" href="a00529_a6d873d39a04ed982d89943f523c1faa9.html#a6d873d39a04ed982d89943f523c1faa9">info</a>;     </div>
+<div class="line">    MPI_Comm comm     = cominfo-&gt;<a name="a10"></a><a class="code" href="a00529_ab048c6f9fcbcfaa57ce68b00263dbebe.html#ab048c6f9fcbcfaa57ce68b00263dbebe">comm</a>;</div>
+<div class="line">    <span class="keywordtype">int</span>      mpi_size = cominfo-&gt;<a name="a11"></a><a class="code" href="a00529_a2f546674d230b2c614985d2bb8c4aa15.html#a2f546674d230b2c614985d2bb8c4aa15">mpi_size</a>;</div>
+<div class="line">    <span class="keywordtype">int</span>      mpi_rank = cominfo-&gt;<a name="a12"></a><a class="code" href="a00529_aefd71fc39dbf5bf0b8b7cb4deb5c946a.html#aefd71fc39dbf5bf0b8b7cb4deb5c946a">mpi_rank</a>;</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordtype">char</span>         *_MED_MODE_SWITCH_MSG[3]={<span class="stringliteral">&quot;MED_FULL_INTERLACE&quot;</span>, <span class="stringliteral">&quot;MED_NO_INTERLACE&quot;</span>,<span class="stringliteral">&quot;MED_UNDEF_INTERLACE&quot;</span>,};</div>
+<div class="line">    <span class="keywordtype">char</span>         *_MED_STORAGE_MODE_MSG[3]={<span class="stringliteral">&quot;MED_NO_STMODE&quot;</span>,<span class="stringliteral">&quot;MED_GLOBAL_STMODE&quot;</span>, <span class="stringliteral">&quot;MED_COMPACT_STMODE&quot;</span>};</div>
+<div class="line"></div>
+<div class="line">    <a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a>     _geotype       = <a name="a13"></a><a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>;</div>
+<div class="line">    <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>               _geodim        = _geotype/100;</div>
+<div class="line">    <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>               _geonnodes     = _geotype%100;</div>
+<div class="line">    <span class="keywordtype">char</span>       _ipointname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1];</div>
+<div class="line">    <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>* _ipointrefcoo = 0;</div>
+<div class="line">    <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>    _ipoint       = nvaluesperentity;</div>
+<div class="line">    <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>* _ipointcoo    = 0;</div>
+<div class="line">    <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>* _ipointwg     = 0;</div>
+<div class="line"></div>
+<div class="line">    sprintf(_filename,<span class="stringliteral">&quot;%s_CPU-%03d_@_%s_%s.med&quot;</span>,fieldnameprefix,mpi_size,_MED_MODE_SWITCH_MSG[constituentmode],_MED_STORAGE_MODE_MSG[storagemode]);</div>
+<div class="line"><span class="comment">/*     SSCRUTE(_filename); */</span></div>
+<div class="line">    <span class="comment">/* Ouverture du fichier en mode parallel */</span></div>
+<div class="line">    <span class="keywordflow">if</span> ((_fid = <a name="a14"></a><a class="code" href="a01049_gad5a6655e312d3e5146f358c42c7c904f.html#gad5a6655e312d3e5146f358c42c7c904f">MEDparFileOpen</a>(_filename, <a name="a15"></a><a class="code" href="a00853_a29a43500a889d39744e184ece0d749be.html#a29a43500a889d39744e184ece0d749be">MODE_ACCES</a> ,comm, info)) &lt; 0){</div>
+<div class="line">      <a name="a16"></a><a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a name="a17"></a><a class="code" href="a00582_a0bbda4699e6c5e9a9c3189b702e6f6e6.html#a0bbda4699e6c5e9a9c3189b702e6f6e6">MED_ERR_OPEN</a>,<a name="a18"></a><a class="code" href="a00582_a768428f78b9f7416a35939e54404fca7.html#a768428f78b9f7416a35939e54404fca7">MED_ERR_FILE</a>,_filename);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*     SSCRUTE(_meshname); */</span></div>
+<div class="line">    <span class="keywordflow">if</span> (<a name="a19"></a><a class="code" href="a01055_ga6007c3f1a62732e7a46c5eca232be78a.html#ga6007c3f1a62732e7a46c5eca232be78a">MEDmeshCr</a>( _fid,_meshname,_meshdim,_meshdim, <a name="a20"></a><a class="code" href="a00577_a821a4dd94c5c6b095318432bdec8d8a1.html#a821a4dd94c5c6b095318432bdec8d8a1a3719e53a4838d222f0a58148292fda41">MED_UNSTRUCTURED_MESH</a>,</div>
+<div class="line">                   <span class="stringliteral">&quot;Un maillage pour le test parallel&quot;</span>,<span class="stringliteral">&quot;s&quot;</span>, <a name="a21"></a><a class="code" href="a00577_a5b97067a30629cd60470d074691d6798.html#a5b97067a30629cd60470d074691d6798ae896b6adfbde9870b4e875e5167eddd0">MED_SORT_DTIT</a>,</div>
+<div class="line">                   <a name="a22"></a><a class="code" href="a00577_a57867e4bed1d104c865cfc9d23c9204d.html#a57867e4bed1d104c865cfc9d23c9204da682ef7f1042079519664eae87f90297e">MED_CARTESIAN</a>, _meshcomponentname, _meshcomponentunit) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a name="a23"></a><a class="code" href="a00582_a92354d1153d9e053407f2f8c0dedbda7.html#a92354d1153d9e053407f2f8c0dedbda7">MED_ERR_CREATE</a>,<a name="a24"></a><a class="code" href="a00582_a8767f86ed60bd189b0e714b775846f24.html#a8767f86ed60bd189b0e714b775846f24">MED_ERR_MESH</a>,_meshname);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    };</div>
+<div class="line"></div>
+<div class="line">    componentname = (<span class="keywordtype">char</span>*) malloc((nconstituentpervalue*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1)*<span class="keyword">sizeof</span>(char));</div>
+<div class="line">    componentunit = (<span class="keywordtype">char</span>*) malloc((nconstituentpervalue*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1)*<span class="keyword">sizeof</span>(char));</div>
+<div class="line">    <span class="comment">/*TODO : Compléter le nom */</span></div>
+<div class="line">    strcpy(componentname,<span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line">    strcpy(componentunit,<span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line">    strcpy(_fieldname,fieldnameprefix);</div>
+<div class="line">    <span class="keywordflow">if</span> ( <a name="a25"></a><a class="code" href="a01048_ga8f73c6eb1a1b85f5e1e8bc1823c01ab9.html#ga8f73c6eb1a1b85f5e1e8bc1823c01ab9">MEDfieldCr</a>(_fid,_fieldname,<a name="a26"></a><a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a>,nconstituentpervalue,componentname,componentunit,<span class="stringliteral">&quot;s&quot;</span>,_meshname ) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a92354d1153d9e053407f2f8c0dedbda7.html#a92354d1153d9e053407f2f8c0dedbda7">MED_ERR_CREATE</a>,<a name="a27"></a><a class="code" href="a00582_a56c28cd068a46a59d0692b642a560324.html#a56c28cd068a46a59d0692b642a560324">MED_ERR_FIELD</a>,_fieldname);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    };</div>
+<div class="line">    free(componentname);</div>
+<div class="line">    free(componentunit);</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> ( _ipoint &gt; 1 ) {</div>
+<div class="line"></div>
+<div class="line">      <a name="a28"></a><a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Creating a localization of integration points...&quot;</span>);</div>
+<div class="line">      strcpy(_ipointname,_fieldname);</div>
+<div class="line">      strcat(_ipointname,<span class="stringliteral">&quot;_loc&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">      <span class="comment">/*Attention ancienne spec*/</span></div>
+<div class="line">      _ipointrefcoo = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) calloc(_geodim*_geonnodes,<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>));</div>
+<div class="line">      _ipointcoo    = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) calloc(_ipoint*_geodim,<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>));</div>
+<div class="line">      _ipointwg     = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) calloc(_ipoint,<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>));</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> (<a name="a29"></a><a class="code" href="a01054_ga77e9d9cfe12058f20762fe61fbf14172.html#ga77e9d9cfe12058f20762fe61fbf14172">MEDlocalizationWr</a>(_fid, _ipointname, _geotype, _geotype/100, _ipointrefcoo, constituentmode,</div>
+<div class="line">                            _ipoint, _ipointcoo, _ipointwg, <a name="a30"></a><a class="code" href="a00577_a3e7915fabbbc5946451ebbb836ca0816.html#a3e7915fabbbc5946451ebbb836ca0816">MED_NO_INTERPOLATION</a>, <a name="a31"></a><a class="code" href="a00577_aeb44e16b6ecf0f5f8aeefab3e60a1a2c.html#aeb44e16b6ecf0f5f8aeefab3e60a1a2c">MED_NO_MESH_SUPPORT</a> ) &lt; 0) {</div>
+<div class="line">        <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a92354d1153d9e053407f2f8c0dedbda7.html#a92354d1153d9e053407f2f8c0dedbda7">MED_ERR_CREATE</a>,<a name="a32"></a><a class="code" href="a00582_ada54cea0286293e0c155a0dc7e006c4e.html#ada54cea0286293e0c155a0dc7e006c4e">MED_ERR_LOCALIZATION</a>,_ipointname);</div>
+<div class="line">        <a name="a33"></a><a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(constituentmode);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">      }</div>
+<div class="line">      free(_ipointrefcoo );</div>
+<div class="line">      free(_ipointcoo    );</div>
+<div class="line">      free(_ipointwg     );</div>
+<div class="line"></div>
+<div class="line">    } <span class="keywordflow">else</span> {</div>
+<div class="line">      strcpy(_ipointname,<a name="a34"></a><a class="code" href="a00577_a2acd5f0b336ddb4026fe1dd314fbd1e0.html#a2acd5f0b336ddb4026fe1dd314fbd1e0">MED_NO_LOCALIZATION</a>);</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> (profilearraysize) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Creating a profile...&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">      strcpy(_profilename,_fieldname);strcat(_profilename,<span class="stringliteral">&quot;_profile&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">      _profilearray = (<a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>*) calloc(profilearraysize,<span class="keyword">sizeof</span>(<a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>));</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">for</span> (_i=0; _i &lt; profilearraysize; ++_i) _profilearray[_i]=_i;</div>
+<div class="line">      <span class="keywordflow">if</span> ( <a name="a35"></a><a class="code" href="a01057_gaf7ec6ed01898dcfe98556f399ed044d1.html#gaf7ec6ed01898dcfe98556f399ed044d1">MEDprofileWr</a>(_fid,_profilename,profilearraysize,_profilearray) &lt; 0) {</div>
+<div class="line">        <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a92354d1153d9e053407f2f8c0dedbda7.html#a92354d1153d9e053407f2f8c0dedbda7">MED_ERR_CREATE</a>,<a name="a36"></a><a class="code" href="a00582_a422b2f1b0d06225813610e0527ab871e.html#a422b2f1b0d06225813610e0527ab871e">MED_ERR_PROFILE</a>,_profilename);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">      };</div>
+<div class="line">      _nusedentities = profilearraysize;</div>
+<div class="line">    } <span class="keywordflow">else</span> {</div>
+<div class="line">      strcpy(_profilename,<a class="code" href="a00577_aaa89a5e5e6d32de69614b70cf74e29cc.html#aaa89a5e5e6d32de69614b70cf74e29cc">MED_NO_PROFILE</a>);</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Generating partition...&quot;</span>);</div>
+<div class="line">    getBlockOfEntities ( mpi_rank , mpi_size, _nusedentities,</div>
+<div class="line">                         &amp;_start, &amp;_stride, &amp;_io_count, &amp;_blocksize,</div>
+<div class="line">                         &amp;_lastusedrank, &amp;_lastblocksize);</div>
+<div class="line"></div>
+<div class="line">    _count=_io_count;</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Generating filter...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">if</span> ( <a name="a37"></a><a class="code" href="a01050_ga9ceeb4d2bf17d106d7dc41b921962ec6.html#ga9ceeb4d2bf17d106d7dc41b921962ec6">MEDfilterBlockOfEntityCr</a>(_fid, nentities, nvaluesperentity, nconstituentpervalue,</div>
+<div class="line">                                  <a name="a38"></a><a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, constituentmode, storagemode, _profilename,</div>
+<div class="line">                                  _start,_stride,_count,_blocksize,_lastblocksize,  &amp;filter) &lt; 0 ) {</div>
+<div class="line">        <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a92354d1153d9e053407f2f8c0dedbda7.html#a92354d1153d9e053407f2f8c0dedbda7">MED_ERR_CREATE</a>,<a name="a39"></a><a class="code" href="a00582_a2a30a97f3fd5a2961e657aeb19cccfb1.html#a2a30a97f3fd5a2961e657aeb19cccfb1">MED_ERR_FILTER</a>,<span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Generating datas...&quot;</span>);</div>
+<div class="line">    generateDatas(mpi_rank, _lastusedrank, <span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>),</div>
+<div class="line">                  storagemode, profilearraysize, _profilearray,</div>
+<div class="line">                  _start, _stride, _count, _blocksize, _lastblocksize,</div>
+<div class="line">                  nentities, nvaluesperentity, nconstituentpervalue,</div>
+<div class="line">                  &amp;_arrayvalues );</div>
+<div class="line"></div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Writing field...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">if</span> ( <a name="a40"></a><a class="code" href="a01048_ga9e55366753425d010b8d1e95b1a53025.html#ga9e55366753425d010b8d1e95b1a53025">MEDfieldValueAdvancedWr</a>(_fid,_fieldname,<a name="a41"></a><a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a name="a42"></a><a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,0.0, <a name="a43"></a><a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, _geotype,</div>
+<div class="line">                                 _ipointname, &amp;filter, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)_arrayvalues ) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a name="a44"></a><a class="code" href="a00582_ada9ad358d137c53e288ff59d49e45541.html#ada9ad358d137c53e288ff59d49e45541">MED_ERR_WRITE</a>,<a class="code" href="a00582_a56c28cd068a46a59d0692b642a560324.html#a56c28cd068a46a59d0692b642a560324">MED_ERR_FIELD</a>,_fieldname);</div>
+<div class="line">      <a name="a45"></a><a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(mpi_rank);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/* Test de lecture du même fichier avec filtre simple par un seul processeur */</span></div>
+<div class="line">    <span class="comment">/* TODO : Créer MEDflush */</span></div>
+<div class="line">    H5Fflush(_fid, H5F_SCOPE_GLOBAL );</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/*Le flush suffit pas besoin de synchroniser les processus : MPI_Barrier(MPI_COMM_WORLD); */</span></div>
+<div class="line">    <span class="keywordflow">if</span> (mpi_rank == 0 ) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Reading field...&quot;</span>);</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">      <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>    _nentitiesarrayvalues=0;</div>
+<div class="line">      <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>  *_filteredarrayvalues=NULL;</div>
+<div class="line">      <a class="code" href="a00536.html">med_filter</a> filter2=<a class="code" href="a00577_a12fb4e45273e33fdbad01821ca0d3ea8.html#a12fb4e45273e33fdbad01821ca0d3ea8">MED_FILTER_INIT</a>;</div>
+<div class="line">      <span class="keywordtype">int</span>        _ind=0;</div>
+<div class="line">      FILE *     _asciifile;</div>
+<div class="line">      <span class="keywordtype">char</span>       _asciifilename[255]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> ((_fidseq = <a name="a46"></a><a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(_filename, <a name="a47"></a><a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85a616bf8345c622a34f0787f42eb400f25">MED_ACC_RDONLY</a> )) &lt; 0){</div>
+<div class="line">        <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a0bbda4699e6c5e9a9c3189b702e6f6e6.html#a0bbda4699e6c5e9a9c3189b702e6f6e6">MED_ERR_OPEN</a>,<a class="code" href="a00582_a768428f78b9f7416a35939e54404fca7.html#a768428f78b9f7416a35939e54404fca7">MED_ERR_FILE</a>,_filename);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">      }</div>
+<div class="line"></div>
+<div class="line">      sprintf(_asciifilename,<span class="stringliteral">&quot;%s_CPU-%03d_@_%s_%s.ascii&quot;</span>,fieldnameprefix,mpi_size,_MED_MODE_SWITCH_MSG[constituentmode],_MED_STORAGE_MODE_MSG[storagemode]);</div>
+<div class="line">      _asciifile=fopen(_asciifilename, <span class="stringliteral">&quot;w&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">      <span class="comment">/*Génère un filtre de selection simple s&#39;il n&#39;a pas déjà été généré lors d&#39;un précédent appel */</span></div>
+<div class="line">      <span class="comment">/*TODO : Déplacer cette appel dans le main après avoir externaliser la génération du profile */</span></div>
+<div class="line">      <span class="keywordflow">if</span> (!(cominfo-&gt;<a name="a48"></a><a class="code" href="a00529_ac5b2f698a79a32693bd35d6eb02b29d8.html#ac5b2f698a79a32693bd35d6eb02b29d8">filterarray</a>))</div>
+<div class="line">        <span class="keywordflow">if</span> ( <a name="a49"></a><a class="code" href="a00557_a388c7cc13e2d139b5518828c5979b041.html#a388c7cc13e2d139b5518828c5979b041">generateFilterArray</a>(  nentities,  nvaluesperentity, nconstituentpervalue,</div>
+<div class="line">                                   profilearraysize, _profilearray,</div>
+<div class="line">                                   &amp;(cominfo-&gt;<a name="a50"></a><a class="code" href="a00529_a8392201586c9264367c7faf9f60486e1.html#a8392201586c9264367c7faf9f60486e1">nentitiesfiltered</a>), &amp;(cominfo-&gt;<a class="code" href="a00529_ac5b2f698a79a32693bd35d6eb02b29d8.html#ac5b2f698a79a32693bd35d6eb02b29d8">filterarray</a>) ) &lt; 0 ) {</div>
+<div class="line">          <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">        }</div>
+<div class="line"></div>
+<div class="line">      <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(cominfo-&gt;<a class="code" href="a00529_a8392201586c9264367c7faf9f60486e1.html#a8392201586c9264367c7faf9f60486e1">nentitiesfiltered</a>);</div>
+<div class="line">      <span class="comment">/*Stocke le filtre utilisé dans le fichier .ascii*/</span></div>
+<div class="line">      <span class="keywordflow">for</span> (_i=0; _i &lt; cominfo-&gt;<a class="code" href="a00529_a8392201586c9264367c7faf9f60486e1.html#a8392201586c9264367c7faf9f60486e1">nentitiesfiltered</a>; ++_i ) {</div>
+<div class="line"><span class="comment">/*      ISCRUTE(cominfo-&gt;filterarray[_i]); */</span></div>
+<div class="line">        fprintf(_asciifile,<span class="stringliteral">&quot;%d &quot;</span>,cominfo-&gt;<a class="code" href="a00529_ac5b2f698a79a32693bd35d6eb02b29d8.html#ac5b2f698a79a32693bd35d6eb02b29d8">filterarray</a>[_i]) ;</div>
+<div class="line">      }</div>
+<div class="line">      fprintf(_asciifile,<span class="stringliteral">&quot;\n&quot;</span>) ;</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">      <span class="comment">/*Pas de profile possible (profilearraysize == 0) en MED_GLOBAL_STMODE sur un fichier géré en parallel */</span></div>
+<div class="line">      <span class="keywordflow">if</span> ( profilearraysize ) {</div>
+<div class="line">        _nentitiesarrayvalues = profilearraysize;</div>
+<div class="line">      } <span class="keywordflow">else</span> {</div>
+<div class="line">        _nentitiesarrayvalues = nentities;</div>
+<div class="line">      }</div>
+<div class="line"></div>
+<div class="line">      <span class="comment">/*Attention allocation mémoire potentiellement grosse car réalisée uniquement par le processus 0</span></div>
+<div class="line"><span class="comment">       qui rassemble les données.*/</span></div>
+<div class="line">      <span class="comment">/* C&#39;est une taille maxi qui ne prend pas en compte le COMPACT+filter */</span></div>
+<div class="line">      <span class="comment">/* TODO : Ajuster la taille au storage_mode*/</span></div>
+<div class="line">      _filteredarrayvalues = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>*) malloc(_nentitiesarrayvalues*</div>
+<div class="line">                                                 nvaluesperentity*</div>
+<div class="line">                                                 nconstituentpervalue*<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>));</div>
+<div class="line"></div>
+<div class="line">      <span class="comment">/* Permet de vérifier une erreur d&#39;indiçage après la lecture */</span></div>
+<div class="line">      <span class="keywordflow">for</span> (_i=0;_i&lt;_nentitiesarrayvalues*nvaluesperentity*nconstituentpervalue; ++_i)</div>
+<div class="line">        _filteredarrayvalues[_i]=-_i;</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">      <span class="comment">/*Création d&#39;un filtre de sélection simple, pour une lecture séquentielle par le processys 0*/</span></div>
+<div class="line">      <span class="keywordflow">if</span> ( <a name="a51"></a><a class="code" href="a01050_ga6135c77f29ccc73c1a77e2108ace9900.html#ga6135c77f29ccc73c1a77e2108ace9900">MEDfilterEntityCr</a>(_fidseq, nentities, nvaluesperentity, nconstituentpervalue,</div>
+<div class="line">                             <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, constituentmode, storagemode, _profilename,</div>
+<div class="line">                             cominfo-&gt;<a class="code" href="a00529_a8392201586c9264367c7faf9f60486e1.html#a8392201586c9264367c7faf9f60486e1">nentitiesfiltered</a>,cominfo-&gt;<a class="code" href="a00529_ac5b2f698a79a32693bd35d6eb02b29d8.html#ac5b2f698a79a32693bd35d6eb02b29d8">filterarray</a>, &amp;filter2) &lt; 0 ) {</div>
+<div class="line">        <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a92354d1153d9e053407f2f8c0dedbda7.html#a92354d1153d9e053407f2f8c0dedbda7">MED_ERR_CREATE</a>,<a class="code" href="a00582_a2a30a97f3fd5a2961e657aeb19cccfb1.html#a2a30a97f3fd5a2961e657aeb19cccfb1">MED_ERR_FILTER</a>,<span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">      }</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> ( <a name="a52"></a><a class="code" href="a01048_ga404dad06b207dace4270b18140f173e0.html#ga404dad06b207dace4270b18140f173e0">MEDfieldValueAdvancedRd</a>(_fidseq,_fieldname,<a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, _geotype,</div>
+<div class="line">                                   &amp;filter2, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)_filteredarrayvalues ) &lt; 0) {</div>
+<div class="line">        <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a name="a53"></a><a class="code" href="a00582_ac3d72eee2022402ffdc5851d2dc98584.html#ac3d72eee2022402ffdc5851d2dc98584">MED_ERR_READ</a>,<a class="code" href="a00582_a56c28cd068a46a59d0692b642a560324.html#a56c28cd068a46a59d0692b642a560324">MED_ERR_FIELD</a>,_fieldname);</div>
+<div class="line">        <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(mpi_rank);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">      }</div>
+<div class="line"></div>
+<div class="line">      <span class="comment">/*AFFICHAGE TOUJOURS EN FULL INTERLACE QUELQUES SOIENT LES COMBINAISONS*/</span></div>
+<div class="line">      <span class="comment">/*TODO : Externaliser l&#39;affichage*/</span></div>
+<div class="line">      <span class="keywordflow">if</span> ( storagemode == <a name="a54"></a><a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8da75948cc18980c808e34f1c8177207197">MED_GLOBAL_STMODE</a> ) {</div>
+<div class="line">        <span class="keywordflow">switch</span> (constituentmode) {</div>
+<div class="line">        <span class="keywordflow">case</span> <a name="a55"></a><a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>:</div>
+<div class="line">          <span class="keywordflow">for</span> (_i=0; _i &lt; cominfo-&gt;<a class="code" href="a00529_a8392201586c9264367c7faf9f60486e1.html#a8392201586c9264367c7faf9f60486e1">nentitiesfiltered</a>; ++_i)</div>
+<div class="line">            <span class="keywordflow">for</span> (_j=0; _j &lt; nvaluesperentity; ++_j)</div>
+<div class="line">              <span class="keywordflow">for</span> (_k=0; _k &lt; nconstituentpervalue; ++_k) {</div>
+<div class="line">                _ind = (cominfo-&gt;<a class="code" href="a00529_ac5b2f698a79a32693bd35d6eb02b29d8.html#ac5b2f698a79a32693bd35d6eb02b29d8">filterarray</a>[_i]-1)*nvaluesperentity*nconstituentpervalue+ _j*nconstituentpervalue+_k;</div>
+<div class="line"><span class="comment">/*              fprintf(stdout,&quot;%s%3d%s = %f\n&quot;,&quot;_filteredarrayvaluesFULLGLB[&quot;,_ind,&quot;]&quot;,_filteredarrayvalues[_ind]) ; */</span></div>
+<div class="line">                fprintf(_asciifile,<span class="stringliteral">&quot;%f\n&quot;</span>,_filteredarrayvalues[_ind]) ;</div>
+<div class="line">              }</div>
+<div class="line">          <span class="keywordflow">break</span>;</div>
+<div class="line">        <span class="keywordflow">case</span> <a name="a56"></a><a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da5c7f85d1c271fe5dbaf9e9f1d3211fea">MED_NO_INTERLACE</a>:</div>
+<div class="line">          <span class="keywordflow">for</span> (_j=0; _j &lt; cominfo-&gt;<a class="code" href="a00529_a8392201586c9264367c7faf9f60486e1.html#a8392201586c9264367c7faf9f60486e1">nentitiesfiltered</a>; ++_j)</div>
+<div class="line">            <span class="keywordflow">for</span> (_k=0; _k &lt; nvaluesperentity; ++_k)</div>
+<div class="line">              <span class="keywordflow">for</span> (_i=0; _i &lt; nconstituentpervalue; ++_i) {</div>
+<div class="line">                _ind =_i*nentities*nvaluesperentity+ (cominfo-&gt;<a class="code" href="a00529_ac5b2f698a79a32693bd35d6eb02b29d8.html#ac5b2f698a79a32693bd35d6eb02b29d8">filterarray</a>[_j]-1)*nvaluesperentity +_k;</div>
+<div class="line"><span class="comment">/*              fprintf(stdout,&quot;%s%3d%s = %f\n&quot;,&quot;_filteredarrayvaluesNOGLB[&quot;,_ind,&quot;]&quot;,_filteredarrayvalues[_ind]); */</span></div>
+<div class="line">                fprintf(_asciifile,<span class="stringliteral">&quot;%f\n&quot;</span>,_filteredarrayvalues[_ind]);</div>
+<div class="line">              }</div>
+<div class="line">          <span class="keywordflow">break</span>;</div>
+<div class="line">        }</div>
+<div class="line">      }  <span class="keywordflow">else</span></div>
+<div class="line">        <span class="keywordflow">switch</span> (constituentmode) {</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>:</div>
+<div class="line">          <span class="keywordflow">for</span> (_i=0; _i &lt; cominfo-&gt;<a class="code" href="a00529_a8392201586c9264367c7faf9f60486e1.html#a8392201586c9264367c7faf9f60486e1">nentitiesfiltered</a>; ++_i )</div>
+<div class="line">            <span class="keywordflow">for</span> (_j=0; _j &lt; nvaluesperentity; ++_j)</div>
+<div class="line">              <span class="keywordflow">for</span> (_k=0; _k &lt; nconstituentpervalue; ++_k) {</div>
+<div class="line">                _ind = _i*nvaluesperentity*nconstituentpervalue+_j*nconstituentpervalue+_k;</div>
+<div class="line"><span class="comment">/*              fprintf(stdout,&quot;%s%3d%s = %f\n&quot;,&quot;_filteredarrayvaluesFULLCP[&quot;,_ind,&quot;]&quot;,_filteredarrayvalues[_ind]) ; */</span></div>
+<div class="line">                fprintf(_asciifile,<span class="stringliteral">&quot;%f\n&quot;</span>,_filteredarrayvalues[_ind]) ;</div>
+<div class="line">          }</div>
+<div class="line">          <span class="keywordflow">break</span>;</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da5c7f85d1c271fe5dbaf9e9f1d3211fea">MED_NO_INTERLACE</a>:</div>
+<div class="line">          <span class="keywordflow">for</span> (_j=0; _j &lt; cominfo-&gt;<a class="code" href="a00529_a8392201586c9264367c7faf9f60486e1.html#a8392201586c9264367c7faf9f60486e1">nentitiesfiltered</a>; ++_j)</div>
+<div class="line">            <span class="keywordflow">for</span> (_k=0; _k &lt; nvaluesperentity; ++_k)</div>
+<div class="line">              <span class="keywordflow">for</span> (_i=0; _i &lt; nconstituentpervalue; ++_i) {</div>
+<div class="line">                _ind =_i*cominfo-&gt;<a class="code" href="a00529_a8392201586c9264367c7faf9f60486e1.html#a8392201586c9264367c7faf9f60486e1">nentitiesfiltered</a>*nvaluesperentity+ _j*nvaluesperentity +_k;</div>
+<div class="line">                <span class="comment">/* _ind =_i*_nentitiesarrayvalues*nvaluesperentity+ (_filterarray[_j]-1)*nvaluesperentity +_k; */</span></div>
+<div class="line"><span class="comment">/*              fprintf(stdout,&quot;%s%3d%s = %f\n&quot;,&quot;_filteredarrayvaluesNOCP[&quot;,_ind,&quot;]&quot;,_filteredarrayvalues[_ind]); */</span></div>
+<div class="line">                fprintf(_asciifile,<span class="stringliteral">&quot;%f\n&quot;</span>,_filteredarrayvalues[_ind]);</div>
+<div class="line">              }</div>
+<div class="line">          <span class="keywordflow">break</span>;</div>
+<div class="line">        }</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">      free(_filteredarrayvalues);</div>
+<div class="line"></div>
+<div class="line">      fclose(_asciifile);</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> ( <a name="a57"></a><a class="code" href="a01050_ga5e48f17469f18350f3dd1d9bee49e1fb.html#ga5e48f17469f18350f3dd1d9bee49e1fb">MEDfilterClose</a>(&amp;filter2) &lt; 0 ) {</div>
+<div class="line">        <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a name="a58"></a><a class="code" href="a00582_a444c5e2cb5b9f60b769909297300ac14.html#a444c5e2cb5b9f60b769909297300ac14">MED_ERR_CLOSE</a>,<a class="code" href="a00582_a2a30a97f3fd5a2961e657aeb19cccfb1.html#a2a30a97f3fd5a2961e657aeb19cccfb1">MED_ERR_FILTER</a>,<span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">      }</div>
+<div class="line"></div>
+<div class="line">    } <span class="comment">/*fin if (mpi_rank == 0) */</span></div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">if</span> ( <a class="code" href="a01050_ga5e48f17469f18350f3dd1d9bee49e1fb.html#ga5e48f17469f18350f3dd1d9bee49e1fb">MEDfilterClose</a>(&amp;filter) &lt; 0 ) {</div>
+<div class="line">    <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a444c5e2cb5b9f60b769909297300ac14.html#a444c5e2cb5b9f60b769909297300ac14">MED_ERR_CLOSE</a>,<a class="code" href="a00582_a2a30a97f3fd5a2961e657aeb19cccfb1.html#a2a30a97f3fd5a2961e657aeb19cccfb1">MED_ERR_FILTER</a>,<span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">    _ret=0;</div>
+<div class="line">  ERROR:</div>
+<div class="line">    <span class="keywordflow">if</span> (_arrayvalues)     free(_arrayvalues);</div>
+<div class="line">    <span class="keywordflow">if</span> (profilearraysize) free(_profilearray);</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> (  <a name="a59"></a><a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(_fid) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a444c5e2cb5b9f60b769909297300ac14.html#a444c5e2cb5b9f60b769909297300ac14">MED_ERR_CLOSE</a>,<a class="code" href="a00582_a768428f78b9f7416a35939e54404fca7.html#a768428f78b9f7416a35939e54404fca7">MED_ERR_FILE</a>,<span class="stringliteral">&quot;&quot;</span>); _ret = -1;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> (mpi_rank == 0 ) {</div>
+<div class="line">      <span class="keywordflow">if</span> (  <a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(_fidseq) &lt; 0) {</div>
+<div class="line">        <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a444c5e2cb5b9f60b769909297300ac14.html#a444c5e2cb5b9f60b769909297300ac14">MED_ERR_CLOSE</a>,<a class="code" href="a00582_a768428f78b9f7416a35939e54404fca7.html#a768428f78b9f7416a35939e54404fca7">MED_ERR_FILE</a>,<span class="stringliteral">&quot;&quot;</span>); _ret = -1;</div>
+<div class="line">      }</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">return</span> _ret;</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a name="a60"></a><a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">{</div>
+<div class="line">  <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> _ret=0;</div>
+<div class="line">  <a class="code" href="a00529.html">COM_info</a> _cominfo;</div>
+<div class="line">  _cominfo.<a class="code" href="a00529_ab048c6f9fcbcfaa57ce68b00263dbebe.html#ab048c6f9fcbcfaa57ce68b00263dbebe">comm</a> = MPI_COMM_WORLD;</div>
+<div class="line">  _cominfo.<a class="code" href="a00529_a6d873d39a04ed982d89943f523c1faa9.html#a6d873d39a04ed982d89943f523c1faa9">info</a> = MPI_INFO_NULL;</div>
+<div class="line">  _cominfo.<a class="code" href="a00529_a8392201586c9264367c7faf9f60486e1.html#a8392201586c9264367c7faf9f60486e1">nentitiesfiltered</a>=0;</div>
+<div class="line">  _cominfo.<a class="code" href="a00529_ac5b2f698a79a32693bd35d6eb02b29d8.html#ac5b2f698a79a32693bd35d6eb02b29d8">filterarray</a>      =NULL;</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  MPI_Init(&amp;argc, &amp;argv);</div>
+<div class="line">  MPI_Comm_size(MPI_COMM_WORLD, &amp;(_cominfo.<a class="code" href="a00529_a2f546674d230b2c614985d2bb8c4aa15.html#a2f546674d230b2c614985d2bb8c4aa15">mpi_size</a>));</div>
+<div class="line">  MPI_Comm_rank(MPI_COMM_WORLD, &amp;(_cominfo.<a class="code" href="a00529_aefd71fc39dbf5bf0b8b7cb4deb5c946a.html#aefd71fc39dbf5bf0b8b7cb4deb5c946a">mpi_rank</a>));</div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a>      _nbblocksperproc       = 0;</div>
+<div class="line">  <span class="keywordtype">int</span>           _nentities             = 0;</div>
+<div class="line">  <span class="keywordtype">int</span>           _nvaluesperentity      = 0;</div>
+<div class="line">  <span class="keywordtype">int</span>           _nconstituentpervalue  = 0;</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">if</span> (_cominfo.<a class="code" href="a00529_aefd71fc39dbf5bf0b8b7cb4deb5c946a.html#aefd71fc39dbf5bf0b8b7cb4deb5c946a">mpi_rank</a> == 0 ) {</div>
+<div class="line"></div>
+<div class="line">    <span class="keyword">struct </span>tm *_tm ;</div>
+<div class="line">    time_t _tt=time(0);</div>
+<div class="line">    _tm = localtime(&amp;_tt);</div>
+<div class="line"></div>
+<div class="line">    srandom((*_tm).tm_sec * (*_tm).tm_min );</div>
+<div class="line">    _nbblocksperproc      = 1 + (int) (_cominfo.<a class="code" href="a00529_a2f546674d230b2c614985d2bb8c4aa15.html#a2f546674d230b2c614985d2bb8c4aa15">mpi_size</a> * (random() / (RAND_MAX + 1.0)));</div>
+<div class="line">    _nentities            = 1 + (int) (1000.0 * (random() / (RAND_MAX + 1.0)));</div>
+<div class="line">    _nvaluesperentity     = 1 + (int) (11.0 * (random() / (RAND_MAX + 1.0)));</div>
+<div class="line">    _nconstituentpervalue = 1 + (int) (7.0 * (random() / (RAND_MAX + 1.0)));</div>
+<div class="line"><span class="comment">/*     _nbblocksperproc         = 1 + (int) (mpi_size * (random() / (RAND_MAX + 1.0))); */</span></div>
+<div class="line"><span class="comment">/*     _nentities            = 1 + (int) (5.0 * (random() / (RAND_MAX + 1.0))); */</span></div>
+<div class="line"><span class="comment">/*     _nvaluesperentity     = 1 + (int) (3.0 * (random() / (RAND_MAX + 1.0))); */</span></div>
+<div class="line"><span class="comment">/*     _nconstituentpervalue = 1 + (int) (3.0 * (random() / (RAND_MAX + 1.0))); */</span></div>
+<div class="line"><span class="comment">/*     _nbblocksperproc         = 2; */</span></div>
+<div class="line"><span class="comment">/*     _nentities            = 4; */</span></div>
+<div class="line"><span class="comment">/*     _nvaluesperentity     = 1; */</span></div>
+<div class="line"><span class="comment">/*     _nconstituentpervalue = 1; */</span></div>
+<div class="line"></div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">if</span> ( (<span class="keyword">sizeof</span>(<a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a>)%(<span class="keyword">sizeof</span>(MPI_LONG)))==0 ) {</div>
+<div class="line"></div>
+<div class="line">    MPI_Bcast(&amp;_nbblocksperproc      , <span class="keyword">sizeof</span>(<a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a>)/<span class="keyword">sizeof</span>(MPI_LONG), MPI_LONG, 0, MPI_COMM_WORLD);</div>
+<div class="line">    MPI_Bcast(&amp;_nentities            , <span class="keyword">sizeof</span>(<a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a>)/<span class="keyword">sizeof</span>(MPI_LONG), MPI_LONG, 0, MPI_COMM_WORLD);</div>
+<div class="line">    MPI_Bcast(&amp;_nvaluesperentity     , <span class="keyword">sizeof</span>(<a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a>)/<span class="keyword">sizeof</span>(MPI_LONG), MPI_LONG, 0, MPI_COMM_WORLD);</div>
+<div class="line">    MPI_Bcast(&amp;_nconstituentpervalue , <span class="keyword">sizeof</span>(<a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a>)/<span class="keyword">sizeof</span>(MPI_LONG), MPI_LONG, 0, MPI_COMM_WORLD);</div>
+<div class="line">  } <span class="keywordflow">else</span> {</div>
+<div class="line">    assert(<span class="keyword">sizeof</span>(<a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a>) == (<span class="keyword">sizeof</span>(MPI_LONG)));</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordtype">char</span>                _fieldnameprefix[256] = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">  sprintf(_fieldnameprefix,<span class="stringliteral">&quot;NENT-%03d_NVAL-%03d_NCST-%03d_NBL-%03llu&quot;</span>,_nentities,_nvaluesperentity,</div>
+<div class="line">          _nconstituentpervalue,_nbblocksperproc);</div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="a00556_a5b9bda3997e43cc099fcdaaba5d688ac.html#a5b9bda3997e43cc099fcdaaba5d688ac">GenerateDataType</a> generateDatas = 0;</div>
+<div class="line">  <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37d">med_switch_mode</a>  _switchmode  = <a name="a61"></a><a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da8c2ff3c323a55ab7c52781f9ca5b9fb4">MED_UNDEF_INTERLACE</a>;</div>
+<div class="line">  <a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8d">med_storage_mode</a> _storagemode = <a name="a62"></a><a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8da15a2a29e37e912bca05ed6f60170767c">MED_UNDEF_STMODE</a>;</div>
+<div class="line">  <span class="comment">/*Pour que les 4 fichiers générés soient identiques, on désactive l&#39;utilisation des profils</span></div>
+<div class="line"><span class="comment">    qui n&#39;est pas utilisable en mode GLOBAL+// */</span></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>          _profilearraysize=0;</div>
+<div class="line">  <span class="comment">/* med_int       _profilearraysize=_nentities/2; */</span></div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">for</span> (_switchmode = <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a> ; _switchmode &lt;= <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da5c7f85d1c271fe5dbaf9e9f1d3211fea">MED_NO_INTERLACE</a>; ++_switchmode) {</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> ( _switchmode == <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a> ) generateDatas = <a name="a63"></a><a class="code" href="a00555_aacb98bb0155d664e9d8a9626b9144bc3.html#aacb98bb0155d664e9d8a9626b9144bc3">generateFullIDatas</a>;</div>
+<div class="line">    <span class="keywordflow">else</span> generateDatas = <a name="a64"></a><a class="code" href="a00555_aa5abc2daa1769bad363d8d7d935a3249.html#aa5abc2daa1769bad363d8d7d935a3249">generateNoIDatas</a>;</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">for</span> (_storagemode = <a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8da75948cc18980c808e34f1c8177207197">MED_GLOBAL_STMODE</a> ; _storagemode &lt;= <a name="a65"></a><a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8dae0059ae013bcbd618f9d688a4f15354c">MED_COMPACT_STMODE</a>; ++_storagemode) {</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> ( (_storagemode == <a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8da75948cc18980c808e34f1c8177207197">MED_GLOBAL_STMODE</a> ) &amp;&amp; (_profilearraysize) ) _profilearraysize=0;</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> ( <a class="code" href="a00554_a82ffe860a77620850697b19f9efa6964.html#a82ffe860a77620850697b19f9efa6964">generateFieldFile</a>( _nentities,  _nvaluesperentity, _nconstituentpervalue,</div>
+<div class="line">                              _switchmode, <a name="a66"></a><a class="code" href="a00559_a9a1191a9ceaa2926cc07e5cdd38339cb.html#a9a1191a9ceaa2926cc07e5cdd38339cb">getCyclicBlocksOfEntities</a>, _nbblocksperproc, generateDatas,</div>
+<div class="line">                              _storagemode, _profilearraysize,  _fieldnameprefix, &amp; _cominfo) &lt; 0 ) {</div>
+<div class="line">        <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_ada9ad358d137c53e288ff59d49e45541.html#ada9ad358d137c53e288ff59d49e45541">MED_ERR_WRITE</a>,<a class="code" href="a00582_a56c28cd068a46a59d0692b642a560324.html#a56c28cd068a46a59d0692b642a560324">MED_ERR_FIELD</a>,_fieldnameprefix);</div>
+<div class="line">        <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(_cominfo.<a class="code" href="a00529_aefd71fc39dbf5bf0b8b7cb4deb5c946a.html#aefd71fc39dbf5bf0b8b7cb4deb5c946a">mpi_rank</a>);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">      }</div>
+<div class="line"></div>
+<div class="line">    }</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  _ret = 0;</div>
+<div class="line"> ERROR:</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">if</span> ( _cominfo.<a class="code" href="a00529_ac5b2f698a79a32693bd35d6eb02b29d8.html#ac5b2f698a79a32693bd35d6eb02b29d8">filterarray</a> = NULL ) free( _cominfo.<a class="code" href="a00529_ac5b2f698a79a32693bd35d6eb02b29d8.html#ac5b2f698a79a32693bd35d6eb02b29d8">filterarray</a> );</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/*pour arch. BLueGene : Sync entre GPFS et LSF : sleep(360) */</span></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* MPI_Finalize must be called AFTER MEDclose which may use MPI calls */</span></div>
+<div class="line">  MPI_Finalize();</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Catcher l&#39;erreur en retour mpirun  et .sh*/</span></div>
+<div class="line">  <span class="keywordflow">return</span> _ret;</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+</div><!-- fragment --> </div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

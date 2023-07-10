@@ -1,0 +1,386 @@
+ Indiquez le fichier med a decrire : 
+
+Maillage de nom |maa1| et de dimension 3
+Nombre de champs : 3
+
+- Champ numero :     1
+
+     Nom du champ  : champ entier
+
+     Nom du maillage : maa1
+     Type du champ :    28
+     Composante 1  : comp1 unit1
+     Composante 2  : comp2 unit2
+     Composante 3  : comp3 unit3
+     Nombre de pas de temps = 1
+ 
+     Séquence de calcul n°  1 (-1,-1), dt=(.00000E+00)
+     Il y a     5 valeurs en mode  2. Chaque entite MED_NODE de type geometrique (AUCUN) associes au profil || a  1 valeur(s) par entité une localization de nom ||
+ Le maillage associe est maa1                                                            
+     - Valeurs :
+     
+ |
+        0
+        1
+        0
+ |
+        0
+       11
+        0
+ |
+        0
+       21
+        0
+ |
+        0
+       31
+        0
+ |
+        0
+       41
+        0
+ |
+ 
+     Séquence de calcul n°  1 (-1,-1), dt=(.00000E+00)
+     Il y a     3 valeurs en mode  2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profil |PROFIL(champ2)| a  1 valeur(s) par entité une localization de nom ||
+ Le maillage associe est maa1                                                            
+     - Valeurs :
+     
+ |
+        0
+        0
+        2
+ |
+        0
+        0
+       22
+ |
+        0
+        0
+       42
+ |
+     Profil :PROFIL(champ2)                                                  
+     Taille du profil :     3
+     Valeurs du profil : 
+          1
+          3
+          5
+ 
+     Séquence de calcul n°  1 (-1,-1), dt=(.00000E+00)
+     Il y a     5 valeurs en mode  2. Chaque entite MED_DESCENDING_FACE de type geometrique MED_TRIA6 associes au profil || a  1 valeur(s) par entité une localization de nom ||
+ Le maillage associe est maa1                                                            
+     - Valeurs :
+     
+ |
+        0
+        0
+        2
+ |
+        0
+        0
+       12
+ |
+        0
+        0
+       22
+ |
+        0
+        0
+       32
+ |
+        0
+        0
+       42
+ |
+ 
+     Séquence de calcul n°  1 (-1,-1), dt=(.00000E+00)
+     Il y a     5 valeurs en mode  2. Chaque entite MED_DESCENDING_EDGE de type geometrique MED_SEG2 associes au profil || a  1 valeur(s) par entité une localization de nom ||
+ Le maillage associe est maa1                                                            
+     - Valeurs :
+     
+ |
+        0
+        0
+        0
+ |
+       10
+        0
+        0
+ |
+       20
+        0
+        0
+ |
+       30
+        0
+        0
+ |
+       40
+        0
+        0
+ |
+ 
+ 
+- Champ numero :     2
+
+     Nom du champ  : champ entier 3
+
+     Nom du maillage : maa1
+     Type du champ :    24
+     Composante 1  : comp1 unit1
+     Composante 2  : comp2 unit2
+     Nombre de pas de temps = 1
+ 
+ 
+     Séquence de calcul n°  1 (-1,-1), dt=(.00000E+00)
+     Il y a    20 valeurs en mode  2. Chaque entite MED_CELL de type geometrique MED_QUAD4 associes au profil || a  1 valeur(s) par entité une localization de nom ||
+ Le maillage associe est maa1                                                            
+     - Valeurs :
+     
+ |
+        0
+        0
+ |
+       10
+        0
+ |
+       20
+        0
+ |
+       30
+        0
+ |
+       40
+        0
+ |
+       50
+        0
+ |
+       60
+        0
+ |
+       70
+        0
+ |
+       80
+        0
+ |
+       90
+        0
+ |
+      100
+        0
+ |
+      110
+        0
+ |
+      120
+        0
+ |
+      130
+        0
+ |
+      140
+        0
+ |
+      150
+        0
+ |
+      160
+        0
+ |
+      170
+        0
+ |
+      180
+        0
+ |
+      190
+        0
+ |
+ 
+ 
+ 
+     Séquence de calcul n°  1 (-1,-1), dt=(.00000E+00)
+     Il y a     5 valeurs en mode  2. Chaque entite MED_NODE_ELEMENT de type geometrique MED_QUAD4 associes au profil || a  4 valeur(s) par entité une localization de nom ||
+ Le maillage associe est maa1                                                            
+     - Modèle de localisation des points de Gauss de nom 
+     - Valeurs :
+     
+ |
+        0
+        1
+       10
+       11
+       20
+       21
+       30
+       31
+ |
+       40
+       41
+       50
+       51
+       60
+       61
+       70
+       71
+ |
+       80
+       81
+       90
+       91
+      100
+      101
+      110
+      111
+ |
+      120
+      121
+      130
+      131
+      140
+      141
+      150
+      151
+ |
+      160
+      161
+      170
+      171
+      180
+      181
+      190
+      191
+ |
+     Séquence de calcul n°  2 (-1,-1), dt=(.00000E+00)
+     Il y a     3 valeurs en mode  2. Chaque entite MED_NODE_ELEMENT de type geometrique MED_QUAD4 associes au profil |PROFIL(champ2)| a  4 valeur(s) par entité une localization de nom ||
+ Le maillage associe est maa1                                                            
+     - Modèle de localisation des points de Gauss de nom 
+     - Valeurs :
+     
+ |
+        0
+        1
+       10
+       11
+       20
+       21
+       30
+       31
+ |
+       80
+       81
+       90
+       91
+      100
+      101
+      110
+      111
+ |
+      160
+      161
+      170
+      171
+      180
+      181
+      190
+      191
+ |
+     Profil :PROFIL(champ2)                                                  
+     Taille du profil :     3
+     Valeurs du profil : 
+          1
+          3
+          5
+ 
+- Champ numero :     3
+
+     Nom du champ  : champ reel
+
+     Nom du maillage : maa1
+     Type du champ :     6
+     Composante 1  : comp1 unit1
+     Composante 2  : comp2 unit2
+     Nombre de pas de temps = 5
+ 
+ 
+     Séquence de calcul n°  1 (-1,-1), dt=(.00000E+00)
+     Il y a     1 valeurs en mode  2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profil || a  6 valeur(s) par entité une localization de nom |Model n1|
+ Le maillage associe est maa1                                                            
+     - Modèle de localisation des points de Gauss de nom Model n1
+     - Valeurs :
+     
+ |
+          0.00000E+00
+          0.10000E+01
+          0.20000E+01
+          0.30000E+01
+          0.10000E+02
+          0.11000E+02
+          0.12000E+02
+          0.13000E+02
+          0.20000E+02
+          0.21000E+02
+          0.22000E+02
+          0.23000E+02
+ |
+     Séquence de calcul n°  1 ( 1,-1), dt=(.55000E+01)
+     Il y a     2 valeurs en mode  2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profil || a  3 valeur(s) par entité une localization de nom |Model n2|
+ Le maillage associe est maa1                                                            
+     - Modèle de localisation des points de Gauss de nom Model n2
+     - Valeurs :
+     
+ |
+          0.00000E+00
+          0.10000E+01
+          0.20000E+01
+          0.30000E+01
+          0.10000E+02
+          0.11000E+02
+ |
+          0.12000E+02
+          0.13000E+02
+          0.20000E+02
+          0.21000E+02
+          0.22000E+02
+          0.23000E+02
+ |
+     Séquence de calcul n°  1 ( 1, 2), dt=(.55000E+01)
+     Il y a     1 valeurs en mode  2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profil || a  6 valeur(s) par entité une localization de nom |Model n1|
+ Le maillage associe est maa1                                                            
+     - Modèle de localisation des points de Gauss de nom Model n1
+     - Valeurs :
+     
+ |
+          0.00000E+00
+          0.00000E+00
+          0.20000E+01
+          0.00000E+00
+          0.10000E+02
+          0.00000E+00
+          0.12000E+02
+          0.00000E+00
+          0.20000E+02
+          0.00000E+00
+          0.22000E+02
+          0.00000E+00
+ |
+     Séquence de calcul n°  1 ( 2, 2), dt=(.56000E+01)
+     Il y a     1 valeurs en mode  2. Chaque entite MED_CELL de type geometrique MED_TRIA6 associes au profil |PROFIL(champ(1))| a  3 valeur(s) par entité une localization de nom |Model n2|
+ Le maillage associe est maa1                                                            
+     - Modèle de localisation des points de Gauss de nom Model n2
+     - Valeurs :
+     
+ |
+          0.12000E+02
+          0.13000E+02
+          0.20000E+02
+          0.21000E+02
+          0.22000E+02
+          0.23000E+02
+ |
+     Profil :PROFIL(champ(1))                                                
+     Taille du profil :     1
+     Valeurs du profil : 
+          2

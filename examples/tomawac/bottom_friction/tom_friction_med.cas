@@ -1,0 +1,63 @@
+/--------------------------------------------------------------------
+/             FICHIER DES PARAMETRES DE TOMAWAC
+/--------------------------------------------------------------------
+/     FICHIERS
+/--------------------------------------------------------------------
+GEOMETRY FILE = 'Mesh_1F.med'
+GEOMETRY FILE FORMAT            = MED
+BOUNDARY CONDITIONS FILE = condlim.bcd
+/
+2D RESULTS FILE = 'r2d_friction.med'
+2D RESULTS FILE FORMAT='MED'
+PUNCTUAL RESULTS FILE = 'spe_frot.med'
+SPECTRUM FILE FORMAT='MED'
+/
+GLOBAL RESULT FILE='glob_friction.med'
+GLOBAL RESULT FILE FORMAT = MED
+/--------------------------------------------------------------------
+/ DIVERS ENTREES-SORTIES
+/--------------------------------------------------------------------
+TITLE = 'TEST FROTTEMENT AU FOND SUR FOND PLAT'
+PERIOD FOR GRAPHIC PRINTOUTS = 25
+VARIABLES FOR 2D GRAPHIC PRINTOUTS = HM0,DMOY,FMOY,FM01
+PERIOD FOR LISTING PRINTOUTS = 20
+ORDINATES OF SPECTRUM PRINTOUT POINTS = 0.
+ABSCISSAE OF SPECTRUM PRINTOUT POINTS = 0.
+/--------------------------------------------------------------------
+/ DISCRETISATION
+/--------------------------------------------------------------------
+TIME STEP = 100.
+NUMBER OF TIME STEP = 300
+NUMBER OF DIRECTIONS = 24
+MINIMAL FREQUENCY = 0.056447393
+FREQUENTIAL RATIO = 1.1
+NUMBER OF FREQUENCIES = 25
+/--------------------------------------------------------------------
+/ OPTIONS DU CALCUL
+/--------------------------------------------------------------------
+INFINITE DEPTH = NO
+SPHERICAL COORDINATES = NO
+CONSIDERATION OF SOURCE TERMS = YES
+BOTTOM FRICTION DISSIPATION = 1
+CONSIDERATION OF A STATIONARY CURRENT = NO
+CONSIDERATION OF A WIND = NO
+/--------------------------------------------------------------------
+/ CONDITIONS INITIALES
+/--------------------------------------------------------------------
+TYPE OF INITIAL DIRECTIONAL SPECTRUM = 6
+INITIAL SIGNIFICANT WAVE HEIGHT = 1.
+INITIAL PEAK FREQUENCY = 0.1
+INITIAL PEAK FACTOR = 1.
+INITIAL DIRECTIONAL SPREAD 1 = 6.
+INITIAL MAIN DIRECTION 1 = 0.
+INITIAL WEIGHTING FACTOR FOR ADF = 1.
+SPECTRUM TAIL FACTOR = 0
+/--------------------------------------------------------------------
+/ CONDITIONS AUX LIMITES
+/--------------------------------------------------------------------
+TYPE OF BOUNDARY DIRECTIONAL SPECTRUM = 6
+BOUNDARY SIGNIFICANT WAVE HEIGHT = 1.
+BOUNDARY PEAK FREQUENCY = 0.1
+BOUNDARY PEAK FACTOR = 1.
+BOUNDARY DIRECTIONAL SPREAD 1 = 6.
+BOUNDARY MAIN DIRECTION 1 = 0.

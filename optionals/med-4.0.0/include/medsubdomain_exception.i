@@ -1,0 +1,8 @@
+%MedException(MEDsubdomainJointCr)
+%MedException(MEDsubdomainCorrespondenceWr)
+%MedException(MEDnSubdomainJoint)
+%MedException(MEDsubdomainJointInfo)
+%MedException(MEDsubdomainComputingStepInfo)
+%MedException(MEDsubdomainCorrespondenceSizeInfo)
+%MedException(MEDsubdomainCorrespondenceSize)
+%MedException(MEDsubdomainCorrespondenceRd)

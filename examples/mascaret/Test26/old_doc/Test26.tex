@@ -1,0 +1,169 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{amsmath}
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P2}
+
+\subsection*{Validation du noyau fluvial transitoire}
+
+\subsection*{\emph{Ecoulement permanent dans des casiers}}
+
+\subsection*{Numéro du cas test : 26}
+
+\subsection*{Auteur : Fabrice ZAOUI}
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+Le cas test consiste à  calculer l'écoulement permanent dans un réseau de trois biefs en présence de casiers et de liaisons diverses. La version V7P2 du code a introduit un nouvel algorithme de résolution où le 
+système des casiers et liaisons est directement implicité dans la matrice de résolution du noyau fluvial transitoire. Il s'agit de valider le calcul de l'évolution des cotes dans les casiers et des débits échangés
+dans les liaisons par rapport à l'ancien algorithme (présent dans la V7P1) sans couplage matriciel direct.
+
+\subsection*{Données géométriques}
+
+Le calcul est réalisé dans des canaux schématiques avec des liaisons rivières-casiers et casiers-casiers. 
+Chaque bief a une longueur d'un kilomètre et est connecté à un casier.
+Le bief $1$ est connecté au casier $1$ par une liaison de type orifice.
+Le bief $2$ est connecté au casier $2$ par une liaison de type chenal.
+Le bief $3$ est connecté au casier $3$ par une liaison de type siphon.
+Les casiers $2$ et $3$ sont connectés entre eux par deux liaisons de type seuil.
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=0,width=7cm]{reseau.eps}
+  \caption{Réseau hydraulique}
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+
+\subsection*{Données physiques}
+
+\begin{itemize}
+  \item Conditions initiales :
+  \begin{itemize}
+     \item les casiers $1$,$2$ et $3$ ont respectivement une cote d'eau de $15$, $15$ et $14\ m$;
+     \item la ligne d'eau de départ est quasi horizontale avec un débit constant par bief de $400$,$400$ et $800\ m^3/s$.
+  \end{itemize}
+  \item Conditions aux limites :
+  \begin{itemize}
+     \item les condtions sur les extrémités libres des biefs $1$ et $2$ sont un débit constant de valeur $400\ m^3/s$;
+     \item la condition sur l'extrémité libre du bief $3$ est une cote imposée égale à $12\ m$.
+  \end{itemize}
+\end{itemize}
+
+\subsection*{Données numériques}
+
+Le maillage utilisé comporte $63$ cellules ($\Delta x = 50\ m$).
+
+Le pas de planimétrage est homogène dans le domaine égal à $0.3\ cm$.
+
+Le calcul est effectué jusqu'à $10000\ s$ avec un pas de temps de $10\ s$.
+
+
+\subsection*{Résultats}
+
+Les figures \ref{fig2} à \ref{fig4} montrent une comparaison de l'évolution des cotes dans chaque casier entre l'ancien algorithme basé sur le code indépendant \texttt{CASIER} et le nouvel algorithme matriciel
+qui vient s'intégrer dans la matrice de résolution du noyau fluvial transitoire.
+
+De même, les figures \ref{fig5} à \ref{fig9} montrent une comparaison de l'évolution des débits des liaisons entre les deux versions du code.
+
+Les résultats sont semblables sauf pour le pic de débit initial des liaisons seuils comme le montre sur un zoom la figure \ref{fig10}. 
+
+\subsection*{Conclusion}
+
+Le nouvel algorithme de couplage direct des casiers et liaisons est validé sur un cas schématique en comparaison de l'ancien code \texttt{CASIER} du système \texttt{MASCARET}.
+Les temps de calcul de ces deux résolutions différentes ne sont pas comparés en raison de la trop faible taille du cas d'étude.
+
+\newpage
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Casier1.eps}
+  \caption{Evolution des cotes dans le casier $1$}
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Casier2.eps}
+  \caption{Evolution des cotes dans le casier $2$}
+  \label{fig3}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Casier3.eps}
+  \caption{Evolution des cotes dans le casier $3$}
+  \label{fig4}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Liaison1.eps}
+  \caption{Evolution des débits échangés dans la liaison $1$}
+  \label{fig5}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Liaison2.eps}
+  \caption{Evolution des débits échangés dans la liaison $2$}
+  \label{fig6}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Liaison3.eps}
+  \caption{Evolution des débits échangés dans la liaison $3$}
+  \label{fig7}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Liaison4.eps}
+  \caption{Evolution des débits échangés dans la liaison $4$}
+  \label{fig8}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Liaison5.eps}
+  \caption{Evolution des débits échangés dans la liaison $5$}
+  \label{fig9}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Diff.eps}
+  \caption{Différence initiale sur le pic de débit de la liaison $8$}
+  \label{fig10}
+ \end{center}
+\end{figure}
+
+%
+% fin du document
+%
+\end{document}          

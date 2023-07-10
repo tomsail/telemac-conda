@@ -1,0 +1,67 @@
+/----------------------------------------------------------------------
+/
+/ Steering file for the hydrodynamics: TELEMAC-3D
+/
+TITLE = 'THERMAL BUDGET PROCESSES IN A BOX'
+/
+/----------------------------------------------------------------------
+/  FILES
+/----------------------------------------------------------------------
+/
+GEOMETRY FILE                = 'geo_reservoir.slf'
+BOUNDARY CONDITIONS FILE     = 'geo_reservoir.cli'
+3D RESULT FILE               = 'r3d_reservoir_monoclass.slf'
+/
+/----------------------------------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------------------------------
+/
+VARIABLES FOR 3D GRAPHIC PRINTOUTS = 'U,V,Z'
+/
+GRAPHIC PRINTOUT PERIOD          = 60
+LISTING PRINTOUT PERIOD          = 600
+MASS-BALANCE                     = YES
+/
+DURATION                         = 600
+TIME STEP                        = 0.1
+NUMBER OF HORIZONTAL LEVELS      = 5
+/
+/
+/----------------------------------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------------------------------
+/
+INITIAL CONDITIONS         = 'CONSTANT ELEVATION'
+INITIAL ELEVATION          = 1.
+/
+INITIAL VALUES OF TRACERS  = 0. ; 0.
+/
+/----------------------------------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------------------------------
+/
+LAW OF BOTTOM FRICTION           = 0
+LATITUDE OF ORIGIN POINT         = 44.73
+/
+HORIZONTAL TURBULENCE MODEL                     = 1
+VERTICAL TURBULENCE MODEL                       = 1
+/
+COEFFICIENT FOR HORIZONTAL DIFFUSION OF TRACERS = 6.912D-05
+COEFFICIENT FOR VERTICAL DIFFUSION OF TRACERS   = 6.912D-05
+/
+/----------------------------------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------------------------------
+/
+TIDAL FLATS                       = NO
+/
+/----------------------------------------------------------------------
+/  THERMIC PROCESS
+/----------------------------------------------------------------------
+/
+COUPLING WITH                = 'KHIONE'
+KHIONE STEERING FILE         = 'ice_reservoir_multiclass.cas'
+AIR TEMPERATURE = -25.
+/
+/----------------------------------------------------------------------
+/

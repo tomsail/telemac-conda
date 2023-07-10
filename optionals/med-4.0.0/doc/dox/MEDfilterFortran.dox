@@ -1,0 +1,75 @@
+/**\ingroup MEDfilterFortran
+   \fn subroutine mfrcre(integer fid, integer nent, integer nvent, integer ncent, integer cs, integer swm, integer stm, character*(*) pname, integer fltas, integer:dimension(*) flta, integer*8 flt, integer cret)
+   \brief \MEDfilterBrief
+   \param fid \fid
+   \param nent \nentity \nentityMEDfilterCm
+   \param nvent \nvaluesperentity \nvaluesperentityMEDfilterCm \nvaluesperentityMEDfilterEx
+   \param ncent \nconstituentpervalue \nconstituentpervalueMEDfilterEx
+   \param cs \constituentselect \constituentselectMEDfilterEx
+   \param swm \switchmode
+   \param stm \storagemode
+   \param pname \profilename
+   \param fltas \filterarraysize \filterarraysizeMEDfilterCm
+   \param flta \filterarray
+   \param flt \filter \filterMEDfilterCm
+   \param cret \error
+   \see MEDfilter
+   \details \MEDfilterDetails
+   \par Remarques
+   \MEDfilterNote
+*/
+
+
+/**\ingroup MEDfilterFortran
+   \fn subroutine mfrall(integer nflt, integer*8:dimension(*) flt, integer cret)
+   \brief \MEDfilterAllocateBrief
+   \param nflt \nfilter
+   \param flt \filterMEDfilterCm
+   \param cret \error
+   \see MEDfilterAllocate
+   \details \MEDfilterAllocateDetails
+   \par Remarques
+   \MEDfilterNote
+*/
+
+
+/**\ingroup MEDfilterFortran
+   \fn subroutine mfrdea(integer nflt, integer*8:dimension(*) flt, integer cret)
+   \brief \MEDfilterDeAllocateBrief
+   \param nflt \nfilter
+   \param flt \filter
+   \param cret \error
+   \see MEDfilterDeAllocate
+   \details \MEDfilterDeAllocateDetails
+   \par Remarques
+   \MEDfilterNote
+*/
+
+
+
+
+/**\ingroup MEDfilterFortran
+   \fn subroutine mfrblc(integer fid, integer nent, integer nvent, integer ncent, integer cs, integer swm, integer stm, character*(*) pname, integer start, integer stride, integer count, integer bsize, integer lbsize, integer*8 flt, integer cret)
+   \brief \MEDfilterBlockOfEntityBrief
+   \param fid \fid
+   \param nent \nentity \nentityMEDfilterCm
+   \param nvent \nvaluesperentity \nvaluesperentityMEDfilterCm \nvaluesperentityMEDfilterEx
+   \param ncent \nconstituentpervalue \nconstituentpervalueMEDfilterEx
+   \param cs \constituentselect \constituentselectMEDfilterEx
+   \param swm \switchmode
+   \param stm \storagemode
+   \param pname \profilename
+   \param start \start
+   \param stride \stride
+   \param count \count
+   \param bsize \blocksize
+   \param lbsize \lastblocksize
+   \param flt \filter \filterMEDfilterCm
+   \param cret \error
+   \see MEDfilterBlockOfEntity
+   \details \MEDfilterBlockOfEntityDetails
+   \par Remarques
+   \MEDfilterNote
+*/
+
+

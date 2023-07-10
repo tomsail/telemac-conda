@@ -1,0 +1,135 @@
+\chapter{Port of Borme les Mimosas (creocean)}
+\section{Purpose}
+This Artemis case describes the analysis of the harbor agitation in the port of Borme les Mimosas. It
+gives an example of the use of the code in a concrete case: choice of different reflection coefficients
+of reflection, parallel calculation, etc...
+\section{Description of the problem}
+\subsection{Geometry and mesh}
+The domain is equally delimited by the solid and liquid walls. Several assumptions
+are applied for the liquid boundary conditions to the north, as well as for the solid walls.txt
+We will detail them in 2.3. The bathymetry can be visualized in Figure \ref{fig:creocean_bathy}.
+The initial coastline of the free surface is 0.5 m.
+\begin{figure}[h]
+\begin{center}
+  \includegraphicsmaybe{[width=0.5\textwidth]}{../img/Bathy.png}
+\end{center}
+\caption{Geometry.}
+\label{fig:creocean_bathy}
+\end{figure}
+
+The mesh consists of 62261 triangle elements and 31645 nodes. The size
+of a mesh is 3m. The mesh can be visualized on figure \ref{fig:creocean_mesh}.
+\begin{figure}[h]
+\begin{center}
+  \includegraphicsmaybe{[width=0.5\textwidth]}{../img/Mesh.png}
+\end{center}
+\caption{Mesh.}
+\label{fig:creocean_mesh}
+\end{figure}
+\subsection{Boundary conditions}
+\begin{figure}[h]
+\begin{center}
+  \includegraphicsmaybe{[width=0.5\textwidth]}{creocean_bc.png}
+\end{center}
+\caption{Bound.}
+\label{fig:creocean_bc}
+\end{figure}
+Incident wave:
+Wave 1 :
+\begin{itemize}
+\item Peak period = 8 s
+\item Max and Min period : 12 s and 6 s.
+\item Spectrum parameter: gamma = 2.
+\item Wave height : 2 m
+\item Direction of propagation $\theta =180^\circ$
+\item Exit direction : 63$^\circ$.
+\end{itemize}
+Wave 2:
+\begin{itemize}
+\item Peak period = 8 s
+\item Max and Min period : 12 s and 6 s.
+\item Spectrum parameter : gamma = 2.
+\item Wave height : 2 m
+\item Direction of propagation : $\theta =180^\circ$
+\item Exit direction : 0 $^\circ$.
+\end{itemize}
+Wave 3:
+\begin{itemize}
+\item Peak period = 8 s
+\item Max and Min period : 12 s and 6 s.
+\item Spectrum parameter : gamma = 2.
+\item Wave height : 2 m
+\item Direction of propagation : $\theta =180^\circ$.
+\item Exit direction : 73$^\circ$.
+\end{itemize}
+
+For these three boundaries, the phase is computed incrementally on the boundary
+from a reference point, which we will denote A :
+\begin{equation}
+  \Phi_I=\Sigma_{P=A}^{I-1}k(P)cos(\Theta) (x_{P+1}-x_{P})
+  \end{equation}
+Where $k(P)$ is the wave number at the boundary point P.
+This phase, converted to degrees, is provided to the code in the ALFAP table.
+Walls :
+Absorbing wall 1 :
+\begin{itemize}
+\item Reflection coefficient = 0.
+\item Phase shift : 0$^\circ$.
+\item Angle of attack: 0$^\circ$.
+\end{itemize}
+Wall 1 :
+\begin{itemize}
+\item Reflection coefficient = 0.05
+\item Phase shift : 0$^\circ$.
+\item Angle of attack : 0$^\circ$.
+\end{itemize}
+Wall 2 :
+\begin{itemize}
+\item Reflection coefficient = 0.15
+\item Phase shift : 0$^\circ$.
+\item Angle of attack : 45$^\circ$.
+\end{itemize}
+Wall 3 :
+\begin{itemize}
+\item Reflection coefficient = 0.05
+\item Phase shift : 0$^\circ$.
+\item Angle of attack : 0$^\circ$.
+\end{itemize}
+Wall 4 (+ island):
+\begin{itemize}
+\item Reflection coefficient = 1.
+\item Phase shift : 0$^\circ$.
+\item Angle of attack : 0$^\circ$..
+\end{itemize}
+Wall 5 :
+\begin{itemize}
+\item Reflection coefficient = 0.15
+\item Phase shift : 0$^\circ$.
+\item Angle of attack : 0$^\circ$.
+\end{itemize}
+\section{Results}
+
+\begin{figure}[h]
+\begin{center}
+  \includegraphicsmaybe{[width=0.5\textwidth]}{../img/WaveHeight.png}
+\end{center}
+\caption{Wave Height.}
+\label{fig:creocean_results}
+\end{figure}
+
+Figure 4 shows the wave heights calculated by ARTEMIS using
+an incremental phase calculation.
+The other requested graphical outputs (not shown here) are wave incidence, bathymetry and breaking ratio.
+
+The goal is to obtain a domain that is not very sensitive to the choice of the phase because this data is
+generally less well known than the wave height or the period.
+Our recommendation is to choose liquid boundaries with fairly homogeneous bathymetries, avoiding imposing the incident
+swell too close to the harbor as it is the case in
+example. Although it is preferable to ensure good physical consistency of the input data.
+
+This example gives a concrete case of the use of Artemis, with random swell
+monodirectional swell. The choice of the reflection coefficients as well as the angles of attack of the
+are interesting for the user.
+Moreover, we find in this test case examples for the treatment of the
+phase.
+

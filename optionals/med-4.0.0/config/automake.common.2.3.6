@@ -1,0 +1,8 @@
+MAINTAINERCLEANFILES = Makefile.in 
+AM_CPPFLAGS=-I$(top_srcdir)/include/2.3.6 -I$(top_builddir)/include/2.3.6
+AM_FFLAGS=-I$(top_srcdir)/include/2.3.6 -I$(top_builddir)/include/2.3.6
+AM_FCFLAGS=-I$(top_srcdir)/include/2.3.6 -I$(top_builddir)/include/2.3.6
+AM_CPPFLAGS+=@HDF5_CPPFLAGS@ @MED_API_23@
+AM_LDFLAGS=@HDF5_LDFLAGS@
+#AM_ETAGSFLAGS=
+

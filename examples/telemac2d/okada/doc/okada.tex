@@ -1,0 +1,69 @@
+\chapter{Tsunami generation with the Okada model (okada)}
+
+\section{Purpose}
+The Okada model \cite{Okada1985} has been implemented in \telemac{2D} to
+simulate the free surface displacement due to underwater earthquake.
+The Okada model is based on a number of parameters characterising the fault
+displacement, each parameter being given in the steering file by the user.
+An illustration of the definition of each parameter is shown in Figure
+\ref{fig:okada:scheme}.
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.6\textwidth]}{img/schema.png}
+\caption{Scheme of Okada model.}\label{fig:okada:scheme}
+\end{figure}
+
+This test case demonstrates the ability of \telemac{2D} to generate a tsunami
+and to propagate it through open boundary conditions without parasite reflexions.
+
+\section{Description}
+For illustrative purposes we consider a square domain of 600~km within which the
+tsunami wave will be developed as an initial free surface condition.
+The tsunami wave will then fall on itself and propagate out of the domain.
+
+\subsection{Geometry and Mesh}
+The area is 600~km long by 600~km wide and 5~km deep.
+The channel bottom is placed at $z$ = -5,000~m.
+The edge length of the mesh is uniform, set at about 10~km.
+
+\begin{figure}
+\centering
+\includegraphicsmaybe{[width=0.6\textwidth]}{../img/Mesh.png}
+\caption{Mesh of the domain.}\label{fig:okada:mesh}
+\end{figure}
+
+\subsection{Parameters}
+The Okada model is activated with the set of keywords:
+\begin{itemize}
+\item \telkey{OPTION FOR TSUNAMI GENERATION} = 1,
+\item \telkey{PHYSICAL CHARACTERISTICS OF THE TSUNAMI} =\\
+100.;210000.;75000.;13.6;81.;41.;110.;37.;-11.5;3.
+\end{itemize}
+
+See the \telemac{2D} user manual for a description of the keywords in reference
+to the tsunami characteristics.
+
+\section{Results}
+Figures \ref{fig:okada:Freesurface} and \ref{fig:okada:FreesurfaceProfile} show
+that the initial tsunami wave is set at the start of the simulation ($t$ = 0~s)
+and then falls on itself ($t$ = 10 min) and out of the computation domain
+computation ($t$ = 20~min).
+
+\begin{figure}
+\centering
+\includegraphicsmaybe{[width=0.49\textwidth]}{../img/FreeSurfacet0.png}
+\includegraphicsmaybe{[width=0.49\textwidth]}{../img/FreeSurfacet2.png}
+\includegraphicsmaybe{[width=0.49\textwidth]}{../img/FreeSurfacet4.png}
+\caption{Free Surface at time 0, 10 and 20~min.}\label{fig:okada:Freesurface}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphicsmaybe{[width=0.99\textwidth]}{../img/FS_section.png}
+\caption{Profile of the free surface on the diagonal at time 0, 5, 10, 15 and 20~min.}\label{fig:okada:FreesurfaceProfile}
+\end{figure}
+
+\section{Conclusion}
+This test case demonstrates the ability of \telemac{2D} to generate a tsunami
+and to propagate it through open boundary conditions without parasite reflexions.

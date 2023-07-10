@@ -1,0 +1,18 @@
+AT_SETUP([test python test_medmesh])
+
+AT_KEYWORDS([python test_medmesh])
+
+# List of executables that should be run to perform the tests
+#AT_TESTED([test_medmesh.py])
+
+# AT_CHECK([cp $abs_srcdir/test_medmesh.expout expout],[0],[ignore],[ignore])
+
+AT_CHECK([LC_ALL=C.UTF-8 $PYTHON  $testpydir/test_medmesh.py],
+         [0],
+         [ignore],
+         [ignore],
+	 [],
+	 [ln test_medmesh.med $builddir/test_medmesh.med]
+	 )
+
+AT_CLEANUP

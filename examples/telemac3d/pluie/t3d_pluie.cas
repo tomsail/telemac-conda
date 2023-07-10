@@ -1,0 +1,87 @@
+/  HP C3700 compilateur HP       :   4 s    version 5.7  14/02/2007
+/  HP C3700 compilateur Nag      :   5 s    version 5.7  20/04/2007
+/  Dell 2.8 MHz compilateur pgi  :   1 s    version 5.7  20/04/2007
+/
+/  HP C3700 compilateur HP       :   1 s    version 5.8  26/12/2007
+/  HP C3700 compilateur Nag      :   1 s    version 5.8  16/01/2008
+/  Dell 2.8 MHz compilateur pgi  :   0 s    version 5.8  03/01/2008
+/
+/  HP C3700 compilateur HP       :   1 s    version 5.9  17/10/2008
+/  HP C3700 compilateur Nag      :   ? s    version 5.9
+/  Dell 2.8 MHz compilateur pgi  :   1 s    version 5.9  17/10/2008
+/
+/  HP C3700 compilateur HP         : 2 s    version 6.2  30/05/2012
+/----------------------------------------------------------------------
+/      POUR LE FICHIER CNTL
+/----------------------------------------------------------------------
+TITLE = 'TELEMAC 3D : CANAL'
+/
+BOUNDARY CONDITIONS FILE : geo_pluie.cli
+GEOMETRY FILE            : geo_pluie.slf
+3D RESULT FILE           : r3d_pluie.slf
+2D RESULT FILE           : r2d_pluie.slf
+/----------------------------------------------------------------------
+/     OPTIONS GENERALES
+/----------------------------------------------------------------------
+RAIN OR EVAPORATION : YES
+RAIN OR EVAPORATION IN MM PER DAY : 864000.
+/
+/ ESSAI
+/ VALEURS DES TRACEURS DANS LA PLUIE : 32.
+/
+NUMBER OF TIME STEPS = 3
+TIME STEP = 1.
+GRAPHIC PRINTOUT PERIOD = 1
+LISTING PRINTOUT PERIOD = 1
+NUMBER OF HORIZONTAL LEVELS = 21
+/
+INITIAL CONDITIONS : 'CONSTANT DEPTH'
+INITIAL DEPTH : 10.
+/
+VARIABLES FOR 2D GRAPHIC PRINTOUTS = 'U,V,H,B,S,RB,EF,US'
+VARIABLES FOR 3D GRAPHIC PRINTOUTS = 'Z,U,V,W,TA1'
+MASS-BALANCE = YES
+/-------------------------
+/  CONVECTION-DIFFUSION
+/-------------------------
+SCHEME FOR ADVECTION OF VELOCITIES = 1
+SCHEME FOR ADVECTION OF TRACERS : 5
+/
+HORIZONTAL TURBULENCE MODEL = 1
+COEFFICIENT FOR HORIZONTAL DIFFUSION OF VELOCITIES = 0.1D0
+VERTICAL TURBULENCE MODEL = 2
+MIXING LENGTH MODEL : 3
+COEFFICIENT FOR VERTICAL DIFFUSION OF VELOCITIES   = 1.D-6
+/
+PRECONDITIONING FOR DIFFUSION OF VELOCITIES = 7
+/----------------------------
+/     TERMES SOURCES
+/----------------------------
+FRICTION COEFFICIENT FOR THE BOTTOM = 0.0162
+LAW OF BOTTOM FRICTION = 5
+/----------------------------
+/     PROPAGATION
+/----------------------------
+ACCURACY FOR DIFFUSION OF VELOCITIES = 1.E-6
+/
+IMPLICITATION FOR DEPTH      = 0.6
+IMPLICITATION FOR VELOCITIES = 0.6
+SOLVER FOR PROPAGATION : 8
+/----------------------------
+/          SEDIMENT
+/----------------------------
+NUMBER OF TRACERS : 1
+NAMES OF TRACERS : 'SALINITY        KG/M3'
+INITIAL VALUES OF TRACERS : 32.
+SOLVER FOR DIFFUSION OF TRACERS = 8
+/
+COEFFICIENT FOR VERTICAL DIFFUSION OF TRACERS = 1.E-4
+/
+MASS-LUMPING FOR DEPTH      : 1.
+MASS-LUMPING FOR DIFFUSION  : 1.
+/
+/ DEFAULT VALUE UNTIL V7P3 KEPT FOR NON REGRESSION
+NON-HYDROSTATIC VERSION : NO
+/
+/ DEFAULT VALUE UNTIL V8P0 KEPT FOR NON REGRESSION
+SCHEME OPTION FOR ADVECTION OF TRACERS = 1

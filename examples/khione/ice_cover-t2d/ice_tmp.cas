@@ -1,0 +1,30 @@
+////////////////////////////////////////////////////////////////////////
+/// 1-computation environment
+/// 1.1-input
+/// 1.1.1-data
+BOUNDARY CONDITIONS FILE = 'geo_longflume.cli'
+GEOMETRY FILE = 'geo_longflume.slf'
+/// 1.2-output
+/// 1.2.1-results
+RESULTS FILE = 'ice_cover_v04.slf'
+/// 1.3-restart
+PREVIOUS ICE COVER COMPUTATION FILE = 'ini_cover_v04.slf'
+/// 1.4-output
+VARIABLES FOR GRAPHIC PRINTOUTS = 'COV_EQ,COV_ET,COV_EB,COV_THT'
+GRAPHIC PRINTOUT PERIOD = 360
+/// 1.4.1-listing
+LISTING PRINTOUT PERIOD = 360
+////////////////////////////////////////////////////////////////////////
+/// 2-ice cover
+/// 2.1-physical parameters
+/// 2.1.1-friction
+LAW OF ICE COVER FRICTION = 4
+ICE FRICTION COEFFICIENT = 0.02
+MODEL FOR UNDER COVER FRICTION = 2
+MODEL FOR THE ICE COVER PRESSURE GRADIENT = 2
+////////////////////////////////////////////////////////////////////////
+/// 3-thermal budget
+HEAT BUDGET = False
+////////////////////////////////////////////////////////////////////////
+/// 4-ice cover
+ICE COVER IMPACT ON HYDRODYNAMIC = True

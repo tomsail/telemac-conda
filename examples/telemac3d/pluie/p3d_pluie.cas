@@ -1,0 +1,25 @@
+/
+/**********************************************************************/
+/
+/           FICHIER DE DECLARATION DES MOTS CLES DU CODE               /
+/                            POSTEL 3D                                 /
+/
+/**********************************************************************/
+/
+/
+GEOMETRY FILE     :geo_pluie.slf
+3D RESULT FILE    : f3d_pluie.slf
+/
+VERTICAL CROSS SECTION FILE      : VV
+/
+NUMBER OF HORIZONTAL CROSS SECTIONS : 0
+NUMBER OF VERTICAL CROSS SECTIONS   : 1
+/
+NUMBER OF FIRST RECORD FOR CROSS SECTIONS : 1
+PRINTOUT PERIOD FOR CROSS SECTIONS : 1
+/
+ABSCISSAE OF THE VERTICES OF VERTICAL CROSS SECTION 1 :
+-5.;5.
+ORDINATES OF THE VERTICES OF VERTICAL CROSS SECTION 1 :
+0.;0.
+DISTORSION BETWEEN VERTICAL AND HORIZONTAL   : 1.

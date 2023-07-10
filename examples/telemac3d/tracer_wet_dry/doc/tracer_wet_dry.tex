@@ -1,0 +1,341 @@
+\chapter{Tracer submitted to wetting and drying (tracer\_wet\_dry)}
+
+\section{Purpose}
+
+This test demonstrates the behaviour of buoyant tracer released from a source in an intertidal environment.
+The purposes are to ensure tracer mass conservation (particularly under wetting and drying),
+and to raise a flag if new code developments have modified the advection or diffusion of tracers.
+
+\section{Description}
+
+The model domain is a channel 2,000~m long and 100~m wide, with a sloping bed.
+Buoyant tracer is added to the model from a source at the middle of the domain (unit flow rate and concentration). The tracer rises to the surface and spreads horizontally, as the water level rises and falls, inundating and exposing part of the bed. Water level variations are defined using a sine curve at the offshore boundary. The characteristics of the case are the following:
+\begin{itemize}
+  \itemsep0em
+\item maximum streamwise velocity of the offshore boundary during simulation $U_0$ = 0.04~m.s$^{-1}$,
+\item water depth amplitude of the offshore boundary (sine curve) $H_0$ = 2.0~m,
+\item total duration of the event $T$ = 33,300~s,
+\item channel length $L$ = 2,000~m,
+\item channel width $l$ = 100~m,
+\item Reynolds Number \textbf{$R_e = \dfrac{U_0 \times H_0}{\nu} =  8 \times 10^4$} where $\nu$ is the kinematic viscosity of water,
+\item Froude Number \textbf{$F_r = \dfrac{U_0}{\sqrt{g \times H_0}} = 0.009$} where $g$ is the gravity acceleration.
+\end{itemize}
+
+\subsection{Geometry and Mesh}
+The model is a channel of length 2,000~m and width 100~m.
+A triangular mesh is constructed on the 2D domain with the following
+characteristics (see Figure \ref{fig:tracerwetdry:Mesh}):
+\begin{itemize}
+\itemsep0em
+\item 1,000 triangular elements,
+\item 606 nodes.
+\end{itemize}
+For the 3D Mesh, 6 regularly spaced planes are used.
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=1.\textwidth]}{../img/mesh.png}
+  \caption{2D Mesh of the Tracer wet/dry case.}\label{fig:tracerwetdry:Mesh}
+\end{figure}
+
+\subsection{Bathymetry}
+
+The bathymetry is a simple sloped bed with constant gradient from $z$ = 0~m to $z$ = 2~m, as in Figure \ref{fig:tracerwetdry:bathy1D}.
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.6\textwidth]}{../img/bathymetry1D.png}
+  \caption{Longitudinal bathymetry profile of the Tracer wet/dry test case.}\label{fig:tracerwetdry:bathy1D}
+\end{figure}
+
+\subsection{Numerical parameters}
+
+\subsection{Initial conditions}
+At the beginning of the simulation, the free surface level is constant and equal to 1.1~m.
+The water is at rest (zero velocity everywhere) and the tracer value is set to 0.
+
+\subsection{Boundary conditions}
+The boundaries are solid everywhere, and the bottom friction is calculated using Nikuradse's formula
+with roughness length of 0.001~m. The elevation and tracer are prescribed with free
+velocity at offshore boundary ($z$ = 0~m). The tracer source is located in abscissa 1,000~m,
+ordinate 60~m and elevation 1~m. At its source, the discharge is set to 1.0~m$^3$/s
+and the tracer value to 1.0~g/L (= 1.0~kg/m$^3$).
+
+\subsection{Cases}
+
+For this test case, three different simulations are run. The following characteristics are common to all cases:\\
+\begin{itemize}
+\itemsep0em
+\item time step: 10~s,
+\item simulation duration: 86,400~s (1 day),
+\item hydrostatic version,
+\item advection of velocities: Characteristics (default scheme until version 8.0).
+\end{itemize}
+
+The simulation parameters specific to each case are summed up in Table \ref{tab:tracerwetdry:cases}.
+\begin{table}[H]
+%  \resizebox{\textwidth}{!}{%
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+      \hline Case & Name & Advection scheme for tracers  \\
+      \hline 1 & LEO POSTMA &  Leo Postma scheme for tidal flats \\
+      \hline 2 & CHAR &  characteristics scheme \\
+      \hline 3 & MURD & N-scheme for tidal flats \\
+      \hline
+    \end{tabular}
+ % }
+  \caption{List of the simulation parameters used for the three cases tested in the Tracer wet/dry example.}
+  \label{tab:tracerwetdry:cases}
+\end{table}
+
+\subsection{Physical parameters}
+In the simulations, the Coriolis force and the wind effect are not taken into account.
+Besides, the viscosity is set as constant and equal to 0.1~m$^2$/s on
+horizontal directions and to 10$^{-6}$~m$^2$/s on the vertical directions.
+
+For the tracer, a constant diffusion is considered.  The diffusivity coefficient value
+is set to 0.01~m$^2$/s on horizontal directions and to 10$^{-6}$~m$^2$/s on the vertical directions.
+The used tracer density law is the $\beta$ spatial expansion with a coefficient
+of 0.0003~K$^{-1}$. The standard value of the tracer is set to 0.
+
+\section{Results}
+
+\subsection{First observations}
+
+The evolution of water depth on the offshore boundary can be seen in Figure \ref{fig:tracerwetdry:offshoreH}.
+
+\begin{figure}[H]
+  \centering
+%ligne1
+  \mbox{
+    \subfloat[][Water depth]{
+    \includegraphicsmaybe{[width=0.5\textwidth]}{../img/offshoreH.png}}
+    \subfloat[][Streamwise velocity]{
+    \includegraphicsmaybe{[width=0.5\textwidth]}{../img/offshoreU.png}}
+  }
+  \caption{Evolution of water depth and velocity on the offshore boundary of the Tracer wet/dry case - Point of coordinates (0~m, 50~m).}\label{fig:tracerwetdry:offshoreH}
+\end{figure}
+
+On the other hand, the evolution of the tracer can be seen in Figure \ref{fig:tracerwetdry:Tracer_LEO}, for scheme LEO POSTMA for example.
+
+\begin{figure}[H]
+  \centering
+  \textbf{$t$=300~s}\par\medskip
+  \includegraphicsmaybe{[width=1.0\textwidth]}{../img/Tracer300_LEO_plane6.png}\\
+  \textbf{$t$=1,800~s}\par\medskip
+  \includegraphicsmaybe{[width=1.0\textwidth]}{../img/Tracer1800_LEO_plane6.png}\\
+  \textbf{$t$=5,400~s}\par\medskip
+  \includegraphicsmaybe{[width=1.0\textwidth]}{../img/Tracer5400_LEO_plane6.png}\\
+  \textbf{$t$=14,400~s}\par\medskip
+  \includegraphicsmaybe{[width=1.0\textwidth]}{../img/Tracer14400_LEO_plane6.png}
+  \caption{Evolution of the tracer at the free surface for case LEO POSTMA on the Tracer wet/dry example.}\label{fig:tracerwetdry:Tracer_LEO}
+\end{figure}
+
+The buoyant tracer rises and is advected onshore by the currents and rising water levels.
+The water then recedes, exposing the bank and carrying the plume offshore. \\
+
+The simulation demonstrates that:
+\begin{itemize}
+\item a source of buoyant tracer behaves as expected (tracer rises to the surface,
+  is advected with the ambient currents, and pools near the source during periods of weak current),
+\item the value of tracer on a dry node is retained from the last time the node was wet.
+\end{itemize}
+
+\subsection{Comparison of schemes}
+\subsubsection*{Performance}
+Performance tests are conducted on the cases. The studied variable here is the water depth.\\
+
+Simulation times for each  of these cases with sequential and parallel runs
+(using 4 processors) are shown in the Table \ref{tab:tracerwetdry:SeqParTimes}\footnote{Keep
+in mind that these times are specific to the validation run and the type of the processors that were used for this purpose.}.
+
+\begin{table}[H]
+  %\resizebox{\textwidth}{!}{%
+    \centering
+    \begin{tabular}{|l}
+      \hline  CPU Time \\
+      \hline Sequential \\
+      Parallel \\
+      \hline
+    \end{tabular}
+    \begin{tabular}{|c|c|c|}
+      \hline  LEO POSTMA & CHAR & MURD\\
+      \hline
+      \InputIfFileExists{../img/TimeSeqPar_Schemes.txt}{}{} \\
+      \hline
+  \end{tabular}%}
+  \caption{Time of simulation for different cases of the Tracer wet/dry example.}
+  \label{tab:tracerwetdry:SeqParTimes}
+\end{table}
+
+Sequential and parallel simulations results are compared for each case in the Table \ref{tab:tracerwetdry:SeqPar}.
+That allows to quantify the loss of information that goes along with the partitioning of the mesh.
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|}
+    \hline \\
+    \hline  LEO POSTMA \\
+    CHAR \\
+    MURD \\
+    \hline
+  \end{tabular}%
+  \begin{tabular}{|c|c|c|}
+    \hline $||\epsilon||_{L^1}$ & $||\epsilon||_{L^2}$ & $||\epsilon||_{L^{\infty}}$ \\
+    \hline
+    \InputIfFileExists{../img/SeqPar.txt}{}{}\\
+    \hline
+  \end{tabular}
+  \caption{Sequentiel VS Parallel - Errors on water depth values of the Tracer wet/dry case.}
+    \label{tab:tracerwetdry:SeqPar}
+\end{table}
+
+\subsubsection*{Accuracy}
+
+The comparison of the impact of the chosen scheme on the advection of tracer can be seen in Figure \ref{fig:tracerwetdry:Tracer_all}.
+
+\begin{figure}[H]
+  \centering
+  \textbf{LEO POSTMA}\par\medskip
+  \includegraphicsmaybe{[width=1.0\textwidth]}{../img/Tracer33300_LEO_plane6.png}\\
+  \textbf{CHAR}\par\medskip
+  \includegraphicsmaybe{[width=1.0\textwidth]}{../img/Tracer33300_CHAR_plane6.png}\\
+  \textbf{MURD}\par\medskip
+  \includegraphicsmaybe{[width=1.0\textwidth]}{../img/Tracer33300_MURD_plane6.png}
+  \caption{Comparison of tracer at last time step at the free surface all cases on the Tracer wet/dry example.}\label{fig:tracerwetdry:Tracer_all}
+\end{figure}
+
+The behaviours of schemes LEO POSTMA and MURD are comparable. CHAR scheme gives different results.
+In order to check if the values of tracer are physical, the maximum and minimum values during
+the simulation for each scheme are shown resp. in the Tables \ref{tab:tracerwetdry:TNegCheck} and \ref{tab:tracerwetdry:TMaxCheck}.
+
+\begin{table}[H]
+  %\resizebox{\textwidth}{!}{%
+    \centering
+    \begin{tabular}{|l}
+      \hline Schemes \\
+      \hline Minimim H [m] \\
+      \hline
+    \end{tabular}
+    \begin{tabular}{|c|c|c|}
+      \hline  LEO POSTMA & CHAR & MURD\\
+      \hline \InputIfFileExists{../img/Tmins.txt}{}{}\\
+      \hline
+  \end{tabular}%}
+    \caption{Minimum value of tracer through the simulation for each case of the Tracer wet/dry example.}
+  \label{tab:tracerwetdry:TNegCheck}
+\end{table}
+
+\begin{table}[H]
+  %\resizebox{\textwidth}{!}{%
+    \centering
+    \begin{tabular}{|l}
+      \hline Schemes \\
+      \hline Minimim H [m] \\
+      \hline
+    \end{tabular}
+    \begin{tabular}{|c|c|c|}
+      \hline  LEO POSTMA & CHAR & MURD\\
+      \hline \InputIfFileExists{../img/Tmaxs.txt}{}{}\\
+      \hline
+  \end{tabular}%}
+    \caption{Maximum value of tracer through the simulation for each case of the Tracer wet/dry example.}
+  \label{tab:tracerwetdry:TMaxCheck}
+\end{table}
+
+\subsubsection*{Positivity}
+Furthermore, the positivity of the used scheme can be checked for all cases.
+In order to achieve this, the minimum value of the water depth during the whole simulation,
+and on all the points of the mesh, is transcribed in Table \ref{tab:tracerwetdry:NegCheck}.
+
+\begin{table}[H]
+  %\resizebox{\textwidth}{!}{%
+    \centering
+    \begin{tabular}{|l}
+      \hline Schemes \\
+      \hline Minimim H [m] \\
+      \hline
+    \end{tabular}
+    \begin{tabular}{|c|c|c|}
+      \hline  LEO POSTMA & CHAR & MURD\\
+      \hline \InputIfFileExists{../img/hmins.txt}{}{}\\
+      \hline
+  \end{tabular}%}
+    \caption{Minimum value of water depth through the simulation for each case of the Tracer wet/dry example.}
+  \label{tab:tracerwetdry:NegCheck}
+\end{table}
+
+\subsubsection*{Mass conservation}
+The mass conservation can be checked by calculating the volume in the domain during time
+(as the density is constant in time and space). Lost volume is calculated as $V_{initial} - V_{final}$.
+\begin{table}[H]
+  \resizebox{\textwidth}{!}{%
+    \centering
+    \begin{tabular}{|l|c}
+      \hline   & \\
+      \hline \textbf{Sequential} & Lost volume [m$^3$] \\
+      & Relative error \\
+      \hline \textbf{Parallel} & Lost volume [m$^3$] \\
+      & Relative error \\
+      \hline
+    \end{tabular}
+    \begin{tabular}{|c|c|c|}
+      \hline  LEO POSTMA & CHAR & MURD\\
+      \hline
+      \InputIfFileExists{../img/volErrors_schemes.txt}{}{} \\
+      \hline
+      \InputIfFileExists{../img/volErrors_schemes_Parallel.txt}{}{} \\
+      \hline
+  \end{tabular}}
+  \caption{Volume loss and relative error for different schemes of the Tracer wet/dry example.}
+  \label{tab:tracerwetdry:volumeTimes}
+\end{table}
+
+The evolution of water volume is shown in Figure \ref{fig:tracerwetdry:VoLTime}.
+
+\begin{figure}[H]
+\centering
+  \includegraphicsmaybe{[width=0.7\textwidth]}{../img/VolTime.png}
+  \caption{Evolution of water volume for the tested schemes on the Tracer wet/dry case.}
+\label{fig:tracerwetdry:VoLTime}
+\end{figure}
+
+There is in fact a volume creation because a free surface evolution is imposed at the upstream
+boundary via a liquid boundaries file (sine curve). In order to have a real check of
+mass conservation, the difference between the volume and the created volume
+generated by the flux can be plotted, in Figure \ref{fig:tracerwetdry:ConservedVoLTime}.
+
+\begin{figure}[H]
+\centering
+  \includegraphicsmaybe{[width=0.7\textwidth]}{../img/ConservedVolTime.png}
+  \caption{Evolution of the initial water volume for the tested schemes on the Tracer wet/dry case.}
+\label{fig:tracerwetdry:ConservedVoLTime}
+\end{figure}
+
+The three studied schemes conserve the mass of water.
+On the other hand, analysis of the tracer mass shows a constant increase
+because of the presence of a source in the middle of the channel (Figure \ref{fig:tracerwetdry:TracerMassTime}).
+
+\begin{figure}[H]
+\centering
+  \includegraphicsmaybe{[width=0.7\textwidth]}{../img/TracerMassTime.png}
+  \caption{Evolution of tracer mass for the tested schemes on the Tracer wet/dry case.}
+\label{fig:tracerwetdry:TracerMassTime}
+\end{figure}
+
+There is a difference between the behaviour of MURD and LEO POSTMA schemes on one side,
+and the CHAR scheme on the other. In order to check if no spurious tracer mass is created,
+we can check the evolution of the difference between the tracer mass and the created tracer
+mass generated by the source (Figure \ref{fig:tracerwetdry:ConservedVoLTime}).
+This shows a behaviour of the characteristics scheme that is unwanted. The LEO POSTMA and MURD schemes behave perfectly.
+
+\begin{figure}[H]
+\centering
+  \includegraphicsmaybe{[width=0.7\textwidth]}{../img/ConservedTracerMassTime.png}
+  \caption{Evolution of the initial tracer mass for the tested schemes on the Tracer wet/dry case.}
+\label{fig:tracerwetdry:ConservedTracerMassTime}
+\end{figure}
+
+\section{Conclusion}
+
+\telemac{3D} correctly simulates the buoyancy of an active tracer, with a good tracer and
+water mass conservation. In order to achieve this kind of simulations, one should use
+the recommanded schemes: LEO POSTMA or MURD.

@@ -1,0 +1,45 @@
+/ This case validates the BIOMASS process
+/  of WAQTEL module
+/
+/****************************************************
+TITLE = 'Water Quality- BIOMASS process for Channel'
+/****************************************************
+/----------------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------------
+GEOMETRY FILE             = 'geo_waq_biomas.slf'
+BOUNDARY CONDITIONS FILE  = 'geo_waq_biomas.cli'
+RESULTS FILE              = 'r2d_waq_biomas.slf'
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'U,V,H,S,Q,T*'
+/
+/ Put a smaller period to have a more
+/ accurate time series
+/
+GRAPHIC PRINTOUT PERIOD          = 5400
+LISTING PRINTOUT PERIOD          = 5400
+MASS-BALANCE                     = YES
+TIME STEP                        = 4.
+NUMBER OF TIME STEPS             = 21600
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+INITIAL CONDITIONS = 'CONSTANT DEPTH'
+INITIAL DEPTH      = 2.
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+LAW OF BOTTOM FRICTION           = 0
+/************************************
+/ TRACER
+/************************************
+/ here after, initial values of PHY,PO4,POR,NO3,NOR
+INITIAL VALUES OF TRACERS      = 0.5;3.;1.1;0.2;4.9
+/************************************
+/  WATER QUALITY
+/************************************
+COUPLING WITH         = 'WAQTEL'
+WAQTEL STEERING FILE  = 'waq_biomass_steer.cas'
+WATER QUALITY PROCESS = 3

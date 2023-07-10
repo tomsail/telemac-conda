@@ -1,0 +1,54 @@
+/ This case validates the BIOMASS process
+/  of  added WAQTEL module
+/
+/**********************************************************
+TITLE = 'Water Quality- BIOMASS  process for Channel in 3D'
+/**********************************************************
+/----------------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------------
+GEOMETRY FILE            = 'geo_waq3d_biomas.slf'
+BOUNDARY CONDITIONS FILE = 'geo_waq3d_biomas.cli'
+3D RESULT FILE           = 'r3d_waq3d_biomas.slf'
+2D RESULT FILE           = 'r2d_waq3d_biomas.slf'
+/----------------------------------------------------------------------
+/     GENERAL OPTIONS
+/----------------------------------------------------------------------
+/SIMULATION TIME : 1 YEAR
+NUMBER OF TIME STEPS               = 8760
+TIME STEP                          = 3600.
+/OUTPUT EVERY 1 MONTH
+GRAPHIC PRINTOUT PERIOD            = 720
+LISTING PRINTOUT PERIOD            = 720
+/ NUMBER OF HORIZONTAL LEVELS REDUCED FROM 5 TO 3 AS DIFFERENCES ARE
+/ LOWER THAN 4.E-9
+/ EVEN LOWER THAN 1.E-15 WITH ACCURACY FOR DIFFUSION OF TRACERS = 1.E-15
+NUMBER OF HORIZONTAL LEVELS        = 3
+/
+VARIABLES FOR 2D GRAPHIC PRINTOUTS = 'U,V,H,TA*'
+VARIABLES FOR 3D GRAPHIC PRINTOUTS = 'Z,U,V,W,TA*'
+MASS-BALANCE                       = YES
+/----------------------------------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------------------------------
+INITIAL CONDITIONS = 'CONSTANT DEPTH'
+INITIAL DEPTH      = 2.
+/----------------------------
+/     SOURCES
+/----------------------------
+LAW OF BOTTOM FRICTION               = 0
+/----------------------------
+/          TRACER
+/----------------------------
+/ here after, initial values of PHY,PO4,POR,NO3,NOR
+INITIAL VALUES OF TRACERS     = 50.;3.;0.01;2.9;9.0
+/************************************
+/  WATER QUALITY
+/************************************
+COUPLING WITH         = 'WAQTEL'
+WAQTEL STEERING FILE  = 'waq_biomass_steer.cas'
+WATER QUALITY PROCESS = 3
+/
+/ ACCURACY = 1.E-15 TO GET MASS BALANCE WITH A GOOD ACCURACY
+/ DEFAULT = 1.E-8 IS NOT ENOUGH HERE
+ACCURACY FOR DIFFUSION OF TRACERS = 1.E-15

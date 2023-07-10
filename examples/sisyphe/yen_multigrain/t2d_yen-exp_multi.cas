@@ -1,0 +1,98 @@
+/----------------------------------------------------------------------/
+/ TELEMAC-2D + SISYPHE: flow and graded sediment transport in a 180-bend /
+/----------------------------------------------------------------------/
+/
+/----------------------------------------------------------------------/
+/  FILES                                                               /
+/----------------------------------------------------------------------/
+/
+/ --- GEOMETRY ---
+GEOMETRY FILE				= 'geo_yen-exp.slf'
+BOUNDARY CONDITIONS FILE		= 'geo_yen-exp.cli'
+/
+/ --- CODE ---
+FORTRAN FILE                            = 'user_fortran'
+/
+/ --- RESULTS ---
+RESULTS FILE				= 'r2d_yen-exp_multi.slf'
+/
+/----------------------------------------------------------------------/
+/  GENERAL INFORMATIONS - OUTPUTS                                      /
+/----------------------------------------------------------------------/
+/
+TITLE             = 'Flow and graded sediment transport in a 180-bend'
+LISTING PRINTOUT PERIOD                 = 6000
+GRAPHIC PRINTOUT PERIOD                 = 4000
+VARIABLES FOR GRAPHIC PRINTOUTS         = 'U,V,S,B,H,Q,M,W'
+/
+/----------------------------------------------------------------------/
+/  TIME DISCRETISATION                                                 /
+/----------------------------------------------------------------------/
+/
+INITIAL TIME SET TO ZERO                = YES
+TIME STEP			        = 0.1
+NUMBER OF TIME STEPS                    = 72000
+/
+/----------------------------------------------------------------------/
+/  COUPLING WITH SISYPHE                                               /
+/----------------------------------------------------------------------/
+/
+COUPLING WITH                            = 'SISYPHE'
+SISYPHE STEERING FILE                    = 'sis_yen-exp_multi.cas'
+COUPLING PERIOD FOR SISYPHE              = 1
+/
+/---------------------------------------------------------------------
+/ INITIAL CONDITIONS
+/---------------------------------------------------------------------
+/
+COMPUTATION CONTINUED             = YES
+PREVIOUS COMPUTATION FILE         = 'ini_yen-exp.slf'
+/INITIAL CONDITIONS                          :'CONSTANT DEPTH'
+/INITIAL DEPTH                               : 0.0544
+/
+/---------------------------------------------------------------------
+/ BOUNDARY CONDITIONS
+/---------------------------------------------------------------------
+/
+LIQUID BOUNDARIES FILE		  =  't2d_zulauf.qsl'
+/PRESCRIBED ELEVATIONS            = 9.9955; 9.9955
+/PRESCRIBED FLOWRATES             = 0.02; 0.02
+/
+/----------------------------------------------------------------------/
+/  BOTTOM FRICTION                                                     /
+/----------------------------------------------------------------------/
+/
+LAW OF BOTTOM FRICTION                      : 5
+FRICTION COEFFICIENT                        : 0.0035
+/
+/----------------------------------------------------------------------/
+/  TURBULENCE                                                          /
+/----------------------------------------------------------------------/
+/
+TURBULENCE MODEL                            = 2
+VELOCITY DIFFUSIVITY                        = 1.E-6
+OPTION FOR THE DIFFUSION OF VELOCITIES      = 1
+/
+/----------------------------------------------------------------------/
+/  TIDAL FLATS                                                         /
+/----------------------------------------------------------------------/
+/
+TIDAL FLATS                             = NO
+/
+/----------------------------------------------------------------------/
+/  NUMERICAL PARAMETERS                                                /
+/----------------------------------------------------------------------/
+/
+MASS-BALANCE                                = YES
+SOLVER					    = 1
+INFORMATION ABOUT SOLVER : YES
+TREATMENT OF THE LINEAR SYSTEM              = 2
+FREE SURFACE GRADIENT COMPATIBILITY         = 0.9
+MASS-LUMPING ON H                           = 1.
+SOLVER ACCURACY                             = 1.E-6
+PRECONDITIONING			            = 2
+TYPE OF ADVECTION                           = 4;5
+SUPG OPTION                                 = 1;1
+MATRIX STORAGE				    = 3
+IMPLICITATION FOR DEPTH                     = 1.0
+IMPLICITATION FOR VELOCITY                  = 0.6

@@ -1,0 +1,37 @@
+////////////////////////////////////////////////////////////////////////
+/// 1-computation environment
+/// 1.1-initialization
+TITLE = 'HUNGR 1995'
+INITIAL CONDITIONS = 'ZERO DEPTH'
+/// 1.1.1-input files
+GEOMETRY FILE = 'geo_nn_newt.slf'
+FORTRAN FILE = 'user_fortran'
+BOUNDARY CONDITIONS FILE = 'geo_nn_newt.cli'
+/// 1.2-output files
+/// 1.2.1-results files
+GRAPHIC PRINTOUT PERIOD = 1
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,B,H'
+RESULTS FILE = 'r2d_nn_newt.slf'
+/// 1.2.2-listing
+LISTING PRINTOUT PERIOD = 600
+MASS-BALANCE = True
+////////////////////////////////////////////////////////////////////////
+/// 2-hydro
+/// 2.1-physical parameters hydro
+/// 2.1.1-friction
+LAW OF BOTTOM FRICTION = 3
+FRICTION COEFFICIENT = 70.0
+NON-NEWTONIAN MODEL = 1
+NON-NEWTONIAN VISCOSITY = 100.0
+NON-NEWTONIAN YIELD STRESS = 1500.0
+NON-NEWTONIAN FLUID DENSITY = 1835.0
+/// 2.2-numerical parameters hydro
+EQUATIONS = 'SAINT-VENANT FV'
+FINITE VOLUME SCHEME = 5
+DIFFUSION OF VELOCITY = NO
+////////////////////////////////////////////////////////////////////////
+/// 3-general parameters
+/// 3.1-time
+DURATION = 180.0
+VARIABLE TIME-STEP = True
+DESIRED COURANT NUMBER = 0.8

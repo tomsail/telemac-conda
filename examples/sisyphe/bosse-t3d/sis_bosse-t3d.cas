@@ -1,0 +1,55 @@
+NUMBER OF BED LOAD MODEL LAYERS : 2
+NON COHESIVE BED POROSITY = 0.375
+/
+/ DUREE DU CALCUL SUR HP C 3700 750 MHz : 91 s
+/
+/           FICHIER DE DECLARATION DES MOTS CLES DU CODE
+/
+/
+/                            SISYPHE
+/
+/
+/NOMS FICHIERS
+/ -----------------------------------------------------
+GEOMETRY FILE = geo_bosse-t3d.slf
+BOUNDARY CONDITIONS FILE = geo_bosse-t3d.cli
+RESULTS FILE = sis_bosse-t3d.slf
+/
+/CALCUL
+/ -----------------------------------------------------
+TITLE = 'bosse suspension'
+STEADY CASE = YES
+MASS-LUMPING = YES
+/
+/ENTREES-SORTIES, GRAPHIQUES ET LISTING
+/-------------------------------------------------------
+VARIABLES FOR GRAPHIC PRINTOUTS = U,V,S,H,B,E,CS1,TOB,M,QSBL
+MASS-BALANCE = YES
+/
+/PARAMETRES NUMERIQUES
+/-----------------------------
+ZERO = 1e-12
+TETA = 0.5
+/
+MINIMAL VALUE OF THE WATER HEIGHT = 0.01
+/
+/
+/FROTTEMENT + TSOLIDE
+/------------------------------
+/
+SUSPENSION =  NO
+BED LOAD =   YES
+/
+/
+SLOPE EFFECT = YES
+BETA = 0.
+/
+/ CHARRIAGE
+/
+/FORMULE DE TRANSPORT SOLIDE = 1
+/RAPPORT D'EVOLUTION CRITIQUE = 10
+MEAN DIAMETER OF THE SEDIMENT = 0.000150
+/
+BED-LOAD TRANSPORT FORMULA = 30
+CRITICAL EVOLUTION RATIO = 0.5
+/

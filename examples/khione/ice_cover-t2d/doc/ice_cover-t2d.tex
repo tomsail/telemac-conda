@@ -1,0 +1,220 @@
+\renewcommand{\labelitemi}{$\triangleright$}
+
+\chapter{Presence of ice cover}
+%
+% - Purpose & Problem description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved and specify how the numerical solution will be validated
+%
+\section{Purpose}
+This test case has been purposefully setup to demonstrate that \khione is capable of correctly modify the hydrodynamics to account for the presence of an ice cover.
+Four variations of the same test case are shown here, where different ice cover conditions are set through made-up previous ice cover computation file. Water is running down a flat flume over 10km long at a gentle slope of 1:10,000.
+%Four different ice covers are applied to the water surface, the impact of which are compared with one another.
+It should be noted that the heat exchange processes are not included. As a result, the tracers (temperature and frazil concentrations) are not activated and the initial ice cover remains unchanged throughout the simulation.
+
+\section{Description}
+
+\subsection{Geometry, mesh and bathymetry}
+
+The domain is a long flat-bottom flume, boxed within (0;0) and (150;10,000), its length being $10$km along the x-axis and its width being 150m along the y-axis. The channel has a slope of 1:10,000 between the elevation 5m (upstream) and 4m (downstream).
+The mesh of the domain was created as a triangulated regular grid with a uniform density of about 0.35~m, resulting in a mesh with 4,800 elements and 2,807 vertices. (see figure \ref{fig:cover_mesh}).
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.40]}{../img/mesh.png}
+    \end{center}
+    \caption{Domain mesh}
+    \label{fig:cover_mesh}
+\end{figure}
+
+\subsection{Initial conditions}
+A first simulation is carried out for the hydrodynamics only to get to a steady state equilibrium.
+An initial depth of 3.535m is set for all four variations of the test case. The free surface is subsequently corrected by \khione to account for the initial ice cover thickness, as read from the previous ice cover computation file.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Uniform ice cover}
+The first variation of the test case is set with a uniform ice cover throughout the length of the channel.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.50]}{../img/profile_ice_cas0_0.png}
+    \end{center}
+    \caption{Initial ice cover}
+    \label{fig:ini-cover_01}
+\end{figure}
+
+\subsubsection{Downstream ice cover}
+The second variation is set with only a partial cover of uniform thickness, on the downstream part 4~[km] from the upstream boundary.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.50]}{../img/profile_ice_cas2_0.png}
+    \end{center}
+    \caption{Initial ice cover}
+    \label{fig:ini-cover_02}
+\end{figure}
+
+\subsubsection{Upstream ice cover}
+The third test case is also set with a partial ice cover but on the upstream part 4~[km] of the channel.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.50]}{../img/profile_ice_cas4_0.png}
+    \end{center}
+    \caption{Initial ice cover}
+    \label{fig:ini-cover_03}
+\end{figure}
+
+\subsubsection{Representative ice jam}
+Last but not least, the fourth variation of the test case is set with an ice jam, with an ice thickness varying along the length of the channel. The following  figure (Figure \ref{fig:ini-cover_04}) shows coloured contours of the chosen ice thickness for each test case variation.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.50]}{../img/profile_ice_cas6_0.png}
+    \end{center}
+    \caption{Initial ice cover}
+    \label{fig:ini-cover_04}
+\end{figure}
+
+It is noted that ice thickness x ice density = water layer thickness x water density.
+
+\subsection{Boundary definitions}
+There are two solid boundaries and 2 open boundaries.
+The solid boundaries are on either side of the length of the flume, considered as solid walls with perfect slip conditions (condition 2 2 2).
+The open boundaries are at (x=0) for the upstream and at (x=10,0000) for the downstream of the flume. A constant discharge of $300m^3/s$ is imposed at the upstream boundary. A constant water level is set at $7.535m$ at the downstream boundary.
+
+\subsection{Physical parameters}
+%
+In order to balance the slope and the discharge through the flume, a Manning friction law is used, with a coefficient of $0.025$ (within the \telemac2D steering file).
+
+Note that when ice cover is present, the flow can't be considered as a free surface flow anymore.
+This is a strong limitation that has not been overcome due to the complexity of modifying the shallow water equations to properly model constrained flows. Instead, hydrostatic assumption is still considered
+and the effect of ice is taken into account as a static air pressure acting on the surface.
+Thus, air pressure needs to be activated within the \telemac2d steering file in order to take the effect
+of the ice cover on the pressure into account i.e.
+\begin{itemize}
+    \item\textit{AIR PRESSURE = YES}
+\end{itemize}
+
+The second important effect of ice cover onto hydrodynamics is the under cover friction source term.
+It is taken into account via the following keywords in the \khione steering file:
+\begin{itemize}
+    \item\textit{LAW OF ICE COVER FRICTION = 4}
+    \item\textit{FRICTION COEFFICIENT = 0.02}
+\end{itemize}
+Note that the friction law selected for the ice under cover is independant of the one used for the bottom.
+In this case, we have chosen a Manning friction law, with a under-cover roughness of $0.02$.
+When no additionnal keywords are provided, the friction coefficient is considered constant.
+It is also possible to increase linearly the roughness with the thickness of the ice cover with the keyword \textit{LAW FOR FRICTION COEFFICIENT} = 1 (default = 0). The effective roughness coefficient becomes:
+
+\begin{equation}
+ n_{eff}=\frac{t_i n}{t_{ic}},
+\end{equation}
+
+with $t_i$ the ice cover thickness (in $m$), $t_{ic}$ the critical ice thickness (in $m$) which can be set with the keyword \textit{EQUIVALENT SURFACE ICE THICKNESS} (default = 0.001). The the range $n_{eff}$ is kept between the prescribed value of $n$ and a value of $n_{max}$ set with the keyword \textit{MAXIMAL FRICTION COEFFICIENT}. This formula is only usable with a Manning friction law.
+
+For each of the four cases, two runs are made with different under cover friction models. The first model computes the under cover friction with a Manning law on the entire water column, the second computes ratios of the depth affected by the ice friction and the bottom friction. These are controled by the keyword \textit{MODEL FOR UNDER COVER FRICTION}.
+
+\subsection{Numerical parameters}
+Only two numerical parameters are essential to the simulation. These are defined in the \telemac2D steering file:
+\begin{itemize}
+    \item\textit{TIME STEP = 5.}
+    \item\textit{NUMBER OF TIME STEPS = 7200}
+\end{itemize}
+The total duration of the simulation is, therefore, 10~hours.
+
+\section{Results}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Uniform ice cover}
+Once steady state is reached, longitudinal cross sectional profiles are extracted from the results for the free surface (completely under the ice) and the ice cover.
+Figure \ref{fig:res-cover_01} shows the results with the total friction law and figure \ref{fig:res-cover_01_2} shows the figure with the ratio based law.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.50]}{../img/profile_ice_cas0_-1.png}
+    \end{center}
+    \caption{Resulting free surface and ice cover}
+    \label{fig:res-cover_01}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.50]}{../img/profile_ice_cas1_-1.png}
+    \end{center}
+    \caption{Resulting free surface and ice cover}
+    \label{fig:res-cover_01_2}
+\end{figure}
+
+It is noted that, while the upstream boundary is a discharge boundary, the imposed level at the downstream boundary (less the ice cover thickness at the downstream boundary) sets the water level in the domain.
+
+\subsection{Downstream ice cover}
+Once steady state is reached, longitudinal cross sectional profiles are extracted from the results for the free surface (partially under the ice) and the ice cover.
+Figure \ref{fig:res-cover_02} shows the results with the total friction law and figure \ref{fig:res-cover_02_2} shows the figure with the ratio based law.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.50]}{../img/profile_ice_cas2_-1.png}
+    \end{center}
+    \caption{Resulting free surface and ice cover}
+    \label{fig:res-cover_02}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.50]}{../img/profile_ice_cas3_-1.png}
+    \end{center}
+    \caption{Resulting free surface and ice cover}
+    \label{fig:res-cover_02_2}
+\end{figure}
+
+Again, the imposed level at the downstream boundary (less the ice cover thickness at the downstream boundary) sets the water level in the domain.
+
+\subsection{Upstream ice cover}
+Once steady state is reached, longitudinal cross sectional profiles are extracted from the results for the free surface (partially under the ice) and the ice cover.
+Figure \ref{fig:res-cover_03} shows the results with the total friction law and figure \ref{fig:res-cover_03_2} shows the figure with the ratio based law.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.50]}{../img/profile_ice_cas4_-1.png}
+    \end{center}
+    \caption{Resulting free surface and ice cover}
+    \label{fig:res-cover_03}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.50]}{../img/profile_ice_cas5_-1.png}
+    \end{center}
+    \caption{Resulting free surface and ice cover}
+    \label{fig:res-cover_03_2}
+\end{figure}
+
+In this case, the water is free of ice on the downstream side, and the water is therefore set directly by the user.
+
+\subsection{Representative ice jam}
+Similarly, once steady state is reached, longitudinal cross sectional profiles are extracted from the results for the free surface (in the presence of an ice jam) and the ice cover.
+Figure \ref{fig:res-cover_04} shows the results with the total friction law and figure \ref{fig:res-cover_04_2} shows the figure with the ratio based law.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.50]}{../img/profile_ice_cas6_-1.png}
+    \end{center}
+    \caption{Resulting free surface and ice cover}
+    \label{fig:res-cover_04}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.50]}{../img/profile_ice_cas7_-1.png}
+    \end{center}
+    \caption{Resulting free surface and ice cover}
+    \label{fig:res-cover_04_2}
+\end{figure}
+
+\section{Conclusions}
+
+The hydrodynamic of \telemac2D has been appropriately modified to account for the presence of the ice cover and for the additional shear stress observed at the interface between the ice cover and the water.
+
+
+\renewcommand{\labelitemi}{\textbullet}

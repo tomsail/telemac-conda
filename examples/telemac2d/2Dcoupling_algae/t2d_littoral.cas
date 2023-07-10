@@ -1,0 +1,57 @@
+/-----------------------------------------------------------------------/
+FORTRAN FILE                     : './user_fortran'
+BOUNDARY CONDITIONS FILE         : './geoT3D_littoral.cli'
+GEOMETRY FILE                    : './geo_littoral.slf'
+RESULTS FILE                     : './res_littoral.slf'
+FORMATTED RESULTS FILE           : './polygon_particles.txt'
+/----------------------------------------------------------------------/
+TITLE : 'Dislodgement changes over time. Based on Orbital Vel.'
+VARIABLES FOR GRAPHIC PRINTOUTS  : 'U,V,S,H'
+TIME STEP                        : 10.0
+NUMBER OF TIME STEPS             : 100
+GRAPHIC PRINTOUT PERIOD          : 5
+LISTING PRINTOUT PERIOD          : 5
+/----------------------------------------------------------------------/
+/                     ALGAE OPTIONS
+/----------------------------------------------------------------------/
+MAXIMUM NUMBER OF DROGUES = 10000
+PRINTOUT PERIOD FOR DROGUES = 5
+/ASCII DROGUES FILE  = './alg_littoral.dat'
+BINARY DROGUES FILE = './alg_littoral.pcl'
+DROGUES FILE FORMAT = BKBINPCL
+DROGUES INITIAL POSITIONING DATA FILE = 'Poly_Littoral_01.i2s'
+FORMAT OF THE DROGUES POSITIONING DATA FILE = BKASCI2S
+INITIAL DROGUES SAMPLING DENSITY = 0.1; 0.1; 0.1
+ALGAE TRANSPORT MODEL = YES
+DIAMETER OF ALGAE = 0.006; 0.006; 0.006
+DENSITY OF ALGAE = 2200.0; 2200.0; 2200.0
+ALGAE TYPE = 1; 1; 1
+NUMBER OF ALGAE CLASSES = 3
+DURATION BEFORE ALGAE RELEASE = 0.0; 0.0; 0.0
+ALGAE RELEASE TYPE = 2; 2; 2
+WAVE ORBITAL VELOCITY THRESHOLD FOR ALGAE 1 = 0.5; 0.7; 0.4
+WAVE ORBITAL VELOCITY THRESHOLD FOR ALGAE 2 = 0.0; 0.0; 0.0
+RATE OF DEGRADATION FOR ALGAE = 0.005; 0.005; 0.01
+SECURITY COEFFICIENT FOR SCARACT = 10.0
+/----------------------------------------------------------------------/
+INITIAL CONDITIONS                : 'CONSTANT ELEVATION'
+INITIAL ELEVATION                 : 0.0
+/----------------------------------------------------------------------/
+LAW OF BOTTOM FRICTION            : 5
+FRICTION COEFFICIENT              : 0.001
+PRESCRIBED FLOWRATES              : 0.0; 0.0; 0.0
+PRESCRIBED ELEVATIONS             : 0.0; 0.0; 0.0
+/----------------------------------------------------------------------/
+TURBULENCE MODEL                           : 3
+SOLVER ACCURACY                            : 1.E-6
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER    : 500
+TREATMENT OF THE LINEAR SYSTEM             : 2
+SOLVER                                     : 7
+SUPG OPTION                                : 1;2
+SOLVER OPTION                              : 3
+/----------------------------------------------------------------------/
+WAVE DRIVEN CURRENTS : YES
+COUPLING WITH = 'TOMAWAC'
+COUPLING PERIOD FOR TOMAWAC = 10
+TOMAWAC STEERING FILE = 'tom_2Dlittoral.cas'
+/----------------------------------------------------------------------/

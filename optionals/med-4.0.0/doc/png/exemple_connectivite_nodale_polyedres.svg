@@ -1,0 +1,1610 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2 Patchlevel 5c -->
+
+<!-- CreationDate: Thu Jan  7 16:52:38 2016 -->
+
+<!-- Magnification: 1.050 -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="910"
+   height="470"
+   viewBox="-7007 1877 12092.534 6207.9168"
+   id="svg2837"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="exemple_connectivite_nodale_polyedres.svg">
+  <metadata
+     id="metadata2925">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs2923">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible">
+      <path
+         id="path4014"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         id="path4008"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 144 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1026 : 144 : 1"
+       inkscape:persp3d-origin="513 : 96 : 1"
+       id="perspective2927" />
+    <inkscape:perspective
+       id="perspective2979"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3029"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4909"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4934"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4973"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4995"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5062"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5118"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5835"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5867"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5899"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5941"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5975"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective6008"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective6048"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective6079"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective6101"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective6123"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective6154"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective6185"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective6395"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7177"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7214"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7239"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7264"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7293"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7318"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7360"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7392"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective7795"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective8008"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2975"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3000"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3025"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3050"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3075"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3100"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3125"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3150"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3175"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3200"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3225"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3250"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3275"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3009"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3034"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3059"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3084"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3109"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1364"
+     id="namedview2921"
+     showgrid="false"
+     showguides="true"
+     inkscape:snap-global="true"
+     inkscape:snap-midpoints="true"
+     inkscape:zoom="1.4877232"
+     inkscape:cx="292.22158"
+     inkscape:cy="171.14615"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2837"
+     height="744.09px">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2929"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <rect
+     id="rect2873"
+     style="fill:none;stroke:#000000;stroke-width:14.44871426;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="4683.9858"
+     x="-3931.0491"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <rect
+     id="rect2875"
+     style="fill:none;stroke:#000000;stroke-width:14.44871426;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="4683.9858"
+     x="-4738.7715"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <rect
+     id="rect2877"
+     style="fill:none;stroke:#000000;stroke-width:14.44871426;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="4683.9858"
+     x="-2313.8931"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <rect
+     id="rect2879"
+     style="fill:none;stroke:#000000;stroke-width:14.44871426;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="4683.9858"
+     x="-3121.615"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <rect
+     id="rect2881"
+     style="fill:none;stroke:#000000;stroke-width:14.44871426;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="4683.9858"
+     x="-696.73779"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <rect
+     id="rect2883"
+     style="fill:none;stroke:#000000;stroke-width:14.44871426;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="4683.9858"
+     x="-1506.1714"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <text
+     style="font-size:346.08508301px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2919"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="5206.4814"
+     x="-4661.9863"
+     xml:space="preserve"
+     transform="scale(0.99764059,1.002365)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"><tspan
+       style="font-size:272.08889771px"
+       id="tspan2998">F1.1</tspan></text>
+  <rect
+     id="rect2871-3"
+     style="fill:none;stroke:#000000;stroke-width:14.4487133;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="4683.9858"
+     x="110.98444"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <text
+     style="font-size:346.08508301px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2919-3"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="5206.4829"
+     x="199.23837"
+     xml:space="preserve"
+     transform="scale(0.99764059,1.002365)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"><tspan
+       style="font-size:272.08889771px"
+       id="tspan2998-6">F2.1</tspan></text>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:13.28849888;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:13.288499, 13.288499;stroke-dashoffset:0;marker-mid:none;marker-end:url(#Arrow1Mend);display:inline"
+     d="m -1.6382521e17,2.7460376e17 -7.15077e15,-2.830913e16"
+     id="path3046"
+     inkscape:connector-type="polyline"
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/path8213.png"
+     inkscape:export-xdpi="89.91629"
+     inkscape:export-ydpi="89.91629" />
+  <text
+     xml:space="preserve"
+     style="font-size:960.00866699px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="-4798.354"
+     y="5187.0679"
+     id="text4897"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       id="tspan4899"
+       x="-4798.354"
+       y="5187.0679"
+       style="font-size:192.00170898px">==<tspan
+   style="fill:#0000ff"
+   id="tspan8405">1</tspan></tspan></text>
+  <rect
+     id="rect2873-7"
+     style="fill:none;stroke:#000000;stroke-width:14.4487133;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="6948.9316"
+     x="-3937.4314"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <rect
+     id="rect2875-1"
+     style="fill:none;stroke:#000000;stroke-width:14.4487133;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="6948.9316"
+     x="-4745.1538"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <rect
+     id="rect2879-2"
+     style="fill:none;stroke:#000000;stroke-width:14.4487133;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="6948.9316"
+     x="-3127.998"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <text
+     style="font-size:346.08508301px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2919-8"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="7466.0859"
+     x="-4703.2178"
+     xml:space="preserve"
+     transform="scale(0.99764059,1.002365)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"><tspan
+       style="font-size:272.08889771px"
+       id="tspan2998-9"> P1   P2   P3 </tspan></text>
+  <rect
+     id="rect2871-3-8"
+     style="fill:none;stroke:#000000;stroke-width:14.44871235;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="6948.9316"
+     x="-1162.624"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <text
+     style="font-size:346.08508301px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2919-3-6"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="7468.125"
+     x="-1079.6827"
+     xml:space="preserve"
+     transform="scale(0.99764059,1.002365)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"><tspan
+       style="font-size:272.08889771px"
+       id="tspan2998-6-2">Pn+1</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:960.00866699px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="-4810.8027"
+     y="7303.9014"
+     id="text4897-0"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       id="tspan4899-9"
+       x="-4810.8027"
+       y="7303.9014"
+       style="font-size:192.00170898px">==<tspan
+   style="fill:#ff0000"
+   id="tspan8401">1</tspan></tspan></text>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:13.28849888;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:13.288499, 13.288499;stroke-dashoffset:0;marker-end:url(#Arrow1Mend)"
+     d="m -1.639383e17,3.1019727e17 -7.04442e15,-2.148997e16"
+     id="path5265"
+     inkscape:connector-type="polyline"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/path8213.png"
+     inkscape:export-xdpi="89.91629"
+     inkscape:export-ydpi="89.91629" />
+  <text
+     xml:space="preserve"
+     style="font-size:192.00170898px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="-4161.376"
+     y="5443.5786"
+     id="text5088-6"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       id="tspan5090-7"
+       x="-4161.376"
+       y="5443.5786"
+       style="font-size:144.001297px;text-align:center;text-anchor:middle">Accès aux faces du</tspan><tspan
+       sodipodi:role="line"
+       x="-4161.376"
+       y="5623.5801"
+       id="tspan5092-5"
+       style="font-size:144.001297px;text-align:center;text-anchor:middle">1er polyèdre</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:192.00169373px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="-1582.5778"
+     y="5437.8652"
+     id="text5088-6-4"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       id="tspan5090-7-5"
+       x="-1582.5778"
+       y="5437.8652"
+       style="font-size:144.001297px;text-align:center;text-anchor:middle">Accès aux faces</tspan><tspan
+       sodipodi:role="line"
+       x="-1582.5778"
+       y="5617.8667"
+       id="tspan5092-5-2"
+       style="font-size:144.001297px;text-align:center;text-anchor:middle"> du 2nd polyèdre</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:192.00169373px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="-31.032446"
+     y="6717.0479"
+     id="text5088-6-4-8"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       x="-31.032446"
+       y="6717.0479"
+       style="font-size:144.001297px;text-align:start;text-anchor:start"
+       id="tspan5931">- Faceindex est de taille Faceindexsize (==npolyèdres+1)</tspan><tspan
+       sodipodi:role="line"
+       x="-31.032446"
+       y="6897.0493"
+       style="font-size:144.001297px;text-align:start;text-anchor:start"
+       id="tspan7200">- Pn+1==FaceIndex[n+1]==NodeIndexSize == Nbre De Faces +1</tspan><tspan
+       sodipodi:role="line"
+       x="-31.032446"
+       y="7077.0513"
+       style="font-size:144.001297px;text-align:start;text-anchor:start"
+       id="tspan5929" /></text>
+  <text
+     style="font-size:152px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2915-2-9"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="9217.9814"
+     x="-8084.4248"
+     xml:space="preserve" />
+  <text
+     xml:space="preserve"
+     style="font-size:288.00259399px;font-style:normal;font-weight:bold;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Andale Mono Bold"
+     x="-6441.9238"
+     y="4670.2549"
+     id="text5959"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       id="tspan5961"
+       x="-6441.9238"
+       y="4670.2549"
+       style="font-size:240.00216675px;text-align:center;text-anchor:middle">Nodeindex</tspan><tspan
+       sodipodi:role="line"
+       x="-6441.9238"
+       y="4970.2578"
+       id="tspan5963"
+       style="font-size:240.00216675px;text-align:center;text-anchor:middle">==</tspan><tspan
+       sodipodi:role="line"
+       x="-6400.2046"
+       y="5270.2603"
+       id="tspan5965"
+       style="font-size:240.00216675px;text-align:center;text-anchor:middle">Faces </tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:288.00259399px;font-style:normal;font-weight:bold;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Andale Mono Bold"
+     x="-6443.6812"
+     y="6770.0044"
+     id="text5959-9"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       id="tspan5961-4"
+       x="-6443.6812"
+       y="6770.0044"
+       style="font-size:240.00216675px;text-align:center;text-anchor:middle">Faceindex</tspan><tspan
+       sodipodi:role="line"
+       x="-6443.6812"
+       y="7070.0073"
+       id="tspan5963-0"
+       style="font-size:240.00216675px;text-align:center;text-anchor:middle">==</tspan><tspan
+       sodipodi:role="line"
+       x="-6401.9619"
+       y="7370.0098"
+       id="tspan5965-9"
+       style="font-size:240.00216675px;text-align:center;text-anchor:middle">Polyhedrons </tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:288.00259399px;font-style:normal;font-weight:bold;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Andale Mono Bold"
+     x="-6436.4155"
+     y="2133.1516"
+     id="text5959-4"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       x="-6436.4155"
+       y="2133.1516"
+       id="tspan5965-2"
+       style="font-size:240.00216675px;text-align:center;text-anchor:middle">Connectivity</tspan><tspan
+       sodipodi:role="line"
+       x="-6436.4155"
+       y="2433.1543"
+       style="font-size:240.00216675px;text-align:center;text-anchor:middle"
+       id="tspan6036">==</tspan><tspan
+       sodipodi:role="line"
+       x="-6436.4155"
+       y="2733.157"
+       style="font-size:240.00216675px;text-align:center;text-anchor:middle"
+       id="tspan6038">Nodes Num</tspan></text>
+  <rect
+     id="rect2871-3-7"
+     style="fill:none;stroke:#000000;stroke-width:14.44871235;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="4694.2339"
+     x="1258.3101"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <text
+     style="font-size:346.08508301px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2919-3-9"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="5216.7051"
+     x="1346.9777"
+     xml:space="preserve"
+     transform="scale(0.99764059,1.002365)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"><tspan
+       style="font-size:272.08889771px"
+       id="tspan2998-6-5">Fn.1</tspan></text>
+  <polyline
+     id="polyline2911-9-0"
+     style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:10, 31"
+     points="-425,2125 -47,2125 "
+     transform="matrix(0.86708033,0,0,1.9061558,1287.2158,1083.2571)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <rect
+     id="rect2871-3-7-8"
+     style="fill:none;stroke:#000000;stroke-width:14.4487114;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="4694.2339"
+     x="2502.8584"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <text
+     style="font-size:346.08508301px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2919-3-9-5"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="5216.7051"
+     x="2594.468"
+     xml:space="preserve"
+     transform="scale(0.99764059,1.002365)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"><tspan
+       style="font-size:272.08889771px"
+       id="tspan2998-6-5-9">Fn._</tspan></text>
+  <polyline
+     id="polyline2911-9-0-3"
+     style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:10, 31"
+     points="-425,2125 -47,2125 "
+     transform="matrix(0.86708033,0,0,1.9061558,2434.5416,1093.5046)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <rect
+     id="rect2871-3-7-6"
+     style="fill:none;stroke:#000000;stroke-width:14.4487114;stroke-linecap:butt;stroke-linejoin:miter"
+     rx="0"
+     height="899.70557"
+     width="807.72217"
+     y="6948.9316"
+     x="-1970.3466"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <text
+     style="font-size:346.08508301px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2919-3-9-0"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="7460.6436"
+     x="-1889.316"
+     xml:space="preserve"
+     transform="scale(0.99764059,1.002365)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"><tspan
+       style="font-size:272.08889771px"
+       id="tspan2998-6-5-3"> Pn</tspan></text>
+  <polyline
+     id="polyline2911-9-0-1"
+     style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:10, 31"
+     points="-425,2125 -47,2125 "
+     transform="matrix(0.86708033,0,0,1.9061558,-1951.7669,3348.2036)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:14.57264996;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:14.57265031, 14.57265031;stroke-dashoffset:0;marker-end:url(#Arrow1Mend)"
+     d="M -1.2937098e18,2.0353181e18 -1.5295986e17,1.7473079e18"
+     id="path6419"
+     inkscape:connector-type="polyline" />
+  <text
+     xml:space="preserve"
+     style="font-size:960.00866699px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="-5151.7095"
+     y="5417.7148"
+     id="text7202-2"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       id="tspan7204-3"
+       x="-5151.7095"
+       y="5417.7148"
+       style="font-size:144.001297px;fill:#ff0000">1</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:960.00866699px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="-5140.2456"
+     y="7515.5898"
+     id="text7202-2-1"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       id="tspan7204-3-9"
+       x="-5140.2456"
+       y="7515.5898"
+       style="font-size:144.001297px">1</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:960.00866699px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="-3946.3486"
+     y="5171.5449"
+     id="text4897-6"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       x="-3946.3486"
+       y="5171.5449"
+       style="font-size:192.00170898px"
+       id="tspan7281">==<tspan
+   style="fill:#0000ff"
+   id="tspan8407">5</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:192.00170898px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="-3665.9775"
+     y="6016.7686"
+     id="text5088-3"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       x="-3665.9775"
+       y="6016.7686"
+       style="font-size:144.001297px;text-align:center;text-anchor:middle"
+       id="tspan7346">P2 - P1 == 6 est le nombre</tspan><tspan
+       sodipodi:role="line"
+       x="-3665.9775"
+       y="6196.77"
+       style="font-size:144.001297px;text-align:center;text-anchor:middle"
+       id="tspan7382">de faces du 1er polyèdre</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:192.00169373px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="-1107.2871"
+     y="3962.2253"
+     id="text5088-3-3"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       x="-1107.2871"
+       y="3962.2253"
+       style="font-size:144.001297px;text-align:center;text-anchor:middle"
+       id="tspan5887-4-3">F1.2 - F1.1 == 4 est le nombre de noeuds</tspan><tspan
+       sodipodi:role="line"
+       x="-1107.2871"
+       y="4142.2271"
+       style="font-size:144.001297px;text-align:center;text-anchor:middle"
+       id="tspan7346-7"> de la face 1 du 1er polyèdre</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:960.00866699px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="-3986.6387"
+     y="7303.8096"
+     id="text4897-0-6"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       id="tspan4899-9-9"
+       x="-3986.6387"
+       y="7303.8096"
+       style="font-size:192.00169373px">==<tspan
+   style="fill:#ff0000"
+   id="tspan8403">7</tspan></tspan></text>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:13.28849888;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:13.288499, 13.288499;stroke-dashoffset:0;marker-start:none;marker-end:url(#Arrow1Mend)"
+     d="m -1.5077631e17,3.0987597e17 6.5430334e16,-2.097623e16"
+     id="path7409"
+     inkscape:connector-type="polyline"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/path8213.png"
+     inkscape:export-xdpi="89.91629"
+     inkscape:export-ydpi="89.91629" />
+  <text
+     xml:space="preserve"
+     style="font-size:960.00866699px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+     x="122.40804"
+     y="5429.1079"
+     id="text7202-0-1"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"
+     transform="scale(0.94750347,1.0554051)"><tspan
+       sodipodi:role="line"
+       id="tspan7204-4-8"
+       x="122.40804"
+       y="5429.1079"
+       style="font-size:144.001297px;fill:#ff0000">7</tspan></text>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:13.28849888;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:13.288499, 13.288499;stroke-dashoffset:0;marker-end:url(#Arrow1Mend)"
+     d="m -1.1477692e17,3.1041997e17 4.925248e16,-2.094288e16"
+     id="path7812"
+     inkscape:connector-type="polyline"
+     sodipodi:nodetypes="cc"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/path8213.png"
+     inkscape:export-xdpi="89.91629"
+     inkscape:export-ydpi="89.91629" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:13.28849888;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:13.288499, 13.288499;stroke-dashoffset:0;marker-end:url(#Arrow1Mend)"
+     d="M -1.0046647e17,3.1032375e17 -2.8960431e16,2.890922e17"
+     id="path8025"
+     inkscape:connector-type="polyline"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/path8213.png"
+     inkscape:export-xdpi="89.91629"
+     inkscape:export-ydpi="89.91629" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:13.28849888;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:13.288499, 13.288499;stroke-dashoffset:0;marker-end:url(#Arrow1Mend)"
+     d="m -1.4951477e17,2.7429818e17 3.530247e16,-2.73508e16"
+     id="path8213"
+     inkscape:connector-type="polyline"
+     sodipodi:nodetypes="cc"
+     inkscape:export-xdpi="89.91629"
+     inkscape:export-ydpi="89.91629" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:23.78186798;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:23.78186874, 23.78186874;stroke-dashoffset:0;marker-end:url(#Arrow1Mend)"
+     d="M -4341.1894,6949.0452 -4727.672,5612.0121"
+     id="path4026"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149"
+     inkscape:export-ydpi="149" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:24.00021362;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:24.00021616, 24.00021616;stroke-dashoffset:0;marker-end:url(#Arrow1Mend)"
+     d="M -3533.5707,6948.9309 95.211812,5598.1583"
+     id="path4214"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149"
+     inkscape:export-ydpi="149" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:24.00021362;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:24.00021616, 24.00021616;stroke-dashoffset:0;marker-end:url(#Arrow1Mend)"
+     d="M -1566.4853,6948.9309 1245.9839,5609.8105"
+     id="path4402"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149"
+     inkscape:export-ydpi="149" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:23.8587532;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:23.85875214, 23.85875214;stroke-dashoffset:0;marker-end:url(#Arrow1Mend)"
+     d="M -794.08836,6949.9716 3267.506,5616.2209"
+     id="path4590"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149"
+     inkscape:export-ydpi="149" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:24.72973251;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:24.72973256, 24.72973256;stroke-dashoffset:0;marker-end:url(#Arrow1Mend)"
+     d="M -4335.2561,4683.6013 -4739.719,2946.9006"
+     id="path4778"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149"
+     inkscape:export-ydpi="149" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:24.00021362;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:24.00021616, 24.00021616;stroke-dashoffset:0;marker-end:url(#Arrow1Mend)"
+     d="M -3527.1883,4683.9859 -1526.3306,2952.9444"
+     id="path4966"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149"
+     inkscape:export-ydpi="149" />
+  <g
+     id="g3313"
+     transform="matrix(1.7112758,0,0,1.9061559,4878.1039,-1836.5515)">
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-423.56351"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2871" />
+    <polyline
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       transform="translate(-423.56354,136.1398)"
+       points="-425,2125 -47,2125 "
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:10, 31"
+       id="polyline2911" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-1367.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2885" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-1840.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2887" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-3257.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2889" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-3730.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2891" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-2312.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2893" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-2785.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2895" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-4202.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2897" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-4674.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2899" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-5147.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2901" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-5619.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2903" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-4674.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2905" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-5147.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2907" />
+    <rect
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       x="-5619.5635"
+       y="2025.1403"
+       width="472"
+       height="472"
+       rx="0"
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="rect2909" />
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       transform="scale(1.1725603,0.8528346)"
+       xml:space="preserve"
+       x="-4682.4272"
+       y="2703.7729"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text2917"
+       style="font-size:178.22917175px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"><tspan
+         id="tspan3002"
+         style="font-size:164.41880798px">N1</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       id="text5088"
+       y="2583.1606"
+       x="-5114.5869"
+       style="font-size:106.30799103px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         style="font-size:79.73099518px;text-align:center;text-anchor:middle"
+         y="2583.1606"
+         x="-5101.8955"
+         id="tspan5090"
+         sodipodi:role="line">Indice du 1er noeud </tspan><tspan
+         style="font-size:79.73099518px;text-align:center;text-anchor:middle"
+         id="tspan5092"
+         y="2682.8245"
+         x="-5114.5869"
+         sodipodi:role="line">de la face 1 du</tspan><tspan
+         id="tspan5887"
+         style="font-size:79.73099518px;text-align:center;text-anchor:middle"
+         y="2782.488"
+         x="-5114.5869"
+         sodipodi:role="line">1er polyèdre</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       id="text5088-5"
+       y="2589.5083"
+       x="-3180.0959"
+       style="font-size:106.3079834px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         style="font-size:79.73099518px;text-align:center;text-anchor:middle"
+         y="2589.5083"
+         x="-3167.4043"
+         id="tspan5090-9"
+         sodipodi:role="line">Indice du 1er noeud </tspan><tspan
+         style="font-size:79.73099518px;text-align:center;text-anchor:middle"
+         id="tspan5092-9"
+         y="2689.1721"
+         x="-3180.0959"
+         sodipodi:role="line">de la face 2</tspan><tspan
+         id="tspan5140"
+         style="font-size:79.73099518px;text-align:center;text-anchor:middle"
+         y="2788.8357"
+         x="-3180.0959"
+         sodipodi:role="line">du 1er polyèdre</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       id="text7202"
+       y="2556.7524"
+       x="-5702.3013"
+       style="font-size:531.53997803px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         style="font-size:79.73099518px;fill:#0000ff"
+         y="2556.7524"
+         x="-5702.3013"
+         id="tspan7204"
+         sodipodi:role="line">1</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       id="text7202-0"
+       y="2573.1206"
+       x="-3697.2295"
+       style="font-size:531.53997803px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         style="font-size:79.73099518px;fill:#0000ff"
+         y="2573.1206"
+         x="-3697.2295"
+         id="tspan7204-4"
+         sodipodi:role="line">5</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       transform="scale(1.1725603,0.85283461)"
+       xml:space="preserve"
+       x="-4279.1494"
+       y="2703.7729"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text2917-4"
+       style="font-size:178.22917175px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"><tspan
+         id="tspan3002-8"
+         style="font-size:164.41880798px">N2</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       transform="scale(1.1725603,0.85283461)"
+       xml:space="preserve"
+       x="-3877.4851"
+       y="2702.5398"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text2917-4-1"
+       style="font-size:178.22917175px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"><tspan
+         id="tspan3002-8-3"
+         style="font-size:164.41880798px">N3</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       transform="scale(1.1725603,0.85283461)"
+       xml:space="preserve"
+       x="-3473.2209"
+       y="2702.4575"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text2917-4-1-9"
+       style="font-size:178.22917175px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"><tspan
+         id="tspan3002-8-3-5"
+         style="font-size:164.41880798px">N4</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       transform="scale(1.1725603,0.85283461)"
+       xml:space="preserve"
+       x="-3072.4092"
+       y="2701.2244"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text2917-4-1-9-0"
+       style="font-size:178.22917175px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"><tspan
+         id="tspan3002-8-3-5-9"
+         style="font-size:164.41880798px">N5</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       transform="scale(1.1725603,0.85283461)"
+       xml:space="preserve"
+       x="-2669.9229"
+       y="2702.5398"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text2917-4-1-9-0-2"
+       style="font-size:178.22917175px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"><tspan
+         id="tspan3002-8-3-5-9-3"
+         style="font-size:164.41880798px">N6</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       transform="scale(1.1725603,0.85283461)"
+       xml:space="preserve"
+       x="-2264.7542"
+       y="2702.3752"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text2917-4-1-9-0-2-0"
+       style="font-size:178.22917175px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"><tspan
+         id="tspan3002-8-3-5-9-3-8"
+         style="font-size:164.41880798px">N7</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       transform="scale(1.1725603,0.85283461)"
+       xml:space="preserve"
+       x="-1862.1033"
+       y="2702.5398"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text2917-4-1-9-0-2-0-0"
+       style="font-size:178.22917175px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"><tspan
+         id="tspan3002-8-3-5-9-3-8-2"
+         style="font-size:164.41880798px">N8</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       transform="scale(1.1725603,0.85283461)"
+       xml:space="preserve"
+       x="-1461.5385"
+       y="2702.5398"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text2917-4-1-9-0-2-0-0-9"
+       style="font-size:178.22917175px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"><tspan
+         id="tspan3002-8-3-5-9-3-8-2-2"
+         style="font-size:164.41880798px">N9</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       transform="scale(1.1725603,0.85283461)"
+       xml:space="preserve"
+       x="-1105.4681"
+       y="2702.5398"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text2917-4-1-9-0-2-0-0-9-7"
+       style="font-size:178.22917175px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"><tspan
+         id="tspan3002-8-3-5-9-3-8-2-2-3"
+         style="font-size:164.41880798px">N10</tspan></text>
+    <text
+       inkscape:export-ydpi="149.90048"
+       inkscape:export-xdpi="149.90048"
+       inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+       transform="scale(1.1725603,0.85283461)"
+       xml:space="preserve"
+       x="-256.19574"
+       y="2699.2515"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text2917-4-1-9-0-2-0-0-9-7-5"
+       style="font-size:178.22917175px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"><tspan
+         id="tspan3002-8-3-5-9-3-8-2-2-3-2"
+         style="font-size:164.41880798px">Nx</tspan></text>
+  </g>
+  <text
+     style="font-size:346.08508301px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2919-2"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="5206.4814"
+     x="-3851.1294"
+     xml:space="preserve"
+     transform="scale(0.99764058,1.002365)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"><tspan
+       style="font-size:272.08889771px"
+       id="tspan2998-0">F1.2</tspan></text>
+  <text
+     style="font-size:346.08508301px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2919-2-8"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="5206.4814"
+     x="-3042.6379"
+     xml:space="preserve"
+     transform="scale(0.99764058,1.002365)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"><tspan
+       style="font-size:272.08889771px"
+       id="tspan2998-0-0">F1.3</tspan></text>
+  <text
+     style="font-size:346.08508301px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2919-2-8-4"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="5206.4814"
+     x="-2230.1489"
+     xml:space="preserve"
+     transform="scale(0.99764058,1.002365)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"><tspan
+       style="font-size:272.08889771px"
+       id="tspan2998-0-0-3">F1.4</tspan></text>
+  <text
+     style="font-size:346.08508301px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2919-2-8-4-3"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="5206.4814"
+     x="-1423.3739"
+     xml:space="preserve"
+     transform="scale(0.99764058,1.002365)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"><tspan
+       style="font-size:272.08889771px"
+       id="tspan2998-0-0-3-6">F1.5</tspan></text>
+  <text
+     style="font-size:346.08508301px;font-style:normal;font-weight:bold;text-anchor:start;fill:#000000;stroke-width:0.025in;font-family:Courier"
+     id="text2919-2-8-4-3-2"
+     font-size="152"
+     font-weight="bold"
+     font-style="normal"
+     y="5206.4814"
+     x="-613.52252"
+     xml:space="preserve"
+     transform="scale(0.99764058,1.002365)"
+     inkscape:export-filename="/home/fayolle/MED_PLEIADE/Dev_V3.0b_fayolle/doc/png/exemple_connectivite_nodale_polyedres_new.png"
+     inkscape:export-xdpi="149.90048"
+     inkscape:export-ydpi="149.90048"><tspan
+       style="font-size:272.08889771px"
+       id="tspan2998-0-0-3-6-0">F1.6</tspan></text>
+</svg>

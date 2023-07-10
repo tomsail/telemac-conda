@@ -1,0 +1,440 @@
+/* -*- mode:C; coding:utf-8 -*- */
+/*  This file is part of MED.
+ *
+ *  COPYRIGHT (C) 1999 - 2019  EDF R&D, CEA/DEN
+ *  MED is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  MED is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with MED.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifndef MED_H
+#define MED_H
+
+#include <hdf5.h>
+#ifdef HAVE_STDINT_H
+#include <stdint.h>   // Use the C99 official header
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* This is the minimum hdf version med must have  */
+#define HDF_VERSION_REF @HDF_VERSION_REF@
+#define HDF_VERSION_MAJOR_REF @HDF_VERSION_MAJOR_REF@
+#define HDF_VERSION_MINOR_REF @HDF_VERSION_MINOR_REF@
+#define HDF_VERSION_RELEASE_REF @HDF_VERSION_RELEASE_REF@
+#define HDF_VERSION_NUM_REF (HDF_VERSION_MAJOR_REF * 10000 + HDF_VERSION_MINOR_REF * 100  + HDF_VERSION_RELEASE_REF )
+
+#define HDF5_VERSION (H5_VERS_MAJOR * 10000 + H5_VERS_MINOR * 100  + H5_VERS_RELEASE )
+
+#if HDF5_VERSION < 10607
+/*TODO : A enlever après MAJ complète api hdf5-1.8 */
+#define HDF5_SELECT_BUG (const hsize_t **)
+#else
+#define HDF5_SELECT_BUG
+#endif
+
+/*Le symbole H5F_LIBVER_18 n'existe pas dans hdf5-1.8.4 (uniquement à partir de la version 1.8.6)
+  Pour rester dans le modèle interne hdf introduit en 1.8 quelque soit les futurs modèles internes hdf
+  on impose le modèle 1.8 et non le LATEST (cf _MEDfileCreate).
+  La valeur utilisée est celle définie dans les  version >= 1.8.6 (cf H5Fpublic.h) */
+#ifndef H5F_LIBVER_18
+/** \internal*/
+#define H5F_LIBVER_18 1
+#endif
+
+/*En anglais*/
+#define MED_MAJOR_NUM @MED_NUM_MAJEUR@
+#define MED_MINOR_NUM @MED_NUM_MINEUR@
+#define MED_RELEASE_NUM @MED_NUM_RELEASE@
+#define MED_3_LATEST_MINOR @MED_3_LATEST_MINOR@
+#define MED_4_LATEST_MINOR @MED_NUM_MINEUR@
+/*En franglais*/
+#define MED_NUM_MAJEUR @MED_NUM_MAJEUR@
+#define MED_NUM_MINEUR @MED_NUM_MINEUR@
+#define MED_NUM_RELEASE @MED_NUM_RELEASE@
+
+#define STR(x) #x
+#define _MED_VERSION(x,y,z) STR(x) "." STR(y) "." STR(z)
+#define MED_VERSION_STR _MED_VERSION(MED_NUM_MAJEUR,MED_NUM_MINEUR,MED_NUM_RELEASE)
+
+@MED_DEFINE_MED_HAVE_MPI@
+
+#define MED_NULL       (void *) NULL
+#define MED_MAX_PARA        20
+
+/** Longueurs des chaînes de caractères stockées dans les fichiers */
+#define MED_COMMENT_SIZE 200
+#define MED_IDENT_SIZE 8
+#define MED_NAME_SIZE 64
+#define MED_SNAME_SIZE 16
+#define MED_LNAME_SIZE 80
+
+#define MED_SNAME_BLANK "                "
+#define MED_NAME_BLANK  "                                                                "
+/*                       0123456789012345678901234567890123456789012345678901234567890123*/
+
+#define MED_PATHNAME_SIZE 255
+#define MED_MAX_CHFID_PATH MED_PATHNAME_SIZE  /**< Taille maximum du chemin d'accès au groupe cible pour MEDfileObjectsMountById */
+
+/** \enum med_switch_mode Mode d'entrelacement
+    \details Indique le mode d'entrelacement utilisé en mémoire par l'application.
+*/
+/* 2.3v3.0 ok*/
+typedef enum {MED_FULL_INTERLACE, /**<Exemple avec 3 composantes X,Y,Z : X1Y1Z1X2Y2Z2X3Y3Z3...
+				      Exemple avec 3 MED_TRIA3 T1,T2,T3 : N11N12N13 N21N22N23 N31N32N33 */
+	      MED_NO_INTERLACE,    /**<Exemple avec 3 composantes X,Y,Z : X1X2X3Y1Y2Y3Z1Z2Z3...
+				       Exemple avec 3 MED_TRIA3 T1,T2,T3 : N11N21N31 N12N22N32 N13N23N33 */
+              MED_UNDEF_INTERLACE=-1/**<Mode d'entelacement non défini */
+	}  med_switch_mode;
+
+
+/**\enum med_storage_mode Mode de stockage global ou compact.
+   \details Indique le mode de stockage utilisé par l'application.
+*/
+/* 2.3v3.0 ok*/
+typedef enum { MED_UNDEF_STMODE,  /**< Mode de stockage en mémoire non initialisé*/
+               MED_GLOBAL_STMODE, /**< Le stockage utilisé contient en mémoire toutes les valeurs relatives à toutes les entités d'un même type.*/ 
+	       MED_COMPACT_STMODE, /**< Le stockage utilisé contient en mémoire contigüe un sous-ensemble de valeurs relatives à un sous-ensemble d'entités d'un même type.*/ 
+               MED_GLOBAL_PFLMODE=MED_GLOBAL_STMODE,   /**< Old name, do not use it anymore*/
+               MED_COMPACT_PFLMODE=MED_COMPACT_STMODE, /**< Old name, do not use it anymore*/
+               MED_UNDEF_PFLMODE=MED_UNDEF_STMODE      /**< Old name, do not use it anymore*/
+	     }  med_storage_mode;
+
+
+/**\enum med_access_mode
+   \details Permet de choisir le mode d'ouverture d'un fichier MED.
+*/
+typedef enum {MED_ACC_RDONLY, /**<Ouverture en lecture seule*/
+              MED_ACC_RDWR,   /**<Ouverture en lecture/ecriture. L'écriture d'un élément existant écrase l'élément.*/
+              MED_ACC_RDEXT,  /**<Ouverture en lecture/ecriture. L'écriture d'un élément existant génère une erreur.*/
+              MED_ACC_CREAT,  /**<Créer le fichier s'il n'existe pas, l'écrase sinon*/
+              MED_ACC_UNDEF   /**<Variable globale interne initialisée au mode d'ouverture*/ 
+             } med_access_mode;
+
+/**\enum med_mesh_type
+   \details Permet de choisir le type d'un maillage : non structuré ou structuré.
+*/
+/*2.3v3.0 ok*/
+typedef enum {MED_UNSTRUCTURED_MESH, MED_STRUCTURED_MESH, MED_UNDEF_MESH_TYPE=-1} med_mesh_type;
+
+/**\enum med_grid_type
+   \details Permet de définir le type de grille d'un maillage structuré.
+*/
+/* 2.3v3.0 ok*/
+typedef enum {MED_CARTESIAN_GRID,
+	      MED_POLAR_GRID,
+	      MED_CURVILINEAR_GRID,
+	      MED_UNDEF_GRID_TYPE=-1} med_grid_type;
+
+/* 2.3v3.0 ok*/
+typedef enum {MED_CELL, MED_DESCENDING_FACE, MED_DESCENDING_EDGE, MED_NODE,
+	      MED_NODE_ELEMENT, MED_STRUCT_ELEMENT, MED_ALL_ENTITY_TYPE,
+	      MED_UNDEF_ENTITY_TYPE=-1 } med_entity_type;
+#define MED_N_ENTITY_TYPES 6
+
+/* 2.3v3.0 ok*/
+typedef enum {MED_COORDINATE, MED_CONNECTIVITY, MED_NAME, MED_NUMBER,  MED_FAMILY_NUMBER, 
+	MED_COORDINATE_AXIS1, MED_COORDINATE_AXIS2, MED_COORDINATE_AXIS3, 
+	MED_INDEX_FACE, MED_INDEX_NODE, MED_GLOBAL_NUMBER,
+	MED_VARIABLE_ATTRIBUTE, MED_COORDINATE_TRSF,MED_UNDEF_DATATYPE=-1} med_data_type;
+
+/* 2.3v3.0 ok*/
+/** \internal*/
+typedef enum {MED_INTERNAL_FLOAT32=4, MED_INTERNAL_FLOAT64=6,
+	      MED_INTERNAL_INT32=24 , MED_INTERNAL_INT64=26, MED_INTERNAL_INT=28,
+	      MED_INTERNAL_NAME=30  , MED_INTERNAL_SNAME=32,
+	      MED_INTERNAL_LNAME=34 , MED_INTERNAL_IDENT=38,
+	      MED_INTERNAL_CHAR=40  , MED_INTERNAL_UNDEF =0 } med_internal_type; /**< \internal */
+
+/*TODO: Réécrire les routines _MEDatt avec med_internal_type au lieu de med_field_type */
+
+  typedef enum {MED_DOUBLE=MED_INTERNAL_FLOAT64,  /**<Type réel 64bits */
+		MED_FLOAT64=MED_INTERNAL_FLOAT64, /**<Type réel 64bits */
+		MED_FLOAT32=MED_INTERNAL_FLOAT32, /**<Type réel 32bits */
+		MED_INT32=MED_INTERNAL_INT32,     /**<Type entier 32bits */
+		MED_INT64=MED_INTERNAL_INT64,     /**<Type entier 64bits */
+		MED_INT=MED_INTERNAL_INT          /**<Type entier med_int dépendant de l'option de configuration --med-int */
+                                        }  med_field_type; 
+
+typedef enum {MED_ATT_FLOAT64=MED_INTERNAL_FLOAT64,
+	      MED_ATT_INT=MED_INTERNAL_INT,
+	      MED_ATT_NAME=MED_INTERNAL_NAME,
+	      MED_ATT_UNDEF=MED_INTERNAL_UNDEF }  med_attribute_type; 
+
+typedef med_field_type med_parameter_type; 
+
+#define MED_ATT_FLOAT64_ctype   med_float       /**< \internal */
+#define MED_ATT_INT_ctype 	med_int         /**< \internal */
+#define MED_ATT_NAME_ctype 	char            /**< \internal */
+#define MED_ATT_UNDEF_ctype   	unknown_ctype   /**< \internal */
+
+#define MED_CTYPE(medatttype) medatttype##_ctype 
+
+/* 2.3v3.0 ok : med_type_donnee*/
+typedef enum {MED_MESH, MED_FIELD, MED_LIBRARY, MED_FILE,
+	MED_MESH_SUPPORT,MED_ELSTRUCT, MED_FAMILY,MED_EQUIVALENCE, MED_GROUP, MED_JOINT, 
+	MED_LOCALIZATION, MED_PROFILE, MED_FILTER, MED_INTERPOLATION, MED_NUMERICAL_DATA,
+	MED_LINK, MED_CLASS_UNDEF=-1, MED_CLASS_ALL=-2 } med_class;
+
+
+typedef int med_geometry_type;
+
+/* Mailles dont la géométrie à une connectivité fixe*/
+
+#define MED_POINT1 001
+
+#define MED_SEG2 102
+#define MED_SEG3 103
+#define MED_SEG4 104
+#define MED_TRIA3 203
+#define MED_QUAD4 204
+#define MED_TRIA6 206
+#define MED_TRIA7 207
+#define MED_QUAD8 208
+#define MED_QUAD9 209
+
+#define MED_TETRA4 304
+#define MED_PYRA5 305
+#define MED_PENTA6 306
+#define MED_HEXA8 308
+#define MED_TETRA10 310
+#define MED_OCTA12 312
+#define MED_PYRA13 313
+#define MED_PENTA15 315
+#define MED_PENTA18 318
+#define MED_HEXA20 320
+#define MED_HEXA27 327
+
+/* Mailles dont la géométrie à une connectivité variable*/
+#define MED_POLYGON 400
+#define MED_POLYGON2 420
+#define MED_POLYHEDRON 500
+
+/* Mailles dont la géométrie est dynamique (découverte du modèle dans le fichier) */
+#define MED_STRUCT_GEO_INTERNAL 600
+#define MED_STRUCT_GEO_SUP_INTERNAL 700
+
+#define MED_NONE 0
+#define MED_NO_GEOTYPE MED_NONE
+#define MED_UNDEF_GEOTYPE MED_NONE
+#define MED_UNDEF_GEOMETRY_TYPE MED_NONE
+#define MED_ALL_GEOTYPE -1
+#define MED_GEO_ALL MED_ALL_GEOTYPE
+
+#define MED_N_CELL_GEO            25 /**< Nombre de types géométriques de mailles */
+#define MED_N_CELL_FIXED_GEO      24 /**< Nombre de types géométriques statiques de mailles */
+#define MED_N_CELL_GEO_FIXED_CON  21 /**< Nombre de types géométriques statiques de mailles à connectivité fixe */
+
+#define MED_N_FACE_GEO               8
+#define MED_N_FACE_FIXED_GEO         8
+#define MED_N_FACE_GEO_FIXED_CON     6
+
+#define MED_N_EDGE_TYPES             3
+#define MED_N_EDGE_FIXED_GEO         3
+#define MED_N_EDGE_GEO_FIXED_CON     3
+
+#define MED_N_NODE_GEO               1
+#define MED_N_NODE_FIXED_GEO         1
+#define MED_N_NODE_GEO_FIXED_CON     1
+
+/*2.3v3.0 ok*/
+typedef enum {MED_NODAL, MED_DESCENDING, MED_UNDEF_CONNECTIVITY_MODE=-1, MED_NO_CMODE=-1} med_connectivity_mode; 
+
+/*2.3v3.0 ok*/
+typedef enum {MED_CARTESIAN, MED_CYLINDRICAL, MED_SPHERICAL, MED_UNDEF_AXIS_TYPE=-1} med_axis_type;
+
+typedef enum {MED_FALSE, MED_TRUE} med_bool ;
+
+#define MED_GAUSS_ELNO "MED_GAUSS_ELNO" /** < Localisation des points d'intégrations aux
+					     noeuds des élements. L'utilisation de cette
+					     localisation ne necessite pas sa création au préalable. */ 
+#define MED_IPOINT_ELNO MED_GAUSS_ELNO
+
+
+#define MED_NO_NAME ""                  /**< De manière générale une chaîne vide indique l'abscence de nom MED.*/
+
+#define MED_NO_MESHNAME ""              /**< Indique qu'il n'y a pas de maillage */
+#define MED_NO_MESH     ""              /**< Indique qu'il n'y a pas de maillage */
+
+#define MED_NO_MESH_SUPPORT ""          /**< Indique qu'il n'y a pas de maillage support  */
+
+#define MED_NO_LOCALIZATION ""          /**< Indique qu'il n'y a pas de localisation de points d'intégration */
+
+#define MED_NO_INTERPOLATION ""         /**< Indique qu'il n'y a pas de fonction d'interpolation  */
+
+#define MED_NO_IPOINT_INTERNAL 1       /**< \internal */
+
+#define MED_NO_PROFILE ""                     /**< Indique l'absence de profil. 
+						 Ce profil est équivalent à celui qui sélectionne 
+						 tous les éléments #MED_ALLENTITIES_PROFILE 
+						 \internal L'utilisation d'une chaine vide permet de tester rapidement la taille*/
+
+#define MED_NO_GROUP ""                 /**< Indique l'absence de groupe dans la famille 0 */
+
+#define MED_ALLENTITIES_PROFILE MED_NO_PROFILE /**<Indique qu'il s'agit d'un profil qui selectionne toutes les entités.
+						  Ce profil est équivalent à #MED_NO_PROFILE . */	 
+
+
+#define MED_NO_PROFILE_INTERNAL   "MED_NO_PROFILE_INTERNAL"   /**< \internal*/
+#define MED_SAME_PROFILE_INTERNAL "MED_SAME_PROFILE_INTERNAL" /**< \internal*/
+
+#define MED_ALL_CONSTITUENT 0                 /**<Selectionne tous les constituants d'une valeur.
+						 Les constituants d'une valeur peuvent être les composantes
+						 des coordonnées des noeuds, les noeuds d'une connectivité nodal, 
+						 les composantes d'un champ. */
+#define MED_UNDEF_SIZE 0
+#define MED_NO_PROFILE_SIZE 0  /**<Fourni une valeur de taille de profil par défaut d'utilisation de la notion de profil.*/
+
+typedef enum {MED_SORT_DTIT,MED_SORT_ITDT,MED_SORT_UNDEF=-1 } med_sorting_type; /**<Indique l'ordre de tri des séquences de calcul d'un maillage.
+                                                                                    Cette ordre, fixé à la création du maillage 
+										    est important pour comparer l'évolution du maillage
+                                                                                    d'une séquence de calcul à une autre.
+										    Utilisé conjointement avec les profils, 
+										    il permet de réduire les écritures aux 
+										    seules informations modifiées  par rapport 
+										    à la séquence de calcul précédente. */
+
+#define MED_NO_DT -1 /**<Indique que l'on n'utilise pas la notion de date.*/
+#define MED_NO_IT -1 /**<Indique que l'on n'utilise pas la notion d'itération.*/
+#define MED_UNDEF_DT 0 /**<Fourni une valeur de date par défaut d'utilisation de la notion de date.*/
+
+#define MED_ATT_NOT_FILLED -1
+
+
+/* correspondance des types avec HDF 5 */
+
+typedef hsize_t        med_size;  /**< \internal */
+typedef hssize_t       med_ssize; /**< \internal */
+typedef hid_t          med_idt;   /**< \internal */
+typedef herr_t         med_err;   /**< \internal */
+
+/* types elementaires */
+
+typedef double         med_float; 
+typedef double         med_float64; 
+typedef double         med_double;
+typedef float          med_float32;
+
+/*La ligne suivante est déterminée à l'étape de configuration*/
+typedef @LONG_OR_INT@  med_int; /**< La taille du med_int est paramétrable à l'étape de configuration de med fichier. */
+typedef @MED_INT32@  med_int32;     /**< L'entier med de taille fixe 32bits. */
+typedef @MED_INT64@  med_int64; /**< L'entier med  de taille fixe 64bits. */
+
+#define INIT2X( x ) x, x,
+#define INIT4X( x ) x, x, x, x
+#define INIT10X( x ) x, x, x, x, x, x, x, x, x, x
+#define MED_MAX_FILTER_SPACES 4100
+#define MED_MAX_FILTER_SPACES_INIT {INIT4X(INIT10X(INIT10X(INIT10X(0)))), INIT10X(INIT10X(0)) }
+
+/** \struct med_filter
+    \brief  Filtre de sélection.
+*/
+typedef struct {
+  /*PRIVATE attributes*/
+  med_int          nspaces;
+  med_idt          memspace[MED_MAX_FILTER_SPACES];
+  med_idt          diskspace[MED_MAX_FILTER_SPACES];
+  /*PUBLIC IN attributes*/
+  med_int          nentity;
+  med_int          nvaluesperentity;
+  med_int          nconstituentpervalue;
+  med_int          constituentselect;
+  med_switch_mode  switchmode;
+  med_int          filterarraysize;
+  med_size*        filterarray23v30;
+  med_int          profilearraysize;/*PRIVATE attribute en IN et OUT positionnée dans MEDfilterCr*/
+  med_storage_mode storagemode;
+  char             profilename[MED_NAME_SIZE+1];
+} med_filter; 
+
+
+#define MED_FILTER_INIT { 0, MED_MAX_FILTER_SPACES_INIT, MED_MAX_FILTER_SPACES_INIT ,0,0,0,0,\
+                          MED_UNDEF_INTERLACE,MED_NO_FILTER_SIZE, NULL , \
+                          MED_NO_PROFILE_SIZE,MED_UNDEF_PFLMODE,MED_NO_PROFILE }
+
+#define MED_NO_FILTER NULL
+#define MED_NO_FILTER_SIZE 0
+#define MED_NO_PROFILE_F "                                "
+
+/** \struct med_file_version
+    \brief  Structure d'acceuil du numéro de version MED d'un fichier.
+*/
+typedef struct {
+  med_int majeur; med_int mineur; med_int release;
+} med_file_version;
+#define MED_FILE_VERSION_INIT {0, 0, 0};
+
+/** \struct med_memfile
+    \brief  Structure d'acceuil du buffer d'un fichier MED en mémoire.
+*/
+typedef struct {
+  void *app_image_ptr; /**< Pointeur de l'emplacement contenant l'image mémoire au format MED */ 
+  size_t app_image_size; /**< La taille  de l'image mémoire*/
+  int ref_count; /**< Counteur de référence sur le nombre d'utilisation d'une image mémoire */
+
+  void *fapl_image_ptr; /**< \internal Pointer to FAPL buffer */
+  size_t fapl_image_size;/**< \internal Size of FAPL buffer */
+  int fapl_ref_count; /**< \internal Reference counter for FAPL buffer */
+  void *vfd_image_ptr; /**< \internal Pointer to VFD buffer */
+  size_t vfd_image_size; /**< \internal Size of VFD buffer */
+  int vfd_ref_count; /**< \internal Reference counter for VFD buffer */
+  med_access_mode flags; /**< \internal Flags indicate how the file image will be open */
+} med_memfile ;
+
+#define MED_MEMFILE_INIT {NULL, 0, 1, NULL, 0, 0, NULL, 0, 0, MED_ACC_RDONLY}
+
+/** \internal */
+#define AFF_MEMFILE \
+XSCRUTE(memfile->app_image_ptr);\
+ISCRUTE_long(memfile->app_image_size);\
+ISCRUTE_int(memfile->ref_count);\
+XSCRUTE(memfile->fapl_image_ptr);\
+ISCRUTE_long(memfile->fapl_image_size);\
+ISCRUTE_int(memfile->fapl_ref_count);\
+XSCRUTE(memfile->vfd_image_ptr);\
+ISCRUTE_long(memfile->vfd_image_size);\
+ISCRUTE_int(memfile->vfd_ref_count);\
+ISCRUTE_int(memfile->flags);
+
+
+#include "med_proto.h"
+
+/*En cas de modifications/ajouts de type d'entité/géométrique mettre à jour les itérateurs suivants : */
+
+extern MEDC_EXPORT med_entity_type MED_GET_ENTITY_TYPE[MED_N_ENTITY_TYPES+2];
+extern MEDC_EXPORT const char * const MED_GET_ENTITY_TYPENAME[MED_N_ENTITY_TYPES+2];
+extern MEDC_EXPORT med_geometry_type MED_GET_CELL_GEOMETRY_TYPE[MED_N_CELL_FIXED_GEO+2];
+extern MEDC_EXPORT const char * const MED_GET_CELL_GEOMETRY_TYPENAME[MED_N_CELL_FIXED_GEO+2];
+extern MEDC_EXPORT med_geometry_type MED_GET_FACE_GEOMETRY_TYPE[MED_N_FACE_FIXED_GEO+2];
+extern MEDC_EXPORT const char * const MED_GET_FACE_GEOMETRY_TYPENAME[MED_N_FACE_FIXED_GEO+2];
+extern MEDC_EXPORT med_geometry_type MED_GET_EDGE_GEOMETRY_TYPE[MED_N_EDGE_FIXED_GEO+2];
+extern MEDC_EXPORT const char * MED_GET_EDGE_GEOMETRY_TYPENAME[MED_N_EDGE_FIXED_GEO+2];
+extern MEDC_EXPORT med_geometry_type MED_GET_NODE_GEOMETRY_TYPE[MED_N_NODE_FIXED_GEO+2];
+extern MEDC_EXPORT const char * MED_GET_NODE_GEOMETRY_TYPENAME[MED_N_NODE_FIXED_GEO+2];
+
+/*      Predefined names for struct elements            */
+#define MED_PARTICLE_NAME   "MED_PARTICLE"
+#define MED_BALL_NAME       "MED_BALL"
+#define MED_BEAM_NAME       "MED_BEAM"
+
+/* 	Predefined attributes names for struct elements */
+#define MED_PARTICLE_LABEL  "MED_PARTICLE_LABEL"
+#define MED_BALL_DIAMETER   "MED_BALL_DIAMETER"
+#define MED_BEAM_THICKNESS  "MED_BEAM_THICKNESS"
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif  /* MED_H */

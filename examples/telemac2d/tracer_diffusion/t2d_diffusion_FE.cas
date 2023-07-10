@@ -1,0 +1,90 @@
+/-------------------------------------------------------------------/
+/                        TELEMAC-2D
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+/DEBUGGER = 1
+/
+FORTRAN FILE                    = 'user_fortran'
+GEOMETRY FILE                   = geo_flume_sym.slf
+BOUNDARY CONDITIONS FILE        = geo_flume_sym_neu.cli
+RESULTS FILE                    = r2d_flume.slf
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE : 'FLUME TRACER DIFFUSION EF'
+/
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,S,B,Q,F,H,T*,T1*'
+/
+GRAPHIC PRINTOUT PERIOD         = 100
+LISTING PRINTOUT PERIOD         = 1000
+/
+DURATION                        = 10
+TIME STEP                       = 0.01
+/
+/MASS-BALANCE                    = YES
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS              = 'CONSTANT ELEVATION'
+INITIAL ELEVATION               = 1.0
+/
+/----------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------
+/
+PRESCRIBED FLOWRATES            = 0.0;0.0
+PRESCRIBED ELEVATIONS           = 1.0;1.0
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 0
+/
+DIFFUSION OF VELOCITY           = True
+VELOCITY DIFFUSIVITY            = 0.
+/
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+EQUATIONS                       = 'SAINT-VENANT FE'
+TREATMENT OF THE LINEAR SYSTEM  = 2 /1:PRIM 2:WAVE EQUATION
+/
+TYPE OF ADVECTION               = 14;5;14
+DISCRETIZATIONS IN SPACE        = 11;11
+/
+SOLVER                          = 1
+SOLVER ACCURACY                 = 1.E-5
+IMPLICITATION FOR DEPTH         = 1.0
+IMPLICITATION FOR VELOCITY      = 1.0
+/
+SUPG OPTION                     = 0;0;0
+MASS-LUMPING ON H               = 1
+TIDAL FLATS                     = YES
+TREATMENT OF NEGATIVE DEPTHS    = 2
+FREE SURFACE GRADIENT COMPATIBILITY = 0.9
+CONTINUITY CORRECTION           = YES
+/
+/----------------------------------------------
+/  TRACER
+/----------------------------------------------
+/
+NUMBER OF TRACERS               = 2
+NAMES OF TRACERS                = 'TRACER 1'; 'TRACER 2'
+/
+INITIAL VALUES OF TRACERS       = 0.; 0.
+PRESCRIBED TRACERS VALUES       = 0.0;0.0 ; 0.0;0.0
+/
+DIFFUSION OF TRACERS            = True
+COEFFICIENT FOR DIFFUSION OF TRACERS = 1.;1.
+MASS-BALANCE = YES
+/

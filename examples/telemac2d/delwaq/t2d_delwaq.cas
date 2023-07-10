@@ -1,0 +1,77 @@
+COUPLING WITH : 'DELWAQ'
+
+VOLUMES DELWAQ FILE                 : dwq_delwaq-volume.dwq
+EXCHANGE AREAS DELWAQ FILE          : dwq_delwaq-area.dwq
+VERTICAL FLUXES DELWAQ FILE         : dwq_delwaq-flow.dwq
+BOTTOM SURFACES DELWAQ FILE         : dwq_delwaq-horsurf.dwq
+EXCHANGES BETWEEN NODES DELWAQ FILE : dwq_delwaq-frmto.dwq
+NODES DISTANCES DELWAQ FILE         : dwq_delwaq-length.dwq
+SALINITY DELWAQ FILE                : dwq_delwaq-salinite.dwq
+VELOCITY DELWAQ FILE                : dwq_delwaq-vitesse.dwq
+DIFFUSIVITY DELWAQ FILE             : dwq_delwaq-diffusion.dwq
+DELWAQ STEERING FILE                : dwq_delwaq.hyd
+
+/  SUR HP C3700 compilateur HP      : 18 s  version 5.7 07/05/2007
+
+/  SUR HP C3700 compilateur HP      : 18 s  version 5.8 13/11/2007
+/  SUR HP C3700 compilateur Nag     : 44 s  version 5.8 20/12/2007
+/  SUR Dell 2.8 MHz compilateur pgi : 12 s  version 5.8 19/12/2007
+
+/  SUR HP C3700 compilateur HP      : 17 s  version 5.9 15/10/2008
+/  SUR HP C3700 compilateur Nag     : 42 s  version 5.9 16/10/2008
+/  SUR Dell 2.8 MHz compilateur pgi : 11 s  version 5.9 15/10/2008
+
+/  SUR HP C3700 compilateur HP        : 16 s  version 6.0 23/11/2009
+/  SUR HP C3700 compilateur Nag       : 46 s  version 6.0 26/11/2009
+/  SUR Dell 2.8 MHz compilateur Intel :  7 s  version 6.0 25/11/2009
+
+/  Version 6.2
+
+/  SUR HP C3700 compilateur HP        : 17 s  21/05/2012
+
+BOUNDARY CONDITIONS FILE : geo_delwaq.cli
+GEOMETRY FILE            : geo_delwaq.slf
+LIQUID BOUNDARIES FILE   : t2d_delwaq.lqd
+RESULTS FILE             : r2d_delwaq.slf
+
+/----------------------------------------------------------------------
+TITLE = 'TELEMAC 2D : RIVIERE AVEC DEUX PILES DE PONT$'
+TIME STEP = 0.2
+NUMBER OF TIME STEPS = 400
+LISTING PRINTOUT PERIOD = 40
+GRAPHIC PRINTOUT PERIOD = 10
+DELWAQ PRINTOUT PERIOD  = 10
+VARIABLES FOR GRAPHIC PRINTOUTS : 'U,V,S,H,B,T1'
+TYPE OF ADVECTION : 1;5;4
+TURBULENCE MODEL = 1
+SUPG OPTION     : 1;0
+LAW OF BOTTOM FRICTION = 3
+FRICTION COEFFICIENT = 40.
+VELOCITY DIFFUSIVITY = 0.005
+IMPLICITATION FOR DEPTH = 0.6
+IMPLICITATION FOR VELOCITY = 1.
+MASS-BALANCE : YES
+SOLVER ACCURACY = 1.E-12
+INITIAL CONDITIONS : 'ZERO ELEVATION'
+PRESCRIBED FLOWRATES : 0.;62.
+PRESCRIBED ELEVATIONS : 0.;0.
+/AJOUTE POUR EQUATION D'ONDE GENERALISEE
+/MASS-LUMPING SUR LA VITESSE : 1.
+MASS-LUMPING ON H : 0.5
+/IMPLICITATION POUR LA DIFFUSION DES VITESSES : 1.
+TREATMENT OF THE LINEAR SYSTEM : 2
+/ CHANGE OF SOLVER TO RUN IN PARALLEL
+SOLVER : 1
+FREE SURFACE GRADIENT COMPATIBILITY : 0.
+
+NUMBER OF TRACERS : 1
+COEFFICIENT FOR DIFFUSION OF TRACERS : 0.
+NAMES OF TRACERS : 'SALINITY        G. PER L.'
+SALINITY FOR DELWAQ    : YES
+VELOCITY FOR DELWAQ    : YES
+DIFFUSIVITY FOR DELWAQ : YES
+CONTINUITY CORRECTION : YES
+
+/ ORIGINAL DATE OF TIME AFTER YEAR 1968 TO WORK WITH DELWAQ
+/ WITHOUT ANY ERROR MESSAGE
+ORIGINAL DATE OF TIME : 2019;1;23

@@ -1,0 +1,5 @@
+%MedException(MEDnProfile)
+%MedException(MEDprofileInfo)
+%MedException(MEDprofileWr)
+%MedException(MEDprofileSizeByName)
+%MedException(MEDprofileRd)

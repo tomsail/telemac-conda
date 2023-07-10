@@ -1,0 +1,291 @@
+
+------------------
+TABLE DES MATIERES
+------------------
+
+1. 	Obtenir la derniere version
+
+2.   	Installer la bibliotheque MED 3.2
+2.1 	Plates-formes supportees
+2.2 	Logiciels necessaires a l'installation
+2.3	Lancement de l'installation sous UNIX
+
+3.      Utilisation des tests et des makefiles associes
+
+4.      Utilitaires
+
+5.	Documentation
+
+6.	Joindre les correspondants MED
+
+----------------------------------------------------------------------
+
+1. 	Obtenir la derniere version
+
+La version la plus recente de la bibliotheque MED se trouve
+sur le serveur intranet EDF R&D : http://med.der.edf.fr.
+
+
+2. 	Installer la bibliotheque MED 3.2
+
+Pour compiler et installer la librairie MED3.2 ainsi que sa
+batterie de programmes tests et ses utilitaires, 
+verifiez tout d'abord que vous disposez 
+d'un environnement adéquat puis appliquez les instructions suivantes.
+
+2.1	Plates-formes supportees et testées
+
+PCs LINUX 32/64
+SUN-SOLARIS                    -> 3.0.x
+BLUEGENE                       -> 3.0.x
+
+2.2	Logiciels necessaires a l'installation
+
+a. HDF 5-1.8.14 (http://www.hdfgroup.org/HDF5).
+a1. Variable d'environement HDF5HOME positionnée à l'emplacement d'HDF5
+    ou utilisation de l'option --with-hdf5=<hdf5 path> à l'étape de configuration.
+    Si aucune option n'est utilisée, MED cherche hdf dans /usr.
+
+b. libz
+b1. Si vous compilez en dynamique la bibliothèque hdf5 doit pouvoir être trouvée soit
+    dans le système (/usr/lib) soit par la variable LD_LIBRARY_PATH.
+
+c. compilateur C, F77 ou F90, C++
+ 
+2.3	Lancement de l'installation sous UNIX
+
+Dans le repertoire des sources :
+./configure --prefix=<repertoire cible> 
+make
+make check 
+make installcheck
+make install ou make install-strip
+
+Remarques :
+
+- Une interface python est disponible depuis la version 3.0.7.
+  Elle peut être desactivée par l'option --disable-python.
+  Elle ne peut être activée en mode static --disable-shared.
+  La bibliothèque medfichier embarque les interfaces .cc et .py générées par swig 
+  pour les options med_int=int et med_int=long.
+  L'outil swig n'est donc pas requis à moins de compiler med avec une version // d'hdf.
+  Il faut alors regénérer les interfaces swig en précisant l'option --with-swig. 
+  Une fois construite en version //, si vous utiliser la même arborescence pour construire une version 
+  de medfichier avec une version séquentielle d'HDF il faut de nouveau activer l'option --with-swig pour
+  regénérer les interfaces swig sans MPI (à l'identique des versions initialement embarquées).
+  La version de swig utilisé par med-3.3 est actuellement 2.0.9.
+  Si vous utilisez un compilateur tel que gcc-6.4 il faut utiliser une version 3 de swig.
+  
+- la bibliothèque MED utilise le C++ depuis sa version 2.3.2.
+
+- Il est possible de compiler uniquement la bibliotheque MED en
+  version statique ou dynamique en utilisant respectivement les options 
+  du configure --disable-shared  ou --disable-static.
+
+  Dans le cas d'une compilation statique, il est necessaire de préciser
+  le(s) nom(s) et le(s) chemin(s) d'accès à la bibliothèque C++ pour l'édition des liens 
+  des tests fortran (soit au moment du configure soit à la commande make ) :
+
+  	ex : make FTLDFLAGS="-L/usr/lib/gcc-lib/i486-linux/3.3.5/" FTLIBS="-lstdc++"
+
+  Pourquoi cette exception à la génération des tests fortran en mode statique ? :
+
+  L'utilisation du linker C++ automatiserait l'apport de la bibliothèque C++
+  dont le nom n'est pas standardisé. Malheureusement, certains conpilateurs fortran
+  ne proposent pas une bibliothèque comme libfrtbegin.a du g77 (contenant le main)
+  mais ajoutent le main à l'édition des liens par un fichier spécifique main.o.
+  La conséquence est que les autotools ne peuvent détecter cette situation et à 
+  l'édition des liens C++ aucun main n'est défini. A cause de ces spécificités,
+  nous avons choisi de laisser une édition des liens via le fortran. 
+  Lors d'une utilisation de bibliothèques dynamiques sur des plateformes qui 
+  supportent les dépendances entre bibliothèques il n'est pas necessaire
+  de définir le FTLDFLAGS car une dépendance à la bibliothèque C++ est inscrite
+  dans la bibliothèque med.
+
+- Pour compiler les tests en Fortran90 vous devez utiliser l'option 
+
+  --with-f90=<nom du compilateur F90>  ou 
+  positionner la variable d'environement F90 et indiquer --with-f90  : 
+
+  Configurez par la commande : ./configure --prefix=<repertoire cible> F77=pgf90 --with-f90=pgf90
+
+  Il est necessaire d'utiliser le compilateur F90 également pour compiler l'interface fortran
+  de la biliothèque (variable F77).
+
+- Pour compiler la bibliotheque en mode debug utilisez : 
+
+	./configure --prefix=<repertoire cible> CFLAGS=-g FFLAGS=-g [FCFLAGS=-g]
+
+- Pour enlever les symboles de debugging dans le repertoire d'installation faire 
+
+  make install-strip au lieu de make install
+
+- Vous pouvez indiquez vos propres options de compilation : 
+  ./configure MAKE=<mon make> CC=<mon compilo C> CFLAGS=<mes options C> \
+  F77=<mon compilo f77> FFLAGS=<mes options f77>  \
+  FCFLAGS=<mes options f90>  \
+  CXX=<mon compilo cplusplus> CXXFLAGS=<mes options cplusplus> \
+  --prefix=<repertoire cible>
+
+- Pour spécifier où se trouve HDF5 sans utiliser la variable 
+  d'environnement HDF5HOME utilisez : --with-hdf5=<path> 
+
+- Pour désactiver l'affichage de messages d'erreur sur la sortie erreur utilisez l'option
+  --enable-msgerr=false ou --disable-msgerr.
+
+  Si elle est bien utilisée, la bibliothèque ne devrait pas afficher d'erreur.
+
+- MED se base sur la taille des entiers F77 pour définir la taille du med_int. Les
+  options de compilation concernant la taille des entiers fortran sont testées à l'étape
+  de configuration par l'execution d'un test. 
+  Si la détection ne fonctionne pas, ou si vous utilisez un cross-compiler vous pouvez
+  spécifier le type C du med_int par l'option --with-med_int=<mon type "C", int, long ...>.
+  La taille de l'entier Fortran doit correspondre au type "C".
+  
+
+Exemples de configure : 
+
+- Sous Solaris :
+
+	/* Pour utiliser Workshop 6.0*/
+	export LD_LIBRARY_PATH=/logiciels/public/zlib-1.1.4/lib:\
+/home/med/hdf5-1.6.4.SUN4SOL2/lib:/logiciels/workshop-6.0/SUNWspro/lib
+	export PATH=/logiciels/workshop-6.0/SUNWspro/bin/:$PATH
+	export F90=f90
+
+	./configure CC="cc" CFLAGS="-O" F77="f90 -silent" FFLAGS="-O2"  \
+CXX="CC" --prefix=/tmp/med-3.0.0.sun --with-hdf5=/home/med/hdf5-1.6.4.SUN4SOL2/  \
+--with-f90 --disable-shared  LDFLAGS="-L/logiciels/public/zlib-1.1.4/lib/" \
+FTLDFLAGS="-L/logiciels/workshop-6.0/SUNWspro/WS6/lib/" \
+FTLIBS="-lcx -lCrun -lCstd"
+	
+  Notez l'apparition du -silent qui permet au configure de detecter correctement
+  la capacité de ce compilateur à générer une bibliothèque dynamique.
+  Sans ce flag f77 écrit sur la stderr le nom de la routine en cours de compilation
+  ce qui est détecté comme une erreur au configure.
+
+
+- Sous OSF/1 :
+
+	Par défaut le configure utilisé positionne la taille des entiers à 64bits,
+	pour désactiver cette fonctionnalité utiliser --disable-int64. Prendre garde à 
+	positionner les FFLAGS fortran de façon adéquate (-integer_size 64).
+
+F77=f90 
+FFLAGS="-fast -r8 -integer_size 64 -arch host -tune host"
+CC=cc
+CFLAGS="-g0 -verbose -std  -O4  -arch host -tune host -ansi_args -fp_reorder -readonly_strings -inline speed"
+HDF5HOME=/home05/med/hdf5-1.6.4
+F90=f90
+
+./configure --prefix=/home05/med/med-3.0.0 --with-f90
+
+- Sous Linux avec compilateur Fortran PGI et GNU C/C++.
+
+	./configure F77="pgf90" --with-f90="pgf90" --with-med_int=int
+
+ Dans cette configuration :
+
+  - Le test de la taille du med_int échoue car des symboles définis dans des bibliothèques F77 PGI
+    ne sont pas fournis à l'édition des liens du test. 
+    Ce test possède un programe principal en C et une routine F77.
+    Le problème est que si l'on ajoute le contenu de $(FTLIBS) à l'édition des liens, le test fontionne
+    avec PGI mais plus sous G77/GCC pour cause d'une définition multiple du main ( par le test c et par la
+    bilbiothèque libfrtbegin ).
+
+- Sous Linux avec compilateur gfortran avec entiers fortran 64bits
+
+	./configure --prefix=/local/med-3.0.0_64.bin --with-f90=gfortran F77=gfortran FFLAGS="-fdefault-integer-8" FCFLAGS="-fdefault-integer-8"
+
+  Ne pas oublier de positionner FCFLAGS pour que les bonnes options soient utilisées pour le Fortran 90.
+
+- sous BULL Novascale 4040 Linux 64 :
+
+./configure --prefix=/home02/salome/ERIC/med-3.0.0_64.bin --with-f90=ifort FFLAGS="-i8" FCFLAGS="-i8"
+
+- Sous BlueGene Q (new)
+
+export ZLIB_PREFIX=/home/projets-bgq/systel/LIBRARY/zlib-1.2.7/arch/zumbrota
+export HDF5_PREFIX=/home/projets-bgq/systel/LIBRARY/hdf5-1.8.8/arch/zumbrota
+export PATH=$PATH:$HDF5_PREFIX/bin/tools/
+export MED_SRC=$HOME/med-3.0.7
+
+
+$MED_SRC/./configure --prefix=$MED_PREFIX --disable-shared --disable-python \
+CC=/bgsys/drivers/ppcfloor/comm/xl/bin/mpicc \
+F77=/bgsys/drivers/ppcfloor/comm/xl/bin/mpif77 \
+FC=/bgsys/drivers/ppcfloor/comm/xl/bin/mpif90 \
+CXX=/bgsys/drivers/ppcfloor/comm/xl/bin/mpic++ \
+CXXFLAGS="-qlanglvl=redefmac" \
+--with-hdf5=$HDF5_PREFIX --with-med-int=int \
+LDFLAGS="-L$ZLIB_PREFIX/lib" FTLIBS="-L/bgsys/linux/RHEL6.3_V1R2M0-36/opt/ibmcmp/vacpp/bg/12.1/lib64/ -libmc++ -L/bgsys/linux/RHEL6.3_V1R2M0-36/usr/lib/gcc/ppc64-redhat-linux/4.4.4/lib64 " \
+--build=ppc64 --host=powerpc
+
+Remarque importante : Il peut être necessaire de modifier la variable prefer_static_libs à yes dans la fonction func_mode_link du fichier libtool généré au ./configure. 
+
+- Sous BlueGene P 
+
+MED_SRC=$HOME/med-3.0.5
+MED_PREFIX=/gpfs/home/med/med-3.0.5.bin/arch/bgp
+HDF5_PREFIX=/gpfs/home/saturne/opt/hdf5-1.8.6/arch/bgp
+ZLIB_PREFIX=/gpfs/home/saturne/opt/zlib-1.2/arch/bgp
+
+
+$MED_SRC/./configure --prefix=$MED_PREFIX --disable-shared CC=mpixlc F77=mpixlf77  FC=mpixlf90 CXX=mpixlcxx CXXFLAGS="-DMPICH_SKIP_MPICXX -DMPICH_IGNORE_CXX_SEEK" --with-hdf5=$HDF5_PREFIX --with-med-int=int --disable-shared LDFLAGS="-L$ZLIB_PREFIX/lib" FTLIBS="/opt/ibmcmp/vacpp/bg/9.0/bglib/libibmc++.a /bgsys/drivers/V1R4M2_200_2010-100508P/ppc/gnu-linux/powerpc-bgp-linux/lib/libstdc++.a" --build=ppc64 --host=ppc
+
+- En version Parallèle
+
+A l'étape du configure MED repère si l'hdf utilisé à été configuré avec une version parallèle d'HDF5 (statique ou dynamique). 
+Si une version parallèle d'HDF5 est utilisée, les compilateurs CC, CXX, F77 seront positionnés par défaut à mpicc (ou commande équivalente), mpiCC (ou commande équivalente) et mpif77 (ou commande équivalente).
+Il est possible de surcharger ces variables.
+
+- En version dynamique (exemple avec lam MPI) :
+
+export LAMMPIF77=gfortran
+../Dev_V3.0b_fayolle/configure --with-hdf5=/local/hdf5-1.8.4p1_par.bin  FC=mpif77 --with-f90=mpif77 FTLIBS=-llammpi++ --prefix=/local/med-3.0.0.bin
+
+Dans cette exemple les compilateurs CC, CXX, F77 seront positionnés par défaut à mpicc, mpiCC et mpif77.
+Puisque l'on active les tests fortran 90, il est necessaire de positionner également FC à mpif77 si vous ne possédez pas de wrapper mpif90.
+Le positionnement FTLIBS=--lampi++ est necessaire pour l'édition des liens des tests fortran qui seront fait en F77 ou FC (cf explication précédente sur la compilation statique).
+Ex:
+../Dev_V3.0b_fayolle/configure --with-hdf5=/local/hdf5-1.8.4p1_par.bin FC=mpif77 FCFLAGS="-fdefault-integer-8" --with-f90=mpif77 FFLAGS="-fdefault-integer-8" FTLIBS="-llammpi++" --prefix=/local/med-3.0.0a2.bin
+
+- En version statique (sans les tests f90) : 
+
+export LAMMPIF77=gfortran
+../Dev_V3.0b_fayolle/configure --prefix=/local/med-3.0.0.bin --with-hdf5=/local/hdf5-1.8.4p1_par.bin/  --disable-shared FTLDFLAGS=-L/usr/lib/gcc/x86_64-linux-gnu/4.1.2/  FTLIBS="-lstdc++ -llammpi++"
+
+
+- En version statique (autres commandes utiles) :
+
+./configure --disable-shared --prefix=/local/med-3.0.0.bin --with-hdf5=/local/hdf5-1.8.2_par.bin/ CC=mpicc LDFLAGS="-lm -lz" CXX=mpiCC \
+FTLDFLAGS="-L/usr/lib/gcc/x86_64-linux-gnu/4.1.2/ -L/usr/lib/lam/lib" FTLIBS="-lstdc++ -llammpio -llammpi++ -llamf77mpi -lmpi -llam -lutil -ldl"
+pas de wrapper 	mpif90
+
+- Dans des répertoires distincts 
+
+L'exemple suivant permet d'installer les executables, bibilothèques, modules python, tests et documentation dans des répertoires spécifés par l'utilisateur :
+
+../Dev_V3.0b_fayolle/configure --prefix=/tmp/MED1_unused_here --exec-prefix=/tmp/MED1_exec_prefix_for_python --with-f90  --with-hdf5=/local/hdf5-1.8.14.bin  --with-swig=/local/swig-2.0.9 --bindir=/tmp/MED1/bin --libdir=/tmp/MED1/lib --includedir=/tmp/MED1/include  --docdir=/tmp/MED1/doc --disable-static --enable-installtest
+
+Notez l'option --enable-installtest qui demande explicitement d'installer les tests.
+
+3.	Utilitaires
+
+Trois utilitaires sont compiles et installes dans <repertoire cible>/bin.
+Ce sont :
+- mdump (xmdump) : outil de dump d'un fichier MED aux formats V2.3 à V3.2.
+- medimport : traducteur de fichier à partir des versions V2.x vers V3.2.
+- mdeconforme : vérificateur de conformité de fichier.
+
+4.	Documentation
+
+Toute la documentation est presente dans le répertoire d'installation
+<repertoire cible>/share/doc/. Il s'agit d'une documentation au format HTML.
+
+
+5. 	Joindre les correspondants MED
+
+Par e-mail :
+eric.fayolle@edf.fr
+

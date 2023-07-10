@@ -1,0 +1,104 @@
+/------------------------------------------------------------------------------
+/                  INPUT / OUTPUT FILES
+/------------------------------------------------------------------------------
+TITLE = 'Nestor Dump gaia'
+FORTRAN FILE               = 'user_fortran_gai'
+GEOMETRY FILE              = 'geo_nestor2.slf'
+BOUNDARY CONDITIONS FILE   = 'geo_nestor2_hyd.cli'
+/
+RESULTS FILE              = 'r2d_nestor2.slf'
+/
+COMPUTATION CONTINUED      = YES
+INITIAL TIME SET TO ZERO   = YES
+PREVIOUS COMPUTATION FILE  = t2d_init_nestor2.slf
+/
+GEOMETRY FILE FORMAT             = SERAFIND
+RESULTS FILE FORMAT              = SERAFIND
+PREVIOUS COMPUTATION FILE FORMAT = SERAFIND
+/
+/FORMATTED DATA FILE 1 : _ref_wsp_Test.dat
+/------------------------------------------------------------------------------
+/                           GAIA
+/------------------------------------------------------------------------------
+COUPLING WITH                     = 'GAIA'
+COUPLING PERIOD FOR SISYPHE       = 1
+GAIA STEERING FILE                = gai_nestor2.cas
+/------------------------------------------------------------------------------
+/                           DURATION
+/------------------------------------------------------------------------------
+TIME STEP                         =   1.0
+/------------------------------------------------------------------------------
+/                   Gliederung der Ausgabe-Daten
+/------------------------------------------------------------------------------
+VARIABLES FOR GRAPHIC PRINTOUTS   = U,V,B,H,S
+/NUMBER OF FIRST TIME STEP FOR GRAPHIC PRINTOUTS =  100
+
+NUMBER OF TIME STEPS               =    150
+GRAPHIC PRINTOUT PERIOD            =     25
+LISTING PRINTOUT PERIOD            =     25
+/
+MASS-BALANCE                                    = YES
+/------------------------------------------------------------------------------
+/                   Konstanten
+/------------------------------------------------------------------------------
+WATER DENSITY                 = 999.5
+/------------------------------------------------------------------------------
+/                   Anfangs- und Randbedingungen
+/------------------------------------------------------------------------------
+/ 1: Zufluss; 2: Abfluss
+VELOCITY PROFILES             = 4
+PRESCRIBED ELEVATIONS =     1.0;    1.0
+PRESCRIBED FLOWRATES  =     20.0;    20.0
+/
+/INITIAL CONDITIONS            = 'SPECIAL'
+/INITIAL CONDITIONS            = 'CONSTANT ELEVATION'
+/INITIAL ELEVATION             = 1.0
+INITIAL CONDITIONS            = 'CONSTANT DEPTH'
+INITIAL DEPTH                 = 1.0
+/
+LAW OF BOTTOM FRICTION        = 5
+FRICTION COEFFICIENT          = 0.006
+/------------------------------------------------------------------------------
+/                   Numerische Parameter
+/------------------------------------------------------------------------------
+SOLVER ACCURACY                              = 1.E-06
+PRECONDITIONING                              = 2
+TYPE OF ADVECTION                            = 14;5
+/5="SCHEMA PSI CONSERVATIF"
+/14="EDGE-BASED N-SCHEME"
+/     NUMBER OF SUB-ITERATIONS FOR NON-LINEARITIES = 3
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER      = 300
+SUPG OPTION                                  = 2;0 / 2;2
+SOLVER                                       = 1
+TREATMENT OF THE LINEAR SYSTEM               = 2
+DISCRETIZATIONS IN SPACE                     = 11;11
+MASS-LUMPING ON H                            = 1
+TURBULENCE MODEL                             = 2
+/     TURBULENCE MODEL FOR SOLID BOUNDARIES     = 2
+/     ROUGHNESS COEFFICIENT OF BOUNDARIES     = 0.001
+/     INFORMATION ABOUT K-EPSILON MODEL
+/     VELOCITY DIFFUSIVITY                         = 1.E-06
+TIDAL FLATS                                  = YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS      = 1
+COMPATIBLE COMPUTATION OF FLUXES = YES
+CONTINUITY CORRECTION = YES
+TREATMENT OF NEGATIVE DEPTHS = 2 / geht nur mit tidal options 1
+MATRIX STORAGE                               = 3
+MATRIX-VECTOR PRODUCT                        = 1
+IMPLICITATION FOR DEPTH                      = 1.0 / 0.8
+/     IMPLICITATION FOR VELOCITY                  = 1.0 / 0.6
+OPTION FOR THE DIFFUSION OF VELOCITIES      = 2
+/     MINIMUM VALUE OF DEPTH                       = 0.05
+H CLIPPING                                   = NO
+FREE SURFACE GRADIENT COMPATIBILITY          = 0.8
+/
+/------------------------------------------------------------------------------
+/------------------------------------------------------------------------------
+/                   Tracer
+/------------------------------------------------------------------------------
+/     TRACER = FALSE
+/------------------------------------------------------------------------------
+/                   Begrenzung des Rechenlaufs
+/------------------------------------------------------------------------------
+/     CONTROL OF LIMITS = YES
+/     LIMIT VALUES      = -10000.0; 10000.0

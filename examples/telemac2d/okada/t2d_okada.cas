@@ -1,0 +1,44 @@
+/
+/  Version 6.2
+/
+/  HP C3700 Unix : 15 s  23/05/2012
+/
+TITLE = 'TESTING OKADA FREE SURFACE TSUNAMI DISPLACEMENT'
+/
+/----------------------------------------------------------------------/
+BOUNDARY CONDITIONS FILE : geo_okada.cli
+GEOMETRY FILE            : geo_okada.slf
+RESULTS FILE             : r2d_okada.slf
+/----------------------------------------------------------------------/
+VARIABLES FOR GRAPHIC PRINTOUTS : 'S,U,V,B,MAXZ,TMXZ,MAXV,TMXV'
+TIME STEP = 5.0
+NUMBER OF TIME STEPS = 360
+GRAPHIC PRINTOUT PERIOD = 60
+LISTING PRINTOUT PERIOD = 60
+/----------------------------------------------------------------------/
+INITIAL CONDITIONS : 'ZERO ELEVATION'
+OPTION FOR TSUNAMI GENERATION = 1
+PHYSICAL CHARACTERISTICS OF THE TSUNAMI =
+   100.;210000.;75000.;13.6;81.;41.;110.;37.;-11.5;3.
+/----------------------------------------------------------------------/
+OPTION FOR LIQUID BOUNDARIES : 2
+/----------------------------------------------------------------------/
+SPHERICAL COORDINATES : YES
+SPATIAL PROJECTION TYPE : 2
+LATITUDE OF ORIGIN POINT  = 48.0
+LONGITUDE OF ORIGIN POINT = 0.0
+CORIOLIS : YES
+CORIOLIS COEFFICIENT = 1.E-6
+/----------------------------------------------------------------------/
+LAW OF BOTTOM FRICTION : 5
+FRICTION COEFFICIENT = 0.01
+TURBULENCE MODEL : 1
+VELOCITY DIFFUSIVITY = 1.0
+/----------------------------------------------------------------------/
+FREE SURFACE GRADIENT COMPATIBILITY = 0.9
+TREATMENT OF THE LINEAR SYSTEM : 2
+SOLVER : 1
+TYPE OF ADVECTION : 1;5;5;1
+SOLVER ACCURACY = 1.E-5
+IMPLICITATION FOR DEPTH = 0.55
+IMPLICITATION FOR VELOCITY = 0.55

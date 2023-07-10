@@ -1,0 +1,1457 @@
+&DYN
+/ Description of a keyword
+/ NOM : French name
+/ NOM1 : English name
+/ TYPE : STRING, INTEGER, REAL, LOGICAL
+/ INDEX : Index of the keyword
+/ TAILLE : Number of values (0 means between 1 and n)
+/ (opt) SUBMIT : Chain for files
+/ DEFAUT : Defaut value in French
+/ DEFAUT1 : Defaut value in English
+/ MNEMO : Name of the variable in the code
+/ (opt) CONTROLE : min;max for the keyword value
+/ (opt) CHOIX : List of possible values
+/ (opt) CHOIX1 : CHOIX in french
+/ (opt) APPARENCE : Defined how the keyword is filled
+/   LIST, DYNLIST, TUPLE
+/ RUBRIQUE : Classification of the keyword 3 level max
+/ RUBRIQUE1 : RUBRIQUE but in English
+/ (opt) COMPOSE : Used for fudaa
+/ (opt) COMPORT : Used for fudaa
+/ NIVEAU : Level of the keyword (Level 0 is a mandatory keyword)
+/ AIDE : Help in French (LaTeX syntax)
+/ AIDE1 : Help in English (LaTeX syntax)
+/
+/ INTEGER INDEX USED: 1-6 OUT OF   6
+/ REAL INDEX USED: 1-10 OUT OF  10
+/ LOGICAL INDEX USED: 1-16 OUT OF  16
+/ STRING INDEX USED: 3-11,14-18,22-31 OUT OF  24
+/
+////////////////////////////////////////////////////////////////////////
+/// 2-TREATMENT
+////////////////////////////////////////////////////////////////////////
+NOM = 'DISTANCE MINIMALE ENTRE DEUX POINTS'
+NOM1 = 'MINIMUM DISTANCE BETWEEN TWO POINTS'
+TYPE = REAL
+INDEX = 1
+TAILLE = 1
+DEFAUT = 1.E-5
+DEFAUT1 = 1.E-5
+MNEMO = 'EPSI'
+CONTROLE = 0;Inf
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 0
+AIDE =
+'Distance (en metres) en dessous de laquelle deux noeuds sont consideres
+comme confondus par \stbtel, lors de la verification des resultats
+fournis par le mailleur. Lorsque deux noeuds sont confondus, l''un
+d''entre eux est elimine, et tous les noeuds du maillage sont
+renumerotes.'
+AIDE1 =
+'Distance (in meters) below which two nodes are considered as identical
+by \stbtel when the results supplied by the mesh generator are being
+checked. When two nodes occur at the same place, one of them is
+eliminated and all the mesh nodes are renumbered.'
+/
+NOM = 'MAILLEUR'
+NOM1 = 'MESH GENERATOR'
+TYPE = STRING
+INDEX = 14
+TAILLE = 1
+DEFAUT = 'MASTER2'
+DEFAUT1 = 'MASTER2'
+MNEMO = ''
+CHOIX =
+'SUPERTAB4';
+'SUPERTAB6';
+'MASTER2';
+'SIMAIL';
+'SELAFIN';
+'TRIGRID';
+'ADCIRC';
+'FASTTABS'
+CHOIX1 =
+'SUPERTAB4';
+'SUPERTAB6';
+'MASTER2';
+'SIMAIL';
+'SELAFIN';
+'TRIGRID';
+'ADCIRC';
+'FASTTABS'
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+COMPORT =
+'Foreground ("MAILLEUR")
+IS VALEUR (yellow)'
+NIVEAU = 0
+AIDE =
+'Nom du mailleur utilise pour la creation du \telkey{FICHIER UNIVERSEL}.
+Ce peut etre :
+\begin{itemize}
+\item SUPERTAB6 (version 6 du mailleur SUPERTAB),
+\item SUPERTAB4 (version 4 du mailleur SUPERTAB),
+\item MASTER2 (version 2 du mailleur MASTER-SERIES),
+\item SIMAIL,
+\item SELAFIN (afin de modifier un maillage deja utilise, comme pour :
+\begin{itemize}
+\item interpoler de nouveau fonds
+\item eliminer des dependances arrieres
+\item coupe triangles surcontraints),
+\end{itemize}
+\item TRIGRID,
+\item FASTTABS.
+\end{itemize}'
+AIDE1 =
+'Name of the mesh generator used for preparing the \telkey{UNIVERSAL
+FILE}. It will be selected among the following:
+\begin{itemize}
+\item SUPERTAB6 (version 6 of SUPERTAB mesh generator),
+\item SUPERTAB4 (version 4 of SUPERTAB mesh generator),
+\item MASTER2 (version 2 of MASTER-SERIES mesh generator),
+\item SIMAIL,
+\item SELAFIN (in order to modify a mesh already used, as for example :
+\begin{itemize}
+\item to interpolate a new bathymetry
+\item to eliminate backward dependencies
+\item to cut overstressed triangles ),
+\end{itemize}
+\item TRIGRID,
+\item FASTTABS.
+\end{itemize}'
+/
+NOM = 'STANDARD DE BINAIRE'
+NOM1 = 'BINARY STANDARD'
+TYPE = STRING
+INDEX = 11
+TAILLE = 1
+DEFAUT = 'STD'
+DEFAUT1 = 'STD'
+MNEMO = ''
+CHOIX =
+'STD';
+'IBM';
+'I3E'
+CHOIX1 =
+'STD';
+'IBM';
+'I3E'
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 1
+AIDE =
+'Adapte l''ecriture du \telkey{FICHIER DE GEOMETRIE POUR TELEMAC} au
+standard binaire choisi pour celui-ci. Ce peut etre :
+\begin{itemize}
+\item IBM : binaire IBM,
+\item I3E : binaire HP,
+\item STD : prend par defaut le binaire de la machine sur laquelle
+            l''utilisateur travaille. Ce sont alors des ordres READ et
+            WRITE normaux qui sont utilises.
+\end{itemize}'
+AIDE1 =
+'Matches the writing of the \telkey{GEOMETRY FILE FOR TELEMAC} to the
+binary standard chosen for the latter. It will be selected among the
+following:
+\begin{itemize}
+\item IBM: IBM binary,
+\item I3E: HP binary,
+\item STD: takes by default the binary on the computer with which
+          the user is working. The normal READ and WRITE commands
+          are then used.
+\end{itemize}'
+/
+NOM = 'FICHIER UNIVERSEL'
+NOM1 = 'UNIVERSAL FILE'
+TYPE = STRING
+INDEX = 5
+TAILLE = 1
+SUBMIT = 'STBGEO-READ;STBGEO;OBLIG;BIN;LIT;SELAFIN'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'NOMGEO'
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 0
+AIDE =
+'Nom du fichier construit par le mailleur, a partir duquel \stbtel va
+travailler.'
+AIDE1 =
+'Name of the file created by the mesh generator, and from which \stbtel
+will work.'
+/
+NOM = 'FICHIER ADDITIONNEL DU MAILLEUR'
+NOM1 = 'MESH ADDITIONAL DATA FILE'
+TYPE = STRING
+INDEX = 15
+TAILLE = 1
+SUBMIT = 'INUTILE;STBFO1;FACUL;ASC;LIT;SCAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'NOMFO1'
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 0
+AIDE =
+'Nom du fichier additionnel. Ce fichier a une signification
+differente en fonction du mailleur choisi.
+\begin{itemize}
+\item Trigrid : fichier contenant la table de connectivites
+(obligatoire).
+\item Fasttabs : fichier contenant les conditions limites (optionnel).
+\end{itemize}'
+AIDE1 =
+'Name of the additional file. The meaning of this file depend on the
+type of mesh generator.
+\begin{itemize}
+\item Trigrid : file containing the connectivity table (mandatory).
+\item Fasttabs : boundary condition file built by Fasttabs (optional).
+\end{itemize}'
+/
+NOM = 'FORMAT DU FICHIER DE GEOMETRIE POUR TELEMAC'
+NOM1 = 'GEOMETRY FILE FORMAT FOR TELEMAC'
+TYPE = STRING
+INDEX = 31
+TAILLE = 1
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'OUT\_FORMAT'
+CHOIX =
+'';
+'SERAFIN';
+'SERAFIND';
+'MED'
+CHOIX1 =
+'';
+'SERAFIN';
+'SERAFIND';
+'MED'
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 1
+AIDE =
+'Format du fichier qui contiendra le maillage, et qui servira pour
+les calculs \telemac{2D}. Si aucun format n''est donne, il sera dans
+le meme format que le fichier universel s''il est en SERAFIN ou
+SERAFIND, sinon il sera en SERAFIN'
+AIDE1 =
+'Format of the file that will contain the mesh data,
+and to be used in \telemac{2D} computations.
+If no format is given it will take the format of the universal
+file (if it is a SERAFIN or SERAFIND file) SERAFIN otherwise'
+/
+NOM = 'FICHIER DE GEOMETRIE POUR TELEMAC'
+NOM1 = 'GEOMETRY FILE FOR TELEMAC'
+TYPE = STRING
+INDEX = 6
+TAILLE = 1
+SUBMIT = 'INUTILE;STBRES;OBLIG;BIN;ECR;SELAFIN'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'NOMRES'
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 0
+AIDE =
+'Nom du fichier qui contiendra le maillage mis au format SELAFIN, et
+qui servira pour les calculs \telemac{2D}.'
+AIDE1 =
+'Name of the file that will contain the mesh data in SELAFIN format,
+and to be used in \telemac{2D} computations.'
+/
+NOM = 'FICHIER DES CONDITIONS AUX LIMITES'
+NOM1 = 'BOUNDARY CONDITIONS FILE'
+TYPE = STRING
+INDEX = 7
+TAILLE = 1
+SUBMIT = 'INUTILE;STBLIM;OBLIG;ASC;ECR;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'NOMLIM'
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 0
+AIDE =
+'Nom du fichier qui contiendra les conditions aux limites lues dans le
+\telkey{FICHIER UNIVERSEL}, et qui servira pour les calculs
+\telemac{2D}. (les conditions aux limites sont definies lors de la
+realisation du maillage, au moyen de couleurs affectees aux noeuds des
+frontieres du domaine de calcul).'
+AIDE1 =
+'Name of the file that will contain the boundary conditions being read
+from the \telkey{UNIVERSAL FILE}, and to be used in \telemac{2D}
+computations. (The boundary conditions are defined when preparing the
+meshes, through colours that are allotted to the nodes of the
+computation domain boundaries).'
+/
+NOM = 'CORRECTION DES FONDS DE TRIGRID'
+NOM1 = 'BOTTOM CORRECTION OF TRIGRID'
+TYPE = REAL
+INDEX = 3
+TAILLE = 1
+DEFAUT = 0.
+DEFAUT1 = 0.
+MNEMO = 'CORTRI'
+CONTROLE = 0;Inf
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 0
+AIDE =
+'Fixe la valeur a ajouter a la bathymetrie lue dans le fichier
+gemere par Trigrid.'
+AIDE1 =
+'Value to be added at the bottom value read in the Trigrid file'
+/
+NOM = 'BATHYMETRIE DANS LE FICHIER UNIVERSEL'
+NOM1 = 'BATHYMETRY IN THE UNIVERSAL FILE'
+TYPE = LOGICAL
+INDEX = 5
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'FONTRI'
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 0
+AIDE =
+'Permet de relire la bathymetrie directement dans le fichier de
+maillage (Trigrid ou Fasttabs).'
+AIDE1 =
+'The bathymetry will be read in the mesh file (Trigrid or Fasttabs).'
+/
+NOM = 'CONDITIONS LIMITES DANS LE FICHIER ADDITIONNEL'
+NOM1 = 'BOUNDARY CONDITIONS IN THE ADDITIONAL FILE'
+TYPE = LOGICAL
+INDEX = 7
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'ADDFAS'
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 0
+AIDE =
+'Permet de relire les conditions limites dans le fichier
+additionnel (Fasttabs).'
+AIDE1 =
+'The boundary condition will be read in the additional file
+ (Fasttabs).'
+/
+NOM = 'FICHIER UNIVERSEL LIMITE'
+NOM1 = 'BOUNDARY UNIVERSAL FILE'
+TYPE = STRING
+INDEX = 30
+TAILLE = 1
+SUBMIT = 'INUTILE;STBND2;FACUL;BIN;LIT;SCAL'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = ''
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 1
+AIDE =
+'Nom du fichier construit par le mailleur, a partir duquel \stbtel va
+travailler.'
+AIDE1 =
+'Name of the file created by the mesh generator, from which \stbtel
+will work.'
+/
+NOM = 'DECOUPAGE DES TRIANGLES SURCONTRAINTS'
+NOM1 = 'OVERSTRESSED TRIANGLES CUTTING'
+TYPE = LOGICAL
+INDEX = 1
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 0
+AIDE =
+'Un triangle surcontraint est tel que ses trois noeuds soient situes
+sur une frontiere du domaine de calcul. La presence de tels triangles
+peut entrainer des instabilites lors des calculs realises par
+TELEMAC 2D.\\
+Cette option permet, en creant un noeud place au barycentre des
+triangles surcontraints, d''eviter de tels problemes.'
+AIDE1 =
+'An overstressed triangle is one whose three nodes are located along a
+boundary of the computational domain. The occurrence of such triangles
+may bring about instabilities in the computations made by TELEMAC 2D.\\
+Such problems can be prevented by this option, through the creation of
+a node at the geometric centres of the overstressed triangles.'
+/
+NOM = 'ELIMINATION DES DEPENDANCES ARRIERES'
+NOM1 = 'ELIMINATION OF BACKWARD DEPENDENCIES'
+TYPE = LOGICAL
+INDEX = 3
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = ''
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 0
+AIDE =
+'Permet de renumeroter les noeuds du maillage de maniere a eliminer les
+dependances arrieres et autoriser ainsi le forcage de la vectorisation
+lorsque les calculs TELEMAC 2D son effectues sur CRAY.\\
+\begin{WarningBlock}{Attention :}
+Un nombre minimum d''environ 500 noeuds est requis pour
+l''activation de cette option.
+\end{WarningBlock}'
+AIDE1 =
+'Provides for renumbering of the mesh nodes in order to eliminate the
+backward dependencies, thereby enabling a forced vectorisation when
+the TELEMAC 2D computations are made on a CRAY.\\
+\begin{WarningBlock}{Warning:}
+About 500 nodes is the least number required for activating
+this option.
+\end{WarningBlock}'
+/
+NOM = 'RENUMEROTATION DES POINTS'
+NOM1 = 'NODES RENUMBERING'
+TYPE = LOGICAL
+INDEX = 6
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'OPTASS'
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 0
+AIDE =
+'Permet d''utiliser le nouveau type de stockage des matrices.'
+AIDE1 =
+'Necessary to use the new storage scheme for the matrix.'
+/
+NOM = 'ECRITURE DE LA COULEUR DES NOEUDS'
+NOM1 = 'WRITING NODE COLOURS'
+TYPE = LOGICAL
+INDEX = 2
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE =
+'TRAITEMENT';'';''
+RUBRIQUE1 =
+'TREATMENT';'';''
+NIVEAU = 0
+AIDE =
+'Option non activee.'
+AIDE1 =
+'Option not activated'
+/
+////////////////////////////////////////////////////////////////////////
+///// 2.1-BOTTOM
+////////////////////////////////////////////////////////////////////////
+NOM = 'NOMBRE MAXIMUM DE POINTS DE BATHYMETRIE'
+NOM1 = 'MAXIMUM NUMBER OF BATHYMETRIC POINTS'
+TYPE = INTEGER
+INDEX = 1
+TAILLE = 1
+DEFAUT = 20000
+DEFAUT1 = 20000
+MNEMO = 'NBAT'
+CONTROLE = 0;Inf
+RUBRIQUE =
+'TRAITEMENT';'FOND';''
+RUBRIQUE1 =
+'TREATMENT';'BOTTOM';''
+NIVEAU = 0
+AIDE =
+'Permet de dimensionner le tableau utilise pour la lecture, dans les
+\telkey{FICHIERS DES FONDS}, des points releves a la table a
+digitaliser.'
+AIDE1 =
+'Designed for dimensioning the array that is used for reading, in the
+\telkey{BOTTOM TOPOGRAPHY FILES}, the points recorded at the digitizing
+tablet.'
+/
+NOM = 'DISTANCE MINIMALE A LA FRONTIERE'
+NOM1 = 'MINIMUM DISTANCE AT BOUNDARY'
+TYPE = REAL
+INDEX = 2
+TAILLE = 1
+DEFAUT = 0.
+DEFAUT1 = 0.
+MNEMO = ''
+RUBRIQUE =
+'TRAITEMENT';'FOND';''
+RUBRIQUE1 =
+'TREATMENT';'BOTTOM';''
+NIVEAU = 0
+AIDE =
+'L''interpolation de la bathymetrie sur les noeuds du maillage est
+realisee de la facon suivante. Pour chaque noeud du maillage, on
+decoupe le plan en 4 quadrans. Dans chacun de ces quadrans, on cherche
+le point releve a la table a digitaliser le plus proche. On affecte
+alors au noeud considere une profondeur correspondant a la moyenne,
+ponderee par la distance a ce noeud, des profondeurs en chacun des 4
+points precedemment trouves.\\
+On verifie toutefois que, lors de la recherche des points, les
+frontieres du domaine ne sont pas franchies, de maniere a ne pas
+introduire d''aberration dans la bathymetrie.\\
+Ce mot-cle permet alors de definir la distance minimale aux frontieres
+du domaine en dessous de laquelle on refuse de prendre en compte les
+points releves.'
+AIDE1 =
+'The bathymetric data at the mesh nodes are interpolated. At each mesh
+node, the plane is cut into 4 quadrants in each of which, among the
+points recorded at the digitizing tablet, the closest one to the node
+being considered is searched for.\\
+This node is thenn given a depth corresponding to the mean depth at
+each of the 4 points previously found, these depths being weighted
+by the distance to the node.\\
+When searching for the points in the quadrants, however, one shall
+make sure the boundaries aare not overstepped in order to prevent
+aberrations from being introduced into the bathymetric data.\\
+The keyword can then be used for specifying the minimum distance to
+the boundaries below which the recorded points should be ignored.'
+/
+NOM = 'FICHIERS DES FONDS'
+NOM1 = 'BOTTOM TOPOGRAPHY FILES'
+TYPE = STRING
+INDEX = 8
+TAILLE = 1
+SUBMIT = 'INUTILE;STBFON;FACUL;ASC;LIT;SCAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'NOMFON'
+RUBRIQUE =
+'TRAITEMENT';'FOND';''
+RUBRIQUE1 =
+'TREATMENT';'BOTTOM';''
+NIVEAU = 1
+AIDE =
+'Nom du fichier contenant la bathymetrie (au standard SINUSX), qui
+servira pour la definition, par interpolation, de la profondeur en
+chaque point du maillage.'
+AIDE1 =
+'Name of the file containing the bathymetric points (to SINUSX
+standard), to be used, through interpolation, for defining the depth
+at each point of the mesh.'
+/
+NOM = 'FICHIERS DES FONDS 2'
+NOM1 = 'BOTTOM TOPOGRAPHY FILES 2'
+TYPE = STRING
+INDEX = 9
+TAILLE = 1
+SUBMIT = 'INUTILE;STBFO2;FACUL;ASC;LIT;SCAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'NOMFO2'
+RUBRIQUE =
+'TRAITEMENT';'FOND';''
+RUBRIQUE1 =
+'TREATMENT';'BOTTOM';''
+NIVEAU = 1
+AIDE =
+'Nom du fichier contenant la bathymetrie (au standard SINUSX), qui
+servira pour la definition, par interpolation, de la profondeur en
+chaque point du maillage.'
+AIDE1 =
+'Name of the file containing the bathymetric points (to SINUSX
+standard), to be used, through interpolation, for defining the depth
+at each point of the mesh.'
+/
+NOM = 'FICHIERS DES FONDS 3'
+NOM1 = 'BOTTOM TOPOGRAPHY FILES 3'
+TYPE = STRING
+INDEX = 10
+TAILLE = 1
+SUBMIT = 'INUTILE;STBIMP;FACUL;ASC;LIT;SCAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'NOMIMP'
+RUBRIQUE =
+'TRAITEMENT';'FOND';''
+RUBRIQUE1 =
+'TREATMENT';'BOTTOM';''
+NIVEAU = 1
+AIDE =
+'Nom du fichier contenant la bathymetrie (au standard SINUSX), qui
+servira pour la definition, par interpolation, de la profondeur en
+chaque point du maillage.'
+AIDE1 =
+'Name of the file containing the bathymetric points (to SINUSX
+standard), to be used, through interpolation, for defining the depth
+at each point of the mesh.'
+/
+NOM = 'FICHIERS DES FONDS 4'
+NOM1 = 'BOTTOM TOPOGRAPHY FILES 4'
+TYPE = STRING
+INDEX = 17
+TAILLE = 1
+SUBMIT = 'INUTILE;STBSOU;FACUL;ASC;LIT;SCAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'NOMSOU'
+RUBRIQUE =
+'TRAITEMENT';'FOND';''
+RUBRIQUE1 =
+'TREATMENT';'BOTTOM';''
+NIVEAU = 1
+AIDE =
+'Nom du fichier contenant la bathymetrie (au standard SINUSX), qui
+servira pour la definition, par interpolation, de la profondeur en
+chaque point du maillage.'
+AIDE1 =
+'Name of the file containing the bathymetric points (to SINUSX
+standard), to be used, through interpolation, for defining the depth
+at each point of the mesh.'
+/
+NOM = 'FICHIERS DES FONDS 5'
+NOM1 = 'BOTTOM TOPOGRAPHY FILES 5'
+TYPE = STRING
+INDEX = 18
+TAILLE = 1
+SUBMIT = 'INUTILE;STBFRC;FACUL;ASC;LIT;SCAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'NOMFRC'
+RUBRIQUE =
+'TRAITEMENT';'FOND';''
+RUBRIQUE1 =
+'TREATMENT';'BOTTOM';''
+NIVEAU = 1
+AIDE =
+'Nom du fichier contenant la bathymetrie (au standard SINUSX), qui
+servira pour la definition, par interpolation, de la profondeur en
+chaque point du maillage.'
+AIDE1 =
+'Name of the file containing the bathymetric points (to SINUSX
+standard), to be used, through interpolation, for defining the depth
+at each point of the mesh.'
+/
+////////////////////////////////////////////////////////////////////////
+///// 2.2-EXTRACTION
+////////////////////////////////////////////////////////////////////////
+NOM = 'NOMBRE DE SOMMETS DU POLYGONE D''EXTRACTION'
+NOM1 = 'NUMBER OF VERTICES OF THE POLYGON TO EXTRACT THE MESH'
+TYPE = INTEGER
+INDEX = 3
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'NSOM'
+RUBRIQUE =
+'TRAITEMENT';'EXTRACTION';''
+RUBRIQUE1 =
+'TREATMENT';'EXTRACTION';''
+NIVEAU = 0
+AIDE =
+'Lorsque l''on souhaite extraire une partie du maillage, permet de
+definir le nombre de sommets du polygone a l''interieur duquel le
+maillage sera effectivement extrait.\\
+\begin{WarningBlock}{Attention :}
+Ce polygone doit etre convexe et les coordonnees des sommets donnes dans
+l''ordre trigonometrique.  \end{WarningBlock}'
+AIDE1 =
+'When you want to extract a piece of the mesh, this key-word fixes
+the number of vertices of a polygon inside of which the mesh will be
+finally extracted.\\
+\begin{WarningBlock}{Warning:}
+This polygon should have a convex shape and the coordinates of the
+vertices be given with an anti clock wise order.
+\end{WarningBlock}'
+/
+NOM = 'ABSCISSES DES SOMMETS DU POLYGONE D''EXTRACTION'
+NOM1 = 'ABSCISSAE OF THE VERTICES OF THE POLYGON TO EXTRACT THE MESH'
+TYPE = REAL
+INDEX = 4
+TAILLE = 9
+DEFAUT = 0;0;0;0;0;0;0;0;0
+DEFAUT1 = 0;0;0;0;0;0;0;0;0
+MNEMO = 'SOM'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE =
+'TRAITEMENT';'EXTRACTION';''
+RUBRIQUE1 =
+'TREATMENT';'EXTRACTION';''
+NIVEAU = 0
+AIDE =
+'Lorsque l''on souhaite extraire une partie du maillage,
+permet de definir les abscisses des sommets du polygone a l''interieur
+duquel le maillage sera effectivement extrait.
+\begin{WarningBlock}{Attention :}
+ce polygone doit etre convexe et les coordonnees des
+sommets donnes dans l''ordre trigonometrique.
+\end{WarningBlock}'
+AIDE1 =
+'When you want to extract a piece of the mesh, this key-word fixes
+the abscissae of the vertices of a polygon inside of which the mesh
+will be finally extracted.\\
+\begin{WarningBlock}{Warning:}
+This polygon should have a convex shape and the coordinates
+of the vertices be given with an anti clock wise order.
+\end{WarningBlock}'
+/
+NOM = 'ORDONNEES DES SOMMETS DU POLYGONE D''EXTRACTION'
+NOM1 = 'ORDINATES OF THE VERTICES OF THE POLYGON TO EXTRACT THE MESH'
+TYPE = REAL
+INDEX = 5
+TAILLE = 9
+DEFAUT = 0;0;0;0;0;0;0;0;0
+DEFAUT1 = 0;0;0;0;0;0;0;0;0
+MNEMO = 'SOM'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE =
+'TRAITEMENT';'EXTRACTION';''
+RUBRIQUE1 =
+'TREATMENT';'EXTRACTION';''
+NIVEAU = 0
+AIDE =
+'Lorsque l''on souhaite extraire une partie du maillage,
+permet de definir les ordonnees des sommets du polygone a l''interieur
+duquel le maillage sera effectivement extrait.\\
+\begin{WarningBlock}{Attention :}
+Ce polygone doit etre convexe et les coordonnees des
+sommets donnes dans l''ordre trigonometrique.
+\end{WarningBlock}'
+AIDE1 =
+'When you want to extract a piece of the mesh, this key-word fixes
+the ordinates of the vertices of a polygon inside of which the mesh
+will be finally extracted.\\
+\begin{WarningBlock}{Warning:}
+This polygon should have a convex shape and the coordinates
+of the vertices be given with an anti clock wise order.
+\end{WarningBlock}'
+/
+NOM = 'PROJECTION APRES EXTRACTION'
+NOM1 = 'PROJECTION AFTER EXTRACTION'
+TYPE = LOGICAL
+INDEX = 8
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = 'PROJEC'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE =
+'TRAITEMENT';'EXTRACTION';''
+RUBRIQUE1 =
+'TREATMENT';'EXTRACTION';''
+NIVEAU = 0
+AIDE =
+'Lors d''une extraction de maillage suivant un polygone, projette ou
+non le maillage extrait sur les aretes du polygone.'
+AIDE1 =
+'When a mesh is extracted inside a polygon, indicates whether the mesh
+should be projected through the faces of the polygon or not.'
+/
+////////////////////////////////////////////////////////////////////////
+///// 2.3-REFINEMENT
+////////////////////////////////////////////////////////////////////////
+NOM = 'DECOUPAGE DES TRIANGLES EN QUATRE'
+NOM1 = 'CUTTING ELEMENTS IN FOUR'
+TYPE = LOGICAL
+INDEX = 4
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE =
+'TRAITEMENT';'RAFFINEMENT';''
+RUBRIQUE1 =
+'TREATMENT';'REFINEMENT';''
+NIVEAU = 0
+AIDE =
+'Decoupe chaque element du mayage en quatre elements homothetiques
+en joignant les milieux des aretes.'
+AIDE1 =
+'Cuts every element of the mesh in four homothetic elements
+by joigning the middle points of each side.'
+/
+NOM = 'MAX DE SEGMENTS PAR POINT'
+NOM1 = 'MAX SEGMENTS PER POINT'
+TYPE = INTEGER
+INDEX = 6
+TAILLE = 1
+DEFAUT = 11
+DEFAUT1 = 11
+MNEMO = 'MAX\_SEG\_PER\_POINT'
+RUBRIQUE =
+'TRAITEMENT';'RAFFINEMENT';''
+RUBRIQUE1 =
+'TREATMENT';'REFINEMENT';''
+NIVEAU = 1
+AIDE =
+'Nombre max de segments qui contiennent le meme point.
+Cette valeur est a incrementer si le code le demande.'
+AIDE1 =
+'Max number of segments containing the same point.
+This is to be increased if the code asks for it.'
+/
+NOM = 'NOMBRE DE SOMMETS DU POLYGONE DE RAFFINEMENT'
+NOM1 = 'NUMBER OF VERTICES OF THE POLYGON TO REFINE THE MESH'
+TYPE = INTEGER
+INDEX = 4
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'NSOM2'
+RUBRIQUE =
+'TRAITEMENT';'RAFFINEMENT';''
+RUBRIQUE1 =
+'TREATMENT';'REFINEMENT';''
+NIVEAU = 1
+AIDE =
+'Lorsque l''on souhaite raffiner une partie du maillage,
+permet de definir le nombre de sommets du polygone a l''interieur
+duquel le maillage sera effectivement raffine.\\
+\begin{WarningBlock}{Attention:}
+Attention à ne pas faire plusieurs fois le raffinement avec la meme
+zone car les mailles de frontiere a la zone vont etre divisees en des
+mailles de plus en plus plates au fur et a mesure des raffinements.
+\end{WarningBlock}'
+AIDE1 =
+'When you want to refine a piece of the mesh, this key-word fixes
+the number of vertices of a polygon inside of which the mesh will be
+finally refined.\\
+\begin{WarningBlock}{ATTENTION:}
+Beware to not execute a refinement several times on the same local
+zone because this will cause flat cells in the cells crossed by the
+polygon delimiting the refinement zone (these bording cells will be
+divided at each refinement without creation of central nodes in it).
+\end{WarningBlock}'
+/
+NOM = 'ABSCISSES DES SOMMETS DU POLYGONE DE RAFFINEMENT'
+NOM1 = 'ABSCISSAE OF THE VERTICES OF THE POLYGON TO REFINE THE MESH'
+TYPE = REAL
+INDEX = 6
+TAILLE = 9
+DEFAUT = 0;0;0;0;0;0;0;0;0
+DEFAUT1 = 0;0;0;0;0;0;0;0;0
+MNEMO = 'SOM2'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE =
+'TRAITEMENT';'RAFFINEMENT';''
+RUBRIQUE1 =
+'TREATMENT';'REFINEMENT';''
+NIVEAU = 0
+AIDE =
+'Lorsque l''on souhaite raffiner une partie du maillage,
+permet de definir les abscisses des sommets du polygone a l''interieur
+duquel le maillage sera effectivement raffine.\\
+\begin{WarningBlock}{Attention :}
+Attention a ne pas faire plusieurs fois le raffinement avec la meme
+zone car les mailles de frontiere a la zone vont etre divisees en des
+mailles de plus en plus plates au fur et a mesure des raffinements.
+\end{WarningBlock}'
+AIDE1 =
+'When you want to refine a piece of the mesh, this key-word fixes
+the abscissae of the vertices of a polygon inside of which the mesh
+will be finally refined.\\
+\begin{WarningBlock}{Warning:}
+Beware to not execute multiple times refinement on the same local
+zone because this will cause flat cells in the cells crossed by the
+polygon delimiting the refinement zone (these bording cells will be
+divided at each refinement without creation of central nodes in it).
+\end{WarningBlock}'
+/
+NOM = 'ORDONNEES DES SOMMETS DU POLYGONE DE RAFFINEMENT'
+NOM1 = 'ORDINATES OF THE VERTICES OF THE POLYGON TO REFINE THE MESH'
+TYPE = REAL
+INDEX = 7
+TAILLE = 9
+DEFAUT = 0;0;0;0;0;0;0;0;0
+DEFAUT1 = 0;0;0;0;0;0;0;0;0
+MNEMO = 'SOM2'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE =
+'TRAITEMENT';'RAFFINEMENT';''
+RUBRIQUE1 =
+'TREATMENT';'REFINEMENT';''
+NIVEAU = 0
+AIDE =
+'Lorsque l''on souhaite raffiner une partie du maillage,
+permet de definir les ordonnees des sommets du polygone a l''interieur
+duquel le maillage sera effectivement raffine.\\
+\begin{WarningBlock}{Attention :}
+Attention a ne pas faire plusieurs fois le raffinement avec la meme
+zone car les mailles de frontiere a la zone vont etre divisees en des
+mailles de plus en plus plates au fur et a mesure des raffinements.
+\end{WarningBlock}'
+AIDE1 =
+'When you want to refine a piece of the mesh, this key-word fixes
+the ordinates of the vertices of a polygon inside of which the mesh
+will be finally refined.\\
+\begin{WarningBlock}{Warning:}
+Beware to not execute the refinement several times on the same local
+zone because this will cause flat cells in the cells crossed by the
+polygon delimiting the refinement zone (these bording cells will be
+divided at each refinement without creation of central nodes in it).
+\end{WarningBlock}'
+/
+////////////////////////////////////////////////////////////////////////
+///// 2.4-DRY ELEMENTS
+////////////////////////////////////////////////////////////////////////
+NOM = 'ELIMINATION DES ELEMENTS SECS'
+NOM1 = 'DRY ELEMENTS ELIMINATION'
+TYPE = LOGICAL
+INDEX = 9
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'ELISEC'
+RUBRIQUE =
+'TRAITEMENT';'ELEMENTS SECS';''
+RUBRIQUE1 =
+'TREATMENT';'DRY ELEMENTS';''
+NIVEAU = 0
+AIDE =
+'Lors du traitement d''un fichier de resultats issu de \telemac{2D},
+permet d''activer l''elimination des elements secs.'
+AIDE1 =
+'When using a \telemac{2D} results file, this keyword activates the
+dry elements elimination.'
+/
+NOM = 'ELIMINATION DES ELEMENTS PARTIELLEMENT SECS'
+NOM1 = 'PARTIALLY DRY ELEMENTS ELIMINATION'
+TYPE = LOGICAL
+INDEX = 10
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'ELPSEC'
+RUBRIQUE =
+'TRAITEMENT';'ELEMENTS SECS';''
+RUBRIQUE1 =
+'TREATMENT';'DRY ELEMENTS';''
+NIVEAU = 0
+AIDE =
+'Lors de l''elimination des elements secs, permet de specifier si
+on traite les elements parteillement secs (au moins un noeud sec).'
+AIDE1 =
+'When removing dry elements, specify if the partially dry elements are
+treated (at least one dry node).'
+/
+NOM = 'SEUIL DE SECHERESSE'
+NOM1 = 'DRY LIMIT'
+TYPE = REAL
+INDEX = 8
+TAILLE = 1
+DEFAUT = 0.1
+DEFAUT1 = 0.1
+MNEMO = 'SEUSEC'
+CONTROLE = 0;Inf
+RUBRIQUE =
+'TRAITEMENT';'ELEMENTS SECS';''
+RUBRIQUE1 =
+'TREATMENT';'DRY ELEMENTS';''
+NIVEAU = 0
+AIDE =
+'Fixe la valeur du seuil (en metre) de hauteur d''eau en dessous
+duquel un noeud est considere comme sec.'
+AIDE1 =
+'Limit of water depth value (in meter) under which the node is
+considered as dry node.'
+/
+NOM = 'STOCKAGE DE TOUS LES PAS DE TEMPS'
+NOM1 = 'STORAGE OF ALL TIME STEPS'
+TYPE = LOGICAL
+INDEX = 11
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'ELISEC'
+RUBRIQUE =
+'TRAITEMENT';'ELEMENTS SECS';''
+RUBRIQUE1 =
+'TREATMENT';'DRY ELEMENTS';''
+NIVEAU = 0
+AIDE =
+'Lors du traitement d''elimination des elements secs, permet de
+specifier si on restocke tous les pas de temps dans le fichier
+resultat'
+AIDE1 =
+'When treating dry elements elimination, specify that
+all time steps are to be stored in the results file.'
+/
+////////////////////////////////////////////////////////////////////////
+/// 3-CONVERTER INFO
+////////////////////////////////////////////////////////////////////////
+NOM = 'DEBUG'
+NOM1 = 'DEBUG'
+TYPE = LOGICAL
+INDEX = 12
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'DEBUG'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'';''
+RUBRIQUE1 =
+'CONVERTER INFO';'';''
+NIVEAU = 0
+AIDE =
+'Permet d activer le mode debuggage.'
+AIDE1 =
+'Activate the debug mode.'
+/
+NOM = 'CONVERTISSEUR'
+NOM1 = 'CONVERTER'
+TYPE = LOGICAL
+INDEX = 13
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'CONVER'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'';''
+RUBRIQUE1 =
+'CONVERTER INFO';'';''
+NIVEAU = 0
+AIDE =
+'Permet d activer le module de conversion.'
+AIDE1 =
+'Activate the conversion module.'
+/
+////////////////////////////////////////////////////////////////////////
+///// 3.1-INPUT
+////////////////////////////////////////////////////////////////////////
+NOM = 'FORMAT DU FICHIER D ENTREE'
+NOM1 = 'INPUT FILE FORMAT'
+TYPE = STRING
+INDEX = 22
+TAILLE = 1
+DEFAUT = 'SERAFIN'
+DEFAUT1 = 'SERAFIN'
+MNEMO = 'INFMT'
+CHOIX =
+'SERAFIN';
+'SERAFIND';
+'MED';
+'UNV';
+'CGNS'
+CHOIX1 =
+'SERAFIN';
+'SERAFIND';
+'MED';
+'UNV';
+'CGNS'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'ENTREE';''
+RUBRIQUE1 =
+'CONVERTER INFO';'INPUT';''
+NIVEAU = 0
+AIDE =
+'Specifie le format du fichier d entree'
+AIDE1 =
+'Specify input file format'
+/
+NOM = 'FICHIER D ENTREE'
+NOM1 = 'INPUT FILE'
+TYPE = STRING
+INDEX = 24
+TAILLE = 1
+SUBMIT = 'INUTILE;STBINP;OBLIG;BIN;LIT;PARAL'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'INFILE'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'ENTREE';''
+RUBRIQUE1 =
+'CONVERTER INFO';'INPUT';''
+NIVEAU = 0
+AIDE =
+'Nom du fichier a convertir.'
+AIDE1 =
+'Name of the file to convert.'
+/
+NOM = 'FICHIER DES CONDITIONS LIMITES'
+NOM1 = 'BOUNDARY FILE'
+TYPE = STRING
+INDEX = 26
+TAILLE = 1
+SUBMIT = 'INUTILE;STBBND;FACUL;ASC;LIT;SCAL'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'LIMFILE'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'ENTREE';''
+RUBRIQUE1 =
+'CONVERTER INFO';'INPUT';''
+NIVEAU = 1
+AIDE =
+'Nom du fichier des conditions limites'
+AIDE1 =
+'Name of the boundary condition file'
+/
+NOM = 'FICHIER LOG'
+NOM1 = 'LOG FILE'
+TYPE = STRING
+INDEX = 27
+TAILLE = 1
+SUBMIT = 'INUTILE;STBLOG;FACUL;ASC;LIT;SCAL'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'LOGFILE'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'ENTREE';''
+RUBRIQUE1 =
+'CONVERTER INFO';'INPUT';''
+NIVEAU = 1
+AIDE =
+'Nom du fichier complementaire pour le format UNV'
+AIDE1 =
+'Name of the complementary file for the UNV format'
+/
+NOM = 'CONDITION LIMITE EN FORMAT SERAFIN'
+NOM1 = 'BOUNDARY CONDITION IN SERAFIN FORMAT'
+TYPE = LOGICAL
+INDEX = 14
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'SRF\_BND'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'ENTREE';''
+RUBRIQUE1 =
+'CONVERTER INFO';'INPUT';''
+NIVEAU = 0
+AIDE =
+'Fichier de conditions limites dans le cas d''une conversion depuis
+SERAFIN.'
+AIDE1 =
+'Boundary condition file when converting from SERAFIN.'
+/
+////////////////////////////////////////////////////////////////////////
+///// 3.2-OUTPUT
+////////////////////////////////////////////////////////////////////////
+NOM = 'FORMAT DU FICHIER DE SORTIE'
+NOM1 = 'OUTPUT FILE FORMAT'
+TYPE = STRING
+INDEX = 23
+TAILLE = 1
+DEFAUT = 'SERAFIN'
+DEFAUT1 = 'SERAFIN'
+MNEMO = 'OUTFMT'
+CHOIX =
+'SERAFIN';
+'SERAFIND';
+'MED';
+'UNV';
+'CGNS';
+'VTK';
+'CGNS'
+CHOIX1 =
+'SERAFIN';
+'SERAFIND';
+'MED';
+'UNV';
+'CGNS';
+'VTK';
+'CGNS'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'SORTIE';''
+RUBRIQUE1 =
+'CONVERTER INFO';'OUTPUT';''
+NIVEAU = 0
+AIDE =
+'Specifie le format du fichier de sortie'
+AIDE1 =
+'Specify output file format'
+/
+NOM = 'FICHIER DE SORTIE'
+NOM1 = 'OUTPUT FILE'
+TYPE = STRING
+INDEX = 25
+TAILLE = 1
+SUBMIT = 'INUTILE;STBOUT;OBLIG;BIN;ECR;MULTI2'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'OUTFILE'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'SORTIE';''
+RUBRIQUE1 =
+'CONVERTER INFO';'OUTPUT';''
+NIVEAU = 0
+AIDE =
+'Nom du fichier converti'
+AIDE1 =
+'Name of the converted file'
+/
+NOM = 'FICHIER DES CONDITIONS LIMITES EN SORTIE'
+NOM1 = 'OUTPUT BOUNDARY FILE'
+TYPE = STRING
+INDEX = 28
+TAILLE = 1
+SUBMIT = 'INUTILE;STBOBD;FACUL;ASC;ECR;SCAL'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'OUTBNDFILE'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'SORTIE';''
+RUBRIQUE1 =
+'CONVERTER INFO';'OUTPUT';''
+NIVEAU = 1
+AIDE =
+'Nom du fichier des conditions limites pour le fichier converti'
+AIDE1 =
+'Name of the boundary file for the converted file'
+/
+NOM = 'FICHIER LOG EN SORTIE'
+NOM1 = 'OUTPUT LOG FILE'
+TYPE = STRING
+INDEX = 29
+TAILLE = 1
+SUBMIT = 'INUTILE;STBOLG;FACUL;ASC;ECR;SCAL'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'OUTLOGFILE'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'SORTIE';''
+RUBRIQUE1 =
+'CONVERTER INFO';'OUTPUT';''
+NIVEAU = 1
+AIDE =
+'Nom du fichier complementaire pour le fichier converti'
+AIDE1 =
+'Name of the complementary file for the converted file'
+/
+NOM = 'DETECTION AUTOMATIQUE DE LA PRECISION POUR SERAFIN'
+NOM1 = 'AUTOMATIC DETECTION OF SERAFIN PRECISION'
+TYPE = LOGICAL
+INDEX = 16
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = 'AUTO\_PRECISION'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'SORTIE';''
+RUBRIQUE1 =
+'CONVERTER INFO';'OUTPUT';''
+NIVEAU = 1
+AIDE =
+'Detection automatique de la precision des coordonnees et, si besoin,
+ change le format de sortie en SERAFIND. On est considere en double
+ precision si la longueur d''un segment est inferieure a la precision
+ d''un reel (i.e. $10^{-6}$).'
+AIDE1 =
+'Automatic detection of the precision of the coordinates and change
+ the output format to SERAFIND if necessary. It is considered double
+ precision if the length of a segment is lower than a real precision
+ (i.e. $10^{-6}$).'
+/
+
+////////////////////////////////////////////////////////////////////////
+///// 3.3-TRANSLATION INFO
+////////////////////////////////////////////////////////////////////////
+NOM = 'TRANSLATION'
+NOM1 = 'TRANSLATION'
+TYPE = LOGICAL
+INDEX = 15
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'TRANSLATE'
+RUBRIQUE =
+'CONVERTISSEUR INFO';'TRANSLATION INFO';''
+RUBRIQUE1 =
+'CONVERTER INFO';'TRANSLATION INFO';''
+NIVEAU = 0
+AIDE =
+'Permet d activer la translation de maillage.'
+AIDE1 =
+'Activate the translation of the mesh.'
+/
+NOM = 'TRANSLATION SELON X'
+NOM1 = 'X TRANSLATION'
+TYPE = REAL
+INDEX = 9
+TAILLE = 1
+DEFAUT = 0.
+DEFAUT1 = 0.
+MNEMO = 'DX'
+CONTROLE = 0;Inf
+RUBRIQUE =
+'CONVERTISSEUR INFO';'TRANSLATION INFO';''
+RUBRIQUE1 =
+'CONVERTER INFO';'TRANSLATION INFO';''
+NIVEAU = 0
+AIDE =
+'Translation selon x'
+AIDE1 =
+'Translation on the x axes'
+/
+NOM = 'TRANSLATION SELON Y'
+NOM1 = 'Y TRANSLATION'
+TYPE = REAL
+INDEX = 10
+TAILLE = 1
+DEFAUT = 0.
+DEFAUT1 = 0.
+MNEMO = 'DY'
+CONTROLE = 0;Inf
+RUBRIQUE =
+'CONVERTISSEUR INFO';'TRANSLATION INFO';''
+RUBRIQUE1 =
+'CONVERTER INFO';'TRANSLATION INFO';''
+NIVEAU = 0
+AIDE =
+'Translation selon y'
+AIDE1 =
+'Translation on the y axes'
+/
+////////////////////////////////////////////////////////////////////////
+/// 1-SETTINGS
+////////////////////////////////////////////////////////////////////////
+NOM = 'PROCESSEURS PARALLELES'
+NOM1 = 'PARALLEL PROCESSORS'
+TYPE = INTEGER
+INDEX = 5
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'NCSIZE'
+RUBRIQUE =
+'PARAMETRES';'';''
+RUBRIQUE1 =
+'SETTINGS';'';''
+NIVEAU = 0
+AIDE =
+'Nombre de processeurs en calcul parallele
+\begin{itemize}
+\item 0 : 1 machine, compilation sans bibliotheque de parallelisme
+\item 1 : 1 machine, compilation avec bibliotheque de parallelisme
+\item 2 : 2 processeurs ou machines en parallele
+\item etc\ldots
+\end{itemize}'
+AIDE1 =
+'Number of processors for parallel processing
+\begin{itemize}
+\item 0 : 1 machine, compiling without parallel library
+\item 1 : 1 machine, compiling with a parallel library
+\item 2 : 2 processors or machines in parallel
+\item etc\ldots
+\end{itemize}'
+/
+NOM = 'FICHIER FORTRAN'
+NOM1 = 'FORTRAN FILE'
+TYPE = STRING
+INDEX = 3
+TAILLE = 1
+SUBMIT = 'INUTILE;INUTILE;FACUL;ASC;LIT;FORTRAN'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = ''
+APPARENCE =
+'FILE_OR_FOLDER'
+RUBRIQUE =
+'PARAMETRES';'';''
+RUBRIQUE1 =
+'SETTINGS';'';''
+COMPORT =
+'Foreground ("ENTREES-SORTIES, FICHIERS*NOMS")
+IS VALEUR (red)'
+NIVEAU = 1
+AIDE =
+'Nom du fichier Fortran a soumettre.
+Il ne sert a priori qu''a dimensionner les tableaux utilises par
+\stbtel, mais peut contenir des sous-programmes modifies ou propres a
+l''utilisateur.'
+AIDE1 =
+'Name of Fortran file to be entered.
+It is a priori only designed for dimensioning the arrays that are
+used by \stbtel, but it may contain either modified or user-written
+subroutines.'
+/
+NOM = 'LONGUEUR DU VECTEUR'
+NOM1 = 'VECTOR LENGTH'
+TYPE = INTEGER
+INDEX = 2
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'LGVEC'
+CONTROLE = 0;Inf
+RUBRIQUE =
+'PARAMETRES';'';''
+RUBRIQUE1 =
+'SETTINGS';'';''
+NIVEAU = 0
+AIDE =
+'Permet de fixer, sur machine vectorielle, la longueur du vecteur.'
+AIDE1 =
+'Designed for dimensioning the vector length on vector machine.'
+/
+////////////////////////////////////////////////////////////////////////
+/// 4-INTERNAL
+////////////////////////////////////////////////////////////////////////
+NOM = 'FICHIER DES PARAMETRES'
+NOM1 = 'STEERING FILE'
+TYPE = STRING
+INDEX = 4
+TAILLE = 1
+SUBMIT = 'INUTILE;STBCAS;OBLIG;ASC;LIT;CAS'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = ''
+RUBRIQUE =
+'INTERNAL';'';''
+RUBRIQUE1 =
+'INTERNAL';'';''
+NIVEAU = 0
+AIDE =
+'Nom du fichier contenant les references des fichiers et les options
+du calcul a realiser.'
+AIDE1 =
+'Name of the file that contains the file references and of options for
+the computation to be made.'
+/
+NOM = 'DICTIONNAIRE'
+NOM1 = 'DICTIONARY'
+TYPE = STRING
+INDEX = 16
+TAILLE = 1
+SUBMIT = 'INUTILE;STBDICO;OBLIG;ASC;LIT;DICO'
+DEFAUT = 'stbtel.dico'
+DEFAUT1 = 'stbtel.dico'
+MNEMO = ''
+RUBRIQUE =
+'INTERNAL';'';''
+RUBRIQUE1 =
+'INTERNAL';'';''
+NIVEAU = 0
+AIDE =
+'Dictionnaire des mots cles.'
+AIDE1 =
+'Key word dictionary.'

@@ -1,0 +1,5 @@
+%MedException(MEDlinkWr)
+%MedException(MEDlinkRd)
+%MedException(MEDnLink)
+%MedException(MEDlinkInfoByName)
+%MedException(MEDlinkInfo)

@@ -1,0 +1,11 @@
+"hdfversion=Version de la bibliothèque HDF5 codée dans une chaîne de caractères" \
+"MEDlibraryStrVersionBrief=Renvoie le numéro de version de la librairie MED dans une chaîne de caractères." \
+"MEDlibraryStrVersionDetails=Cette routine retourne le numéro de version de la bibliothèque MED. Le numéro de version est renvoyé sous la forme d'une chaîne de caractères." \
+"MEDlibraryNumVersionBrief=Renvoie les 3 numéros de version de la librairie MED." \
+"MEDlibraryNumVersionDetails=Cette routine retourne le numéro de version de la bibliothèque MED. Le numéro de version est renvoyé sous la forme de trois entiers (majeur, mineur, release)." \
+"MEDlibraryHdfNumVersionBrief=Renvoie les 3 numéros de version de la librairie HDF5 utilisée par MED." \
+"MEDlibraryHdfNumVersionDetails=Cette routine retourne le numéro de version de la bibliothèque HDF5 utilisée par MED. Le numéro de version est renvoyé sous la forme de trois entiers (majeur, mineur, release)." \
+"MEDlibraryHdfStrVersionBrief=Renvoie le numéro de version de la librairie HDF utilisée par la bibliothèque MED dans une chaîne de caractères." \
+"MEDlibraryHdfStrVersionDetails=Cette routine retourne le numéro de version de la bibliothèque HDF utilisée avec la bibliothèque MED. Le numéro de version est renvoyé sous la forme d'une chaîne de caractères." \
+"MEDlibraryCloseBrief=Cette routine force l'écriture des données sur disque, nettoie la mémoire et ferme tous les fichiers MED ouverts (de même que tous les fichiers HDF)." \
+"MEDlibraryCloseDetails=Cette routine force l'écriture des données sur disque, nettoie la mémoire et ferme tous les fichiers MED ouverts (de même que tous les fichiers HDF). Attention donc à l'emploi de cette routine qui doit utilisée en cas de force majeure dans un contexte d'E/S parallèles." \

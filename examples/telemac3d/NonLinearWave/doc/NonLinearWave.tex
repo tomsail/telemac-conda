@@ -1,0 +1,99 @@
+\chapter{Dingemans wave over a bar (NonLinearWave)}
+
+\section{Purpose}
+
+This test demonstrates the ability of \telemac{3D} to simulate the
+evolution of a monochromatic linear wave over a bar.
+This test case corresponds to a physical model and measurements
+published by Dingemans (conditions C) \cite{Dingemans1994}.
+
+\section{Description}
+
+The configuration is a tank 32~m long and 0.3~m wide.
+The evolution of the topography along the channel is presented in Figure
+\ref{fig:nonlinear:bottom}. It represents a bar.
+A wave is imposed at the entrance of the channel.
+The goal is to simulate the evolution of this wave when propagating over
+the bar.
+
+%The simulation is made with and without hydrostatic hypothesis.
+
+\begin{figure}[H]
+ \centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/FreeSurface_bottom.png}
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/FreeSurface_long_profile.png}
+ \caption{Free surface and bottom at the end of simulation.}\label{fig:nonlinear:bottom}
+\end{figure}
+
+\subsection{Initial and Boundary Conditions}
+
+The computation is initialised with a constant elevation equal to 0~m
+and no velocity.
+
+The boundary conditions are only closed lateral boundaries:
+\begin{itemize}
+\item For the solid walls, a slip condition on channel banks is used for the
+velocities,
+\item No bottom friction,
+\item Upstream a wave is imposed at the entrance (amplitude 0.04~m).
+\end{itemize}
+
+\subsection{Mesh and numerical parameters}
+
+The 2D mesh is made of 7,680 triangular elements (5,124 nodes).
+
+10 planes are regularly spaced in the vertical direction
+(see Figure \ref{t3d:nonlinear:fig:meshV}).
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/MeshV.png}
+ \caption{Initial vertical mesh along $y$ = 0.15~m.}
+ \label{t3d:nonlinear:fig:meshV}
+\end{figure}
+
+The non-hydrostatic version of \telemac{3D} is used.
+
+To solve the advection, the N-type MURD scheme (scheme \#4) is used for velocities.
+The implicitation coefficients for depth and velocities are equal to 0.5 to be
+accurate.
+
+The time step is 0.0025~s for a simulated period of 33~s.
+
+\subsection{Physical parameters}
+
+No diffusion is considered.
+
+\section{Results}
+
+Figure \ref{fig:nonlinear:bottom} presents the general shape of the free surface at the end
+of the simulation.\\
+Figure \ref{fig:nonlinear:measure} presents a comparison of the \tel simulation and the
+experimental results at various locations in the channel.
+This comparison shows a very good agreement between results and
+measurements which is comparable to the one obtained with 1D Boussinesq
+models as published in \cite{Benoit2001}.
+
+\begin{figure}[H]
+ \centering
+\includegraphicsmaybe{[width=0.49\textwidth]}{../img/pt0.png}
+\includegraphicsmaybe{[width=0.49\textwidth]}{../img/pt1.png}
+\includegraphicsmaybe{[width=0.49\textwidth]}{../img/pt2.png}
+\includegraphicsmaybe{[width=0.49\textwidth]}{../img/pt3.png}
+\includegraphicsmaybe{[width=0.49\textwidth]}{../img/pt4.png}
+\includegraphicsmaybe{[width=0.49\textwidth]}{../img/pt5.png}
+\caption{Comparison with measurements of Dingemans.}\label{fig:nonlinear:measure}
+\end{figure}
+
+\section{Conclusion}
+
+\telemac{3D} simulates correctly the evolution of a wave on a bar.
+
+%[1] DINGEMANS M.W., Comparison of computations with Boussinesq-like
+%models and laboratory measurements.
+%MAST-G8M note, H1684, Delft Hydraulics, 32 pp. 1994.
+
+%[2] BENOIT M., Projet CLAROM-ECOMAC (FICHE CEP\&M M06101.99).
+%Modélisation non-linéaire par les équations de Boussinesq de la
+%propagation des vagues non-déferlantes en zone côtière.
+%Rapport EDF-LNHE HP-75/01/069. 2001.

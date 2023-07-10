@@ -1,0 +1,91 @@
+\chapter{Flow around a cylinder (Negretti2D)}
+
+\section{Description}
+
+This example shows that \telemac{2D} is able to simulate a flow around
+a cylinder with the Spalart-Allmaras turbulence model,
+in particular the impact of an obstacle on a channel flow.
+
+The configuration is a straight channel 20~m long and 8~m wide
+with a flat horizontal bottom without slope (at elevation -20~m)
+and a 2~m diameter cylinder inside the domain
+(its center is located at coordinates (0;0)).
+
+\subsection{Initial and boundary conditions}
+
+The computation is initialised with a constant elevation equal to -18~m
+and no velocity.
+
+The boundary conditions are:
+\begin{itemize}
+\item For the solid walls, a Strickler law on channel banks is used for the
+velocities with friction coefficient equal to 60~m$^{1/3}$/s,
+\item On the bottom, a Strickler law with friction coefficient equal to
+20~m$^{1/3}$/s is prescribed,
+\item Upstream a flowrate equal to 32~m$^3$/s is prescribed from time = 10~s,
+linearly increasing from 0 to 32~m$^3$/s during the first 10~s,
+\item Downstream the water level is suggested to be equal to -18~m.
+\end{itemize}
+
+Thompson boundary conditions are used for both liquid boundaries.
+
+\subsection{Mesh and numerical parameters}
+
+The mesh (Figure \ref{t2d:Negretti2D:fig:meshH})
+is rather refined and is made of 33,598 triangular elements (17,178 nodes).
+Is is a little bit more refined around the island.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Mesh.png}
+ \caption{Horizontal mesh.}
+ \label{t2d:Negretti2D:fig:meshH}
+\end{figure}
+
+The time step is 0.0125~s for a simulated period of 80~s.
+
+To solve the advection, the NERD scheme is used for every variable
+(velocities and turbulent variable, = scheme 14).
+The conjugate gradient
+is used for solving the propagation step (option 1)
+with solver accuracy equal to 10$^{-16}$ and
+the implicitation coefficients
+for depth and velocities are both equal to 0.6.
+
+\subsection{Physical parameters}
+
+The Spalart-Allmaras model is used for turbulence modelling
+(\telkey{TURBULENCE MODEL} = 6)
+with \telkey{VELOCITY DIFFUSIVITY} = 10$^{-3}$~m$^2$/s.
+
+\section{Results}
+
+The flow establishes a steady flow where the free surface is lighly higher
+in front of the cylinder and lower on the left and the right of the cylinder (in the direction of the flow), see Figure \ref{t2d:Negretti2D:freesurf}.
+Moreover, the velocity decreases in front of the cylinder and in its wake, but it increases when going around the cylinder on the left or the right,
+see Figures \ref{t2d:Negretti2D:velovect} and \ref{t2d:Negretti2D:velostream}.
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurface.png}
+\caption{Free surface elevation at final time step.}
+\label{t2d:Negretti2D:freesurf}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityVect.png}
+\caption{Magnitude of velocity at final time step with vectors.}
+\label{t2d:Negretti2D:velovect}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityStream.png}
+\caption{Magnitude of velocity at final time step with streamlines.}
+\label{t2d:Negretti2D:velostream}
+\end{figure}
+
+\section{Conclusions}
+
+This example validates the Spalart-Allmaras turbulence model of \telemac{2D}.

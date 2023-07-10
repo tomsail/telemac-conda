@@ -1,0 +1,77 @@
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+GEOMETRY FILE                   = geo-thacker.slf
+FORTRAN FILE                    = 'user_fortran_2'
+BOUNDARY CONDITIONS FILE        = geo-thacker.cli
+RESULTS FILE                    = r2d_thacker2-nerd.slf
+FORMATTED RESULTS FILE          = rfo_thacker2-nerd.txt
+FORMATTED RESULTS FILE 1        = energy_balance.txt
+FORMATTED RESULTS FILE 2        = mass_balance.txt
+FORMATTED RESULTS FILE 3        = mass_matrix_tf.txt
+FORMATTED RESULTS FILE 4        = error_Linf.txt
+FORMATTED RESULTS FILE 5        = error_L1.txt
+FORMATTED RESULTS FILE 6        = error_L2.txt
+/
+/----------------------------------------------
+NUMBER OF PRIVATE ARRAYS = 4
+NAMES OF PRIVATE VARIABLES =
+'ANALYTIC SOL H';
+'ANALYTIC SOL U';
+'ANALYTIC SOL V';
+'ANALYTIC SOL E'
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE                           = 'TELEMAC 2D : THACKER'
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,H,S,B,N,O,R,Z'
+TIME STEP                       = 0.0025
+DURATION                        = 10.
+/NUMBER OF TIME STEPS             = 2000
+GRAPHIC PRINTOUT PERIOD         = 100
+LISTING PRINTOUT PERIOD         = 400
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS              = 'PARTICULAR'
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 0 /NO FRICTION
+TURBULENCE MODEL                = 1 / LAMINAR
+VELOCITY DIFFUSIVITY            = 0.
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+/
+/SCHEMES
+TREATMENT OF THE LINEAR SYSTEM  = 2 /WAVE EQUATION
+EQUATIONS                       = 'SAINT-VENANT FE'
+TYPE OF ADVECTION               = 14;5
+SUPG OPTION                     = 2;0   /No upwinding
+MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES = 20
+/
+SOLVER                          = 1
+SOLVER ACCURACY                 = 1.E-8
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER = 500
+/
+IMPLICITATION FOR DEPTH         = 0.55
+IMPLICITATION FOR VELOCITY      = 0.55
+MASS-BALANCE                    : YES
+/
+TIDAL FLATS                             = YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS = 1
+TREATMENT OF NEGATIVE DEPTHS            = 2
+H CLIPPING     : NO
+/
+MASS-LUMPING ON H                       = 1.
+/FREE SURFACE GRADIENT COMPATIBILITY     = 0.9
+CONTINUITY CORRECTION                   = YES

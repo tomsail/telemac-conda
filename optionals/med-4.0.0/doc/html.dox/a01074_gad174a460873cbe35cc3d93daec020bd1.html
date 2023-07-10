@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: msdnjn</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="a01074.html">Guide de référence du module fortran MEDsubdomainJoint</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="contents">
+<table cellspacing="0" cellpadding="0" border="0">
+  <tr>
+   <td valign="top">
+      <div class="navtab">
+        <table>
+          <tr><td class="navtab"><a class="qindex" href="a01074_ga1bfa5efab2c4edb54e5046707251c8ac.html#ga1bfa5efab2c4edb54e5046707251c8ac">msdcrw</a></td></tr>
+          <tr><td class="navtab"><a class="qindexHL" href="a01074_gad174a460873cbe35cc3d93daec020bd1.html#gad174a460873cbe35cc3d93daec020bd1">msdnjn</a></td></tr>
+        </table>
+      </div>
+   </td>
+   <td valign="top" class="mempage">
+<a class="anchor" id="gad174a460873cbe35cc3d93daec020bd1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine msdnjn </td>
+          <td>(</td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>fid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character *(*)&#160;</td>
+          <td class="paramname"><em>maa</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>cret</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cette routine permet la lecture du nombre de joint dans un maillage. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fid</td><td>Identificateur du fichier. </td></tr>
+    <tr><td class="paramname">maa</td><td>Nom du maillage, de longueur maximum <a class="el" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a> . </td></tr>
+    <tr><td class="paramname">n</td><td>Nombre de joint. </td></tr>
+    <tr><td class="paramname">cret</td><td>retour négatif en cas d'erreur, Zéro sinon.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Cette routine permet la lecture du nombre de joint dans un maillage. </p><dl class="section user"><dt>Remarques</dt><dd>Du point de vue du stockage, un maillage distribué a la même structure qu'un maillage MED classique mais ses composantes (entités géométrique, familles, groupes) peuvent être réparties sur plusieurs sous-domaines affectés à des processeurs disjoints. Lors de cette distribution certains sommets, faces, arêtes ou mailles se retrouvent sur la frontière commune de deux sous-domaines. L'ensemble de ces éléments communs à deux sous-domaines constitue un joint. Dans un cadre très général, les éléments communs à deux sous-domaines peuvent apparaître comme : <ul>
+<li>La jointure de deux maillages qui se correspondent parfaitement : on parle alors de raccordement conforme, </li>
+<li>La jointure de deux maillages de pavage différent : raccordement non conforme, </li>
+<li>Le recouvrement de deux maillages qu'il soit conforme ou non. </li>
+</ul>
+</dd></dl>
+
+<p>Définition à la ligne <a class="el" href="a00692_source.html#l00071">71</a> du fichier <a class="el" href="a00692_source.html">medjoint.f</a>.</p>
+
+</div>
+</div>
+    </td>
+  </tr>
+</table>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:49 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

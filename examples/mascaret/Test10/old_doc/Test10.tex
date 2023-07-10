@@ -1,0 +1,115 @@
+\documentclass[a4paper,10pt]{article}
+
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P0}
+
+\subsection*{Validation des noyaux de calcul fluvial permanent et transitoire}
+
+\subsection*{\emph{Canal rectangulaire avec une singularité définie à l'aide d'une loi générale $Q= f(Z_{amont})$}}
+
+\subsection*{Numéro du cas test : 10}
+
+\subsection*{Auteur : Kamal EL KADI ABDERREZZAK}
+
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+	Ce cas test a pour but de valider le noyau de calcul en régime permanent, et de comparer les résultats obtenus avec ceux du noyau transcritique et ceux du noyau transitoire après convergence, dans le cas d'un canal rectangulaire avec une singularité définie à l'aide d'une loi générale $Q=f(Z_{amont})$.
+
+\subsection*{Données géométriques}
+
+	Le calcul est réalisé dans un canal de pente uniforme ($0.0005$) et de longueur $5000\mbox{ } m$, dont chaque section en travers est de forme rectangulaire de $100\mbox{ } m$ de large. La géométrie du canal est décrite par 2 profils en travers situés aux abscisses $0$ et $5000\mbox{ } m$. Le seuil se situe à l'aval immédiat du point d'abscisse égal à $4000\mbox{ } m$.
+
+\subsection*{Données physiques}
+
+	Le coefficient de frottement est choisi de manière à ce que la hauteur normale soit $5\mbox{ }m$. Ainsi, on trouve un coefficient de Strickler  égal à $30.59\mbox{ } m^{1/3}.s^{-1}$.
+	\\
+
+\begin{itemize} 
+ \item Conditions aux limites : 
+  \begin{itemize}
+  \item Cote imposée à l'aval égale à $12.5\mbox{ } m $ (correspondant à la hauteur normale)
+  \item Débit imposé à l'amont constant et égal à $1000\mbox{ } m^3.s^{-1}$
+  \end{itemize}
+\end{itemize}
+
+\vspace{0.3cm}
+
+Pour le noyau permanent, aucune condition initiale n'est nécessaire.\\
+Pour le noyau transitoire, la condition initiale est la ligne d'eau obtenue à partir d'un calcul avec le noyau permanent sans présence d'ouvrage.
+\\
+\begin{itemize}
+ \item Seuils :
+ \begin{itemize}
+  \item Crête du seuil : $10.5\mbox{ } m$
+  \item Loi de seuil
+  \end{itemize}
+\end{itemize} 
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline Débit Q ($m^3.s^{-1}$) & Cote amont $(m$) \\ 
+\hline $0$ & $11.5$ \\
+\hline $500$ & $12.5$ \\ 
+\hline $1000$ & $13.5$ \\ 
+\hline $1500$ & $14.5$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+\subsection*{Données numériques}
+
+	Le pas de maillage longitudinal est de $100\mbox{ } m$.\\
+	 Le pas de planimétrage est homogène dans le domaine et égal à $0.25\mbox{ } m$.\\
+Pour le calcul non permanent, le pas de temps utilisé est $10\mbox{ }s$ et le calcul a été mené pendant $1000$ pas de temps.
+
+\subsection*{Solution analytique}
+
+	En imposant la hauteur normale à l'aval du canal (de géométrie uniforme), l'écoulement sera uniforme dans tout le canal jusqu'à la section aval de la singularité. Dans la section amont, nous devons retrouver le débit imposé et la cote amont résultant directement de la loi de la singularité, c'est-à-dire $Q=1000\mbox{ } m^3.s^{-1}$ et $Z_{amont} = 13.5\mbox{ } m$. Plus en amont, l'écoulement doit se rapprocher asymptotiquement du régime uniforme.
+
+
+\subsection*{Résultats}
+
+	La figure 1 compare les lignes d'eau obtenues avec la version MASCARET V5P0, noyaux permanent et transitoire. Les écarts sont quasi-nuls. D'autre part, la cote d'eau calculée à l'amont de la singularité est $13.5\mbox{ } m$ d'après les trois noyaux permanent, transitoire et transcritique, ce qui correspond bien à la valeur théorique. Enfin, en comparant les lignes d'eau calculées avec la ligne d'eau du régime uniforme, on remarque que l'écoulement tend à l'amont vers le régime uniforme, ce qui est bien conforme à la théorie.
+ 
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure1.eps}
+  \caption{Profils en long de la ligne d'eau. Résultats obtenus avec un pas de discrétisation spatiale de $100\mbox{ } m$}
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+
+
+
+\subsection*{Conclusion}
+
+	Le traitement d'une singularité définie à l'aide d'une loi générale $Q= f(Z_{amont})$ est donc satisfaisant. D'autre part, il n'y a quasiment aucun écart entre les différentes versions et la théorie ; le régime transitoire converge bien vers le régime permanent et les même résultas sont obtenues par le noyau transcritique dans ce cas-test. 
+
+
+
+
+
+
+
+%
+% fin du document
+%
+\end{document}          

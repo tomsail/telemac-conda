@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier:  Fichier source de MEDfieldnComponent.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_21ff39c74838e10d1b918a45b9d185d5.html">src</a></li><li class="navelem"><a class="el" href="dir_48027acf4688ac8b76ff5eb90d59af4a.html">ci</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">MEDfieldnComponent.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00634.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00581.html">med_config.h</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00589.html">med_outils.h</a>&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a></div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a01048_gabe6258ebc74592af81c9b51379b7b7af.html#gabe6258ebc74592af81c9b51379b7b7af">   34</a></span>&#160;<a class="code" href="a01048_gabe6258ebc74592af81c9b51379b7b7af.html#gabe6258ebc74592af81c9b51379b7b7af">MEDfieldnComponent</a>(<span class="keyword">const</span> <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid, </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                   <span class="keyword">const</span> <span class="keywordtype">int</span> ind)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> _ret       = -1;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">char</span>    _fieldname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">int</span>     _num       = ind-1;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">char</span>    _path        [<a class="code" href="a00589_ad12044f34a5d1f5ec8c472187948f075.html#ad12044f34a5d1f5ec8c472187948f075">MED_FIELD_GRP_SIZE</a>+<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<a class="code" href="a00589_a5896fab90cb61bcd9b3383aa2f2da897.html#a5896fab90cb61bcd9b3383aa2f2da897">MED_FIELD_GRP</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="comment">/*</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">   * On inhibe le gestionnaire d&#39;erreur HDF</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <a class="code" href="a00584_aa645db37de32784a120a8deb350095e1.html#aa645db37de32784a120a8deb350095e1">_MEDmodeErreurVerrouiller</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="comment">/*</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">   * On recupere le nom du champ</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordflow">if</span> ( <a class="code" href="a00584_a209b0c9f7bfbe7739787aca43639efa4.html#a209b0c9f7bfbe7739787aca43639efa4">_MEDobjectGetName</a>(fid, _path ,_num, _fieldname) &lt; 0 ) {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a6b994e29644b2927bb7280e1d6c3025b.html#a6b994e29644b2927bb7280e1d6c3025b">MED_ERR_ACCESS</a>,<a class="code" href="a00582_a3e3ac48003b7eac5a1aecac139bcc201.html#a3e3ac48003b7eac5a1aecac139bcc201">MED_ERR_DATAGROUP</a>,_path);<a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(_num);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordflow">if</span> ( (_ret=<a class="code" href="a01048_ga04f8dc57ed5c44436841e27880ed6b3c.html#ga04f8dc57ed5c44436841e27880ed6b3c">MEDfieldnComponentByName</a>( fid, _fieldname )) &lt; 0) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a>(_ret,<a class="code" href="a00582_a377256003f35c6b58a85a2a465e36637.html#a377256003f35c6b58a85a2a465e36637">MED_ERR_CALL</a>,<a class="code" href="a00582_aaaf11c912310b2b8513c9afcbfb01f03.html#aaaf11c912310b2b8513c9afcbfb01f03">MED_ERR_API</a>,<a class="code" href="a00582_ab4734b03e97f4abcfed59bcc87711a84.html#ab4734b03e97f4abcfed59bcc87711a84">MED_ERR_FIELD_MSG</a>);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(_fieldname);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(_path);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(<span class="stringliteral">&quot;MEDfieldnComponentbyName&quot;</span>);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; ERROR:</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordflow">return</span> _ret;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="ttc" id="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba_html_abd29d7c6abaef5da2a5ed1b73464f0ba"><div class="ttname"><a href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a></div><div class="ttdeci">herr_t med_err</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00327">med.h:327</a></div></div>
+<div class="ttc" id="a00591_a07852156956867e0134fc219d370b8d4_html_a07852156956867e0134fc219d370b8d4"><div class="ttname"><a href="a00591_a07852156956867e0134fc219d370b8d4.html#a07852156956867e0134fc219d370b8d4">MED_ERR_</a></div><div class="ttdeci">#define MED_ERR_(rt, r1, r2, r3)</div><div class="ttdef"><b>Definition:</b> <a href="a00591_source.html#l00158">med_utils.h:158</a></div></div>
+<div class="ttc" id="a00591_ae7ba0433e91c450cd44c3808c2acb497_html_ae7ba0433e91c450cd44c3808c2acb497"><div class="ttname"><a href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a></div><div class="ttdeci">#define ISCRUTE_int(entier)</div><div class="ttdef"><b>Definition:</b> <a href="a00591_source.html#l00307">med_utils.h:307</a></div></div>
+<div class="ttc" id="a00582_a377256003f35c6b58a85a2a465e36637_html_a377256003f35c6b58a85a2a465e36637"><div class="ttname"><a href="a00582_a377256003f35c6b58a85a2a465e36637.html#a377256003f35c6b58a85a2a465e36637">MED_ERR_CALL</a></div><div class="ttdeci">#define MED_ERR_CALL</div><div class="ttdef"><b>Definition:</b> <a href="a00582_source.html#l00045">med_err.h:45</a></div></div>
+<div class="ttc" id="a00577_a88dc15143f934cc7b771bc89f46372dc_html_a88dc15143f934cc7b771bc89f46372dc"><div class="ttname"><a href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a></div><div class="ttdeci">int med_int</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00337">med.h:337</a></div></div>
+<div class="ttc" id="a00581_html"><div class="ttname"><a href="a00581.html">med_config.h</a></div></div>
+<div class="ttc" id="a00582_a6b994e29644b2927bb7280e1d6c3025b_html_a6b994e29644b2927bb7280e1d6c3025b"><div class="ttname"><a href="a00582_a6b994e29644b2927bb7280e1d6c3025b.html#a6b994e29644b2927bb7280e1d6c3025b">MED_ERR_ACCESS</a></div><div class="ttdeci">#define MED_ERR_ACCESS</div><div class="ttdef"><b>Definition:</b> <a href="a00582_source.html#l00028">med_err.h:28</a></div></div>
+<div class="ttc" id="a01048_gabe6258ebc74592af81c9b51379b7b7af_html_gabe6258ebc74592af81c9b51379b7b7af"><div class="ttname"><a href="a01048_gabe6258ebc74592af81c9b51379b7b7af.html#gabe6258ebc74592af81c9b51379b7b7af">MEDfieldnComponent</a></div><div class="ttdeci">med_int MEDfieldnComponent(const med_idt fid, const int ind)</div><div class="ttdoc">Cette fonction lit le nombre de composantes d&#39;un champ. </div><div class="ttdef"><b>Definition:</b> <a href="a00634_source.html#l00034">MEDfieldnComponent.c:34</a></div></div>
+<div class="ttc" id="a00582_a3e3ac48003b7eac5a1aecac139bcc201_html_a3e3ac48003b7eac5a1aecac139bcc201"><div class="ttname"><a href="a00582_a3e3ac48003b7eac5a1aecac139bcc201.html#a3e3ac48003b7eac5a1aecac139bcc201">MED_ERR_DATAGROUP</a></div><div class="ttdeci">#define MED_ERR_DATAGROUP</div><div class="ttdef"><b>Definition:</b> <a href="a00582_source.html#l00098">med_err.h:98</a></div></div>
+<div class="ttc" id="a00577_afa4ec8284026c8c5545e5333475fb65a_html_afa4ec8284026c8c5545e5333475fb65a"><div class="ttname"><a href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a></div><div class="ttdeci">hid_t med_idt</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00326">med.h:326</a></div></div>
+<div class="ttc" id="a00589_html"><div class="ttname"><a href="a00589.html">med_outils.h</a></div></div>
+<div class="ttc" id="a00577_a0ae989cbbfeecbb5296b3ceba8dab886_html_a0ae989cbbfeecbb5296b3ceba8dab886"><div class="ttname"><a href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a></div><div class="ttdeci">#define MED_NAME_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00079">med.h:79</a></div></div>
+<div class="ttc" id="a00577_html"><div class="ttname"><a href="a00577.html">med.h</a></div></div>
+<div class="ttc" id="a00589_ad12044f34a5d1f5ec8c472187948f075_html_ad12044f34a5d1f5ec8c472187948f075"><div class="ttname"><a href="a00589_ad12044f34a5d1f5ec8c472187948f075.html#ad12044f34a5d1f5ec8c472187948f075">MED_FIELD_GRP_SIZE</a></div><div class="ttdeci">#define MED_FIELD_GRP_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="a00589_source.html#l00167">med_outils.h:167</a></div></div>
+<div class="ttc" id="a00589_a5896fab90cb61bcd9b3383aa2f2da897_html_a5896fab90cb61bcd9b3383aa2f2da897"><div class="ttname"><a href="a00589_a5896fab90cb61bcd9b3383aa2f2da897.html#a5896fab90cb61bcd9b3383aa2f2da897">MED_FIELD_GRP</a></div><div class="ttdeci">#define MED_FIELD_GRP</div><div class="ttdef"><b>Definition:</b> <a href="a00589_source.html#l00166">med_outils.h:166</a></div></div>
+<div class="ttc" id="a00591_a257959db0a78623caa051d11ceb2f8cb_html_a257959db0a78623caa051d11ceb2f8cb"><div class="ttname"><a href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a></div><div class="ttdeci">#define SSCRUTE(chaine)</div><div class="ttdef"><b>Definition:</b> <a href="a00591_source.html#l00315">med_utils.h:315</a></div></div>
+<div class="ttc" id="a00584_aa645db37de32784a120a8deb350095e1_html_aa645db37de32784a120a8deb350095e1"><div class="ttname"><a href="a00584_aa645db37de32784a120a8deb350095e1.html#aa645db37de32784a120a8deb350095e1">_MEDmodeErreurVerrouiller</a></div><div class="ttdeci">MEDC_EXPORT void _MEDmodeErreurVerrouiller(void)</div></div>
+<div class="ttc" id="a01048_ga04f8dc57ed5c44436841e27880ed6b3c_html_ga04f8dc57ed5c44436841e27880ed6b3c"><div class="ttname"><a href="a01048_ga04f8dc57ed5c44436841e27880ed6b3c.html#ga04f8dc57ed5c44436841e27880ed6b3c">MEDfieldnComponentByName</a></div><div class="ttdeci">MEDC_EXPORT med_int MEDfieldnComponentByName(const med_idt fid, const char *const fieldname)</div><div class="ttdoc">Cette fonction lit le nombre de composantes d&#39;un champ (accès direct à partir du nom du champ)...</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00034">MEDfieldnComponentByName.c:34</a></div></div>
+<div class="ttc" id="a00582_ab4734b03e97f4abcfed59bcc87711a84_html_ab4734b03e97f4abcfed59bcc87711a84"><div class="ttname"><a href="a00582_ab4734b03e97f4abcfed59bcc87711a84.html#ab4734b03e97f4abcfed59bcc87711a84">MED_ERR_FIELD_MSG</a></div><div class="ttdeci">#define MED_ERR_FIELD_MSG</div><div class="ttdef"><b>Definition:</b> <a href="a00582_source.html#l00138">med_err.h:138</a></div></div>
+<div class="ttc" id="a00582_aaaf11c912310b2b8513c9afcbfb01f03_html_aaaf11c912310b2b8513c9afcbfb01f03"><div class="ttname"><a href="a00582_aaaf11c912310b2b8513c9afcbfb01f03.html#aaaf11c912310b2b8513c9afcbfb01f03">MED_ERR_API</a></div><div class="ttdeci">#define MED_ERR_API</div><div class="ttdef"><b>Definition:</b> <a href="a00582_source.html#l00108">med_err.h:108</a></div></div>
+<div class="ttc" id="a00584_a209b0c9f7bfbe7739787aca43639efa4_html_a209b0c9f7bfbe7739787aca43639efa4"><div class="ttname"><a href="a00584_a209b0c9f7bfbe7739787aca43639efa4.html#a209b0c9f7bfbe7739787aca43639efa4">_MEDobjectGetName</a></div><div class="ttdeci">MEDC_EXPORT med_err _MEDobjectGetName(const med_idt fid, const char *const path, const med_size ind, char *name)</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

@@ -1,0 +1,95 @@
+/-------------------------------------------------------------------/
+/                        TELEMAC-2D
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+/DEBUGGER = 1
+/
+FORTRAN FILE                    = 'user_fortran'
+GEOMETRY FILE                   = geo_flume.slf
+BOUNDARY CONDITIONS FILE        = geo_flume_dirichlet.cli
+RESULTS FILE                    = r2d_flume.slf
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE : 'FLUME TRACER FE'
+/
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,S,B,Q,F,H,T*,T1*,N,O'
+/
+GRAPHIC PRINTOUT PERIOD         = 10
+LISTING PRINTOUT PERIOD         = 100
+/
+DURATION                        = 8
+TIME STEP                       = 1.28E-2
+/
+/MASS-BALANCE                    = YES
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS              = 'CONSTANT ELEVATION'
+INITIAL ELEVATION               = 1.0
+/
+/----------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------
+/
+PRESCRIBED FLOWRATES            = 0.0;2.0
+PRESCRIBED ELEVATIONS           = 1.0;0.0
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 0
+VELOCITY DIFFUSIVITY            = 0.
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+EQUATIONS                       = 'SAINT-VENANT FE'
+TREATMENT OF THE LINEAR SYSTEM  = 2 /WAVE EQUATION
+TYPE OF ADVECTION               = 1;5
+SUPG OPTION                     = 0;0   /No upwinding
+/
+MASS-LUMPING ON H : 1.
+CONTINUITY CORRECTION : YES
+/
+SOLVER                          = 1
+SOLVER ACCURACY                 = 1.E-8
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER = 500
+/
+IMPLICITATION FOR DEPTH         = 0.55
+IMPLICITATION FOR VELOCITY      = 0.55
+/
+TIDAL FLATS                             = YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS = 1
+TREATMENT OF NEGATIVE DEPTHS            = 2
+H CLIPPING     : NO
+/
+/----------------------------------------------
+/  TRACER
+/----------------------------------------------
+/
+NUMBER OF TRACERS               = 1
+NAMES OF TRACERS                = 'TRACER 1'; 'TRACER 2'
+/
+INITIAL VALUES OF TRACERS       = 0.; 0.
+PRESCRIBED TRACERS VALUES       = 0.0;0.0 ; 0.0;0.0
+/
+SCHEME FOR ADVECTION OF TRACERS          = 1
+/
+COEFFICIENT FOR DIFFUSION OF TRACERS     = 0.
+/
+/----------------------------------------------
+/  TRACER ANALYTIC SOLUTION
+/----------------------------------------------
+/
+NUMBER OF PRIVATE ARRAYS = 1
+NAMES OF PRIVATE VARIABLES = 'SOL T1';'SOL T2'

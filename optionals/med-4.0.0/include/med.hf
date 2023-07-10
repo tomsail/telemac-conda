@@ -1,0 +1,6 @@
+      include "med_parameter.hf"
+
+      external MED_SET_IT
+      common /MED/ MED_GET_CELL_GEOMETRY_TYPE
+      integer MED_GET_CELL_GEOMETRY_TYPE(MED_N_CELL_FIXED_GEO)
+      save   /MED/

@@ -1,0 +1,18 @@
+<A NAME="____Concepts et fonctionnalit&eacute;s avanc&eacute;s sur les fichiers____">
+<H3>Monter et d&eacute;monter des fichiers MED</H3>
+<P>Les objets du mod&egrave;le de donn&eacute;es MED  comme les
+champs et les maillages peuvent &ecirc;tre r&eacute;partis dans des
+fichiers diff&eacute;rents. Il est parfois utile par exemple
+lorsqu'on lit un champ, d'avoir acc&egrave;s au maillage associ&eacute;
+au champ. La routine \ref MEDfileObjectsMount / \ref mfiomn permet de
+monter le contenu d'un fichier MED pour un type d'objet donn&eacute;
+(exemples : champ, maillage) dans le fichier MED courant. Une fois le
+montage effectu&eacute;, l'acc&egrave;s aux donn&eacute;es mont&eacute;es
+est transparent. Lorsque l'acc&egrave;s aux donn&eacute;es mont&eacute;es
+n'est plus utile, il est n&eacute;cessaire de d&eacute;monter le
+fichier avec la routine \ref MEDfileObjectsUnmount / \ref mfioun.</P>
+<P>\include test20.c</P>
+<H3><BR><BR>
+</H3>
+</BODY>
+</HTML>

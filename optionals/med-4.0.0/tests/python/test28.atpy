@@ -1,0 +1,18 @@
+AT_SETUP([test python test28])
+
+AT_KEYWORDS([python test28])
+
+# List of executables that should be run to perform the tests
+#AT_TESTED([test28.py])
+
+AT_CHECK([ln -s $builddir/test27.med test27.med],[0],[ignore],[ignore])
+
+AT_CHECK([LC_ALL=C.UTF-8 $PYTHON  $testpydir/test28.py],
+         [0],
+         [ignore],
+         [ignore],
+	 [],
+	 []
+	 )
+
+AT_CLEANUP

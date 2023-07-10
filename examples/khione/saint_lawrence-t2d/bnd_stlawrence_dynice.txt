@@ -1,0 +1,6 @@
+# Boundary condition file
+#
+T SL(1) Q(2) TR(1,1) TR(1,2) TR(2,1) TR(2,2) TR(3,1) TR(3,2) TR(4,1) TR(4,2)
+s m m3/s degC vfract vfract degC degC sfract sfract m m
+0.0,74.32,8126.92,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+86400.0,74.32,6965.93,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0

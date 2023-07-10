@@ -1,0 +1,75 @@
+/---------------------------------------------------------------------
+/ ARTEMIS Version v6p2 juillet 2012
+/ BTWI CAS 1
+/---------------------------------------------------------------------
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,FICHIERS
+/---------------------------------------------------------------------
+/
+/
+RESULTS FILE               ='r2d_btwi.slf'
+/
+BOUNDARY CONDITIONS FILE   ='geo_btwi.cli'
+/
+GEOMETRY FILE              ='geo_btwi.slf'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GENERALITES
+/---------------------------------------------------------------------
+/
+TITLE ='BTWI CAS 1'
+/
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GRAPHIQUES ET LISTING
+/---------------------------------------------------------------------
+/
+WAVE HEIGHTS SMOOTHING          = NO
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  ='HS,ZF,QB'
+/
+/---------------------------------------------------------------------
+/ EQUATIONS CONDITIONS INITIALES
+/---------------------------------------------------------------------
+/
+INITIAL CONDITIONS          : 'CONSTANT ELEVATION'
+/
+INITIAL WATER LEVEL         : 2.1
+/
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES
+/---------------------------------------------------------------------
+/
+/--------------------------------------------------------------------/
+/ OPTIONS
+/--------------------------------------------------------------------/
+MATRIX STORAGE : 3
+/
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES,SOLVEUR
+/---------------------------------------------------------------------
+/
+SOLVER =8
+/---------------------------------------------------------------------
+/ PHYSICAL PARAMETERS
+/---------------------------------------------------------------------
+/
+MONODIRECTIONAL RANDOM WAVE              : YES
+/
+GAMMA = 2.
+PEAK PERIOD : 10.4
+MINIMUM SPECTRAL PERIOD : 4.
+MAXIMUM SPECTRAL PERIOD : 21.
+DIRECTION OF WAVE PROPAGATION  : 114.
+/
+BREAKING : YES
+/
+AUTOMATIC CALCULATION OF PHASE = YES
+REFERENCE WATER DEPTH FOR AUTOMATIC PHASE = 5.1
+/PHASE REFERENCE COORDINATES              : 0. ; 0.
+/
+/
+/

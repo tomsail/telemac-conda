@@ -1,0 +1,29 @@
+Maillage de nom : |maa1| , de dimension : 2 , et de type 0
+	 -Dimension de l'espace : 2
+	 -Description du maillage : |un maillage pour test16|
+	 -Noms des axes : |x               y               |
+	 -Unités des axes : |cm              cm              |
+	 -Type de repère : 0
+	 -Nombre d'étapes de calcul : 1
+	 -Unité des dates : |s|
+Nombre de MED_SEG2 : 5 - nombre de MED_TRIA3 :2
+Connectivite des segments : 
+1 2 1 3 2 4 3 4 2 3 
+Noms des segments :
+|se1             | |se2             | |se3             | |se4             | |se5             | 
+Numeros des segments :
+1 2 3 4 5 
+Présence de numeros des familles des segments : 1
+
+Numeros des familles des segments :
+-1 -1 0 -2 -3 
+Connectivite des triangles : 
+1 2 -5 -5 3 -4 
+Noms des triangles :
+|tr1             | |tr2             | 
+Numeros des triangles :
+4 5 
+Présence de numeros des familles des triangles : 1
+
+Numeros des familles des triangles :
+0 -1 

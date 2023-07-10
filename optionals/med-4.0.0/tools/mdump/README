@@ -1,0 +1,12 @@
+Outil de DUMP d'un fichier MED V 2.1
+
+1. Utilisation : mdump.out <foo>
+
+2. Affichage du contenu d'un fichier MED :
+
+	Pour un maillage donne :
+	- noeuds
+	- elements
+	- familles
+	- equivalences
+	- resultats 

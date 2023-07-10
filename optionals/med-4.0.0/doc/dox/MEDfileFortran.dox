@@ -1,0 +1,171 @@
+/**\ingroup MEDfileFortran
+   \fn subroutine mfiope (integer   fid,  character *(*)   name,  integer   access,   integer   cret)
+   \brief \MEDfileOpenBrief
+   \param fid \fid
+   \param name \filename
+   \param access \accessmode
+   \param cret \error
+   \see MEDfileOpen
+   \details \MEDfileOpenDetails
+   \par Remarques
+   \MEDfileOpenNote
+*/
+
+/**\ingroup MEDfileFortran
+   \fn subroutine mfivop (integer   fid,  character *(*)   name,  integer   access, integer major, integer minor, integer rel, integer   cret)
+   \brief \MEDfileVersionOpenBrief
+   \param fid \fid
+   \param name \filename
+   \param access \accessmode
+   \param major \major	
+   \param minor \minor
+   \param rel \release
+   \param cret \error
+   \see MEDfileVersionOpen
+   \details \MEDfileVersionOpenDetails
+   \par Remarques
+   \MEDfileVersionOpenNote
+*/
+
+/**\ingroup MEDfileFortran
+   \fn subroutine mfinam (integer   fid,  character *(*)   name,  integer   cret)
+   \brief \MEDfileNameBrief
+   \param fid \fid
+   \param name \filename
+   \param cret \filenamesize \n \error 
+   \see MEDfileName
+   \details \MEDfileNameDetails
+*/
+
+/**\ingroup MEDfileFortran
+   \fn subroutine mpfope (integer   fid,  character *(*)   name,  integer   access, integer com, integer info,   integer   cret)
+   \brief \MEDparfileOpenBrief
+   \param fid \fid
+   \param name \filename
+   \param access \accessmode
+   \param com \comm
+   \param info \info
+   \param cret \error
+   \see MEDparfileOpen
+   \details \MEDparfileOpenDetails
+   \par Remarques
+   \fidDes
+   \MEDparfileOpenNote
+*/
+
+/**\ingroup MEDfileFortran
+   \fn subroutine mficlo(integer fid,   integer   cret)
+   \brief \MEDfileCloseBrief
+   \param fid \fid
+   \param cret \error
+   \see MEDfileClose
+   \details \MEDfileCloseDetails
+*/
+
+
+/**\ingroup MEDfileFortran
+   \fn subroutine mficow(integer fid, character*(*) cmt, integer cret)
+   \brief \MEDfileCommentWrBrief
+   \param fid \fid
+   \param cmt \comment
+   \param cret \error
+   \see MEDfileCommentWr
+   \details \MEDfileCommentWrDetails
+*/
+
+/**\ingroup MEDfileFortran
+   \fn subroutine mficor(integer fid, character*(*) cmt, integer cret)
+   \brief \MEDfileCommentRdBrief
+   \param fid \fid
+   \param cmt \comment
+   \param cret \error
+   \see MEDfileCommentRd
+   \details \MEDfileCommentRdDetails
+*/
+
+
+/**\ingroup MEDfileFortran
+   \fn subroutine  mfinvr(integer fid, integer major, integer minor, integer rel,integer cret)
+   \brief \MEDfileNumVersionRdBrief
+   \param fid \fid
+   \param major \major	
+   \param minor \minor
+   \param rel \release
+   \param cret \error
+   \see MEDfileNumVersionRd
+   \details \MEDfileNumVersionRdDetails
+*/
+
+/**\ingroup MEDfileFortran
+   \fn subroutine  mfisvr(integer fid, character*(*) version,integer cret)
+   \brief \MEDfileStrVersionRdBrief
+   \param fid \fid
+   \param version \medversion
+   \param cret \error
+   \see MEDfileStrVersionRd
+   \details \MEDfileStrVersionRdDetails
+*/
+
+
+/**\ingroup MEDfileFortran
+   \fn subroutine  mficom(character*(*) fname, integer hdfok, integer medok,integer cret)
+   \brief \MEDfileCompatibilityBrief
+   \param fname \filename
+   \param hdfok Indicateur booleen indiquant si le fichier est dans un format HDF compatible.
+   \param medok Indicateur booleen indiquant si le fichier un fichier MED compatible.
+   \param cret \error
+   \see MEDfileCompatibility
+   \details \MEDfileCompatibilityDetails
+*/
+
+
+/**\ingroup MEDfileFortran
+   \fn subroutine  mfiomn(integer fid, character*(*) fname, integer class, integer  mid, integer cret)
+   \brief \MEDfileObjectsMountBrief
+   \param fid \fid
+   \param fname \mountfilename
+   \param class \medclass
+   \param mid \mountId
+   \param cret \error
+   \see MEDfileObjectsMount
+   \details \MEDfileObjectsMountDetails
+*/
+
+
+/**\ingroup MEDfileFortran
+   \fn subroutine  mfioun(integer fid, integer  mid, integer class, integer cret)
+   \brief \MEDfileObjectsUnmountBrief
+   \param fid \fid
+   \param mid \mountId
+   \param class \medclass
+   \param cret \error
+   \see MEDfileObjectsUnmount
+   \details \MEDfileObjectsUnmountDetails
+*/
+
+/**\ingroup MEDfileFortran
+   \fn subroutine  mfioex(integer fid, integer class, character*(*) oname, integer oexist, integer cret)
+   \brief \MEDfileObjectExistBrief
+   \param fid \fid
+   \param class \medclass
+   \param oname \objectname
+   \param oexist \objectexist
+   \param cret \error
+   \see MEDfileObjectExist
+   \details \MEDfileObjectExistDetails
+*/
+
+/**\ingroup MEDfileFortran
+   \fn subroutine  mfiexi(character*(*) fname, integer access, integer fexist, integer accok, integer cret)
+
+  \brief \MEDfileExistBrief
+  \param fname \filename
+  \param access \accessmode
+  \param fexist \fileexist
+  \param accok \accessok
+  \param cret  \error
+  \see MEDfileExist
+  \details \MEDfileExistDetails
+  \par Remarques
+  
+*/

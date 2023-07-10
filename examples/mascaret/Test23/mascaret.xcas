@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE fichierCas SYSTEM "mascaret-1.0.dtd">
+<fichierCas>
+  <parametresCas>
+    <parametresGeneraux>
+      <versionCode>3</versionCode>
+      <code>3</code>
+      <fichMotsCles>mascaret.xcas</fichMotsCles>
+      <dictionaire>dico.txt</dictionaire>
+      <progPrincipal>princi.f</progPrincipal>
+      <sauveModele>false</sauveModele>
+      <fichSauvModele>mascaret.tmp</fichSauvModele>
+      <validationCode>false</validationCode>
+      <typeValidation>1</typeValidation>
+      <presenceCasiers>false</presenceCasiers>
+      <bibliotheques>
+        <bibliotheque>mascaretV5P1.a damoV3P0.a</bibliotheque>
+      </bibliotheques>
+    </parametresGeneraux>
+    <parametresModelePhysique>
+      <perteChargeConf>false</perteChargeConf>
+      <compositionLits>1</compositionLits>
+      <conservFrotVertical>false</conservFrotVertical>
+      <elevCoteArrivFront>0.05</elevCoteArrivFront>
+      <interpolLinStrickler>false</interpolLinStrickler>
+      <debordement>
+        <litMajeur>false</litMajeur>
+        <zoneStock>false</zoneStock>
+      </debordement>
+    </parametresModelePhysique>
+    <parametresNumeriques>
+      <calcOndeSubmersion>true</calcOndeSubmersion>
+      <decentrement>false</decentrement>
+      <froudeLimCondLim>1000.0</froudeLimCondLim>
+      <traitImplicitFrot>true</traitImplicitFrot>
+      <hauteurEauMini>0.005</hauteurEauMini>
+      <implicitNoyauTrans>false</implicitNoyauTrans>
+      <optimisNoyauTrans>true</optimisNoyauTrans>
+      <perteChargeAutoElargissement>false</perteChargeAutoElargissement>
+      <termesNonHydrostatiques>false</termesNonHydrostatiques>
+      <apportDebit>0</apportDebit>
+      <attenuationConvection>false</attenuationConvection>
+    </parametresNumeriques>
+    <parametresTemporels>
+      <pasTemps>1.0</pasTemps>
+      <tempsInit>0.0</tempsInit>
+      <critereArret>1</critereArret>
+      <nbPasTemps>10000</nbPasTemps>
+      <tempsMax>9800.0</tempsMax>
+      <pasTempsVar>true</pasTempsVar>
+      <nbCourant>0.8</nbCourant>
+      <coteMax>0.0</coteMax>
+      <abscisseControle>0.0</abscisseControle>
+      <biefControle>1</biefControle>
+    </parametresTemporels>
+    <parametresGeometrieReseau>
+      <geometrie>
+        <fichier>geometrie</fichier>
+        <format>2</format>
+        <profilsAbscAbsolu>true</profilsAbscAbsolu>
+      </geometrie>
+      <listeBranches>
+        <nb>7</nb>
+        <numeros>1 2 3 4 5 6 7</numeros>
+        <abscDebut>-16332.0 10186.0 36530.0 63545.0 1000225.0 2000300.0 3000375.0</abscDebut>
+        <abscFin>9911.0 36204.0 63060.0 240420.0 1009300.0 2015350.0 3011100.0</abscFin>
+        <numExtremDebut>1 3 5 7 9 11 13</numExtremDebut>
+        <numExtremFin>2 4 6 8 10 12 14</numExtremFin>
+      </listeBranches>
+      <listeNoeuds>
+        <nb>3</nb>
+        <noeuds>
+          <noeud>
+            <num>2 3 9 0 0</num>
+          </noeud>
+          <noeud>
+            <num>4 5 11 0 0</num>
+          </noeud>
+          <noeud>
+            <num>6 7 13 0 0</num>
+          </noeud>
+        </noeuds>
+      </listeNoeuds>
+      <extrLibres>
+        <nb>5</nb>
+        <num>1 2 3 4 5</num>
+        <numExtrem>1 8 10 12 14</numExtrem>
+        <noms>
+          <string>limite1</string>
+          <string>limite8</string>
+          <string>limite10</string>
+          <string>limite12</string>
+          <string>limite14</string>
+        </noms>
+        <typeCond>1 6 1 1 1</typeCond>
+        <numLoi>1 1 2 2 2</numLoi>
+      </extrLibres>
+    </parametresGeometrieReseau>
+    <parametresConfluents>
+      <nbConfluents>3</nbConfluents>
+      <confluents>
+        <structureParametresConfluent>
+          <nbAffluent>3</nbAffluent>
+          <nom>Noeud1</nom>
+          <abscisses>0.0 -320.0 -175.0</abscisses>
+          <ordonnees>0.0 75.0 -140.0</ordonnees>
+          <angles>0.0 155.0 263.0</angles>
+        </structureParametresConfluent>
+        <structureParametresConfluent>
+          <nbAffluent>3</nbAffluent>
+          <nom>Noeud2</nom>
+          <abscisses>0.0 -320.0 -200.0</abscisses>
+          <ordonnees>0.0 -170.0 130.0</ordonnees>
+          <angles>0.0 216.0 104.4</angles>
+        </structureParametresConfluent>
+        <structureParametresConfluent>
+          <nbAffluent>3</nbAffluent>
+          <nom>Noeud3</nom>
+          <abscisses>0.0 -530.0 -420.0</abscisses>
+          <ordonnees>0.0 -40.0 240.0</ordonnees>
+          <angles>0.0 237.15 90.0</angles>
+        </structureParametresConfluent>
+      </confluents>
+    </parametresConfluents>
+    <parametresPlanimetrageMaillage>
+      <methodeMaillage>5</methodeMaillage>
+      <planim>
+        <nbPas>123</nbPas>
+        <nbZones>7</nbZones>
+        <valeursPas>1.5 1.5 1.5 1.5 1.5 1.5 1.5</valeursPas>
+        <num1erProf>1 52 105 163 463 481 503</num1erProf>
+        <numDerProf>51 104 162 462 480 502 525</numDerProf>
+      </planim>
+      <maillage>
+        <modeSaisie>2</modeSaisie>
+        <sauvMaillage>false</sauvMaillage>
+        <maillageClavier>
+          <nbSections>0</nbSections>
+          <nbPlages>7</nbPlages>
+          <num1erProfPlage>1 52 105 163 463 481 503</num1erProfPlage>
+          <numDerProfPlage>51 104 162 462 480 502 525</numDerProfPlage>
+          <pasEspacePlage>100.0 100.0 100.0 100.0 100.0 100.0 100.0</pasEspacePlage>
+          <nbZones>0</nbZones>
+        </maillageClavier>
+      </maillage>
+    </parametresPlanimetrageMaillage>
+    <parametresSingularite>
+      <nbSeuils>3</nbSeuils>
+      <barragePrincipal>
+        <numBranche>1</numBranche>
+        <abscisse>0.0</abscisse>
+        <typeRupture>2</typeRupture>
+        <coteCrete>418.0</coteCrete>
+      </barragePrincipal>
+      <seuils>
+        <structureParametresSeuil>
+          <nom>barrage 1</nom>
+          <type>4</type>
+          <numBranche>2</numBranche>
+          <abscisse>26011.0</abscisse>
+          <coteCrete>344.0</coteCrete>
+          <coteCreteMoy>-0</coteCreteMoy>
+          <coteRupture>344.0</coteRupture>
+          <coeffDebit>0.38</coeffDebit>
+          <largVanne>-0</largVanne>
+          <numLoi>3</numLoi>
+          <nbPtLoiSeuil>-0</nbPtLoiSeuil>
+          <epaisseur>1</epaisseur>
+          <gradient>5000.0</gradient>
+        </structureParametresSeuil>
+        <structureParametresSeuil>
+          <nom>seuil 2</nom>
+          <type>4</type>
+          <numBranche>3</numBranche>
+          <abscisse>56318.0</abscisse>
+          <coteCrete>264.0</coteCrete>
+          <coteCreteMoy>-0</coteCreteMoy>
+          <coteRupture>10000.0</coteRupture>
+          <coeffDebit>0.38</coeffDebit>
+          <largVanne>-0</largVanne>
+          <numLoi>4</numLoi>
+          <nbPtLoiSeuil>-0</nbPtLoiSeuil>
+          <epaisseur>1</epaisseur>
+          <gradient>5000.0</gradient>
+        </structureParametresSeuil>
+        <structureParametresSeuil>
+          <nom>seuil 3</nom>
+          <type>4</type>
+          <numBranche>4</numBranche>
+          <abscisse>64143.0</abscisse>
+          <coteCrete>195.04</coteCrete>
+          <coteCreteMoy>-0</coteCreteMoy>
+          <coteRupture>10000.0</coteRupture>
+          <coeffDebit>0.38</coeffDebit>
+          <largVanne>-0</largVanne>
+          <numLoi>5</numLoi>
+          <nbPtLoiSeuil>-0</nbPtLoiSeuil>
+          <epaisseur>1</epaisseur>
+          <gradient>5000.0</gradient>
+        </structureParametresSeuil>
+      </seuils>
+    </parametresSingularite>
+    <parametresApportDeversoirs/>
+    <parametresCalage>
+      <frottement>
+        <loi>1</loi>
+        <nbZone>7</nbZone>
+        <numBranche>1 2 3 4 5 6 7</numBranche>
+        <absDebZone>-16332.0 10186.0 36530.0 63545.0 1000225.0 2000300.0 3000375.0</absDebZone>
+        <absFinZone>9911.0 36204.0 63060.0 240420.0 1009300.0 2015350.0 3011100.0</absFinZone>
+        <coefLitMin>30.0 30.0 30.0 30.0 30.0 30.0 30.0</coefLitMin>
+        <coefLitMaj>30.0 30.0 30.0 30.0 30.0 30.0 30.0</coefLitMaj>
+      </frottement>
+      <zoneStockage>
+        <nbProfils>0</nbProfils>
+        <numProfil>-0</numProfil>
+        <limGauchLitMaj>-0</limGauchLitMaj>
+        <limDroitLitMaj>-0</limDroitLitMaj>
+      </zoneStockage>
+    </parametresCalage>
+    <parametresLoisHydrauliques>
+      <nb>5</nb>
+      <lois>
+        <structureParametresLoi>
+          <nom>loi_limnihydrogramme_1</nom>
+          <type>3</type>
+          <donnees>
+            <modeEntree>1</modeEntree>
+            <fichier>limni_hydrogramme.loi</fichier>
+            <uniteTps>-0</uniteTps>
+            <nbPoints>-0</nbPoints>
+            <nbDebitsDifferents>-0</nbDebitsDifferents>
+          </donnees>
+        </structureParametresLoi>
+        <structureParametresLoi>
+          <nom>loi_hydrogramme_2</nom>
+          <type>1</type>
+          <donnees>
+            <modeEntree>1</modeEntree>
+            <fichier>hydrogramme.loi</fichier>
+            <uniteTps>-0</uniteTps>
+            <nbPoints>-0</nbPoints>
+            <nbDebitsDifferents>-0</nbDebitsDifferents>
+          </donnees>
+        </structureParametresLoi>
+        <structureParametresLoi>
+          <nom>Hydrogramme_constant_pour_le_seuil_barrage_1</nom>
+          <type>1</type>
+          <donnees>
+            <modeEntree>1</modeEntree>
+            <fichier>hydrogramme.loi</fichier>
+            <uniteTps>-0</uniteTps>
+            <nbPoints>-0</nbPoints>
+            <nbDebitsDifferents>-0</nbDebitsDifferents>
+          </donnees>
+        </structureParametresLoi>
+        <structureParametresLoi>
+          <nom>Hydrogramme_constant_pour_le_seuil_seuil_2</nom>
+          <type>1</type>
+          <donnees>
+            <modeEntree>1</modeEntree>
+            <fichier>hydrogramme.loi</fichier>
+            <uniteTps>-0</uniteTps>
+            <nbPoints>-0</nbPoints>
+            <nbDebitsDifferents>-0</nbDebitsDifferents>
+          </donnees>
+        </structureParametresLoi>
+        <structureParametresLoi>
+          <nom>Hydrogramme_constant_pour_le_seuil_seuil_3</nom>
+          <type>1</type>
+          <donnees>
+            <modeEntree>1</modeEntree>
+            <fichier>hydrogramme.loi</fichier>
+            <uniteTps>-0</uniteTps>
+            <nbPoints>-0</nbPoints>
+            <nbDebitsDifferents>-0</nbDebitsDifferents>
+          </donnees>
+        </structureParametresLoi>
+      </lois>
+    </parametresLoisHydrauliques>
+    <parametresConditionsInitiales>
+      <repriseEtude>
+        <repriseCalcul>false</repriseCalcul>
+      </repriseEtude>
+      <ligneEau>
+        <LigEauInit>true</LigEauInit>
+        <modeEntree>1</modeEntree>
+        <fichLigEau>init.lig</fichLigEau>
+        <formatFichLig>2</formatFichLig>
+        <nbPts>-0</nbPts>
+      </ligneEau>
+      <zonesSeches>
+        <nb>4</nb>
+        <branche>4 5 6 7</branche>
+        <absDebut>64190.0 1005075.0 2004125.5 3002425.5</absDebut>
+        <absFin>240420.0 1009300.0 2015350.0 3011100.0</absFin>
+      </zonesSeches>
+    </parametresConditionsInitiales>
+    <parametresImpressionResultats>
+      <titreCalcul>Etude hydraulique1d</titreCalcul>
+      <impression>
+        <impressionGeometrie>false</impressionGeometrie>
+        <impressionPlanimetrage>false</impressionPlanimetrage>
+        <impressionReseau>false</impressionReseau>
+        <impressionLoiHydraulique>false</impressionLoiHydraulique>
+        <impressionligneEauInitiale>false</impressionligneEauInitiale>
+        <impressionCalcul>false</impressionCalcul>
+      </impression>
+      <pasStockage>
+        <premPasTpsStock>1</premPasTpsStock>
+        <pasStock>100</pasStock>
+        <pasImpression>100</pasImpression>
+      </pasStockage>
+      <resultats>
+        <fichResultat>mascaret.rub</fichResultat>
+        <postProcesseur>1</postProcesseur>
+      </resultats>
+      <listing>
+        <fichListing>mascaret.lis</fichListing>
+      </listing>
+      <fichReprise>
+        <fichRepriseEcr>mascaret_ecr.rep</fichRepriseEcr>
+      </fichReprise>
+      <rubens>
+        <ecartInterBranch>1.0</ecartInterBranch>
+      </rubens>
+      <stockage>
+        <option>1</option>
+        <nbSite>0</nbSite>
+      </stockage>
+    </parametresImpressionResultats>
+    <parametresVariablesCalculees>
+      <variablesCalculees>false false false false false false false false false false false false false false false</variablesCalculees>
+    </parametresVariablesCalculees>
+    <parametresVariablesStockees>
+      <variablesStockees>true false false false false true true false false false false false false false false false false false false true false false true false false false false false false false false false false false false false false false false false false false</variablesStockees>
+    </parametresVariablesStockees>
+  </parametresCas>
+</fichierCas>

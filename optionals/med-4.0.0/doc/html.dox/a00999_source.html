@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier:  Fichier source de UsesCase_MEDfield_4.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_a772e3069001940b0633c6a305062f73.html">tests</a></li><li class="navelem"><a class="el" href="dir_d1c1f5b007dc70bd01b57576279a9423.html">usecases</a></li><li class="navelem"><a class="el" href="dir_aa7db5673fe5daff837d002ce4156010.html">c</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">UsesCase_MEDfield_4.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00999.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * Field use case 4 : write a field with computing steps</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a00999_a8e315da8f14d473c025c8a1f6af2f979.html#a8e315da8f14d473c025c8a1f6af2f979">   24</a></span>&#160;<span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a00999_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">   30</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00999_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span> meshname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1] = <span class="stringliteral">&quot;2D unstructured mesh&quot;</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span> fieldname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1] = <span class="stringliteral">&quot;TEMPERATURE_FIELD&quot;</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncomponent = 1;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span> componentname[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;TEMPERATURE&quot;</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span> componentunit[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;C&quot;</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ntria3 = 8;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nquad4 = 4;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> tria3values_step1[8] = {1000., 2000., 3000., 4000.,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                                          5000., 6000., 7000., 8000.};</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> quad4values_step1[4] = {10000., 20000., 30000., 4000.};</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> tria3values_step2[8] = {1500., 2500., 3500., 4500.,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                          5500., 6500., 7500., 8500.};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> quad4values_step2[4] = {15000., 25000., 35000., 45000.};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">int</span> ret=-1;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="comment">/* file creation */</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;UsesCase_MEDfield_4.med&quot;</span>,<a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85aa23dd1c18b596924d5f50c8402b84c8e">MED_ACC_CREAT</a>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordflow">if</span> (fid &lt; 0) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : file creation ...&quot;</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="comment">/* create mesh link */</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="a01053_ga08d1c8b15fbab77a11c6b59a0c600c4e.html#ga08d1c8b15fbab77a11c6b59a0c600c4e">MEDlinkWr</a>(fid,meshname,<span class="stringliteral">&quot;./UsesCase_MEDmesh_1.med&quot;</span>) &lt; 0) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : create mesh link ...&quot;</span>);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="comment">/* field creation : temperature field  : 1 component in celsius degree</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">   *                  the mesh is the 2D unstructured mesh of UsescaseMEDmesh_1.c</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">   *                  use case. Computation step unit in &#39;ms&#39;</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="a01048_ga8f73c6eb1a1b85f5e1e8bc1823c01ab9.html#ga8f73c6eb1a1b85f5e1e8bc1823c01ab9">MEDfieldCr</a>(fid, fieldname, <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a>,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                 ncomponent, componentname, componentunit,<span class="stringliteral">&quot;ms&quot;</span>, meshname) &lt; 0) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : create field&quot;</span>);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="comment">/* two computation steps :</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">   *  - first  on meshname MED_NO_DT,MED_NO_IT mesh computation step</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">   *  - second on meshname 1,3 mesh computation step */</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="comment">/* write values at cell centers : 8 MED_TRIA3 and 4 MED_QUAD4 */</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="comment">/* STEP 1 : dt1 = 5.5, it = 1*/</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="comment">/* MED_TRIA3 */</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a>(fid, fieldname, 1, 1, 5.5, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, <a class="code" href="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670.html#a4a1eb7ba296742a6f5eb8b5b23b39670">MED_TRIA3</a>, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                      <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, ntria3, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) tria3values_step1) &lt; 0) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field values on MED_TRIA3&quot;</span>);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;   <span class="comment">/* MED_QUAD4 */</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a>(fid, fieldname, 1, 1, 5.5, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>,<a class="code" href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a>, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>,</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                      <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, nquad4, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) quad4values_step1) &lt; 0) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field values on MED_QUAD4 &quot;</span>);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="comment">/* STEP 2 : dt2 = 8.9, it = 1*/</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="comment">/* MED_TRIA3 */</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a>(fid, fieldname, 2 , 1 , 8.9 , <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, <a class="code" href="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670.html#a4a1eb7ba296742a6f5eb8b5b23b39670">MED_TRIA3</a>, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>,</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                      <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, ntria3,  (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)tria3values_step2) &lt; 0) {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field values on MED_TRIA3&quot;</span>);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="comment">/* MED_QUAD4 */</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a>(fid, fieldname, 2, 1, 8.9, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, <a class="code" href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a>, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>,</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                      <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, nquad4, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)quad4values_step2) &lt; 0) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field values on MED_QUAD4 &quot;</span>);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="comment">/* Write associated mesh computation step */</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="keywordflow">if</span> ( <a class="code" href="a01048_gaa6b2b7e1c83a26d9cd4efa6f32a3d969.html#gaa6b2b7e1c83a26d9cd4efa6f32a3d969">MEDfieldComputingStepMeshWr</a>(fid, fieldname, 2, 1,</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                   1, 3 ) &lt; 0 ) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field mesh computation step error &quot;</span>);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  ret=0;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; ERROR:</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <span class="comment">/* close file */</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid) &lt; 0) {</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : close file ...&quot;</span>);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    ret=-1;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="ttc" id="a00577_a24ea9c52f5bde41d9a072925249ec06c_html_a24ea9c52f5bde41d9a072925249ec06c"><div class="ttname"><a href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a></div><div class="ttdeci">#define MED_QUAD4</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00201">med.h:201</a></div></div>
+<div class="ttc" id="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670_html_a4a1eb7ba296742a6f5eb8b5b23b39670"><div class="ttname"><a href="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670.html#a4a1eb7ba296742a6f5eb8b5b23b39670">MED_TRIA3</a></div><div class="ttdeci">#define MED_TRIA3</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00200">med.h:200</a></div></div>
+<div class="ttc" id="a00591_html"><div class="ttname"><a href="a00591.html">med_utils.h</a></div></div>
+<div class="ttc" id="a01049_ga9376a1654b7bf099c3f8941074c5fdfb_html_ga9376a1654b7bf099c3f8941074c5fdfb"><div class="ttname"><a href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a></div><div class="ttdeci">MEDC_EXPORT med_idt MEDfileOpen(const char *const filename, const med_access_mode accessmode)</div><div class="ttdoc">Ouverture d&#39;un fichier MED. </div><div class="ttdef"><b>Definition:</b> <a href="a00661_source.html#l00041">MEDfileOpen.c:41</a></div></div>
+<div class="ttc" id="a00577_a0d451e4036adbb12b14cb16d7db0c37d_html_a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1"><div class="ttname"><a href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00094">med.h:94</a></div></div>
+<div class="ttc" id="a00577_adcd0322de9fec3b5e199ffeda3f44c85_html_adcd0322de9fec3b5e199ffeda3f44c85aa23dd1c18b596924d5f50c8402b84c8e"><div class="ttname"><a href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85aa23dd1c18b596924d5f50c8402b84c8e">MED_ACC_CREAT</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00121">med.h:121</a></div></div>
+<div class="ttc" id="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a_html_ab1eab99ca56ac95ce5b1c0e4ae0f095a"><div class="ttname"><a href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a></div><div class="ttdeci">double med_float</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00331">med.h:331</a></div></div>
+<div class="ttc" id="a00577_a65a18ab6db672a2d21312d1813a3bb19_html_a65a18ab6db672a2d21312d1813a3bb19"><div class="ttname"><a href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a></div><div class="ttdeci">#define MED_ALL_CONSTITUENT</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00296">med.h:296</a></div></div>
+<div class="ttc" id="a00591_a3756046b0a6a7e51b8eb544d0d77c17c_html_a3756046b0a6a7e51b8eb544d0d77c17c"><div class="ttname"><a href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a></div><div class="ttdeci">#define MESSAGE(chaine)</div><div class="ttdef"><b>Definition:</b> <a href="a00591_source.html#l00316">med_utils.h:316</a></div></div>
+<div class="ttc" id="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd_html_a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea"><div class="ttname"><a href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00163">med.h:163</a></div></div>
+<div class="ttc" id="a01049_ga12a0e901c376be997a41a073ce426283_html_ga12a0e901c376be997a41a073ce426283"><div class="ttname"><a href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDfileClose(med_idt fid)</div><div class="ttdoc">Fermeture d&#39;un fichier MED. </div><div class="ttdef"><b>Definition:</b> <a href="a00649_source.html#l00030">MEDfileClose.c:30</a></div></div>
+<div class="ttc" id="a01048_ga8f73c6eb1a1b85f5e1e8bc1823c01ab9_html_ga8f73c6eb1a1b85f5e1e8bc1823c01ab9"><div class="ttname"><a href="a01048_ga8f73c6eb1a1b85f5e1e8bc1823c01ab9.html#ga8f73c6eb1a1b85f5e1e8bc1823c01ab9">MEDfieldCr</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDfieldCr(const med_idt fid, const char *const fieldname, const med_field_type fieldtype, const med_int ncomponent, const char *const componentname, const char *const componentunit, const char *const dtunit, const char *const meshname)</div><div class="ttdoc">Cette fonction crée un champ dans un fichier. </div><div class="ttdef"><b>Definition:</b> <a href="a00628_source.html#l00044">MEDfieldCr.c:44</a></div></div>
+<div class="ttc" id="a01053_ga08d1c8b15fbab77a11c6b59a0c600c4e_html_ga08d1c8b15fbab77a11c6b59a0c600c4e"><div class="ttname"><a href="a01053_ga08d1c8b15fbab77a11c6b59a0c600c4e.html#ga08d1c8b15fbab77a11c6b59a0c600c4e">MEDlinkWr</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDlinkWr(const med_idt fid, const char *const meshname, const char *const link)</div><div class="ttdoc">Cette routine permet d&#39;écrire un lien dans un fichier MED. </div><div class="ttdef"><b>Definition:</b> <a href="a00707_source.html#l00036">MEDlinkWr.c:36</a></div></div>
+<div class="ttc" id="a00577_aab0e957294723517d5c3641bb71b0470_html_aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67"><div class="ttname"><a href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00141">med.h:141</a></div></div>
+<div class="ttc" id="a00577_a88dc15143f934cc7b771bc89f46372dc_html_a88dc15143f934cc7b771bc89f46372dc"><div class="ttname"><a href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a></div><div class="ttdeci">int med_int</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00337">med.h:337</a></div></div>
+<div class="ttc" id="a01048_gaa6b2b7e1c83a26d9cd4efa6f32a3d969_html_gaa6b2b7e1c83a26d9cd4efa6f32a3d969"><div class="ttname"><a href="a01048_gaa6b2b7e1c83a26d9cd4efa6f32a3d969.html#gaa6b2b7e1c83a26d9cd4efa6f32a3d969">MEDfieldComputingStepMeshWr</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDfieldComputingStepMeshWr(const med_idt fid, const char *const fieldname, const med_int numdt, const med_int numit, const med_int meshnumdt, const med_int meshnumit)</div><div class="ttdoc">Cette fonction permet de définir l&#39;étape de calcul ( meshnumdit , meshnumit ) à utiliser pour le mail...</div><div class="ttdef"><b>Definition:</b> <a href="a00627_source.html#l00036">MEDfieldComputingStepMeshWr.c:36</a></div></div>
+<div class="ttc" id="a00577_afa4ec8284026c8c5545e5333475fb65a_html_afa4ec8284026c8c5545e5333475fb65a"><div class="ttname"><a href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a></div><div class="ttdeci">hid_t med_idt</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00326">med.h:326</a></div></div>
+<div class="ttc" id="a00577_a0ae989cbbfeecbb5296b3ceba8dab886_html_a0ae989cbbfeecbb5296b3ceba8dab886"><div class="ttname"><a href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a></div><div class="ttdeci">#define MED_NAME_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00079">med.h:79</a></div></div>
+<div class="ttc" id="a00577_a213ecd1a546eb96092b980a870bc386b_html_a213ecd1a546eb96092b980a870bc386b"><div class="ttname"><a href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a></div><div class="ttdeci">#define MED_SNAME_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00080">med.h:80</a></div></div>
+<div class="ttc" id="a00577_html"><div class="ttname"><a href="a00577.html">med.h</a></div></div>
+<div class="ttc" id="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313_html_gaf525ac6dbe9b3f81a129c0f0866f5313"><div class="ttname"><a href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDfieldValueWr(const med_idt fid, const char *const fieldname, const med_int numdt, const med_int numit, const med_float dt, const med_entity_type entitype, const med_geometry_type geotype, const med_switch_mode switchmode, const med_int componentselect, const med_int nentity, const unsigned char *const value)</div><div class="ttdoc">Cette fonction permet d&#39;écrire les valeurs d&#39;un champ définies sur des entités d&#39;un maillage pour une...</div><div class="ttdef"><b>Definition:</b> <a href="a00646_source.html#l00044">MEDfieldValueWr.c:44</a></div></div>
+<div class="ttc" id="a00999_a3c04138a5bfe5d72780bb7e82a18e627_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="a00999_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition:</b> <a href="a00999_source.html#l00030">UsesCase_MEDfield_4.c:30</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:44 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

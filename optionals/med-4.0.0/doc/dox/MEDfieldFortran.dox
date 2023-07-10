@@ -1,0 +1,583 @@
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdcre(integer fid, character*(*) fname, integer ftype, integer ncomp, character*(*) cname, character*(*) cunit, character*(*) dtunit, character*(*) mname, integer cret)
+   \brief \MEDfieldCrBrief
+   \param fid \fid
+   \param fname \fieldname
+   \param ftype \fieldtype
+   \param ncomp \ncomponent
+   \param cname \componentname
+   \param cunit \componentunit
+   \param dtunit \dtunit
+   \param mname \meshname
+   \param cret \error
+   \see MEDfieldCr
+   \details \MEDfieldCrDetails
+   
+   \remarks
+   \MEDfieldCrRem
+
+*/
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdrvw(integer fid, character*(*) fname, integer numdt, integer numit, real*8 dt, integer etype, integer gtype, integer swm, integer cs, integer n, real*8:dimension(*) val, integer cret)
+   \brief \MEDfieldValueWrBrief Les valeurs sont des valeurs reelles.
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param etype \entitype
+   \param gtype \geotype
+   \param swm \switchmode
+   \param cs \componentselect
+   \param n \nentity
+   \param val \value 
+   \param cret \error
+   \see MEDfieldValueWr
+   \details \MEDfieldValueWrDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdrpw(integer fid, character*(*) fname, integer numdt, integer numit, real*8 dt, integer etype, integer gtype, integer stm, character*(*) pname, character*(*) lname,integer swm, integer cs, integer n, real*8:dimension(*) val, integer cret)
+   \brief \MEDfieldValueWithProfileWrBrief Les valeurs sont des valeurs reelles.
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param etype \entitype
+   \param gtype \geotype
+   \param stm \storagemode
+   \param pname \profilename
+   \param lname \localizationname
+   \param swm \switchmode
+   \param cs \componentselect
+   \param n \nentity
+   \param val \value 
+   \param cret \error
+   \see MEDfieldValueWithProfileWr
+   \details \MEDfieldValueWithProfileWrDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdraw(integer fid, character*(*) fname, integer numdt, integer numit, real*8 dt, integer etype, integer gtype, character*(*) lname, integer*8:dimension(*) flt, real*8:dimension(*) val, integer cret)
+   \brief \MEDfieldValueAdvancedWrBrief Les valeurs sont des valeurs reelles.
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param etype \entitype
+   \param gtype \geotype
+   \param lname \localizationname
+   \param flt \filter
+   \param val \value 
+   \param cret \error
+   \see MEDfieldValueAdvancedWr
+   \details \MEDfieldValueAdvancedWrDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdivw(integer fid, character*(*) fname, integer numdt, integer numit, real*8 dt, integer etype, integer gtype, integer swm, integer cs, integer n, integer:dimension(*) val, integer cret)
+   \brief \MEDfieldValueWrBrief Les valeurs sont des valeurs entieres.
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param etype \entitype
+   \param gtype \geotype
+   \param swm \switchmode
+   \param cs \componentselect
+   \param n \nentity
+   \param val \value 
+   \param cret \error
+   \see MEDfieldValueWr
+   \details \MEDfieldValueWrDetails
+*/
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdipw(integer fid, character*(*) fname, integer numdt, integer numit, real*8 dt, integer etype, integer gtype, integer stm, character*(*) pname, character*(*) lname,integer swm, integer cs, integer n, integer:dimension(*) val, integer cret)
+   \brief \MEDfieldValueWithProfileWrBrief Les valeurs sont des valeurs entieres.
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param etype \entitype
+   \param gtype \geotype
+   \param stm \storagemode
+   \param pname \profilename
+   \param lname \localizationname
+   \param swm \switchmode
+   \param cs \componentselect
+   \param n \nentity
+   \param val \value 
+   \param cret \error
+   \see MEDfieldValueWithProfileWr
+   \details \MEDfieldValueWithProfileWrDetails
+*/
+
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdiaw(integer fid, character*(*) fname, integer numdt, integer numit, real*8 dt, integer etype, integer gtype, character*(*) lname, integer*8:dimension(*) flt, integer:dimension(*) val, integer cret)
+   \brief \MEDfieldValueAdvancedWrBrief Les valeurs sont des valeurs entieres.
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param etype \entitype
+   \param gtype \geotype
+   \param lname \localizationname
+   \param flt \filter
+   \param val \value 
+   \param cret \error
+   \see MEDfieldValueAdvancedWr
+   \details \MEDfieldValueAdvancedWrDetails
+*/
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdnfd(integer fid, integer n, integer cret)
+   \brief \MEDnFieldBrief
+   \param fid \fid
+   \param n \nfield
+   \param cret \error
+   \see MEDnField
+   \details \MEDnFieldDetails
+*/
+
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdnfc(integer fid, integer ind, integer n, integer cret)
+   \brief \MEDfieldnComponentBrief
+   \param fid \fid
+   \param ind \ind
+   \param n \ncomponent
+   \param cret \error
+   \see MEDfieldnComponent
+   \details \MEDfieldnComponentDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdncn(integer fid, character*(*) fname, integer n, integer cret)
+   \brief \MEDfieldnComponentByNameBrief
+   \param fid \fid
+   \param fname \fieldname
+   \param n \ncomponent
+   \param cret \error
+   \see MEDfieldnComponentByName
+   \details \MEDfieldnComponentByNameDetails
+*/
+
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdfdi(integer fid, integer it, character*(*) fname, character*(*) mname, integer lmesh, integer type, character*(*) cname, character*(*) cunit, character*(*) dtunit, integer nc, integer cret)
+   \brief \MEDfieldInfoBrief
+   \param fid \fid
+   \param it \ind
+   \param fname \fieldname
+   \param mname \meshname
+   \param lmesh \localmesh
+   \param type \fieldtype
+   \param cunit \componentunit
+   \param cname \componentname
+   \param dtunit \dtunit
+   \param nc \ncstp
+   \param cret \error
+   \see MEDfieldInfo
+   \details \MEDfieldInfoDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine  mfdfin(integer fid, character*(*) fname, character*(*) mname, integer lmesh, integer type, character*(*) cname, character*(*) cunit, character*(*) dtunit, integer nc, integer cret)
+   \brief \MEDfieldInfoByNameBrief
+   \param fid \fid
+   \param fname \fieldname
+   \param mname \meshname
+   \param lmesh \localmesh
+   \param type \fieldtype
+   \param cunit \componentunit
+   \param cname \componentname
+   \param dtunit \dtunit
+   \param nc \ncstp
+   \param cret \error
+   \see MEDfieldInfoByName
+   \details \MEDfieldInfoByNameDetails
+*/
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdcsi(integer fid, character*(*) fname, integer it, integer numdt, integer numit, real*8 dt, integer cret)
+   \brief \MEDfieldComputingStepInfoBrief
+   \param fid \fid
+   \param fname \fieldname
+   \param it \csit
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param cret \error
+   \see MEDfieldComputingStepInfo
+   \details \MEDfieldComputingStepInfoDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdcmi(integer fid, character*(*) fname, integer it, integer numdt, integer numit, real*8 dt, integer mnumdt, integer mnumit, integer cret)
+   \brief \MEDfieldComputingStepMeshInfoBrief
+   \param fid \fid
+   \param fname \fieldname
+   \param it \csit
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param mnumdt \meshnumdt
+   \param mnumit \meshnumit
+   \param cret \error
+   \see MEDfieldComputingStepMeshInfo
+   \details \MEDfieldComputingStepMeshInfoDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdcmw(integer fid, character*(*) fname,  integer numdt, integer numit, integer mnumdt, integer mnumit, integer cret)
+   \brief \MEDfieldComputingStepMeshWrBrief
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param mnumdt \meshnumdt
+   \param mnumit \meshnumit
+   \param cret \error
+   \see MEDfieldComputingStepMeshWr
+   \details \MEDfieldComputingStepMeshWrDetails
+*/
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdnpf(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, character*(*) dpname, character*(*) dlname, integer n, integer cret)
+   \brief \MEDfieldnProfileBrief
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param etype \entitype
+   \param gtype \geotype
+   \param dpname \defaultprofilename
+   \param dlname \defaultlocalizationname 
+   \param n \nprofile
+   \param cret \error
+   \see MEDfieldnProfile
+   \details \MEDfieldnProfileDetails
+   \see mfdnvp
+*/
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdnva(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, integer n, integer cret)
+   \brief \MEDfieldnValueBrief
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param etype \entitype
+   \param gtype \geotype
+   \param n \nvalue
+   \param cret \error
+   \see MEDfieldnValue
+   \details \MEDfieldnValueDetails
+*/
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdnvp(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, integer pit, integer stm, character*(*) pname, integer psize, character*(*) lname, integer nip, integer n, integer cret)
+   \brief \MEDfieldnValueWithProfileBrief
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param etype \entitype
+   \param gtype \geotype
+   \param pit \profileit
+   \param stm \storagemode
+   \param pname \profilename
+   \param psize \profilesize
+   \param lname \localizationname
+   \param nip \nintegrationpoint
+   \param n \nvalue
+   \param cret \error
+   \see MEDfieldnValueWithProfile
+   \details \MEDfieldnValueWithProfileDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdnpn(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, character*(*) pname, integer stm, integer psize, character*(*) lname, integer nip, integer n, integer cret)
+   \brief \MEDfieldnValueWithProfileByNameBrief
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param etype \entitype
+   \param gtype \geotype
+   \param pname \profilename
+   \param stm \storagemode
+   \param psize \profilesize
+   \param lname \localizationname
+   \param nip \nintegrationpoint
+   \param n \nvalue
+   \param cret \error
+   \see MEDfieldnValueWithProfileByName
+   \details \MEDfieldnValueWithProfileByNameDetails
+*/
+
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdrvr(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, integer swm, integer cs, real*8:dimension(*) val, integer cret)
+   \brief \MEDfieldValueRdBrief Les valeurs sont des valeurs reelles.
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param etype \entitype
+   \param gtype \geotype
+   \param swm \switchmode
+   \param cs \componentselect
+   \param val \value 
+   \param cret \error
+   \see MEDfieldValueRd
+   \details \MEDfieldValueRdDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdrpr(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, integer stm, character*(*) pname, integer swm, integer cs, real*8:dimension(*) val, integer cret)
+   \brief \MEDfieldValueWithProfileRdBrief Les valeurs sont des valeurs reelles.
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param etype \entitype
+   \param gtype \geotype
+   \param stm \storagemode
+   \param pname \profilename
+   \param swm \switchmode
+   \param cs \componentselect
+   \param val \value 
+   \param cret \error
+   \see MEDfieldValueWithProfileRd
+   \details \MEDfieldValueWithProfileRdDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdrar(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, integer*8:dimension(*) flt, real*8:dimension(*) val, integer cret)
+   \brief \MEDfieldValueAdvancedRdBrief Les valeurs sont des valeurs reelles.
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param etype \entitype
+   \param gtype \geotype
+   \param flt \filter
+   \param val \value 
+   \param cret \error
+   \see MEDfieldValueAdvancedRd
+   \details \MEDfieldValueAdvancedRdDetails
+*/
+
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdivr(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, integer swm, integer cs, integer:dimension(*) val, integer cret)
+   \brief \MEDfieldValueRdBrief Les valeurs sont des valeurs entieres.
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param etype \entitype
+   \param gtype \geotype
+   \param swm \switchmode
+   \param cs \componentselect
+   \param val \value 
+   \param cret \error
+   \see MEDfieldValueRd
+   \details \MEDfieldValueRdDetails
+*/
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdipr(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, integer stm, character*(*) pname, integer swm, integer cs, integer:dimension(*) val, integer cret)
+   \brief \MEDfieldValueWithProfileRdBrief Les valeurs sont des valeurs entieres.
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param etype \entitype
+   \param gtype \geotype
+   \param stm \storagemode
+   \param pname \profilename
+   \param swm \switchmode
+   \param cs \componentselect
+   \param val \value 
+   \param cret \error
+   \see MEDfieldValueWithProfileRd
+   \details \MEDfieldValueWithProfileRdDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdiar(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, integer*8:dimension(*) flt, integer:dimension(*) val, integer cret)
+   \brief \MEDfieldValueAdvancedRdBrief Les valeurs sont des valeurs entieres.
+   \param fid \fid
+   \param fname \fieldname
+   \param numdt \numdt
+   \param numit \numit
+   \param etype \entitype
+   \param gtype \geotype
+   \param flt \filter
+   \param val \value 
+   \param cret \error
+   \see MEDfieldValueAdvancedRd
+   \details \MEDfieldValueAdvancedRdDetails
+*/
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdinw(integer fid, character*(*) fname, character*(*) iname, integer cret)
+   \brief \MEDfieldInterpWrBrief
+   \param fid      \fid
+   \param fname    \fieldname
+   \param iname    \interpname
+   \param cret     \error
+   \see MEDfieldInterpWr
+   \details \MEDfieldInterpWrDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdnin(integer fid, character*(*) fname, integer n, integer cret)
+   \brief \MEDfieldnInterpBrief
+   \param fid      \fid
+   \param fname     \fieldname
+   \param n        \ninterp
+   \param cret     \error
+   \see MEDfieldnInterp
+   \details \MEDfieldnInterpDetails
+*/
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdini(integer fid, character*(*) fname, integer it, character*(*) iname, integer cret)
+   \brief \MEDfieldInterpInfoBrief
+   \param fid     \fid
+   \param fname   \fieldname
+   \param it      \interpit
+   \param iname   \interpname
+   \param cret    \error
+   \see MEDfieldInterpInfo
+   \details \MEDfieldInterpInfoDetails
+*/
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdoci(integer fid, character*(*) fname, integer it, integer numdt, integer numit, real*8 dt, integer nmesh, character*(*) mname, integer lmesh, integer mnumdt, integer mnumit, integer cret)
+  \brief \MEDfieldComputingStepInfoBrief
+  \param fid \fid
+  \param fname \fieldname
+  \param it \csit
+  \param numdt \numdt
+  \param numit \numit
+  \param dt \dt
+  \param nmesh \nmesh
+  \param mname \meshname
+  \param lmesh \localmesh
+  \param mnumdt \meshnumdt
+  \param mnumit \meshnumit
+  \param cret    \error
+  \see MEDfieldComputingStepInfo
+  \details \MEDfieldComputingStepInfoDetails
+ */
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdonp(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, integer it, character*(*) mname, character*(*) dpname, character*(*) dlname, integer n, integer cret)
+  \brief \MEDfieldnProfileBrief
+  \param fid \fid
+  \param fname \fieldname
+  \param numdt \numdt
+  \param numit \numit
+  \param etype \entitype
+  \param gtype \geotype
+  \param it \meshit
+  \param mname \meshname
+  \param dpname \defaultprofilename
+  \param dlname \defaultlocalizationname
+  \param n \nprofile
+  \param cret    \error
+  \see MEDfieldnProfile
+  \details \MEDfieldnProfileDetails
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdonv(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, character*(*) mname, integer pit, integer stm, character*(*) pname, integer psize, character*(*) lname, integer nip, integer n, integer cret) 
+  \brief \MEDfieldnValueWithProfileBrief
+  \param fid \fid
+  \param fname \fieldname
+  \param numdt \numdt
+  \param numit \numit
+  \param etype \entitype
+  \param gtype \geotype
+  \param mname \meshname
+  \param pit \profileit
+  \param stm \storagemode
+  \param pname \profilename
+  \param psize \profilesize
+  \param lname \localizationname
+  \param nip \nintegrationpoint
+  \param n \nvalue
+  \param cret    \error
+  \see MEDfieldnValueWithProfile
+  \details \MEDfieldnValueWithProfileDetails
+  \par Remarques
+*/
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdorr(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, character*(*) mname, integer stm, character*(*) pname, integer swm, integer cs, real*8:dimension(*) val, integer cret)
+  \brief \MEDfieldValueWithProfileRdBrief Les valeurs sont des valeurs reelles
+  \param fid \fid
+  \param fname \fieldname
+  \param numdt \numdt
+  \param numit \numit
+  \param etype \entitype
+  \param gtype \geotype
+  \param mname \meshname
+  \param stm \storagemode
+  \param pname \profilename
+  \param swm \switchmode
+  \param cs \componentselect
+  \param val \value
+  \param cret    \error
+  \see MEDfieldValueWithProfileRd
+  \details \MEDfieldValueWithProfileRdDetails
+*/
+
+
+/**\ingroup MEDfieldFortran
+   \fn subroutine mfdoir(integer fid, character*(*) fname, integer numdt, integer numit, integer etype, integer gtype, character*(*) mname, integer stm, character*(*) pname, integer swm, integer cs, integer:dimension(*) val, integer cret)
+  \brief \MEDfieldValueWithProfileRdBrief Les valeurs sont des valeurs entieres.
+  \param fid \fid
+  \param fname \fieldname
+  \param numdt \numdt
+  \param numit \numit
+  \param etype \entitype
+  \param gtype \geotype
+  \param mname \meshname
+  \param stm \storagemode
+  \param pname \profilename
+  \param swm \switchmode
+  \param cs \componentselect
+  \param val \value
+  \param cret    \error
+  \see MEDfieldValueWithProfileRd
+  \details \MEDfieldValueWithProfileRdDetails
+*/

@@ -1,0 +1,14 @@
+INCLUDE_DIRECTORIES(
+  ${HDF5_INCLUDE_DIRS}
+  ${MPI_INCLUDE_DIRS}
+  ${PROJECT_BINARY_DIR}/include
+  ${PROJECT_SOURCE_DIR}/include
+)
+
+SET(medconforme_SOURCES 
+  medconforme.c)
+
+ADD_EXECUTABLE(medconforme ${medconforme_SOURCES})
+TARGET_LINK_LIBRARIES(medconforme ${MEDFILE_ENGINE_LIB})
+
+INSTALL(TARGETS medconforme DESTINATION bin)

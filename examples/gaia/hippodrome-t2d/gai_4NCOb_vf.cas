@@ -1,0 +1,32 @@
+/-----------------------------------------------------------------------
+/     PARAMETER FILES FOR GAIA
+/-----------------------------------------------------------------------
+BOUNDARY CONDITIONS FILE = geo_hippodrome.cli
+GEOMETRY FILE            = geo_hippodrome.slf
+RESULTS FILE             = gai_4NCOb_vf.slf
+FORTRAN FILE             = 'user_fortran1'
+/-----------------------------------------------------------------------
+/ PARAMETERS FOR OUTPUTS
+/-----------------------------------------------------------------------
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,S,E,H,B,M,TOB,1A*,2A*,*ES'
+MASS-BALANCE                    = YES
+/-----------------------------------------------------------------------
+/ NUMERICAL PARAMETERS
+/-----------------------------------------------------------------------
+FINITE VOLUMES                          = YES
+/-----------------------------------------------------------------------
+/ PARAMETRES PHYSIQUES
+/-----------------------------------------------------------------------
+CLASSES TYPE OF SEDIMENT = NCO;NCO;NCO;NCO
+CLASSES SEDIMENT DENSITY = 2650.;2650.;2650.;2650.
+BED LOAD FOR ALL SANDS                   = YES
+SUSPENSION FOR ALL SANDS                 = NO
+BED-LOAD TRANSPORT FORMULA FOR ALL SANDS = 5
+CLASSES SETTLING VELOCITIES = -9;-9;-9;-9
+CLASSES SHIELDS PARAMETERS = -9;-9;-9;-9
+CLASSES SEDIMENT DIAMETERS = 0.0002;0.00031;0.00103;0.00169
+CLASSES INITIAL FRACTION = 0.25;0.25;0.25;0.25
+LAYERS NON COHESIVE BED POROSITY = 0.4
+FORMULA FOR SLOPE EFFECT                = 0
+FORMULA FOR DEVIATION                   = 0
+SEDIMENT SLIDE                          = NO

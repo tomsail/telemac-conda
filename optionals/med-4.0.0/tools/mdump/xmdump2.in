@@ -1,0 +1,150 @@
+#!/usr/bin/env wish
+
+# le titre
+wm  title . mdump2 
+
+# le cadre
+frame .top -borderwidth 10 -background white
+pack .top -side top -fill x
+
+# les boutons de commande
+set but [button .top.dump -text "Dump" -command Dump -background red]
+button .top.quit -text "Quitter" -command exit -background red 
+pack .top.quit .top.dump -side left 
+
+# le label d'entree du fichier a dumper
+label .top.l -text " Fichier MED : " -padx 0 -background white
+entry .top.file -width 20 -relief sunken \
+	-textvariable file
+pack .top.l -side left
+pack .top.file -side left -fill x -expand true
+
+# le mode de stockage des donnees en memoire
+frame .option1 -background white
+label .option1.o -text " Mode de stockage des données en mémoire : " -padx 1 \
+ -background white
+set choix_stockage NO_INTERLACE
+set f [frame .option1.ms -borderwidth 5  -background white ]
+radiobutton $f.1 -variable choix_stockage -text " NON ENTRELACE " \
+ -value NO_INTERLACE
+radiobutton $f.2 -variable choix_stockage -text " ENTRELACE " \
+ -value FULL_INTERLACE
+pack $f.1 -side left
+pack $f.2 -side right
+pack .option1.o -side left
+pack $f -side left
+pack .option1 -side top -fill x
+
+# Le mode de connectivite
+frame .option2 -background white
+label .option2.o -text " Mode de connectivité : " -padx 0 -background white
+set choix_connectivite NODALE
+set mc [frame .option2.mc -borderwidth 5  -background white]
+radiobutton $mc.1 -variable choix_connectivite -text " CONNECTIVITE NODALE " \
+ -value NODALE 
+radiobutton $mc.2 -variable choix_connectivite \
+ -text " CONNECTIVITE DESCENDANTE " -value DESCENDANTE
+pack $mc.1 -side left
+pack $mc.2 -side right
+pack .option2.o -side left
+pack $mc -side left
+pack .option2 -side top -fill x
+
+# Lecture complete ou non ?
+frame .option4 -background white
+label .option4.o -text " Mode de lecture : " -padx 0 -background white
+set choix_lecture LECTURE_COMPLETE
+set mc [frame .option4.mc -borderwidth 5  -background white]
+radiobutton $mc.1 -variable choix_lecture -text " LECTURE COMPLETE " \
+ -value LECTURE_COMPLETE 
+radiobutton $mc.2 -variable choix_lecture \
+ -text " LECTURE DES EN-TETES SEULEMENT " -value LECTURE_EN_TETE_SEULEMENT
+pack $mc.1 -side left
+pack $mc.2 -side right
+pack .option4.o -side left
+pack $mc -side left
+pack .option4 -side top -fill x
+
+# Affichage complet ou structure seulement ?
+frame .option0 -background white
+label .option0.o -text " Affichage : " -padx 0 -background white
+set choix_structure ""
+set af [frame .option0.mc -borderwidth 5  -background white]
+radiobutton $af.1 -variable choix_structure -text " AFFICHAGE COMPLET                  " \
+ -value ""
+radiobutton $af.2 -variable choix_structure \
+ -text " STRUCTURE SEULEMENT           " -value "--structure"
+pack $af.1 -side left
+pack $af.2 -side right
+pack .option0.o -side left
+pack $af -side left
+pack .option0 -side top -fill x
+
+# le numero de maillage
+frame .option3 -background white
+label .option3.o -text " Numero de maillage : " -padx 0 -background white
+set numero 1
+entry .option3.numero -width 10 -relief sunken \
+	-textvariable numero
+pack .option3.o -side left
+pack .option3.numero -side left -fill x -expand true
+pack .option3 -side top -fill both
+
+# la fenetre d'affichage
+frame .t -background white
+set log [text .t.log -width 80 -height 20 \
+	-borderwidth 2 -relief raised -setgrid true \
+	-yscrollcommand {.t.scroll set} -background cyan]
+scrollbar .t.scroll -command {.t.log yview}
+pack .t.scroll -side right -fill y
+pack .t.log -side left -fill both -expand true
+pack .t -side top -fill both -expand true
+
+# les touches du clavier
+bind .top.file <Return> Dump
+focus .top.file
+
+# la commande dump
+proc Dump { } {
+   global exec_path choix_structure file input log but choix_structure choix_connectivite choix_stockage numero choix_lecture
+
+# on suppose que bindir c'est $prefix/bin ce qui malheureusement peut ne pas etre le cas si l'utilisateur utilise l'option de configure !!!
+# il faudrait peut-etre comparer /usr/local/bin et ${exec_prefix}/bin pour etre sur ! 
+   set cmd "@prefix@/bin/mdump2"  
+
+   if { $choix_lecture == "LECTURE_EN_TETE_SEULEMENT" } {
+     if [catch {open "|$cmd $choix_structure $file $numero $choix_connectivite $choix_lecture |& cat"} input] {
+       $log insert end $input\n
+     } else {
+       $but config -text Stop -command Stop
+       $log insert end $file\n
+       fileevent $input readable Log
+     }
+   } else {
+     if [catch {open "|$cmd $choix_structure $file $numero $choix_connectivite $choix_stockage |& cat"} input] {
+       $log insert end $input\n
+     } else {
+       $but config -text Stop -command Stop
+       $log insert end $file\n
+       fileevent $input readable Log
+     }
+   }
+}
+
+proc Log { } {
+   global input log
+   if [eof $input] {
+      Stop
+   } else {
+      gets $input line
+      $log insert end $line\n
+      $log see end
+  }
+}
+
+proc Stop { } {
+   global input but
+   catch {close $input}
+   $but config -text "Dump" -command Dump
+}
+

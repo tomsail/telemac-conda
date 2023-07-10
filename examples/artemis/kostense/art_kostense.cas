@@ -1,0 +1,77 @@
+/---------------------------------------------------------------------
+/ ARTEMIS Version v7p0 mars 2014
+/ COURANT TOURNANT (DIRECTION vague-courant testee)
+/---------------------------------------------------------------------
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,FICHIERS
+/---------------------------------------------------------------------
+/
+/
+RESULTS FILE                       ='r2d_kostense.slf'
+/
+BOUNDARY CONDITIONS FILE           ='geo_kostense.cli'
+/
+FORTRAN FILE                       = f90
+/
+GEOMETRY FILE                      ='geo_kostense.slf'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GENERALITES
+/---------------------------------------------------------------------
+/
+TITLE ='KOSTENSE VORTEX CURRENT CASE'
+/
+/
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GRAPHIQUES ET LISTING
+/---------------------------------------------------------------------
+/
+WAVE HEIGHTS SMOOTHING          : NO
+/
+VARIABLES FOR GRAPHIC PRINTOUTS :
+  'HS,PHAS,ZF,ZS,INC,CG,QB,C,PHIR,PHII,K'
+/
+/---------------------------------------------------------------------
+/ EQUATIONS CONDITIONS INITIALES
+/---------------------------------------------------------------------
+/
+INITIAL CONDITIONS          : 'CONSTANT ELEVATION'
+/
+INITIAL WATER LEVEL         : 0.D0
+/
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES
+/---------------------------------------------------------------------
+/
+/--------------------------------------------------------------------/
+/ OPTIONS
+/--------------------------------------------------------------------/
+MATRIX STORAGE : 3
+/
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES,SOLVEUR
+/---------------------------------------------------------------------
+/
+SOLVER =8
+PRECONDITIONING = 5
+/
+/---------------------------------------------------------------------
+/ PHYSICAL PARAMETERS
+/---------------------------------------------------------------------
+/
+BREAKING =NO
+/
+WAVE PERIOD = 10.D0
+DIRECTION OF WAVE PROPAGATION : 0.D0
+/
+CURRENT = YES
+SUB-ITERATIONS ACCURACY FOR CURRENT=1D-2
+/
+//AUTOMATIC TETAP CALCULATION : YES
+//SUB-ITERATIONS ACCURACY FOR TETAP=1E-4
+/
+PHASE REFERENCE COORDINATES : 0.; 5000.

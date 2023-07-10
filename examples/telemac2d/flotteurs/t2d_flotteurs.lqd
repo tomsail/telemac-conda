@@ -1,0 +1,10 @@
+# Fichier des frontières liquide pour le calcul d'initiation
+# Rampe de débit sur 30 minutes
+# Passage de 0 m3/s à 500 m3/s
+    T    Q(2)    SL(1)
+    s    m3/s  m
+    0.    0.     265.
+ 1800.  500.     265.
+50000.  500.     265.
+
+

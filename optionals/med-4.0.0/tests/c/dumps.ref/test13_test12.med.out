@@ -1,0 +1,53 @@
+Maillage de nom : |maa1| , de dimension : 3 , et de type 0
+	 -Dimension de l'espace : 3
+	 -Description du maillage : un maillage pour test12
+	 -Noms des axes : |x               y               z               |
+	 -Unités des axes : |cm              cm              cm              |
+	 -Type de repère : 0
+	 -Nombre d'étapes de calcul : 0
+	 -Unité des dates : |s|
+Nombre d'equivalences : 1 
+Equivalence numero : 1 
+Nom de l'equivalence: |equivalence| 
+Description de l'equivalence : |equivalence sur les mailles MED_TRIA3| 
+Nombre d'étapes de calcul : 1 
+Nombre de correspondances pour l'étape de calcul MED_NO_DT,MED_NO_IT : 1 
+Il y a 0 correspondances sur les noeuds 
+Il y a 0 correspondances sur les mailles MED_POINT1 
+Il y a 0 correspondances sur les mailles MED_SEG2 
+Il y a 0 correspondances sur les mailles MED_SEG3 
+Il y a 0 correspondances sur les mailles MED_SEG4 
+Il y a 3 correspondances sur les mailles MED_TRIA3 
+Correspondance 1 : 1 et 2 
+Correspondance 2 : 3 et 4 
+Correspondance 3 : 5 et 6 
+Il y a 0 correspondances sur les mailles MED_QUAD4 
+Il y a 0 correspondances sur les mailles MED_TRIA6 
+Il y a 0 correspondances sur les mailles MED_TRIA7 
+Il y a 0 correspondances sur les mailles MED_QUAD8 
+Il y a 0 correspondances sur les mailles MED_QUAD9 
+Il y a 0 correspondances sur les mailles MED_TETRA4 
+Il y a 0 correspondances sur les mailles MED_PYRA5 
+Il y a 0 correspondances sur les mailles MED_PENTA6 
+Il y a 0 correspondances sur les mailles MED_HEXA8 
+Il y a 0 correspondances sur les mailles MED_TETRA10 
+Il y a 0 correspondances sur les mailles MED_OCTA12 
+Il y a 0 correspondances sur les mailles MED_PYRA13 
+Il y a 0 correspondances sur les mailles MED_PENTA15 
+Il y a 0 correspondances sur les mailles MED_PENTA18 
+Il y a 0 correspondances sur les mailles MED_HEXA20 
+Il y a 0 correspondances sur les mailles MED_HEXA27 
+Il y a 0 correspondances sur les mailles MED_POLYGON 
+Il y a 0 correspondances sur les mailles MED_POLYGON2 
+Il y a 0 correspondances sur les mailles MED_POLYHEDRON 
+Il y a 0 correspondances sur les faces MED_TRIA3 
+Il y a 0 correspondances sur les faces MED_QUAD4 
+Il y a 0 correspondances sur les faces MED_TRIA6 
+Il y a 0 correspondances sur les faces MED_TRIA7 
+Il y a 0 correspondances sur les faces MED_QUAD8 
+Il y a 0 correspondances sur les faces MED_QUAD9 
+Il y a 0 correspondances sur les faces MED_POLYGON 
+Il y a 0 correspondances sur les faces MED_POLYGON2 
+Il y a 0 correspondances sur les aretes MED_SEG2 
+Il y a 0 correspondances sur les aretes MED_SEG3 
+Il y a 0 correspondances sur les aretes MED_SEG4 

@@ -1,0 +1,106 @@
+\chapter{riogrande}
+
+\section{Description}
+
+%This example shows that \telemac{2D} is able to model river flow
+%for a realistic river.
+
+The configuration is a part of river (around 6~km long) with schematic bathymetry
+defined by sections depending on ordinate $y$
+(affine function with respect to $y$, see Figure \ref{t2d:riogrande:bottom}).
+
+\begin{figure}[H]
+ \centering
+  \includegraphicsmaybe{[width=0.3\textwidth]}{../img/Bottom.png}
+\caption{Bottom elevation.}
+\label{t2d:riogrande:bottom}
+\end{figure}
+
+\subsection{Initial and boundary conditions}
+
+The computation is initialised with a constant elevation equal to 13~m,
+a constant velocity along $x$ equal to $\frac{0.25}{0.6\times1.1}$.
+
+The boundary conditions are:
+\begin{itemize}
+\item For the solid walls, a slip condition on channel banks is used for the
+velocities,
+\item On the bottom, a Chézy law with friction coefficient equal to
+55~m$^{1/2}$/s is prescribed,
+\item Upstream a flowrate is prescribed,
+linearly increasing from 0 to final flowrate during the simulation.
+A velocity profile proportional to the square root of depth (option 4)
+is used to prevent from potential dry segments along the liquid boundary,
+\item Downstream the water level is also linearly increasing from 0 to final
+surface level during the simulation.
+\end{itemize}
+
+\subsection{Mesh and numerical parameters}
+
+The mesh (see Figure \ref{t2d:riogrande:meshbnd}) is made of 8,268
+triangular elements (4,989 nodes).
+%the types of boundary conditions used for boundaries can be seen in Figure.
+
+\begin{figure}[!htbp]
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+  \includegraphicsmaybe{[width=0.5\textwidth]}{../img/Mesh.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+  \includegraphicsmaybe{[width=0.5\textwidth]}{../img/BC.png}
+\end{minipage}
+\caption{Mesh and boundary conditions types.}
+\label{t2d:riogrande:meshbnd}
+\end{figure}
+
+Zooms around inlet and outlet of the mesh can be seen in Figure
+\ref{t2d:riogrande:meshinout}.
+
+\begin{figure}[!htbp]
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+  \includegraphicsmaybe{[width=0.8\textwidth]}{../img/Meshin.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+  \includegraphicsmaybe{[width=0.8\textwidth]}{../img/Meshout.png}
+\end{minipage}
+\caption{Zoom of the mesh at the inlet and the outlet.}
+\label{t2d:riogrande:meshinout}
+\end{figure}
+
+The time step is 5~s for a simulated period of 25,000~s
+(a little bit less than 7~h).
+
+To solve the advection, the characteristics is used for the velocities.
+The conjugate gradient
+is used for solving the propagation step (option 1) and
+the implicitation coefficients
+for depth and velocities are respectively equal to 1. and 0.55 (= default value).
+
+\subsection{Physical parameters}
+
+A constant horizontal viscosity for velocity equal to 0.0001~m$^2$/s is chosen.
+
+\section{Results}
+
+Figure \ref{t2d:riogrande:FSVelo} shows the free surface elevation and velocity
+magnitude at the end of the computation.
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+  \includegraphicsmaybe{[width=0.7\textwidth]}{../img/FreeSurface.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+  \includegraphicsmaybe{[width=0.7\textwidth]}{../img/Velocity.png}
+\end{minipage}
+\caption{Free surface and velocity magnitude at final time step.}
+\label{t2d:riogrande:FSVelo}
+\end{figure}
+
+\section{Conclusion}
+
+\telemac{2D} can be used to model river flows.

@@ -1,0 +1,81 @@
+/ case: main channel 100mm, ks=0.5mm floodplain 300 ks=3mm
+/ slope 0.1 promille (0.6 cm / 60m)
+/ 500l
+/ LAI 0.1 plant height 5cm
+/
+/-------------------------------------------------------------------/
+/                        TELEMAC-2D                                 /
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+FORTRAN FILE =   'user_fortran'
+TITLE        =    FS_100cm_VL_300cm
+/
+/------------------------------------------------------------------------------
+/                   INPUT / OUTPUT FILES
+/------------------------------------------------------------------------------
+GEOMETRY FILE             = geo_vegetation.slf
+GEOMETRY FILE FORMAT      = SERAFIND
+BOUNDARY CONDITIONS FILE  = geo_vegetation.cli
+RESULTS FILE              = r2d_vegetation.slf
+RESULTS FILE FORMAT       = SERAFIND
+COMPUTATION CONTINUED     = YES
+INITIAL TIME SET TO ZERO  = YES
+PREVIOUS COMPUTATION FILE = ini_vegetation.slf
+PREVIOUS COMPUTATION FILE FORMAT = SERAFIND
+/
+/------------------------------------------------------------------------------
+/                    FRICTION PARAMETERS
+/------------------------------------------------------------------------------
+FRICTION DATA       = YES
+FRICTION DATA FILE  = 'friction1.tbl'
+/ZONES FILE   = 'vegetation.bfr'
+/MAXIMUM NUMBER OF FRICTION DOMAINS = 4000
+VEGETATION FRICTION  = YES
+LAW OF BOTTOM FRICTION   = 5
+/FRICTION COEFFICIENT     = 0.0015
+/------------------------------------------------------------------------------
+/                           DURATION
+/------------------------------------------------------------------------------
+TIME STEP                = 1.0
+NUMBER OF TIME STEPS     = 3600
+/------------------------------------------------------------------------------
+/                  GENERAL INFORMATIONS - OUTPUTS
+/------------------------------------------------------------------------------
+NUMBER OF PRIVATE ARRAYS = 1
+NAMES OF PRIVATE VARIABLES = 'CF'
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,B,H,S,M,W,N'
+GRAPHIC PRINTOUT PERIOD   = 3600
+LISTING PRINTOUT PERIOD   = 360
+MASS-BALANCE              = YES
+/------------------------------------------------------------------------------
+/                   INITIAL AND BOUNDARY CONDITIONS
+/------------------------------------------------------------------------------
+VELOCITY PROFILES        = 4;4
+INITIAL CONDITIONS       = 'CONSTANT ELEVATION'
+INITIAL ELEVATION	 = 0.476123
+PRESCRIBED FLOWRATES     = 0.500; 0.500
+PRESCRIBED ELEVATIONS	 = 0.470123 ; 0.470123
+/------------------------------------------------------------------------------
+/                   NUMERICAL PARAMETERS
+/------------------------------------------------------------------------------
+SOLVER ACCURACY                              = 1.E-6
+TYPE OF ADVECTION                            = 4;5
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER      = 300
+SOLVER                                       = 1
+TREATMENT OF THE LINEAR SYSTEM               = 2
+TURBULENCE MODEL                             = 5
+/MIXING LENGTH COEFFICIENTS = 1.25;0.6
+VELOCITY DIFFUSIVITY                         = 1.E-6
+COMPATIBLE COMPUTATION OF FLUXES             = YES
+CONTINUITY CORRECTION                        = YES
+TREATMENT OF NEGATIVE DEPTHS                 = 2
+IMPLICITATION FOR DEPTH                      = 0.8
+IMPLICITATION FOR VELOCITY                   = 0.6
+OPTION FOR THE DIFFUSION OF VELOCITIES	     = 2
+FREE SURFACE GRADIENT COMPATIBILITY          = 0.8
+MASS-LUMPING ON H                            = 1.
+SUPG OPTION                                  = 2;0;0;0
+

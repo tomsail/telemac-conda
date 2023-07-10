@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: mfrdea</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="a01065.html">Guide de référence du module fortran MEDfilter</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="contents">
+<table cellspacing="0" cellpadding="0" border="0">
+  <tr>
+   <td valign="top">
+      <div class="navtab">
+        <table>
+          <tr><td class="navtab"><a class="qindex" href="a01065_gabc69b90f5af8c5aca1dbd4b685b5a953.html#gabc69b90f5af8c5aca1dbd4b685b5a953">mfrall</a></td></tr>
+          <tr><td class="navtab"><a class="qindexHL" href="a01065_gad95791e5fe16d7d6c7b99ef5f39923e2.html#gad95791e5fe16d7d6c7b99ef5f39923e2">mfrdea</a></td></tr>
+        </table>
+      </div>
+   </td>
+   <td valign="top" class="mempage">
+<a class="anchor" id="gad95791e5fe16d7d6c7b99ef5f39923e2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mfrdea </td>
+          <td>(</td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>nflt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer*8:dimension(*)&#160;</td>
+          <td class="paramname"><em>flt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>cret</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Desalloue un tableau de filtre de taille <em>nfilter</em>. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nflt</td><td>Nombre de filtres. </td></tr>
+    <tr><td class="paramname">flt</td><td>Filtre sur entités (<a class="el" href="a00536.html">med_filter</a>) appliqué en lecture/écriture de valeurs. </td></tr>
+    <tr><td class="paramname">cret</td><td>retour négatif en cas d'erreur, Zéro sinon. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>Voir également</dt><dd><a class="el" href="a01050_ga6c987c612fe52678b0c90f6d713634e7.html#ga6c987c612fe52678b0c90f6d713634e7" title="Desalloue un tableau de filtre de taille nfilter. ">MEDfilterDeAllocate</a></dd></dl>
+<dl class="section user"><dt>Remarques</dt><dd><ul>
+<li>Les numéros d'entités selon la numérotation MED implicite sont relatifs au type géométrique de l'entité (la numérotation implicite commence à 1 pour chaque type géométrique différent). </li>
+<li>Les numéros d'entités/index de profil doivent apparaître en ordre croissant. </li>
+<li>Un numéro d'entité/index de profil peut aparaître plusieurs fois (ils sont alors consécutifs). </li>
+<li>Le filtre créé prend en compte les paramètres <em>nvaluesperentity</em> et <em>nconstituentpervalue</em> pour selectionner les emplacements en mémoire en fonction du mode de stockage utilisé (<a class="el" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8d">med_storage_mode</a>). </li>
+<li>La sélection des emplacements mémoire lus/écrits s'opère dans l'espace mémoire d'un seul processus. </li>
+<li>Le filtre créé s'utilise uniquement <b>en mode séquentiel</b> (le <em>fid</em> utilisé lors de la lecture/écriture doit provenir d'une ouverture séquentielle). </li>
+</ul>
+</dd></dl>
+
+<p>Définition à la ligne <a class="el" href="a00665_source.html#l00060">60</a> du fichier <a class="el" href="a00665_source.html">medfilter.f</a>.</p>
+
+</div>
+</div>
+    </td>
+  </tr>
+</table>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:49 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

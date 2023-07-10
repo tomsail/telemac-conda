@@ -1,0 +1,59 @@
+
+
+
+
+            SUMMARY OF MED CONFIGURATION
+            ============================
+
+General Information:
+-------------------
+
+                   MED Version : @MED_NUM_MAJEUR@.@MED_NUM_MINEUR@.@MED_NUM_RELEASE@ 
+                   HDF Version : @HDF5_USED_VER@ 
+                  Configured on: @CONFIG_DATE@
+                  Configured by: @CONFIG_USER@
+                    Host system: @host_cpu@-@host_vendor@-@host_os@
+              Uname information: @UNAME_INFO@
+                      Libraries: @STATIC_SHARED@
+             Installation point: @prefix@
+
+Compiling Options:
+------------------
+                     C Compiler: @CC_VERSION@
+                         CFLAGS: @CFLAGS@
+                       CPPFLAGS: @CPPFLAGS@
+               Shared Libraries: @enable_shared@
+               Static Libraries: @enable_static@
+                Extra libraries: @LDFLAGS@ @LIBS@
+@BUILD_F77TESTS_CONDITIONAL_TRUE@          Fortran Compiler F77 : @F77@ (F77 var. used to build MED library interface)
+@BUILD_F77TESTS_CONDITIONAL_TRUE@       Fortran Compiler FFLAGS : @FFLAGS@ (FFLAGS var. used to build MED library interface)
+@BUILD_F77TESTS_CONDITIONAL_TRUE@        Fortran Compiler FLIBS : @FLIBS@ (FLIBS var. used to build MED library interface)
+                    med_int is : @LONG_OR_INT@ (based on fortran integer size (if fortran is enabled))
+                   C++ Compiler: @CXX@
+                   C++ Flags   : @CXXFLAGS@
+                hdf5 CPP_FLAGS : @HDF5_CPPFLAGS@
+                  hdf5 LDFLAGS : @HDF5_LDFLAGS@
+                        h5dump : @H5DUMP@
+                    hdf5 is // : @BUILD_WITH_PMED@
+                        Python : @PYTHON@
+			  Swig : @SWIG@
+
+Features:
+---------
+
+                              Error Messages : @MESGERR@
+      Return an error if a MED file contains 
+  an object of a previous data model version 
+ which is not managable by a MED3.0 function : @MED_CHECK_23FORMAT@ (may be time/cpu consuming for files 
+                                                    containing fields with many computation steps )
+
+@WITHF90_TRUE@                  Compiling F90 tests suite : 
+@BUILD_F90TESTS_CONDITIONAL_TRUE@          FC used to compile MED .f90 tests : @FC@    
+@BUILD_F90TESTS_CONDITIONAL_TRUE@    FCFLAGSS used to compile MED .f90 tests : @FCFLAGS@
+@BUILD_F90TESTS_CONDITIONAL_TRUE@    FCLIBS   used to compile MED .f90 tests : @FCLIBS@
+
+    FTLDFLAGS var. for linking Fortran tests : @FTLDFLAGS@
+      FTLIBS var.  for linking Fortran tests : @FTLIBS@
+
+                      Tk/wish used for xmdump : @WISH@
+

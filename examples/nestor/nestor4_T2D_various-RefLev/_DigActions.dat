@@ -1,0 +1,105 @@
+/  it is me  _DigAction.dat
+/======================================================================
+RESTART  = FALSE
+/
+/======================================================================
+ACTION
+
+    ActionType               = Dig_by_time
+
+    ReferenceLevel           = GRID
+
+    TimeStart                =  2000.01.01-00:00:02    / [yyyy.mm.dd-hh:mm:ss]
+    TimeEnd                  =  2000.01.01-00:01:42    / [yyyy.mm.dd-hh:mm:ss]
+    FieldDig                 =  431_ri_down
+    DigVolume                =  300.0                  / [ m^3 ]
+
+    FieldDump                =  421_le_down
+
+    DumpPlanar               =  TRUE
+    DumpRate                 =  0.045                   / [ m/s ]
+
+ENDACTION
+/======================================================================
+ACTION
+
+    ActionType               = Save_water_level
+
+    ReferenceLevel           = WATERLVL1
+
+    TimeStart                =  2000.01.01-00:00:45    / [yyyy.mm.dd-hh:mm:ss]
+
+ENDACTION
+/======================================================================
+ACTION
+
+    ActionType               = Dig_by_time
+
+    /ReferenceLevel           = GRID
+    ReferenceLevel           = WATERLVL1
+
+    /TimeStart                =  2000.01.01-00:00:02    / [yyyy.mm.dd-hh:mm:ss]
+    /TimeEnd                  =  2000.01.01-00:01:42    / [yyyy.mm.dd-hh:mm:ss]
+    TimeStart                =  2000.01.01-00:01:02    / [yyyy.mm.dd-hh:mm:ss]
+    TimeEnd                  =  2000.01.01-00:02:42    / [yyyy.mm.dd-hh:mm:ss]
+    FieldDig                 =  432_ri_middle_low
+    DigVolume                =  100.0                  / [ m^3 ]
+
+    FieldDump                =  422_le_middle_low
+
+    DumpPlanar               =  TRUE
+
+ENDACTION
+/======================================================================
+ACTION
+
+    ActionType               =  Dig_by_time
+
+    TimeStart                =  2000.01.01-00:00:02    / [yyyy.mm.dd-hh:mm:ss]
+    TimeEnd                  =  2000.01.01-00:01:42    / [yyyy.mm.dd-hh:mm:ss]
+    FieldDig                 =  433_ri_middle_high
+    DigVolume                =  529.0                  / [ m^3 ]
+
+    FieldDump                =  423_le_middle_high
+
+    DumpPlanar               =  FALSE
+    DumpRate                 =  0.005                  / [ m/s ]
+
+ENDACTION
+/======================================================================
+ACTION
+
+    ActionType               = Dig_by_time
+
+    ReferenceLevel           = SECTIONS
+
+    TimeStart                =  2000.01.01-00:00:02    / [yyyy.mm.dd-hh:mm:ss]
+    TimeEnd                  =  2000.01.01-00:01:42    / [yyyy.mm.dd-hh:mm:ss]
+    FieldDig                 =  434_ri_top
+    DigVolume                =  529.0                  / [ m^3 ]
+
+    FieldDump                =  424_le_top
+
+    DumpPlanar               =  TRUE
+   /DumpRate                 =  0.005                  / [ m/s ]
+
+ENDACTION
+/======================================================================
+ACTION
+    ActionType               = Backfill_to_level
+
+    ReferenceLevel           =  GRID 
+
+    FieldDump                =  532_ri_middle_low_2            
+    TimeStart                =  2000.01.01-00:02:52    / [yyyy.mm.dd-hh:mm:ss]
+    TimeEnd                  =  2000.01.01-00:04:22    / [yyyy.mm.dd-hh:mm:ss]
+    CritDepth                =    10.0                 / [ m   ]
+   /DumpRate                 =     0.05                / [ m/s ]
+ 
+    GrainClass               =  1.0 
+ENDACTION
+/======================================================================
+
+
+ENDFILE
+

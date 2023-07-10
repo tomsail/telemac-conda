@@ -1,0 +1,121 @@
+\chapter{Energy loss due to wave breaking: BJ78}
+
+\section{Purpose}
+The objective of this test case is to compare Artemis with the results of a
+physical model in a case of wave energy loss due to  breaking waves. The
+experimentation took place at Delft University of Technology [1] on a
+21m x 80cm model. The objective isto validate the modeling of the dissipation
+due to breaking waves (Battjes and Janssen approach for random swell).
+
+The results obtained with Artemis are in good agreement with the experimental
+results.
+
+\section{Description of the test case}
+
+The modeled case and its bathymetry can be visualized on figure 1.
+The water height is 0.616 m at the channel entrance. The surge is taken into
+account
+(Battjes and Janssen approach) but there is no dissipation by friction on the
+bottom.
+
+\subsection{Geometry}
+
+\begin{figure}[h]
+\begin{center}
+  \includegraphicsmaybe{[width=0.7\textwidth]}{config.png}
+\end{center}
+\caption{Configuration.}
+\label{fig:bj78_bathy}
+\end{figure}
+The modeled channel is a 21 m long and 0.8 m wide rectangle.
+The bathymetry is set at z = -0.616m at the channel entrance, then several
+ramps are applied:
+
+$$
+\begin{array}{ll}
+  x < L_1 & z = - 0 . 616 \\
+  L_1 \le x \le L_1 + L_2 &  z = 0.05( x - L_1 ) - 0.616\\
+  L_1 + L_2 < x < L_1 + L_2 + L_3 & z = - 0.025( x-L_1 -L_2 ) - 0.116 \\
+L 1 + L 2 + L 3 \le x & z = 0.05 (x-L_1-L_2-L_3) - 0.226 \\
+\end{array}
+$$
+
+
+
+\subsection{Mesh}
+\begin{figure}[h]
+\begin{center}
+  \includegraphicsmaybe{[width=0.7\textwidth]}{../img/Mesh.png}
+\end{center}
+\caption{Mesh.}
+\label{fig:bj78_mesh}
+\end{figure}
+
+The mesh is a set mesh comprising 1394 triangular elements. The nodes are
+spaced in x and y by about 16 cm.
+
+\subsection{Boundary conditions}
+\begin{figure}[h]
+\begin{center}
+  \includegraphicsmaybe{[width=0.7\textwidth]}{bj78_bc.png}
+\end{center}
+\caption{Boundary conditions.}
+\label{fig:bj78_bc}
+\end{figure}
+
+Incidental swell:
+\begin{itemize}
+\item Peak period= 1.887 s
+\item Significant wave height : 0.202 m
+\item Min and Max period of the spectrum: [0.75 s ; 8 s]
+\item JONSWAP spectrum parameter: gamma=3.3
+\item Propagation direction : 0$^\circ$.
+\item Direction of exit: 0$^\circ$.
+\item Phase (ALFAP): zero on the whole border
+\end{itemize}
+
+Walls :
+\begin{itemize}
+\item Reflection coefficient = 1.
+\item Phase shift : 0$^\circ$.
+\item Angle of attack: 90$^\circ$.
+\end{itemize}
+
+Output :
+\begin{itemize}
+\item Angle of attack of the outgoing waves: 0$^\circ$.
+\end{itemize}
+
+\section{Reference solution}
+
+The experimental results obtained in \cite{Battjes1978} constitute the reference values.
+The criterion for comparison is the comparison is the energetic water height along the
+channel. This water height is related to the significant head by the formula :
+$$
+H_s = \sqrt{2} H_e
+$$
+The measured and calculated free surface elevations are therefore compared.
+
+\section{ Results}
+
+The results are presented in figure \ref{fig:bj78_res}.
+\begin{figure}[h]
+\begin{center}
+  \includegraphicsmaybe{[width=0.7\textwidth]}{resbj78.png}
+\end{center}
+\caption{Energetic wave height (m) as a function of the position in the channel (m).
+Red curve: ARTEMIS, green points: Battjes and Janssen experiment \cite{Battjes1978}.}
+\label{fig:bj78_res}
+\end{figure}
+
+The Artemis results correlate well with the experiment. The energy loss due to the
+is well predicted in the case of a random swell. The code gives satisfaction in terms of
+in terms of intensity and spatial distribution of this dissipation, the use of the
+formula of
+
+Battjes and Janssen's formula is a good way to model the dissipation related to the
+breaking resulting from bathymetric variations.
+
+
+
+

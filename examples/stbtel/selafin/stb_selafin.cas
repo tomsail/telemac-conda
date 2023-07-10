@@ -1,0 +1,20 @@
+/**********************************************************************/
+/                  EXAMPLE OF SELAFIN FILE TREATMENT                   /
+/                 WITHOUT ELIMINATION OF DRY ELEMENTS                  /
+/**********************************************************************/
+/
+UNIVERSAL FILE                          : 'msh_hydro.slf'
+BOUNDARY UNIVERSAL FILE                 : 'msh_hydro.cli'
+GEOMETRY FILE FOR TELEMAC               : 'geo_hydro.slf'
+BOUNDARY CONDITIONS FILE                : 'geo_hydro.cli'
+/
+MESH GENERATOR                          : SELAFIN
+/
+ELIMINATION OF BACKWARD DEPENDENCIES    : NO
+OVERSTRESSED TRIANGLES CUTTING          : YES
+MINIMUM DISTANCE BETWEEN TWO POINTS     : 0.
+/
+DRY ELEMENTS ELIMINATION                : YES
+PARTIALLY DRY ELEMENTS ELIMINATION      : YES
+DRY LIMIT                               : 0.2
+STORAGE OF ALL TIME STEPS               : NO

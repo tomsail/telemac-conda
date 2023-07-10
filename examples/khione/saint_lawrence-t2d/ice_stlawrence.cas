@@ -1,0 +1,63 @@
+/----------------------------------------------------------------------
+/
+/ SAINT LAWRENCE RIVER TEST CASE
+/
+/ Steering file for= KHIONE
+/
+/----------------------------------------------------------------------
+/ FILES
+/----------------------------------------------------------------------
+/
+GEOMETRY FILE                        = geo_stlawrence.slf
+BOUNDARY CONDITIONS FILE             = geo_stlawrence.cli
+RESULTS FILE                         = ice_stlawrence.slf
+/
+/----------------------------------------------------------------------
+/ GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------------------------------
+/
+VARIABLES FOR GRAPHIC PRINTOUTS =
+'PHPS,PHIB,PHIE,PHIH,PHIP,ICETYPE,COV_THT,F1'
+/
+GRAPHIC PRINTOUT PERIOD         = 3600
+LISTING PRINTOUT PERIOD         = 3600
+/
+/----------------------------------------------------------------------
+/ HEAT EXCHANGES
+/----------------------------------------------------------------------
+ATMOSPHERE-WATER EXCHANGE MODEL                          = 1
+/
+/----------------------------------------------------------------------
+/ PHYSICAL PARAMETERS FOR SUSPENDED FRAZIL ICE
+/----------------------------------------------------------------------
+/
+/ NUSSELT PARAMETERS
+MODEL FOR THE NUSSELT NUMBER       = 2
+MODEL FOR ESTIMATION OF TURBULENCE PARAMETERS = 1
+/
+/ FRAZIL SEEDING PARAMETERS
+MODEL FOR FRAZIL SEEDING           = 1
+/
+/ NUMERICAL PARAMETERS
+SCHEME FOR ADVECTION OF TRACERS = 14
+COEFFICIENT FOR DIFFUSION OF FRAZIL = 0.
+SCHEME OPTION FOR THERMAL GROWTH = 1
+/
+/----------------------------------------------------------------------
+/ PHYSICAL PROPERTIES FOR STATIC BORDER ICE
+/----------------------------------------------------------------------
+/
+BORDER ICE COVER                                         = YES
+ICE COVER IMPACT ON HYDRODYNAMIC                         = YES
+CRITICAL VELOCITY FOR STATIC BORDER ICE                  = 0.07
+CRITICAL WATER TEMPERATURE FOR STATIC BORDER ICE         = -1.1
+CHANNEL WIDTH FOR THE COMPUTATION OF SURFACE TEMPERATURE = 25.
+/
+/----------------------------------------------------------------------
+/ PHYSICAL PROPERTIES FOR INTERACTIONS BETWEEN WATER AND SURFACE ICE
+/----------------------------------------------------------------------
+/
+/ FRICTION LAW FOR WATER-ICE INTERACTION
+MODEL FOR UNDER COVER FRICTION   = 2 /(H.T. Shen)
+LAW OF ICE COVER FRICTION        = 4 /(Manning)
+ICE FRICTION COEFFICIENT         = 0.02

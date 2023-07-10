@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: usecases/c/UsesCase_MEDmesh_4.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">usecases/c/UsesCase_MEDmesh_4.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment"> *  How to create a structured mesh</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  Use case 4 :  write a 2D structured mesh (5x3 cartesian grid)</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a name="a0"></a><a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv) {</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a>         fid;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span>      meshname[<a name="a1"></a><a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1] = <span class="stringliteral">&quot;2D structured mesh&quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>   spacedim = 2;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>   meshdim  = 2;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span>      axisname[2*<a name="a2"></a><a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;x               y               &quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span>      unitname[2*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;cm              cm              &quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>         axis, size ;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> cooXaxis[5] = {1.,2.,3.,4.,5.};</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> cooYaxis[3] = {1.,2.,3.};</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>   nquad4 = 8;</div>
+<div class="line">  <span class="comment">/*                                           12345678901234561234567890123456123456789012345612345678901234561234567890123456123456789012345612345678901234561234567890123456 */</span></div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> cellsnames[8*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;CELL_1          CELL_2          CELL_3          CELL_4          CELL_5          CELL_6          CELL_7          CELL_8          &quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span>     familyname   [<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]  = <span class="stringliteral">&quot;CART_GRID_QUAD_FAMILY&quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span>     groupname    [<a name="a3"></a><a class="code" href="a00577_a1d420c1b5fb1b2933059b81a1f2e1491.html#a1d420c1b5fb1b2933059b81a1f2e1491">MED_LNAME_SIZE</a>+1] = <span class="stringliteral">&quot;CART_GRID_GROUP&quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>  familynumbers[8]           = { -1, -1, -1, -1, -1, -1, -1, -1 };</div>
+<div class="line">  <span class="keywordtype">int</span> ret=-1;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* MED file creation */</span></div>
+<div class="line">  fid = <a name="a4"></a><a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;UsesCase_MEDmesh_4.med&quot;</span>,<a name="a5"></a><a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85aa23dd1c18b596924d5f50c8402b84c8e">MED_ACC_CREAT</a>);</div>
+<div class="line">  <span class="keywordflow">if</span> (fid &lt; 0) {</div>
+<div class="line">    <a name="a6"></a><a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : file creation ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* create the structured mesh in the MED file */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a name="a7"></a><a class="code" href="a01055_ga6007c3f1a62732e7a46c5eca232be78a.html#ga6007c3f1a62732e7a46c5eca232be78a">MEDmeshCr</a>(fid, meshname, spacedim, meshdim, <a name="a8"></a><a class="code" href="a00577_a821a4dd94c5c6b095318432bdec8d8a1.html#a821a4dd94c5c6b095318432bdec8d8a1ae6da65432afbf52a98ca9dae5e42d530">MED_STRUCTURED_MESH</a>,</div>
+<div class="line">                <span class="stringliteral">&quot;A 2D structured mesh&quot;</span>,<span class="stringliteral">&quot;&quot;</span>,<a name="a9"></a><a class="code" href="a00577_a5b97067a30629cd60470d074691d6798.html#a5b97067a30629cd60470d074691d6798ae896b6adfbde9870b4e875e5167eddd0">MED_SORT_DTIT</a>,</div>
+<div class="line">                <a name="a10"></a><a class="code" href="a00577_a57867e4bed1d104c865cfc9d23c9204d.html#a57867e4bed1d104c865cfc9d23c9204da682ef7f1042079519664eae87f90297e">MED_CARTESIAN</a>, axisname, unitname) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : mesh creation ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* specify the grid type : MED_CARTESIAN_GRID */</span></div>
+<div class="line">   <span class="keywordflow">if</span> (<a name="a11"></a><a class="code" href="a01055_ga37bc61c713b08e6d6ab381a283c048e6.html#ga37bc61c713b08e6d6ab381a283c048e6">MEDmeshGridTypeWr</a>(fid,meshname, <a name="a12"></a><a class="code" href="a00577_a517833b8b925b9187607241f1c6ddbb9.html#a517833b8b925b9187607241f1c6ddbb9a01d870b68ff7c0427e96278c8999f540">MED_CARTESIAN_GRID</a>) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write grid type ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">   <span class="comment">/* write axis &quot;X&quot; and &quot;Y&quot; coordinates */</span></div>
+<div class="line">   axis = 1;</div>
+<div class="line">   size = 5;</div>
+<div class="line">   <span class="keywordflow">if</span> (<a name="a13"></a><a class="code" href="a01055_ga7b083b9ee5fa3a00cda28129355a0e60.html#ga7b083b9ee5fa3a00cda28129355a0e60">MEDmeshGridIndexCoordinateWr</a>(fid, meshname, <a name="a14"></a><a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a name="a15"></a><a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,0.0,</div>
+<div class="line">                                    axis, size, cooXaxis) &lt; 0) {</div>
+<div class="line">     <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write of axis X coordinates ...&quot;</span>);</div>
+<div class="line">     <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">   }</div>
+<div class="line">  axis++;</div>
+<div class="line">  size = 3;</div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01055_ga7b083b9ee5fa3a00cda28129355a0e60.html#ga7b083b9ee5fa3a00cda28129355a0e60">MEDmeshGridIndexCoordinateWr</a>(fid, meshname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,0.0,</div>
+<div class="line">                                   axis, size, cooYaxis) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write of axis Y coordinates ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* optionnal : names for nodes or elements */</span></div>
+<div class="line">  <span class="comment">/* In this case, a name is given to the cells of the mesh */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a name="a16"></a><a class="code" href="a01055_ga3be091e7873665850c5adc47f8a69ed1.html#ga3be091e7873665850c5adc47f8a69ed1">MEDmeshEntityNameWr</a>(fid, meshname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,</div>
+<div class="line">                          <a name="a17"></a><a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, <a name="a18"></a><a class="code" href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a>, nquad4, cellsnames) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : cells names  ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* We have to create family 0 : by default, all mesh entities family number is 0 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a name="a19"></a><a class="code" href="a01047_ga0873b54d0dc1472eee12c42aaf4fbca3.html#ga0873b54d0dc1472eee12c42aaf4fbca3">MEDfamilyCr</a>(fid, meshname, <a name="a20"></a><a class="code" href="a00577_afd1f2684a3484575283e2a46f2d809da.html#afd1f2684a3484575283e2a46f2d809da">MED_NO_NAME</a>, 0, 0, <a name="a21"></a><a class="code" href="a00577_a41b68e0bf49e21cf091f12ee6d9ab66c.html#a41b68e0bf49e21cf091f12ee6d9ab66c">MED_NO_GROUP</a>) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : family 0 creation ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* We decide to create a family for boundary quad4 :</span></div>
+<div class="line"><span class="comment">     by convention a nodes family number is &gt; 0 and an element family number is &lt; 0 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01047_ga0873b54d0dc1472eee12c42aaf4fbca3.html#ga0873b54d0dc1472eee12c42aaf4fbca3">MEDfamilyCr</a>(fid, meshname,familyname, 1, -1, groupname) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : family creation ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Then we write family number for quad4 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a name="a22"></a><a class="code" href="a01055_gab5dbe1721785e8565d5897349b526c43.html#gab5dbe1721785e8565d5897349b526c43">MEDmeshEntityFamilyNumberWr</a>(fid, meshname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,</div>
+<div class="line">                                  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, <a class="code" href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a>, nquad4, familynumbers) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : nodes family numbers ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  ret = 0;</div>
+<div class="line"> ERROR:</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* close MED file  */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a name="a23"></a><a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : close file ...&quot;</span>);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> ret;</div>
+<div class="line">}</div>
+<div class="line"></div>
+</div><!-- fragment --> </div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

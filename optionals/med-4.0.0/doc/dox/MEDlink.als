@@ -1,0 +1,14 @@
+"link=Lien vers le fichier contenant le maillage." \
+"linkit=Itérateur sur les liens du fichier. Un itérateur commence à 1." \
+"linksize=Taille de la chaîne de caractères correspondant au lien." \
+"nlink=Nombre de lien dans le fichier." \
+"MEDlinkWrBrief=Cette routine permet d'écrire un lien dans un fichier MED." \
+"MEDlinkWrDetails=Cette routine permet d'écrire un lien dans un fichier MED. Dans MED, un champ et un maillage peuvent être dans deux fichiers différents. Dans le fichier contenant le champ, il est nécessaire de créer un lien spécifiant le chemin d'accès et le nom du fichier MED contenant le maillage. Le lien porte le nom du maillage." \
+"MEDlinkInfoBrief=Cette routine permet de lire les informations sur un lien dans un fichier MED." \
+"MEDlinkInfoDetails=Cette routine permet de lire les informations sur un lien dans un fichier MED. L'accès au lien se fait via un itérateur. Les informations lues sont le nom du lien (nom du maillage dans le fichier référencé par le lien) ainsi que la taille de la chaîne de caractères correspondant au lien." \
+"MEDlinkInfoByNameBrief=Cette routine permet de lire les informations sur un lien dans un fichier MED." \
+"MEDlinkInfoByNameDetails=Cette routine permet de lire les informations sur un lien dans un fichier MED. L'accès au lien se fait via le nom du lien (nom du maillage dans le fichier référencé par le lien). Le résultat renvoyé correspond à la taille de la chaîne de caractères correspondant au lien." \
+"MEDlinkRdBrief=Cette routine permet de lire un lien dans un fichier MED." \
+"MEDlinkRdDetails=Cette routine permet de lire un lien dans un fichier MED. Dans MED, un champ et un maillage peuvent être dans deux fichiers différents. Dans le fichier contenant le champ, il est nécessaire de créer un lien spécifiant le chemin d'accès et le nom du fichier MED contenant le maillage. Le lien porte le nom du maillage." \
+"MEDnLinkBrief=Cette routine permet la lecture du nombre de lien dans un fichier MED." \
+"MEDnLinkDetails=Cette routine permet la lecture du nombre de lien dans un fichier MED. Dans MED, un champ et un maillage peuvent être dans deux fichiers différents. Dans le fichier contenant le champ, il est nécessaire de créer un lien spécifiant le chemin d'accès et le nom du fichier MED contenant le maillage. Le lien porte le nom du maillage." \

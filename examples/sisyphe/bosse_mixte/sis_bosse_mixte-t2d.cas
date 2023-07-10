@@ -1,0 +1,76 @@
+/----------------------------------------------------------------------/
+/ TELEMAC-2D + SISYPHE: propagation of a bump with mixed sediments     /
+/----------------------------------------------------------------------/
+/
+/----------------------------------------------------------------------/
+/  FILES                                                               /
+/----------------------------------------------------------------------/
+/ --- GEOMETRY ---
+GEOMETRY FILE				= 'geo_bosse_mixte-t2d.slf'
+BOUNDARY CONDITIONS FILE		= 'geo_bosse_mixte-t2d.cli'
+/
+/ --- RESULTS ---
+RESULTS FILE				= 'sis_bosse_mixte-t2d.slf'
+/
+/----------------------------------------------------------------------/
+/  GENERAL INFORMATIONS - OUTPUTS                                      /
+/----------------------------------------------------------------------/
+/
+TITLE                 = 'Propagation of a bump with mixed sediments'
+VARIABLES FOR GRAPHIC PRINTOUTS =
+'U,V,S,H,B,E,M,TOB,R,KS,TOB,MU,QS*,CS*'
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+MIXED SEDIMENT                         = YES
+COHESIVE SEDIMENTS                     = NO;YES
+BED LOAD                               = NO
+SUSPENSION                             = YES
+MUD CONSOLIDATION                      = NO
+NUMBER OF SIZE-CLASSES OF BED MATERIAL = 2
+INITIAL FRACTION FOR PARTICULAR SIZE CLASS = 0.5; 0.5
+SEDIMENT DIAMETERS                     = 0.0001; 0.00005
+SETTLING VELOCITIES                    = 0.01;0.001
+/
+PARTHENIADES CONSTANT = 1.D-03
+NUMBER OF LAYERS OF THE CONSOLIDATION MODEL = 10
+/
+MUD CONCENTRATION PER LAYER :
+40.;73.;106.;139.;172.;205.;238.;271.;304.;320.38
+/
+CRITICAL EROSION SHEAR STRESS OF THE MUD =
+0.00816605;0.0264398;0.05477861;0.0930092;0.14098592;
+0.19862961;0.29816415;0.46425147;0.68695285;0.82157461
+/
+CRITICAL SHEAR VELOCITY FOR MUD DEPOSITION = 1000.D0
+/
+CONCENTRATION PER CLASS AT BOUNDARIES = 0.00001;0.00001
+INITIAL SUSPENSION CONCENTRATIONS: 0.00001;0.00001
+/
+/----------------------------------------------------------------------/
+/  TIDAL FLATS                                                         /
+/----------------------------------------------------------------------/
+/
+TIDAL FLATS = YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS = 1
+/
+/----------------------------------------------------------------------/
+/  NUMERICAL PARAMETERS                                                /
+/----------------------------------------------------------------------/
+/
+MASS-BALANCE                          = YES
+MASS-LUMPING                          = YES
+ZERO                                  = 1.0E-12
+TETA                                  = 0.5
+TREATMENT OF FLUXES AT THE BOUNDARIES = 2;2
+DIFFUSION                             = NO
+TYPE OF ADVECTION                     = 4
+SOLVER FOR SUSPENSION                 = 1
+SOLVER ACCURACY FOR SUSPENSION        = 1.E-10
+/
+/---------------------------------------------------------------------
+/ END OF FILE
+/---------------------------------------------------------------------
+/

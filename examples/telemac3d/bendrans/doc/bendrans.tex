@@ -1,0 +1,124 @@
+\chapter{Flow along a bend (bendrans)}
+
+\section{Description}
+
+This example shows that \telemac{3D} is able to simulate a flow along
+a bend with the Spalart-Allmaras turbulence model,
+
+The configuration is a channel with a rectangular bend.
+The bottom is flat without slope (at elevation 0~m).
+
+\subsection{Initial and boundary conditions}
+
+The computation is initialised with a constant elevation equal to 0.175~m
+and no velocity.
+
+The boundary conditions are:
+\begin{itemize}
+\item For the solid walls, a slip condition on channel banks is used for the
+velocities,
+\item On the bottom, a Nikuradse law with friction coefficient equal to
+0.00188~m is prescribed,
+\item Upstream a flowrate equal to 0.0295~m$^3$/s is prescribed,
+linearly increasing from 0.0001 to 0.0295~m$^3$/s during the first 5~s,
+\item Downstream the water level is equal to 0.175~m.
+\end{itemize}
+
+\subsection{Mesh and numerical parameters}
+
+The 2D mesh (Figure \ref{t3d:bendrans:fig:meshH})
+is made of 6,845 triangular elements (3,623 nodes).
+5 planes are regularly spaced on the vertical (see Figure \ref{t3d:bendrans:fig:meshV}).
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/MeshH.png}
+ \caption{Horizontal mesh.}
+ \label{t3d:bendrans:fig:meshH}
+\end{figure}
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/MeshV.png}
+ \caption{Initial vertical mesh.}
+ \label{t3d:bendrans:fig:meshV}
+\end{figure}
+
+The time step is 0.01~s for a simulated period of 100~s.
+
+The non-hydrostatic version is used.
+To solve the advection, the characteristics
+are used for both velocities and turbulent variable (scheme 1).
+GMRES is used for solving the propagation and diffusion of velocities (option 7).
+Accuracies for every solving of linear system are set to the default value 10$^{-8}$
+except for the turbulent variable for which it is set to 10$^{-10}$.
+No preconditioning for the diffusion for velocities step is used.
+The implicitation coefficients for depth and diffusion are both equal to 0.51
+to be the more accurate.
+
+\subsection{Physical parameters}
+
+The Spalart-Allmaras model is used for turbulence modelling for both vertical
+and horizontal directions
+(\telkey{VERTICAL TURBULENCE MODEL} = \telkey{HORIZONTAL TURBULENCE MODEL} = 5).
+
+\section{Results}
+
+Figure \ref{t3d:bendrans:FreeSurf} shows the free surface elevation at the end of
+the computation.
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.65\textwidth]}{../img/FreeSurface.png}
+  \caption{Free surface at final time step.}
+  \label{t3d:bendrans:FreeSurf}
+\end{figure}
+
+Figure \ref{t3d:bendrans:Velo} shows the magnitude of velocity at the end of the
+computation.
+The flow accelerates when turning in the bend and a detachment appears
+just after the corner at the top.
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.65\textwidth]}{../img/VelocityH.png}
+  \caption{Velocity magnitude at the surface at final time step.}
+  \label{t3d:bendrans:Velo}
+\end{figure}
+
+Figure \ref{t3d:bendrans:NuxVelo} shows the diffusion along the $x$ axis
+for velocity at the end of the computation.
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.65\textwidth]}{../img/NuxVelo.png}
+  \caption{Diffusion along $x$ for velocity at final time step.}
+  \label{t3d:bendrans:NuxVelo}
+\end{figure}
+
+Figure \ref{t3d:bendrans:TKE} shows the Turbulent Kinetic Energy at the end of
+the computation.
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.65\textwidth]}{../img/TKE.png}
+  \caption{Turbulent Kinetic Energy at final time step.}
+  \label{t3d:bendrans:TKE}
+\end{figure}
+
+Figure \ref{t3d:bendrans:Diss} shows the dissipation at the end of
+the computation.
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.65\textwidth]}{../img/Dissipation.png}
+  \caption{Dissipation at final time step.}
+  \label{t3d:bendrans:Diss}
+\end{figure}
+
+Diffusion, Kinetic Energy and dissipation are generated after turning
+in the bend.
+
+\section{Conclusion}
+
+This example validates the Spalart-Allmaras turbulence model of \telemac{3D}.

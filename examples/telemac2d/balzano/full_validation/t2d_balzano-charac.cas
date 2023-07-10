@@ -1,0 +1,76 @@
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+GEOMETRY FILE                   = geo-balzano.slf
+FORTRAN FILE                    = 'user_fortran'
+BOUNDARY CONDITIONS FILE        = geo-balzano.cli
+RESULTS FILE                    = r2d_balzano-charac.slf
+FORMATTED RESULTS FILE          = rfo_balzano-charac.txt
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE                           = 'TELEMAC 2D : BOLZANO'
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,H,S,B,F,Q,M,W'   
+TIME STEP                       = 5
+/NUMBER OF TIME STEPS           = 160000
+DURATION                        = 70000  
+GRAPHIC PRINTOUT PERIOD         = 500
+LISTING PRINTOUT PERIOD         = 5000
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+COMPUTATION CONTINUED           = NO
+INITIAL CONDITIONS              = 'PARTICULAR'
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 0 /NO FRICTION or 3 Strickler
+/FRICTION COEFFICIENT            = 50
+TURBULENCE MODEL                = 1 / LAMINAR
+VELOCITY DIFFUSIVITY             = 0
+/
+/----------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------
+/
+PRESCRIBED ELEVATIONS           = -2.
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+/
+VELOCITY PROFILES               = 1
+/
+SOLVER                          = 7
+SOLVER OPTION                   = 4
+SOLVER ACCURACY                 = 1.E-4
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER = 150
+/
+PRECONDITIONING                 = 2
+INITIAL GUESS FOR H             = 1
+IMPLICITATION FOR DEPTH         = 0.55
+IMPLICITATION FOR VELOCITY      = 0.55
+MASS-BALANCE                    : YES
+/
+/SCHEMES
+TREATMENT OF THE LINEAR SYSTEM  = 2 /WAVE EQUATION
+EQUATIONS                       = 'SAINT-VENANT FE'
+TYPE OF ADVECTION               = 1;5 
+SUPG OPTION                     = 0;0   /No upwinding
+/
+TIDAL FLATS                             = YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS = 1
+TREATMENT OF NEGATIVE DEPTHS            = 2
+/
+MASS-LUMPING ON H                       = 1.
+FREE SURFACE GRADIENT COMPATIBILITY     = 0.9
+CONTINUITY CORRECTION                   = YES
+/----------------------------------------------
+&ETA      

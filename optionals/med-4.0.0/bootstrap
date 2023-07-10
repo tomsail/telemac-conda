@@ -1,0 +1,15 @@
+#! /bin/sh
+
+set -x
+#aclocal-1.7 -I config
+#aclocal --acdir=/local/fayolle/AUTOTOOLS/automake/share/aclocal-1.10 -I config
+#aclocal  -I/local/fayolle/AUTOTOOLS/libtool/share/aclocal -I config
+aclocal -I config
+libtoolize --force --copy
+autoheader
+#autoconf -B/local/fayolle/AUTOTOOLS/autoconf/share/autoconf/autoconf/
+#autoconf --trace=m4_bregex
+autoconf
+#automake --libdir=/local/fayolle/AUTOTOOLS/automake/share/automake-1.10/ --add-missing --copy
+automake  --add-missing --copy
+

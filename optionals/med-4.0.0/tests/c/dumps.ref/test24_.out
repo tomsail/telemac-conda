@@ -1,0 +1,30 @@
+Ouverture du fichier test23.med 
+Nombre de maillages = 1
+maillage 1 de nom [maa1] et de dimension : 3 , et de type 0
+	 -Dimension de l'espace : 3
+	 -Description du maillage : |un maillage pour test23|
+	 -Noms des axes : |x               y               z               |
+	 -Unités des axes : |cm              cm              cm              |
+	 -Type de repère : 0
+	 -Nombre d'étapes de calcul : 1
+	 -Unité des dates : |s|
+Nombre de mailles polygones en mode nodal : 3 
+Taille a allouer pour la connectivite des polygones : 16 
+Lecture de la connectivite des mailles MED_POLYGONE en mode nodal 
+Affichage des resultats 
+>> Maille MED_POLYGONE 1 : 
+---- Connectivite       ----- : [ 1 2 3 4 5  ] 
+---- Nom                ----- : |poly1           | 
+---- Numero             ----- : 1 
+---- Numero de famille  ----- : 0 
+>> Maille MED_POLYGONE 2 : 
+---- Connectivite       ----- : [ 6 7 8 9 10 11  ] 
+---- Nom                ----- : |poly2           | 
+---- Numero             ----- : 2 
+---- Numero de famille  ----- : -1 
+>> Maille MED_POLYGONE 3 : 
+---- Connectivite       ----- : [ 12 13 14 15 16  ] 
+---- Nom                ----- : |poly3           | 
+---- Numero             ----- : 3 
+---- Numero de famille  ----- : -2 
+Fermeture du fichier 

@@ -1,0 +1,141 @@
+\chapter{Algae 2D Coupling (2Dcoupling\_algae)}
+
+\section{Purpose}
+
+The purpose of this example is to show that for a test with algae, the algae
+dislodgement can be defined as a function of bed wave orbital velocity taken
+from a coupled \tomawac run.
+
+\section{Description}
+
+This test case is based on the \tomawac test case \textbf{3Dcoupling},
+which is turn based on the \sisyphe test case \textbf{littoral}.
+Details of the flows and waves can be found in the documentation for these test
+cases.
+
+\begin{figure}[h]%
+  \begin{center}
+    \includegraphics[width=0.75\textwidth]{./img/2Dcouple_initial_02}
+  \end{center}
+  \caption{Initial algae distribution.}
+  \label{fig:exp2d_init}
+\end{figure}
+
+The initial algae distribution is defined using a polygon file, containing three
+polygons, which is specified using the keyword
+\telkey{DROGUES INITIAL POSITIONING DATA FILE}.
+The polygon file must be in the Blue Kenue i2s format.
+The central polygon defines algae with class 1.
+The left polygon defines algae with class 2.
+The right polygon defines algae with class 3.
+
+\smallskip
+For this test case, the keyword \telkey{ALGAE RELEASE TYPE} equals 2 for all 3
+classes.
+This means an algae particle does not start to move until the wave orbital
+velocity at the bed exceeds a threshold value.
+This option only works if the \telemac{2D} run is coupled with \tomawac and if
+\tomawac supplies the wave orbital velocity to the \telemac{2D} run.
+
+\smallskip
+The threshold value of the wave orbital velocity varies with time, according to
+the equation:
+\begin{equation}
+OV_0 = OV_1 + (OV_2 - OV_1) exp(-A . T_{eff}),
+\end{equation}
+
+$OV_1$, $OV_2$ and $A$ are specified in the steering file with the following
+keywords:
+
+\begin{enumerate}
+\item[\nonumber] $OV_{1}$ = \telkey{WAVE ORBITAL VELOCITY THRESHOLD FOR ALGAE 1},
+\item[\nonumber] $OV_{2}$ = \telkey{WAVE ORBITAL VELOCITY THRESHOLD FOR ALGAE 2},
+\item[\nonumber] $A$ = \telkey{RATE OF DEGRADATION FOR ALGAE}.
+\end{enumerate}
+$T_{eff}$ is an “effective time” relating to the cumulative wave forcing that
+has been experienced by each algae particle, defined by: $T_{eff} = \sum { OV . dt}$ .
+This means that $T_{eff}$ is the numerical integral of wave orbital velocity over time.
+
+\smallskip
+For this test, $OV_1$ = 0.5~m/s for class 1, 0.7~m/s for class 2 and 0.4~m/s for class 3.
+$A$ = 0.005 for class 1 and class 2 and 0.01 for class 3.
+
+\section{Results}
+
+\emph{Because of the turbulent particle movements the result on the reader's
+  machine may be slightly different to the results below, but it should be similar.}
+
+\smallskip
+Figure~\ref{fig:res2d_3s} to Figure~\ref{fig:res2d_9s} show the algae distribution
+after 3~s, 6~s and 9~s.
+
+\smallskip
+After 3~s, some of the central class 1 particles have been dislodged and
+have moved to the right.
+This is because $OV_1$ is lower for the class 1 particles (blue) than the class
+2 particles (green), which have not yet been dislodged.
+The class 3 particles (red) have not been dislodged yet because they are in a
+region of lower bed wave orbital velocity.
+
+\smallskip
+After 6~s, some of the class 2 particles have been dislodged.
+This is because the critical bed wave orbital velocity has become lower,
+according to the equation given above.
+In reality, the critical value would not change so quickly.
+This test case can to the critical value changing quickly in order to illustrate
+the principle.
+
+\smallskip
+After 9~s, the particles have moved further to the right and a wider band
+of particles have been dislodged.
+The class 3 particles have been dislodged and have moved to the left slightly.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.75\textwidth]{./img/algae2dcouplingRes3s}
+  \end{center}
+  \caption{Algae distribution after 3~s.}
+  \label{fig:res2d_3s}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.75\textwidth]{./img/algae2dcouplingRes6s}
+  \end{center}
+  \caption{Algae distribution after 6~s.}
+  \label{fig:res2d_6s}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.75\textwidth]{./img/algae2dcouplingRes9s}
+  \end{center}
+  \caption{Algae distribution after 9~s.}
+  \label{fig:res2d_9s}
+\end{figure}
+
+The standard test case outputs the algae information as a Tecplot file.
+In this case the algae information is written to a file defined by the keyword
+\telkey{ASCII DROGUES FILE}.
+The default value of the \telkey{DROGUES FILE FORMAT} is TECPLOT.
+In order to output to a PCL file, give the output file name using the keyword
+\telkey{BINARY DROGUES FILE} and give the \telkey{DROGUES FILE FORMAT} as
+BKBINPCL.
+PCL files can be displayed using Blue Kenue.
+
+\smallskip
+This example outputs a text file called \verb!polygon_particles.txt!.
+Output is written to the file every 10~s.
+The output relates to the three polygons that define the three initial regions
+of particles, as described above.  
+For each time, the output file contains the time, and the number of initial
+particles that remain in each polygon and un-mobilised.
+Running of the test case should result in a text file identical to the
+\verb!polygon_particles.txt! file.
+
+\smallskip
+For this test case example the random distribution of initial particles is fixed
+through lines 39 to 47 of the \telfile{CONDIN\_DROGUES} subroutine.
+These lines ensure that the particles are initially located at the same place
+whenever the test case is run but should be commented out when running the code
+more generally.  

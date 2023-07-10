@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE fichierCas SYSTEM "mascaret-1.0.dtd">
+<fichierCas>
+  <parametresCas>
+    <parametresGeneraux>
+      <versionCode>3</versionCode>
+      <code>2</code>
+      <fichMotsCles>rezo.xcas</fichMotsCles>
+      <dictionaire>dico.txt</dictionaire>
+      <progPrincipal>princi.f</progPrincipal>
+      <sauveModele>false</sauveModele>
+      <fichSauvModele>mascaret0.tmp</fichSauvModele>
+      <validationCode>false</validationCode>
+      <typeValidation>1</typeValidation>
+      <presenceCasiers>false</presenceCasiers>
+      <bibliotheques>
+        <bibliotheque>mascaretV5P1.a damoV3P0.a</bibliotheque>
+      </bibliotheques>
+    </parametresGeneraux>
+    <parametresModelePhysique>
+      <perteChargeConf>false</perteChargeConf>
+      <compositionLits>1</compositionLits>
+      <conservFrotVertical>false</conservFrotVertical>
+      <elevCoteArrivFront>0.05</elevCoteArrivFront>
+      <interpolLinStrickler>false</interpolLinStrickler>
+      <debordement>
+        <litMajeur>false</litMajeur>
+        <zoneStock>false</zoneStock>
+      </debordement>
+    </parametresModelePhysique>
+    <parametresNumeriques>
+      <calcOndeSubmersion>false</calcOndeSubmersion>
+      <decentrement>false</decentrement>
+      <froudeLimCondLim>1000.0</froudeLimCondLim>
+      <traitImplicitFrot>false</traitImplicitFrot>
+      <hauteurEauMini>0.005</hauteurEauMini>
+      <implicitNoyauTrans>false</implicitNoyauTrans>
+      <optimisNoyauTrans>false</optimisNoyauTrans>
+      <perteChargeAutoElargissement>true</perteChargeAutoElargissement>
+      <termesNonHydrostatiques>false</termesNonHydrostatiques>
+      <apportDebit>0</apportDebit>
+      <attenuationConvection>false</attenuationConvection>
+    </parametresNumeriques>
+    <parametresTemporels>
+      <pasTemps>10.0</pasTemps>
+      <tempsInit>0.0</tempsInit>
+      <critereArret>2</critereArret>
+      <nbPasTemps>1000</nbPasTemps>
+      <tempsMax>1.0</tempsMax>
+      <pasTempsVar>false</pasTempsVar>
+      <nbCourant>0.8</nbCourant>
+      <coteMax>0.0</coteMax>
+      <abscisseControle>0.0</abscisseControle>
+      <biefControle>1</biefControle>
+    </parametresTemporels>
+    <parametresGeometrieReseau>
+      <geometrie>
+        <fichier>mascaret0.geo</fichier>
+        <format>2</format>
+        <profilsAbscAbsolu>true</profilsAbscAbsolu>
+      </geometrie>
+      <listeBranches>
+        <nb>3</nb>
+        <numeros>1 2 3</numeros>
+        <abscDebut>0.0 7.2 100.0</abscDebut>
+        <abscFin>7.16 10.8 103.0</abscFin>
+        <numExtremDebut>1 3 5</numExtremDebut>
+        <numExtremFin>2 4 6</numExtremFin>
+      </listeBranches>
+      <listeNoeuds>
+        <nb>1</nb>
+        <noeuds>
+          <noeud>
+            <num>2 3 5 0 0</num>
+          </noeud>
+        </noeuds>
+      </listeNoeuds>
+      <extrLibres>
+        <nb>3</nb>
+        <num>1 2 3</num>
+        <numExtrem>1 4 6</numExtrem>
+        <noms>
+          <string>limite1</string>
+          <string>limite4</string>
+          <string>limite6</string>
+        </noms>
+        <typeCond>1 2 1</typeCond>
+        <numLoi>1 3 2</numLoi>
+      </extrLibres>
+    </parametresGeometrieReseau>
+    <parametresConfluents>
+      <nbConfluents>1</nbConfluents>
+      <confluents>
+        <structureParametresConfluent>
+          <nbAffluent>3</nbAffluent>
+          <nom>Noeud1</nom>
+          <abscisses>0.0 0.0 0.0</abscisses>
+          <ordonnees>0.0 0.0 0.0</ordonnees>
+          <angles>0.0 0.0 0.0</angles>
+        </structureParametresConfluent>
+      </confluents>
+    </parametresConfluents>
+    <parametresPlanimetrageMaillage>
+      <methodeMaillage>5</methodeMaillage>
+      <planim>
+        <nbPas>31</nbPas>
+        <nbZones>3</nbZones>
+        <valeursPas>0.01 0.01 0.01</valeursPas>
+        <num1erProf>1 4 7</num1erProf>
+        <numDerProf>3 6 8</numDerProf>
+      </planim>
+      <maillage>
+        <modeSaisie>2</modeSaisie>
+        <sauvMaillage>false</sauvMaillage>
+        <maillageClavier>
+          <nbSections>0</nbSections>
+          <nbPlages>3</nbPlages>
+          <num1erProfPlage>1 4 7</num1erProfPlage>
+          <numDerProfPlage>3 6 8</numDerProfPlage>
+          <pasEspacePlage>0.05 0.05 0.05</pasEspacePlage>
+          <nbZones>0</nbZones>
+        </maillageClavier>
+      </maillage>
+    </parametresPlanimetrageMaillage>
+    <parametresSingularite>
+      <nbSeuils>0</nbSeuils>
+    </parametresSingularite>
+    <parametresApportDeversoirs/>
+    <parametresCalage>
+      <frottement>
+        <loi>1</loi>
+        <nbZone>3</nbZone>
+        <numBranche>1 2 3</numBranche>
+        <absDebZone>0.0 7.2 100.0</absDebZone>
+        <absFinZone>7.16 10.8 103.0</absFinZone>
+        <coefLitMin>62.0 62.0 62.0</coefLitMin>
+        <coefLitMaj>1000.0 1000.0 1000.0</coefLitMaj>
+      </frottement>
+      <zoneStockage>
+        <nbProfils>0</nbProfils>
+        <numProfil>-0</numProfil>
+        <limGauchLitMaj>-0</limGauchLitMaj>
+        <limDroitLitMaj>-0</limDroitLitMaj>
+      </zoneStockage>
+    </parametresCalage>
+    <parametresLoisHydrauliques>
+      <nb>3</nb>
+      <lois>
+        <structureParametresLoi>
+          <nom>loi_1_hydrogramme</nom>
+          <type>1</type>
+          <donnees>
+            <modeEntree>1</modeEntree>
+            <fichier>mascaret0_0.loi</fichier>
+            <uniteTps>-0</uniteTps>
+            <nbPoints>-0</nbPoints>
+            <nbDebitsDifferents>-0</nbDebitsDifferents>
+          </donnees>
+        </structureParametresLoi>
+        <structureParametresLoi>
+          <nom>loi_2_hydrogramme</nom>
+          <type>1</type>
+          <donnees>
+            <modeEntree>1</modeEntree>
+            <fichier>mascaret0_1.loi</fichier>
+            <uniteTps>-0</uniteTps>
+            <nbPoints>-0</nbPoints>
+            <nbDebitsDifferents>-0</nbDebitsDifferents>
+          </donnees>
+        </structureParametresLoi>
+        <structureParametresLoi>
+          <nom>loi_3_limnigramme</nom>
+          <type>2</type>
+          <donnees>
+            <modeEntree>1</modeEntree>
+            <fichier>mascaret0_2.loi</fichier>
+            <uniteTps>-0</uniteTps>
+            <nbPoints>-0</nbPoints>
+            <nbDebitsDifferents>-0</nbDebitsDifferents>
+          </donnees>
+        </structureParametresLoi>
+      </lois>
+    </parametresLoisHydrauliques>
+    <parametresConditionsInitiales>
+      <repriseEtude>
+        <repriseCalcul>false</repriseCalcul>
+      </repriseEtude>
+      <ligneEau>
+        <LigEauInit>true</LigEauInit>
+        <modeEntree>1</modeEntree>
+        <fichLigEau>mascaret0.lig</fichLigEau>
+        <formatFichLig>2</formatFichLig>
+        <nbPts>-0</nbPts>
+      </ligneEau>
+    </parametresConditionsInitiales>
+    <parametresImpressionResultats>
+      <titreCalcul>Etude hydraulique1d</titreCalcul>
+      <impression>
+        <impressionGeometrie>true</impressionGeometrie>
+        <impressionPlanimetrage>true</impressionPlanimetrage>
+        <impressionReseau>false</impressionReseau>
+        <impressionLoiHydraulique>false</impressionLoiHydraulique>
+        <impressionligneEauInitiale>false</impressionligneEauInitiale>
+        <impressionCalcul>false</impressionCalcul>
+      </impression>
+      <pasStockage>
+        <premPasTpsStock>1</premPasTpsStock>
+        <pasStock>1000</pasStock>
+        <pasImpression>1000</pasImpression>
+      </pasStockage>
+      <resultats>
+        <fichResultat>mascaret0.rub</fichResultat>
+        <postProcesseur>1</postProcesseur>
+      </resultats>
+      <listing>
+        <fichListing>mascaret0.lis</fichListing>
+      </listing>
+      <fichReprise>
+        <fichRepriseEcr>mascaret0_ecr.rep</fichRepriseEcr>
+      </fichReprise>
+      <rubens>
+        <ecartInterBranch>1.0</ecartInterBranch>
+      </rubens>
+      <stockage>
+        <option>1</option>
+        <nbSite>0</nbSite>
+      </stockage>
+    </parametresImpressionResultats>
+    <parametresVariablesCalculees>
+      <variablesCalculees>false false false false false false false false false false false false false false false</variablesCalculees>
+    </parametresVariablesCalculees>
+    <parametresVariablesStockees>
+      <variablesStockees>true false false false false true true true false false false false false false false false false false false true false false true false false false false false false false false false false false false false false false false false false false</variablesStockees>
+    </parametresVariablesStockees>
+  </parametresCas>
+</fichierCas>

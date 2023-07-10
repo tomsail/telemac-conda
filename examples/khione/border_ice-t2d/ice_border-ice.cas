@@ -1,0 +1,78 @@
+/----------------------------------------------------------------------
+/
+/ Steering file for the hydrodynamics: KHIONE
+/
+/----------------------------------------------------------------------
+/  FILES
+/----------------------------------------------------------------------
+/
+GEOMETRY FILE                = 'geo_sineflume.slf'
+BOUNDARY CONDITIONS FILE     = 'geo_sineflume.cli'
+RESULTS FILE                 = 'ice_border-ice.slf'
+/
+/----------------------------------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------------------------------
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  =
+'ICETYPE,COV_THT,COV_THS,COV_FC,F1'
+/
+GRAPHIC PRINTOUT PERIOD          = 60
+LISTING PRINTOUT PERIOD          = 60
+/
+/----------------------------------------------------------------------
+/  METEOROLOGY PARAMETERS
+/----------------------------------------------------------------------
+/
+DEWPOINT TEMPERATURE =   0.0
+VISIBILITY           =   1.E9
+RELATIVE MODEL ELEVATION FROM MEAN SEA LEVEL = 0.
+/
+/----------------------------------------------------------------------
+/  HEAT EXCHANGES
+/----------------------------------------------------------------------
+/
+ATMOSPHERE-WATER EXCHANGE MODEL = 0
+SOLAR CONSTANT = 0.
+WATER-AIR HEAT EXCHANGE CONSTANT = -50.
+WATER-AIR HEAT EXCHANGE COEFFICIENT = 20.
+ICE-AIR HEAT EXCHANGE CONSTANT = -32.547
+ICE-AIR HEAT EXCHANGE COEFFICIENT = 12.189
+/
+/----------------------------------------------------------------------
+/  FRAZIL THERMAL GROWTH
+/----------------------------------------------------------------------
+/
+PRESCRIBED FRAZIL CONCENTRATION VALUES  = 0.;0.
+INITIAL FRAZIL CONCENTRATION VALUES = 0.
+SCHEME FOR ADVECTION OF TRACERS = 4
+COEFFICIENT FOR DIFFUSION OF FRAZIL = 0.
+SCHEME OPTION FOR ADVECTION OF TRACERS = 1
+NUSSELT NUMBER = 1.
+FRAZIL CRYSTALS RADIUS = 1.E-4
+FRAZIL CRYSTALS DIAMETER THICKNESS RATIO = 10.
+MODEL FOR FRAZIL SEEDING = 1
+MINIMUM NUMBER OF FRAZIL CRYSTALS = 1000
+/
+/----------------------------------------------------------------------
+/  STATIC BORDER ICE
+/----------------------------------------------------------------------
+/
+BORDER ICE COVER = YES
+CRITICAL VELOCITY FOR STATIC BORDER ICE = 0.07
+CRITICAL WATER TEMPERATURE FOR STATIC BORDER ICE = -1.1
+CHANNEL WIDTH FOR THE COMPUTATION OF SURFACE TEMPERATURE = 25.
+/
+/----------------------------------------------------------------------
+/  INTERACTIONS BETWEEN WATER AND SURFACE ICE
+/----------------------------------------------------------------------
+/
+ICE COVER IMPACT ON HYDRODYNAMIC = YES
+MODEL FOR THE ICE COVER PRESSURE GRADIENT = 0
+/
+/ FRICTION LAW FOR WATER-ICE INTERACTION:
+LAW OF ICE COVER FRICTION = 4 /(Manning)
+ICE FRICTION COEFFICIENT  = 0.02
+/
+/----------------------------------------------------------------------
+/

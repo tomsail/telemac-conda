@@ -1,0 +1,281 @@
+\chapter{Flow in a channel with 2 bridge piers (pildepon)}
+
+\section{Purpose}
+
+This test case shows that \telemac{2D} is able to represent the impact of an
+obstacle on a channel flow.
+It simulates a laminar and very viscous flow in a channel with two cylindrical piers.
+The effect of the flow
+on the piers is assessed with the computation of the Strouhal number.
+
+\section{Description}
+
+\subsection{Geometry}
+
+The channel is 28.5~m long and 20~m wide ($L$ = 28.5~m and $H$ = 20~m) with two
+bridge piers located at $P_1=(-5,4)$, $P_2=(-5,-4)$ and a diameter $D$ of 4~m.
+The geometry is shown in Figure \ref{fig:geo:bridge}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.5\textwidth]}{img/geometry.pdf}
+ \caption{Geometry of the pildepon test case.}
+ \label{fig:geo:bridge}
+\end{figure}
+
+\subsection{Mesh and Bathymetry}
+
+The computational domain is made up by 4,304 triangular elements and 2,280 nodes
+and it is shown in Figure \ref{fig:mesh:bridge}.
+The section is trapezoidal (see the bottom in Figure \ref{fig:mesh:bridge}) and
+the minimum value of the bottom elevation is equal to -4~m in the main channel.
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.45\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Mesh.png}
+\end{minipage}
+\begin{minipage}[t]{0.55\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Bathy.png}
+\end{minipage}
+ \caption{Mesh and bathymetry of the pildepon test case.}
+ \label{fig:mesh:bridge}
+\end{figure}
+
+\subsection{Initial condition}
+
+Initially, water elevation is set to zero as well as velocity.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.7\textwidth]}{../img/bathy.png}
+ \caption{Bathymetry and initial free surface at the inlet of the channel.}
+ \label{fig:init:bridge}
+\end{figure}
+
+\subsection{Boundary conditions}
+
+At the inlet of the channel, we gradually impose as upstream boundary condition
+a flow discharge $Q$ = 62~m$^3$s$^{-1}$, while at the outlet a null free surface
+is imposed, which is also the initial condition.
+On the lateral walls and on the cylinder, slip boundary conditions are imposed.
+
+\subsection{Computation of the Strouhal number}
+
+For this case, neither analytical nor experimental solutions are available, but
+the formation of von Karman vortex is expected behind the piers.
+The validation is performed computing the Strouhal number for the two piers,
+given by the following formula:
+\begin{equation*}
+St=\frac{f_{lift}D}{U}
+\end{equation*}
+where $f_{lift}$ is the lift frequency which usually corresponds to the vortex
+shedding frequency, $D$ is the diameter of the cylinder and $U$ is the average
+free-stream velocity.
+
+%Due to the alternating vortex wake the oscillations in lift force occur at the vortex shedding frequency and oscillations in drag force occur at twice the vortex shedding frequency.
+In order to compute the lift frequency, a FFT (Fast Fourier Transform) has been
+performed on the signal which describes the variation of the force with time.
+The force is computed as:
+\begin{equation*}
+F=\int_0^l\int_0^h \rho~gz \vec{n}~dz~ds,
+\end{equation*}
+where $\rho$ is the water density, $g$ is the acceleration of gravity and
+$\vec{n}$ is the normal vector.
+The integral is performed on the cylinder with boundary $l$ and along the
+vertical direction $z$.\\
+Finally, in order to check the mass coservation of the advection schemes of
+\telemac{2D}, a tracer is released at the inlet with the following boundary condition:
+
+\begin{equation*}
+ c(x=-13.5,y)=\left\{
+\begin{array}{rl}
+ 2~\text{g/L}\quad & \text{if} \quad \frac{H}{2}-9~\leq y \leq \frac{H}{2}-8\\
+ 1~\text{g/L}\quad & \text{otherwise}
+\end{array}\right .
+\end{equation*}
+A free condition is imposed at the outlet. The error on the mass is computed as follows:
+\begin{equation*}
+  \epsilon_{M}= M_{start}+M_{in}-M_{end},
+\end{equation*}
+$M_{\text{start}}=\int_{\Omega}(hc)^nd\Omega$ is the mass at the beginning of
+the simulation, $M_{\text{end}}=\int_{\Omega}(hc)^{n+1}d\Omega$ is the mass at
+the end of the simulation, $M_{\text{in}}=\int_{\Gamma}hc\vec{u}.\vec{n}d\Gamma$
+is the mass introduced (and leaved) by the boundaries;
+where $\Omega$ is the computational domain and $\Gamma$ is its boundary.
+The relative error is computed as:
+\begin{equation*}
+  \epsilon_{rel}=\frac{\epsilon_{M}}{\max(|M_{start}|,|M_{in}|,|M_{end}|)}.
+\end{equation*}
+
+\subsection{Physical parameters}
+
+The bottom friction is described by the Strickler law with a coefficient equal
+to $k_s$ = 40~m$^{1/3}$/s.
+The fluid considered presents a kinematic viscosity $\nu$ = 0.021~m$^2$/s.
+The average flow velocity in the upstream undisturbed field is
+about $U$ = 0.95~m/s.
+Taking into account the diameter of the cylindrical pier, the Reynolds number is
+$Re = UD/\nu$ = 180.
+
+\subsection{Numerical parameters}
+\label{sec:num}
+To perform an appropriate analysis on several cycles, the simulation time is set
+to 1,200~s (= 20~min).
+Three different numerical configurations are tested with the following parameters:
+\begin{table}[H]
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|c|c|c|c|c|c|}
+      \hline Case & Equations & Advection scheme for $U$ & Element for $H$/$U$ & Solver & Time step / Desired CFL \\
+      \hline A & Wave Eq. FE & Characteristics & P1/P1 & CG & 0.1~s / - \\
+      \hline B & Saint-Venant FE & Characteristics & P1/P2 & GMRES & 0.1~s / - \\
+      \hline C & Saint-Venant FV & Kinetic order 2 & - & - & - /0.9 \\
+      \hline
+    \end{tabular}
+  }
+  \caption{List of the simulation parameters used for the six cases tested in the pildepon example.}
+  \label{tab:pildepon:cases}
+\end{table}
+
+For finite element schemes the treatment of the linear system is set to wave
+equation (\telkey{TREATMENT OF THE LINEAR SYSTEM} = 2) and the solver accuracy
+is set to 10$^{-5}$.
+For the tracer, all the advection schemes of \telemac{2D} are tested in the
+configuration A.
+In the case of the predictor-corrector schemes, the number of corrections is set
+to 5; for the LIPS schemes, the number of sub-steps is equal to 10 and the
+accuracy for diffusion of tracers is set to $10^{-10}$.
+It is important to note that the last parameter is used even if the keyword
+\telkey{DIFFUSION OF TRACERS} is set to NO.
+Indeed, when using the LIPS schemes, a linear system has to be solved and this
+parameter defines the accuracy of the solver.
+
+
+\section{Results}
+
+\subsection{First observation}
+
+The velocity norm iso-contour map is presented at initial time and final time
+in Figure \ref{fig:res:velocity}.
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Velocity_t1.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Velocity_tf.png}
+\end{minipage}
+ \caption{Velocity norm at the beginning and at the end of the simulation.}
+ \label{fig:res:velocity}
+\end{figure}
+
+%Velocity vectors are plotted on figure \ref{fig:res:vectors}.
+%\begin{figure}[H]
+% \centering
+% \includegraphicsmaybe{[width=0.8\textwidth]}{../img/Velocity_arrows.png}
+% \caption{Velocity vectors}
+% \label{fig:res:vectors}
+%\end{figure}
+
+\subsection{Comparison of numerical schemes}
+
+Comparison of free surface and velocity are presented in Figure
+\ref{fig:res:comparison} at $t$ = 1000~s.
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/FS_VNV_1.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Velocity_VNV_1.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/FS_VNV_2.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Velocity_VNV_2.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/FS_VNV_3.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Velocity_VNV_3.png}
+\end{minipage}
+ \caption{Free surface (left) and velocity norm (right) at $t$ = 1,000~s.}
+ \label{fig:res:comparison}
+\end{figure}
+
+
+\subsection{Computation of the Strouhal number}
+
+In Figures \ref{fig:res:fft1}, \ref{fig:res:fft2} and \ref{fig:res:fft3} are
+plotted the fast Fourier transforms of the lift force for each cases considered
+in subsection \ref{sec:num}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/force_P1.png}
+ \caption{Fast Fourier transform of the lift force on the piers in case A.}
+ \label{fig:res:fft1}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/force_P2.png}
+ \caption{Fast Fourier transform of the lift force on the piers in case B.}
+ \label{fig:res:fft2}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/force_vf.png}
+ \caption{Fast Fourier transform of the lift force on the piers in case C.}
+ \label{fig:res:fft3}
+\end{figure}
+
+The Strouhal number obtained for the different numerical configurations are
+presented in the following table:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|}
+\\ \hline CASE A \\ CASE B \\ CASE C
+\end{tabular}%
+\begin{tabular}{c|c}
+  Strouhal for upper pier & Strouhal for lower pier \\
+\hline
+\InputIfFileExists{../img/table.txt}{}{}\\
+\end{tabular}
+\label{t2d:bridge:tab1}
+\caption{Pildepon test case: Strouhal number for the upper and lower piers according to the different numerical configurations.}
+\end{table}
+
+\subsection{Mass balance}
+
+The mass balance at the end of the simulation according to the different
+advection schemes are presented in the following table:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l|}
+\\ \hline Strong Char. \\ N  \\ N PC1 \\ N PC2 \\ PSI \\ PSI PC1 \\ PSI PC2 \\ PSI LIPS \\ NERD
+\end{tabular}%
+\begin{tabular}{c|c|c|c|c}
+   $M_{\text{start}}$&  $M_{\text{end}}$ & $M_{\text{in}}$ & $\epsilon_{M}$ & $\epsilon_{rel}$\\
+\hline
+\InputIfFileExists{../img/massb_A.txt}{}{}\\
+\end{tabular}
+\label{t2d:bridge:balance}
+\caption{Pildepon test case: mass balance for the different advection schemes.}
+\end{table}
+
+It can be noted that only the characteristics are not mass conservative.

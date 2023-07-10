@@ -1,0 +1,107 @@
+\chapter{One way chaining with DELWAQ (delwaq)}
+
+\section{Description}
+
+This test demonstrates the availability of \telemac{3D} to be chained
+with DELWAQ, the water quality software from Deltares.
+This is a one way-chaining by files.
+
+A 20~m wide and 28.5~m long prismatic channel with trapezoidal cross-section
+contains bridge-like obstacles in one cross-section made of two abutments and two
+circular 4~m diameter piles (see Figure \ref{t3d:delwaq:fig:Bottom}).
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/Bottom.png}
+ \caption{Bottom elevation.}
+ \label{t3d:delwaq:fig:Bottom}
+\end{figure}
+
+The flow resulting from steady state boundary conditions is studied.
+The deepest water depth is 4~m.
+The hydrodynamic part is similar to the pildepon test case.
+The tracer used is temperature.
+
+\subsection{Initial and boundary conditions}
+
+The computation is initialised with a constant elevation equal to 0~m,
+no velocity and a uniform temperature at 0.
+
+The boundary conditions are:
+\begin{itemize}
+\item For the solid walls, a slip condition on channel banks is used for the
+velocities,
+\item On the bottom, a Strickler law with friction coefficient equal to
+40~m$^{1/3}$/s is prescribed
+and imposed uniform profile of temperature over the vertical along
+a segment equal to 1,
+\item Upstream a flowrate equal to 62~m$^3$/s is prescribed,
+linearly increasing from 0 to 62~m$^3$/s during the first 10~s,
+\item Downstream the water level is equal to 0~m.
+\end{itemize}
+
+\subsection{Mesh and numerical parameters}
+
+The 2D mesh (Figure \ref{t3d:delwaq:fig:meshH})
+is made of 4,304 triangular elements (2,280 nodes).
+6 planes are regularly spaced on the vertical (see Figure \ref{t3d:delwaq:fig:meshV}).
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/MeshH.png}
+ \caption{Horizontal mesh.}
+ \label{t3d:delwaq:fig:meshH}
+\end{figure}
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/MeshV.png}
+ \caption{Initial vertical mesh.}
+ \label{t3d:delwaq:fig:meshV}
+\end{figure}
+
+The time step is 0.1~s for a simulated period of 5~s.
+
+The non-hydrostatic version is used.
+To solve the advection, the LIPS scheme (default value)
+is used for the velocities and tracers (scheme 5 + scheme option 4).
+The conjugate gradient
+is used for solving the propagation step (option 1) and
+the implicitation coefficients
+for depth and velocities are respectively equal to 0.6 and 0.55
+(= default value for velocity).
+
+\subsection{Physical parameters}
+
+A mixing length model is used to model turbulence over the vertical
+while a constant horizontal viscosity for velocity equal to 0.005~m$^2$/s is
+chosen.
+
+\section{Results}
+
+Figure \ref{t3d:delwaq:FreeSurf} shows the free surface elevation at the end of
+the computation.
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurface.png}
+  \caption{Free surface at final time step.}
+  \label{t3d:delwaq:FreeSurf}
+\end{figure}
+
+Figure \ref{t3d:delwaq:Velo} shows the magnitude of velocity at the end of the
+computation.
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityH.png}
+  \caption{Velocity magnitude at the surface at final time step.}
+  \label{t3d:delwaq:Velo}
+\end{figure}
+
+If running DELWAQ with the DELWAQ result files written by \telemac{3D}, the
+velocity results are similar with both codes.
+
+\section{Conclusion}
+
+\telemac{3D} can be used to chain with DELWAQ.

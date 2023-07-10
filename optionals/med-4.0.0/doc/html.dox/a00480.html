@@ -1,0 +1,548 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: c/2.3.2v3.0/test11.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">c/2.3.2v3.0/test11.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/******************************************************************************</span></div>
+<div class="line"><span class="comment"> * - Nom du fichier : test11.c</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * - Description : lecture de champs de resultats MED</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *****************************************************************************/</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="a00591.html">med_utils.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#ifdef DEF_LECT_ECR</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_RDWR</span></div>
+<div class="line"><span class="preprocessor">#elif DEF_LECT_AJOUT</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_RDEXT</span></div>
+<div class="line"><span class="preprocessor">#else</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_ACC_CREAT</span></div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#ifndef USER_INTERLACE</span></div>
+<div class="line"><span class="preprocessor">#define USER_INTERLACE MED_FULL_INTERLACE</span></div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#define USER_MODE MED_COMPACT_PFLMODE</span></div>
+<div class="line"></div>
+<div class="line"><a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> <a name="a0"></a><a class="code" href="a00859_a04f094649b2e322a80036f52a4e866a1.html#a04f094649b2e322a80036f52a4e866a1">getFieldsOn</a>(<a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid, <span class="keywordtype">char</span> * nomcha, <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cd">med_field_type</a> typcha, <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncomp,</div>
+<div class="line">                    <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470">med_entity_type</a> entite, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37d">med_switch_mode</a> stockage, <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncstp);</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a name="a1"></a><a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">{</div>
+<div class="line">  <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> ret,lret;</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line">  <span class="keywordtype">char</span> * fichier = NULL;</div>
+<div class="line">  <span class="keywordtype">char</span> maa[<a name="a2"></a><a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> desc[<a name="a3"></a><a class="code" href="a00577_ab69710ecf9f5257080a943579852d0f0.html#ab69710ecf9f5257080a943579852d0f0">MED_COMMENT_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> pflname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>,nomlien[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> _meshname [<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> _dtunit [<a name="a4"></a><a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> locname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> * lien = NULL;</div>
+<div class="line">  <span class="keywordtype">char</span> *comp= NULL, *unit= NULL;</div>
+<div class="line">  <span class="keywordtype">char</span> nomcha  [<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> mdim=0,sdim=0,ncomp,ncha,npro,nln,pflsize,*pflval,nval;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> _ncstp=0,ngauss=0,nloc=0,locsdim=0,lnsize=0;</div>
+<div class="line">  <span class="keywordtype">int</span> t1,t2,t3;</div>
+<div class="line">  <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cd">med_field_type</a>    typcha;</div>
+<div class="line">  <a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> type_geo;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *refcoo, *gscoo, *wg;</div>
+<div class="line">  <span class="keywordtype">int</span> i,j;</div>
+<div class="line">  <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a> _local;</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordtype">char</span> dtunit[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> nomcoo[3*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> unicoo[3*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> geointerpname[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> ipointstructmeshname[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a821a4dd94c5c6b095318432bdec8d8a1.html#a821a4dd94c5c6b095318432bdec8d8a1">med_mesh_type</a> type;</div>
+<div class="line">  <a class="code" href="a00577_a5b97067a30629cd60470d074691d6798.html#a5b97067a30629cd60470d074691d6798">med_sorting_type</a> sort;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nstep=0;</div>
+<div class="line">  <a class="code" href="a00577_a57867e4bed1d104c865cfc9d23c9204d.html#a57867e4bed1d104c865cfc9d23c9204d">med_axis_type</a> rep;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nsectionmeshcell;</div>
+<div class="line">  <a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> sectiongeotype;</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">if</span> (argc != 2) {</div>
+<div class="line">    <a name="a5"></a><a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Aucun nom de fichier precise, fichier test10.med utilise &quot;</span>);</div>
+<div class="line">    fichier = <span class="stringliteral">&quot;test10.med&quot;</span>;</div>
+<div class="line">  } <span class="keywordflow">else</span> {</div>
+<div class="line">    fichier = argv[1];</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ouverture du fichier med */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((fid = <a name="a6"></a><a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(fichier,<a name="a7"></a><a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85a616bf8345c622a34f0787f42eb400f25">MED_ACC_RDONLY</a>)) &lt; 0){</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ouverture du fichier : &quot;</span>);<a name="a8"></a><a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(fichier);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  ret = 0;</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"> <span class="comment">/* Lecture des infos concernant le premier maillage */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( <a name="a9"></a><a class="code" href="a01055_ga71e0d79fbb40abdc9c20bc5be01441ac.html#ga71e0d79fbb40abdc9c20bc5be01441ac">MEDmeshInfo</a>( fid, 1,  maa, &amp;sdim, &amp;mdim, &amp;type, desc, dtunit, &amp;sort,</div>
+<div class="line">                    &amp;nstep,  &amp;rep, nomcoo,unicoo) &lt; 0 ) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des informations sur le maillage : &quot;</span>);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  } <span class="keywordflow">else</span> {</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Maillage de nom : |%s| , de dimension : %d , et de type %d\n&quot;</span>,maa,mdim,type);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;\t -Dimension de l&#39;espace : %d\n&quot;</span>,sdim);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;\t -Description du maillage : %s\n&quot;</span>,desc);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;\t -Noms des axes : |%s|\n&quot;</span>,nomcoo);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;\t -Unités des axes : |%s|\n&quot;</span>,unicoo);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;\t -Type de repère : %d\n&quot;</span>,rep);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;\t -Nombre d&#39;étapes de calcul : %d\n&quot;</span>,nstep);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;\t -Unité des dates : |%s|\n&quot;</span>,dtunit);</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* combien de champs dans le fichier */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((ncha = <a name="a10"></a><a class="code" href="a01048_ga0d8be6c1b6b24ff150a5adcb58831d93.html#ga0d8be6c1b6b24ff150a5adcb58831d93">MEDnField</a>(fid)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Impossible de lire le nombre de champs : &quot;</span>);<a name="a11"></a><a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(ncha);</div>
+<div class="line">    <span class="keywordflow">return</span> ncha;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  printf(<span class="stringliteral">&quot;Nombre de champs : &quot;</span><a name="a12"></a><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot; \n&quot;</span>,ncha);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* lecture de tous les champs  */</span></div>
+<div class="line">  <span class="keywordflow">for</span> (i =0;i&lt;ncha;i++) {</div>
+<div class="line">    lret = 0;</div>
+<div class="line">    printf(<span class="stringliteral">&quot;\nChamp numero : %d \n&quot;</span>,i+1);</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/* Lecture du nombre de composantes */</span></div>
+<div class="line">    <span class="keywordflow">if</span> ((ncomp = <a name="a13"></a><a class="code" href="a01048_gabe6258ebc74592af81c9b51379b7b7af.html#gabe6258ebc74592af81c9b51379b7b7af">MEDfieldnComponent</a>(fid,i+1)) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture du nombre de composantes : &quot;</span>); <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(ncomp);</div>
+<div class="line">      ret = -1; <span class="keywordflow">continue</span>;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/* Lecture du type du champ, des noms des composantes et du nom de l&#39;unite*/</span></div>
+<div class="line">    comp = (<span class="keywordtype">char</span>*) malloc(ncomp*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1);</div>
+<div class="line">    <a name="a14"></a><a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(comp == NULL,NULL,NULL);</div>
+<div class="line">    unit = (<span class="keywordtype">char</span>*) malloc(ncomp*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1);</div>
+<div class="line">    <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(unit == NULL,NULL,NULL);</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> ( <a name="a15"></a><a class="code" href="a01048_gaf2169b6d6505a28d7ee5f8599d2fb25e.html#gaf2169b6d6505a28d7ee5f8599d2fb25e">MEDfieldInfo</a>(fid,i+1,nomcha,_meshname,&amp;_local,&amp;typcha,comp,unit,_dtunit,&amp;_ncstp) &lt; 0 ) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la demande d&#39;information sur les champs : &quot;</span>);</div>
+<div class="line">      <a name="a16"></a><a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(i+1);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha);<a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(typcha);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(comp);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(unit);</div>
+<div class="line">      <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(ncomp);</div>
+<div class="line">      ret = -1; <span class="keywordflow">continue</span>;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">    printf(<span class="stringliteral">&quot;Nom du champ : |%s| de type %d\n&quot;</span>,nomcha,typcha);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Nom des composantes : |%s|\n&quot;</span>,comp);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Unites des composantes : |%s| \n&quot;</span>,unit);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Unites des dates  : |%s| \n&quot;</span>,_dtunit);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Le maillage associé est |%s|\n&quot;</span>,_meshname);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Nombre de séquences de calcul |%d|\n&quot;</span>,_ncstp);</div>
+<div class="line"></div>
+<div class="line">      <span class="comment">/* Le maillage reference est-il porte par un autre fichier */</span></div>
+<div class="line">    <span class="keywordflow">if</span> ( !_local ) {</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> ( (lnsize=<a name="a17"></a><a class="code" href="a01053_ga8b2e785cb3126e02569c8b4f5564cd3d.html#ga8b2e785cb3126e02569c8b4f5564cd3d">MEDlinkInfoByName</a>(fid,_meshname) ) &lt; 0 )  {</div>
+<div class="line">        <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture de la taille du lien : &quot;</span>);</div>
+<div class="line">        <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(_meshname);</div>
+<div class="line">        ret = -1;</div>
+<div class="line">      } <span class="keywordflow">else</span> {</div>
+<div class="line"></div>
+<div class="line">          lien = malloc(lnsize*<span class="keyword">sizeof</span>(<span class="keywordtype">char</span>));</div>
+<div class="line">          <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(lien == NULL,NULL,NULL);</div>
+<div class="line"></div>
+<div class="line">          <span class="keywordflow">if</span> ( <a name="a18"></a><a class="code" href="a01053_gabdf9a46ed125db6ae1df407e7bf1342d.html#gabdf9a46ed125db6ae1df407e7bf1342d">MEDlinkRd</a>(fid,_meshname, lien) &lt; 0 )  {</div>
+<div class="line">            <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture du lien : &quot;</span>);</div>
+<div class="line">            <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(_meshname);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(lien);</div>
+<div class="line">            ret = -1;</div>
+<div class="line">          } <span class="keywordflow">else</span> {</div>
+<div class="line">            printf(<span class="stringliteral">&quot;\tLe maillage |%s| est porte par un fichier distant |%s|\n&quot;</span>,_meshname,lien);</div>
+<div class="line">          }</div>
+<div class="line">          free(lien);</div>
+<div class="line">        }</div>
+<div class="line">      }</div>
+<div class="line">    </div>
+<div class="line">    free(comp);</div>
+<div class="line">    free(unit);</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">/*TODO : Créer les API30 spécifiques pour la lecture de champs multi-maillages*/</span></div>
+<div class="line">    <span class="keywordflow">if</span> (strcmp(nomcha,<span class="stringliteral">&quot;champ entier&quot;</span>)) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;There is no API yest for reading field on multiple meshes&quot;</span>); <span class="keywordflow">continue</span>;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    lret = <a class="code" href="a00859_a04f094649b2e322a80036f52a4e866a1.html#a04f094649b2e322a80036f52a4e866a1">getFieldsOn</a>(fid, nomcha, typcha, ncomp, <a name="a19"></a><a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f">MED_NODE</a>, <a name="a20"></a><a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,_ncstp );</div>
+<div class="line">    </div>
+<div class="line">    <span class="keywordflow">if</span> (lret == 0) lret = <a class="code" href="a00859_a04f094649b2e322a80036f52a4e866a1.html#a04f094649b2e322a80036f52a4e866a1">getFieldsOn</a>(fid, nomcha, typcha, ncomp, <a name="a21"></a><a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, <a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,_ncstp );</div>
+<div class="line">    <span class="keywordflow">else</span> { <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des champs aux noeuds &quot;</span>); ret = -1; <span class="keywordflow">continue</span>;}</div>
+<div class="line">   </div>
+<div class="line">    <span class="keywordflow">if</span> (lret == 0) lret = <a class="code" href="a00859_a04f094649b2e322a80036f52a4e866a1.html#a04f094649b2e322a80036f52a4e866a1">getFieldsOn</a>(fid, nomcha, typcha, ncomp, <a name="a22"></a><a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a9168c75d6fb79842aeb30740f5146d25">MED_DESCENDING_FACE</a>,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,_ncstp);</div>
+<div class="line">    <span class="keywordflow">else</span> { <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des champs aux mailles &quot;</span>); ret = -1; <span class="keywordflow">continue</span>;}</div>
+<div class="line">   </div>
+<div class="line">    <span class="keywordflow">if</span> (lret == 0) lret = <a class="code" href="a00859_a04f094649b2e322a80036f52a4e866a1.html#a04f094649b2e322a80036f52a4e866a1">getFieldsOn</a>(fid, nomcha, typcha, ncomp, <a name="a23"></a><a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470aecea01a443c5512ff49ddba9f992aa0e">MED_DESCENDING_EDGE</a>,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,_ncstp);</div>
+<div class="line">    <span class="keywordflow">else</span> {<a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des champs aux faces &quot;</span>); ret = -1; <span class="keywordflow">continue</span>;}</div>
+<div class="line">    </div>
+<div class="line">    <span class="keywordflow">if</span> (lret == 0) lret = <a class="code" href="a00859_a04f094649b2e322a80036f52a4e866a1.html#a04f094649b2e322a80036f52a4e866a1">getFieldsOn</a>(fid, nomcha, typcha, ncomp, <a name="a24"></a><a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a809ee1b85589bf7c0cf796b7212abc25">MED_NODE_ELEMENT</a>,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,_ncstp);</div>
+<div class="line">    <span class="keywordflow">else</span> {<a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des champs aux aretes&quot;</span>); ret = -1; <span class="keywordflow">continue</span>;}</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">/*TODO */</span></div>
+<div class="line"><span class="comment">/*     if (lret == 0) lret = getFieldsOn(fid, nomcha, typcha, ncomp, MED_STRUCT_ELEMENT,USER_INTERLACE,_ncstp); */</span></div>
+<div class="line"><span class="comment">/*     else {MESSAGE(&quot;Erreur a la lecture des champs aux éléments de structure&quot;); ret = -1; continue;} */</span></div>
+<div class="line">    </div>
+<div class="line">    <span class="keywordflow">if</span>  (lret != 0) {<a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des champs aux noeuds des mailles &quot;</span>); ret = -1;};</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Interrogation des profils */</span></div>
+<div class="line">  npro = <a name="a25"></a><a class="code" href="a01057_ga984674c8806c7374a95cd451219f8e81.html#ga984674c8806c7374a95cd451219f8e81">MEDnProfile</a>(fid);</div>
+<div class="line"></div>
+<div class="line">  printf(<span class="stringliteral">&quot;\nNombre de profils stockes : &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot;\n\n&quot;</span>,npro);</div>
+<div class="line">  <span class="keywordflow">for</span> (i=1 ; i &lt;= npro ; i++ ) {</div>
+<div class="line">    <span class="keywordflow">if</span> ( <a name="a26"></a><a class="code" href="a01057_ga58f36a5e3b4fb4a2e510b421c6608102.html#ga58f36a5e3b4fb4a2e510b421c6608102">MEDprofileInfo</a>(fid, i, pflname, &amp;nval) &lt; 0)  {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la demande d&#39;information sur le profil n° : &quot;</span>); <a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(i);</div>
+<div class="line">      ret = -1;<span class="keywordflow">continue</span>;</div>
+<div class="line">    }</div>
+<div class="line">    printf(<span class="stringliteral">&quot;\t- Profil n°%i de nom |%s| et de taille &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot;\n&quot;</span>,i,pflname,nval);</div>
+<div class="line">    pflval = (<a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>*) malloc(<span class="keyword">sizeof</span>(<a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>)*nval);</div>
+<div class="line">    <span class="keywordflow">if</span> ( <a name="a27"></a><a class="code" href="a01057_ga93bec578fad63ceaaae0d7ea511d7a3e.html#ga93bec578fad63ceaaae0d7ea511d7a3e">MEDprofileRd</a>(fid, pflname, pflval) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des valeurs du profil : &quot;</span>);</div>
+<div class="line">      <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(pflname);</div>
+<div class="line">      ret = -1;</div>
+<div class="line">    } <span class="keywordflow">else</span> {</div>
+<div class="line">      printf(<span class="stringliteral">&quot;\t&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">for</span> (j=0;j&lt;nval;j++) printf(<span class="stringliteral">&quot; &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot; &quot;</span>,*(pflval+j));</div>
+<div class="line">      printf(<span class="stringliteral">&quot;\n\n&quot;</span>);</div>
+<div class="line">    }</div>
+<div class="line">    free(pflval);</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Interrogation des liens */</span></div>
+<div class="line">  nln = <a name="a28"></a><a class="code" href="a01053_gafa53d1b44d84d4253e83af686857715d.html#gafa53d1b44d84d4253e83af686857715d">MEDnLink</a>(fid);</div>
+<div class="line"></div>
+<div class="line">  printf(<span class="stringliteral">&quot;\nNombre de liens stockes : &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot;\n\n&quot;</span>,nln);</div>
+<div class="line">  <span class="keywordflow">for</span> (i=1 ; i &lt;= nln ; i++ ) {</div>
+<div class="line">    <span class="keywordflow">if</span> ( <a name="a29"></a><a class="code" href="a01053_ga01f23204f72d19459c7c96b4b91b018e.html#ga01f23204f72d19459c7c96b4b91b018e">MEDlinkInfo</a>(fid, i, nomlien, &amp;nval) &lt; 0)  {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la demande d&#39;information sur le lien n° : &quot;</span>); <a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(i);</div>
+<div class="line">      ret = -1;<span class="keywordflow">continue</span>;</div>
+<div class="line">    }</div>
+<div class="line">    printf(<span class="stringliteral">&quot;\t- Lien n°%i de nom |%s| et de taille &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot;\n&quot;</span>,i,nomlien,nval);</div>
+<div class="line"></div>
+<div class="line">    lien = malloc((nval+1)*<span class="keyword">sizeof</span>(<span class="keywordtype">char</span>));</div>
+<div class="line">    <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(lien == NULL,NULL,NULL);</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> ( <a class="code" href="a01053_gabdf9a46ed125db6ae1df407e7bf1342d.html#gabdf9a46ed125db6ae1df407e7bf1342d">MEDlinkRd</a>(fid, nomlien, lien ) &lt; 0 )  {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture du lien : &quot;</span>);</div>
+<div class="line">      <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomlien);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(lien);</div>
+<div class="line">      ret = -1;</div>
+<div class="line">    } <span class="keywordflow">else</span> {</div>
+<div class="line">      lien[nval] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line">      printf(<span class="stringliteral">&quot;\t\t|%s|\n\n&quot;</span>,lien);</div>
+<div class="line">    }</div>
+<div class="line">    free(lien);</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Interrogation des localisations des points de GAUSS */</span></div>
+<div class="line">  nloc = <a name="a30"></a><a class="code" href="a01054_ga20dffbd06dc5272536b66fc6071be154.html#ga20dffbd06dc5272536b66fc6071be154">MEDnLocalization</a>(fid);</div>
+<div class="line"></div>
+<div class="line">  printf(<span class="stringliteral">&quot;\nNombre de localisations stockees : &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot;\n\n&quot;</span>,nloc);</div>
+<div class="line">  <span class="keywordflow">for</span> (i=1 ; i &lt;= nloc ; i++ ) {</div>
+<div class="line">    <span class="keywordflow">if</span> ( <a name="a31"></a><a class="code" href="a01054_gac03d0ad34b8c2263d77795919fd0f1a3.html#gac03d0ad34b8c2263d77795919fd0f1a3">MEDlocalizationInfo</a>(fid, i, locname, &amp;type_geo, &amp;locsdim,&amp;ngauss,</div>
+<div class="line">                             geointerpname, ipointstructmeshname,</div>
+<div class="line">                             &amp;nsectionmeshcell,&amp;sectiongeotype) &lt; 0)  {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la demande d&#39;information sur la localisation n° : &quot;</span>); <a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(i);</div>
+<div class="line">      ret = -1;<span class="keywordflow">continue</span>;</div>
+<div class="line">    }</div>
+<div class="line">    printf(<span class="stringliteral">&quot;\t- Loc. n°%i de nom |%s| de dimension %i avec &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot; pts de GAUSS \n&quot;</span>,i,locname,locsdim,ngauss);</div>
+<div class="line">    t1 = (type_geo%100)*(type_geo/100);</div>
+<div class="line">    t2 = ngauss*(type_geo/100);</div>
+<div class="line">    t3 = ngauss;</div>
+<div class="line">    refcoo = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) malloc(<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>)*t1 );</div>
+<div class="line">    gscoo  = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) malloc(<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>)*t2 );</div>
+<div class="line">    wg     = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) malloc(<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>)*t3 );</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> ( <a name="a32"></a><a class="code" href="a01054_ga613df7c12919f60dc27d49ff8f1f35a3.html#ga613df7c12919f60dc27d49ff8f1f35a3">MEDlocalizationRd</a>(fid, locname, <a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>, refcoo, gscoo, wg  ) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des valeurs de la localisation : &quot;</span>);</div>
+<div class="line">      <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(locname);</div>
+<div class="line">      ret = -1;</div>
+<div class="line">    } <span class="keywordflow">else</span> {</div>
+<div class="line">      printf(<span class="stringliteral">&quot;\t  Coordonnees de l&#39;element de reference de type %i :\n\t\t&quot;</span>,type_geo);</div>
+<div class="line">      <span class="keywordflow">for</span> (j=0;j&lt;t1;j++) printf(<span class="stringliteral">&quot; %f &quot;</span>,*(refcoo+j));</div>
+<div class="line">      printf(<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line">      printf(<span class="stringliteral">&quot;\t  Localisation des points de GAUSS : \n\t\t&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">for</span> (j=0;j&lt;t2;j++) printf(<span class="stringliteral">&quot; %f &quot;</span>,*(gscoo+j));</div>
+<div class="line">      printf(<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line">      printf(<span class="stringliteral">&quot;\t  Poids associes aux points de GAUSS :\n\t\t&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">for</span> (j=0;j&lt;t3;j++) printf(<span class="stringliteral">&quot; %f &quot;</span>,*(wg+j));</div>
+<div class="line">      printf(<span class="stringliteral">&quot;\n\n&quot;</span>);</div>
+<div class="line">    }</div>
+<div class="line">    free(refcoo);</div>
+<div class="line">    free(gscoo);</div>
+<div class="line">    free(wg);</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* fermeture du fichier */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( <a name="a33"></a><a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid) &lt; 0) <span class="keywordflow">return</span> -1;</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> ret;</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> <a class="code" href="a00859_a04f094649b2e322a80036f52a4e866a1.html#a04f094649b2e322a80036f52a4e866a1">getFieldsOn</a>(<a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid, <span class="keywordtype">char</span> * nomcha, <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cd">med_field_type</a> typcha, <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncomp,</div>
+<div class="line">                    <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470">med_entity_type</a> entite, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37d">med_switch_mode</a> stockage, <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncstp) {</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordtype">int</span> j,k,l,m,n,nb_geo=0;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nbpdtnor=0,pflsize,*pflval,ngauss=0,ngroup,*vale=NULL,nval;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> numdt=0,numo=0,_nprofile;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *valr=NULL,dt=0.0;</div>
+<div class="line">  <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> ret=0;</div>
+<div class="line">  <span class="keywordtype">char</span> pflname [<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> locname [<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> * lien = NULL;</div>
+<div class="line">  <span class="keywordtype">char</span> dt_unit [<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;unknown&quot;</span>;</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> * type_geo;</div>
+<div class="line"></div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> * AFF;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> * <span class="keyword">const</span> * AFF_ENT=<a name="a34"></a><a class="code" href="a00690_ad72c4ec2628b95b86e62e893bdfc4d3a.html#ad72c4ec2628b95b86e62e893bdfc4d3a">MED_GET_ENTITY_TYPENAME</a>+1;</div>
+<div class="line">  <span class="keywordflow">switch</span> (entite) {</div>
+<div class="line">  <span class="keywordflow">case</span> <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f">MED_NODE</a> :</div>
+<div class="line">    type_geo = <a name="a35"></a><a class="code" href="a00690_a9afaa32b2a595015d236efffd6a6b8f1.html#a9afaa32b2a595015d236efffd6a6b8f1">MED_GET_NODE_GEOMETRY_TYPE</a>;</div>
+<div class="line">    nb_geo   = <a name="a36"></a><a class="code" href="a00577_a94482e307ec77322dcfd9bde0e8f705f.html#a94482e307ec77322dcfd9bde0e8f705f">MED_N_NODE_FIXED_GEO</a>;</div>
+<div class="line">    AFF      = <a name="a37"></a><a class="code" href="a00690_a80fceccb749c149ed5226f53596182e2.html#a80fceccb749c149ed5226f53596182e2">MED_GET_NODE_GEOMETRY_TYPENAME</a>;</div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line">  <span class="keywordflow">case</span>  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a> :</div>
+<div class="line">  <span class="keywordflow">case</span>  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a809ee1b85589bf7c0cf796b7212abc25">MED_NODE_ELEMENT</a> :</div>
+<div class="line">    type_geo = <a name="a38"></a><a class="code" href="a00690_a54c2e34174a890046d0a204fa1a918a8.html#a54c2e34174a890046d0a204fa1a918a8">MED_GET_CELL_GEOMETRY_TYPE</a>;</div>
+<div class="line">    nb_geo   = <a name="a39"></a><a class="code" href="a00577_abd42d91233c317ca8eb9b592e4502053.html#abd42d91233c317ca8eb9b592e4502053">MED_N_CELL_FIXED_GEO</a>;</div>
+<div class="line">    AFF      = <a name="a40"></a><a class="code" href="a00690_af132d1ce1d5887f7a690eae70010a9e6.html#af132d1ce1d5887f7a690eae70010a9e6">MED_GET_CELL_GEOMETRY_TYPENAME</a>;</div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line">  <span class="keywordflow">case</span>  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a9168c75d6fb79842aeb30740f5146d25">MED_DESCENDING_FACE</a> :</div>
+<div class="line">    type_geo = <a name="a41"></a><a class="code" href="a00690_afd26706c57b29262890b417e48a360e6.html#afd26706c57b29262890b417e48a360e6">MED_GET_FACE_GEOMETRY_TYPE</a>;</div>
+<div class="line">    nb_geo   = <a name="a42"></a><a class="code" href="a00577_ab0fae842b07280cb7fb20f10a68076ee.html#ab0fae842b07280cb7fb20f10a68076ee">MED_N_FACE_FIXED_GEO</a>;</div>
+<div class="line">    AFF      = <a name="a43"></a><a class="code" href="a00690_ab2c7c692304448d9b705889ade145e56.html#ab2c7c692304448d9b705889ade145e56">MED_GET_FACE_GEOMETRY_TYPENAME</a>;</div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line">  <span class="keywordflow">case</span>  <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470aecea01a443c5512ff49ddba9f992aa0e">MED_DESCENDING_EDGE</a> :</div>
+<div class="line">    type_geo = <a name="a44"></a><a class="code" href="a00690_a824a6a6383128fcc9df409d0d12cfef0.html#a824a6a6383128fcc9df409d0d12cfef0">MED_GET_EDGE_GEOMETRY_TYPE</a>;</div>
+<div class="line">    nb_geo   = <a name="a45"></a><a class="code" href="a00577_abc947dde9b1b8982162dde8888a79ab4.html#abc947dde9b1b8982162dde8888a79ab4">MED_N_EDGE_FIXED_GEO</a>;</div>
+<div class="line">    AFF      = <a name="a46"></a><a class="code" href="a00690_ac7b61e15c064e78b7cec77aeabd7532e.html#ac7b61e15c064e78b7cec77aeabd7532e">MED_GET_EDGE_GEOMETRY_TYPENAME</a>;</div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">for</span> (k=1;k&lt;=nb_geo;k++) {</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/* Combien de (PDT,NOR) a lire */</span></div>
+<div class="line">    nbpdtnor = ncstp;</div>
+<div class="line">    <span class="keywordflow">if</span> (nbpdtnor &lt; 1 ) <span class="keywordflow">continue</span>;</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">for</span> (j=0;j&lt;nbpdtnor;j++) {</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> ( <a name="a47"></a><a class="code" href="a01048_ga5b0031d3002518f1b2e134ff8c03dbc5.html#ga5b0031d3002518f1b2e134ff8c03dbc5">MEDfieldComputingStepInfo</a>(fid,nomcha,j+1, &amp;numdt, &amp;numo, &amp;dt ) &lt;0) {</div>
+<div class="line">        <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la demande d&#39;information sur (pdt,nor) : &quot;</span>);</div>
+<div class="line">        <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numdt); <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numo);</div>
+<div class="line">        ret = -1; <span class="keywordflow">continue</span>;</div>
+<div class="line">      }</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> ( (_nprofile = <a name="a48"></a><a class="code" href="a01048_gab8ce8c33cfe01cbccbde8474a4c433ba.html#gab8ce8c33cfe01cbccbde8474a4c433ba">MEDfieldnProfile</a>(fid,nomcha,numdt,numo,entite,type_geo[k],</div>
+<div class="line">                                            pflname,locname   ) ) &lt; 0 ) {</div>
+<div class="line">        <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la demande du nombre de profils referencés par le champ : &quot;</span>);</div>
+<div class="line">        <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha);</div>
+<div class="line">        <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numdt); <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numo);</div>
+<div class="line">        <a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(entite);<a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(type_geo[k]);</div>
+<div class="line">        <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(AFF_ENT[(<span class="keywordtype">int</span>)entite]);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(AFF[k]);</div>
+<div class="line">        ret = -1; <span class="keywordflow">continue</span>;</div>
+<div class="line">      };</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">for</span> (l=0;l&lt;_nprofile;l++) {</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">        <span class="keywordflow">if</span> ( (nval = <a name="a49"></a><a class="code" href="a01048_gaa45f3d32332f8410c35c51a77ee20740.html#gaa45f3d32332f8410c35c51a77ee20740">MEDfieldnValueWithProfile</a>(fid, nomcha, numdt, numo, entite, type_geo[k],</div>
+<div class="line">                                               l+1,  <a name="a50"></a><a class="code" href="a00853_a4590bc240c9d6d928eecc7484553c2e7.html#a4590bc240c9d6d928eecc7484553c2e7">USER_MODE</a>, pflname,&amp;pflsize,</div>
+<div class="line">                                               locname, &amp;ngauss) ) &lt; 0 ) {</div>
+<div class="line">          <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture du nombre de valeurs du champ : &quot;</span>);</div>
+<div class="line">          <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numdt);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numo);</div>
+<div class="line">          <a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(entite);<a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(type_geo[k]);</div>
+<div class="line">          <a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(<a class="code" href="a00853_a4590bc240c9d6d928eecc7484553c2e7.html#a4590bc240c9d6d928eecc7484553c2e7">USER_MODE</a>);</div>
+<div class="line">          ret = -1; <span class="keywordflow">continue</span>;</div>
+<div class="line">        };</div>
+<div class="line"></div>
+<div class="line">        printf(<span class="stringliteral">&quot;\n  +Pas de Temps n.&quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot; (%f) [%s], n. d&#39;ordre &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot;, avec &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot; valeur(s) par entité.\n&quot;</span>,numdt,dt,dt_unit,numo,ngauss);</div>
+<div class="line">        printf(<span class="stringliteral">&quot;\t- Il y a &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot; entités qui portent des valeurs en mode %i. Chaque entite %s\</span></div>
+<div class="line"><span class="stringliteral"> de type geometrique %s associes au profile |%s| a &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot; valeurs associées \n&quot;</span>,</div>
+<div class="line">               nval,<a class="code" href="a00853_a4590bc240c9d6d928eecc7484553c2e7.html#a4590bc240c9d6d928eecc7484553c2e7">USER_MODE</a>,AFF_ENT[(<span class="keywordtype">int</span>)entite],AFF[k],pflname,ngauss);</div>
+<div class="line"></div>
+<div class="line">        <span class="comment">/*Lecture des valeurs du champ */</span></div>
+<div class="line">        <span class="keywordflow">if</span> (typcha == <a name="a51"></a><a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a>) {</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">          valr = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>*) calloc(ncomp*nval*ngauss,<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>));</div>
+<div class="line">          <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(valr == NULL,NULL,NULL);</div>
+<div class="line"></div>
+<div class="line">          <span class="keywordflow">if</span> (<a name="a52"></a><a class="code" href="a01048_ga85cf40e4f76b7f6e6036445a6c6108b4.html#ga85cf40e4f76b7f6e6036445a6c6108b4">MEDfieldValueWithProfileRd</a>(fid, nomcha, numdt,numo, entite,type_geo[k],</div>
+<div class="line">                                         <a class="code" href="a00853_a4590bc240c9d6d928eecc7484553c2e7.html#a4590bc240c9d6d928eecc7484553c2e7">USER_MODE</a>, pflname, stockage,<a name="a53"></a><a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>,</div>
+<div class="line">                                         (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) valr) &lt; 0 ) {</div>
+<div class="line">            <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des valeurs du champ : &quot;</span>);</div>
+<div class="line">            <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha);<a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(entite);<a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(type_geo[k]);</div>
+<div class="line">            <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numdt);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numo);</div>
+<div class="line">            ret = -1;</div>
+<div class="line">          }</div>
+<div class="line"></div>
+<div class="line">        } <span class="keywordflow">else</span> {</div>
+<div class="line"></div>
+<div class="line">          vale = (<a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>*) calloc(ncomp*nval*ngauss,<span class="keyword">sizeof</span>(<a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>));</div>
+<div class="line">          <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(vale == NULL,NULL,NULL);</div>
+<div class="line"></div>
+<div class="line">          <span class="keywordflow">if</span> (<a class="code" href="a01048_ga85cf40e4f76b7f6e6036445a6c6108b4.html#ga85cf40e4f76b7f6e6036445a6c6108b4">MEDfieldValueWithProfileRd</a>(fid, nomcha, numdt,numo, entite,type_geo[k],</div>
+<div class="line">                                         <a class="code" href="a00853_a4590bc240c9d6d928eecc7484553c2e7.html#a4590bc240c9d6d928eecc7484553c2e7">USER_MODE</a>, pflname, stockage,<a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>,</div>
+<div class="line">                                         (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) vale) &lt; 0 ) {</div>
+<div class="line">            <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des valeurs du champ : &quot;</span>);</div>
+<div class="line">            <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha);<a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(entite);<a class="code" href="a00591_ae7ba0433e91c450cd44c3808c2acb497.html#ae7ba0433e91c450cd44c3808c2acb497">ISCRUTE_int</a>(type_geo[k]);</div>
+<div class="line">            <a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numdt);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(numo);</div>
+<div class="line">            ret = -1;</div>
+<div class="line">          };</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">        }</div>
+<div class="line"></div>
+<div class="line">        <span class="keywordflow">if</span> ( strlen(locname) )</div>
+<div class="line">          printf(<span class="stringliteral">&quot;\t- Modèle de localisation des points de Gauss de nom |%s|\n&quot;</span>,locname);</div>
+<div class="line"></div>
+<div class="line">        <span class="keywordflow">if</span> (entite == <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a809ee1b85589bf7c0cf796b7212abc25">MED_NODE_ELEMENT</a>)</div>
+<div class="line">          ngroup = (type_geo[k] % 100);</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">          ngroup = ngauss;</div>
+<div class="line"></div>
+<div class="line">        <span class="keywordflow">switch</span> (stockage) {</div>
+<div class="line"></div>
+<div class="line">        <span class="keywordflow">case</span> <a name="a54"></a><a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a> :</div>
+<div class="line">          printf(<span class="stringliteral">&quot;\t- Valeurs :\n\t&quot;</span>);</div>
+<div class="line">          <span class="keywordflow">for</span> (m=0;m&lt;(nval*ngauss)/ngroup;m++) {</div>
+<div class="line">            printf(<span class="stringliteral">&quot;|&quot;</span>);</div>
+<div class="line">            <span class="keywordflow">for</span> (n=0;n&lt;ngroup*ncomp;n++)</div>
+<div class="line">              <span class="keywordflow">if</span> (typcha == <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a>)</div>
+<div class="line">                printf(<span class="stringliteral">&quot; %f &quot;</span>,*(valr+(m*ngroup*ncomp)+n));</div>
+<div class="line">              <span class="keywordflow">else</span></div>
+<div class="line">                printf(<span class="stringliteral">&quot; &quot;</span>IFORMAT<span class="stringliteral">&quot; &quot;</span>,*(vale+(m*ngroup*ncomp)+n));</div>
+<div class="line"></div>
+<div class="line">          }</div>
+<div class="line">          <span class="keywordflow">break</span>;</div>
+<div class="line"></div>
+<div class="line">          <span class="comment">/*Affichage en fonction du profil à traiter*/</span></div>
+<div class="line">        <span class="keywordflow">case</span> <a name="a55"></a><a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da5c7f85d1c271fe5dbaf9e9f1d3211fea">MED_NO_INTERLACE</a> :</div>
+<div class="line">          printf(<span class="stringliteral">&quot;\t- Valeurs :\n\t&quot;</span>);</div>
+<div class="line">          <span class="keywordflow">for</span> (m=0;m&lt;ncomp;m++) {</div>
+<div class="line">            printf(<span class="stringliteral">&quot;|&quot;</span>);</div>
+<div class="line">            <span class="keywordflow">for</span> (n=0;n&lt;(nval*ngauss);n++)</div>
+<div class="line">              <span class="keywordflow">if</span> (typcha == <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a>)</div>
+<div class="line">                printf(<span class="stringliteral">&quot; %f &quot;</span>,*(valr+(m*nval)+n));</div>
+<div class="line">              <span class="keywordflow">else</span></div>
+<div class="line">                printf(<span class="stringliteral">&quot; &quot;</span>IFORMAT<span class="stringliteral">&quot; &quot;</span>,*(vale+(m*nval)+n));</div>
+<div class="line">          }</div>
+<div class="line">          <span class="keywordflow">break</span>;</div>
+<div class="line">        }</div>
+<div class="line"></div>
+<div class="line">        printf(<span class="stringliteral">&quot;|\n&quot;</span>);</div>
+<div class="line">        <span class="keywordflow">if</span> (typcha == <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a>) {</div>
+<div class="line">          <span class="keywordflow">if</span> ( valr ) {free(valr);valr = NULL;}}</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">          <span class="keywordflow">if</span> (vale) { free(vale);vale = NULL; }</div>
+<div class="line"></div>
+<div class="line">        <span class="comment">/*Lecture du profil associe */</span></div>
+<div class="line">        <span class="keywordflow">if</span> (strcmp(pflname,<a name="a56"></a><a class="code" href="a00577_aaa89a5e5e6d32de69614b70cf74e29cc.html#aaa89a5e5e6d32de69614b70cf74e29cc">MED_NO_PROFILE</a>) == 0 )</div>
+<div class="line">          printf(<span class="stringliteral">&quot;\t- Profil : MED_NO_PROFILE\n&quot;</span>);</div>
+<div class="line">        <span class="keywordflow">else</span> {</div>
+<div class="line"></div>
+<div class="line">          <span class="keywordflow">if</span> ( (pflsize = <a name="a57"></a><a class="code" href="a01057_ga2871de707744621f6a29a29633cc2e7b.html#ga2871de707744621f6a29a29633cc2e7b">MEDprofileSizeByName</a>(fid,pflname)) &lt;0 )  {</div>
+<div class="line">            <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture du nombre de valeurs du profil : &quot;</span>);</div>
+<div class="line">            <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(pflname);</div>
+<div class="line">            ret = -1; <span class="keywordflow">continue</span>;</div>
+<div class="line">          }</div>
+<div class="line"></div>
+<div class="line">          printf(<span class="stringliteral">&quot;\t- Profil : |%s| de taille &quot;</span>IFORMAT<span class="stringliteral">&quot;\n&quot;</span>,pflname,pflsize);</div>
+<div class="line"></div>
+<div class="line">          pflval = (<a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>*) malloc(<span class="keyword">sizeof</span>(<a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>)*pflsize);</div>
+<div class="line">          <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(pflval == NULL,NULL,NULL);</div>
+<div class="line">          <span class="keywordflow">if</span> ( <a class="code" href="a01057_ga93bec578fad63ceaaae0d7ea511d7a3e.html#ga93bec578fad63ceaaae0d7ea511d7a3e">MEDprofileRd</a>(fid,pflname,pflval) &lt;0) {</div>
+<div class="line">            <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des valeurs du profil : &quot;</span>);</div>
+<div class="line">            <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(pflname);</div>
+<div class="line">            ret = -1;</div>
+<div class="line">          }</div>
+<div class="line">          printf(<span class="stringliteral">&quot;\t&quot;</span>);</div>
+<div class="line">          <span class="keywordflow">for</span> (m=0;m&lt;pflsize;m++) printf(<span class="stringliteral">&quot; &quot;</span>IFORMAT<span class="stringliteral">&quot; &quot;</span>,*(pflval+m));</div>
+<div class="line">          printf(<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line">          free(pflval);</div>
+<div class="line"></div>
+<div class="line">        }</div>
+<div class="line"></div>
+<div class="line">      }</div>
+<div class="line">    }</div>
+<div class="line">  } <span class="comment">/* fin for sur les mailles*/</span></div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> ret;</div>
+<div class="line">}</div>
+<div class="line"></div>
+</div><!-- fragment --> </div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

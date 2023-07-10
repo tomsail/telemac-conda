@@ -1,0 +1,18 @@
+NAME
+  SerafinReaderModule
+DEPENDS
+  VTK::CommonCore
+  VTK::CommonDataModel
+  VTK::CommonExecutionModel
+  VTK::FiltersCore
+  VTK::FiltersModeling
+  VTK::IOCore
+  VTK::IOGeometry
+  VTK::IOXML
+PRIVATE_DEPENDS
+  VTK::CommonMisc
+  VTK::CommonSystem
+  VTK::FiltersGeneral
+  VTK::RenderingCore
+  VTK::vtksys
+  VTK::zlib

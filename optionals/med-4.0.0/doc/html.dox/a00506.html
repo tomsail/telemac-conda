@@ -1,0 +1,857 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: Concepts et fonctionnalit&eacute; de base pour cr&eacute;er et lire un champ de r&eacute;sultat</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li class="current"><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Concepts et fonctionnalit&eacute; de base pour cr&eacute;er et lire un champ de r&eacute;sultat </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="____Concepts et fonctionnalit&eacute; de base pour cr&eacute;er et lire un champ de r&eacute;sultat____"></a>  </p>
+<p><a href="#1.">Cr&eacute;er un champ de r&eacute;sultat</a> </p>
+<p><a href="#2.">Lire un champ de r&eacute;sultats</a> </p>
+<p><a href="#3.">Cr&eacute;er des s&eacute;quences de calcul dans un champ de r&eacute;sultats</a> </p>
+<p><a href="#4.">Lire un champ de r&eacute;sultats avec des s&eacute;quences de calcul</a> </p>
+<h3><a class="anchor" id="1."></a>Cr&eacute;er un champ de r&eacute;sultat</h3>
+<p>La routine <a class="el" href="a01048_ga8f73c6eb1a1b85f5e1e8bc1823c01ab9.html#ga8f73c6eb1a1b85f5e1e8bc1823c01ab9">MEDfieldCr</a> / <a class="el" href="a00618_a39b999f360260e193e45dfa771b03de1.html#a39b999f360260e193e45dfa771b03de1">mfdcre</a> permet de cr&eacute;er un champ de r&eacute;sultat dans un fichier MED. Un champ est identifi&eacute; par son nom qui est une cha&icirc;ne de <a class="el" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a> caract&egrave;res. Un champ de r&eacute;sultat est constitu&eacute; d'une ou plusieurs composantes scalaires. A un champ est associ&eacute; un type et les valeurs correspondant aux diff&eacute;rentes composantes sont toutes du m&ecirc;me type qui peut &ecirc;tre <a class="el" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a> (r&eacute;el), <a class="el" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cda68b79221679f7b78dc1aec384ef30340">MED_INT</a> (entier). Chaque composante se voit attribuer un nom et une unit&eacute;. Les valeurs du champ sont associ&eacute;e aux entit&eacute;s d'un seul maillage.</p>
+<p>La routine <a class="el" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a> / <a class="el" href="a00618_a26e92d93157118f6d1296a843e924bd5.html#a26e92d93157118f6d1296a843e924bd5">mfdrvw</a> <a class="el" href="a00618_a9e63248c4791bea319fec4411d559b2e.html#a9e63248c4791bea319fec4411d559b2e">mfdivw</a> permet d'&eacute;crire dans un champ des valeurs correspondant &agrave; un r&eacute;sultat portant sur un type d'entit&eacute; g&eacute;om&eacute;trique d'un maillage donn&eacute;. Si le champ porte sur plusieurs types d'entit&eacute;, il faut donc appeler cette routine autant de fois qu'il y a de types diff&eacute;rents. Les valeurs du champ peuvent porter sur les noeuds, les &eacute;l&eacute;ments, les points de Gauss des &eacute;l&eacute;ments, les noeuds par &eacute;l&eacute;ment. Nous ne traitons dans un premier temps que les champs aux noeuds et aux &eacute;l&eacute;ments.</p>
+<p>Le cas d'utilisation suivant permet de cr&eacute;er un champ Temp&eacute;rature &agrave; une composante. Les r&eacute;sultats de ce champ portent sur les noeuds et les &eacute;l&eacute;ments du maillage. A noter que le maillage se trouvant dans un fichier diff&eacute;rent de celui du champ, il est possible d'indiquer le nom et le chemin d'acc&egrave;s au fichier contenant le maillage en cr&eacute;ant un lien avec la routine <a class="el" href="a01053_ga08d1c8b15fbab77a11c6b59a0c600c4e.html#ga08d1c8b15fbab77a11c6b59a0c600c4e">MEDlinkWr</a> / <a class="el" href="a00701_ae59398cfad0c204510a33b8e31634103.html#ae59398cfad0c204510a33b8e31634103">mlnliw</a>. Le lien porte alors le nom du maillage.</p>
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment"> * Field use case 1 : write a field on mesh vertices and elements</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv) {</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> meshname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1] = <span class="stringliteral">&quot;2D unstructured mesh&quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> fieldname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1] = <span class="stringliteral">&quot;TEMPERATURE_FIELD&quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncomponent = 1;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> componentname[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;TEMPERATURE&quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> componentunit[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;C&quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> verticesvalues[15] = {  0.,   100., 200.,  300.,  400.,</div>
+<div class="line">                                          500.,   600., 700.,  800.,  900,</div>
+<div class="line">                                          1000., 1100, 1200., 1300., 1500. };</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nnodes = 15;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> tria3values[8] = {1000., 2000., 3000., 4000.,</div>
+<div class="line">                                    5000., 6000., 7000., 8000.};</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ntria3 = 8;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> quad4values[4] = {10000., 20000., 30000., 4000.};</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nquad4 = 4;</div>
+<div class="line">  <span class="keywordtype">int</span> ret=-1;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* file creation */</span></div>
+<div class="line">  fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;UsesCase_MEDfield_1.med&quot;</span>,<a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85aa23dd1c18b596924d5f50c8402b84c8e">MED_ACC_CREAT</a>);</div>
+<div class="line">  <span class="keywordflow">if</span> (fid &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : file creation ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* field creation : temperature field  : 1 component in celsius degree</span></div>
+<div class="line"><span class="comment">   *                  the mesh is the 2D unstructured mesh of UsescaseMEDmesh_1.c</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* create mesh link */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01053_ga08d1c8b15fbab77a11c6b59a0c600c4e.html#ga08d1c8b15fbab77a11c6b59a0c600c4e">MEDlinkWr</a>(fid,meshname,<span class="stringliteral">&quot;./UsesCase_MEDmesh_1.med&quot;</span>) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : create mesh link ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_ga8f73c6eb1a1b85f5e1e8bc1823c01ab9.html#ga8f73c6eb1a1b85f5e1e8bc1823c01ab9">MEDfieldCr</a>(fid, fieldname, <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a>,</div>
+<div class="line">                 ncomponent, componentname, componentunit,<span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line">                 meshname) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : create field&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* write field values at vertices */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, 0.0, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f">MED_NODE</a>,</div>
+<div class="line">                      <a class="code" href="a00577_a9a2843c7d6eacffdd9377b5bfb8a6de3.html#a9a2843c7d6eacffdd9377b5bfb8a6de3">MED_NONE</a>, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>, <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>,</div>
+<div class="line">                      nnodes,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) verticesvalues) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field values on vertices&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* write values at cell centers : 8 MED_TRIA3 and 4 MED_QUAD4 */</span></div>
+<div class="line">  <span class="comment">/* MED_TRIA3 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, 0.0, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>,</div>
+<div class="line">                      <a class="code" href="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670.html#a4a1eb7ba296742a6f5eb8b5b23b39670">MED_TRIA3</a>, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>, <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>,</div>
+<div class="line">                      ntria3, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) tria3values) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field values on MED_TRIA3&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="comment">/* MED_QUAD4 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, 0.0, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>,</div>
+<div class="line">                      <a class="code" href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a>, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>, <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>,</div>
+<div class="line">                      nquad4, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) quad4values) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field values on MED_QUAD4 &quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  ret=0;</div>
+<div class="line"> ERROR :</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* close file */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : close file ...&quot;</span>);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> ret;</div>
+<div class="line">}</div>
+<div class="line"></div>
+</div><!-- fragment --><h3><a class="anchor" id="2."></a>Lire un champ de r&eacute;sultats</h3>
+<p>Comme pour les maillages, l'acc&egrave;s aux champs stock&eacute;s dans un fichier se fait via deux approches possibles : acc&egrave;s par le nom ou via un it&eacute;rateur. La routine <a class="el" href="a01048_ga948789fb749c61a9bb7908e7d3b286c7.html#ga948789fb749c61a9bb7908e7d3b286c7">MEDfieldInfoByName</a> / <a class="el" href="a00618_a11db28928630976b11d0eeb2ef07cd8e.html#a11db28928630976b11d0eeb2ef07cd8e">mfdfin</a> permet de lire les informations relatives &agrave; un champ dont on conna&icirc;t le nom. Les informations lues correspondent &agrave; celles &eacute;crites par la routine <a class="el" href="a01048_ga8f73c6eb1a1b85f5e1e8bc1823c01ab9.html#ga8f73c6eb1a1b85f5e1e8bc1823c01ab9">MEDfieldCr</a> / <a class="el" href="a00618_a39b999f360260e193e45dfa771b03de1.html#a39b999f360260e193e45dfa771b03de1">mfdcre</a>.</p>
+<p>Il est ensuite n&eacute;cessaire pour chaque type d'entit&eacute; pr&eacute;sent dans le maillage de conna&icirc;tre le nombre de valeurs &agrave; lire avec la routine <a class="el" href="a01048_gad56d2c61cf0a4c55bc9834f5c2d9875e.html#gad56d2c61cf0a4c55bc9834f5c2d9875e">MEDfieldnValue</a> / <a class="el" href="a00618_ae0eb1552519338d85b361ec9986fe251.html#ae0eb1552519338d85b361ec9986fe251">mfdnva</a>. Le nombre de valeurs ainsi obtenu, permet de calculer la z&ocirc;ne m&eacute;moire &agrave; allouer en vue de lire ces donn&eacute;es (&agrave; savoir le nombre de valeurs * nombre de composantes du champ). Enfin la routine <a class="el" href="a01048_ga3222b711fa5f6660f0fb3edff1ac9b29.html#ga3222b711fa5f6660f0fb3edff1ac9b29">MEDfieldValueRd</a> / <a class="el" href="a00618_a5f2227db9b1ee0243833f8a975a38c69.html#a5f2227db9b1ee0243833f8a975a38c69">mfdrvr</a> <a class="el" href="a00618_a168215596ff157c9b2cc0f62c6ed7bef.html#a168215596ff157c9b2cc0f62c6ed7bef">mfdivr</a> permet de lire les valeurs associ&eacute;es &agrave; un type d'entit&eacute; donn&eacute;.</p>
+<p>Le cas d'utilisation suivant montre comment lire les donn&eacute;es du champ &eacute;crites dans le cas d'utilisation pr&eacute;c&eacute;dent. </p>
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment"> * Field use case 2 : read the field of use case 1</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv) {</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line">  <span class="keywordtype">char</span> meshname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a> localmesh;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> fieldname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1] = <span class="stringliteral">&quot;TEMPERATURE_FIELD&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cd">med_field_type</a> fieldtype;</div>
+<div class="line">  <span class="keywordtype">char</span> componentname[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> componentunit[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> dtunit[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *verticesvalues = NULL;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *tria3values = NULL;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *quad4values = NULL;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nstep, nvalues;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncomponent = 1;</div>
+<div class="line">  <span class="keywordtype">int</span> ret=-1;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* open MED file with READ ONLY access mode */</span></div>
+<div class="line">  fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;UsesCase_MEDfield_1.med&quot;</span>,<a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85a616bf8345c622a34f0787f42eb400f25">MED_ACC_RDONLY</a>);</div>
+<div class="line">  <span class="keywordflow">if</span> (fid &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : open file ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">   * ... we know that the MED file has only one field with one component ,</span></div>
+<div class="line"><span class="comment">   * a real code would check ...</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">   * if you know the field name, direct access to field informations</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_ga948789fb749c61a9bb7908e7d3b286c7.html#ga948789fb749c61a9bb7908e7d3b286c7">MEDfieldInfoByName</a>(fid, fieldname, meshname, &amp;localmesh, &amp;fieldtype,</div>
+<div class="line">                         componentname, componentunit, dtunit, &amp;nstep) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : Field info by name ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">   * ... we know that the field values are defined on vertices and MED_TRIA3</span></div>
+<div class="line"><span class="comment">   * and MED_QUAD4 cells, a real code would check ...</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* MED_NODE */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((nvalues = <a class="code" href="a01048_gad56d2c61cf0a4c55bc9834f5c2d9875e.html#gad56d2c61cf0a4c55bc9834f5c2d9875e">MEDfieldnValue</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f">MED_NODE</a>, <a class="code" href="a00577_a9a2843c7d6eacffdd9377b5bfb8a6de3.html#a9a2843c7d6eacffdd9377b5bfb8a6de3">MED_NONE</a>)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read number of values ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">if</span> ((verticesvalues = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) malloc(<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>)*nvalues*ncomponent)) == NULL) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : memory allocation ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_ga3222b711fa5f6660f0fb3edff1ac9b29.html#ga3222b711fa5f6660f0fb3edff1ac9b29">MEDfieldValueRd</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f">MED_NODE</a>, <a class="code" href="a00577_a9a2843c7d6eacffdd9377b5bfb8a6de3.html#a9a2843c7d6eacffdd9377b5bfb8a6de3">MED_NONE</a>,</div>
+<div class="line">                      <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>, <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) verticesvalues) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read fields values on vertices ...&quot;</span>);</div>
+<div class="line">    free(verticesvalues);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  free(verticesvalues);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* MED_TRIA3 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((nvalues = <a class="code" href="a01048_gad56d2c61cf0a4c55bc9834f5c2d9875e.html#gad56d2c61cf0a4c55bc9834f5c2d9875e">MEDfieldnValue</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>,</div>
+<div class="line">                                <a class="code" href="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670.html#a4a1eb7ba296742a6f5eb8b5b23b39670">MED_TRIA3</a>)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read number of values ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">if</span> ((tria3values = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) malloc(<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>)*nvalues*ncomponent)) == NULL) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : memory allocation ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_ga3222b711fa5f6660f0fb3edff1ac9b29.html#ga3222b711fa5f6660f0fb3edff1ac9b29">MEDfieldValueRd</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, <a class="code" href="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670.html#a4a1eb7ba296742a6f5eb8b5b23b39670">MED_TRIA3</a>,</div>
+<div class="line">                      <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>, <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) tria3values) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read fields values for MED_TRIA3 cells ...&quot;</span>);</div>
+<div class="line">    free(tria3values);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  free(tria3values);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* MED_QUAD4 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((nvalues = <a class="code" href="a01048_gad56d2c61cf0a4c55bc9834f5c2d9875e.html#gad56d2c61cf0a4c55bc9834f5c2d9875e">MEDfieldnValue</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>,</div>
+<div class="line">                                <a class="code" href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a>)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read number of values ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">if</span> ((quad4values = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) malloc(<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>)*nvalues*ncomponent)) == NULL) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : memory allocation ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_ga3222b711fa5f6660f0fb3edff1ac9b29.html#ga3222b711fa5f6660f0fb3edff1ac9b29">MEDfieldValueRd</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, <a class="code" href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a>,</div>
+<div class="line">                      <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>, <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) quad4values) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read fields values for MED_QUAD4 cells ...&quot;</span>);</div>
+<div class="line">    free(quad4values);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line">  free(quad4values);</div>
+<div class="line"></div>
+<div class="line">  ret=0;</div>
+<div class="line"> ERROR:</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* close file */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : close file ...&quot;</span>);</div>
+<div class="line">    ret=-1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> ret;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Une approche plus g&eacute;n&eacute;rique dans la lecture d'un champ est donn&eacute;e dans l'exemple suivant. La routine <a class="el" href="a01048_ga0d8be6c1b6b24ff150a5adcb58831d93.html#ga0d8be6c1b6b24ff150a5adcb58831d93">MEDnField</a> / <a class="el" href="a00618_ab3f938bf89ffceff9981225942d16514.html#ab3f938bf89ffceff9981225942d16514">mfdnfd</a> va lire le nombre de champ dans le fichier. Il s'agit ensuite d'it&eacute;rer sur ces champs. La routine <a class="el" href="a01048_gaf2169b6d6505a28d7ee5f8599d2fb25e.html#gaf2169b6d6505a28d7ee5f8599d2fb25e">MEDfieldInfo</a> / <a class="el" href="a00618_a4bb0475575242cb96e98d79025f5da0a.html#a4bb0475575242cb96e98d79025f5da0a">mfdfdi</a> permet de lire les informations relatives &agrave; un champ &agrave; partir d'un it&eacute;rateur. La routine <a class="el" href="a01048_gabe6258ebc74592af81c9b51379b7b7af.html#gabe6258ebc74592af81c9b51379b7b7af">MEDfieldnComponent</a> / <a class="el" href="a00618_aba0c5e98f838ac894ecdb8b2d160d045.html#aba0c5e98f838ac894ecdb8b2d160d045">mfdnfc</a> permet de r&eacute;cup&eacute;rer le nombre de composante du champ en vue de dimensionner la taille des param&egrave;tres utiles &agrave; la routine MEDfieldInfo.</p>
+<p>Une fois les informations g&eacute;n&eacute;rales du champ connues, il est n&eacute;cessaire pour chaque type d'entit&eacute; pr&eacute;sent dans le maillage de conna&icirc;tre le nombre de valeurs &agrave; lire avec la routine <a class="el" href="a01048_gad56d2c61cf0a4c55bc9834f5c2d9875e.html#gad56d2c61cf0a4c55bc9834f5c2d9875e">MEDfieldnValue</a> / <a class="el" href="a00618_ae0eb1552519338d85b361ec9986fe251.html#ae0eb1552519338d85b361ec9986fe251">mfdnva</a>. Le nombre de valeurs ainsi obtenu, permet de calculer la z&ocirc;ne m&eacute;moire &agrave; allouer en vue de lire ces donn&eacute;es (&agrave; savoir le nombre de valeurs * nombre de composantes du champ). Enfin la routine <a class="el" href="a01048_ga3222b711fa5f6660f0fb3edff1ac9b29.html#ga3222b711fa5f6660f0fb3edff1ac9b29">MEDfieldValueRd</a> / <a class="el" href="a00618_a5f2227db9b1ee0243833f8a975a38c69.html#a5f2227db9b1ee0243833f8a975a38c69">mfdrvr</a> <a class="el" href="a00618_a168215596ff157c9b2cc0f62c6ed7bef.html#a168215596ff157c9b2cc0f62c6ed7bef">mfdivr</a> permet de lire les valeurs associ&eacute;es &agrave; un type d'entit&eacute; donn&eacute;. Pour les mailles et le cas &eacute;ch&eacute;ant les faces et les ar&ecirc;tes, il est possible d'it&eacute;rer sur le nombre de type g&eacute;om&eacute;trique pr&eacute;-d&eacute;fini dans le mod&egrave;le. Par exemple pour les mailles, cette valeur est fix&eacute;e par le param&egrave;tre constant <a class="el" href="a00577_abd42d91233c317ca8eb9b592e4502053.html#abd42d91233c317ca8eb9b592e4502053">MED_N_CELL_FIXED_GEO</a>.</p>
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment"> * Field use case 3 : read a field (generic approach)</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv) {</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> nfield, i, j;</div>
+<div class="line">  <span class="keywordtype">char</span> meshname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a> localmesh;</div>
+<div class="line">  <span class="keywordtype">char</span> fieldname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cd">med_field_type</a> fieldtype;</div>
+<div class="line">  <span class="keywordtype">char</span> *componentname = NULL;</div>
+<div class="line">  <span class="keywordtype">char</span> *componentunit = NULL;</div>
+<div class="line">  <span class="keywordtype">char</span> dtunit[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *values = NULL;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nstep, nvalues;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncomponent;</div>
+<div class="line">  <a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> geotype;</div>
+<div class="line">  <a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> *geotypes = <a class="code" href="a00690_a54c2e34174a890046d0a204fa1a918a8.html#a54c2e34174a890046d0a204fa1a918a8">MED_GET_CELL_GEOMETRY_TYPE</a>;</div>
+<div class="line">  <span class="keywordtype">int</span> ret=-1;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* file creation */</span></div>
+<div class="line">  fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;UsesCase_MEDfield_1.med&quot;</span>,<a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85a616bf8345c622a34f0787f42eb400f25">MED_ACC_RDONLY</a>);</div>
+<div class="line">  <span class="keywordflow">if</span> (fid &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : open file ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">   * generic approach : how many fields in the file and identification</span></div>
+<div class="line"><span class="comment">   * of each field.</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((nfield = <a class="code" href="a01048_ga0d8be6c1b6b24ff150a5adcb58831d93.html#ga0d8be6c1b6b24ff150a5adcb58831d93">MEDnField</a>(fid)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : How many fields in the file ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">for</span> (i=0; i&lt;nfield; i++) {</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/* field information</span></div>
+<div class="line"><span class="comment">     * ... we know that the field has no computation step</span></div>
+<div class="line"><span class="comment">     * and that the field values type is MED_FLOAT64, a real code would check ...</span></div>
+<div class="line"><span class="comment">     */</span></div>
+<div class="line">    <span class="keywordflow">if</span> ((ncomponent = <a class="code" href="a01048_gabe6258ebc74592af81c9b51379b7b7af.html#gabe6258ebc74592af81c9b51379b7b7af">MEDfieldnComponent</a>(fid,i+1)) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : number of field component ...&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> ((componentname = (<span class="keywordtype">char</span> *) malloc(ncomponent*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1)) == NULL) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : memory allocation ...&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> ((componentunit = (<span class="keywordtype">char</span> *) malloc(ncomponent*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1)) == NULL) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : memory allocation ...&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf2169b6d6505a28d7ee5f8599d2fb25e.html#gaf2169b6d6505a28d7ee5f8599d2fb25e">MEDfieldInfo</a>(fid, i+1, fieldname, meshname, &amp;localmesh, &amp;fieldtype,</div>
+<div class="line">                     componentname, componentunit, dtunit, &amp;nstep) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : Field info ...&quot;</span>);</div>
+<div class="line">      free(componentname); free(componentunit);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    free(componentname); free(componentunit);</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/* read field values for nodes and cells */</span></div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/* MED_NODE */</span></div>
+<div class="line">    <span class="keywordflow">if</span> ((nvalues = <a class="code" href="a01048_gad56d2c61cf0a4c55bc9834f5c2d9875e.html#gad56d2c61cf0a4c55bc9834f5c2d9875e">MEDfieldnValue</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f">MED_NODE</a>, <a class="code" href="a00577_a9a2843c7d6eacffdd9377b5bfb8a6de3.html#a9a2843c7d6eacffdd9377b5bfb8a6de3">MED_NONE</a>)) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read number of values ...&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> (nvalues) {</div>
+<div class="line">      <span class="keywordflow">if</span> ((values = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) malloc(<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>)*nvalues*ncomponent)) == NULL) {</div>
+<div class="line">        <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : memory allocation ...&quot;</span>);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">      }</div>
+<div class="line">      <span class="keywordflow">if</span> (<a class="code" href="a01048_ga3222b711fa5f6660f0fb3edff1ac9b29.html#ga3222b711fa5f6660f0fb3edff1ac9b29">MEDfieldValueRd</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a074507163b07b6d764823a78c5c07f0f">MED_NODE</a>, <a class="code" href="a00577_a9a2843c7d6eacffdd9377b5bfb8a6de3.html#a9a2843c7d6eacffdd9377b5bfb8a6de3">MED_NONE</a>,</div>
+<div class="line">                          <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>, <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) values) &lt; 0) {</div>
+<div class="line">        <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read fields values defined on vertices ...&quot;</span>);</div>
+<div class="line">        free(values);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">      }</div>
+<div class="line">      free(values);</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/* MED_CELL */</span></div>
+<div class="line">    <span class="keywordflow">for</span> (j=1; j&lt;=<a class="code" href="a00577_abd42d91233c317ca8eb9b592e4502053.html#abd42d91233c317ca8eb9b592e4502053">MED_N_CELL_FIXED_GEO</a>; j++) {</div>
+<div class="line">      geotype = geotypes[j];</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> ((nvalues = <a class="code" href="a01048_gad56d2c61cf0a4c55bc9834f5c2d9875e.html#gad56d2c61cf0a4c55bc9834f5c2d9875e">MEDfieldnValue</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>,</div>
+<div class="line">                                    geotype)) &lt; 0) {</div>
+<div class="line">        <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read number of values ...&quot;</span>);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">      }</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> (nvalues) {</div>
+<div class="line">        <span class="keywordflow">if</span> ((values = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) malloc(<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>)*nvalues*ncomponent)) == NULL) {</div>
+<div class="line">          <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : memory allocation ...&quot;</span>);</div>
+<div class="line">          <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">if</span> (<a class="code" href="a01048_ga3222b711fa5f6660f0fb3edff1ac9b29.html#ga3222b711fa5f6660f0fb3edff1ac9b29">MEDfieldValueRd</a>(fid, fieldname, <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, geotype,</div>
+<div class="line">                            <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>, <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) values) &lt; 0) {</div>
+<div class="line">          <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read fields values for cells ...&quot;</span>);</div>
+<div class="line">          free(values);</div>
+<div class="line">          <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">        }</div>
+<div class="line">        free(values);</div>
+<div class="line">      }</div>
+<div class="line">    }</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  ret=0;</div>
+<div class="line"> ERROR:</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* close file */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : close file ...&quot;</span>);</div>
+<div class="line">    ret=-1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> ret;</div>
+<div class="line">}</div>
+</div><!-- fragment --><h3><a class="anchor" id="3."></a>Cr&eacute;er des s&eacute;quences de calcul dans un champ de r&eacute;sultats</h3>
+<p>Une s&eacute;quence de calcul correspond &agrave; une date (pas de temps) et/ou une &eacute;tape it&eacute;rative (num&eacute;ro d'ordre). Les valeurs d'un champ peuvent porter sur une s&eacute;quence de calcul autre que la s&eacute;quence initiale (<a class="el" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>, <a class="el" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>) utilis&eacute;e par d&eacute;faut. La d&eacute;finition de la s&eacute;quence de calcul se fait lors de la l'&eacute;criture des valeurs du champ avec la routine <a class="el" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a> / <a class="el" href="a00618_a26e92d93157118f6d1296a843e924bd5.html#a26e92d93157118f6d1296a843e924bd5">mfdrvw</a> <a class="el" href="a00618_a9e63248c4791bea319fec4411d559b2e.html#a9e63248c4791bea319fec4411d559b2e">mfdivw</a> qui prend en param&egrave;tres le pas de temps et le num&eacute;ro d'ordre.</p>
+<p>Il est possible de r&eacute;f&eacute;rencer l'&eacute;tape d'&eacute;volution d'un maillage &agrave; laquelle l'&eacute;tape de calcul correspond le cas &eacute;ch&eacute;ant avec la routine <a class="el" href="a01048_gaa6b2b7e1c83a26d9cd4efa6f32a3d969.html#gaa6b2b7e1c83a26d9cd4efa6f32a3d969">MEDfieldComputingStepMeshWr</a> / <a class="el" href="a00618_a8aae13d5501c214872fb2f8b3a9a415d.html#a8aae13d5501c214872fb2f8b3a9a415d">mfdcmw</a>. Par d&eacute;faut les valeurs du champ se rapportent au maillage initial (MED_NO_DT, MED_NO_IT).</p>
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment"> * Field use case 4 : write a field with computing steps</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv) {</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> meshname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1] = <span class="stringliteral">&quot;2D unstructured mesh&quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> fieldname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1] = <span class="stringliteral">&quot;TEMPERATURE_FIELD&quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncomponent = 1;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> componentname[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;TEMPERATURE&quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> componentunit[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1] = <span class="stringliteral">&quot;C&quot;</span>;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ntria3 = 8;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nquad4 = 4;</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> tria3values_step1[8] = {1000., 2000., 3000., 4000.,</div>
+<div class="line">                                          5000., 6000., 7000., 8000.};</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> quad4values_step1[4] = {10000., 20000., 30000., 4000.};</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> tria3values_step2[8] = {1500., 2500., 3500., 4500.,</div>
+<div class="line">                                          5500., 6500., 7500., 8500.};</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> quad4values_step2[4] = {15000., 25000., 35000., 45000.};</div>
+<div class="line">  <span class="keywordtype">int</span> ret=-1;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* file creation */</span></div>
+<div class="line">  fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;UsesCase_MEDfield_4.med&quot;</span>,<a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85aa23dd1c18b596924d5f50c8402b84c8e">MED_ACC_CREAT</a>);</div>
+<div class="line">  <span class="keywordflow">if</span> (fid &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : file creation ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* create mesh link */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01053_ga08d1c8b15fbab77a11c6b59a0c600c4e.html#ga08d1c8b15fbab77a11c6b59a0c600c4e">MEDlinkWr</a>(fid,meshname,<span class="stringliteral">&quot;./UsesCase_MEDmesh_1.med&quot;</span>) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : create mesh link ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* field creation : temperature field  : 1 component in celsius degree</span></div>
+<div class="line"><span class="comment">   *                  the mesh is the 2D unstructured mesh of UsescaseMEDmesh_1.c</span></div>
+<div class="line"><span class="comment">   *                  use case. Computation step unit in &#39;ms&#39;</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_ga8f73c6eb1a1b85f5e1e8bc1823c01ab9.html#ga8f73c6eb1a1b85f5e1e8bc1823c01ab9">MEDfieldCr</a>(fid, fieldname, <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a>,</div>
+<div class="line">                 ncomponent, componentname, componentunit,<span class="stringliteral">&quot;ms&quot;</span>, meshname) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : create field&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* two computation steps :</span></div>
+<div class="line"><span class="comment">   *  - first  on meshname MED_NO_DT,MED_NO_IT mesh computation step</span></div>
+<div class="line"><span class="comment">   *  - second on meshname 1,3 mesh computation step */</span></div>
+<div class="line">  <span class="comment">/* write values at cell centers : 8 MED_TRIA3 and 4 MED_QUAD4 */</span></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* STEP 1 : dt1 = 5.5, it = 1*/</span></div>
+<div class="line">  <span class="comment">/* MED_TRIA3 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a>(fid, fieldname, 1, 1, 5.5, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, <a class="code" href="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670.html#a4a1eb7ba296742a6f5eb8b5b23b39670">MED_TRIA3</a>, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>,</div>
+<div class="line">                      <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, ntria3, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) tria3values_step1) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field values on MED_TRIA3&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line">   <span class="comment">/* MED_QUAD4 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a>(fid, fieldname, 1, 1, 5.5, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>,<a class="code" href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a>, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>,</div>
+<div class="line">                      <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, nquad4, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) quad4values_step1) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field values on MED_QUAD4 &quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* STEP 2 : dt2 = 8.9, it = 1*/</span></div>
+<div class="line">  <span class="comment">/* MED_TRIA3 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a>(fid, fieldname, 2 , 1 , 8.9 , <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, <a class="code" href="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670.html#a4a1eb7ba296742a6f5eb8b5b23b39670">MED_TRIA3</a>, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>,</div>
+<div class="line">                      <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, ntria3,  (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)tria3values_step2) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field values on MED_TRIA3&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* MED_QUAD4 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf525ac6dbe9b3f81a129c0f0866f5313.html#gaf525ac6dbe9b3f81a129c0f0866f5313">MEDfieldValueWr</a>(fid, fieldname, 2, 1, 8.9, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, <a class="code" href="a00577_a24ea9c52f5bde41d9a072925249ec06c.html#a24ea9c52f5bde41d9a072925249ec06c">MED_QUAD4</a>, <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>,</div>
+<div class="line">                      <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, nquad4, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)quad4values_step2) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field values on MED_QUAD4 &quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Write associated mesh computation step */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( <a class="code" href="a01048_gaa6b2b7e1c83a26d9cd4efa6f32a3d969.html#gaa6b2b7e1c83a26d9cd4efa6f32a3d969">MEDfieldComputingStepMeshWr</a>(fid, fieldname, 2, 1,</div>
+<div class="line">                                   1, 3 ) &lt; 0 ) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : write field mesh computation step error &quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  ret=0;</div>
+<div class="line"> ERROR:</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* close file */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : close file ...&quot;</span>);</div>
+<div class="line">    ret=-1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> ret;</div>
+<div class="line">}</div>
+<div class="line"></div>
+</div><!-- fragment --><h3><a class="anchor" id="4."></a>Lire un champ de r&eacute;sultats avec des s&eacute;quences de calcul</h3>
+<p>A la lecture, le nombre de s&eacute;quence de calcul du champ peut est r&eacute;cup&eacute;r&eacute; par les routines <a class="el" href="a01048_ga948789fb749c61a9bb7908e7d3b286c7.html#ga948789fb749c61a9bb7908e7d3b286c7">MEDfieldInfoByName</a> / <a class="el" href="a00618_a11db28928630976b11d0eeb2ef07cd8e.html#a11db28928630976b11d0eeb2ef07cd8e">mfdfin</a> et <a class="el" href="a01048_gaf2169b6d6505a28d7ee5f8599d2fb25e.html#gaf2169b6d6505a28d7ee5f8599d2fb25e">MEDfieldInfo</a> / <a class="el" href="a00618_a4bb0475575242cb96e98d79025f5da0a.html#a4bb0475575242cb96e98d79025f5da0a">mfdfdi</a>. Il s'agit ensuite d'it&eacute;rer sur ce nombre de s&eacute;quence afin de lire les valeurs portant sur les entit&eacute;s du maillage. La routine <a class="el" href="a01048_ga35a5786318fd1b47c163f18813c8cf9b.html#ga35a5786318fd1b47c163f18813c8cf9b">MEDfieldComputingStepMeshInfo</a> / <a class="el" href="a00618_a0e7d42e97dbd3e0b017971852794ffaf.html#a0e7d42e97dbd3e0b017971852794ffaf">mfdcmi</a> permet de r&eacute;cup&eacute;rer les informations relatives &agrave; la s&eacute;quence de calcul (pas de temps et num&eacute;ro d'ordre), ainsi que l'&eacute;tape d'&eacute;volution du maillage correspondante. La routine <a class="el" href="a01048_ga5b0031d3002518f1b2e134ff8c03dbc5.html#ga5b0031d3002518f1b2e134ff8c03dbc5">MEDfieldComputingStepInfo</a> / <a class="el" href="a00618_abce51182563ff7413b33299fad77875b.html#abce51182563ff7413b33299fad77875b">mfdcsi</a> permet de r&eacute;cup&eacute;rer les informations relatives &agrave; la s&eacute;quence de calcul sans se pr&eacute;occuper du maillage dans le cas d'un maillage non &eacute;volutif. </p>
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment"> * Field use case 5 : read a field with following with computing steps</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv) {</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line">  <span class="keywordtype">char</span> meshname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a> localmesh;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">char</span> fieldname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1] = <span class="stringliteral">&quot;TEMPERATURE_FIELD&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cd">med_field_type</a> fieldtype;</div>
+<div class="line">  <span class="keywordtype">char</span> componentname[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> componentunit[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> dtunit[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *values = NULL;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nstep, nvalues;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncomponent = 1;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> csit, numit, numdt, meshnumit, meshnumdt, it;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> dt;</div>
+<div class="line">  <a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> geotype;</div>
+<div class="line">  <a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> *geotypes = <a class="code" href="a00690_a54c2e34174a890046d0a204fa1a918a8.html#a54c2e34174a890046d0a204fa1a918a8">MED_GET_CELL_GEOMETRY_TYPE</a>;</div>
+<div class="line">  <span class="keywordtype">int</span> ret=-1;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* open file */</span></div>
+<div class="line">  fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;UsesCase_MEDfield_4.med&quot;</span>,<a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85a616bf8345c622a34f0787f42eb400f25">MED_ACC_RDONLY</a>);</div>
+<div class="line">  <span class="keywordflow">if</span> (fid &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : open file ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">   * ... we know that the MED file has only one field with one component ,</span></div>
+<div class="line"><span class="comment">   * a real code would check ...</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">   * if you know the field name, direct access to field informations</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01048_ga948789fb749c61a9bb7908e7d3b286c7.html#ga948789fb749c61a9bb7908e7d3b286c7">MEDfieldInfoByName</a>(fid, fieldname, meshname, &amp;localmesh, &amp;fieldtype,</div>
+<div class="line">                         componentname, componentunit, dtunit, &amp;nstep) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : Field info by name ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">   * Read field values for each computing step</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line">  <span class="keywordflow">for</span> (csit=0; csit&lt;nstep; csit++) {</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="a01048_ga35a5786318fd1b47c163f18813c8cf9b.html#ga35a5786318fd1b47c163f18813c8cf9b">MEDfieldComputingStepMeshInfo</a>(fid, fieldname, csit+1, &amp;numdt, &amp;numit, &amp;dt,</div>
+<div class="line">                                      &amp;meshnumdt, &amp;meshnumit) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : Computing step info ...&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">   * ... In our case, we suppose that the field values are only defined on cells ...</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line">    <span class="keywordflow">for</span> (it=1; it&lt;=<a class="code" href="a00577_abd42d91233c317ca8eb9b592e4502053.html#abd42d91233c317ca8eb9b592e4502053">MED_N_CELL_FIXED_GEO</a>; it++) {</div>
+<div class="line"></div>
+<div class="line">      geotype = geotypes[it];</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> ((nvalues = <a class="code" href="a01048_gad56d2c61cf0a4c55bc9834f5c2d9875e.html#gad56d2c61cf0a4c55bc9834f5c2d9875e">MEDfieldnValue</a>(fid, fieldname, numdt, numit, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, geotype)) &lt; 0) {</div>
+<div class="line">        <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read number of values ...&quot;</span>);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">      }</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> (nvalues) {</div>
+<div class="line">        <span class="keywordflow">if</span> ((values = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) malloc(<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>)*nvalues*ncomponent)) == NULL) {</div>
+<div class="line">          <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : memory allocation ...&quot;</span>);</div>
+<div class="line">          <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">if</span> (<a class="code" href="a01048_ga3222b711fa5f6660f0fb3edff1ac9b29.html#ga3222b711fa5f6660f0fb3edff1ac9b29">MEDfieldValueRd</a>(fid, fieldname, numdt, numit, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, geotype,</div>
+<div class="line">                            <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>, <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) values) &lt; 0) {</div>
+<div class="line">          <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read fields values for cells ...&quot;</span>);</div>
+<div class="line">          free(values);</div>
+<div class="line">          <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">        }</div>
+<div class="line">        free(values);</div>
+<div class="line">      }</div>
+<div class="line">    }</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  ret=0;</div>
+<div class="line"> ERROR:</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* close file */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : close file ...&quot;</span>);</div>
+<div class="line">    ret=-1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> ret;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Le cas d'utilisation suivant fournit une approche g&eacute;n&eacute;rique pour lire les valeurs portant sur les mailles du maillage pour toutes les s&eacute;quences de calcul de tous les champs d'un fichier MED.</p>
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment"> * Field use case 6 : read a field (generic approach) with computing steps</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv) {</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> nfield, i, j;</div>
+<div class="line">  <span class="keywordtype">char</span> meshname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a> localmesh;</div>
+<div class="line">  <span class="keywordtype">char</span> fieldname[<a class="code" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cd">med_field_type</a> fieldtype;</div>
+<div class="line">  <span class="keywordtype">char</span> *componentname = NULL;</div>
+<div class="line">  <span class="keywordtype">char</span> *componentunit = NULL;</div>
+<div class="line">  <span class="keywordtype">char</span> dtunit[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *values = NULL;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nstep, nvalues;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncomponent;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> csit, numit, numdt, meshnumit, meshnumdt, it;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> dt;</div>
+<div class="line">  <a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> geotype;</div>
+<div class="line">  <a class="code" href="a00577_a1043613afc3cd2e24785dfc7c0452ab8.html#a1043613afc3cd2e24785dfc7c0452ab8">med_geometry_type</a> *geotypes = <a class="code" href="a00690_a54c2e34174a890046d0a204fa1a918a8.html#a54c2e34174a890046d0a204fa1a918a8">MED_GET_CELL_GEOMETRY_TYPE</a>;</div>
+<div class="line">  <span class="keywordtype">int</span> k;</div>
+<div class="line">  <span class="keywordtype">int</span> ret=-1;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* open file */</span></div>
+<div class="line">  fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;UsesCase_MEDfield_4.med&quot;</span>,<a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85a616bf8345c622a34f0787f42eb400f25">MED_ACC_RDONLY</a>);</div>
+<div class="line">  <span class="keywordflow">if</span> (fid &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : open file ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">   * generic approach : how many fields in the file and identification</span></div>
+<div class="line"><span class="comment">   * of each field.</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((nfield = <a class="code" href="a01048_ga0d8be6c1b6b24ff150a5adcb58831d93.html#ga0d8be6c1b6b24ff150a5adcb58831d93">MEDnField</a>(fid)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : How many fields in the file ...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/*</span></div>
+<div class="line"><span class="comment">   * read values for each field</span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line">  <span class="keywordflow">for</span> (i=0; i&lt;nfield; i++) {</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> ((ncomponent = <a class="code" href="a01048_gabe6258ebc74592af81c9b51379b7b7af.html#gabe6258ebc74592af81c9b51379b7b7af">MEDfieldnComponent</a>(fid,i+1)) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : number of field component ...&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> ((componentname = (<span class="keywordtype">char</span> *) malloc(ncomponent*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1)) == NULL) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : memory allocation ...&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> ((componentunit = (<span class="keywordtype">char</span> *) malloc(ncomponent*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1)) == NULL) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : memory allocation ...&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="a01048_gaf2169b6d6505a28d7ee5f8599d2fb25e.html#gaf2169b6d6505a28d7ee5f8599d2fb25e">MEDfieldInfo</a>(fid, i+1, fieldname, meshname, &amp;localmesh, &amp;fieldtype,</div>
+<div class="line">                     componentname, componentunit, dtunit, &amp;nstep) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : Field info ...&quot;</span>);</div>
+<div class="line">      free(componentname);</div>
+<div class="line">      free(componentunit);</div>
+<div class="line">      <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">    }</div>
+<div class="line">    free(componentname);</div>
+<div class="line">    free(componentunit);</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/*</span></div>
+<div class="line"><span class="comment">     * Read field values for each computing step</span></div>
+<div class="line"><span class="comment">     */</span></div>
+<div class="line">    <span class="keywordflow">for</span> (csit=0; csit&lt;nstep; csit++) {</div>
+<div class="line"></div>
+<div class="line">      <span class="keywordflow">if</span> (<a class="code" href="a01048_ga35a5786318fd1b47c163f18813c8cf9b.html#ga35a5786318fd1b47c163f18813c8cf9b">MEDfieldComputingStepMeshInfo</a>(fid, fieldname, csit+1, &amp;numdt, &amp;numit, &amp;dt,</div>
+<div class="line">                                        &amp;meshnumdt, &amp;meshnumit) &lt; 0) {</div>
+<div class="line">        <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : Computing step info ...&quot;</span>);</div>
+<div class="line">        <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">      }</div>
+<div class="line"></div>
+<div class="line">      <span class="comment">/*</span></div>
+<div class="line"><span class="comment">       * ... In our case, we suppose that the field values are only defined on cells ...</span></div>
+<div class="line"><span class="comment">       */</span></div>
+<div class="line">      <span class="keywordflow">for</span> (it=1; it&lt;=<a class="code" href="a00577_abd42d91233c317ca8eb9b592e4502053.html#abd42d91233c317ca8eb9b592e4502053">MED_N_CELL_FIXED_GEO</a>; it++) {</div>
+<div class="line"></div>
+<div class="line">        geotype = geotypes[it];</div>
+<div class="line">        <span class="keywordflow">if</span> ((nvalues = <a class="code" href="a01048_gad56d2c61cf0a4c55bc9834f5c2d9875e.html#gad56d2c61cf0a4c55bc9834f5c2d9875e">MEDfieldnValue</a>(fid, fieldname, numdt, numit, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, geotype)) &lt; 0) {</div>
+<div class="line">          <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read number of values ...&quot;</span>);</div>
+<div class="line">          <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordflow">if</span> (nvalues) {</div>
+<div class="line">          <span class="keywordflow">if</span> ((values = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) malloc(<span class="keyword">sizeof</span>(<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a>)*nvalues*ncomponent)) == NULL) {</div>
+<div class="line">            <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : memory allocation ...&quot;</span>);</div>
+<div class="line">          <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">          }</div>
+<div class="line">          <span class="keywordflow">if</span> (<a class="code" href="a01048_ga3222b711fa5f6660f0fb3edff1ac9b29.html#ga3222b711fa5f6660f0fb3edff1ac9b29">MEDfieldValueRd</a>(fid, fieldname, numdt, numit, <a class="code" href="a00577_aab0e957294723517d5c3641bb71b0470.html#aab0e957294723517d5c3641bb71b0470a227d14957ec5f221685cb1d6ec3b6c67">MED_CELL</a>, geotype,</div>
+<div class="line">                              <a class="code" href="a00577_a0d451e4036adbb12b14cb16d7db0c37d.html#a0d451e4036adbb12b14cb16d7db0c37da9a1509b3f93e5915a24f555890c73ee1">MED_FULL_INTERLACE</a>, <a class="code" href="a00577_a65a18ab6db672a2d21312d1813a3bb19.html#a65a18ab6db672a2d21312d1813a3bb19">MED_ALL_CONSTITUENT</a>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*) values) &lt; 0) {</div>
+<div class="line">            <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : read fields values for cells ...&quot;</span>);</div>
+<div class="line">            free(values);</div>
+<div class="line">            <span class="keywordflow">goto</span> ERROR;</div>
+<div class="line">          }</div>
+<div class="line">          free(values);</div>
+<div class="line">        }</div>
+<div class="line"></div>
+<div class="line">      }</div>
+<div class="line">    }</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  ret=0;</div>
+<div class="line"> ERROR:</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* close file */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;ERROR : close file ...&quot;</span>);</div>
+<div class="line">    ret=-1;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> ret;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p><br />
+<br />
+ </p>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:48 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

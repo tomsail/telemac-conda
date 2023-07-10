@@ -1,0 +1,215 @@
+#include "TECADDON.h"
+#include "ADDGLBL.h"
+#if !defined (MSWIN)
+#include <unistd.h>
+#endif
+#include "GUIDEFS.h"
+
+
+
+
+
+/**
+ */
+static void Extract2D_BTN_T1_2_CB(void)
+{
+  TecUtilLockStart(AddOnID);
+  TRACE("Extract Button Pushed\n");
+  TecUtilLockFinish(AddOnID);
+}
+
+
+/**
+ */
+static LgIndex_t  X1_TF_T1_2_CB(const char *S)
+{
+  LgIndex_t IsOk = 1;
+  TecUtilLockStart(AddOnID);
+  TRACE1("Text field (X1_TF_T1_2) Value Changed,  New value is: %s\n",S);
+  TecUtilLockFinish(AddOnID);
+  return (IsOk);
+}
+
+
+/**
+ */
+static LgIndex_t  Y1_TF_T1_2_CB(const char *S)
+{
+  LgIndex_t IsOk = 1;
+  TecUtilLockStart(AddOnID);
+  TRACE1("Text field (Y1_TF_T1_2) Value Changed,  New value is: %s\n",S);
+  TecUtilLockFinish(AddOnID);
+  return (IsOk);
+}
+
+
+/**
+ */
+static LgIndex_t  Z1_TF_T1_2_CB(const char *S)
+{
+  LgIndex_t IsOk = 1;
+  TecUtilLockStart(AddOnID);
+  TRACE1("Text field (Z1_TF_T1_2) Value Changed,  New value is: %s\n",S);
+  TecUtilLockFinish(AddOnID);
+  return (IsOk);
+}
+
+
+/**
+ */
+static LgIndex_t  X2_TF_T1_2_CB(const char *S)
+{
+  LgIndex_t IsOk = 1;
+  TecUtilLockStart(AddOnID);
+  TRACE1("Text field (X2_TF_T1_2) Value Changed,  New value is: %s\n",S);
+  TecUtilLockFinish(AddOnID);
+  return (IsOk);
+}
+
+
+/**
+ */
+static LgIndex_t  Y2_TF_T1_2_CB(const char *S)
+{
+  LgIndex_t IsOk = 1;
+  TecUtilLockStart(AddOnID);
+  TRACE1("Text field (Y2_TF_T1_2) Value Changed,  New value is: %s\n",S);
+  TecUtilLockFinish(AddOnID);
+  return (IsOk);
+}
+
+
+/**
+ */
+static LgIndex_t  Z2_TF_T1_2_CB(const char *S)
+{
+  LgIndex_t IsOk = 1;
+  TecUtilLockStart(AddOnID);
+  TRACE1("Text field (Z2_TF_T1_2) Value Changed,  New value is: %s\n",S);
+  TecUtilLockFinish(AddOnID);
+  return (IsOk);
+}
+
+
+/**
+ */
+static LgIndex_t  NBPT_TF_T1_2_CB(const char *S)
+{
+  LgIndex_t IsOk = 1;
+  TecUtilLockStart(AddOnID);
+  TRACE1("Text field (NBPT_TF_T1_2) Value Changed,  New value is: %s\n",S);
+  TecUtilLockFinish(AddOnID);
+  return (IsOk);
+}
+
+
+/**
+ */
+static void ResIsTrans_TOG_T1_2_CB(const LgIndex_t *I)
+{
+  TecUtilLockStart(AddOnID);
+  TRACE1("Toggle (ResIsTrans_TOG_T1_2) Value Changed,  New value is: %d\n",*I);
+  TecUtilLockFinish(AddOnID);
+}
+
+
+/**
+ */
+static void Extract1D_BTN_T2_2_CB(void)
+{
+  TecUtilLockStart(AddOnID);
+  TRACE("Extract Button Pushed\n");
+  TecUtilLockFinish(AddOnID);
+}
+
+
+/**
+ */
+static LgIndex_t  X_TF_T2_2_CB(const char *S)
+{
+  LgIndex_t IsOk = 1;
+  TecUtilLockStart(AddOnID);
+  TRACE1("Text field (X_TF_T2_2) Value Changed,  New value is: %s\n",S);
+  TecUtilLockFinish(AddOnID);
+  return (IsOk);
+}
+
+
+/**
+ */
+static LgIndex_t  Y_TF_T2_2_CB(const char *S)
+{
+  LgIndex_t IsOk = 1;
+  TecUtilLockStart(AddOnID);
+  TRACE1("Text field (Y_TF_T2_2) Value Changed,  New value is: %s\n",S);
+  TecUtilLockFinish(AddOnID);
+  return (IsOk);
+}
+
+
+/**
+ */
+static LgIndex_t  Z_TF_T2_2_CB(const char *S)
+{
+  LgIndex_t IsOk = 1;
+  TecUtilLockStart(AddOnID);
+  TRACE1("Text field (Z_TF_T2_2) Value Changed,  New value is: %s\n",S);
+  TecUtilLockFinish(AddOnID);
+  return (IsOk);
+}
+
+
+/**
+ */
+static void Dialog1HelpButton_CB(void)
+{
+  TecUtilLockStart(AddOnID);
+  TecUtilDialogMessageBox("On-line Help not available for this dialog.",
+                          MessageBox_Information);
+  TecUtilLockFinish(AddOnID);
+}
+
+
+/**
+ */
+static void Dialog1CloseButton_CB(void)
+{
+  TecUtilLockStart(AddOnID);
+  TecGUIDialogDrop(Dialog1Manager);
+  TecUtilLockFinish(AddOnID);
+}
+
+
+/**
+ */
+static void Dialog1Init_CB(void)
+{
+  TecUtilLockStart(AddOnID);
+/* <<< Add init code (if necessary) here>>> */
+  TecUtilLockFinish(AddOnID);
+}
+
+
+/**
+ */
+static void TAB1_TBA_D1_CB(const LgIndex_t *I)
+{
+  TecUtilLockStart(AddOnID);
+  TRACE0("Activate callback for tab (TAB1_TBA_D1) called\n");
+  TecUtilLockFinish(AddOnID);
+}
+
+
+/**
+ */
+static void TAB1_TBD_D1_CB(const LgIndex_t *I)
+{
+  TecUtilLockStart(AddOnID);
+  TRACE0("Deactivate callback for tab (TAB1_TBD_D1) called\n");
+  TecUtilLockFinish(AddOnID);
+}
+
+
+
+
+#include "guibld.c"

@@ -1,0 +1,406 @@
+\chapter{Weirs}
+
+\section{Purpose}
+These two test cases present a flow over different sills
+treated as singularities. They allow to show
+that \telemac{2D} is able to treat a number of flow singularities
+as internal boundary conditions. Moreover, they allow also to check
+the tracers function for this type of problem in \telemac{2D}.
+
+\section{Description}
+
+The sills may be considered under the traditional approach made
+in open channel hydraulics through a relation between two superimposed
+open boundaries, short sills may be treated as a couple of nodes
+with respective source and sink terms.\\
+
+This sills description, which are represented in a channel as internal
+singularities, was introduced in \telemac{2D} in order to avoid the
+multiplication of computational nodes and associated reduction in time
+step when a sill is represented thanks to variations in the bathymetry.\\
+In the first version implemented in \telemac{2D}, the weir law as traditionally
+used in channel hydraulics is prescribed through two boundary conditions:
+one upstream the weir and one downstream (with the same number of nodes
+upstream and downstream).
+Recently, a more generic solution has been implemented where the weir law
+is prescribed through sources points and where the description of the weir
+itself could be done at a smaller scale than the surrounding mesh.
+It should be mentioned however that both options give satisfactory results
+only if the flow is relatively perpendicular to the weir, which is
+the case in the two tests.
+
+\section{Option 1 - Horizontal weirs}
+
+\subsection{Geometry and mesh}
+
+In this test case, the sills  are so represented as internal
+singularities, as just indicated.
+The geometry dimensions of rectangular channel are 848~m wide
+and  3,522~m long. The channel is flat bottom and it is decomposed
+of four part reaches 848~m long. The three upstream reaches are limited
+at their downstream end by 3 sills with crest heights 1.8~m (upstream sill),
+1.6~m and 1.4~m (downstream sill).
+
+The mesh is regular along the domain. It is generally made up
+with quadrangles split into two triangles. It is irregular in
+the upstream reach in order to test the sensitivity on this
+feature of the flow results above the sill (see Figure \ref{t2d:weirs:fig:geo}).
+It is composed of 870 triangular elements (519 nodes) and
+the size of triangles ranges between 53~m and 120~m.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.6\textwidth]}{../img/geo.png}
+ \caption{Mesh and topography of the domain.}
+ \label{t2d:weirs:fig:geo}
+\end{figure}
+
+\subsection{Initial conditions}
+
+The initial conditions are a null velocity,
+a water depth of 1.35~m and a tracer value of 50.
+
+\subsection{Boundary conditions}
+
+The boundary conditions (Figure \ref{t2d:weirs:fig:geo}) are:
+\begin{itemize}
+\item At the channel entrance (lower left), the flow rate is
+$Q$ = 600~m$^3$s$^{-1}$ and the tracer value is 100.
+\item At the channel outlet (upper left), the water depth is
+$h$ = 1.35~m.
+\end{itemize}
+
+\subsection{Physical parameters}
+
+On  bottom friction, the Strickler formula
+with friction coefficient equal to
+30~m$^{1/3}$.s$^{-1}$ is imposed.
+No friction is taken into account on lateral walls.
+Note that the turbulent viscosity is constant and equal to 1~m$^2$.s$^{-1}$.
+
+\subsection{Numerical parameters}
+
+The time step is 150~s for a period of 6,000~s.
+The resolution accuracy for the velocity is taken at $10^{-10}$.
+Note that for numerical resolution, GMRES (Generalized Minimal Residual Method)
+is used for solving the propagation step (option 7). To solve advection,
+the characteristics scheme (scheme 1), and the conservative scheme (scheme 5)
+is used respectively for the velocities and for the depth. To finish,
+the implicitation coefficients for depth and velocities are equal to 0.55
+(default values).\\
+The triangular elements types are linear triangles (P1, 3 values per element,
+the corners) for water depth and quasi-bubble triangle (4 values per element,
+the corners and the element center) for velocities.
+It should also be noted that a tracer is used.
+For the advection resolution, it is used a conservative N-scheme (scheme \#4)
+and the solver for diffusion of tracer is the conjugate gradient (option 1).
+
+\subsection{Results}
+
+As it can be seen in Figure \ref{t2d:weirs:velocity},
+the velocity field remains regular laterally in the different reaches of the channel.
+
+\begin{figure}[!htbp]
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/figure_velo1500s.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/figure_velo3000s.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/figure_velo4500s.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/figure_velo6000s.png}
+\end{minipage}
+ \caption{Evolution of velocity field in time.}
+ \label{t2d:weirs:velocity}
+\end{figure}
+
+The water level increases progressively as expected
+in the three upstream reaches during the simulated period
+(see Figure \ref{t2d:weirs:fig:z}). The relations between
+the discharge (per unit of width) on the sill, the water levels
+upstream and downstream and the sill crest elevation must be respected.
+They are:
+\begin{itemize}
+\item Free overflow weir:
+\begin{equation*}
+q=\mu \sqrt{2g}\left( z_{up}-z_{sill} \right)^{3/2},
+\end{equation*}
+\item Drowned weir :
+ 	\begin{equation*}
+q=\frac{2}{3\sqrt{3}}C_{d} \sqrt{2g}\left( z_{down}-z_{sill} \right)\sqrt{\left( z_{up}-z_{down} \right)}.
+\end{equation*}
+\end{itemize}
+The transition from free overflow to drowned condition is defined by:
+\begin{equation}
+  	z_{down} \leq z_{sill}+ \frac{2}{3}\left( z_{up}-z_{sill} \right),
+  	\label{t2d:weirs:eq:1}
+\end{equation}
+Where $z_{up}$, $z_{down}$ and $z_{sill}$ are respectively
+water level upstream (m), water level downstream (m) and
+sill crest elevation (m).  $q$ is discharge per unit width
+(m$^2$.s$^{-1}$). $g$ is the gravitational acceleration (m.s$^{-2}$).
+$\mu$ is viscosity coefficient (Pa.s$^{-1}$) and $C_d$ is the discharge coefficient
+(usually between 0.4 and 0.5).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.85\textwidth]}{../img/free_surface.png}
+ \caption{Evolution of the free surface elevation in time.}
+ \label{t2d:weirs:fig:z}
+\end{figure}
+
+The \telemac{2D} results respect well these relations \eqref{t2d:weirs:eq:1}
+(Figure  \ref{t2d:weirs:fig:z}). Furthermore the tracer propagation is well
+ carried out through internal singularities (Figure \ref{t2d:weirs:fig:tracer}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.85\textwidth]}{../img/tracer.png}
+ \caption{Evolution of the tracer in time.}
+ \label{t2d:weirs:fig:tracer}
+\end{figure}
+
+\section{Option 2 - Generic weirs}
+
+\subsection{Geometry and mesh}
+
+In this second test case, the sills are also represented as internal
+singularities, but with different shape, along profile and number of points.
+
+The geometry is composed by 6 different squares 1,000~m $\times$ 1,000~m.
+The mesh of each square is irregular with mean size equal to 50~m (domain 4), 
+100~m (domain 1, 3 and 5) and 200~m (domain 2 and 6) (see Figure \ref{t2d:weirs2:fig:mesh}).
+
+There is 5 weirs between those 6 small domains
+(see Figure \ref{t2d:weirs2:fig:geo}).
+
+The global mesh is composed of 1,702 triangular elements (977 nodes).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.6\textwidth]}{../img/weirs2_geo.png}
+ \caption{Mesh of the domain.}
+ \label{t2d:weirs2:fig:mesh}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.6\textwidth]}{img/geometry.png}
+ \caption{Topography of the domain with weirs position.}
+ \label{t2d:weirs2:fig:geo}
+\end{figure}
+
+Those 5 weirs have different shapes (see Figure \ref{t2d:weirs2:fig:weirsprofile}):
+\begin{itemize}
+\item Simple horizontal shape between domain 1 and 2, %(see Figure \ref{t2d:weirs2:fig:w1}).
+\item Horizontal shape but with a zigzag trace between domain 2 and 3 
+that leads to a longer weir, %(see Figure \ref{t2d:weirs2:fig:w2}).
+\item V shape between domain 3 and 4, %(see Figure \ref{t2d:weirs2:fig:w3}).
+\item Horizontal shape with 2 slots between domain 4 and 5, %(see Figure \ref{t2d:weirs2:fig:w4}).
+\item Free Shape between domain 5 and 6. %(see Figure \ref{t2d:weirs2:fig:w5}).
+\end{itemize}
+
+\begin{figure}[!htbp]
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{img/weir_1-2.png}
+ \captionof{subfigure}{Profile of weirs between 1 and 2}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{img/weir_2-3.png}
+ \captionof{subfigure}{Profile of weirs between 2 and 3}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{img/weir_3-4.png}
+ \captionof{subfigure}{Profile of weirs between 3 and 4}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{img/weir_4-5.png}
+ \captionof{subfigure}{Profile of weirs between 4 and 5}
+\end{minipage}
+\begin{minipage}[t]{\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.50\textwidth]}{img/weir_5-6.png}
+ \captionof{subfigure}{Profile of weirs between 5 and 6}
+\end{minipage}
+ \caption{Profile of weirs.}
+ \label{t2d:weirs2:fig:weirsprofile}
+\end{figure}
+
+\newpage 
+\subsection{Initial conditions}
+
+The initial conditions are a null velocity, null concentration tracer,
+a water depth of 1~m in domain 1 and 6 and 0.1~m in other domain.
+
+\subsection{Boundary conditions}
+
+The boundary conditions are:
+\begin{itemize}
+\item At the domain 1 entrance (left side), the flow rate starts from 
+$Q$ = 0~m$^3$s$^{-1}$ and increases to $Q$ = 500~m$^3$s$^{-1}$
+during the 200 first seconds and remain to this value after that.
+The tracer value is 100.
+\item At the channel outlet, the water depth is $h$ = 1m.
+\end{itemize}
+
+\subsection{Physical parameters}
+
+On  bottom friction, the Strickler formula
+with friction coefficient equal to
+50~m$^{1/3}$.s$^{-1}$ is imposed.
+No friction is taken into account on lateral walls.
+For turbulence, the default parameters are used.
+
+\subsection{Numerical parameters}
+
+The time step is 10~s for a period of 43,200~s (= 12~h).
+All other numerical parameters are let at theirs default value.
+
+\subsection{Results}
+
+As it can be seen in Figure \ref{t2d:weirs2:velocity},
+the velocity field remains regular laterally between the 3 first domains.
+Between domain 3 and 4, the flow shows a concentration in the center due to the
+V shape and between 4 and 5, the flow is splitted in 2 according to the slots.
+Over the last weir, the flow is irregular but smoothed by the large cell sized
+of the domain...
+
+\begin{figure}[!htbp]
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/weirs2_figure_velo_00600s.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/weirs2_figure_velo_03600s.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/weirs2_figure_velo_07200s.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/weirs2_figure_velo_10800s.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/weirs2_figure_velo_14400s.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/weirs2_figure_velo_18000s.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/weirs2_figure_velo_43200s.png}
+\end{minipage}
+ \caption{Evolution of velocity field in time.}
+ \label{t2d:weirs2:velocity}
+\end{figure}
+
+The final discharge for each weirs is presented in the following table. The test case
+is supposed to reach steady state at the end of simulation so we should obtain the same discharge
+as imposed upstream ($Q$ = 500~m$^3$s$^{-1}$).
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+ \hline Weir number & Discharge \\
+ \hline
+ \InputIfFileExists{../img/qweirs.txt}{}{}\\
+ \hline
+\end{tabular}
+\label{t2d:weirs2:tab1}
+\caption{Weirs2 test case: final discharge over weirs.}
+\end{table}
+
+The evolution of piece-wise discharge (the discharge on each elemental part of
+the weir) can be seen in Figure \ref{t2d:weirs2:fig:weirsdischarge}.
+
+\begin{itemize}
+\item For weirs 1 and 2, which are horizontal, that the piece-wise discharge is
+  the same for each element of the weir,
+\item For weirs 3, the highest discharge is located in the middle part of the
+  weir and the discharge is 0 on the lateral part,
+\item For weir 4, only the element in the slot have a positive discharge,
+\item For weir 5, the discharge could be linked to the shape of the weir.
+\end{itemize}
+
+\begin{figure}[!htbp]
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/q_weir1.png}
+ \captionof{subfigure}{Elemental discharge of weir 1}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/q_weir2.png}
+ \captionof{subfigure}{Elemental discharge of weir 2}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/q_weir3.png}
+ \captionof{subfigure}{Elemental discharge of weir 3}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/q_weir4.png}
+ \captionof{subfigure}{Elemental discharge of weir 4}
+\end{minipage}
+\begin{minipage}[t]{\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.50\textwidth]}{../img/q_weir5.png}
+ \captionof{subfigure}{Elemental discharge of weir 5}
+\end{minipage}
+ \caption{Evolution of discharge per elemental part of each weir.}
+ \label{t2d:weirs2:fig:weirsdischarge}
+\end{figure}
+
+The water level increases progressively as expected
+in the different domains during the simulated period
+(see Figure \ref{t2d:weirs2:fig:z}).
+Like in Option 1, the relations \eqref{t2d:weirs:eq:1} are respected.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.85\textwidth]}{../img/weirs2_free_surface.png}
+ \caption{Evolution of the free surface elevation in time.}
+ \label{t2d:weirs2:fig:z}
+\end{figure}
+
+The tracer propagation is also well carried out through internal singularities
+ (Figure \ref{t2d:weirs2:fig:tracer}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.85\textwidth]}{../img/weirs2_tracer.png}
+ \caption{Evolution of the tracer in time.}
+ \label{t2d:weirs2:fig:tracer}
+\end{figure}
+
+\section{Conclusion}
+To conclude, \telemac{2D} computes adequately weir
+flows as given by analytical hydraulic laws.
+This type of flow is represented as an internal
+ singularity in the model.
+These internal singularity could be described with 2 different options:
+\begin{itemize}
+\item Option 1, the weir law as traditionally used in channel hydraulics
+ is prescribed through boundary conditions. This option requires the same
+ number of nodes upstream and downstream and the weir should be horizontal,
+\item Option 2, the weir law is prescribed through sources points located
+ on the upstream and downstream boundary. The description of the weir itself
+ could be done at a smaller scale than the surrounding mesh without any
+ constraint on its level.
+\end{itemize}

@@ -1,0 +1,60 @@
+/  ON THIS CASE DIFFERENCES BETWEEN COMPILERS ARE DUE TO TRUNCATIONS ERRORS
+/  BECAUSE OF VON KARMAN EDDIES
+/
+/  SUR HP3700         : 194 s compilateur HP  5.9  16/10/2008
+/  Dell 2.8 MHz       : 119 s compilateur pgi 5.9  16/10/2008
+/
+/  SUR HP3700         : 191 s compilateur HP  6.0  24/11/2009
+/  SUR HP3700         : 413 s compilateur Nag 6.0  26/11/2009 (scalaire)
+/  Dell 2.8 MHz       : ??? s compilateur pgi 6.0
+/
+/  SUR HP3700         : 152 s compilateur HP     6.2  21/05/2012
+/  SUR Calibre 7      :  31 s compilateur Intel  6.2  20/06/2012 (1 proc)
+/  SUR Calibre 7      :   5 s compilateur Intel  6.2  20/06/2012 (8 proc)
+/
+/-------------------------------------------------------------------/
+/   INPUT OUTPUT
+/-------------------------------------------------------------------/
+BOUNDARY CONDITIONS FILE = geo_pildepon.cli
+GEOMETRY FILE            = geo_pildepon.slf
+LIQUID BOUNDARIES FILE   = t2d_pildepon.lqd
+FORTRAN FILE             = 'user_fortran'
+RESULTS FILE             = r2d_pildepon_qua.slf
+FORMATTED RESULTS FILE   = force.txt
+FORMATTED RESULTS FILE 1 = massb_A.txt
+/
+/-------------------------------------------------------------------/
+/   GENERAL CONFIGURATION
+/-------------------------------------------------------------------/
+TITLE = 'TELEMAC 2D : RIVIERE AVEC DEUX PILES DE PONT$'
+TIME STEP               = 0.1
+NUMBER OF TIME STEPS    = 12000
+GRAPHIC PRINTOUT PERIOD = 50
+LISTING PRINTOUT PERIOD = 1000
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,S,H,B'
+MASS-BALANCE             = YES
+/--------------------------------------------------------------------/
+/   PHYSICAL OPTIONS
+/--------------------------------------------------------------------/
+LAW OF BOTTOM FRICTION = 3
+FRICTION COEFFICIENT   = 40.
+TURBULENCE MODEL       = 1
+VELOCITY DIFFUSIVITY   = 0.021
+INITIAL CONDITIONS     = 'ZERO ELEVATION'
+/--------------------------------------------------------------------/
+/   NUMERICAL OPTIONS
+/--------------------------------------------------------------------/
+DISCRETIZATIONS IN SPACE           = 13;11
+SCHEME FOR ADVECTION OF VELOCITIES = 1
+IMPLICITATION FOR DEPTH            = 0.6
+IMPLICITATION FOR VELOCITY         = 0.6
+/
+MASS-LUMPING ON VELOCITY           = 1.
+MASS-LUMPING ON H                  = 1.
+/
+TREATMENT OF THE LINEAR SYSTEM     = 1
+SOLVER                             = 7
+SOLVER ACCURACY                    = 1.E-5
+SOLVER OPTION                      = 1
+/
+CONTINUITY CORRECTION              = YES

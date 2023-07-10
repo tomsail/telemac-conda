@@ -1,0 +1,166 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{amsmath}
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P2}
+
+\subsection*{Validation du noyau fluvial transitoire}
+
+\subsection*{\emph{Ecoulement permanent avec seuil et atténuation de la convection}}
+
+\subsection*{Numéro du cas test : 25}
+
+\subsection*{Auteur : Fabrice ZAOUI}
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+Le cas test consiste à  calculer l'écoulement permanent dans un canal de section rectangulaire de largeur constante dont le fond comporte un seuil.
+Suivant les conditions aux limites et les conditions initiales imposées, l'écoulement peut être fluvial, torrentiel, transcritique avec ou sans ressaut.
+Ce cas test permet de vérifier l'aptitude du code à calculer les écoulements permanents (par convergence d'un instationnaire) pour des régimes variés en empêchant l'apparition d'un régime critique.
+Cet empêchement se fait par l'activation de l'option d'atténuation de la convection du noyau fluvial instationnaire. Localement le résultat calculé n'est pas correct mais l'activation de cette option
+permet de continuer un calcul qui normalement devrait s'arrêter
+
+Ce cas test a été proposé par le LNHE et traité lors du groupe de travail AIRH sur les ondes de submersion liées aux ruptures de barrages\footnote{N. Goutal, F. Maurel, \emph{Proceedings of the $2^{nd}$ workshop on dam-break wave simulation}, Rapport EDF HE-43/97/016/B}.
+
+\subsection*{Données géométriques}
+
+Le calcul est réalisé dans un canal de $25\ m$ de longueur, dont chaque section en travers est de forme rectangulaire de largeur constante $1\ m$. 
+Ce canal présente un seuil entre les points $x=9\ m$ et $x=12\ m$ de forme parabolique et de hauteur $20\ cm$. La cote des fonds $z_f$ vérifie les relations suivantes :
+
+\begin{displaymath}
+ \left\{
+ \begin{array}{l}
+       x < 9 \Rightarrow z_f = 0 \\
+       9 \leq x \leq 12 \Rightarrow z_f = 0.05(x-9)(12-x) \\
+       x > 12 \Rightarrow z_f = 0 \\
+ \end{array}
+ \right.
+\end{displaymath}
+
+Ce fond est représenté sur la figure~\ref{fig1}.
+
+
+\subsection*{Données physiques}
+
+\begin{itemize}
+ \item Prise en compte du frottement : non (coefficient de Strickler $=99999$);
+ \item \underline{Cas torrentiel sans choc} :
+   \begin{itemize}
+    \item Conditions aux limites :
+    \begin{itemize}
+     \item cote imposée à l'aval à $0.66\ m$ si l'écoulement est fluvial;
+     \item débit imposé à l'amont égal à $1.53\ m^3/s$.
+    \end{itemize}
+    \item Condition initiale :
+    \begin{itemize}
+     \item fluide au repos à la cote de $0.66\ m$
+    \end{itemize}
+   \end{itemize}
+ \item \underline{Cas torrentiel avec choc aval} :
+  \begin{itemize}
+   \item Conditions aux limites :
+   \begin{itemize}
+    \item cote imposée à l'aval égale à $0.33\ m$;
+    \item débit imposé à l'amont égal à $0.18\ m^3/s$.
+   \end{itemize}
+   \item Condition initiale :
+   \begin{itemize}
+    \item fluide au repos à la cote de $0.33\ m$
+   \end{itemize}
+ \end{itemize}
+\end{itemize}
+
+
+\subsection*{Données numériques}
+
+Le maillage utilisé comporte $100$ cellules ($\Delta x = 0.25\ m$).
+
+Le pas de planimétrage est homogène dans le domaine égal à $5\ cm$.
+
+Le pas de temps est réglé automatiquement à chaque itération de manière à vérifier un nombre de CFL égal à $0.8$.
+
+Le calcul est effectué jusqu'à convergence vers un état stationnaire.
+
+
+\subsection*{Résultats}
+
+Les figures~\ref{fig2} à \ref{fig5} présentent les résultats obtenus dans chacun des cas. Chaque figure montre la cote de la surface libre et le débit dans le bief en comparaison de la solution analytique. 
+
+La cote calculée dans les deux cas est fausse et le débit permanent bon. L'activation de l'option d'atténuation de la convection permet de passer ces cas difficiles pour le noyau fluvial instationnaire sans prétendre
+représenter la physique de l'écoulement.
+
+\subsection*{Conclusion}
+
+L'activation de l'option d'atténuation de la convection est risquée du fait de la non représentation des écoulements naturellement rapides. La robustesse du noyau est améliorée (pas d'arrêt du calcul) ce qui peut avoir un intérêt pour l'utilisateur s'il est conscient des limitations (souvent locales) engendrées par cette modification des équations de Saint-Venant.
+
+\newpage
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Fond.eps}
+  \caption{Profil en long du canal}
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+~
+% les resultats
+
+\newpage
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Zchoc.eps}
+  \caption{Cote de l'écoulement fluvial avec choc}
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Qchoc.eps}
+  \caption{Débit de l'écoulement fluvial avec choc}
+  \label{fig3}
+ \end{center}
+\end{figure}
+
+\newpage
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Zsanschoc.eps}
+  \caption{Cote de l'écoulement fluvial sans choc}
+  \label{fig4}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Qsanschoc.eps}
+  \caption{Débit de l'écoulement fluvial sans choc}
+  \label{fig5}
+ \end{center}
+\end{figure}
+
+
+
+
+%
+% fin du document
+%
+\end{document}          

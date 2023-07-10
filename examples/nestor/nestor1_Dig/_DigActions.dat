@@ -1,0 +1,25 @@
+/======================================================================
+
+RESTART   =    FALSE
+
+/======================================================================
+ACTION
+   ActionType             =    Dig_by_time
+
+   FieldDig               =    201_Abschnitt_1_2_1000m**2
+   
+   DigVolume              =    100.00              / [ m**3 ]             
+  /DigPlanar              =    FALSE
+
+
+   TimeStart              =   2000.01.01-00:00:50  /  [yyyy.mm.dd-hh:mm:ss]
+   TimeEnd                =   2000.01.01-00:02:30  /  [yyyy.mm.dd-hh:mm:ss]   
+   
+
+   FieldDump              =   202_Abschnitt_6_7_1000m**2
+   DumpRate               =    0.0005              /  [ m/s ]
+   DumpPlanar             =    FALSE
+
+ENDACTION
+/======================================================================
+ENDFILE

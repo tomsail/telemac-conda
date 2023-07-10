@@ -1,0 +1,142 @@
+* -----------------------------------------------------------------------------
+*  Description of friction of the zones
+*
+*  Bed roughness laws
+*    NOFR : no friction         (no value)
+*    HAAL : Haaland   law       (1 Value  : rB)
+*    CHEZ : Chezy     law       (1 Value  : rB)
+*    STRI : Strickler law       (1 Value  : rB)
+*    MANN : Manning   law       (1 Value  : rB)
+*    NIKU : Nikuradse law       (1 Value  : rB)
+*    LOGW : Log Wall  law       (1 Value  : rB)
+*    COWH : Colebrook-White law (2 Values  : rB. nDef)
+*
+*  Vegetation roughness laws
+*   NULL : no vegetation        (no value)
+*   LIND : Lindner              (1982)  approach  (2 Values: dp, sp)
+*   JAER : Jaervelae            (2004)  approach  (5 Values: Cd, LAI, Uref, VOGEL, hp)
+*   WHIT : Whittaker et al      (2015)  approach  (6 Values: CDo, Apo, EI, VOGEL, Sp, hp)  
+*   BAPT : Baptist et al        (2007)  approach  (3 Values: Cd, mD, hp)
+*   HUTH : Huthoff et al        (2007)  approach  (4 values: Cd, mD, hp, Sp)
+*   VANV : Van Velzen et al     (2003)  approach  (3 Values: Cd, mD,  hp)
+*   LUNE : Luhar & Nepf         (2013)  approach  (4 values: Cd, Cv, a, hp)
+*   VAST : Vaestilae and Jaervelae  (2014)  approach  (9 values: Cdf, CDs, LAI, SAI, VOGELf, VOGELs, Ureff, Urefs, hp)
+*
+*  no             : Number of zone
+*
+*  Bed setup
+*  -------------
+*  typeB          : Roughness law for bottom boundary
+*  rB             : Roughness coefficient for bottom boundary
+*  nDefB          : Manning coefficient for flat overflow areas (option)
+*
+*****************************************************************************************************
+*  Vegetation parameters(if needed)
+*  ------------------------
+*  typeV          : Roughness law for vegetation
+*
+* Case Lindner:
+*  dp             : average diameter (option)
+*  sp             : mean distance from ideal roughness elements (option)
+*
+*
+* Case Jaervelae:
+*  Cdx            : vegetation drag coefficient (Specie specific)
+*  LAI            : Leaf area index
+*  Uref           : (Specie-specific) lowest velocity used to determine the Vogel exponent
+*  Vogel          : (Specie-specific) Vogel exponent
+*  hp             : Vegetation height
+*
+*
+* Case Whittaker:
+*  CDo            : Specie-specific rigid drag coefficient
+*  Apo            : Initial-projected area (Rigid)
+*  EI             : Flexural Rigidity
+*  VOGEL          : Vogel exponent
+*  Sp             : Spacing between roughness elements (same as Lindner)
+*  hp             : Undeflected plant height
+*
+* Case Baptist:
+*  Cd             : vegetation bulk drag coefficient (Normally 1.0)
+*  mD             : m: vegetation density=1/spacing**2
+*                   D: Vegetation diameter when modeled as cylinder      
+*                   Note: can be estimated by mD=0.5*LAI/hp (Finnigan 2000)
+*  hp             : vegetation height
+*
+* Case Huthoff (2007):
+*  Cd             : vegetation bulk drag coefficient
+*  mD             : m: vegetation density=1/spacing**2
+*                   D: Vegetation diameter when modeled as cylinder      
+*                   Note: can be estimated by mD=0.5*LAI/hp (Finnigan 2000)
+*  hp             : Vegetation height
+*  Sp             : mean spacing between ideal roughness elements
+*
+* Case Van Velzen (2003):
+*  Cd             : vegetation drag coefficient
+*  mD             : m: vegetation density=1/spacing**2
+*                   D: Vegetation diameter when modeled as cylinder      
+*                   Note: can be estimated by mD=0.5*LAI/hp (Finnigan 2000)
+*  hp             : Vegetation height
+*
+*
+* Case Luhar and Nepf (2013):
+*  Cd             : vegetation drag coefficient
+*  Cv             : friction coefficient on top of the vegetation layer
+*                   Note: Case of emerged, input 0
+*  a              : frontal area of vegetation per volume (=mD)
+*                   Note: can be estimated by 0.5 LAI/H (Finnigan 2000)
+*  hp             : Vegetation height             
+*
+*
+*
+* Case Vaestilae and Jaervelae (2014):
+*  CDf            : Foliage drag coefficient
+*  LAI            : Leaf area index
+*  Ureff          : Foliage reference velocity (lowest velocity used to determine the vogel exponent)
+*  VOGELf         : Foliage Vogel exponent
+*  CDs            : Stem drag coefficient
+*  SAI            : Stem Area index
+*  Urefs          : Stem reference velocity
+*  VOGELs         : Stem Vogel exponent
+*  hp             : Vegetation height
+*
+*
+* Case Hybrid Jaervelae and Baptist:
+*  Cdx            : vegetation drag coefficient (Specie specific)
+*  LAI            : Leaf area index
+*  Uref           : (Specie-specific) lowest velocity used to determine the Vogel exponent
+*  Vogel          : (Specie-specific) Vogel exponent
+*  hp             : Vegetation height
+*
+*
+*
+* --------------------------------------------------------------------------------------------------------------------
+* Lindner:
+*     no    typeB    rB    NDefB   typeV   dp    sp
+* Jaervelae:
+*     no    typeB    rB    NDefB   typeV   CDx    LAI   Ux   VOGEL   hp
+* Whittaker
+*     no    typeB    rB    NDefB   typeV   CDo   Apo   EI    VOGEL   Sp   hp
+* Baptist:
+*     no    typeB    rB    NDefB   typeV   CD    mD   hp 
+* Huthoff:
+*     no    typeB    rB    NDefB   typeV   CD    mD   hp  Sp
+* Van Velzen:
+*     no    typeB    rB    NDefB   typeV   CD    mD   hp
+* Luhar and Nepf:
+*     no    typeB    rB    NDefB   typeV   CD    Cv   a   hp
+* Vaestilae:
+*     no    typeB    rB    NDefB   typeV   CDf   LAI  Ureff   VOGELf   CDs  SAI  Urefs  VOGELs hp
+* --------------------------------------------------------------------------------------------------------------------
+*
+* main channel
+100         NIKU   0.0005   NULL    
+*
+* bank
+200         NIKU   0.0005   NULL
+*
+* floodplain
+300         NIKU   0.0030   LIND    0.01 0.1
+*
+*
+END

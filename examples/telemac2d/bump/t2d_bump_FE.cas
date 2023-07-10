@@ -1,0 +1,67 @@
+/-------------------------------------------------------------------/
+/                        TELEMAC-2D                                 /
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+TITLE = 'TELEMAC 2D: BUMP CASE FE'
+/
+FORTRAN FILE                    = 'user_fortran'
+GEOMETRY FILE                   = geo_bump.slf
+BOUNDARY CONDITIONS FILE        = geo_bump_flu.cli
+RESULTS FILE                    = r2d_bump.slf
+FORMATTED RESULTS FILE          = 'mass_matrix_tf.txt'
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,S,B,Q,F,H'
+/
+GRAPHIC PRINTOUT PERIOD         = 1000
+LISTING PRINTOUT PERIOD         = 1000
+/
+DURATION                        = 120
+TIME STEP                       = 0.02
+MASS-BALANCE                    = YES
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS              = 'PARTICULAR'
+/
+/----------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------
+/
+PRESCRIBED FLOWRATES            = 0.;1.5
+PRESCRIBED ELEVATIONS           = 0.8;0.
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 0
+VELOCITY DIFFUSIVITY            = 0.
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+/SCHEMES
+EQUATIONS                       = 'SAINT-VENANT FE'
+TREATMENT OF THE LINEAR SYSTEM  = 2 /1:PRIM 2:WAVE EQUATION
+/
+TYPE OF ADVECTION               = 1;5
+DISCRETIZATIONS IN SPACE        = 11;11
+/
+SOLVER                          = 1
+SOLVER ACCURACY                 = 1.E-5
+IMPLICITATION FOR DEPTH         = 1.0
+IMPLICITATION FOR VELOCITY      = 1.0
+/
+TIDAL FLATS                     = NO
+FREE SURFACE GRADIENT COMPATIBILITY = 0.9
+CONTINUITY CORRECTION           = YES

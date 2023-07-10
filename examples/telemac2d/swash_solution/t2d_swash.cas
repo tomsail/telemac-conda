@@ -1,0 +1,64 @@
+/-------------------------------------------------------------------/
+/ TELEMAC-2D       -  VALIDATION TEST CASE NUMBER  -                /
+/                            SWASH SOLUTION                         /
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+GEOMETRY FILE                   = geo_swash.slf
+FORTRAN FILE                    = 'user_fortran'
+BOUNDARY CONDITIONS FILE        = geo_swash.cli
+RESULTS FILE                    = r2d_swash.slf
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE                           = 'SWASH SOLUTION'
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,H,S,B,N'
+GRAPHIC PRINTOUT PERIOD         = 100
+LISTING PRINTOUT PERIOD         = 1000
+TIME STEP                       = 0.01
+NUMBER OF TIME STEPS            = 150
+VARIABLE TIME-STEP              = YES
+DESIRED COURANT NUMBER          = 0.8
+DURATION                        = 12.
+MASS-BALANCE                    = YES
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 0
+TURBULENCE MODEL                = 1
+VELOCITY DIFFUSIVITY            = 0.
+/
+/----------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------
+/
+PRESCRIBED ELEVATIONS           = -0.2499375
+OPTION FOR LIQUID BOUNDARIES    = 2
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+/
+EQUATIONS                       = 'SAINT-VENANT FV'
+FINITE VOLUME SCHEME            = 1
+FINITE VOLUME SCHEME SPACE ORDER = 2
+NUMBER OF PRIVATE ARRAYS        = 1
+/
+/  KEYWORDS COMMENTED BECAUSE FV SCHEMES ARE USED
+/
+/TIDAL FLATS                     = YES
+/SOLVER ACCURACY                 = 1.E-4
+/SOLVER                          = 7
+/SOLVER OPTION                   = 3
+/IMPLICITATION FOR DEPTH         = 1.
+/IMPLICITATION FOR VELOCITY      = 0.6

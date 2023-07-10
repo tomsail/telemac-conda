@@ -1,0 +1,44 @@
+           0
+           0
+ Maillage maa1 existe :            1
+           0
+ Maillage maa4 existe :            0
+           0
+ Nombre de maillages =            3
+           0
+maillage 1 de nom maa1 et de dimension 2 de description un premier maillage                                              
+ Maillage non structure
+ Dimension espace              2
+ Dimension maillage            2
+ Nom universel : C65845 Thu Jun  8 17:38:16 2017 754896                                          
+ dt unit =                 
+ sorting type =           0
+ number of computing step =           0
+ coordinates axis type =           0
+ coordinates axis name =x               y               
+ coordinates axis units =cm              cm              
+           0
+maillage 2 de nom maa2 et de dimension 2 de description un second maillage                                               
+ Maillage non structure
+ Dimension espace              2
+ Dimension maillage            2
+ Pas de nom universel
+ dt unit =                 
+ sorting type =           0
+ number of computing step =           0
+ coordinates axis type =           0
+ coordinates axis name =x               y               
+ coordinates axis units =cm              cm              
+           0
+maillage 3 de nom maa3 et de dimension 2 de description un troisieme maillage                                            
+ Maillage structure
+ Dimension espace              2
+ Dimension maillage            2
+ Pas de nom universel
+ dt unit =                 
+ sorting type =           0
+ number of computing step =           0
+ coordinates axis type =           0
+ coordinates axis name =x               y               
+ coordinates axis units =cm              cm              
+           0

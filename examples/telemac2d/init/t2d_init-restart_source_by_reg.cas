@@ -1,0 +1,69 @@
+/----------------------------------------------------------------------
+/             Initation example
+/             Computation with a restart and no turbulence
+/             With a tracer
+/             Sources are defined on a zone
+/----------------------------------------------------------------------
+/                      ENVIRONNEMENT INFORMATIQUE
+/----------------------------------------------------------------------
+/
+FORTRAN FILE : 'user_fortran_restart'
+BOUNDARY CONDITIONS FILE : geo_init.cli
+GEOMETRY FILE            : geo_init.slf
+RESULTS FILE             : r2d_init-restart_source_by_reg.slf
+PREVIOUS COMPUTATION FILE : ini_init.slf
+SOURCE REGIONS DATA FILE  : geo_source_init.txt
+/
+/----------------------------------------------------------------------
+/                        OPTIONS GENERALES
+/----------------------------------------------------------------------
+/
+TITLE : 'TELEMAC-2D - Initiation - Calcul numero 3'
+/
+VARIABLES FOR GRAPHIC PRINTOUTS : 'U,V,S,B,H,T1,Q'
+TIME STEP : 2.5
+NUMBER OF TIME STEPS : 4320
+GRAPHIC PRINTOUT PERIOD : 1080
+LISTING PRINTOUT PERIOD : 1080
+COMPUTATION CONTINUED : YES
+INITIAL TIME SET TO ZERO : YES
+/
+/----------------------------------------------------------------------
+/                    CONDITIONS AUX LIMITES
+/----------------------------------------------------------------------
+/
+LAW OF BOTTOM FRICTION : 3
+FRICTION COEFFICIENT   : 55.
+PRESCRIBED ELEVATIONS : 265.;0.
+PRESCRIBED FLOWRATES  : 0.;700.
+/
+/----------------------------------------------------------------------
+/                       OPTIONS NUMERIQUES
+/----------------------------------------------------------------------
+/
+TIDAL FLATS : NO
+TURBULENCE MODEL : 1
+MASS-BALANCE : YES
+SOLVER ACCURACY : 1.E-8
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER : 100
+TYPE OF ADVECTION : 1;5;5
+SOLVER : 7
+SOLVER FOR DIFFUSION OF TRACERS : 7
+VELOCITY DIFFUSIVITY : 1.E-2
+COEFFICIENT FOR DIFFUSION OF TRACERS : 0.
+TREATMENT OF THE LINEAR SYSTEM : 2
+/ FOR A PERFECT MASS BALANCE
+CONTINUITY CORRECTION : YES
+/
+/----------------------------------------------------------------------
+/                       TRACEUR
+/----------------------------------------------------------------------
+/
+NUMBER OF TRACERS : 1
+NAMES OF TRACERS : 'TRACER 1        NO UNIT'
+VALUES OF THE TRACERS AT THE SOURCES : 100.
+WATER DISCHARGE OF SOURCES : 10.
+MASS-LUMPING ON TRACERS : 1.
+MASS-LUMPING ON H : 1.
+MASS-LUMPING ON VELOCITY : 1.
+IMPLICITATION FOR DEPTH : 1.

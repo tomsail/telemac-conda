@@ -1,0 +1,89 @@
+/---------------------------------------------------------------------
+/ TELEMAC2D Version v8p4
+/ VALIDATION TEST FOR RAIN IN 2D- here option 3:
+/   1- case without infiltration
+/   2- case with Green-Ampt rainfall-runoff model and ks values in formatted
+/      data file
+/   3- case with Green-Ampt rainfall-runoff model and ks values in geometry
+/      file and rainfall defined as a hyetograph in formatted data file
+/
+/
+/---------------------------------------------------------------------
+RAINFALL-RUNOFF MODEL                    = 3
+DURATION OF RAIN OR EVAPORATION IN HOURS = 6.
+ANTECEDENT MOISTURE CONDITIONS           = 2
+SUCTION                                  = 0.1
+INITIAL WATER CONTENT                    = 0
+SATURATED WATER CONTENT                  = 0.2
+RAIN OR EVAPORATION                      = YES
+RAIN OR EVAPORATION IN MM PER DAY        = 100.0
+NUMBER OF PRIVATE ARRAYS = 4
+NAMES OF PRIVATE VARIABLES = 'KS'
+/FORMATTED DATA FILE 2 =runoff_data.dat
+FORMATTED DATA FILE 1 =hyetograph_ga.txt
+/
+/---------------------------------------------------------------------
+/ EQUATIONS
+/---------------------------------------------------------------------
+
+FRICTION COEFFICIENT   = 70.
+LAW OF BOTTOM FRICTION = 3
+VELOCITY DIFFUSIVITY   = 1.E-6
+TURBULENCE MODEL       = 1
+
+/---------------------------------------------------------------------
+/ EQUATIONS, BOUNDARY CONDITIONS
+/---------------------------------------------------------------------
+
+/---------------------------------------------------------------------
+/ EQUATIONS, INITIAL CONDITIONS
+/---------------------------------------------------------------------
+
+INITIAL CONDITIONS = 'CONSTANT ELEVATION'
+INITIAL ELEVATION  = 0.
+/---------------------------------------------------------------------
+/ INPUT-OUTPUT, FILES
+/---------------------------------------------------------------------
+BOUNDARY CONDITIONS FILE = 't2d_geo_pluie_ga.cli'
+GEOMETRY FILE            = 't2d_geo_pluie_ga.slf'
+RESULTS FILE             = 'r2d_rain_ks_geo_hyetograph.slf'
+FORTRAN FILE             = 'user_fortran-ks_geo_hyetograph_ga'
+/ Fortran file used to print rainfall parameters to result file
+/ (variables O,R,Z), but the case works also without
+/---------------------------------------------------------------------
+/ INPUT-OUTPUT, GRAPHICS AND LISTING
+/---------------------------------------------------------------------
+LISTING PRINTOUT PERIOD         = 1800
+GRAPHIC PRINTOUT PERIOD         = 3600
+VARIABLES FOR GRAPHIC PRINTOUTS = U,V,B,H,S,L,F,O,R,Z
+MASS-BALANCE                    = YES
+/---------------------------------------------------------------------
+/ INPUT-OUTPUT, INFORMATION
+/---------------------------------------------------------------------
+TITLE = 'Varying rain with Green-Ampt infiltration'
+/---------------------------------------------------------------------
+/ NUMERICAL PARAMETERS
+/---------------------------------------------------------------------
+TREATMENT OF NEGATIVE DEPTHS        = 2
+FREE SURFACE GRADIENT COMPATIBILITY = 0.9
+SUPG OPTION                         = 0;0
+TYPE OF ADVECTION                   = 1;5
+CONTINUITY CORRECTION               = YES
+TREATMENT OF THE LINEAR SYSTEM      = 2
+TIME STEP                           = 2
+TIDAL FLATS                         = YES
+DURATION                            = 28800.
+MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES =2000
+
+/---------------------------------------------------------------------
+/ NUMERICAL PARAMETERS, SOLVER
+/---------------------------------------------------------------------
+SOLVER                                  = 1
+SOLVER ACCURACY                         = 1.E-6
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER = 2000
+/---------------------------------------------------------------------
+/ NUMERICAL PARAMETERS, VELOCITY-CELERITY-HIGHT
+/---------------------------------------------------------------------
+IMPLICITATION FOR DEPTH    = 1.
+IMPLICITATION FOR VELOCITY = 1.
+MASS-LUMPING ON H          = 1.

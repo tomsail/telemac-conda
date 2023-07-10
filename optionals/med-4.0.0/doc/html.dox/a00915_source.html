@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier:  Fichier source de test5.f90</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_a772e3069001940b0633c6a305062f73.html">tests</a></li><li class="navelem"><a class="el" href="dir_4efb71908f8f3ec8ce18fd279b2c03b0.html">f</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">test5.f90</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00915.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">!*  This file is part of MED.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">!*</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">!*  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">!*  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">!*  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">!*  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">!*  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">!*</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">!*  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">!*  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">!*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">!*  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">!*</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">!*  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">!*  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">!*</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">!     *******************************************************************************</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">!     * - Nom du fichier : test5.f90</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">!     *</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">!     * - Description : lecture des noeuds d&#39;un maillage MED.</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">!     *</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">!     ******************************************************************************</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a00915_a04cb73411bd1be1713e619bcdd084925.html#a04cb73411bd1be1713e619bcdd084925">   24</a></span>&#160;      <span class="keyword">program</span> <a class="code" href="a00915_a04cb73411bd1be1713e619bcdd084925.html#a04cb73411bd1be1713e619bcdd084925">test5</a></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">!     </span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;      <span class="keywordtype">implicit none</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      include <span class="stringliteral">&#39;med.hf90&#39;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">!     </span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">!     </span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      <span class="keywordtype">integer</span> cret, ret</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      <span class="keywordtype">integer*8</span> fid</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">!     ** la dimension du maillage et de l&#39;espace de calcul**</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keywordtype">integer</span> mdim, sdim</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">!     ** nom du maillage de longueur maxi MED_SIZE_NAME  **</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keywordtype">character*64</span> maa</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordtype">character*200</span> desc</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">!     ** le nombre de noeuds                              **</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordtype">integer</span> nnoe </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">!     ** table des coordonnees                            **</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordtype">real*8</span>, <span class="keywordtype">allocatable</span>, <span class="keywordtype">dimension (:)</span> ::  coo,coo1</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">!     ** tables des noms et des unites des coordonnees    **</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordtype">character*16</span> nomcoo(2)   </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordtype">character*16</span> unicoo(2)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">!     ** tables des noms, numeros, numeros de familles des noeuds  **</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">!     autant d&#39;elements que de noeuds - les noms ont pout longueur **</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">!     MED_SNAME_SIZE=16                                            </span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keywordtype">character*16</span>, <span class="keywordtype">allocatable</span>, <span class="keywordtype">dimension (:)</span> :: nomnoe</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordtype">integer</span>,     <span class="keywordtype">allocatable</span>, <span class="keywordtype">dimension (:)</span> :: numnoe</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordtype">integer</span>,     <span class="keywordtype">allocatable</span>, <span class="keywordtype">dimension (:)</span> :: nufano</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keywordtype">integer</span> i</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keywordtype">logical</span> inonoe,inunoe</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordtype">integer</span> <span class="keywordtype">type</span>,chgt,tsf</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordtype">integer</span> flta(1)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordtype">integer*8</span> flt(1)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordtype">character(16)</span>  :: dtunit</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordtype">integer</span> nstep, stype, atype</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordtype">integer</span> swm</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">!     Ouverture du fichier en lecture seule             **</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keyword">call </span><a class="code" href="a00647_a68bd28216f39b6aac3f3cdeb58ca0343.html#a68bd28216f39b6aac3f3cdeb58ca0343">mfiope</a>(fid,<span class="stringliteral">&#39;test4.med&#39;</span>,med_acc_rdonly, cret)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      print *,cret</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">!   ** Lecture des infos concernant le premier maillage **</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">if</span> (cret.eq.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;         <span class="keyword">call </span><a class="code" href="a00716_af119a6264944d32e884b6d148bf17bcf.html#af119a6264944d32e884b6d148bf17bcf">mmhmii</a>(fid,1,maa,sdim,mdim,<span class="keywordtype">type</span>,desc,dtunit,stype,nstep,atype,nomcoo,unicoo,cret)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">if</span> (cret.ne.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;         <span class="keyword">call </span>efexit(-1)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">!   ** Combien de noeuds a lire  **</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      <span class="keywordflow">if</span> (cret.eq.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;         nnoe = 0</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;         <span class="keyword">call </span><a class="code" href="a00716_ad8041d49270c560eb727621625424759.html#ad8041d49270c560eb727621625424759">mmhnme</a>(fid,maa,med_no_dt,med_no_it,med_node,med_none,med_coordinate,med_no_cmode,chgt,tsf,nnoe,cret)   </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      print *,cret,<span class="stringliteral">&#39; Nombre de noeuds : &#39;</span>,nnoe</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keywordflow">if</span> (cret.ne.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;         <span class="keyword">call </span>efexit(-1)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;       </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">!   ** Allocations memoires :  **</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">!   ** table des coordonnees   **</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">!     profil : (dimension * nombre de noeuds ) **</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">!   ** table des des numeros, des numeros de familles des noeuds</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">!   ** table des noms des noeuds ** </span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      <span class="keyword">allocate</span>( coo(nnoe*sdim),coo1(nnoe*sdim),numnoe(nnoe),nufano(nnoe),nomnoe(nnoe),stat=ret )</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      print *,ret</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      coo1(:)=0.0</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">!   ** Lecture des composantes des coordonnees des noeuds  avec et sans filtre     **</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      <span class="keywordflow">if</span> (cret.eq.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;         <span class="keyword">call </span><a class="code" href="a00716_a31b179e69893200d6625b4c81729e0bc.html#a31b179e69893200d6625b4c81729e0bc">mmhcor</a>(fid,maa,med_no_dt,med_no_it,med_full_interlace,coo,cret) </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      print *,<span class="stringliteral">&#39;Lecture des toutes les composantes des coordonnees : &#39;</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      print *,coo</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;      <span class="keywordflow">if</span> (cret.ne.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;         <span class="keyword">call </span>efexit(-1)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">!    ** On cree un filtre  </span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;     <span class="keywordflow">if</span> (cret .eq. 0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keyword">call </span><a class="code" href="a01065_gabc69b90f5af8c5aca1dbd4b685b5a953.html#gabc69b90f5af8c5aca1dbd4b685b5a953">mfrall</a>(1,flt,cret)</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keywordflow">     endif</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;     <span class="keywordflow">if</span> (cret.ne.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keyword">call </span>efexit(-1)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keywordflow">     endif</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;     <span class="keywordflow">if</span> (cret .eq. 0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keyword">call </span><a class="code" href="a00665_aa66afba0490f4d46eb35bdca621a7a8c.html#aa66afba0490f4d46eb35bdca621a7a8c">mfrcre</a>(fid,nnoe,1,sdim,2,med_full_interlace,med_global_stmode, &amp;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                    med_no_profile,med_undef_size,flta,flt(1),cret)</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keywordflow">     endif</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;     <span class="keywordflow">if</span> (cret.ne.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keyword">call </span>efexit(-1)</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keywordflow">     endif</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">!   ** Lecture des composantes n°2 des coordonnees des noeuds</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <span class="keywordflow">if</span> (cret.eq.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;         <span class="keyword">call </span><a class="code" href="a00716_aa6f7c63cba6b1ae9eccc7600bc3c0f41.html#aa6f7c63cba6b1ae9eccc7600bc3c0f41">mmhcar</a>(fid,maa,med_no_dt,med_no_it,flt(1),coo1,cret) </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;      print *,<span class="stringliteral">&#39;Lecture de la composante numero 2 des coordonnees : &#39;</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      print *,coo1</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">!   ** On desalloue le filtre</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;     <span class="keywordflow">if</span> (cret .eq. 0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keyword">call </span><a class="code" href="a01065_gad95791e5fe16d7d6c7b99ef5f39923e2.html#gad95791e5fe16d7d6c7b99ef5f39923e2">mfrdea</a>(1,flt,cret)</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keywordflow">     endif</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;     <span class="keywordflow">if</span> (cret.ne.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keyword">call </span>efexit(-1)</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keywordflow">     endif</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">!   ** Lecture des noms des noeuds (optionnel dans un fichier MED)  **</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      <span class="keywordflow">if</span> (cret.eq.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;         <span class="keyword">call </span><a class="code" href="a00716_ae0130b95aea72a528929b59131782964.html#ae0130b95aea72a528929b59131782964">mmhear</a>(fid,maa,med_no_dt,med_no_it,med_node,med_none,nomnoe,cret) </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;      <span class="keywordflow">if</span> (ret &lt;0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;         inonoe = .<a class="code" href="a00563_a65e9886d74aaee76545e83dd09011727.html#a65e9886d74aaee76545e83dd09011727">false</a>.</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;      <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;         inonoe = .<a class="code" href="a00563_a41f9c5fb8b08eb5dc3edce4dcb37fee7.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a>.</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">!  ** Lecture des numeros des noeuds (optionnel dans un fichier MED) **</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;      <span class="keywordflow">if</span> (cret.eq.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;         <span class="keyword">call </span><a class="code" href="a00716_abdd0fc0fc1b03ed185486535aeca3bbf.html#abdd0fc0fc1b03ed185486535aeca3bbf">mmhenr</a>(fid,maa,med_no_dt,med_no_it,med_node,med_none,numnoe,cret)</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;      <span class="keywordflow">if</span> (ret &lt;0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;         inunoe = .<a class="code" href="a00563_a65e9886d74aaee76545e83dd09011727.html#a65e9886d74aaee76545e83dd09011727">false</a>.</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;      <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;         inunoe = .<a class="code" href="a00563_a41f9c5fb8b08eb5dc3edce4dcb37fee7.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a>.</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment">!   ** Lecture des numeros de familles des noeuds                  **      </span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;      <span class="keywordflow">if</span> (cret.eq.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;         <span class="keyword">call </span><a class="code" href="a00716_a945c214fe2bc60cf07471c862dd69748.html#a945c214fe2bc60cf07471c862dd69748">mmhfnr</a>(fid,maa,med_no_dt,med_no_it,med_node,med_none,nufano,cret)</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;      print *,cret</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">!   ** Fermeture du fichier</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;      <span class="keyword">call </span><a class="code" href="a00647_abaf92f77da8cad332344587fca32c410.html#abaf92f77da8cad332344587fca32c410">mficlo</a>(fid,cret)</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;      <span class="keywordflow">if</span> (cret.ne.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;         <span class="keyword">call </span>efexit(-1)</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;      </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment">!  ** Affichage des resulats                                         **</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;      <span class="keywordflow">if</span> (cret.eq.0) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;         </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;         print *,<span class="stringliteral">&quot;Type de repere         : &quot;</span>, atype</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;         print *,<span class="stringliteral">&quot;Nom des coordonnees    : &quot;</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;         print *, nomcoo</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;         </div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;         print *,<span class="stringliteral">&quot;Unites des coordonnees : &quot;</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;         print *, unicoo</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;         </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;         print *,<span class="stringliteral">&quot;Coordonnees des noeuds : &quot;</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;         print *, coo </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;         </div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;         <span class="keywordflow">if</span> (inonoe) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            print *,<span class="stringliteral">&quot;Noms des noeuds : &quot;</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            print *,nomnoe</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="keywordflow">         endif</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;         <span class="keywordflow">if</span> (inunoe) <span class="keywordflow">then</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            print *,<span class="stringliteral">&quot;Numeros des noeuds : &quot;</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            print *,numnoe</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="keywordflow">         endif</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;         print *,<span class="stringliteral">&quot;Numeros des familles des noeuds : &quot;</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;         print *,nufano</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;         </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="keywordflow">      endif</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;      </div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment">! ** Liberation memoire                                            **</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;      <span class="keyword">deallocate</span>(coo,coo1,nomnoe,numnoe,nufano);</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment">! **  Code retour</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;      <span class="keyword">call </span>efexit(cret)</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;      </div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="keyword">      end program </span><a class="code" href="a00915_a04cb73411bd1be1713e619bcdd084925.html#a04cb73411bd1be1713e619bcdd084925">test5</a></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;</div>
+<div class="ttc" id="a00716_ae0130b95aea72a528929b59131782964_html_ae0130b95aea72a528929b59131782964"><div class="ttname"><a href="a00716_ae0130b95aea72a528929b59131782964.html#ae0130b95aea72a528929b59131782964">mmhear</a></div><div class="ttdeci">subroutine mmhear(fid, mname, numdt, numit, entype, geotype, ename, cret)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00529">medmesh.f:529</a></div></div>
+<div class="ttc" id="a00716_a31b179e69893200d6625b4c81729e0bc_html_a31b179e69893200d6625b4c81729e0bc"><div class="ttname"><a href="a00716_a31b179e69893200d6625b4c81729e0bc.html#a31b179e69893200d6625b4c81729e0bc">mmhcor</a></div><div class="ttdeci">subroutine mmhcor(fid, name, numdt, numit, swm, coo, cret)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00320">medmesh.f:320</a></div></div>
+<div class="ttc" id="a01065_gad95791e5fe16d7d6c7b99ef5f39923e2_html_gad95791e5fe16d7d6c7b99ef5f39923e2"><div class="ttname"><a href="a01065_gad95791e5fe16d7d6c7b99ef5f39923e2.html#gad95791e5fe16d7d6c7b99ef5f39923e2">mfrdea</a></div><div class="ttdeci">subroutine mfrdea(nflt, flt, cret)</div><div class="ttdoc">Desalloue un tableau de filtre de taille nfilter. </div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00060">medfilter.f:60</a></div></div>
+<div class="ttc" id="a00716_abdd0fc0fc1b03ed185486535aeca3bbf_html_abdd0fc0fc1b03ed185486535aeca3bbf"><div class="ttname"><a href="a00716_abdd0fc0fc1b03ed185486535aeca3bbf.html#abdd0fc0fc1b03ed185486535aeca3bbf">mmhenr</a></div><div class="ttdeci">subroutine mmhenr(fid, name, numdt, numit, entype, geotype, num, cret)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00445">medmesh.f:445</a></div></div>
+<div class="ttc" id="a00665_aa66afba0490f4d46eb35bdca621a7a8c_html_aa66afba0490f4d46eb35bdca621a7a8c"><div class="ttname"><a href="a00665_aa66afba0490f4d46eb35bdca621a7a8c.html#aa66afba0490f4d46eb35bdca621a7a8c">mfrcre</a></div><div class="ttdeci">subroutine mfrcre(fid, nent, nvent, ncent, cs, swm, stm, pname, fltas, flta, flt, cret)</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00022">medfilter.f:22</a></div></div>
+<div class="ttc" id="a00716_ad8041d49270c560eb727621625424759_html_ad8041d49270c560eb727621625424759"><div class="ttname"><a href="a00716_ad8041d49270c560eb727621625424759.html#ad8041d49270c560eb727621625424759">mmhnme</a></div><div class="ttdeci">subroutine mmhnme(fid, name, numdt, numit, entype, geotype, datype, cmode, chgt, tsf, n, cret)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00551">medmesh.f:551</a></div></div>
+<div class="ttc" id="a00716_af119a6264944d32e884b6d148bf17bcf_html_af119a6264944d32e884b6d148bf17bcf"><div class="ttname"><a href="a00716_af119a6264944d32e884b6d148bf17bcf.html#af119a6264944d32e884b6d148bf17bcf">mmhmii</a></div><div class="ttdeci">subroutine mmhmii(fid, it, name, sdim, mdim, mtype, desc, dtunit, stype, nstep, atype, aname, aunit, cret)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00110">medmesh.f:110</a></div></div>
+<div class="ttc" id="a00716_aa6f7c63cba6b1ae9eccc7600bc3c0f41_html_aa6f7c63cba6b1ae9eccc7600bc3c0f41"><div class="ttname"><a href="a00716_aa6f7c63cba6b1ae9eccc7600bc3c0f41.html#aa6f7c63cba6b1ae9eccc7600bc3c0f41">mmhcar</a></div><div class="ttdeci">subroutine mmhcar(fid, name, numdt, numit, flt, coo, cret)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00824">medmesh.f:824</a></div></div>
+<div class="ttc" id="a00716_a945c214fe2bc60cf07471c862dd69748_html_a945c214fe2bc60cf07471c862dd69748"><div class="ttname"><a href="a00716_a945c214fe2bc60cf07471c862dd69748.html#a945c214fe2bc60cf07471c862dd69748">mmhfnr</a></div><div class="ttdeci">subroutine mmhfnr(fid, name, numdt, numit, entype, geotype, num, cret)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00487">medmesh.f:487</a></div></div>
+<div class="ttc" id="a00647_a68bd28216f39b6aac3f3cdeb58ca0343_html_a68bd28216f39b6aac3f3cdeb58ca0343"><div class="ttname"><a href="a00647_a68bd28216f39b6aac3f3cdeb58ca0343.html#a68bd28216f39b6aac3f3cdeb58ca0343">mfiope</a></div><div class="ttdeci">subroutine mfiope(fid, name, access, cret)</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00042">medfile.f:42</a></div></div>
+<div class="ttc" id="a01065_gabc69b90f5af8c5aca1dbd4b685b5a953_html_gabc69b90f5af8c5aca1dbd4b685b5a953"><div class="ttname"><a href="a01065_gabc69b90f5af8c5aca1dbd4b685b5a953.html#gabc69b90f5af8c5aca1dbd4b685b5a953">mfrall</a></div><div class="ttdeci">subroutine mfrall(nflt, flt, cret)</div><div class="ttdoc">Alloue un tableau de filtres de taille nfilter. </div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00044">medfilter.f:44</a></div></div>
+<div class="ttc" id="a00915_a04cb73411bd1be1713e619bcdd084925_html_a04cb73411bd1be1713e619bcdd084925"><div class="ttname"><a href="a00915_a04cb73411bd1be1713e619bcdd084925.html#a04cb73411bd1be1713e619bcdd084925">test5</a></div><div class="ttdeci">program test5</div><div class="ttdef"><b>Definition:</b> <a href="a00915_source.html#l00024">test5.f90:24</a></div></div>
+<div class="ttc" id="a00563_a65e9886d74aaee76545e83dd09011727_html_a65e9886d74aaee76545e83dd09011727"><div class="ttname"><a href="a00563_a65e9886d74aaee76545e83dd09011727.html#a65e9886d74aaee76545e83dd09011727">false</a></div><div class="ttdeci">#define false</div><div class="ttdef"><b>Definition:</b> <a href="a00563_source.html#l00036">libmedimport.c:36</a></div></div>
+<div class="ttc" id="a00647_abaf92f77da8cad332344587fca32c410_html_abaf92f77da8cad332344587fca32c410"><div class="ttname"><a href="a00647_abaf92f77da8cad332344587fca32c410.html#abaf92f77da8cad332344587fca32c410">mficlo</a></div><div class="ttdeci">subroutine mficlo(fid, cret)</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00082">medfile.f:82</a></div></div>
+<div class="ttc" id="a00563_a41f9c5fb8b08eb5dc3edce4dcb37fee7_html_a41f9c5fb8b08eb5dc3edce4dcb37fee7"><div class="ttname"><a href="a00563_a41f9c5fb8b08eb5dc3edce4dcb37fee7.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a></div><div class="ttdeci">#define true</div><div class="ttdef"><b>Definition:</b> <a href="a00563_source.html#l00037">libmedimport.c:37</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:44 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

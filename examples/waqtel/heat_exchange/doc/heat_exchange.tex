@@ -1,0 +1,219 @@
+% case name
+\chapter{heat\_exchange}
+%
+% - Purpose & Description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved, the geometry and specify how the numerical solution will be validated
+%
+\section{Purpose}
+%
+This case is an example of the use of the heat exchange with atmosphere module
+of \waqtel coupled with \telemac{3D}.
+%
+\section{Description}
+%
+A square basin at rest is considered (length and width = 200~m)
+with flat bathymetry and elevation at 0~m.
+%
+\section{Computational options}
+%
+\subsection{Mesh}
+%
+The triangular mesh is composed of 272 triangular elements and 159 nodes
+(see Figure \ref{fig:heat_exchange:mesh}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.6\textwidth]}{../img/res_mesh.png}
+\caption{Horizontal mesh}
+ \label{fig:heat_exchange:mesh}
+\end{figure}
+
+To build the 3D mesh of prisms, 26 planes are regularly spaced over the vertical.
+The vertical mesh between nodes of coordinates (-100 ; 0) to (100 ; 0) can be
+seen on Figure \ref{fig:heat_exchange:mesh_section}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/res_mesh_section.png}
+\caption{Vertical mesh}
+ \label{fig:heat_exchange:mesh_section}
+\end{figure}
+%
+\subsection{Physical parameters}
+%
+The heat exchange module is activated by setting \telkey{WATER QUALITY PROCESS}
+= 11 in the \telemac{3D} \telkey{STEERING FILE}.\\
+
+The tracer used is temperature.
+%
+The density is considered as a function of the water temperature:
+\begin{equation}
+  \rho(T) = \rho_0 \left(1 - \alpha (T-T_0)^2\right),
+\end{equation}
+where $\rho_0$ = 999.972~kg.m$^{-3}$, $T_0$ = 4~$^{\circ}$C
+and $\alpha$ = 7.10$^{-6}$.\\
+
+Several default values have been modified in the \waqtel \telkey{STEERING FILE}:
+\begin{itemize}
+\item \telkey{ATMOSPHERE-WATER EXCHANGE MODEL} = 2 (i.e. heat exchange model
+with complete balance),
+\item \telkey{SECCHI DEPTH} = 2. (default = 0.9),
+\item \telkey{COEFFICIENT TO CALIBRATE THE ATMOSPHERE-WATER EXCHANGE MODEL} =
+0.0018 (default = 0.0025).
+\end{itemize}
+
+Wind and rain are taken into account in the Navier-Stokes equations
+by setting the 2 booleans \telkey{WIND} and \telkey{RAIN OR EVAPORATION} to YES
+in addition to \telkey{WATER QUALITY PROCESS} = 11.
+They had to be set to YES so that this example works correctly.
+
+\telkey{COEFFICIENT OF WIND INFLUENCE VARYING WITH WIND SPEED} has been let to
+its default value YES so that it was not needed to choose a constant value for
+\telkey{COEFFICIENT OF WIND INFLUENCE}.
+
+The origin coordinates of a point representative to the atmospheric conditions
+of the area are given by means of the keywords
+\telkey{LATITUDE OF ORIGIN POINT} = 43.4458~$^{\circ}$ N and
+\telkey{LONGITUDE OF ORIGIN POINT} = 5.1139~$^{\circ}$ E.
+These coordinates are needed when the solar radiation is computed by the heat
+exchange model with complete balance.\\
+
+Input meteo data are given through an ASCII file with the help of the keyword
+\telkey{ASCII ATMOSPHERIC DATA FILE}.
+For several sampled times, the following variables are needed.
+Since release 8.2 and the module \telfile{METEO\_TELEMAC} which enables the use
+of flexible ASCII file for meteo data but with the need to use
+fixed names of variables in the first lines, the order is not mandatory anymore.
+
+The mandatory meteo variables are:
+\begin{itemize}
+\item wind speed + wind direction (shortnames WINDS and WINDD) or wind
+  components along $x$ and $y$ in m/s,
+\item air temperature (shortname TAIR) in $^{\circ}$C,
+\item atmospheric pressure (shortname PATM) in mbar or hPa,
+\item relative humidity (shortname HREL) in \%, 
+\item cloud coverage (shortname CLDC) in octas,
+\item rain (shortname RAINC or RAINI depending if it is given as cumulated
+  variable or an interpolated variable as other usual variables),
+\end{itemize}
+
+If the user does not provide one of this data, a constant value over the entire
+period of simulation is taken.
+These constant values can be changed by means of the following keywords in the
+\telemac{3D} \telkey{STEERING FILE}:
+\begin{itemize}
+\item \telkey{WIND VELOCITY ALONG X} and \telkey{WIND VELOCITY ALONG Y},
+\item \telkey{AIR TEMPERATURE},
+\item \telkey{VALUE OF ATMOSPHERIC PRESSURE},
+\item \telkey{RELATIVE HUMIDITY},
+\item \telkey{CLOUD COVER},
+\item \telkey{RAIN OR EVAPORATION IN MM PER DAY}.
+\end{itemize}
+
+Solar radiation (shortname RAY3) is not mandatory but can be given by the user
+to be read rather than computing it by the module:
+In that case, the user has to set \telkey{SOLAR RADIATION READ IN METEO FILE}
+= YES (default = NO).
+
+The keywords \telkey{ORIGINAL DATE OF TIME} and \telkey{ORIGINAL HOUR OF TIME}
+are set and reference date and hours are filled in with \telfile{REFDATE}
+at the beginning of the \telkey{ASCII ATMOSPHERIC DATA FILE} so that
+the computation can start at a different time of this file (see \telemac{3D}
+user manual).\\
+
+The $k$-$\epsilon$ turbulence model is used for the vertical direction whereas
+a constant viscosity is used for the horizontal directions with the default value
+of 10$^{-6}$~m$^2$/s.
+%
+\subsection{Initial and Boundary Conditions}
+%
+The initial water depth is 5~m with a fluid at rest.\\
+The initial temperature is 20~$^{\circ}$C in the whole domain.\\
+
+There are only closed lateral boundaries with free slip condition and
+Nikuradse law is used to model friction at the bottom with a coefficient
+0.001~m.
+%
+\subsection{General parameters}
+%
+The time step is 2~min = 120~s for a simulated period of 30~days
+(= 2,592,000~s).
+%
+\subsection{Numerical parameters}
+%
+The non-hydrostatic version of \telemac{3D} is used.
+It is mandatory to model stratifications correctly.
+
+To solve the advection steps, the method of characteristics is chosen for the
+velocities + $k$-$\epsilon$ and the PSI-type MURD scheme for the temperature
+for CPU time reasons.
+
+To reach convergence when solving linear systems, the keywords
+\telkey{MASS-LUMPING FOR DIFFUSION} has to be set to 1. (default = 0.) whereas
+\telkey{MAXIMUM NUMBER OF ITERATIONS FOR PPE} has to be set to 200 (Poisson
+Pressure Equation).
+
+To accelerate solving, preconditioning 34 (= 2 $\times$ 17) is used for
+every conjugate gradient solver for diffusion step (velocities, tracers and
+$k$-$\epsilon$).
+
+To enable not too long computations, the following parameters have been relaxed:
+\telkey{ACCURACY FOR PPE} = 10$^{-4}$ and \telkey{ACCURACY FOR PROPAGATION} = 10$^{-6}$
+(default = 10$^{-8}$ for both of them).
+%
+%     We comment in this part the numerical results against the reference ones,
+%     giving understanding keys and making assumptions when necessary.
+%
+\section{Results}
+%
+Figure \ref{fig:heat_exchange:res_evol} shows the temperature evolution along
+time at 3 locations (top, middle and bottom of the water column at the center of
+the square, same $x$ and $y$).
+
+\begin{figure} [H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/res_temp_evol.png}
+ \caption{Temperature evolution}
+ \label{fig:heat_exchange:res_evol}
+\end{figure}
+
+When it is not mixed (it is mixed e.g. between days 3 to 5 or 16 to 20, 21 to 23),
+we can see daily patterns with higher temperature at the surface during the day
+and a quite light stratification.
+
+This can be confirmed by plotting temperature values on a vertical segment
+over time at the same $x$ and $y$ location,
+see Figure \ref{fig:heat_exchange:res_temp_segment}.
+The vertical segment is located in the middle of the square at (0 ; 0).
+
+\begin{figure} [H]
+\centering
+\includegraphicsmaybe{[width=0.8\textwidth]}{../img/res_temp_segment.png}
+\caption{Temperature evolution}
+\label{fig:heat_exchange:res_temp_segment}
+\end{figure}
+
+Anyway, due to wind blowing at the surface, the flow in not homogeneous in the
+whole domaine as it can be seen in a vertical slice in
+Figure \ref{fig:heat_exchange:res_temp_section} at final time.
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/res_temp_section.png}
+\caption{Vertical distribution of temperature at final time}
+\label{fig:heat_exchange:res_temp_section}
+\end{figure}
+%
+\section{Conclusion}
+%
+\waqtel is able to model heat exchange with atmosphere phenomena when coupled
+with \telemac{3D}.
+%
+% Here is an example of how to include the graph generated by validate_telemac.py
+% They should be in test_case/img
+%\begin{figure} [!h]
+%\centering
+%\includegraphics[scale=0.3]{../img/mygraph.png}
+% \caption{mycaption}\label{mylabel}
+%\end{figure}

@@ -1,0 +1,55 @@
+           0
+ Ouverture du fichier test27.med
+           0
+           0
+ Maillage de nom : grille cartesienne                                              
+ - Dimension :            2
+ - Type : structure
+           0
+ - Nature de la grille : cartesienne
+           0
+ - Axe            1
+ - Nombre d indices :            4
+           0
+ - Axe x               y               
+   unite : cm              cm              
+   1.1000000000000001     
+   1.2000000000000000     
+   1.3000000000000000     
+   1.3999999999999999     
+           0
+ - Axe            2
+ - Nombre d indices :            4
+           0
+ - Axe x               y               
+   unite : cm              cm              
+   2.1000000000000001     
+   2.2000000000000002     
+   2.2999999999999998     
+   2.3999999999999999     
+           0
+ Maillage de nom : grille curviligne                                               
+ - Dimension :            2
+ - Type : structure
+           0
+ - Nature de la grille : curviligne
+           0
+ - Nombre de noeuds :            4
+           0
+ - Structure de la grille :            2           2
+           0
+ - Coordonnees :
+   0.0000000000000000     
+   0.0000000000000000     
+   1.0000000000000000     
+   0.0000000000000000     
+   0.0000000000000000     
+   1.0000000000000000     
+   1.0000000000000000     
+   1.0000000000000000     
+           0
+ Maillage de nom : maillage vide                                                   
+ - Dimension :            2
+ - Type : non structure
+           0
+ Fermeture du fichier

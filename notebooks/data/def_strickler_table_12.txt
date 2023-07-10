@@ -1,0 +1,45 @@
+﻿CODE_12
+"Tissu urbain continu"      15.0 E6004D 111
+"Tissu urbain discontinu"      32.0 FF0000 112
+"Zones industrielles ou commerciales et installations publiques"      30.0 CC4DF2 121
+"Réseaux routier et ferroviaire et espaces associés"      35.0 CC0000 122
+"Zones portuaires"      45.0 E6CCCC 123
+"Aéroports"      43.0 E6CCE6 124
+"Extraction de matériaux"      19.0 A600CC 131
+"Décharges"      21.0 A64D00 132
+"Chantiers"      17.0 FF4DFF 133
+"Espaces verts urbains"      25.0 FFA6FF 141
+"Equipements sportifs et de loisirs"      40.0 FFE6FF 142
+"Terres arables hors périmètres d'irrigation"      31.0 FFFFA8 211
+"Périmètres irrigués en permanence"      43.0 FFFF00 212
+"Rizières"      42.0 E6E600 213
+"Vignobles"      24.0 E68000 221
+"Vergers et petits fruits"      25.0 F2A64D 222
+"Oliveraies"      26.0 E6A600 223
+"Prairies et autres surfaces toujours en herbe à usage agricole"      33.0 E6E64D 231
+"Cultures annuelles associées à des cultures permanentes"      27.0 FFE6A6 241
+"Systèmes culturaux et parcellaires complexes"      19.0 FFE64D 242
+"Surfaces essentiellement agricoles, interrompues par des espaces naturels importants"      16.0 E6CC4D 243
+"Territoires agroforestiers"      14.0 F2CCA6 244
+"Forêts de feuillus"      9.0 80FF00 311
+"Forêts de conifères"      13.0 A600 312
+"Forêts mélangées"      10.0 4DFF00 313
+"Pelouses et pâturages naturels"      31.0 CCF24D 321
+"Landes et broussailles"      12.0 A6FF80 322
+"Végétation sclérophylle"      10.0 A6E64D 323
+"Forêt et végétation arbustive en mutation"      9.0 A6F200 324
+"Plages, dunes et sable"      39.0 E6E6E6 331
+"Roches nues"      45.0 CCCCCC 332
+"Végétation clairsemée"      43.0 CCFFCC 333
+"Zones incendiées"      65.0 0 334
+"Glaciers et neiges éternelles"      75.0 A6E6CC 335
+"Marais intérieurs"      60.0 A6A6FF 411
+"Tourbières"      65.0 4D4DFF 412
+"Marais maritimes"      74.0 CCCCFF 421
+"Marais salants"      73.0 E6E6FF 422
+"Zones intertidales"      75.0 A6A6E6 423
+"Cours et voies d'eau"      88.0 CCF2 511
+"Plans d'eau"      90.0 80F2E6 512
+"Lagunes littorales"      95.0 FFA6 521
+"Estuaires"      98.0 A6FFE6 522
+"Mers et océans"      99.0 E6F2FF 523

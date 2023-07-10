@@ -1,0 +1,41 @@
+/----------------------------------------------------------------------
+/
+/ Steering file for the thermal and ice processes: KHIONE
+/
+TITLE = 'Thermic process in a box'
+/
+/----------------------------------------------------------------------
+/  FILES
+/----------------------------------------------------------------------
+/
+GEOMETRY FILE             = 'geo_thermic.slf'
+BOUNDARY CONDITIONS FILE  = 'geo_thermic.cli'
+RESULTS FILE              = 'ice_thermic.slf'
+/
+/----------------------------------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------------------------------
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'PHPS,PHIB,PHIE,PHIH,PHIP'
+/
+GRAPHIC PRINTOUT PERIOD          = 8
+/
+/----------------------------------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------------------------------
+/
+WATER DENSITY = 1000.
+/
+/----------------------------------------------------------------------
+/  CALIBRATION COEFFICIENT FOR HEAT EXCHANGES
+/----------------------------------------------------------------------
+/
+ATMOSPHERE-WATER EXCHANGE MODEL = 1
+SOLAR CONSTANT = 1380.
+COEFFICIENT FOR CALIBRATION OF BACK RADIATION = 1.
+COEFFICIENT FOR CALIBRATION OF EVAPORATIVE HEAT TRANSFERT = 1.
+COEFFICIENT FOR CALIBRATION OF CONDUCTIVE HEAT TRANSFERT = 1.
+COEFFICIENT FOR CALIBRATION OF PRECIPITATION HEAT TRANSFERT = 1.
+/
+/----------------------------------------------------------------------
+/

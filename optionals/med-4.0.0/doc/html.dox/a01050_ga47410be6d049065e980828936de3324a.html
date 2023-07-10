@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: MEDfilterAllocate</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="a01050.html">Guide de référence du module MEDfilter</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="contents">
+<table cellspacing="0" cellpadding="0" border="0">
+  <tr>
+   <td valign="top">
+      <div class="navtab">
+        <table>
+          <tr><td class="navtab"><a class="qindexHL" href="a01050_ga47410be6d049065e980828936de3324a.html#ga47410be6d049065e980828936de3324a">MEDfilterAllocate</a></td></tr>
+          <tr><td class="navtab"><a class="qindex" href="a01050_ga9ceeb4d2bf17d106d7dc41b921962ec6.html#ga9ceeb4d2bf17d106d7dc41b921962ec6">MEDfilterBlockOfEntityCr</a></td></tr>
+          <tr><td class="navtab"><a class="qindex" href="a01050_ga5e48f17469f18350f3dd1d9bee49e1fb.html#ga5e48f17469f18350f3dd1d9bee49e1fb">MEDfilterClose</a></td></tr>
+          <tr><td class="navtab"><a class="qindex" href="a01050_ga6c987c612fe52678b0c90f6d713634e7.html#ga6c987c612fe52678b0c90f6d713634e7">MEDfilterDeAllocate</a></td></tr>
+          <tr><td class="navtab"><a class="qindex" href="a01050_ga6135c77f29ccc73c1a77e2108ace9900.html#ga6135c77f29ccc73c1a77e2108ace9900">MEDfilterEntityCr</a></td></tr>
+        </table>
+      </div>
+   </td>
+   <td valign="top" class="mempage">
+<a class="anchor" id="ga47410be6d049065e980828936de3324a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00536.html">med_filter</a>* MEDfilterAllocate </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>nfilter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Alloue un tableau de filtres de taille <em>nfilter</em>. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nfilter</td><td>Nombre de filtres. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Filtre sur entités (<a class="el" href="a00536.html">med_filter</a>) appliqué en lecture/écriture de valeurs. La désallocation est à la charge de l'utilisateur (cf. <a class="el" href="a01050_ga5e48f17469f18350f3dd1d9bee49e1fb.html#ga5e48f17469f18350f3dd1d9bee49e1fb">MEDfilterClose</a> <a class="el" href="a01050_ga6c987c612fe52678b0c90f6d713634e7.html#ga6c987c612fe52678b0c90f6d713634e7">MEDfilterDeAllocate</a>).</dd></dl>
+<dl class="section user"><dt>Remarques</dt><dd><ul>
+<li>Ne pas oublier d'appeler <a class="el" href="a01050_ga6c987c612fe52678b0c90f6d713634e7.html#ga6c987c612fe52678b0c90f6d713634e7">MEDfilterDeAllocate</a> pour libérer les ressources hdf et la mémoire utilisée. </li>
+<li>En C, il est possible de déclarer directement une variable de type <a class="el" href="a00536.html">med_filter</a> que l'on initialise à <a class="el" href="a00577_a12fb4e45273e33fdbad01821ca0d3ea8.html#a12fb4e45273e33fdbad01821ca0d3ea8">MED_FILTER_INIT</a>. Il sera alors necessaire d'appeler <a class="el" href="a01050_ga5e48f17469f18350f3dd1d9bee49e1fb.html#ga5e48f17469f18350f3dd1d9bee49e1fb">MEDfilterClose</a> pour libérer correctement les ressources détenues par le filtre. </li>
+</ul>
+</dd></dl>
+
+<p>Définition à la ligne <a class="el" href="a00667_source.html#l00035">35</a> du fichier <a class="el" href="a00667_source.html">MEDfilterAllocate.c</a>.</p>
+
+</div>
+</div>
+    </td>
+  </tr>
+</table>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:49 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

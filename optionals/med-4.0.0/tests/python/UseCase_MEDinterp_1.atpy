@@ -1,0 +1,18 @@
+AT_SETUP([test python UseCase_MEDinterp_1])
+
+AT_KEYWORDS([python UseCase_MEDinterp_1])
+
+# List of executables that should be run to perform the tests
+#AT_TESTED([UseCase_MEDinterp_1.py])
+
+# AT_CHECK([cp $abs_srcdir/UseCase_MEDinterp_1.expout expout],[0],[ignore],[ignore])
+
+AT_CHECK([LC_ALL=C.UTF-8 $PYTHON  $testpydir/UseCase_MEDinterp_1.py],
+         [0],
+         [ignore],
+         [ignore],
+	 [],
+	 [ln UsesCase_MEDinterp_1.med $builddir/UsesCase_MEDinterp_1.med]
+	 )
+
+AT_CLEANUP

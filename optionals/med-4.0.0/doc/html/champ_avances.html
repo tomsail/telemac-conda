@@ -1,0 +1,261 @@
+<A NAME="____Concepts et fonctionnalit&eacute;s avanc&eacute;s sur les champs de r&eacute;sultat____">
+</A>
+<A HREF="#1.">Cr&eacute;er et lire des champs avec gestion des
+profils</A> 
+</P>
+<P><A HREF="#2.">Lire des champs cr&eacute;&eacute;s avec MED 2.x et
+d&eacute;finis sur plusieurs maillages</A> 
+</P>
+<P><A HREF="#3.">Cr&eacute;er et lire un champ aux points
+d'int&eacute;gration des &eacute;l&eacute;ments</A> 
+</P>
+<P><A HREF="#4.">Cr&eacute;er et lire un champ aux noeuds des
+&eacute;l&eacute;ments</A> 
+</P>
+<P><A HREF="#5.">Cr&eacute;er et lire un champ li&eacute; &agrave; un
+maillage contenant des &eacute;l&eacute;ments de structure </A>
+</P>
+<P><A HREF="#6.">Ecrire et lire un maillage ou un champ en filtrant
+les donn&eacute;es</A> 
+</P>
+<P><A HREF="#7.">Ecriture et lecture en parall&egrave;le dans un seul
+fichier</A> 
+</P>
+<H3><A NAME="1."></A>Cr&eacute;er et lire des champs avec gestion des
+profils 
+</H3>
+<P>Au m&ecirc;me titre que pour un maillage &eacute;volutif, il est
+possible d'utiliser les profils pour s&eacute;lectionner les valeurs
+des champs de r&eacute;sultats. Les champs ne peuvent &ecirc;tre
+definis que sur une partie du maillage. Le profil d'un champ indique
+sur quelles entit&eacute;s du maillage se trouvent les valeurs.</P>
+<P>A l'&eacute;criture des champs, l'utilisation des profils est
+possible pour l'&eacute;criture des valeurs du champ avec les
+routines \ref MEDfieldValueWithProfileWr / \ref mfdrpw, \ref mfdipw.</P>
+<P>\include UsesCase_MEDfield_7.c</P>
+<P>A la lecture, la routine \ref MEDfieldnProfile / \ref mfdnpf
+permet de lire le nombre de profil dans un champ pour une s&eacute;quence
+de calcul donn&eacute;e. La routine \ref MEDfieldnValueWithProfile /
+\ref mfdnvp permet de lire le nombre de valeurs &agrave; lire en
+tenant compte du profil et mode de stockage des donn&eacute;es en
+m&eacute;moire (\ref MED_GLOBAL_STMODE ou \ref MED_COMPACT_STMODE).
+Les routines \ref MEDfieldValueWithProfileRd / \ref mfdrpr, \ref
+mfdipr permettent de lire les valeurs du champ avec ou sans profil.</P>
+<P>\include UsesCase_MEDfield_9.c</P>
+<H3><A NAME="2."></A>Lire des champs cr&eacute;&eacute;s avec MED 2.x
+et d&eacute;finis sur plusieurs maillages</H3>
+<P>Dans MED 2.x, les champs pouvaient &ecirc;tre d&eacute;finis sur
+plusieurs maillages. Cette possibilit&eacute; dispara&icirc;t avec
+MED 3.0 et l'apparition des maillages &eacute;volutifs. MED 3.0
+fournit n&eacute;anmoins des routines permettant la lecture de
+fichier MED 2.x pouvant contenir des champs d&eacute;finis sur
+plusieurs maillages. Ces routines sp&eacute;cifiques sont &agrave;
+utiliser en lieu et place de celles utilis&eacute;es dans le cas
+d'utilisation pr&eacute;c&eacute;dent (ces routines peuvent
+&eacute;videmment &eacute;galement lire des champs dans des fichiers
+MED 3.0), il s'agit de \ref MEDfield23ComputingStepMeshInfo / \ref
+mfdoci, \ref MEDfield23nValueWithProfile / \ref mfdonv, \ref
+MEDfield23ValueWithProfileRd / \ref mfdorr, \ref mfdoir.</P>
+<P>Le cas d'utilisation suivant propose une approche g&eacute;n&eacute;rique
+pour lire les champs d'un fichier MED, bas&eacute;s sur un ou
+plusieurs maillages.</P>
+<P>\include test11b.c</P>
+<H3><A NAME="3."></A>Cr&eacute;er et lire un champ aux points
+d'int&eacute;gration des &eacute;l&eacute;ments 
+</H3>
+<P>MED fournit la possibilit&eacute; d'exprimer les champs de
+r&eacute;sultat sur les points de Gauss (ou points d'int&eacute;gration)
+des &eacute;l&eacute;ments d'un maillage. Dans ce cadre, il est
+possible de localiser ces points sur des &eacute;l&eacute;ments de
+r&eacute;f&eacute;rence en des lieux diff&eacute;rents selon la
+mod&eacute;lisation num&eacute;rique choisie. Pour chaque type de
+mod&eacute;lisation, il est possible de sp&eacute;cifier cette
+localisation sur des &eacute;l&eacute;ments de r&eacute;f&eacute;rence.
+On distingue diff&eacute;rentes familles de points de Gauss en
+fonction du nombre de points d'int&eacute;gration. Chaque point
+d'int&eacute;gration est localis&eacute; au sein d'un &eacute;l&eacute;ment
+de r&eacute;f&eacute;rence par ses coordonn&eacute;es et se voit
+associer un poids. 
+</P>
+<P>La localisation des points de Gauss pour un &eacute;l&eacute;ment
+de r&eacute;f&eacute;rence n&eacute;cessite donc de conna&icirc;tre
+le type g&eacute;om&eacute;trique de l'&eacute;l&eacute;ment, les
+coordonn&eacute;es des noeuds de l'&eacute;l&eacute;ment, les
+coordonn&eacute;es et le poids de chaque point de Gauss. L'expression
+des coordonn&eacute;es d'un &eacute;l&eacute;ment de r&eacute;f&eacute;rence
+peut se faire dans un rep&egrave;re de coordonn&eacute;es dont la
+dimension est sup&eacute;rieure &agrave; celle de l'&eacute;l&eacute;ment
+de r&eacute;f&eacute;rence. La r&eacute;f&eacute;rence &agrave; un
+&eacute;l&eacute;ment de r&eacute;f&eacute;rence se fait &agrave;
+l'appel des routines d'&eacute;criture et lecture des valeurs des
+champs. 
+</P>
+<P>Si les points de Gauss se confondent avec les noeuds de l'&eacute;l&eacute;ment,
+il est inutile de cr&eacute;er une localisation factice avec des
+poids qui ne signifient rien et des coordonn&eacute;es des points de
+Gauss identiques &agrave; celles des noeuds. Dans ce cas de figure,
+il faut utiliser le mot cl&eacute; r&eacute;serv&eacute; \ref
+MED_GAUSS_ELNO &agrave; l'&eacute;criture des valeurs d'un champ pour
+indiquer le type de localisation.</P>
+<P>Il est possible pour une m&ecirc;me type g&eacute;om&eacute;trique
+d'&eacute;l&eacute;ment d'associer plusieurs &eacute;l&eacute;ments
+de r&eacute;f&eacute;rence. Il suffit pour cela d'associer chaque
+localisation avec un profil lors de l'appel d'&eacute;criture et
+lecture des valeurs des champs.</P>
+<P>MED permet &eacute;galement la prise en compte des fonctions de
+forme et des familles d'interpolation. Une famille d'interpolation
+est l'ensemble d'interpolations disponibles pour un champ donn&eacute;.
+Chacune des interpolations est d&eacute;crite par des fonctions de
+forme polynomiales. Le nombre de variable des fonctions de forme est
+&eacute;gale &agrave; la dimension de l'espace de la maille de
+r&eacute;f&eacute;rence utilis&eacute;e pour le construire. Il est
+donc possible d'associer &agrave; un champ plusieurs interpolations
+d&eacute;finies sur des mailles de r&eacute;f&eacute;rence des
+diff&eacute;rents types g&eacute;om&eacute;triques du maillage de
+calcul sur lequel repose le champ de r&eacute;sultat.</P>
+<P>L'&eacute;criture des fonctions de forme et des familles
+d'interpolation est optionnelle pour &eacute;changer des champs aux
+points d'int&eacute;gration. 
+</P>
+<P>A l'&eacute;criture, la cr&eacute;ation d'un &eacute;l&eacute;ment
+de r&eacute;f&eacute;rence se fait avec la routine \ref
+MEDlocalizationWr / \ref mlclow. Un &eacute;l&eacute;ment de
+r&eacute;f&eacute;rence peut &ecirc;tre associ&eacute; &agrave; une
+famille d'interpolation. La cr&eacute;ation d'une fonction
+d'interpolation se fait avec la routine \ref MEDinterpBaseFunctionWr
+/ \ref mipcre. L'&eacute;criture d'une fonction de forme se fait avec
+la routine \ref MEDinterpBaseFunctionWr / \ref mipbfw. La routine
+\ref MEDfieldInterpWr / \ref mfdinw permet d'associer une famille
+d'interpolation &agrave; un champ r&eacute;sultat.</P>
+<P>Le cas d'utilisation suivant montre un exemple d'&eacute;criture
+des valeurs des champs aux points de Gauss avec d&eacute;finition des
+&eacute;l&eacute;ments de r&eacute;f&eacute;rence et r&eacute;f&eacute;rence
+&agrave; une famille d'interpolation. 
+</P>
+<P>\include UsesCase_MEDfield_10.c</P>
+<P>A la lecture, la routine \ref MEDlocalizationInfoByName / \ref
+mlclni permet de lire les informations relatives &agrave; un &eacute;l&eacute;ment
+de r&eacute;f&eacute;rence dont on conna&icirc;t le nom. Une autre
+possibilit&eacute; est de lire le nombre d'&eacute;l&eacute;ment de
+r&eacute;f&eacute;rence avec la routine \ref MEDnLocalization / \ref
+mlcnlc et d'it&eacute;rer afin de r&eacute;cup&eacute;rer &agrave;
+chaque it&eacute;ration les informations relatives &agrave; l'&eacute;l&eacute;ment
+de r&eacute;f&eacute;rence avec la routine \ref MEDlocalizationInfo /
+\ref mlclci et lire l'&eacute;l&eacute;ment de r&eacute;f&eacute;rence
+avec la routine \ref MEDlocalizationRd / \ref mlclor.</P>
+<P>Pour les fonctions d'interpolation, la routine \ref
+MEDinterpInfoByName / \ref mipiin informe des caract&eacute;ristiques
+de la fonction d'interpolation dont on conna&icirc;t le nom. Il est
+&eacute;galement possible de lire le nombre de famille
+d'interpolation avec la routine \ref MEDnInterp / \ref mipnip et
+d'it&eacute;rer sur ces familles. Ces deux fonctions renvoie le
+nombre de fonctions de forme. Il reste donc &agrave; it&eacute;rer
+sur chacune d'entre elles et d'appeler la routine \ref
+MEDinterpBaseFunctionRd / \ref mipbfr pour lire chaque polyn&ocirc;me.</P>
+<P>Dans un champ de r&eacute;sultat, il est possible de lire le
+nombre de famille d'interpolation associ&eacute; aux champ avec la
+routine \ref MEDfieldnInterp / \ref mfdnin . En it&eacute;rant sur
+toutes ces familles, on peut lire le nom de chacune d'entre elles
+avec la routine \ref MEDfieldInterpInfo / \ref mfdini.</P>
+<P>Le cas d'utilisation suivant propose une approche g&eacute;n&eacute;rique
+pour lire des champs aux points de Gauss d&eacute;finies sur les
+mailles d'un maillage.</P>
+<P>\include UsesCase_MEDfield_12.c</P>
+<P>Le cas d'utilisation suivant montre un exemple de cr&eacute;ation
+d'une famille d'interpolation.</P>
+<P>\include UsesCase_MEDinterp_1.c</P>
+<P>Le cas d'utilisation suivant montre un exemple de lecture de
+famille d'interpolation dont on conna&icirc;t le nom.</P>
+<P>\include UsesCase_MEDinterp_2.c</P>
+<P>Le cas d'utilisation suivant montre un exemple de lecture de
+famille d'interpolation par une approche it&eacute;rative.</P>
+<P>\include UsesCase_MEDinterp_3.c</P>
+<H3><A NAME="4."></A>Cr&eacute;er et lire un champ aux noeuds des
+&eacute;l&eacute;ments</H3>
+<P>MED permet d'&eacute;crire et lire des champs aux noeuds des
+&eacute;l&eacute;ments d'un maillage. Pour cela, il suffit d'indiquer
+le mot cl&eacute; \ref MED_NODE_ELEMENT comme type d'entit&eacute;
+lors de l'appel des routines d'&eacute;criture / lecture des valeurs
+des champs comme le montrent les deux cas d'utilisation suivants.</P>
+<P>\include UsesCase_MEDfield_13.c</P>
+<P>\include UsesCase_MEDfield_14.c</P>
+<H3 STYLE="page-break-before: always"><A NAME="5."></A>Cr&eacute;er
+et lire un champ li&eacute; &agrave; un maillage contenant des
+&eacute;l&eacute;ments de structure 
+</H3>
+<P>Au m&ecirc;me titre que pour types d'&eacute;l&eacute;ments
+pr&eacute;-d&eacute;finis dans le mod&egrave;le MED, MED permet
+l'&eacute;criture et la lecture de champs sur les &eacute;l&eacute;ments
+de structure. Pour cela, il suffit d'indiquer le mot cl&eacute; \ref
+MED_STRUCT_ELEMENT comme type d'entit&eacute; lors de l'appel des
+routines d'&eacute;criture / lecture des valeurs des champs comme le
+montrent les deux cas d'utilisation suivants.</P>
+<P>\include UsesCase_MEDfield_15.c</P>
+<P>\include UsesCase_MEDfield_16.c</P>
+<P>Il est &eacute;galement possible de d&eacute;finir des champs aux
+points d'int&eacute;gration des &eacute;l&eacute;ments de structure.
+Dans ce cas l&agrave;, l'&eacute;l&eacute;ment de r&eacute;f&eacute;rence
+est d&eacute;j&agrave; d&eacute;crit &agrave; la d&eacute;finition de
+l'&eacute;l&eacute;ment de structure. Les coordonn&eacute;es des
+points d'int&eacute;gration y sont relatives. Il est possible
+d'indiquer l'utilisation d'un maillage support d&eacute;finissant une
+section du mod&egrave;le d'&eacute;l&eacute;ment de structure. Ce
+maillage support est alors utilis&eacute; comme section de l'&eacute;l&eacute;ment
+de structure &agrave; chaque point d'int&eacute;gration. Auquel cas
+un champ utilisant cette localisation d&eacute;finira autant de
+valeur par &eacute;l&eacute;ment qu'il y a de maille dans le maillage
+section de chaque point d'int&eacute;gration comme montrent les deux
+cas d'utilisation suivants.</P>
+<P>\include UsesCase_MEDfield_17.c</P>
+<P>\include UsesCase_MEDfield_18.c</P>
+<H3><A NAME="6."></A>Ecrire et lire un maillage ou un champ en
+filtrant les donn&eacute;es</H3>
+<P>Dans MED, un filtre de donn&eacute;es peut &ecirc;tre utilis&eacute;
+pour contr&ocirc;ler un sous-ensemble d'entit&eacute;s concern&eacute;es
+par un appel &agrave; l'API. 
+</P>
+<P>En mode s&eacute;quentiel, la routine \ref MEDfilterEntityCr /
+\ref mfrcre permet de cr&eacute;er un filtre &eacute;l&eacute;mentaire
+en s&eacute;lectionnant les entit&eacute;s pour lesquelles on veut
+lire/&eacute;crire des valeurs. Cette s&eacute;lection permet une
+lecture/&eacute;criture avanc&eacute;e vers/depuis les emplacements
+m&eacute;moire s&eacute;lectionn&eacute;s. Elle s'utilise uniquement
+en mode s&eacute;quentiel (un seul processus).</P>
+<P>Une fois cr&eacute;&eacute; un filtre peut &ecirc;tre pass&eacute;
+en arguments aux routines avanc&eacute;es de l'API. Ces routines ne
+manipuleront que les donn&eacute;es filtr&eacute;es. Ces routines
+avanc&eacute;es sont celles qui permettent d'&eacute;crire et lire
+les coordonn&eacute;es des noeuds, la connectivit&eacute; des
+&eacute;l&eacute;ments d'un maillage non structur&eacute;, les
+valeurs des champs de r&eacute;sultats : \ref MEDfieldValueAdvancedWr
+/ \ref mfdraw, \ref mfdiaw, \ref MEDfieldValueAdvancedRd / \ref
+mfdrar, \ref mfdiar, \ref MEDmeshElementConnectivityAdvancedWr / \ref
+mmhyaw, \ref MEDmeshElementConnectivityAdvancedRd / \ref mmhyar, \ref
+MEDmeshNodeCoordinateAdvancedWr / \ref mmhcaw, \ref
+MEDmeshNodeCoordinateAdvancedRd / \ref mmhcar.</P>
+<P>Il est possible d'allouer un tableau de filtre avec la routine
+\ref MEDfilterAllocate / \ref mfrall, puis de le d&eacute;-allouer
+avec la routine \ref MEDfilterDeAllocate / \ref mfrdea. 
+</P>
+<H3><A NAME="7."></A>Ecriture et lecture en parall&egrave;le dans un
+seul fichier</H3>
+<P>En mode parall&egrave;le, le filtre est un moyen de d&eacute;finir
+le domaine concern&eacute; par chacun des processeurs. Les &eacute;critures
+et lectures peuvent donc se faire en parall&egrave;le entre plusieurs
+processeurs dans un seul et m&ecirc;me fichier MED. 
+</P>
+<P>La routine \ref MEDfilterBlockOfEntityCr / \ref mfrblc permet de
+cr&eacute;er un filtre en s&eacute;lectionnant les entit&eacute;s par
+blocs continus de taille constante pour lesquelles on veut
+lire/&eacute;crire des valeurs. Cette s&eacute;lection permet une
+lecture/&eacute;criture avanc&eacute;e vers/depuis les emplacements
+m&eacute;moire s&eacute;lectionn&eacute;s. Elle s'utilise aussi bien
+en mode s&eacute;quentiel qu'en mode parall&egrave;le (un ou
+plusieurs processus).</P>
+<P>Dans ce cadre d'utilisation, le fichier doit &ecirc;tre ouvert
+avec la routine \ref MEDparFileOpen / mfipfo.</P>
+<P>L'exemple suivant montre un cas d'utilisation en parall&egrave;le
+en &eacute;criture et lecture de champs de r&eacute;sultats.</P>
+<P>\include filterBlockOfentities.c</P>
+<P><BR><BR>
+</P>

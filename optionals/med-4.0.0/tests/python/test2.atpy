@@ -1,0 +1,18 @@
+AT_SETUP([test python test2])
+
+AT_KEYWORDS([python test2])
+
+# List of executables that should be run to perform the tests
+#AT_TESTED([test1.py])
+
+AT_CHECK([ln -s $builddir/test1.med test1.med],[0],[ignore],[ignore])
+
+AT_CHECK([LC_ALL=C.UTF-8 $PYTHON  $testpydir/test2.py],
+         [0],
+         [ignore],
+         [ignore],
+	 [],
+	 [ln test2.med $builddir/test2.med]
+	 )
+
+AT_CLEANUP

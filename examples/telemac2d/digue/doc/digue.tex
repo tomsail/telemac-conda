@@ -1,0 +1,151 @@
+\chapter{Flow over a breakwater (digue)}
+
+\section{Purpose}
+
+This test case is to demonstrate the capability of \telemac{2D}
+to model a situation with a very steep bed thanks to a refined 
+mesh.
+Two pools are located downstream of the breakwater.
+They induce flow regime transitions from super-critical to sub-critical flow.
+
+\subsection{Approach}
+
+The computational domain is a rectangle with flat bottom
+and initially dry bed in which a 4~m high breakwater
+with trapezoidal cross-section splits the domain into two zones.
+Water is introduced in the area on the one side of the breakwater
+until this one overflows.
+The area protected by the breakwater, which includes 
+two pools, is suddenly flooded.
+See Figure \ref{fig:digue:FSht0} for the initial conditions
+and Figure \ref{fig:digue:FSSection} for free surface profile.
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+  \includegraphicsmaybe{[width=\textwidth]}{../img/FreeSurface_t0.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+  \includegraphicsmaybe{[width=\textwidth]}{../img/WaterDepth_t0.png}
+\end{minipage}
+\caption{Initial conditions for free surface and water depth.}
+\label{fig:digue:FSht0}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/FreeSurfaceSection.png}
+\caption{Free surface profile along (0 ; -200) and (1,250 ; -200).}
+\label{fig:digue:FSSection}
+\end{figure}
+
+\section{Description}
+
+\subsection{Geometry and mesh}
+
+The computational domain is a 1,232.5~m $\times$ 1,000~m rectangular channel.
+A triangular non-structured mesh is constructed on this domain
+and refined near the breakwater.
+It has the following characteristics:
+\begin{itemize}
+\item 19,202 triangular elements,
+\item 9,734 nodes.
+\end{itemize}
+Maximum size range: from 3 to 37~m.
+
+Water depth at rest = 5~m.
+
+\subsection{Boundaries}
+
+\begin{itemize}
+\item Domain entrance: free depth and discharges imposed at 100~m$^3$/s,
+\item Domain outlet: free depth and Thompson conditions,
+\item Lateral boundaries: solid walls with slip condition.
+\end{itemize}
+
+Bottom: Strickler formula with friction coefficient = 55~m$^{1/3}/s$.
+
+%The mesh and the topography are shown on Figure \ref{fig:digue:Mesh} and \ref{fig:digue:Bathy}.
+The mesh and the topography are shown in Figure \ref{fig:digue:MeshBathy}.
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+  \includegraphicsmaybe{[width=\textwidth]}{../img/Mesh.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+  \includegraphicsmaybe{[width=\textwidth]}{../img/Bathy.png}
+\end{minipage}
+\caption{Horizontal mesh and bathymetry.}
+\label{fig:digue:MeshBathy}
+\end{figure}
+
+%\begin{figure}[H]
+% \centering
+% \includegraphicsmaybe{[width=\textwidth]}{../img/Mesh.png}
+%  \caption{2D-mesh of the digue case.}\label{fig:digue:Mesh}
+%\end{figure}
+
+%\begin{figure}[H]
+% \centering
+% \includegraphicsmaybe{[width=\textwidth]}{../img/Bathy.png}
+%  \caption{bathymetry of the digue case.}\label{fig:digue:Bathy}
+%\end{figure}
+
+\subsection{Physical parameters}
+
+The model of turbulence is constant viscosity
+with velocity diffusivity = 2~m$^2$/s.
+
+\subsection{Numerical parameters}
+Type of advection:
+\begin{itemize}
+\item Methods of characteristics on velocities (scheme \#1),
+\item Conservative + modified SUPG on depth (mandatory scheme)
+\end{itemize}
+
+The type of element is linear triangle (P1) for $h$ and for velocities.
+
+\begin{itemize}
+\item Implicitation for velocities = 0.55 (default value),
+\item Implicitation for depth = 1.0,
+\item Solver: Conjugate gradient with solver accuracy = 10$^{-6}$,
+\item Time step = 2~s,
+\item Simulation duration = 14,000~s (a little bit less than 4~h).
+\end{itemize}
+
+\section{Results}
+Even though the slopes of the breakwater are steep,
+progressive flooding of the breakwater and overflowing
+with mixed super-critical/sub-critical flow conditions are reproduced as expected.
+The time when overflowing occurs is 12,000~s
+(see Figures \ref{fig:digue:FreeSurface} and \ref{fig:digue:FSStream}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/FreeSurface_tf.png}
+  \caption{Free surface at final time.}\label{fig:digue:FreeSurface}
+\end{figure}
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+  \includegraphicsmaybe{[width=\textwidth]}{../img/FreeSurface_12000s.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+  \includegraphicsmaybe{[width=\textwidth]}{../img/FreeSurface_14000s.png}
+\end{minipage}
+\caption{Free surface and streamlines at 12,000~s and 14,000~s.}
+\label{fig:digue:FSStream}
+\end{figure}
+
+\section{Conclusions}
+
+\telemac{2D} is capable of simulating the flooding of a breakwater
+including the different flow regimes and regime transitions
+it induces provided that the mesh is sufficiently refined.
+Hydrodynamics are appropriately reproduced at each stage
+of the flooding event (free overfall or flooded breakwater).

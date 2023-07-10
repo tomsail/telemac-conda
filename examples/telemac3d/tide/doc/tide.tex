@@ -1,0 +1,170 @@
+\chapter{Propagation of tide prescribed by boundary conditions (tide)}
+
+\section{Purpose}
+
+This test demonstrates the availability of \telemac{3D} to model the
+propagation of tide in a maritime domain by computing tidal
+boundary conditions.
+A coastal area located in the English Channel off the coast of
+Brittany (in France) close to the real location of the Paimpol-Bréhat
+tidal farm is modelled to simulate the tide and the tidal currents
+over this area.
+Time and space varying boundary conditions are prescribed over
+liquid boundaries.
+
+\section{Description}
+
+\subsection{Geometry and Mesh}
+
+The geometry of the domain is almost a rectangle with the French coasts on
+one side (22~km $\times$ 24~km).
+The triangular mesh is composed of 4,385 triangular elements and 2,386 nodes
+(see Figure \ref{fig:tide:mesh}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.6\textwidth]}{../img/geom_mesh.png}
+  \caption{Horizontal mesh.}\label{fig:tide:mesh}
+\end{figure}
+
+To build the 3D mesh of prisms, 11 planes are regularly spaced over the vertical.
+A slice of 3D mesh between nodes of coordinates (185,500 ; 150,000) to
+(200,500 ; 150,000) can be seen in Figure \ref{fig:tide:mesh:section}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/res_mesh_section.png}
+  \caption{Slice of 3D mesh.}\label{fig:tide:mesh:section}
+\end{figure}
+
+\subsection{Bathymetry}
+
+A real bathymetry of the area bought from the SHOM (French Navy
+Hydrographic and Oceanographic Service) is used.
+\copyright Copyright 2007 SHOM. Produced with the permission of SHOM.
+Contract number 67/2007
+
+\subsection{Initial conditions}
+
+Initial conditions are defined by a constant elevation and no velocity.
+
+\subsection{Boundary conditions}
+
+Several databases of harmonic constants are interfaced with
+\telemac{3D}:
+\begin{itemize}
+\item The JMJ database resulting from the LNH Atlantic coast TELEMAC
+model by Jean-Marc JANIN,
+\item The global TPXO database and its regional and local variants
+from the Oregon State University (OSU),
+\item The regional North-East Atlantic atlas (NEA) and the global
+atlas FES (e.g. FES2004 or FES2012...) coming from the works of
+Laboratoire d’Etudes en Géophysique et Océanographie Spatiales (LEGOS),
+\item The PREVIMER atlases.
+\end{itemize}
+
+In the tide test case, only the JMJ database is used as example.
+The user can read the \telemac{2D} validation document and the \telemac{2D}
+examples to see how it is done with NEA atlas or TPXO-like tidal solutions,
+and of course the \telemac{3D} or \telemac{2D} user manuals.
+Elevation and horizontal velocity boundary conditions are computed by
+\telemac{3D} from an harmonic constants database (JMJ from LNH).
+If a tidal solution from OSU has been downloaded (e.g. TPXO, European
+Shelf), it can be used to compute elevation and horizontal velocity
+boundary conditions as well.
+
+\subsection{Physical parameters}
+
+Vertical turbulence model: mixing length model\\
+Horizontal viscosity for velocity: $10^{-4}~\rm{m}^2$/s\\
+Coriolis: yes (constant coefficient over the domain
+= 1.10 $\times$ 10$^{-4}$~rad/s)\\
+No wind, no atmospheric pressure, no surge and nor waves
+
+\subsection{Numerical parameters}
+
+Time step: 20~s\\
+Simulation duration: 90,000~s = 25~h\\
+
+Non-hydrostatic version\\
+Advection for velocities: Characteristics method\\
+Thompson method with calculation of characteristics for open boundary
+conditions\\
+Free Surface Gradient Compatibility = 0.5 (not 0.9) to prevent on
+wiggles\\
+Tidal flats with correction of Free Surface by elements, treatments
+to have $h \ge 0$
+
+\subsection{Comments}
+
+If a tidal solution from OSU has been downloaded (e.g. TPXO, European
+Shelf), it can be used to compute initial conditions with the keyword
+\telkey{INITIAL CONDITIONS} set to TPXO SATELLITE ALTIMETRY.
+Thus, both initial water levels and horizontal components of velocity
+can be calculated and may vary in space.
+
+\section{Results}
+
+Tidal range, sea levels and tidal velocities are well reproduced compared to
+data coming from the SHOM or at sea measurements.
+In Figure \ref{fig:tide:H} the water depth and free surface elevation at final
+time are shown in the case of the JMJ database.
+In Figure \ref{fig:tide:U} the surface velocity magnitude, vectors and
+streamlines are plotted from the \telkey{3D RESULT FILE}.
+If using the \telkey{2D RESULT FILE}, a mask for tidal flats could be added
+for variable fields.
+
+\begin{figure}[!htbp]
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/r2d_water_depth.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+% \includegraphicsmaybe{[width=\textwidth]}{../img/r2d_elevation.png}
+ \includegraphicsmaybe{[width=\textwidth]}{../img/res_z_map.png}
+\end{minipage}
+  \caption{Water depth (in m) and free surface elevation (in m CD) at final time.}\label{fig:tide:H}
+\end{figure}
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/res_velocity_surf_vectors.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/res_velocity_surf_streamlines.png}
+\end{minipage}
+  \caption{Surface velocity (in m/s) at final time (with vectors on the left and streamlines on the right).}
+  \label{fig:tide:U}
+\end{figure}
+
+Depth-averaged velocity magnitude, vectors and streamlines can be plotted
+from the \telkey{2D RESULT FILE} (see Figure \ref{fig:tide:average:U}).
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/r2d_velocity_vectors.png}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/r2d_velocity_streamlines.png}
+\end{minipage}
+  \caption{Depth-averaged velocity (in m/s) at final time (with vectors on the left and streamlines on the right).}
+  \label{fig:tide:average:U}
+\end{figure}
+
+Surface velocity can also be plotted from the \telkey{2D RESULT FILE} with a
+mask for tidal flats (see Figure \ref{fig:tide:surf:U}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.6\textwidth]}{../img/r2d_surface_velocity.png}
+  \caption{Surface velocity (in m/s) at final time with mask for tidal flats.}\label{fig:tide:surf:U}
+\end{figure}
+
+\section{Conclusion}
+
+\telemac{3D} is able to model tide in coastal areas.

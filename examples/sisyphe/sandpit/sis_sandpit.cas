@@ -1,0 +1,84 @@
+/----------------------------------------------------------------------/
+/  UNCOUPLED TELEMAC2D AND SISYPHE                                     /
+/----------------------------------------------------------------------/
+/
+TITLE = 'Widening Channel Test'
+/
+/----------------------------------------------
+/ DATA
+/----------------------------------------------
+/
+GEOMETRY FILE                               =  geo_sandpit.slf
+BOUNDARY CONDITIONS FILE                    =  geo_sandpit.cli
+RESULTS FILE                                =  sis_sandpit.slf
+WAVE FILE                                   =  tom_sandpit.slf
+/
+/------------------------------------------------------ /
+/ NUMERICAL INFO                                        /
+/------------------------------------------------------ /
+STEADY CASE                     = NO
+/NUMBER OF TIDES OR FLOODS       = 10
+COMPUTATION CONTINUED = NO
+MASS CONCENTRATION = YES
+CRITICAL EVOLUTION RATIO                  = 0.1
+MORPHOLOGICAL FACTOR                      = 1
+/
+/----------------------------------------------
+/ OUTPUTS
+/----------------------------------------------
+/
+VARIABLES FOR GRAPHIC PRINTOUTS = 'B,E,CS1,CS2,QSBL,QS1,QS2,QS3,W,X'
+/
+MASS-BALANCE = NO
+/
+/-------------------------------------------------
+/ NUMERICAL STUFF
+/------------------------------------------------
+TIDAL FLATS                               = YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS   = 1
+MINIMAL VALUE OF THE WATER HEIGHT         = 0.001
+SOLVER ACCURACY                           = 1.E-12
+SOLVER ACCURACY FOR SUSPENSION            = 1.E-12
+FINITE VOLUMES                            = NO
+TYPE OF ADVECTION                         = 13
+TETA                                      = 0.5
+/
+MASS-LUMPING             : NO
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+BED LOAD                                   = YES
+/ TOTAL LOAD                                 = NO
+BED-LOAD TRANSPORT FORMULA                 = 5
+EFFECT OF WAVES                            = YES
+SLOPE EFFECT                               = YES
+FORMULA FOR SLOPE EFFECT                   = 1
+/ BETA                                       = 3
+BETA                                       = 1.3
+/
+SUSPENSION                                 = YES
+EQUILIBRIUM INFLOW CONCENTRATION           = YES
+REFERENCE CONCENTRATION FORMULA            = 4
+/it does accept this setting
+/ even if the dico doesn't give more then 2 options
+SETTLING LAG                               = YES
+/not coded into the trunk
+/
+WATER DENSITY                              = 1000
+SEDIMENT DENSITY                           = 2650.0
+NUMBER OF SIZE-CLASSES OF BED MATERIAL     = 1
+COHESIVE SEDIMENTS                         = NO
+MEAN DIAMETER OF THE SEDIMENT              = 0.0001
+D90                                        = 0.0003
+/SETTLING VELOCITIES                        = 0.0221
+/
+ZERO                                       = 1e-12
+/
+SECONDARY CURRENTS                         = NO
+BED ROUGHNESS PREDICTION                   = NO
+BED ROUGHNESS PREDICTOR OPTION             = 1
+SKIN FRICTION CORRECTION                   = 2
+/
+/

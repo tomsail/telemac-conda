@@ -1,0 +1,76 @@
+/
+/-------------------------------------------------------------------/
+/   TELEMAC-2D       VALIDATION TEST CASE NUMBER                    /
+/                     GAUSSIAN OPEN BOUNDARIES                      /
+/-------------------------------------------------------------------/
+/
+/ HP C3700 compilateur HP      : 36 s version 5.7 19/04/2007
+/ HP C3700 compilateur Nag     : 77 s version 5.7 19/04/2007
+/ Dell 2.8 MHz compilateur pgi : 16 s version 5.7 19/04/2007
+/
+/ HP C3700 compilateur HP      : 29 s version 5.8 20/12/2007
+/ HP C3700 compilateur Nag     : 71 s version 5.8 26/12/2007
+/ Dell 2.8 MHz compilateur pgi : 17 s version 5.8 20/12/2007
+/
+/ HP C3700 compilateur HP      : 26 s version 5.9 16/10/2008
+/ HP C3700 compilateur Nag     : 70 s version 5.9 17/10/2008
+/ Dell 2.8 MHz compilateur pgi : 16 s version 5.9 16/10/2008
+/
+/ HP C3700 compilateur HP        : 24 s version 6.0 24/11/2009
+/ HP C3700 compilateur Nag       : 60 s version 6.0 27/11/2009
+/ Dell 2.8 MHz compilateur Intel : 12 s version 6.0 27/11/2009
+/
+/ Version 6.2
+/
+/ HP Linux Calibre 7   1 processeur  : 2 s  22/05/2012
+/ HP Linux Calibre 7   8 processeurs : 2 s  22/05/2012
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+FORTRAN FILE                    = 'user_fortran'
+BOUNDARY CONDITIONS FILE        = geo_thompson.cli
+GEOMETRY FILE                   = geo_gouttedo.slf
+RESULTS FILE                    = r2d_thompson.slf
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE                           = 'DROPLET IN A BASIN / GAUSSIAN-OPEN'
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,H,T*'
+GRAPHIC PRINTOUT PERIOD         = 10
+LISTING PRINTOUT PERIOD         = 10
+TIME STEP                       = 0.04
+NUMBER OF TIME STEPS            = 100
+MASS-BALANCE                    = YES
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS              = 'PARTICULAR'
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 0
+TURBULENCE MODEL                = 1
+VELOCITY DIFFUSIVITY            = 0.
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+/
+TYPE OF ADVECTION               = 1;5
+SUPG OPTION                     = 1;0
+TREATMENT OF THE LINEAR SYSTEM  = 2
+CONTINUITY CORRECTION           = YES
+SOLVER                          = 1
+SOLVER ACCURACY                 = 1.E-6
+DISCRETIZATIONS IN SPACE        = 12 ; 11
+IMPLICITATION FOR DEPTH         = 0.6
+IMPLICITATION FOR VELOCITY      = 0.6
+OPTION FOR LIQUID BOUNDARIES    = 2

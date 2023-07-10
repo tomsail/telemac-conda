@@ -1,0 +1,94 @@
+/======================================================================
+/ Sisyphe: Wesel-Xanten minimalistic nw97 Q(Wesel)
+/ The Rhine River, Rhein-km 812.5 - 821.5
+/======================================================================
+SECONDARY CURRENTS = YES
+SECONDARY CURRENTS ALPHA COEFFICIENT = 1.0
+/SECONDARY CURRENTS = NO
+BOUNDARY CONDITIONS FILE                     = geo_yen-exp.cli
+PRESCRIBED SOLID DISCHARGES                  = 0.0;0.0
+GEOMETRY FILE                                = geo_yen-exp.slf
+RESULTS FILE                                 = sis_cvsm.slf
+/----------------------------------------------
+/  GENERAL AND OUTPUT
+/----------------------------------------------
+TITLE : 'Yen-180-bend'
+VARIABLES FOR GRAPHIC PRINTOUTS =
+'U,V,S,E,H,B,KS,TOB,M,N,P,1A*,2A*,*ES,D50'
+/
+/----------------------------------------------
+/ SISYPHE NUMERICAL ALGORITHMS
+/----------------------------------------------
+/
+MASS-BALANCE                             = YES
+ZERO                                     = 1e-12
+TETA                                     = 0.5
+SOLVER ACCURACY                          = 1e-8
+MASS-LUMPING                             = YES
+/MINIMAL VALUE OF THE WATER HEIGHT        = 0.001
+MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES = 50
+/
+/----------------------------------------------
+/ PHYSICAL PARAMETERS - HYDRODYNAMICS
+/----------------------------------------------
+/
+/FRICTION COEFFICIENT = 65.
+/LAW OF BOTTOM FRICTION = 0
+/ 0: wird berechnet: ks = 3*D50
+/ 1: wird berechnet: ks : max(3*d50, ripple height)
+/
+/----------------------------------------------
+/ PHYSICAL PARAMETERS - BED LOAD
+/----------------------------------------------
+BED LOAD = YES
+SUSPENSION = NO
+BED-LOAD TRANSPORT FORMULA                 = 3
+SHIELDS PARAMETERS = 0.047;0.047;0.047;0.047;0.047
+CRITICAL EVOLUTION RATIO                   = 1000.
+/COEFFICIENT FUNCTION OF THE POROSITY       = 1.6
+NON COHESIVE BED POROSITY                   = 0.37500
+NUMBER OF SIZE-CLASSES OF BED MATERIAL           = 5
+NUMBER OF BED LOAD MODEL LAYERS         = 2
+/
+SEDIMENT DIAMETERS =
+0.00031;0.00064;0.00103;0.00169;0.00336
+INITIAL FRACTION FOR PARTICULAR SIZE CLASS       =
+0.2;0.2;0.2;0.2;0.2
+CONSTANT ACTIVE LAYER THICKNESS                  = YES
+ACTIVE LAYER THICKNESS                           = 0.10D0
+/
+SLOPE EFFECT = YES
+FORMULA FOR DEVIATION  = 2
+PARAMETER FOR DEVIATION = 0.85
+FORMULA FOR SLOPE EFFECT = 2
+FRICTION ANGLE OF THE SEDIMENT = 35
+/----------------------------------------------
+/ PHYSICAL PARAMETERS - CONTINUOUS VERTICAL SORTING MODEL
+/----------------------------------------------
+VERTICAL GRAIN SORTING MODEL = 1
+/   0 = Layer = HR-VSM (HIRANO + RIBBERINK)
+/   1 = C-VSM
+C-VSM MAXIMUM SECTIONS = 100
+/   Should be at least 4 + 4x Number of fractions,
+/   better > 100, tested up to 10000
+C-VSM FULL PRINTOUT PERIOD = 72000
+/   0 => GRAPHIC PRINTOUT PERIOD
+/   Anything greater 0 => Sets an own printout period for the CVSP
+/   useful to save disk space!!!
+C-VSM RESULTS FILE = 'vsp_res.slf'
+C-VSM RESULTS FILE FORMAT = SERAFIN
+C-VSM PRINTOUT SELECTION = 0
+/C-VSM PRINTOUT SELECTION = -1
+/   e.g. 0|251|3514|1118|1750|2104|3316|1212
+/   Add any 2D Mesh Point numbers for .CSV-Ascii output of the CVSP
+/   Add -1 for "nothing" = Standard
+/   Add 0 for full CVSP output as Selafin3D files
+C-VSM DYNAMIC ALT MODEL = 5
+/   'MODEL FOR DYNMIC ACTIVE LAYER THICKNESS APROXIMATION’
+/   0 = CONSTANT (Uses Keyword: ACTIVE LAYER THICKNESS)
+/   1 = Hunziker & Guenther
+/   2 = Fredsoe & Deigaard (1992)
+/   3 = van RIJN (1993)
+/   4 = Wong (2006)
+/   5 = Malcharek (2003)
+/   6 = 3*d50 within last time steps ALT'

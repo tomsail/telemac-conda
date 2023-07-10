@@ -1,0 +1,62 @@
+/********************************************************************
+/             STEERING FILE
+/             TOMAWAC
+/
+/********************************************************************
+/--------------------------------------------------------------------
+/     FILES
+/--------------------------------------------------------------------
+GEOMETRY FILE = 'geo_tom_different-tom2tel.slf'
+BOUNDARY CONDITIONS FILE = 'geo_tom_different-tom2tel.cli'
+2D RESULTS FILE = 'tom_littoral.slf'
+/--------------------------------------------------------------------
+/ INPUTS - OUTPUTS
+/--------------------------------------------------------------------
+TITLE = 'LITTORAL'
+PERIOD FOR GRAPHIC PRINTOUTS = 10
+VARIABLES FOR 2D GRAPHIC PRINTOUTS =
+HM0,DMOY,TPR5,ZF,WD,FX,FY,UX,UY
+PERIOD FOR LISTING PRINTOUTS = 20
+/--------------------------------------------------------------------
+/ DISCRETISATION
+/--------------------------------------------------------------------
+MINIMAL FREQUENCY = 0.05
+FREQUENTIAL RATIO = 1.1007
+NUMBER OF FREQUENCIES = 12
+NUMBER OF DIRECTIONS = 12
+TIME STEP = 10.
+NUMBER OF TIME STEP = 100
+/--------------------------------------------------------------------
+/ INITIAL CONDITIONS
+/--------------------------------------------------------------------
+INITIAL STILL WATER LEVEL = 10.
+TYPE OF INITIAL DIRECTIONAL SPECTRUM = 6
+INITIAL SIGNIFICANT WAVE HEIGHT = 0.5
+INITIAL PEAK FREQUENCY = 0.125
+INITIAL PEAK FACTOR = 3.3
+INITIAL ANGULAR DISTRIBUTION FUNCTION = 1
+INITIAL WEIGHTING FACTOR FOR ADF = 1.0
+INITIAL MAIN DIRECTION 1 = 30.
+INITIAL DIRECTIONAL SPREAD 1 = 3
+/--------------------------------------------------------------------
+/ BOUNDARY CONDITIONS
+/--------------------------------------------------------------------
+TYPE OF BOUNDARY DIRECTIONAL SPECTRUM = 6
+BOUNDARY SIGNIFICANT WAVE HEIGHT = 1.
+BOUNDARY PEAK FREQUENCY = 0.125
+BOUNDARY PEAK FACTOR = 3.3
+BOUNDARY MAIN DIRECTION 1 = 30.
+BOUNDARY DIRECTIONAL SPREAD 1 = 3.
+/--------------------------------------------------------------------
+/ OPTIONS
+/--------------------------------------------------------------------
+MINIMUM WATER DEPTH = 0.05
+INFINITE DEPTH = NO
+CONSIDERATION OF SOURCE TERMS = YES
+CONSIDERATION OF A WIND = NO
+BOTTOM FRICTION DISSIPATION = 1
+/===========DEFERLEMENT
+NUMBER OF BREAKING TIME STEPS = 5
+/=========== 1 : Battjes et Janssen (1978)
+DEPTH-INDUCED BREAKING DISSIPATION = 1
+BOUNDARY CONDITION BEFORE TIME STEP=TRUE

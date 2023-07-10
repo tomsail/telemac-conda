@@ -1,0 +1,101 @@
+\chapter{waq3d\_o2}
+
+\section{Purpose}
+
+This case is an example of the use of the O$_2$ module of \waqtel coupled with
+\telemac{3D}.
+
+\section{Description}
+
+A square basin at rest is considered (length and width = 10~m)
+with flat bathymetry and elevation at 0~m.
+
+\section{Computational options}
+
+\subsection{Mesh}
+
+The triangular mesh is composed of 272 triangular elements and 159 nodes
+(see Figure \ref{fig:waq3d_o2:mesh}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.6\textwidth]}{../img/res_mesh.png}
+\caption{Mesh}
+ \label{fig:waq3d_o2:mesh}
+\end{figure}
+
+To build the 3D mesh of prisms, 5 planes are regularly spaced over the vertical.
+The vertical mesh between nodes of coordinates (-5 ; 0) to (5 ; 0) can be
+seen on Figure \ref{fig:waq3d_o2:mesh_section}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/res_mesh_section.png}
+\caption{Vertical mesh}
+ \label{fig:waq3d_o2:mesh_section}
+\end{figure}
+
+5 (at least) are needed to see variations of dissolved O$_2$ over the vertical.
+
+\subsection{Physical parameters}
+
+The O$_2$ module is activated by setting \telkey{WATER QUALITY PROCESS} = 2
+in the \telemac{3D} \telkey{STEERING FILE}.\\
+
+3 tracers are considered:
+\begin{itemize}
+\item dissolved O$_2$,
+\item NH$_4$ load,
+\item organic load.
+\end{itemize}
+
+Only the following water quality parameters have been changed
+in the \waqtel \telkey{STEERING FILE} compared to the default values:
+\begin{itemize}
+\item \telkey{K2 REAERATION COEFFICIENT} = 0.3,
+\item \telkey{FORMULA FOR COMPUTING K2} = 0 (i.e. $k_2$ is constant),
+\item \telkey{O2 SATURATION DENSITY OF WATER (CS)} = 9~mgO$_2$/l ($C_s$ is constant),
+\item \telkey{WATER TEMPERATURE} = 20$^\circ$C (which is the mean temperature of water).
+\end{itemize}
+
+\subsection{Initial and Boundary Conditions}
+
+The initial water depth is 2~m with a fluid at rest.\\
+%
+The initial values for tracers are homogeneous:\\
+([O$_2$], [L], [NH$_4$]) =
+(50~mgO$_2$/l, 3~mgO$_2$/l, 0.01~mgNH$_4$/l).\\
+%
+There are only closed lateral boundaries with free slip condition and no
+friction at the bottom.
+
+\subsection{General parameters}
+
+The time step is 4~s for a simulated period of 40,000~s.
+
+\subsection{Numerical parameters}
+
+Basin at rest (no advection nor diffusion for hydrodynamics).\\
+
+2 new default values since release 8.1 for the advection and diffusion of the
+tracers are taken in the \telemac{3D} \telkey{STEERING FILE} :
+\begin{itemize}
+\item \telkey{ACCURACY FOR DIFFUSION OF TRACERS} = 10$^{-8}$,
+\item \telkey{SCHEME OPTION FOR ADVECTION OF TRACERS} = 4
+  (combined with \telkey{SCHEME FOR ADVECTION OF TRACERS} = 5 leads to LIPS use).
+\end{itemize}
+
+\section{Results}
+
+Figure \ref{fig:waq3d_o2:res} shows the 3 tracers evolution along time.
+
+\begin{figure} [H]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/res_tracers.png}
+ \caption{Tracers evolution for different tracers of the O$_2$ module}
+ \label{fig:waq3d_o2:res}
+\end{figure}
+
+\section{Conclusion}
+
+The O$_2$ module of \waqtel can be coupled with \telemac{3D}.

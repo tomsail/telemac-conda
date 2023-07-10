@@ -1,0 +1,53 @@
+/ This case validates the MICROPOL process for 2D case
+/  of WAQTEL module
+/
+/  Version V7P2
+/****************************************************
+TITLE = 'Water Quality- micropol  process for Channel'
+/****************************************************
+/----------------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------------
+GEOMETRY FILE             = 'geo_waq2d_micropol.slf'
+BOUNDARY CONDITIONS FILE  = 'geo_waq2d_micropol.cli'
+RESULTS FILE              = 'r2d_waq2d_micropol.slf'
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'U,V,H,S,Q,T*'
+/
+/ 1 year of simulation time
+/ Put a smaller period to have a more
+/ accurate time series
+/
+GRAPHIC PRINTOUT PERIOD          = 24
+LISTING PRINTOUT PERIOD          = 1000
+MASS-BALANCE                     = YES
+TIME STEP                        = 3600.
+NUMBER OF TIME STEPS             = 3200
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+INITIAL CONDITIONS = 'CONSTANT DEPTH'
+INITIAL DEPTH      = 1.
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+LAW OF BOTTOM FRICTION           = 0
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+TIDAL FLATS                       = NO
+CONTINUITY CORRECTION             = YES
+/************************************
+/ TRACER
+/************************************
+/NUMBER OF TRACERS = 1
+/ initial values of         SS,SF,C,CSS,CFF
+INITIAL VALUES OF TRACERS = 1.;0.;0.;1.;0.
+/************************************
+/  WATER QUALITY
+/************************************
+COUPLING WITH         = 'WAQTEL'
+WAQTEL STEERING FILE  = 'waq_micropol_steer.cas'
+WATER QUALITY PROCESS = 7

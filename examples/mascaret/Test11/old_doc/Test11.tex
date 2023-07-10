@@ -1,0 +1,122 @@
+\documentclass[a4paper,10pt]{article}
+
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P0}
+
+\subsection*{Validation des noyaux de calcul fluvial permanent et transitoire}
+
+\subsection*{\emph{Ecoulements permanent et non permanent en lit composé schématique variable, élargissement du lit mineur}}
+
+\subsection*{Numéro du cas test : 11}
+
+\subsection*{Auteur : Kamal EL KADI ABDERREZZAK}
+
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+	Ce cas test a pour but de valider le noyau de calcul en régime permanent, et de comparer les résultats obtenus avec ceux du noyau transitoire après convergence, dans le cas d'un écoulement permanent en lit composé schématique variable (élargissement du lit mineur).
+
+
+\subsection*{Données géométriques}
+
+	Le calcul est réalisé dans un canal de pente uniforme ($0.00025$) et de longueur $8000\mbox{ } m$. Les sections en travers sont définies à partir de trois profils : un profil à l'extrémité amont du bief, un profil au milieu et un profil à l'extrémité aval du bief. Ainsi, le lit mineur s'élargit progressivement entre les abscisses $0\mbox{ } m$ et $4000\mbox{ } m$ et rétrécit progressivement de l'abscisse $4000\mbox{ } m$ à l'abscisse $8000\mbox{ } m$. D'autre part, il y a deux zones de stockage en rive gauche et en rive droite.
+	
+	\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=0,scale=0.25]{Image1.eps}
+  \caption{Profil en travers}
+  \label{Imag1}
+ \end{center}
+\end{figure}
+
+\subsection*{Données physiques}
+
+	Prise en compte du frottement : oui
+\begin{itemize} 
+ \item Coefficient de Strickler :
+  \begin{itemize}
+  \item  lit mineur : $35 m^{1/3}.s^{-1}$
+  \item lit majeur : $15 m^{1/3}.s^{-1}$
+  \end{itemize}
+ \item Conditions aux limites : 
+  \begin{itemize}
+  \item Cote imposée à l'aval égale à $60.496\mbox{ } m $ (correspondant à la hauteur normale dans la section aval)
+  \item Débit imposé à l'amont constant et égal à $4000\mbox{ } m^3.s^{-1}$
+  \end{itemize}
+\end{itemize}
+
+\vspace{0.3cm}
+
+Pour le noyau permanent, aucune condition initiale n'est nécessaire.\\
+Pour le noyau transitoire, la condition initiale est la ligne d'eau contante à $60\mbox{ }m$.
+
+
+
+\subsection*{Données numériques}
+
+	Le pas de maillage longitudinal est de $100\mbox{ } m$.\\
+ Le pas de planimétrage est homogène dans le domaine et égal à $0.50\mbox{ } m$.\\
+  Pour le calcul non permanent, le pas de temps utilisé est $5\mbox{ }min$ et le calcul est mené pendant 2 heures et 30 minutes, soit 30 pas de temps.
+
+
+
+\subsection*{Résultats}
+
+	La figure~\ref{fig2} compare les lignes d'eau obtenues par les deux noyaux permanent et transitoire de MASCARET V7P0. Les écarts sont quasi-nuls. La comparaison avec la ligne d'eau du régime uniforme calculée en considérant la section en travers aval (ou amont) montre que l'élargissement progressif tend, dans l'ensemble, à faire baisser le niveau d'eau car il engendre une diminution de la vitesse d'écoulement. Enfin, à l'aval, la ligne d'eau calculée est légèrement supérieure à la ligne d'eau du régime uniforme. Ceci peut s'expliquer par le fait que le rétrécissement provoque une perte de charge locale. 
+La comparaison des débits calculés par les deux noyaux dans le lit mineur et le lit majeur montre que les écarts sont quasi-identique (figures~\ref{fig3} et \ref{fig4}) ; la différence entre les deux calculs est de l'ordre de $0.01\%$. Le débit total dans les deux est bien égal à $4000\mbox{ } m^3.s^{-1}$.
+
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure2.eps}
+  \caption{Profils en long de la ligne d'eau. Résultats obtenus avec un pas de discrétisation spatiale de $100\mbox{ } m$}
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure3.eps}
+  \caption{Profils en long du début dans le lit mineur. Résultats obtenus avec un pas de discrétisation spatiale de $100\mbox{ } m$}
+  \label{fig3}
+ \end{center}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure4.eps}
+  \caption{Profils en long du début dans le lit majeur. Résultats obtenus avec un pas de discrétisation spatiale de $100\mbox{ } m$}
+  \label{fig4}
+ \end{center}
+\end{figure}
+
+
+\subsection*{Conclusion}
+
+	La nouvelle version MASCARET V7P0-noyaux de calcul permanent et transitoire donnent les mêmes résultats pour ce cas-test de géométrie composée.
+
+
+
+
+
+
+
+%
+% fin du document
+%
+\end{document}          

@@ -1,0 +1,74 @@
+/  CAS GOUTTEDO DE TELEMAC-2D + TRANSPORT DE SEDIMENT
+/  POUR VERIFICATION DE LA CONSERVATION DE LA MASSE
+/  AVEC LE CONVECTEUR VOLUMES FINIS DE SISYPHE
+/  ICI SOLVEUR DIRECT (SOLVEUR : 8) POUR
+/  AVOIR LA PRECISION DE LA MACHINE
+/
+SOLVER : 8
+/
+MASS-LUMPING ON H : 1.
+/
+/
+/SISYPHE STEERING FILE : sis_conservation.cas
+/COUPLING WITH : 'SISYPHE'
+/
+/ Version 5.9
+/
+/ Dell 2.8 GHz Linux, compilateur pgi   :  ?  s
+/ Dell 2.8 GHz Linux, compilateur Intel :  7  s JMH 29/12/2008
+/ HP C3700, compilateur HP              : 16  s JMH 29/12/2008
+/ HP C3700, compilateur Nag             :  ?  s
+/
+/ Version 6.0
+/
+/ Dell 2.8 GHz Linux, compilateur Intel :  5  s JMH 10/12/2009
+/ HP C3700, compilateur HP              : 14  s JMH 10/12/2009
+/ HP C3700, compilateur Nag             : 27  s JMH 08/12/2009
+/
+/ Dell 2.8 GHz Linux, compilateur Intel :  7  s  CV 06/06/2010
+/
+/ Version 6.1
+/
+/ HP C3700, compilateur HP              : 15  s JMH 26/04/2011 (reference)
+/ Dell 2.8 GHz Linux, compilateur Intel :  7  s  CV 22/03/2011
+/ HP C3700, compilateur Nag             : 26  s  CV 13/04/2011
+/ HP Z600 Linux, compilateur Intel	:  6  s	 MS 21/07/2011
+/
+FORTRAN FILE                    : 'user_fortran'
+BOUNDARY CONDITIONS FILE : geo_conservation-t2d.cli
+GEOMETRY FILE               : geo_conservation-t2d.slf
+RESULTS FILE              : r2d_conservation.slf
+/
+/----------------------------------------------------------------------/
+/                     OPTIONS GENERALES
+/----------------------------------------------------------------------/
+TITLE = 'TELEMAC 2D : GOUTTE DANS UN BASSIN'
+COMPUTATION CONTINUED : NO
+VARIABLES FOR GRAPHIC PRINTOUTS : 'U,V,H'
+/VARIABLES A IMPRIMER : ''
+TIME STEP = 0.04
+NUMBER OF TIME STEPS = 100
+GRAPHIC PRINTOUT PERIOD : 5
+LISTING FOR PRINTOUT PERIOD =10
+/
+LAW OF BOTTOM FRICTION : 3
+FRICTION COEFFICIENT = 40.
+/----------------------------------------------------------------------/
+/     PROPAGATION
+/----------------------------------------------------------------------/
+TURBULENCE MODEL : 1
+VELOCITY DIFFUSIVITY = 0.0
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER : 100
+SOLVER ACCURACY = 1.E-4
+IMPLICITATION FOR DEPTH = 1.
+IMPLICITATION FOR VELOCITY = 0.6
+PRECONDITIONING : 2
+/---------------------------------------------------------------
+MASS-BALANCE : YES
+INITIAL CONDITIONS : 'PARTICULAR'
+MATRIX STORAGE : 3
+/ POUR EQUATION D'ONDE :
+TREATMENT OF THE LINEAR SYSTEM : 2
+TYPE OF ADVECTION:1;5
+SUPG OPTION       : 2;0
+/----------------------------------------------------------------------/

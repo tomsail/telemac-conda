@@ -1,0 +1,151 @@
+\renewcommand{\labelitemi}{$\triangleright$}
+
+\chapter{Clogging of ice on intake racks}
+%
+% - Purpose & Problem description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved and specify how the numerical solution will be validated
+%
+\section{Purpose}
+This test case has been purposefully setup to demonstrate that \khione is capable of correctly clogging frazil ice onto the bars of a trash racks.\newline
+
+Accumulation on racks are usually defined at an intake boundary or on a section in the model. In this particular case, the rack is set at the downstream end of a slow moving flume, 10~[km] long at a gentle slope of 1:100,000.\newline
+
+\section{Description}
+
+\subsection{Domain}
+The domain is a long flat-bottom flume, boxed within (0;0) and (150;10,000), its length being 10~[km] along the x-axis and its width being 150~[m] along the y-axis. The channel has a slope of 1:100,000 between the elevation 4.1~[m] (upstream) and 4.0~[m] (downstream).
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.40]}{../img/bottom.png}
+    \end{center}
+    \caption{Bottom elevation.}
+    \label{fig:clogging_bottom}
+\end{figure}
+
+\subsection{Mesh}
+The mesh of the domain was created as a triangulated regular grid with a uniform density of about 0.35~m, resulting in a mesh with 4,800 elements and 2,807 vertices. (see figure \ref{fig:clogging_mesh}).
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.40]}{../img/mesh.png}
+    \end{center}
+    \caption{Domain mesh.}
+    \label{fig:clogging_mesh}
+\end{figure}
+
+\subsection{Boundary definitions}
+There are two solid boundaries and 2 open boundaries.\newline
+
+The solid boundaries are on either side of the length of the flume, considered as solid walls with perfect slip conditions (condition 2 2 2).
+The open boundaries are at (x=0) for the upstream and at (x=10,0000) for the downstream of the flume. A constant discharge of 30~[m$^3$/s] is imposed at the upstream boundary. A constant water level is set at 6.6265~[m] at the downstream boundary.\newline
+
+In the follow-up simulation, water temperature is entering the domain at 0.1~$^\circ C$. Frazil concentration is set at 0~[SI]. At that temperature, frazil starts growing about 1.5~[km] down the length of the flume.\newline
+
+\subsection{Initial conditions}
+An initial depth of 3.535~[m] is set for all four variations of the test case. The free surface is subsequently corrected by \khione to account for the initial ice cover thickness, as read from the previous ice cover computation file.\newline
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.40]}{../img/l-section-hydro.png}
+    \end{center}
+    \caption{Profile of steady state conditions.}
+    \label{fig:clogging_profile}
+\end{figure}
+
+Subsequently, temperature and frazil concentration are added in a follow-up simulation.
+
+\subsection{Coupling}
+The follow-up simulation calls on the thermal exchanges between the atmosphere and the water as computed within \khione. The simulation is, therefore, coupled with \khione.
+\begin{itemize}
+    \item\textit{COUPLING WITH = 'KHIONE'}
+    \item\textit{CLOGGING ON BARS = YES}, both thermal budget (by default) and clogging processes are activated within \khione
+\end{itemize}
+
+% - Physical parameters:
+%     This part details all the physical properties of the water, its
+%     content and its physcial forcing.
+%
+\subsection{Physical parameters}
+%
+Physical properties are set through three steering files, for which \telemac2D is coupled with \khione.
+
+A friction law is used based on the Manning coefficient:
+\begin{itemize}
+    \item\textit{LAW OF BOTTOM FRICTION = 4}
+    \item\textit{FRICTION COEFFICIENT = 0.025}
+\end{itemize}
+
+In relation to \khione (within the \khione steering file), the following physical properties are set for the thermal budget model:
+\begin{itemize}
+    \item\textit{ATMOSPHERE-WATER EXCHANGE MODEL = 0}
+    \item\textit{AIR TEMPERATURE = -2.5}
+\end{itemize}
+
+The clogging model is set with the following parameters:
+\begin{itemize}
+    \item\textit{CLOGGED BOUNDARY NUMBER = 1}, means that the boundary number 1, here the downstream boundary, will be clogged;
+    \item\textit{POROSITY OF ACCUMULATED ICE = 0.67}, when accumulating, porosity is formed in the ice deposited on the rack, which makes its extent larger than the total volume involved in the clogging process;
+    \item\textit{ANGLE OF ACCUMULATED ICE = 35.},
+    \item\textit{PHYSICAL CHARACTERISTICS OF THE INTAKE RACK  = 0.2; 0.00; 0.2;0.01}, indicates the distance between the cross bars and their diameter, then the distance between the vertical bars and their diameter. Here, as the diameter of the cross bars is zero, the grid is considered to have only vertical bars, with a diameter of 1 cm and separated from each other by 20 cm.
+\end{itemize}
+
+The figure \ref{fig:clog_param} illustrates the meaning of the angle of accumulated ice $\theta$, and the physical properties of the racks.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.40]}{./img/clog_param.png}
+    \end{center}
+    \caption{Illustration of the physical parameters used for the clogging.}
+    \label{fig:clog_param}
+\end{figure}
+
+\subsection{Numerical parameters}
+Only two numerical parameters are essential to the simulation. These are defined in the \telemac2D steering file:
+\begin{itemize}
+    \item\textit{TIME STEP = 30.} and
+    \item\textit{NUMBER OF TIME STEPS = 4320} for the steady state simulation;
+    \item\textit{TIME STEP = 5.} and
+    \item\textit{NUMBER OF TIME STEPS = 18000} for the coupled simulation.
+\end{itemize}
+
+\section{Results}
+The following figure (Figure \ref{fig:clogging_temp}) shows a longitudinal profile of water temperature (red) and frazil concentration (blue) along the full length of the flume.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.40]}{../img/l-section-trac.png}
+    \end{center}
+    \caption{Water temperature and frazil growth along the flume.}
+    \label{fig:clogging_temp}
+\end{figure}
+
+The figure \ref{fig:clog} shows the temporal evolution of the avaliable area at the rack and the accumulated volume of frazil on the grid. One can see a quick augmentation of the volume and an associated diminution of the area when the clogging process has started.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.40]}{../img/clog_area.png}
+        \includegraphicsmaybe{[scale=0.40]}{../img/clog_volume.png}
+    \end{center}
+    \caption{Avaliable area and accumulated volume of frazil on the grid.}
+    \label{fig:clog}
+\end{figure}
+
+The model is also able to represent clogging in a section in the middle of the model. The figure \ref{fig:clog_sec} shows the location of the section representing the grid in the middle of the model and the temporal evolution of the avaliable area at the rack and the accumulated volume of frazil on the grids.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[scale=0.40]}{../img/sec.png}
+        \includegraphicsmaybe{[scale=0.40]}{../img/clog_area_sec.png}
+        \includegraphicsmaybe{[scale=0.40]}{../img/clog_volume_sec.png}
+    \end{center}
+    \caption{Avaliable area and accumulated volume of frazil on the grid given by a section in the model.}
+    \label{fig:clog_sec}
+\end{figure}
+
+\section{Conclusions}
+
+Clogging processes have been appropriately modelled to account for the presence of racks at one or more intake boundary.
+
+\renewcommand{\labelitemi}{\textbullet}

@@ -1,0 +1,84 @@
+/
+/ ADAPTIVE MESH REFINEMENT
+/
+MESH TRANSFORMATION : 1
+/  Runs in 82 s  version 6.2  13/06/2012 (Calibre 7, 8 processors)
+/--------------------------------------------------------------------
+BOUNDARY CONDITIONS FILE    : 'geo_amr.cli'
+GEOMETRY FILE               : 'geo_amr.slf'
+3D RESULT FILE              : 'r3d_sigma.slf'
+2D RESULT FILE              : 'r2d_sigma.slf'
+PREVIOUS COMPUTATION FILE   : 'steadystate.slf'
+/--------------------------------------------------------------------
+TITLE : 'Source release in channel. Mixing. 21 layers. SIMA.'
+COMPUTATION CONTINUED    : YES
+INITIAL TIME SET TO ZERO : YES
+VARIABLES FOR 2D GRAPHIC PRINTOUTS : 'U,V,H,B'
+VARIABLES FOR 3D GRAPHIC PRINTOUTS : 'Z,U,V,W,TA1'
+/--------------------------------------------------------------------
+NUMBER OF HORIZONTAL LEVELS = 21
+TIME STEP = 5.0
+NUMBER OF TIME STEPS = 3000
+GRAPHIC PRINTOUT PERIOD = 3000
+LISTING PRINTOUT PERIOD = 300
+/--------------------------------------------------------------------
+PRESCRIBED ELEVATIONS :      0.0; 0.0
+PRESCRIBED FLOWRATES :       0.0; 1000.0
+PRESCRIBED TRACERS VALUES :  0.0; 0.0
+VELOCITY VERTICAL PROFILES : 2 ; 2
+/--------------------------------------------------------------------
+COEFFICIENT FOR HORIZONTAL DIFFUSION OF VELOCITIES = 0.1
+COEFFICIENT FOR VERTICAL DIFFUSION OF VELOCITIES = 1.E-6
+MAXIMUM NUMBER OF ITERATIONS FOR DIFFUSION OF VELOCITIES = 200
+/--------------------------------------------------------------------
+HORIZONTAL TURBULENCE MODEL : 1
+/----------------------------------------------------------------------
+/mixing length model
+VERTICAL TURBULENCE MODEL : 2
+/NEZU & NAKAGAWA
+MIXING LENGTH MODEL : 3
+/Nikuradse
+LAW OF BOTTOM FRICTION : 5
+FRICTION COEFFICIENT FOR THE BOTTOM = 0.01
+/Munk & Anderson
+DAMPING FUNCTION : 3
+/--------------------------------------------------------------------
+MASS-BALANCE : YES
+/--------------------------------------------------------------------
+NUMBER OF TRACERS = 1
+NAMES OF TRACERS = 'TEMPERATURE     DEGREE C'
+MAXIMUM NUMBER OF ITERATIONS FOR DIFFUSION OF TRACERS = 300
+COEFFICIENT FOR HORIZONTAL DIFFUSION OF TRACERS = 0.02
+COEFFICIENT FOR VERTICAL DIFFUSION OF TRACERS = 1.E-6
+/--------------------------------------------------------------------
+DENSITY LAW : 4
+BETA EXPANSION COEFFICIENT FOR TRACERS = -0.0007
+STANDARD VALUES FOR TRACERS = 0.0
+INITIAL VALUES OF TRACERS = 0.0
+/----------------------------------------------------------------------
+/ Source discharge
+/------------------
+/ Point discharge at (222.647, 54.499) of the model on the bed
+/ Ambient salinity 35ppt, Source salinity 250ppt
+/ Water discharge 0.5 m3/s
+ABSCISSAE OF SOURCES = 222.646987915039
+ORDINATES OF SOURCES =  54.4991149902344
+ELEVATIONS OF SOURCES = -10.0
+WATER DISCHARGE OF SOURCES = 0.5
+VALUE OF THE TRACERS AT THE SOURCES = 215.
+SCHEME FOR ADVECTION OF VELOCITIES = 5
+/
+/ PRECONDITIONING FOR DIFFUSION OF TRACERS = 34 MAY ACCELERATE
+/ BUT CHANGES THE RESULTS, TO BE LOOKED AT
+/PRECONDITIONING FOR DIFFUSION OF TRACERS = 34
+/
+/ DEFAULT VALUES UNTIL V7P3 KEPT FOR NON REGRESSION
+NON-HYDROSTATIC VERSION : NO
+ACCURACY FOR DIFFUSION OF TRACERS = 1.E-6
+/
+/ DEFAULT VALUES UNTIL V8P0 KEPT FOR NON REGRESSION
+SCHEME OPTION FOR ADVECTION OF VELOCITIES = 1
+IMPLICITATION FOR VELOCITIES = 1.
+SOLVER FOR PROPAGATION = 1
+ACCURACY FOR PROPAGATION = 1.E-6
+SCHEME OPTION FOR ADVECTION OF TRACERS = 1

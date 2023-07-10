@@ -1,0 +1,125 @@
+/**\ingroup MEDequivalenceFortran
+   \fn subroutine  meqcre(integer fid, character*(*) maa, character*(*) eq, character*(*) des, integer cret)
+   \brief \MEDequivalenceCrBrief
+   \param fid \fid
+   \param maa \meshname
+   \param eq \equivname
+   \param des \description
+   \param cret \error
+   \see MEDequivalenceCr
+   \details \MEDequivalenceCrDetails
+*/
+
+
+/**\ingroup MEDequivalenceFortran
+   \fn subroutine  meqcow(integer fid, character*(*) maa, character*(*) eq, integer numdt, integer numit, integer typent, integer typgeo, integer n, integer:dimension(*) corr, integer cret)
+   \brief \MEDequivalenceCorrespondenceWrBrief
+   \param fid \fid
+   \param maa \meshname
+   \param eq \equivname
+   \param numdt \numdt
+   \param numit \numit
+   \param typent \entitype
+   \param typgeo \geotype
+   \param n \nentity
+   \param corr \correspondence
+   \param cret \error
+   \see MEDequivalenceCorrespondenceWr
+   \details \MEDequivalenceCorrespondenceWrDetails
+*/
+
+
+/**\ingroup MEDequivalenceFortran
+   \fn subroutine  meqneq(integer fid, character*(*) maa, integer n, integer cret)
+   \brief \MEDnEquivalenceBrief
+   \param fid \fid
+   \param maa \meshname
+   \param n \nequiv
+   \param cret \error
+   \see MEDnEquivalence
+   \details \MEDnEquivalenceDetails
+*/
+
+
+
+/**\ingroup MEDequivalenceFortran
+   \fn subroutine  meqeqi(integer fid, character*(*) maa, integer ind, character*(*) eq, character*(*) des, integer nstep, integer nctcor, integer cret)
+   \brief \MEDequivalenceInfoBrief
+   \param fid \fid
+   \param maa \meshname
+   \param ind \equivit
+   \param eq \equivname
+   \param des \description
+   \param nstep \nstep
+   \param nctcor \nocstpncorrespondence
+   \param cret \error
+   \see MEDequivalenceInfo
+   \details \MEDequivalenceInfoDetails
+*/
+
+
+/**\ingroup MEDequivalenceFortran
+   \fn subroutine  meqcsz(integer fid, character*(*) maa, character*(*) eq, integer numdt, integer numit, integer typent, integer typgeo, integer n, integer cret)
+   \brief \MEDequivalenceCorrespondenceSizeBrief
+   \param fid \fid
+   \param maa \meshname
+   \param eq \equivname
+   \param numdt \numdt
+   \param numit \numit
+   \param typent \entitype
+   \param typgeo \geotype
+   \param n \nentity
+   \param cret \error
+   \see MEDequivalenceCorrespondenceSize
+   \details \MEDequivalenceCorrespondenceSizeDetails
+*/
+
+
+/**\ingroup MEDequivalenceFortran
+   \fn subroutine  meqszi(integer fid, character*(*) maa, character*(*) eq, integer numdt, integer numit, integer corit, integer typent, integer typgeo, integer n, integer cret)
+   \brief \MEDequivalenceCorrespondenceSizeInfoBrief
+   \param fid \fid
+   \param maa \meshname
+   \param eq \equivname
+   \param numdt \numdt
+   \param numit \numit
+   \param corit \corit
+   \param typent \entitype
+   \param typgeo \geotype
+   \param n \nentity
+   \param cret \error
+   \see MEDequivalenceCorrespondenceSizeInfo
+   \details \MEDequivalenceCorrespondenceSizeInfoDetails
+*/
+
+
+/**\ingroup MEDequivalenceFortran
+   \fn subroutine  meqcor(integer fid, character*(*) maa, character*(*) eq, integer numdt, integer numit, integer typent, integer typgeo, integer:dimension(*) corr, integer cret)
+   \brief \MEDequivalenceCorrespondenceRdBrief
+   \param fid \fid
+   \param maa \meshname
+   \param eq \equivname
+   \param numdt \numdt
+   \param numit \numit
+   \param typent \entitype
+   \param typgeo \geotype
+   \param corr \correspondence
+   \param cret \error
+   \see MEDequivalenceCorrespondenceRd
+   \details \MEDequivalenceCorrespondenceRdDetails
+*/
+
+/**\ingroup MEDequivalenceFortran
+   \fn subroutine  meqcsi(integer fid, character*(*) maa, character*(*) eq, integer ind, integer numdt, integer numit, integer ncor, integer cret)
+   \brief \MEDequivalenceComputingStepInfoBrief
+   \param fid \fid
+   \param maa \meshname
+   \param eq \equivname
+   \param ind \csit
+   \param numdt \numdt
+   \param numit \numit
+   \param ncor \nocstpncorrespondence
+   \param cret \error
+   \see MEDequivalenceComputingStepInfo
+   \details \MEDequivalenceComputingStepInfoDetails
+*/

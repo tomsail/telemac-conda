@@ -1,0 +1,267 @@
+\documentclass[a4paper,10pt]{article}
+
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P0}
+
+\subsection*{Validation des noyaux de calcul transitoires en régime transcritique}
+
+\subsection*{\emph{Cas de rupture réelle du barrage de Malpasset}}
+
+\subsection*{Numéro du cas test : 24}
+
+\subsection*{Auteur : N. Goutal}
+
+
+\vspace{1cm}
+
+\subsection*{Description}
+Le barrage de Malpasset a été construit pour l'irrigation et le stockage de l'eau potable.  Il est localisé dans une gorge étroite de la vallée du Reyran dans le département du Var, approximativement $12\mbox{ }km$ en amont de Fréjus.\\ 
+Le barrage est un barrage voûte à double arche de $66.5\mbox{ } m$ de hauteur avec une longueur de crête de $223\mbox{ }m$.\\ 
+La capacité du réservoir était de $55\mbox{ }Mm^3$ quand le barrage s'est rompu de façon instantanée pendant la nuit du 2 décembre 1959.\\
+Le remplissage du réservoir a d'abord été relativement lent mais les derniers $4\mbox{ }m$ se sont remplis en 3 jours à cause de pluies exceptionnelles.\\
+Pour contrôler la crue, la vidange de fond a été ouverte à $18:00$ pour contrôler le remplissage du réservoir.\\
+L'onde due à la rupture du barrage s'est propagée le long de la vallée du Reyran jusqu'à Fréjus. On dénombre 443 morts.\\
+Une petite partie du barrage est restée en place et $1\mbox{ } km$ en aval du barrage, une portion de l'autoroute a été détruite et un pont également. \\
+De lourds blocs ont été transportés et déposés à l'aval. Des laisses sur le rocher indiquent que l'onde a atteint une hauteur de $20$ mètres au dessus du lit.\\
+Ce cas réel est considéré comme un cas de référence pour la validation des codes utilisés pour les calculs d'onde de submersion et a fait partie des cas proposés dans le cadre de l'action concertée "CADAM".
+
+
+\subsection*{Topographie}
+
+\subsubsection*{Description générale}
+
+
+En raison des modifications de géométrie provoqués par l'accident, les anciennes cartes (carte $1/20 000$ IGN carte de  Saint-Tropez numéro 3, datée de 1931) ont été utilisées pour digitaliser la topographie et lever les profils pour le modèle 1D. \\
+A l'aval du barrage, la vallée est relativement étroite avec 2 virages serrés.  Puis, la vallée s'élargit avec quelques affluents. Plus à l'aval, la vallée se rétrécit de nouveau avant quelques larges virages puis arrive dans la plaine de Fréjus (voir figure~\ref{fig1}).\\
+La longueur de la vallée et de la retenue est de $20\mbox{ }km$ environ. La retenue fait $4820\mbox{ }m$ de longueur et la vallée est modélisée par des profils en travers du barrage à l'abscisse $0$ jusqu'à la mer située à $15 079$. 
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=0,width=10cm]{Figure1.eps}
+  \caption{ }
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=0,width=10cm]{Figure2.eps}
+  \caption{ }
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=0,width=10cm]{Figure3.eps}
+  \caption{Position des profils}
+  \label{fig3}
+ \end{center}
+\end{figure}
+
+\subsubsection*{Singularités}
+
+
+Les singularités ne sont pas inclues dans la géométrie. 
+
+\begin{itemize} 
+ \item Le barrage n'est pas complètement détruit 
+ \item $1.5\mbox{ }km$ à l'aval du barrage :  les remblais de l'autoroute "L'esterel",
+le pont et une partie de l'autoroute ($800\mbox{ }m$ ) ont éte emportés par l'onde 
+ \item $9.5\mbox{ }km$ à l'aval du barrage  :  Les remblais de la ligne SNCF Nice-Marseille
+\end{itemize} 
+
+\vspace{0.3cm}
+
+Pour les 2 dernières singularités, les données ne sont pas disponibles. L'analyse sur modèle physique a montré que ces singularités avaient juste une influence locale. Nous n'avons aucune information sur le comportement des remblais de la voie ferrée Nice-Marseille. Le modèle physique ne peut pas donner d'information car la condition limite est situe juste en amont. 
+
+\subsection*{Conditions initiales}
+
+Le niveau dans le réservoir est pris à $100\mbox{ }m$ ABS.  Le niveau dans la mer est pris égal à zéro.\\ 
+Excepté dans la mer et le réservoir, le fond du Reyran est supposé sec bien que la vanne de fond soit ouverte. 
+
+
+\subsection*{Conditions aux limites}
+
+A l'amont du réservoir, le débit entrant n'est pas connu donc nous avons choisi d'imposer un débit nul.\\ 
+Le niveau de la mer est constant égal à zero.
+
+
+\subsection*{Paramètres}
+
+\subsubsection*{Paramètres physiques}
+
+
+Le coefficient de Strickler est estimé entre $30$ et $40$. Pour modéliser la perte de charge due au double virage en aval, un coefficient de frottement égal à $5$ a été imposé locallement.
+
+\subsubsection*{Paramètres numériques}
+
+
+\begin{itemize} 
+ \item Pas d'espace : $25\mbox{ }m $
+ \item Pas de planimétrage :  $2\mbox{ }m$
+ \item Version explicite : Nombre de Courant = 0.8
+ \begin{itemize}
+  \item avec option " optimisation du noyau transcritique "
+  \item sans option " optimisation du noyau transcritique "
+  \end{itemize}
+ \item Version implicite : Nombre de Courant = 2
+ \item Implicitation du frottement 
+ 
+\end{itemize} 
+
+\subsection*{Les données disponibles}
+
+\subsubsection*{Données de terrain}
+
+
+Les données de terrain les plus intéressantes  concernent les temps de propagation de l'onde : trois transformateurs électriques ont été détruits par l'onde et le temps exact des claquages des transformateurs est connu. 
+Les transformateurs notés A,B et C et leurs positions sont données dans le tableau 1. 
+Pour le transformateur A, vu sa position par rapport au barrage, le temps de claquage correspond au temps d'arrivée de l'onde. Pour les autes, le temps de claquage est compris entre le temps d'arrivée de l'onde et le temps d'obtention du maximum. 
+
+
+\begin{table}[h]
+\begin{center}
+\caption{Coordonnées des transformateurs}
+\begin{tabular}{|c|c|c|c|}
+\hline Transformateurs  & Coordonnées $X$($m$) & Coordonnées $Y$($m$) & Temps de claquage  \\ 
+ électriques &  &  &  des transformateurs ($s$) \\ 
+\hline A & $5550$ & $4400$ & $100$ \\ 
+\hline B & $11900$ & $3250$ & $1240$ \\ 
+\hline C & $13000$ & $2700$ & $1420$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+\end{table}
+
+
+Vitesse moyenne entre A et C  = $25\mbox{ }km.h^{-1}$
+
+\subsubsection*{Modèle physique}
+
+
+Un modèle non distordu à l'échelle a été construit au LNH en 1964 et calé à partir des observations. Le coefficient de frottement a été estimé entre $30-40$. Quatorze sondes ( 6 dans le réservoir) placées dans la vallée ont permis de mesurer les cotes maximales atteintes par l'onde.  
+
+\begin{table}[h]
+\begin{center}
+\caption{Coordonées des sondes dans le modèle physique}
+\begin{tabular}{|c|c|c|}
+\hline Numéro des sondes  & Coordonnées $X$($m$) &  Coordonnées $Y$($m$) \\ 
+\hline $6$ & $4947.4$ & $4289.7$ \\ 
+\hline $7$ & $5717.3$ & $4407.6$ \\ 
+\hline $8$ & $6775.1$ & $3869.2$ \\ 
+\hline $9$ & $7128.2$ & $3162.0$ \\ 
+\hline $10$ & $8585.3$ & $3443.1$ \\ 
+\hline $11$ & $9675.0$ & $3085.9$ \\ 
+\hline $12$ & $10939.1$ & $3044.8$ \\ 
+\hline $13$ & $11724.4$ & $2485.1$ \\ 
+\hline $14$ & $12723.7$ & $2485.1$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+\end{table}
+
+\subsection*{Resultats}
+
+\subsubsection*{Comparaison des résultats de Mascaret 7.0 avec les données de terrain}
+
+
+Dans le tableau suivant, sont comparées les temps d'arrivée de l'onde aux transformateurs A, B et C avec les temps de claquage. 
+
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline Transformateurs électriques  &  &  & Temps d'obtention  \\ 
+ (Abscisse curviligne le long de l'axe hydraulique) & Données ($s$) & Temps d'arrivée ($s$) & de la cote maximale  ($s$) \\ 
+\hline A$(1400)$ & $100$ & $91.4$ & $726.5$ \\ 
+\hline B$(9200)$ & $1240$ & $1221$ & $1952$ \\ 
+\hline C$(1420)$ & $1420$ & $1467$ & $2400$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+\end{table}
+
+\vspace*{3cm}
+
+\subsubsection*{Comparaison des résultats de Mascaret 7.0 avec les données du modèle physique}
+
+
+
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline   & Temps de propagation & Temps de propagation  & Cote d'eau & Cote d'eau\\
+Sondes  & ($s$) modèle &  Mascaret  &  maximale ($m$) & maximale ($m$)
+ \\ 
+   & physique &  V7P0 &  modèle physique &  Mascaret V7P0
+ \\ 
+\hline S6 $(290\mbox{ } m)$ & $10.2$ & $8.7$ & $84.2$ & $85.6$ \\ 
+\hline S7 $(1600\mbox{ } m)$ & $102$ & $105.8$ & $56.84$ & $56.84$\\ 
+\hline S8 $(2930\mbox{ } m)$ & $182$ & $215.8$ & $54$ & $49.3$ \\ 
+\hline S9 $(3830\mbox{ } m)$ & $263$ & $303.1$ & $40.2$ & $41.74$ \\ 
+\hline S10 $(5410\mbox{ } m)$ & $404$ & $501.8$ & $34.9$ & $37.28$ \\ 
+\hline S11 $(6720\mbox{ } m)$ & $600$ & $724.2$ & $27.4$ & $27.14$ \\ 
+\hline S12 $(8210\mbox{ } m)$ & $845$ & $1011.7$ & $21.5$ & $21.43$ \\ 
+\hline S13 $(9005\mbox{ } m)$ & $972$ & $1173.2$ & $16.1$ & $19.16$ \\ 
+\hline S14 $(10100\mbox{ } m)$ & $1139$ & $1390$ & $12.9$ & $10.69$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+\end{table}
+
+
+La lecture de ce tableau nous montre le bon accord entre les résultats de simulation et les résultats du modèle physique. Les résultats de simulation ont été obtenus avec les options suivantes du noyau transcritique : Explicitation des flux avec un nombre de Courant égal à 0.8, implicitation du frottement et pas d'optimisation sur le temps calcul. 
+
+Sur la figure~\ref{fig4}, sont comparés les temps d'arrivée de l'onde pour les différentes options du noyau transcritique. On note un bon accord pour les 3 options. 
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure4.eps}
+  \caption{Comparaison des temps d'arrivée de l'onde}
+  \label{fig4}
+ \end{center}
+\end{figure}
+
+Sur la figure~\ref{fig5}, sont comparées les cotes maximales atteintes avec la version 7.0 de Mascaret. Ces cotes sont comparées d'une part à l'ancienne version et d'autre part au modèle physique. On remarque l'influence de la perte de charge locale qui permet de représenter la résistance à l'écoulement due au double virage. 
+
+
+
+
+\begin{figure}[]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure5.eps}
+  \caption{Comparaison des cotes maximales atteintes aux sondes}
+  \label{fig5}
+ \end{center}
+\end{figure}
+
+\subsection*{Conclusion}
+
+
+Le noyau transcritique avec ses différentes options de  la version 7.0 de Mascaret est en accord d'une part avec la version 4.1 qui avait été utilisée pour réaliser les cas dans le cadre du projet " CADAM " et avec les données du modèle physique. 
+
+
+
+
+
+
+
+%
+% fin du document
+%
+\end{document}          

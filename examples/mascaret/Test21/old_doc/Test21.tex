@@ -1,0 +1,167 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{amsmath}
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%\footnotetext[1]{F. Maurel, \emph{Traitement des confluents dans le logiciel MASCARET 4.0 - Principe de la mà©thode et à©là©ments de validation}, Rapport HE-43/96/067/A}
+%\footnotetext[2]{N. Goutal, C. Rissoan, \emph{Note de validation du code Mascaret v5p0}, note EDF HP-73/2000/041/A}
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P0}
+
+\subsection*{Validation du noyau transcritique}
+
+\subsection*{\emph{Validation du traitement des confluents}}
+
+\subsection*{Numéro du cas test : 21}
+
+\subsection*{Auteur : Fabrice ZAOUI}
+
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+Une étude d'onde de submersion nécessite souvent le traitement d'un ou plusieurs confluents. En ces points, l'onde se divise pour se propager dans deux vallées différentes : la vallée principale vers l'aval et l'affluent. Ceci provoque un écrêtement de l'onde plus à l'aval mais augmente l'emprise des zones inondées dans l'affluent. Enfin, la vidange de celui-ci amène dans certains cas un second pic de débit dans la vallée principale.
+
+Il est donc important de traiter correctement un confluent. Depuis la version $4$ de Mascaret, une méthode particulière a été mise en \oe{}uvre. Elle repose sur un couplage simplifié entre le modèle $1D$ et un modèle $2D$ localisé à  la zone de confluence. Le domaine $2D$  présente une géométrie simplifiée et fabriquée par le code lui-même.
+
+Les principes de la méthode ainsi que de nombreux tests ont été décrits en détail dans un précédent rapport\footnote{F. Maurel, \emph{Traitement des confluents dans le logiciel MASCARET 4.0 - Principe de la méthode et éléments de validation}, Rapport HE-43/96/067/A}.
+
+On étudie ici la propagation d'une onde de submersion qui arrive dans la retenue de Couesque (voir la figure~\ref{fig1}) supposée vide (propagation sur fond sec). Les résultats sont comparés à ceux fournis par la version éléments finis de Telemac2D.
+
+\subsection*{Données géométriques}
+
+L'onde de submersion est supposée arriver par le bras court, bief $1$, o\`{u} la pente des fonds est de l'ordre de $10\%$; elle débouche alors dans la retenue de Couesque. Le bief aval, bief $2$, se prolonge sur $1000\ m$. Le bief $3$, qui sera appelé affluent dans notre cas mais qui dans la réalité est la vallée principale a une longueur de $12\ km$ et la pente des fonds est de $0.4\%$.
+
+L'hexagone de confluence est défini à  l'aide d'un premier calcul en bief unique. La cote maximale atteinte après l'onde est alors utilisée pour définir la géométrie de la zone de confluence. La figure~\ref{fig2} décrit la zone inondée à cette cote ainsi que les limites qui ont été choisies pour chaque bief. 
+
+\subsection*{Données numériques}
+
+Le domaine $1D$ a été maillé avec des cellules de $100\ m$ de longueur.
+
+Le frottement est pris en compte avec un coefficient de Strickler de $40$ dans tout le domaine.
+
+A l'amont du bief $1$, le débit est imposé. La forme de l'hydrogramme est donnée sur la figure~\ref{fig3}.
+
+A l'aval, on suppose que la cote est constante à  $245\ m$, mais un passage en torrentiel $500\ m$ à l'amont enlève toute influence à cette condition limite. Enfin, un débit nul est imposé à l'entrée du bief $3$.
+
+La simulation a été faite sur $7000$ pas de temps avec un CFL de $0.8$ représentant un peu moins de $3$ heures de temps réel.
+
+\subsection*{Résultats}
+
+Les figures~\ref{fig4} à  \ref{fig7} présentent l'évolution temporelle des cotes et débits à l'aval (dans l'affluent) et à l'amont de la confluence.
+Ces résultats sont comparables avec ceux obtenus par les versions précédentes du code\footnote{N. Goutal, C. Rissoan, \emph{Note de validation du code Mascaret v5p0}, note EDF HP-73/2000/041/A}. Les figures~\ref{fig5} et \ref{fig7} comparent les résultats entre Mascaret1D et Telemac2D.
+
+La dynamique dans le confluent est bien respectée à la montée de l'onde. Cependant, le confluent a tendance à se vidanger tôt. Ceci donne une erreur sur la cote maximale atteinte dans l'affluent. Le débit dans l'affluent est qualitativement correct : le remplissage et la vidange sont globalement bien traités; avec une petite restriction sur l'instant o\`{u} le débit s'inverse.
+
+Le débit oscille de manière assez importante et pour des raisons encore inexpliquées. Enfin, à  l'aval du confluent le débit est qualitativement correct.
+
+De plus comme indiqué sur le tableau~\ref{tab1}, le bilan de masse dans le modèle est satisfaisant (les volumes sont donnés en $Mm^3$). Le traitement du confluent est \emph{quasi conservatif} et entraà®ne une erreur en masse tout à fait acceptable pour les études d'onde de submersion.
+
+\subsection*{Conclusion}
+
+Ce cas test ainsi que ceux présentés dans la note spécifique au traitement des confluents montre le bon comportement global de cette méthode :
+\begin{itemize}
+ \item dynamique d'une onde de submersion respectée;
+ \item possibilité de traiter les écoulements permanents;
+ \item prise en compte de la géométrie locale;
+ \item écoulement indifférement fluvial ou torrentiel;
+ \item conservation de la masse satisfaisante
+\end{itemize}
+
+\begin{center}
+ \begin{table}
+ \caption{Bilan volumique ($Mm^3$)}
+ \label{tab1}
+ \centering
+ \begin{tabular}{|c|c|c|}
+  \hline
+  & Domaine total & Confluent seul \\
+  \hline \hline
+  volume initial & $1.52$ &  $10\ 10^{-6}$ \\
+  volume entré aux frontières & $25.99$ & $25.86$ \\
+  volume sorti aux frontières & $22.53$ & $25.41$ \\
+  volume final & $5.44$ & $0.22$ \\
+  \hline
+  Erreur &  $4.6\ 10^{-1}$ &  $-2.3\ 10^{-1}$ \\
+  Erreur relative & $9.2\ 10^{-2}$ & $-5.1\ 10^{-1}$ \\
+  \hline
+ \end{tabular}
+ \end{table}
+\end{center}
+
+\vspace{3cm}
+
+\begin{figure}[b]
+ \begin{center}
+  \includegraphics[angle=0,width=10cm]{localOS.eps}
+  \caption{Localisation de l'onde de submersion}
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=0,width=10cm]{Hexagone.eps}
+  \caption{Hexagone de confluence}
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Hydrogramme.eps}
+  \caption{Evolution du débit en entrée du modèle}
+  \label{fig3}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{cote_affluent.eps}
+  \caption{Cote à  $1\ km$ en amont de la confluence (bief $3$, $x=11\mbox{ }km$)}
+  \label{fig4}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{debit_affluent.eps}
+  \caption{Débit à  $1\ km$ en amont de la confluence (bief $3$, $x=11\mbox{ }km$)}
+  \label{fig5}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{cote_confluent.eps}
+  \caption{Cote à  $1\ km$ en aval de la confluence (bief $2$, $x=8.3\mbox{ }km$)}
+  \label{fig6}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{debit_confluent.eps}
+  \caption{Débit à  $1\ km$ en aval de la confluence (bief $2$, $x=8.3\mbox{ }km$)}
+  \label{fig7}
+ \end{center}
+\end{figure}
+
+
+%
+% fin du document
+%
+\end{document}          

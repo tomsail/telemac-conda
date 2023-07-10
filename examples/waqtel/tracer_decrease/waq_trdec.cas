@@ -1,0 +1,27 @@
+/
+/---------------------------------------------------------------------
+/ TELEMAC2D Version v6p2 14 juin 2012
+/ TELEMAC 2D : TEST DECROISSANCE TRACEURS
+/---------------------------------------------------------------------
+/
+BOUNDARY CONDITIONS FILE  = 'geo_trdec.cli'
+GEOMETRY FILE             = 'geo_trdec.slf'
+/
+/-----------------------
+/ WATER QUALITY PROCESS         = 17
+/   OPTIONS ARE
+/       2- O2 PROCESS
+/       3- BIOMASS PROCESS
+/       5- EUTRO PROCESS
+/       7- MICROPOL PROCESS
+/      11- THERMIC PROCESS
+/      13- AED2 LIBRARY
+/      17- DEGRADATION LAW
+/      19- GHOST PROCESS IN WAITING TO MERGE WITH ICE MODELLING
+/-----------------------
+/
+/ DEGRADATION LAW
+/
+LAW OF TRACERS DEGRADATION                     = 0  ;1  ;2;3;4
+COEFFICIENT 1 FOR LAW OF TRACERS DEGRADATION   =
+0.0;6.0;0.3833333333333333;9.2;0.00010648148148148147

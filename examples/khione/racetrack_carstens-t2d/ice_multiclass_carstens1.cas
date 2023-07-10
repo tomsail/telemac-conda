@@ -1,0 +1,62 @@
+/----------------------------------------------------------------------
+/
+/ Steering file for the thermal and ice processes: KHIONE
+/
+/----------------------------------------------------------------------
+/  FILES
+/----------------------------------------------------------------------
+/
+GEOMETRY FILE             = 'geo_racetrack_carstens.slf'
+BOUNDARY CONDITIONS FILE  = 'geo_racetrack_carstens.cli'
+RESULTS FILE              = 'ice_racetrack_carstens.slf'
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'CTOT,F*,TEMP'
+GRAPHIC PRINTOUT PERIOD = 60
+/
+/----------------------------------------------------------------------
+/  HEAT EXCHANGES
+/----------------------------------------------------------------------
+/
+ATMOSPHERE-WATER EXCHANGE MODEL = 0
+SOLAR CONSTANT = 0.
+WATER-AIR HEAT EXCHANGE CONSTANT = -280.
+WATER-AIR HEAT EXCHANGE COEFFICIENT = 0.0
+/
+/----------------------------------------------------------------------
+/ FRAZIL DISTRIBUTION PARAMETERS
+/----------------------------------------------------------------------
+NUMBER OF CLASSES FOR SUSPENDED FRAZIL ICE = 10
+FRAZIL CRYSTALS RADIUS =
+1.E-4 ; 2.E-4 ; 3.E-4 ; 4.E-4 ; 5.E-4;
+6.E-4 ; 7.E-4 ; 8.E-4 ; 9.E-4 ; 1.E-3
+FRAZIL CRYSTALS DIAMETER THICKNESS RATIO = 10.
+/
+/----------------------------------------------------------------------
+/ FRAZIL SEEDING PARAMETERS
+/----------------------------------------------------------------------
+MODEL FOR FRAZIL SEEDING = 1
+MINIMUM NUMBER OF FRAZIL CRYSTALS = 3200.
+/
+/----------------------------------------------------------------------
+/ FRAZIL THERMAL GROWTH PARAMETERS
+/----------------------------------------------------------------------
+MODEL FOR THE NUSSELT NUMBER = 2
+MODEL FOR ESTIMATION OF TURBULENCE PARAMETERS = 0
+/ KT, EPS, NUT, ALPHA
+CONSTANT TURBULENCE PARAMETERS = 9.6D-4; 12.D-4; 6.912D-05; 0.0876D0
+/
+/----------------------------------------------------------------------
+/ FRAZIL SECONDARY NUCLEATION PARAMETERS
+/----------------------------------------------------------------------
+MODEL FOR THE BUOYANCY VELOCITY = 4
+MODEL FOR THE SECONDARY NUCLEATION = 1
+SECONDARY NUCLEATION NMAX PARAMETER = 1.E6
+/
+/----------------------------------------------------------------------
+/ FRAZIL FLOCULATION PARAMETERS
+/----------------------------------------------------------------------
+MODEL FOR THE FLOCCULATION AND BREAKUP = 1
+FLOCCULATION AFLOC PARAMETER = 1.E-4
+/
+/----------------------------------------------------------------------
+/

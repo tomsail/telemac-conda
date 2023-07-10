@@ -1,0 +1,119 @@
+<A NAME="____Dictionnaire des donn&eacute;es du mod&egrave;le MED____">
+<P STYLE="margin-bottom: 0cm"><B>Ar&ecirc;te</B> : Une ar&ecirc;te
+peut &ecirc;tre une ar&ecirc;te d'une maille volumique ou d'une
+maille surfacique. Elle est constitu&eacute;e par 2 ou 3 noeuds (les
+sommets et &eacute;ventuellement un noeud milieu). 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Champ</B> : Un champ est constitu&eacute;
+d'une ou plusieurs composantes scalaires. A un champ est associ&eacute;
+un type et les valeurs correspondant aux diff&eacute;rentes
+composantes sont toutes du m&ecirc;me type. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Composante</B> : Pour chaque
+composante d'un champ, et &agrave; chaque entit&eacute; du maillage,
+peut correspondre une valeur enti&egrave;re ou r&eacute;elle. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Connectivit&eacute;</B> : La
+connectivit&eacute; d'un maillage d&eacute;finit le type des
+connexions entre ses sommets. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Connectivit&eacute; de r&eacute;f&eacute;rence</B>
+: Pour chaque type d'entit&eacute; du maillage, la connectivit&eacute;
+de r&eacute;f&eacute;rence d&eacute;finit la topologie d'une entit&eacute;.
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Connectivit&eacute; descendante</B>
+: C'est la description des entit&eacute;s de maillage de dimension N
+par la liste ordonn&eacute;e des entit&eacute;s g&eacute;m&eacute;triques
+(noeuds, ar&ecirc;tes ou faces) de dimension N-1. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Connectivit&eacute; nodale</B> :
+C'est la description d'une entit&eacute; du maillage par la liste
+ordonn&eacute;e des noeuds qui la composent. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Entit&eacute; de r&eacute;f&eacute;rence</B>
+: A chaque maille, face ou ar&ecirc;te est associ&eacute;e un type
+g&eacute;om&eacute;trique. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Entit&eacute; du maillage</B> : Ce
+sont les composants g&eacute;om&eacute;triques du maillage : noeuds,
+mailles, faces et ar&ecirc;tes. Les faces et les ar&ecirc;tes ne sont
+que des entit&eacute;s interm&eacute;diaires qui permettent de
+d&eacute;finir les mailles en connectivit&eacute; descendante. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Equivalence</B> : Une &eacute;quivalence
+est une liste de correspondance 2 &agrave; 2 entre des entit&eacute;s
+de m&ecirc;me dimension. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Etude</B> : Une &eacute;tude
+correspond &agrave; un encha&icirc;nement de s&eacute;quences de
+calcul. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Face</B> : Face d'une maille
+volumique (triangle, quadrangle). 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Famille</B> : Les entit&eacute;s du
+maillage sont d&eacute;crites par un certain nombre de
+caract&eacute;ristiques (conditions limites, appartenance &agrave;
+des groupes). Les familles sont des classes d'&eacute;quivalence par
+rapport &agrave; ces caract&eacute;ristiques (deux entit&eacute;s du
+maillage appartiennent &agrave; la m&ecirc;me famille ssi elles ont
+les m&ecirc;mes caract&eacute;ristiques). Une famille est d&eacute;crite
+par une liste d'appartenance aux groupes. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Groupe</B> : Ensemble non ordonn&eacute;
+d'entit&eacute;s du maillage. Une m&ecirc;me entit&eacute; peut
+appartenir &agrave; plusieurs groupes. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Joint</B> : Ensemble non ordonn&eacute;
+d'entit&eacute;s communes &agrave; deux sous-domaines. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Maillage</B> : Un maillage d'un
+domaine D est un ensemble E recouvrant D. Cet ensemble est constitu&eacute;
+d'un nombre fini de mailles. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Maillage libre</B> : cf. &quot;Maillage
+non structur&eacute;&quot;. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Maillage non structur&eacute; </B>:
+Un maillage est non structur&eacute; si sa connectivit&eacute; est
+quelconque. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Maillage structur&eacute;</B> : Un
+maillage structur&eacute; est un maillage dont la construction
+utilise des directions g&eacute;om&eacute;triques particuli&egrave;res.
+Un tel maillage est appel&eacute; une grille. En dimension 2,
+l'&eacute;l&eacute;ment d'une grille est le quadrangle tandis qu'en
+dimension 3, une grille est compos&eacute; d'h&eacute;xa&egrave;dres.
+On distingue des grilles quelconques, les grilles cart&eacute;siennes
+et les grilles polaires. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Maille</B> : Les mailles sont les
+&eacute;l&eacute;ments de l'ensemble E. Elles sont d&eacute;finies
+par leur connectivit&eacute;. Une maille peut &ecirc;tre de dimension
+0, 1, 2 ou 3. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Noeud</B> : Un noeud peut &ecirc;tre
+un noeud isol&eacute; du maillage, un noeud sommet ou un noeud milieu
+d'une ar&ecirc;te. Un noeud est associ&eacute; &agrave; un point. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Num&eacute;rotation globale</B> :
+Num&eacute;rotation optionnelle des entit&eacute;s (mailles, noeuds,
+faces et ar&ecirc;te) d'un maillage distribu&eacute; permettant de
+rep&eacute;rer ces entit&eacute;s de mani&egrave;re absolue sur le
+maillage global dont elles sont issues. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Point</B> : Entit&eacute;
+g&eacute;om&eacute;trique d&eacute;finie par ses coordonn&eacute;es
+dans l'espace de d&eacute;finition du domaine D. 
+</P>
+<P STYLE="margin-bottom: 0cm"><B>Profil </B>: Un profil sur les
+entit&eacute;s d'un maillage permet de s&eacute;lectionner un
+sous-ensemble de ces entit&eacute;s.</P>
+<P STYLE="margin-bottom: 0cm"><B>R&eacute;sultat</B> : Liste de
+champs portant sur un m&ecirc;me maillage. 
+</P>
+<P><B>Sous-domaine</B> : Dans le cas d'un maillage distribu&eacute;,
+sous-partie d'un maillage affect&eacute;e g&eacute;n&eacute;ralement
+&agrave; un processeur. <BR><BR><BR><BR>
+</P>
+

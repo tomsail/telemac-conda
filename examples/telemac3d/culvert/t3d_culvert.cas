@@ -1,0 +1,92 @@
+/---------------------------------------------------------------------/
+/                     Schematic culvert test case                     /
+/---------------------------------------------------------------------/
+TITLE ='Schematic culvert test'
+
+FORTRAN FILE                ='user_fortran'
+GEOMETRY FILE               ='geo_culvert.slf'
+BOUNDARY CONDITIONS FILE    ='geo_culvert.cli'
+2D RESULT FILE              ='r2d_culvert.slf'
+3D RESULT FILE              ='r3d_culvert.slf'
+LIQUID BOUNDARIES FILE      ='t3d_culvert.qsl'
+CULVERTS DATA FILE          ='tubes.txt'
+/
+NUMBER OF CULVERTS          =2
+OPTION FOR CULVERTS         =2
+TYPE OF SOURCES             =1
+MAXIMUM NUMBER OF SOURCES   =50
+/---------------------------------------------------------------------/
+/            INPUT-OUTPUT,TIME STEP, GRAPHICS AND LISTING             /
+/---------------------------------------------------------------------/
+TIME STEP                             =1.
+INITIAL TIME SET TO ZERO              =YES
+NUMBER OF TIME STEPS                  =100000
+
+GRAPHIC PRINTOUT PERIOD               =100000
+LISTING PRINTOUT PERIOD               =5000
+VARIABLES FOR 2D GRAPHIC PRINTOUTS    =U,V,S,H,B,TA1
+VARIABLES FOR 3D GRAPHIC PRINTOUTS    =Z,U,V,W,TA1
+
+ORIGINAL DATE OF TIME                 =2013;12;5
+ORIGINAL HOUR OF TIME                 =0;0;0
+
+MASS-BALANCE                          =YES
+/---------------------------------------------------------------------/
+/                             FRICTION                                /
+/---------------------------------------------------------------------/
+FRICTION COEFFICIENT FOR THE BOTTOM                  =0.02
+LAW OF BOTTOM FRICTION                               =4
+/---------------------------------------------------------------------/
+/                 EQUATIONS, BOUNDARY CONDITIONS                      /
+/---------------------------------------------------------------------/
+PRESCRIBED FLOWRATES                   =0.
+PRESCRIBED ELEVATIONS                  =3.
+/
+OPTION FOR LIQUID BOUNDARIES           =1
+TREATMENT OF FLUXES AT THE BOUNDARIES  =2
+/---------------------------------------------------------------------/
+/                 EQUATIONS, INITIAL CONDITIONS                       /
+/---------------------------------------------------------------------/
+NUMBER OF HORIZONTAL LEVELS             =5
+MESH TRANSFORMATION                     =2
+
+INITIAL ELEVATION                       =3.
+INITIAL CONDITIONS                      ='CONSTANT ELEVATION'
+/---------------------------------------------------------------------/
+/                               TURBULENCE                            /
+/---------------------------------------------------------------------/
+VERTICAL TURBULENCE MODEL                            =2
+COEFFICIENT FOR VERTICAL DIFFUSION OF VELOCITIES     =1.E-2
+MIXING LENGTH MODEL                                  =3
+HORIZONTAL TURBULENCE MODEL                          =4
+COEFFICIENT FOR HORIZONTAL DIFFUSION OF VELOCITIES   =1.E-2
+/----------------------------------------------------------------------/
+/                            ADVECTION                                 /
+/----------------------------------------------------------------------/
+SCHEME FOR ADVECTION OF VELOCITIES              =1
+SCHEME FOR ADVECTION OF TRACERS                 =13
+TREATMENT OF NEGATIVE DEPTHS  =2
+MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES = 30
+MASS-LUMPING FOR DEPTH =1.
+FREE SURFACE GRADIENT COMPATIBILITY             =0.9
+/----------------------------------------------------------------------/
+/                           TRACERS                                    /
+/----------------------------------------------------------------------/
+NUMBER OF TRACERS  =1
+NAMES OF TRACERS   ='TRACER'
+INITIAL VALUES OF TRACERS =2.
+PRESCRIBED TRACERS VALUES  =1000.
+/----------------------------------------------------------------------/
+/                       TIDAL FLATS                                    /
+/----------------------------------------------------------------------/
+TIDAL FLATS                                     =YES
+/
+/ SCHEME OPTION FOR ADVECTION OF TRACERS : 4 (DEFAULT) NOT POSSIBLE
+/ WITH MURD 13, SHOULD BE CHANGED IN 1 OR 2
+SCHEME OPTION FOR ADVECTION OF TRACERS = 1
+/
+/ DEFAULT VALUES UNTIL V7P3 KEPT FOR NON REGRESSION
+NON-HYDROSTATIC VERSION : NO
+/
+/ DEFAULT VALUES UNTIL V8P0 KEPT FOR NON REGRESSION
+IMPLICITATION FOR VELOCITIES = 1.

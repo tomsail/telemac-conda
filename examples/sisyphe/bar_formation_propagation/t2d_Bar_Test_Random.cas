@@ -1,0 +1,64 @@
+/---------------------------------------------------------------------/
+/       TELEMAC 2D TEST CASE                                          /
+/       Free Surface Flow in a fixed rectangular channel:             /
+/       Initial bed configuration covered by ripples                  /
+/---------------------------------------------------------------------/
+/       AUTHORS:  Fabio Mattia - Pablo Tassi                          /
+/       DATE    : 16/05/2013                                          /
+/                                                                     /
+/       for a longer simulation (at least 2 days), please change:     /
+/       GRAPHIC PRINTOUT PERIOD                                       /
+/       LISTING PRINTOUT PERIOD                                       /
+/       NUMBER OF TIME STEPS	                                      /
+/---------------------------------------------------------------------/
+/       COMPUTER INFORMATIONS                                         /
+/---------------------------------------------------------------------/
+/                                                                     /
+GEOMETRY FILE                     : geo_Bar_Test_Random.slf
+BOUNDARY CONDITIONS FILE          : geo_Bar_Test_Random.cli
+RESULTS FILE                      : r2d_Bar_Test_Random.slf
+SISYPHE STEERING FILE             : sis_Bar_Test_Random.cas
+FORTRAN FILE                      : 'user_fortran'
+/
+/---------------------------------------------------------------------/
+/       GENERAL INFORMATIONS                                          /
+/---------------------------------------------------------------------/
+/
+TITLE : 'Bars Test Case: Linear channel,bed configuration: Ripples'
+COUPLING WITH   : 'SISYPHE'
+COUPLING PERIOD FOR SISYPHE                     : 1
+VARIABLES FOR GRAPHIC PRINTOUTS                 : 'H,U,V,Q,US'
+TIME STEP                                       : 0.1
+GRAPHIC PRINTOUT PERIOD                         : 25000
+LISTING PRINTOUT PERIOD                         : 10000
+NUMBER OF TIME STEPS                            : 100000
+MASS-BALANCE                                    : YES
+/TREATMENT OF THE LINEAR SYSTEM : 2
+SOLVER : 7
+/
+/---------------------------------------------------------------------/
+/       INITIAL CONDITIONS                                            /
+/---------------------------------------------------------------------/
+/
+INITIAL CONDITIONS                              :'CONSTANT DEPTH'
+INITIAL DEPTH                                   : 0.044
+/
+/---------------------------------------------------------------------/
+/       BOUNDARY CONDITIONS                                           /
+/---------------------------------------------------------------------/
+/
+PRESCRIBED ELEVATIONS                           : 0.044  ; 0.
+PRESCRIBED FLOWRATES                            : 0.     ; 0.03
+/
+/---------------------------------------------------------------------/
+/       PHISICAL PARAMETERS                                           /
+/---------------------------------------------------------------------/
+/
+LAW OF BOTTOM FRICTION                          : 3
+FRICTION COEFFICIENT                            : 54.25
+TURBULENCE MODEL                                : 1
+/
+/---------------------------------------------------------------------/
+/
+/ DEFAULT VALUE UNTIL V8P1 KEPT FOR NON REGRESSION
+TREATMENT OF THE LINEAR SYSTEM = 1

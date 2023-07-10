@@ -1,0 +1,213 @@
+% case name
+\chapter{rouse-t3d}
+%
+% - Purpose & Description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved, the geometry and specify how the numerical solution will be validated
+%
+\section{Purpose}
+%
+This test validates the modeling of the hydrodynamics and non-cohesive
+(i.e. constant settling velocity with no turbulence damping effects)
+suspended sediment transport, in a permanent and uniform flow. We
+compare the mean flow velocities to the logarithmic profile and the
+sediment concentration to an analytical solution derived from the Rouse
+profile [1], as:
+%
+\begin{equation}\label{equation:RouseEqu}
+\frac{C_z}{C_a}=\left(\frac{(h-z)a}{(h-a)z}\right)^{\frac{w_s}{\kappa u_*}}
+\end{equation}
+where:\\
+$\it{C_z}$ = suspended sediment concentration at height $\it{z}$ above the bed (kg/m$^3$)\\
+$\it{C_a}$ = suspended concentration at reference height $\it{a}$ (kg/m$^3$)\\
+$\it{h}$ = water depth (m)\\
+$\it{w_s}$ = settling velocity of the suspended sediment (m/s)\\
+$\it{\kappa}$ = von Karman constant (= 0.41)\\
+$\it{u_*}$ = shear velocity at the bed {m/s}
+
+
+\section{Description}
+%
+The test case consists of a steady and uniform flow in a rectangular
+channel (5~km $\times$ 0.5~km) with flat bed, without friction on the
+lateral boundaries, and with friction on the bottom.
+The turbulence model is chosen to be consistent with the logarithmic
+velocity profile on the vertical (i.e. mixing length model).
+At the entrance of the channel, sediment is introduced with a constant
+concentration along the vertical, and an equilibrium profile gradually
+appears downstream due to combined settling and vertical diffusion.
+%
+% - Geometry and Mesh:
+%     This part describes the mesh used in the computation
+%
+%
+\subsection{Geometry and Mesh}
+%
+\subsubsection{Bathymetry}
+%
+The bathymetry consists of a flat bed with a level of -10m below
+mean sea level.
+%
+\subsubsection{Geometry}
+%
+The geometry is a rectangular channel with a length of 5~km and
+width of 0.5~km.
+%
+\subsubsection{Mesh}
+%
+The finite element mesh comprises 756 triangular elements and
+444 nodes. The vertical discretisation of the model consists of
+21 regularly spaced sigma planes.
+%
+% - Physical parameters:
+%     This part specifies the physical parameters
+%
+%
+\subsection{Physical parameters}
+%
+\subsubsection{Friction}
+Bed friction is specified using a Nikuradse roughness length of 0.01~m
+
+\subsubsection{Turbulence}
+For this test case, turbulent diffusivity is most important in the
+vertical direction since it controls the vertical profile of the
+suspended concentration (along with settling velocity). Therefore, the
+vertical turbulence is modelled using the mixing length model of Nezu
+and Nakagawa. Horizontal turbulence, which is less important for this
+test case, is applied using a constant viscosity of 0.5~m$^2$/s.
+
+\subsubsection{Sediment}
+A constant settling velocity of 0.001~m/s is used for the sediment.
+Flocculation is not included since this would modfiy the vertical
+profile of suspended concentration from the theoretical Rouse profile.\\
+%
+% Experimental results (if needed)
+%\subsection{Experimental results}
+%
+% bibliography can be here or at the end
+%\subsection{Reference}
+%
+% Section for computational options
+%\section{Computational options}
+%
+% - Initial and boundary conditions:
+%     This part details both initial and boundary conditions used to simulate the case
+%
+%
+\subsection{Initial and Boundary Conditions}
+%
+\subsubsection{Initial conditions}
+%
+Initial conditions are set using a constant elevation of 0~m (i.e. 10~m
+depth) and velocities are not initialised (i.e. they start at zero).
+Sediment concentration is initialised to 0.1~g/L everywhere.
+%
+\subsubsection{Boundary conditions}
+%
+The upstream and downstream liquid boundaries are prescribed with
+boundary conditions to generate steady state flow with a depth average velocity of 1 m/s
+follows.\\
+\\
+Upstream boundary:
+\begin{itemize}
+\item prescribed flow rate of 5,000~m$^3$/s
+\item no velocity profile initialised (it forms downstream)
+\item prescribed constant sediment concentration of 0.1~g/L
+\item no concentration profile initialised (it forms downstream)
+\end{itemize}
+Downstream boundary:
+\begin{itemize}
+\item prescribed free surface at $z$ = -0.05~m
+\item free boundary for velocity
+\end{itemize}
+Bottom:
+\begin{itemize}
+\item
+solid boundary with Nikuradse bed roughness of $k_s$ = 0.01~m
+\end{itemize}
+Lateral wall:
+\begin{itemize}
+\item no friction
+\end{itemize}
+%
+\subsection{General parameters}
+%
+The model was run with a time step of 30~s for a total simulation
+duration of 43,200~s (12 hours)
+%
+% - Numerical parameters:
+%     This part is used to specify the numerical parameters used
+%     (adaptive time step, mass-lumping when necessary...)
+%
+%
+\subsection{Numerical parameters}
+%
+Advection for velocities and sediment: Scheme 13 (MURD3D\_POS)
+%
+\subsection{Comments}
+%
+% - Results:
+%     We comment in this part the numerical results against the reference ones,
+%     giving understanding keys and making assumptions when necessary.
+%
+%
+\section{Results}
+%
+Figure \ref{velprof} compares the theoretical [1] (i.e. logarithmic)
+velocity profile with the computed result and shows excellent agreement.
+One can see that the point at the first plane above the bottom coincides
+with the theoretical value, which guarantees that the friction velocity
+is correct.\\
+%
+% Figure - velocity profile comparison
+\begin{figure} [h]
+\centering
+\includegraphicsmaybe{[scale=0.3]}{../img/velocityU_profile.png}
+\caption{Velocity profile comparison}\label{velprof}
+\end{figure}
+%
+%Figure \ref{Kzprof} compares the theoretical [1] and the computed
+%vertical turbulent diffusivity profiles.\\
+%
+% Figure - vertical diffusivity profile comparison
+%\begin{figure} [!h]
+%\centering
+%\includegraphicsmaybe{[scale=0.3]}{../img/Kz_profile.png}
+%\caption{Diffusivity profile comparison}\label{Kzprof}
+%\end{figure}
+%
+Figure \ref{Cprof} compares the theoretical Rouse profile and the
+numerical solution, showing close agreement.
+%In theory, the Rouse profile is only valid beyond the viscous layer.
+%The modified profile brings a notable modification only in this viscous
+%layer and is presented here for its interest in software validation.
+%
+% Figure - vertical diffusivity profile comparison
+\begin{figure} [h]
+\centering
+\includegraphicsmaybe{[scale=0.3]}{../img/suspconc_profile.png}
+\caption{Concentration profile comparison}\label{Cprof}
+\end{figure}
+%
+%
+\section{Conclusion}
+%
+These comparisons with analytical solutions, in hydrodynamics or
+suspended sediment transport, thoroughly validate the treatment of
+vertical diffusion and settling velocity in \telemac{3D}.
+The mixing length turbulence model of Nezu and Nakagawa and the
+computation of vertical velocity gradients are also validated.
+%
+% - Reference:
+%     This part gives the reference solution we are comparing to and
+%     explicits the analytical solution when available;
+%
+% bibliography can be here or at the end
+%\subsection{Reference}
+%
+%
+\subsection{Reference}
+%
+[1] HERVOUET J.-M., VILLARET C. Profil de Rouse modifié, une solution
+analytique pour valider TELEMAC-3D en sédimentologie.
+EDF-LNHE Report HP-75/04/013/A.

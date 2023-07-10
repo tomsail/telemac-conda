@@ -1,0 +1,215 @@
+\chapter{Vegetation laws (vegetation)}
+
+\section{Purpose}
+This test case shows the capacity of \telemac{2D} to implement vegetation approaches.
+In a flume with nearly normal conditions nine vegetation approaches are compared:
+\begin{enumerate}
+\item LIND (Lindner, 1982),
+\item JAER (Jaervelae, 2004),
+\item WHIT (Whittaker et al., 2015),
+\item BAPT (Baptist et al., 2007),
+\item HUTH (Huthoff et al., 2007),
+\item VANV (van Velzen et al., 2003),
+\item LUNE (Luhar \& Nepf, 2013),
+\item VAST (Vaestilae \& Jaervelae, 2014),
+\item HYBR (Folke et al., 2021).
+\end{enumerate}
+
+Since not all models are capable for emerged conditions, a setup with submerged
+vegetation is chosen.
+More details to the vegetation approaches including the references to the
+original papers can be found e.g. \cite{folke2019vegetation}.
+
+%-------------------------------------------------------------------------------
+\section{Description}
+
+\subsection{Geometry and mesh}
+
+The 60~m long and 5~m wide flume has a slope of 0.1 per mill.
+%Symbol \textperthousand does not always work.
+The cross-section is divided into three parts, as shown in Figure
+\ref{t2d:vegetation:bathy}:
+main channel (width = 1~m), sloped bank (width = 1~m, cross slope = 10~\%) and
+floodplain (width = 3~m).
+The model domain is discretised with an irregular triangular mesh of 6,725 nodes
+and 12,798 elements (see Figure \ref{t2d:vegetation:mesh}).
+
+\begin{figure}[h!]
+\centering
+\includegraphicsmaybe{[width=0.6\textwidth]}{../img/vegetation_bathy.png}
+\includegraphicsmaybe{[width=0.6\textwidth]}{../img/vegetation_bathy_cross.png}
+
+% limit y 
+\caption{Longitudinal section and cross section of the bathymetry.}
+\label{t2d:vegetation:bathy}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/vegetation_mesh.png}
+\caption{Mesh and boundary conditions of the vegetation test case.}
+\label{t2d:vegetation:mesh}
+\end{figure}
+
+\subsection{Initial condition}
+
+As initial condition, a fully developed flow is read from the restart file.
+
+\subsection{Boundary conditions}
+
+At the flume inlet a constant discharge of 500~L/s is imposed across the full
+cross section. At the outlet the water depth is fixed to 47.0123~cm.
+
+\subsection{Physical parameters}
+
+The bottom friction is modelled using Nikuradse's law setting equivalent sand
+roughness $k_s$ to 0.5~mm at the main channel and the banks and 3~mm at the floodplain.
+The lateral walls are modelled using slip conditions.
+The vegetation parameters for the approaches are different but tried to set
+as similar as possible. The following parameters are used: 
+\begin{itemize}
+\item plant diameter $D$, 
+\item distance between the plants $\Delta$, 
+\item drag coefficient $C_D$, 
+\item vegetation density $m$, 
+\item friction coefficient at the top of the vegetation layer $Cv$, 
+\item plant height $h_P$, 
+\item leaf area index $LAI$, 
+\item Vogel coefficient $\chi$, 
+\item reference velocity for the Vogel coefficient $u_{ref}$, 
+\item frontal area per volume of vegetated region $a$, 
+\item frontal projected area $A_{P0}$, 
+\item flexural rigidity $EI$.
+\end{itemize}
+
+The used vegetation parameters are summed up in
+Table~\ref{tab:vegetation:vegparameters_rigid} and
+\ref{tab:vegetation:vegparameters_flexible}.
+For the VAST approach leaf area index, Vogel coefficient and reference velocity
+are used two times.
+The first values are for the foliage and the second ones are for the stem. 
+
+\begin{table}[H]
+  \resizebox{0.7\textwidth}{!}{%
+    \begin{tabular}{|l|c|c|c|c|c|c|}
+%    \begin{tabular}{|l|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+      \hline Vegetation approach & $C_D$ & $D$   & $\Delta$ & $m D$   & $Cv$ & $h_p$ \\
+                                 &       & $(m)$ & $(m)$    & $(1/m)$ &      & $(m)$\\
+      \hline 1 LIND &     & 0.01 & 0.1 &     &      & \\
+      \hline 4 BAPT & 1.0 &      &     & 1.0 &      & 1.0 \\
+      \hline 5 HUTH & 1.0 &      & 0.1 & 1.0 &      & 1.0 \\
+      \hline 6 VANV & 1.0 &      &     & 1.0 &      & 1.0 \\
+      \hline 7 LUNE & 1.0 &      &     & 1.0 & 0.06 & 1.0 \\
+      \hline
+    \end{tabular}
+  }
+  \caption{Vegetation parameters for the approaches considering vegetation as rigid.}
+  \label{tab:vegetation:vegparameters_rigid}
+\end{table}
+
+\begin{table}[H]
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
+      \hline Vegetation approach & $C_{D\chi}$ & $LAI$ & $\chi$ & $U_{ref}$ & $A_{P0}$ & $EI$      & $\Delta$ & $h_p$\\
+                                 &       &       &        & $(m/s)$   & $(m^2)$  & $(N/m^2)$ & $(m)$    & $(m)$\\
+      \hline 2 JAER & 0.5       & 0.1         & -0.9        & 0.1       &       &        &     & 1.0 \\
+      \hline 3 WHIT & 1.0       &             & -0.9        &           & 0.001 & 0.0073 & 0.1 & 1.0 \\
+      \hline 8 VAST & 0.5 / 0.5 & 0.09 / 0.01 & -0.9 / 0.0 & 0.1 / 0.1 &       &        &     & 1.0 \\
+      \hline 9 HYBR & 0.5       & 0.1         & -0.9        & 0.1       &       &        &     & 1.0 \\
+      \hline
+    \end{tabular}
+  }
+  \caption{Vegetation parameters for the approaches considering vegetation as flexible.}
+  \label{tab:vegetation:vegparameters_flexible}
+\end{table}
+
+The density $m$ can be calculated with the distance $\Delta$ between the vegetation: 
+\begin{equation}
+m = \frac{1}{\Delta^2} .
+\end{equation}
+The leaf area index can be assumed by a formula of Finnigan \cite{finnigan2000}
+for the frontal area per volume of a vegetated region $a$:
+\begin{equation}
+a = \frac{D}{\Delta^2} = \frac{1}{2} \frac{LAI}{h_P}.
+\end{equation}
+
+\subsection{Numerical parameters}
+
+The simulation time is set to 1~h with a time step of 1~s in order to reach a steady state. 
+
+%-------------------------------------------------------------------------------
+\section{Results}
+
+The non-dimensional friction coefficient $CF$ which equals a quarter of the
+Darcy-Weisbach friction coefficient $CF = \frac{\lambda}{4}$ is written in the
+result file and displayed along the flume length in Figure \ref{t2d:vegetation:cf}. 
+The flexible approaches (2-JAER, 3-WHIT, 8-VAST, 9-HYBR) calculate lower vegetation friction. 
+The flexible approaches 2-JAER and 9-HYBR are identical for non
+submerged conditions.
+The VAST approach is an enlargement of the JAER approach.
+For the flexibility parameter a distinction is made between foliage and stem.
+In this example the sum of the $LAI$ for foliage and stem is according to the
+$LAI$ of JAER.
+The only difference is the Vogel coefficient for the stem.
+This is set to zero which determined a rigid stem.
+As this is only for 10~\% of the complete $LAI$ the results are nearly the same.
+\newline
+
+The rigid approaches 4-BAPT, 5-HUTH, 6-VANV and 7-LUNE are identical for non
+submerged conditions.
+The 1-LIND approach calculates slightly higher vegetation roughnesses in this case.
+If the $C_D$ value would be set to 1.0 (like for the other approaches) instead
+of an iterative determination the LIND would have also the same results than
+the other rigid approaches.
+
+Only for the LIND approach the parallel computation is proofed.
+
+In Figure \ref{t2d:vegetation:free_surface}, the simulated free surfaces along
+the flume length are compared.
+The water levels are higher if the friction coefficients are higher.
+
+Therefore the four approaches considering the flexibility of vegetation
+(2-JAER, 3-WHIT, 8-VAST, 9-HYBR) forecast smaller water levels because of the lower
+resistance due to flexible vegetation. 
+
+The approaches for the rigid parameters behave the same while the LIND approach
+show higher water levels according to the higher vegetation friction.
+
+\begin{figure}[h!]
+\centering
+\includegraphicsmaybe{[width=0.6\textwidth]}{../img/vegetation_free_surface.png}
+\caption{Simulated free surface along the flume length.}
+\label{t2d:vegetation:free_surface}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphicsmaybe{[width=0.6\textwidth]}{../img/vegetation_cf.png}
+\caption{Simulated non-dimensional friction coefficient along the flume length.}
+\label{t2d:vegetation:cf}
+\end{figure}
+
+%-------------------------------------------------------------------------------
+
+\section{Conclusion}
+For non-submerged conditions the main difference between the implemented eight
+approaches is the consideration of the flexibility of vegetation.
+Only 2-JAER, 3-WHIT, 8-VAST and 9-HYBR take flexibiliy into account.
+For manageability reasons the JAER approach is to be preferred as it has only
+five parameters.
+\newline
+
+From the rigid approaches 4-BAPT, 5-HUTH, 6-VANV and 7-LUNE are identical for
+non-submerged conditions. 
+
+The drag coefficient will be determined iteratively for the 1-LIND approach.
+Previous experiences showed that the iteratively estimated drag coefficient is
+close to the default value of 1.0 like in this example. If this is not the case
+it can happen that the results are not satisfying. Furthermore the iterative procedure
+needs up to 20~\% of the simulation time. Therefore this approach is not recommended.
+\newline
+
+In order to consider the decrease of the vegetation influence for overtopped
+vegetation a two-layer approach like 4-BAPT, 5-HUTH, 6-VANV, 7-LUNE or 9-HYBR should be chosen.
+Here BAPT is recommended because only three parameters are needed and
+the approach is easy and the previous experiences are good. 

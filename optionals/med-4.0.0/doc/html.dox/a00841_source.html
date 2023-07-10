@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier:  Fichier source de MEDsupportMeshCr.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_21ff39c74838e10d1b918a45b9d185d5.html">src</a></li><li class="navelem"><a class="el" href="dir_48027acf4688ac8b76ff5eb90d59af4a.html">ci</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">MEDsupportMeshCr.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00841.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00581.html">med_config.h</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00589.html">med_outils.h</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a01060_ga8d14cb8ed06c18d7a8c7a32d89b5ebd5.html#ga8d14cb8ed06c18d7a8c7a32d89b5ebd5">   46</a></span>&#160;<a class="code" href="a01060_ga8d14cb8ed06c18d7a8c7a32d89b5ebd5.html#ga8d14cb8ed06c18d7a8c7a32d89b5ebd5">MEDsupportMeshCr</a>(<span class="keyword">const</span> <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a>        fid,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                 <span class="keyword">const</span> <span class="keywordtype">char</span>*    <span class="keyword">const</span> supportmeshname,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                 <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>        spacedim,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                 <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>        meshdim,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                 <span class="keyword">const</span> <span class="keywordtype">char</span>*   <span class="keyword">const</span>  description,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                 <span class="keyword">const</span> <a class="code" href="a00577_a57867e4bed1d104c865cfc9d23c9204d.html#a57867e4bed1d104c865cfc9d23c9204d">med_axis_type</a>  axistype,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                 <span class="keyword">const</span> <span class="keywordtype">char</span>*   <span class="keyword">const</span>  axisname,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                 <span class="keyword">const</span> <span class="keywordtype">char</span>*   <span class="keyword">const</span>  axisunit</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                 )</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;{</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordflow">return</span>  <a class="code" href="a00590_aa396c8d8ba0c57bd20a184ef5aae2a4e.html#aa396c8d8ba0c57bd20a184ef5aae2a4e">_MEDmeshCr</a>(fid, <a class="code" href="a00589_a5e8b9717a467ff7bfa8bcab7b6fc4bf2.html#a5e8b9717a467ff7bfa8bcab7b6fc4bf2">MED_MESH_SUPPORT_GRP</a> , supportmeshname, spacedim, meshdim,  <a class="code" href="a00577_a821a4dd94c5c6b095318432bdec8d8a1.html#a821a4dd94c5c6b095318432bdec8d8a1a3719e53a4838d222f0a58148292fda41">MED_UNSTRUCTURED_MESH</a>,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                     description, <span class="stringliteral">&quot;&quot;</span>, <a class="code" href="a00577_a5b97067a30629cd60470d074691d6798.html#a5b97067a30629cd60470d074691d6798ae896b6adfbde9870b4e875e5167eddd0">MED_SORT_DTIT</a>, axistype, axisname, axisunit);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<div class="ttc" id="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba_html_abd29d7c6abaef5da2a5ed1b73464f0ba"><div class="ttname"><a href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a></div><div class="ttdeci">herr_t med_err</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00327">med.h:327</a></div></div>
+<div class="ttc" id="a00590_aa396c8d8ba0c57bd20a184ef5aae2a4e_html_aa396c8d8ba0c57bd20a184ef5aae2a4e"><div class="ttname"><a href="a00590_aa396c8d8ba0c57bd20a184ef5aae2a4e.html#aa396c8d8ba0c57bd20a184ef5aae2a4e">_MEDmeshCr</a></div><div class="ttdeci">MEDC_EXPORT med_err _MEDmeshCr(const med_idt fid, const char *const root, const char *const meshname, const med_int spacedim, const med_int meshdim, const med_mesh_type meshtype, const char *const description, const char *const dtunit, const med_sorting_type sortingtype, const med_axis_type axistype, const char *const axisname, const char *const axisunit)</div></div>
+<div class="ttc" id="a00589_a5e8b9717a467ff7bfa8bcab7b6fc4bf2_html_a5e8b9717a467ff7bfa8bcab7b6fc4bf2"><div class="ttname"><a href="a00589_a5e8b9717a467ff7bfa8bcab7b6fc4bf2.html#a5e8b9717a467ff7bfa8bcab7b6fc4bf2">MED_MESH_SUPPORT_GRP</a></div><div class="ttdeci">#define MED_MESH_SUPPORT_GRP</div><div class="ttdef"><b>Definition:</b> <a href="a00589_source.html#l00161">med_outils.h:161</a></div></div>
+<div class="ttc" id="a00577_a5b97067a30629cd60470d074691d6798_html_a5b97067a30629cd60470d074691d6798ae896b6adfbde9870b4e875e5167eddd0"><div class="ttname"><a href="a00577_a5b97067a30629cd60470d074691d6798.html#a5b97067a30629cd60470d074691d6798ae896b6adfbde9870b4e875e5167eddd0">MED_SORT_DTIT</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00306">med.h:306</a></div></div>
+<div class="ttc" id="a01060_ga8d14cb8ed06c18d7a8c7a32d89b5ebd5_html_ga8d14cb8ed06c18d7a8c7a32d89b5ebd5"><div class="ttname"><a href="a01060_ga8d14cb8ed06c18d7a8c7a32d89b5ebd5.html#ga8d14cb8ed06c18d7a8c7a32d89b5ebd5">MEDsupportMeshCr</a></div><div class="ttdeci">med_err MEDsupportMeshCr(const med_idt fid, const char *const supportmeshname, const med_int spacedim, const med_int meshdim, const char *const description, const med_axis_type axistype, const char *const axisname, const char *const axisunit)</div><div class="ttdoc">Cette routine permet de créer un maillage support. </div><div class="ttdef"><b>Definition:</b> <a href="a00841_source.html#l00046">MEDsupportMeshCr.c:46</a></div></div>
+<div class="ttc" id="a00577_a821a4dd94c5c6b095318432bdec8d8a1_html_a821a4dd94c5c6b095318432bdec8d8a1a3719e53a4838d222f0a58148292fda41"><div class="ttname"><a href="a00577_a821a4dd94c5c6b095318432bdec8d8a1.html#a821a4dd94c5c6b095318432bdec8d8a1a3719e53a4838d222f0a58148292fda41">MED_UNSTRUCTURED_MESH</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00129">med.h:129</a></div></div>
+<div class="ttc" id="a00577_a57867e4bed1d104c865cfc9d23c9204d_html_a57867e4bed1d104c865cfc9d23c9204d"><div class="ttname"><a href="a00577_a57867e4bed1d104c865cfc9d23c9204d.html#a57867e4bed1d104c865cfc9d23c9204d">med_axis_type</a></div><div class="ttdeci">med_axis_type</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00255">med.h:255</a></div></div>
+<div class="ttc" id="a00577_a88dc15143f934cc7b771bc89f46372dc_html_a88dc15143f934cc7b771bc89f46372dc"><div class="ttname"><a href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a></div><div class="ttdeci">int med_int</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00337">med.h:337</a></div></div>
+<div class="ttc" id="a00581_html"><div class="ttname"><a href="a00581.html">med_config.h</a></div></div>
+<div class="ttc" id="a00577_afa4ec8284026c8c5545e5333475fb65a_html_afa4ec8284026c8c5545e5333475fb65a"><div class="ttname"><a href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a></div><div class="ttdeci">hid_t med_idt</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00326">med.h:326</a></div></div>
+<div class="ttc" id="a00589_html"><div class="ttname"><a href="a00589.html">med_outils.h</a></div></div>
+<div class="ttc" id="a00577_html"><div class="ttname"><a href="a00577.html">med.h</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

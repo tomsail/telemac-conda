@@ -1,0 +1,14 @@
+Maillage de nom : |maa1| , de dimension : 2 , et de type 0
+	 -Dimension de l'espace : 2
+	 -Description du maillage : un maillage pour test14
+	 -Noms des axes : x               y               
+	 -Unit�s des axes : cm              cm              
+	 -Type de rep�re : 0
+	 -Nombre d'�tapes de calcul : 1
+	 -Unit� des dates : s
+
+Nombre de noeuds : 4 
+Numero global du noeud 1 : 100 
+Numero global du noeud 2 : 101 
+Numero global du noeud 3 : 102 
+Numero global du noeud 4 : 103 

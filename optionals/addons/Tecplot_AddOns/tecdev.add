@@ -1,0 +1,12 @@
+#!MC 1100
+# tecplot gui builder
+$!LoadAddon "|$TEC360HOME|/lib/libguibld"
+# Link Solution Time AddOn (tecplottalk.com) not needed for
+# tecplot360 2008
+#$!LoadAddon "|$TECADDONDIR|/libLinkTime"
+# Extracting time profiles from lines or points in 2D or 3D
+# graphs
+$!LoadAddon "|$TECADDONDIR|/libExtractTimeProfile"
+# Telemac (+delwaq) data loader
+$!LoadAddon "|$TECADDONDIR|/libseralo"
+

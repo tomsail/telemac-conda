@@ -1,0 +1,428 @@
+Modifications dans la version 4.0.0 :
+
+- Portage HDF5-1.10 : med-4 est capable de lire les fichier med 3.y.z mais les bibliothèques med-3.y.z ne
+  peuvent pas relire des fichiers med-4
+- Mises à jour des tests Fortran pour utiliser le type integer*8 pour tous les fid (MEDfileOpen).
+  En effet avec hdf5-1.10 les identifiants sont passés en 64 bits.
+- La bibilothèque med-4 permet de modifier des fichiers med-3 (créés en hdf5-1.8.x)
+- Vérification de la version hdf5-1.10.2 minimum (les versions précédentes ne gèrent pas corectement 
+  la selection du modèle d'écriture interne d'hdf; ce qui peut générer des fichiers 3.y.z modifiés
+  par med-4 mais plus relisibles en med-3 )
+- Interdiction de compiler Med-4 avec hdf5-1.8
+- Vérification de la compatibilité C++11 du compilateur utilisé
+- Portage Python2/3
+	- Gestion des configurations swig2.0.8--,swig...,-->swig 3.0.12 en interaction avec Python2.7 - 3 :
+	* En     swig-2.0.8 et python3 les import absolus sont mal gérés, ok à partir de swig-2.0.12
+	* Depuis swig-2.0.12 les itérateurs et nvlles méthodes des containers c++11 sont gérés
+	* Depuis swig-3.0.8 Py_int -> Py_long
+	* utilisation de swig-3.0.12 pour la générations des wrappers .py embarqués
+	* (compatibilité .py2 .py3 cf. tests/python)
+- Les wrappers python sont pré-générés pour python3
+  Si python3 n'est pas le python par défaut utiliser PYTHON_VERSION=3 au ./configure
+  Sinon, il faut swig ou desactiver l'interface python
+- Correction d'une erreur générée à l'appel de MEDmeshnEntity dans mdump pour les éléments de structures
+- Ajouts de Usecases en python
+- Ajout de la documentation du modèle 3/4 en UML
+- Réintégration des derniers developements 3.3.0
+
+Modifications dans la version 3.3.1 :
+
+- Correction d'une erreur générée à l'appel de MEDmeshnEntity dans mdump pour les éléments de structures
+- Correction : maj medimport
+
+Modifications dans la version 3.3.0 :
+
+- Ajout du type MED_PENTA18
+- Ajout dans la documentation du modèle MED_PENTA18 en .svg
+- Ajout de la notion d'équivalence de mailles 3D pour les raccords non-conformes
+- Remise à niveau et réarchitecture de la documentation concernant les équivalences
+- Ajout et gestion des nouveaux types de Champs MED_FLOAT32, MED_INT32 et MED_INT64 en C,F,Py
+- Nouvelles procédures de tests pour générer plusieurs variantes d'un même test (i32,i64,f32,f64) en C
+- Nouvelles procédures de tests pour générer plusieurs variantes d'un même test (i32,i64,f32,f64) en F
+- Transformation des test10 & 11 en tests paramétrables par le type de réels et le type d'entiers à utiliser
+- Analyse automatique des sorties standards des tests C/F/Python
+- Gestion différenciée des sorties int 32/64 bits pour les tests python
+- La génération des .py des wrappers python est maintenant conditionnée aussi par int/long
+- Supprime les module.py de la distribution car seuls les modèles _int.py ou _long.py doivent être livrés.
+- Test des nouveaux types de champs sur système 32bits (sur machine 64bits)
+- Suite à une optimisation de parcours des champs effectuée dans la 3.1.0
+  l'ordre de parcours des champs a été mis à jour en 3.1.0 dans les routines MEDfieldComputingStepInfo et
+  MEDfield23ComputingStepInfo mais (par omission) pas dans la fonction MEDfieldComputingStepMeshInfo
+  L'ordre de parcours à été mis à jour pour être cohérent avec MEDfieldComputingStepInfo comme documenté (création).
+- Correction d'un bug dans MEDfileCompatibility concernant la vérification que le type de fichier est bien hdf
+- Correction de la valeur de retour du paramètre trf de MEDmeshnEntity pour un appel concernant MED_CONNECTIVITY ou MED_COORDINATE si
+  des modifications sont détectées entre pas de temps sur des informations autres que les connectivités des éléments/les coordonnées des noeuds.
+- Amélioration de la documentation des options de mdump3
+- Correction dans mdump3 d'une fuite mémoire de taille 1 (un caractère) à la lecture d'attributs constants
+  de type MED_ATT_NAME de modèles d'éléments de structure.
+- Correction de l'affichage d'un espace supplémentaire dans mdump
+- Les outils mdump et xmdump deviennent des liens relatifs au lieu de liens absolus
+- Mise à jour des fichiers de référence Fortran en med_int=int
+- Corrections d'expressions fortran non strictement 77
+- Corrections pour portage MacOS.
+- Corrections pour portage MinGW
+- Gestion d'architectures supplémentaires pour les tests
+- Mise à jour de la construction CMake d'après la version Autotools
+
+
+Modifications dans la version 3.2.1 :
+
+- Gestion de la detection d'hdf serial/parallel qui cohabitent dans les répertoires systèmes
+- Ajout des options --with-hdf5-lib, --with-hdf5-include, --with-hdf5-bin en plus de --with-hdf5
+- Detection de la plage de version HDF utilisable avec la version de la bibliothèque (hdf5-1.10 interdit avec med3.y.z)
+- Installation par défaut de la documentation selon le standard gnu et possibilité d'utiliser l'option --docdir au configure (cf README)
+- Les tests sont compilés uniquement si l'on lance make check
+- Les tests sont installés uniquement si l'on utilise ./configure --enable_installtest
+- Ajout d'une fonction MEDfileVersionOpen C/F/py/Doc
+- Ajout d'une fonction MEDfileExist C/F/py/Doc
+- Ajout d'une fonction MEDfileObjectExist C/F/py/Doc
+- Ajout des test de la fonction MEDfileVersionOpen C/F/py/Doc
+- Ajout des tests de la fonction MEDfileExist en C/F/Py
+- Ajout des tests de la fonction MEDfileObjectExist en C/F/Py
+- Correction d'un bug dans MEDfileCompatibility qui dans les versions précédentes de la bibliothèque
+  ne détectait pas les changements de modèles internes liés au changement de la version mineur
+- Mise à jour de la documentation pour utiliser doxygen-1.8.9
+- Modification des noms d'objets internes pour une mise en adéquation avec les noms utilisés dans les classes d'objets MED de med.h
+- Corrections pour portage windows
+- Corrections pour compilation gcc-6.2
+- Préparation de MED4.0.0 avec le format de fichier hdf5-1.10
+- Mise ne conformité Cmake avec les autotools
+
+Modifications dans la version 3.2.0 :
+
+- Gestion rapide d'un grand nombre de famille/groupes (chgt modèle interne)
+- Mise en conformité de l'outil medimport (3.1 -> 3.2)
+- Diverses corrections liées à l'utilisation des grilles polaires
+- Mises à jour des usecases grilles
+- Réecriture des usescases polyèdres 13&14 avec un cas plus réaliste
+- Mises à jour de la documentation polyedres + polygones
+- Réecriture en .svg du schema explicatif de la connectivité des polyèdres
+- Modification des destructeurs cxx pour éviter la défintion de symboles Weak dans la bibliothèque
+
+Modifications dans la version 3.1.0 :
+
+- Ajout de la fonctionalité de gestion des fichiers en mémoire.  Transferts possibles entre processus.
+- Correction d'une lenteur d'execution de MEDfieldComputingStepInfo pour des champs ayant de nombreuses étapes de calcul (>1000) (chgt modèle interne)
+- Correction d'une erreur de comptage des Py_None en sortie des appels MED en python.
+- Correction d'une impossibilité d'écriture de MEDmeshGridIndexCoorinateWr en mode MED_ACC_RDEXT à partir d'un n°axe >1
+- Patch CMakeLists pour gérer la detection MPI/HDF5par
+- Ajout de la fonction MEDfileName en C/F/python qui renvoie le nom du fichier (avec le chemin d'accès) à partir du fid.
+
+Modifications dans la version 3.0.8p1 :
+
+- MAJ du numero de version 3.0.7 en 3.0.8 dans le CMakeLists.txt de la racine
+
+Modifications dans la version 3.0.8 :
+
+- Correction d'un débordement d'accès à la mémoire concernant l'utilisation des filtres par blocs sur les noms des entites quelque soit le mode d'entrelacement et de stockage
+- Correction d'un bug concernant les filtres par entités en mode MED_FULL_INTERLACE et MED_COMPAQ
+- Correction d'un bug concernant les filtres par entités en mode MED_NO_INTERLACE et MED_COMPAQ
+- Corrections docs
+- Corrections d'indiçage dans quelques tests C
+
+Modifications dans la version 3.0.7 :
+
+- Correction d'un bug de comptage des informations secondaires noms,numéros optionnels dans le cas d'une grille curvilinear (MEDmeshnEntity)
+- Ajout du type polynôme quadratique (MED_POLYGON2)
+- mdump et xmdump sont maintenant des liens sur mdump3 et xmdump3 ds le répertoire d'installation
+- Mise en adéquation de xmdump3 avec les options spécifiques à mdump3
+- Correction d'un bug renvoyant une erreur ds le cadre des grilles curvilinéaire lorsque l'on demande le nbre de familles et qu'il n'y en a pas.
+- Limitation de l'utilisation mémoire ds l'interface F/C dans le cas du tableau des noms optionnels d'entités
+- Developpement/test/doc de MEDfileObjectsMountById
+- séparation des headers med par module (depuis med_proto.h)
+- Ajout d'une extraction de H5public.h à l'étape de configuration pour swig
+- Ajout de certains const manquants de l'interface C utiles à swig (~ ne change pas l'API)
+- Corrections diverses sur les tests C
+- Extraction d'informations de configuration de types HDF pour le wrapping python
+- Developpement des différents modules python
+- Ajouts des tests associés aux modules python
+- Finalisation du swiggage des types unsigned char *
+- Séparation des modules fonctionnels MED en module Swig independants
+- Gestion des array MED en python
+- Correction CMake pour Windows
+
+Modifications dans la version 3.0.6 :
+
+- Déclaration d'export pour med.dll (Compaq Fortran)
+- Correction de la présence de double ;; dans des tests
+- Intégration d'un patch pour le portage Windows
+- Suppression des stdcall dans les prototypes (portage windows/cmake)
+- Refactoring des Cmakelists, qui permet de se passer du script de génération (portage windows/cmake)
+- Génération du fichier med_config.h qui était recopié à la main   (portage windows/cmake)
+- Génération des librairies statiques et dynamiques de MED fichier (portage windows/cmake)
+- Compilation et l'execution des tests med file avec cmake (portage windows/cmake)
+- Génération des librairies fortran MED fichier pour Windows (portage windows/cmake)
+- Modification de la présentation de la doc utilisateur
+- Ajout de tests complémentaires suite à la révision de la doc
+- A la configuration, si aucune option --with-hdf5 ou de variable HDF5HOME n'est positionnée, cherche HDF dans /usr
+- Ajout de l'option --disable-api2.3 au ./configure pour supprimer les symboles 2.3 des bibliothèques
+- Correction d'un bug en mode lecture ajout à l'écriture des polyhèdres
+- Extension du nombre de composantes pour les champs resultats
+- Ajout d'une vérification du type d'attribut variable à leur création (éléments de structure)
+- Ajout d'une vérification sur les types des attributs variables dans mdump3
+- Ajout de la possibilité de définir uniquement les noeuds d'un maillage support section (points d'intégrations sur éléments de structure)
+- Ajout de Usescases en Fortran
+
+Modifications dans la version 3.0.5 :
+
+- Optimisation du mécanisme indiquant la version du fichier utilisé
+- Amélioration des performances :
+ - Mécanisme de cache des appels internes
+ - Mécanisme de cache du MEDfieldCheck (check de fichier 2.3 depuis la bibliothèque 3.0)
+ - Activation du nouveau format interne HDF plus efficace (pas d'incidence de compatibilité de fichier)
+- Ajout API fortran E/S //
+- Ajout API fortran des routines avancees d'ecriture/lecture des attributs d'entites de maillage
+- Amélioration de la navigation dans la documentation
+- Acces a l'information sur les connectivites de références dans le guide d'utilisation
+- Mise à jour des macros m4 pour la construction du test parallel Fortran
+- Fusion des macros m4 de detection des compilateurs séquentiels et des compilateurs //
+- Possibilité de débrayer au ./configure la compilation de la partie fortran de la bibliothèque (désactivation des tests fortran aussi)
+- Possibilité de débrayer au ./configure la vérification automatique des champs des fichiers 2.3
+- Corrections dans medimport : erreurs à l'import lorsque l'option --disable-mesgerr est positionnée au ./configure
+- Ajout d'un test fortran parallel
+- Exécution du test // fortran sur n processus
+- Portage BlueGene
+- Corrections mineures concernant le portage windows
+- Correction d'un bug dans UsesCase_MEDstructElement_2.c
+- Correction d'un bug dans le test parallel C : Open Mpi renvoi correctment le code d'erreur de l'executable //
+
+Modifications dans la version 3.0.4 :
+
+-Portage Windows :
+ -Modification du système de construction («makefile»), ajout des fichiers «makefile.cmake» pour la compilation avec l'outil «cmake»
+ -Modification du système de déclaration des fonctions internes à arguments variables pour gérer les incompatibilités du compilateur Visual C avec la norme C99
+
+-Extension de l'API:
+ -Ajout des routinesC : MEDmeshGeotypeName, MEDmeshGeotypeParameter, MEDsupportMeshnAxis, MEDsupportMeshnAxisByName
+ -Ajouts des routines FORTRAN : msmfnan, msmfnax
+
+-Améliorations diverses:
+ -Mise à jour des macros d'affichage des entiers «med_int»
+ -Meilleure gestion des types géométriques dynamiques et statiques
+ -Renommage du fichier «src/libmed2.settings.in» en «src/libmed3.settings.in»
+ -Simplification des scripts de tests pour une meilleure portabilité
+ -Mise à jour du mécanisme de versionnement FORTRAN interne
+ -Gestion des localisations des points d'intégration avec les éléments de structure
+
+-Evolutions apportées à l'utilitaire de dump:
+ -Nouvel outil «mdump3» gérant l'ensemble des évolutions concernant : les maillages supports, les éléments de structure, les fonctions d'interpolation, les localisations des points d'intégration sur éléments de structure avec ou sans interpolation géométrique
+ -Réorganisation de l'affichage pour plus de lisibilité
+ - Nouvelle gestion des paramètres en ligne de commande
+
+-Ajout de nouveaux testsde non-régression:
+ -Unittest_MEDstructElement_1, Unittest_MEDstructElement_2,Unittest_MEDstructElement_3, Unittest_MEDstructElement_4,Unittest_MEDstructElement_5, Unittest_MEDstructElement_6,Unittest_MEDstructElement_7, Unittest_MEDstructElement_8,Unittest_MEDstructElement_9 Unittest_MEDstructElement_10,Unittest_MEDstructElement_11,Unittest_MEDlocalization_1,Unittest_MEDlocalization_2,Unittest_MEDlocalization_3,Unittest_MEDprofile_1,Unittest_MEDprofile_2, Unittest_MEDparameter_1, Unittest_MEDparameter_2, Unittest_MEDparameter_3Unittest_MEDsupportMesh_1, Unittest_MEDsupportMesh_2, Unittest_MEDsupportMesh_3,Unittest_MEDlink_1, Unittest_MEDlink_2, Unittest_MEDlink_3,Unittest_MEDfilter_1, Unittest_MEDfilter_2,Unittest_MEDinterp_1, Unittest_MEDinterp_2, Unittest_MEDinterp_3, Unittest_MEDlocalization_1,   Unittest_MEDlocalization_3Unittest_MEDinterp_1,Unittest_MEDfile_1
+
+-Documentation:
+ -Ajout de la documentation relative aux nouvelles routines dans le guide de référence
+
+-Corrections d'anomalies:
+ -Mise à jour des fichiers «include» FORTRAN pour la gestion des types d'attributs variables
+ -Gestion des entiers 64 bits dans la routine MEDmeshGridStructRd
+ -Lecture du nombre d'entité avec la routine MEDmeshnEntity pour une séquence de calcul différente de la séquence de calcul initiale, quand le nombre est égal à zéro
+ -La routine MEDparFileOpen renvoie désormais une erreur quand le fichier ouvert est un fichier MED 2.x (< 3.0)
+ -Outil «medimport»: Création inopportune de séquence de calcul vide pour des champs importés de fichiers med 2.x reposant sur plusieurs maillages
+ -Séparation des routines (efchre, efchrl) des routines (efchie, efchil) dans des fichiers différents pour compilation avec les compilateurs Fortran qui vérifieraient les types des prototypes
+ -Gestion du code retour dans la routine mlnlai
+ -Gestion de la taille d'une chaîne de caractères dans routine mlnlir
+ -Gestion de la taille des valeurs dans la routine msefsaw
+ -«Leak» mémoire dans la routine nmfafofi
+ - «Sigsegv» possible dans nmlnflir
+ -Gestion de la taille des noms des composantes et des noms d'unités dans la routine msmcre
+ -Ecriture incomplète des informations dans la routine MEDstructElementConstAttWr
+ -Interfaçage C/FORTRAN des routines: mmhfsaw, msesaw, msespw, mmhsaw, mmhsar, mlnlai, mlclni, mprpin
+
+
+Modifications dans la version 2.3.6 :
+
+- ID 59 : Support HDF5-1.6.8 ou 1.6 au choix
+
+- ID 73 : Fonctionnement des tests MED identique quelque soit la version de HDF utilisée
+
+- ID 35 : Suppression des blancs terminaux dans les noms de maillages/champs par medimport
+
+- ID 68 : Corrections diverses pour portage GCC4.4.0
+
+- ID 74 : Modifications pour faciliter le portage Windows
+
+- ID 61 : Taille des noms des variables scalaires
+
+Modification dans la version 2.3.5 :
+
+- ID 67 : Problème de lecture des types géométriques en correspondance dans des joints en F90 avec int64
+	
+- ID 65 : Objets HDF restant ouverts après utilisation de MEDjointnCoress et MEDglobalNumLire.
+
+- ID 62 : Dysfontionement de la routine MEDglobalNumEcr en l'absence de
+	  numérotation optionnelle.
+
+- ID 63 : Ajout d'un include cstring dans MEDerreur.cxx necessaire à la compilation sous gcc 4.3.1.
+
+- ID 64 : Correction du Makefile.am de medimport (difficulté de compilation
+          sous OSX)
+
+Modification dans la version 2.3.4 :
+
+- ID55 : Une optimisation dans la couche basse de MED fichier permet aux routines MEDnAttribut et MEDnGroupe d'avoir
+	 un temps d'execution très réduit par rapport aux versions MED antérieures.
+
+- ID52 :  MED_NUM_MAJEUR, MED_NUM_MINEUR, et MED_NUM_RELEASE sont définis dans med.h
+
+- ID53 :  Correction d'un bug dans MEDunvCr qui provoquait parfois un débordement mémoire
+	
+Modification dans la version 2.3.3 :
+
+- ID37 :  Anomalie de la routine "MEDgro2famCr" corrigée
+
+- ID38 :  Symboles indéfinis dans la bibliothèque libMedC supprimés
+
+- ID39 :  Possibilité d'enregistrer des champs aux noeuds par élément (indépendant des points de Gauss)
+
+- ID40 :  Documentation sur la numérotation des processeurs dans l'utilisation des joints
+
+- ID41 :  La documentation précise d'utiliser MED_NONE pour la correspondance des noeuds dans les joints
+	
+- ID48 :  Ecriture du nombre de points de gauss incorrect dans le nom de la localisation de référence généré par medimport
+  	  (présence d'un blanc si le nombre de points de Gauss est sur 1 digit)
+
+- ID43 :  medimport est maintenant disponible sous forme de bibliothèque C et C++ (avec exceptions standards et MEDerreur)
+
+- ID44 :  Ajout de paramètres à l'utilitaire "mdump" (mdump --champs, mdump --sequence, mdump --maillage)
+	
+Modification dans la version 2.3.2 :
+
+- ID4  :  Affichage des maillages structurés dans l'utilitaire "mdump"
+	
+- ID22 :  Divers bugs concernant les liens
+	
+- ID19 :  Affichage erroné des équivalences et joints dans mdump
+	
+- ID15 :  Incohérence entre les routines MEDcoordLire/Ecr et MEDdimEspaceCr dans la documentation
+	
+- ID17 :  Affichage désordonné de la connectivité dans mdump
+	
+- ID33 :  Verification de la présence de la famille 0 dans mdump
+
+- ID31 :  Evolution de l'utilitaire medimport pour MED 2.3.2
+	
+- ID14 :  Correction d'affichages multiples des champs en présence de plusieurs maillages dans "mdump"
+	
+- ID28 :  Vérifier la version du fichier dans mdump avant de lancer l'affichage
+	
+- ID34 :  Indiquer dans la FAQ que l'écriture du n° de famille 0 pour les noeuds et les éléments est optionnel
+	
+- ID3  :  Compactage dans le fichier des valeurs des champs définies selon un profil
+
+- ID23 :  Gestion des droits d'accès aux fichiers en cas d'ouvertures multiples
+
+- ID32 :  Problème dans l'activation des messages d'erreur
+
+- ID18 :  Installation de type cross-compilation possible en précisant manuellement la taille du int fortran
+
+- ID9  :  Prise en compte complète du mode d'ouverture de fichier MED_LECTURE_ECRITURE 
+
+- ID24 :  Intégration des modifs proposées par OCC pour portage WINDOWS (cf med_win_dll.h )
+
+- ID25 :  Quelque soit le type de connectivité (nodale/descendante), la numérotation optionnelle si elle est présente n'est jamais utilisée dans la définition des connectivités.
+
+- ID21 :  Mécanisme de drivers pour assurer la compatibilité ascendante entre les versions mineures de MED
+
+- ID11 : Compatibilité avec la procédure d'installation  Code_SATURNE sous Auto Make
+
+- ID35 : Vérification à la création de datagroups que les noms ne se terminent pas par un blanc (en C).
+
+Modification dans la version 2.3.1 :
+
+- FT56 : Par convention, le stockage du n° de famille d'un type déentité donnée
+	 n'est pas necessaire pour la famille 0.
+
+- FT99 : Problème dans l'interface C/F77 lors de la lecture du paramètre de localisation des points de Gauss
+	 (MEDchampLire/efchal).
+
+- FT108 : Problème en C lors de la lecture de la localisation des points de Gauss (MEDchampLire/efchal). Lorsqu'il
+	 n'y a pas de localisation une chaine blanche était renvoyée au lieu d'une chaine vide.
+
+- FT109 : Fichier de modelededonnee.html tronqué  (manque HEXA27...)
+
+- FT111 : Il n'est plus necessaire de définir le type de plateforme à la compilation.
+	  Le paramétrage de la taille du med_int est défini automatiquement en fonction des compilateurs utilisés.
+
+- FT112 : Définition d'un nom de localisation réservée pour des points de Gauss aux noeuds par élément.
+
+Modification dans la version 2.3.0 :
+
+- FT96 : Amélioration de l'affichage des numéros des entités dans mdump
+
+- FT98 : Correction du bug dans medimport sur la génération de la localisation
+	 des points de Gauss (1 type géométrique -> plusieurs modèles)
+
+- FT99 : Correction du bug sur la lecture de la localisation des points 
+	 de Gauss dans la routine fortran efchar
+
+- FT100 : Pb lors de la lecture avec l'API FORTRAN d'une
+          famille écrite avec l'API C, si la famille comporte
+          plusieurs groupes.
+	
+- EVOL1 : Support des joints et gestion de la numérotation globale.
+	
+
+Modification dans la version 2.2.3 :
+
+- FT95 : Lecture de la localisation des points de Gauss avec 
+	 MEDchamplire/efchal incorrecte.
+	
+- FT85 : TEST 26 ne passe pas en mode OSF_32.
+
+- FT86 : Bug dans MEDstructureCoordEcr/Lire pour
+         les maillages structures 3D.
+
+- FT83 : Portage sous LINUX 64 bits (Opteron).
+
+- FT89 : Type géométrique écrit incorrectement par MEDGaussEcr.
+	 Sur TRUE64 le test C n°10 enregistre le type géométrique 
+	 de façon incorrecte.
+
+- FT91 : medimport et hdf 5-1.4.4. Pb de conversion des familles 
+	 avec hdf 5-1.4.4.
+
+- FT88 : Localisation des points de Gauss. Dans le dump, quand un champ 
+	comporte des points de Gauss, il faudrait mettre le nom 
+	de la localisation associée.
+
+- FT90 : Type de champ incorrectement géré dans MEDchampLire MEDscalaireInfo 
+	MEDchampInfo MEDgaussLire sur TRUE64.
+
+- FT92 : Erreur dans la description de la routine efngau.
+
+- FT93 : Pb de fermeture avec MEDnoeudLire. Pb de fermeture du fichier apres ex         ecution de MEDnoeudLire.
+
+- FT94:	 Mise a jour de l affichage des coordonnees dans  mdump.
+
+
+
+Modification dans la version 2.2.2 :
+
+- FT79 : Retour du nom de maillage dans la routine efpdti.
+Le nom de maillage retourne comporte maintenant des blancs.
+
+- FT74 : Declaration de MED_NOREF dans med.hf.
+
+- FT75 :  Affichage des polyèdres dans mdump.
+Le problème d'affichage est corrigé.
+
+- FT73 :  Affichage des polygones dans mdump.
+Les polygones déclarés comme des faces dans un fichier ne sont plus affichés par "mdump".
+
+- FT80 : Routine efmaai
+Le problème de la routine efmaai pour la lecture du type du maillage est corrigé.
+
+- FT81 : Routines efgaue et efgaul
+Le problème de déclaration des paramètres des types géométriques et du mode de stockage des coordonnées est corrigé.
+
+- FT77 : Affichage des groupes dans mdump
+Ancien mode d'affichage de la numérotation : 0..(N-1).
+Nouveau mode d'affichage : 1..N
+
+- FT78 : Documentation de MEDpasDeTempsInfo/efpdti.
+Les unités des pas de temps sont desormais  définies comme étant à 16 caractères.
+Quand il n'y a pas de points de Gauss MED_NOPG est renvoyé.
+

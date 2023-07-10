@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier:  Fichier source de test2.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- GÃ©nÃ©rÃ© par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;rÃ©fÃ©rence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_a772e3069001940b0633c6a305062f73.html">tests</a></li><li class="navelem"><a class="el" href="dir_af43e92bbe58c5b6d88c00fda3bf8e19.html">c</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">test2.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00880.html">Aller Ã  la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">/******************************************************************************</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * - Nom du fichier : test2.c</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * - Description : exemples de creation de maillages MED.</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> *****************************************************************************/</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a00880_a8e315da8f14d473c025c8a1f6af2f979.html#a8e315da8f14d473c025c8a1f6af2f979">   26</a></span>&#160;<span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifdef DEF_LECT_ECR</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define MODE_ACCES MED_ACC_RDWR</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#elif DEF_LECT_AJOUT</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#define MODE_ACCES MED_ACC_RDEXT</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a00880_a29a43500a889d39744e184ece0d749be.html#a29a43500a889d39744e184ece0d749be">   35</a></span>&#160;<span class="preprocessor">#define MODE_ACCES MED_ACC_CREAT</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a00880_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">   38</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00880_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> ret=0;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid=0;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">char</span> des[<a class="code" href="a00577_ab69710ecf9f5257080a943579852d0f0.html#ab69710ecf9f5257080a943579852d0f0">MED_COMMENT_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a> hdfok=<a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046">MED_FALSE</a>, medok=<a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046">MED_FALSE</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a> fileexist=<a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046">MED_FALSE</a>, accessok=<a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046">MED_FALSE</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">char</span> axisname[3*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">char</span> axisunit[3*<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">int</span>  cstp = 0;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  strcat(axisname,<span class="stringliteral">&quot;x               &quot;</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  strcat(axisname,<span class="stringliteral">&quot;y               &quot;</span>);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  strcat(axisname,<span class="stringliteral">&quot;z               &quot;</span>);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  strcat(axisunit,<span class="stringliteral">&quot;cm              &quot;</span>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  strcat(axisunit,<span class="stringliteral">&quot;cm              &quot;</span>);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  strcat(axisunit,<span class="stringliteral">&quot;cm              &quot;</span>);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="comment">/* Verification de la conformite du format med du fichier test1.med */</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <a class="code" href="a01049_gae125d3c97a7b1fc07b4cba6abe227280.html#gae125d3c97a7b1fc07b4cba6abe227280">MEDfileExist</a>( <span class="stringliteral">&quot;test1.med&quot;</span>, <a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85a616bf8345c622a34f0787f42eb400f25">MED_ACC_RDONLY</a>, &amp;fileexist, &amp;accessok );</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">if</span> (!fileexist) {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Le fichier test1.med n&#39;existe pas.&quot;</span>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordflow">if</span> (!accessok) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Le fichier test1.med ne peut pas être ouvert selon le mode d&#39;accès demandé .&quot;</span>);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="comment">/* Verification de la conformite du format med du fichier test1.med */</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  ret = <a class="code" href="a01049_gac3e0eb335c4d611cbbeaf7688050f054.html#gac3e0eb335c4d611cbbeaf7688050f054">MEDfileCompatibility</a>(<span class="stringliteral">&quot;test1.med&quot;</span>,&amp;hdfok,&amp;medok);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordflow">if</span> (!hdfok) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Format HDF non conforme ou fichier inexistant&quot;</span>);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordflow">if</span> (!medok) {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Format MED non conforme ou fichier inexistant&quot;</span>);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">/*   Ouverture en mode de lecture du fichier &quot;test1.med&quot;  */</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;test1.med&quot;</span>,<a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85a616bf8345c622a34f0787f42eb400f25">MED_ACC_RDONLY</a>);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordflow">if</span> (fid &lt; 0) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ouverture du fichier test1.med en mode MED_LECTURE&quot;</span>);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">/*    Affiche de l&#39;en-tete du fichier  */</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  ret = <a class="code" href="a01049_ga9c728192b1e39a31a7da0005fb4a8a41.html#ga9c728192b1e39a31a7da0005fb4a8a41">MEDfileCommentRd</a>(fid, des);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keywordflow">if</span> (ret == 0)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    printf(<span class="stringliteral">&quot;En-tete du fichier test1.med : %s\n&quot;</span>,des);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture de l&#39;en-tete du fichier test1.med&quot;</span>);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    ret = -1;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">/*   Fermeture du fichier test1.med */</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  ret = <a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordflow">if</span> (ret &lt; 0) {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la fermeture du fichier test1.med&quot;</span>);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="comment">/* Verification de la conformite du format med du fichier test2.med */</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <a class="code" href="a01049_gae125d3c97a7b1fc07b4cba6abe227280.html#gae125d3c97a7b1fc07b4cba6abe227280">MEDfileExist</a>( <span class="stringliteral">&quot;test2.med&quot;</span>, <a class="code" href="a00880_a29a43500a889d39744e184ece0d749be.html#a29a43500a889d39744e184ece0d749be">MODE_ACCES</a>, &amp;fileexist, &amp;accessok );</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keywordflow">if</span> (!fileexist) {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Le fichier test2.med n&#39;existe pas.&quot;</span>);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="keywordflow">if</span> (!accessok) {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Le fichier test2.med ne peut pas être ouvert selon le mode d&#39;accès demandé .&quot;</span>);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="comment">/* Ouverture en mode creation du fichier test2.med */</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;test2.med&quot;</span>,<a class="code" href="a00880_a29a43500a889d39744e184ece0d749be.html#a29a43500a889d39744e184ece0d749be">MODE_ACCES</a>);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keywordflow">if</span> (fid &lt; 0) {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation du fichier test2.med&quot;</span>);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="comment">/* Creation du maillage &quot;maa1&quot; de type MED_UNSTRUCTURED_MESH</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">     et de dimension 3 */</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="a01055_ga6007c3f1a62732e7a46c5eca232be78a.html#ga6007c3f1a62732e7a46c5eca232be78a">MEDmeshCr</a>(fid,<span class="stringliteral">&quot;maa1&quot;</span>,3,3,<a class="code" href="a00577_a821a4dd94c5c6b095318432bdec8d8a1.html#a821a4dd94c5c6b095318432bdec8d8a1a3719e53a4838d222f0a58148292fda41">MED_UNSTRUCTURED_MESH</a>,</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                <span class="stringliteral">&quot;un premier maillage&quot;</span>,<span class="stringliteral">&quot;s&quot;</span>,<a class="code" href="a00577_a5b97067a30629cd60470d074691d6798.html#a5b97067a30629cd60470d074691d6798ae896b6adfbde9870b4e875e5167eddd0">MED_SORT_DTIT</a>,</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                <a class="code" href="a00577_a57867e4bed1d104c865cfc9d23c9204d.html#a57867e4bed1d104c865cfc9d23c9204da682ef7f1042079519664eae87f90297e">MED_CARTESIAN</a>,axisname,axisunit) &lt; 0) {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation du maillage maa1&quot;</span>);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    ret = -1;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="comment">/* Ecriture du nom universel pour &quot;maa1&quot; */</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="a01055_gacf8c693c876c31c40ad276bca989feea.html#gacf8c693c876c31c40ad276bca989feea">MEDmeshUniversalNameWr</a>(fid,<span class="stringliteral">&quot;maa1&quot;</span>) &lt; 0) {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation du nom universel de maa1&quot;</span>);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    ret = -1;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  }</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="comment">/* Creation du maillage &quot;maa2&quot; de type MED_UNSTRUCTURED_MESH</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">     et de dimension 2 dans un espace de dimension 3*/</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="a01055_ga6007c3f1a62732e7a46c5eca232be78a.html#ga6007c3f1a62732e7a46c5eca232be78a">MEDmeshCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,3,2,<a class="code" href="a00577_a821a4dd94c5c6b095318432bdec8d8a1.html#a821a4dd94c5c6b095318432bdec8d8a1a3719e53a4838d222f0a58148292fda41">MED_UNSTRUCTURED_MESH</a>,</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                <span class="stringliteral">&quot;un second maillage&quot;</span>,<span class="stringliteral">&quot;s&quot;</span>,<a class="code" href="a00577_a5b97067a30629cd60470d074691d6798.html#a5b97067a30629cd60470d074691d6798ae896b6adfbde9870b4e875e5167eddd0">MED_SORT_DTIT</a>,</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                <a class="code" href="a00577_a57867e4bed1d104c865cfc9d23c9204d.html#a57867e4bed1d104c865cfc9d23c9204da682ef7f1042079519664eae87f90297e">MED_CARTESIAN</a>,axisname,axisunit) &lt; 0) {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation du maillage maa2&quot;</span>);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    ret = -1;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  cstp = 1;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  <span class="keywordflow">if</span> ( <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,<a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                              <a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,0) &lt; 0) {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    fprintf(stderr,<span class="stringliteral">&quot;Erreur à la création de l&#39;étape de calcul n°%d du maillage maa2\n&quot;</span>,cstp);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment">/*     ret = -1; */</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  cstp++;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <span class="keywordflow">if</span> ( <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,<a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                              1,3,1.1) &lt; 0) {</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    fprintf(stderr,<span class="stringliteral">&quot;Erreur à la création de l&#39;étape de calcul n°%d du maillage maa2\n&quot;</span>,cstp);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">/*     ret = -1; */</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  }</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  cstp++;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <span class="keywordflow">if</span> ( <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,<a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                                0,0,1.1) &lt; 0) {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    fprintf(stderr,<span class="stringliteral">&quot;Erreur à la création de l&#39;étape de calcul n°%d du maillage maa2\n&quot;</span>,cstp);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">/*     ret = -1; */</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  }</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  cstp++;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  <span class="keywordflow">if</span> ( <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,<a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                                0,-1,1.1) &lt; 0) {</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    fprintf(stderr,<span class="stringliteral">&quot;Erreur à la création de l&#39;étape de calcul n°%d du maillage maa2\n&quot;</span>,cstp);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">/*     ret = -1; */</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  }</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  cstp++;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; <span class="keywordflow">if</span> ( <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,<a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                              -1,20,1.1) &lt; 0) {</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    fprintf(stderr,<span class="stringliteral">&quot;Erreur à la création de l&#39;étape de calcul n°%d du maillage maa2\n&quot;</span>,cstp);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="comment">/*     ret = -1; */</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  }</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; cstp++;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; fprintf(stderr,<span class="stringliteral">&quot;Erreur attendue : \n&quot;</span>);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; <span class="keywordflow">if</span> ( <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,<a class="code" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a>,<a class="code" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a>,</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                              20,-1,1.1) &lt; 0) {</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;   fprintf(stderr,<span class="stringliteral">&quot;Erreur à la création de l&#39;étape de calcul n°%d du maillage maa2\n&quot;</span>,cstp);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">/*     ret = -1; */</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  }</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; cstp++;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; fprintf(stderr,<span class="stringliteral">&quot;Erreur attendue : \n&quot;</span>);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; <span class="keywordflow">if</span> ( <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,0,0,</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                              20,-1,1.1) &lt; 0) {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;   fprintf(stderr,<span class="stringliteral">&quot;Erreur à la création de l&#39;étape de calcul n°%d du maillage maa2\n&quot;</span>,cstp);</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="comment">/*     ret = -1; */</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  }</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; cstp++;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; <span class="keywordflow">if</span> ( <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,20,-1,</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                              20,-1,1.1) &lt; 0) {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;   fprintf(stderr,<span class="stringliteral">&quot;Erreur à la création de l&#39;étape de calcul n°%d du maillage maa2\n&quot;</span>,cstp);</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="comment">/*     ret = -1; */</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  }</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; cstp++;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; fprintf(stderr,<span class="stringliteral">&quot;Erreur attendue car l&#39;étape a été crée précedement: \n&quot;</span>);</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; <span class="keywordflow">if</span> ( <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,1,3,</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                               20,-1,1.1) &lt; 0) {</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;   fprintf(stderr,<span class="stringliteral">&quot;Erreur à la création de l&#39;étape de calcul n°%d du maillage maa2\n&quot;</span>,cstp);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment">/*     ret = -1; */</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  }</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; cstp++;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; <span class="keywordflow">if</span> ( <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,20,-1,</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                               20,10,1.1) &lt; 0) {</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;   fprintf(stderr,<span class="stringliteral">&quot;Erreur à la création de l&#39;étape de calcul n°%d du maillage maa2\n&quot;</span>,cstp);</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="comment">/*     ret = -1; */</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  }</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; cstp++;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; fprintf(stderr,<span class="stringliteral">&quot;Erreur attendue car cette étape ne se place pas en dernière position : \n&quot;</span>);</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; <span class="keywordflow">if</span> ( <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,20,5,</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                               20,5,1.1) &lt; 0) {</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;   fprintf(stderr,<span class="stringliteral">&quot;Erreur à la création de l&#39;étape de calcul n°%d du maillage maa2\n&quot;</span>,cstp);</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment">/*     ret = -1; */</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  }</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; cstp++;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; fprintf(stderr,<span class="stringliteral">&quot;Erreur attendue car la création de cette étape chevauche la (20,10) : \n&quot;</span>);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; <span class="keywordflow">if</span> ( <a class="code" href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a>(fid,<span class="stringliteral">&quot;maa2&quot;</span>,20,-1,</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                               20,20,1.1) &lt; 0) {</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;   fprintf(stderr,<span class="stringliteral">&quot;Erreur à la création de l&#39;étape de calcul n°%d du maillage maa2\n&quot;</span>,cstp);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="comment">/*     ret = -1; */</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  }</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  <span class="comment">/* Creation du maillage &quot;maa3&quot; de type MED_UNSTRUCTURED_MESH</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="comment">     et de dimension 1 un espace de dimension 3*/</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="a01055_ga6007c3f1a62732e7a46c5eca232be78a.html#ga6007c3f1a62732e7a46c5eca232be78a">MEDmeshCr</a>(fid,<span class="stringliteral">&quot;maa3&quot;</span>,3,1,<a class="code" href="a00577_a821a4dd94c5c6b095318432bdec8d8a1.html#a821a4dd94c5c6b095318432bdec8d8a1a3719e53a4838d222f0a58148292fda41">MED_UNSTRUCTURED_MESH</a>,</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                <span class="stringliteral">&quot;un troisieme maillage&quot;</span>,<span class="stringliteral">&quot;s&quot;</span>,<a class="code" href="a00577_a5b97067a30629cd60470d074691d6798.html#a5b97067a30629cd60470d074691d6798ae896b6adfbde9870b4e875e5167eddd0">MED_SORT_DTIT</a>,</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                <a class="code" href="a00577_a57867e4bed1d104c865cfc9d23c9204d.html#a57867e4bed1d104c865cfc9d23c9204da682ef7f1042079519664eae87f90297e">MED_CARTESIAN</a>,axisname,axisunit) &lt; 0) {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation du maillage maa3&quot;</span>);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    ret = -1;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  }</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  <span class="comment">/* Fermeture du fichier */</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;  <span class="keywordflow">if</span> ( <a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid)  &lt; 0) {</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la fermeture du fichier&quot;</span>);</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  }</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;  <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;}</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;</div>
+<div class="ttc" id="a00880_a3c04138a5bfe5d72780bb7e82a18e627_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="a00880_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition:</b> <a href="a00880_source.html#l00038">test2.c:38</a></div></div>
+<div class="ttc" id="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba_html_abd29d7c6abaef5da2a5ed1b73464f0ba"><div class="ttname"><a href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a></div><div class="ttdeci">herr_t med_err</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00327">med.h:327</a></div></div>
+<div class="ttc" id="a01055_gacf8c693c876c31c40ad276bca989feea_html_gacf8c693c876c31c40ad276bca989feea"><div class="ttname"><a href="a01055_gacf8c693c876c31c40ad276bca989feea.html#gacf8c693c876c31c40ad276bca989feea">MEDmeshUniversalNameWr</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDmeshUniversalNameWr(const med_idt fid, const char *const meshname)</div><div class="ttdoc">Cette routine permet l&#39;Ã©criture du nom universel d&#39;un maillage. </div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00067">MEDmeshUniversalNameWr.c:67</a></div></div>
+<div class="ttc" id="a00577_a95919207fd7a18ba26e6e03f04811e3f_html_a95919207fd7a18ba26e6e03f04811e3f"><div class="ttname"><a href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a></div><div class="ttdeci">#define MED_NO_IT</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00316">med.h:316</a></div></div>
+<div class="ttc" id="a00591_html"><div class="ttname"><a href="a00591.html">med_utils.h</a></div></div>
+<div class="ttc" id="a01049_ga9376a1654b7bf099c3f8941074c5fdfb_html_ga9376a1654b7bf099c3f8941074c5fdfb"><div class="ttname"><a href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a></div><div class="ttdeci">MEDC_EXPORT med_idt MEDfileOpen(const char *const filename, const med_access_mode accessmode)</div><div class="ttdoc">Ouverture d&#39;un fichier MED. </div><div class="ttdef"><b>Definition:</b> <a href="a00661_source.html#l00041">MEDfileOpen.c:41</a></div></div>
+<div class="ttc" id="a01049_gac3e0eb335c4d611cbbeaf7688050f054_html_gac3e0eb335c4d611cbbeaf7688050f054"><div class="ttname"><a href="a01049_gac3e0eb335c4d611cbbeaf7688050f054.html#gac3e0eb335c4d611cbbeaf7688050f054">MEDfileCompatibility</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDfileCompatibility(const char *const filename, med_bool *const hdfok, med_bool *const medok)</div><div class="ttdoc">VÃ©rification de la compatibilitÃ© d&#39;un fichier avec HDF et MED. </div><div class="ttdef"><b>Definition:</b> <a href="a00652_source.html#l00034">MEDfileCompatibility.c:34</a></div></div>
+<div class="ttc" id="a00577_a5b97067a30629cd60470d074691d6798_html_a5b97067a30629cd60470d074691d6798ae896b6adfbde9870b4e875e5167eddd0"><div class="ttname"><a href="a00577_a5b97067a30629cd60470d074691d6798.html#a5b97067a30629cd60470d074691d6798ae896b6adfbde9870b4e875e5167eddd0">MED_SORT_DTIT</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00306">med.h:306</a></div></div>
+<div class="ttc" id="a00591_a3756046b0a6a7e51b8eb544d0d77c17c_html_a3756046b0a6a7e51b8eb544d0d77c17c"><div class="ttname"><a href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a></div><div class="ttdeci">#define MESSAGE(chaine)</div><div class="ttdef"><b>Definition:</b> <a href="a00591_source.html#l00316">med_utils.h:316</a></div></div>
+<div class="ttc" id="a00880_a29a43500a889d39744e184ece0d749be_html_a29a43500a889d39744e184ece0d749be"><div class="ttname"><a href="a00880_a29a43500a889d39744e184ece0d749be.html#a29a43500a889d39744e184ece0d749be">MODE_ACCES</a></div><div class="ttdeci">#define MODE_ACCES</div><div class="ttdef"><b>Definition:</b> <a href="a00880_source.html#l00035">test2.c:35</a></div></div>
+<div class="ttc" id="a01049_ga12a0e901c376be997a41a073ce426283_html_ga12a0e901c376be997a41a073ce426283"><div class="ttname"><a href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDfileClose(med_idt fid)</div><div class="ttdoc">Fermeture d&#39;un fichier MED. </div><div class="ttdef"><b>Definition:</b> <a href="a00649_source.html#l00030">MEDfileClose.c:30</a></div></div>
+<div class="ttc" id="a00577_a821a4dd94c5c6b095318432bdec8d8a1_html_a821a4dd94c5c6b095318432bdec8d8a1a3719e53a4838d222f0a58148292fda41"><div class="ttname"><a href="a00577_a821a4dd94c5c6b095318432bdec8d8a1.html#a821a4dd94c5c6b095318432bdec8d8a1a3719e53a4838d222f0a58148292fda41">MED_UNSTRUCTURED_MESH</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00129">med.h:129</a></div></div>
+<div class="ttc" id="a01055_ga6007c3f1a62732e7a46c5eca232be78a_html_ga6007c3f1a62732e7a46c5eca232be78a"><div class="ttname"><a href="a01055_ga6007c3f1a62732e7a46c5eca232be78a.html#ga6007c3f1a62732e7a46c5eca232be78a">MEDmeshCr</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDmeshCr(const med_idt fid, const char *const meshname, const med_int spacedim, const med_int meshdim, const med_mesh_type meshtype, const char *const description, const char *const dtunit, const med_sorting_type sortingtype, const med_axis_type axistype, const char *const axisname, const char *const axisunit)</div><div class="ttdoc">Cette routine permet de crÃ©er un maillage dans un fichier. </div><div class="ttdef"><b>Definition:</b> <a href="a00724_source.html#l00045">MEDmeshCr.c:45</a></div></div>
+<div class="ttc" id="a01049_gae125d3c97a7b1fc07b4cba6abe227280_html_gae125d3c97a7b1fc07b4cba6abe227280"><div class="ttname"><a href="a01049_gae125d3c97a7b1fc07b4cba6abe227280.html#gae125d3c97a7b1fc07b4cba6abe227280">MEDfileExist</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDfileExist(const char *const filename, const med_access_mode accessmode, med_bool *const fileexist, med_bool *const accessok)</div><div class="ttdoc">Interroge l&#39;existence d&#39;un fichier de nom filename et la possibilitÃ© de l&#39;ouvrir selon le mode d&#39;accÃ¨...</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00051">MEDfileExist.c:51</a></div></div>
+<div class="ttc" id="a00577_a23f7fa6d76886ed3c91dc33b59190dee_html_a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046"><div class="ttname"><a href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046">MED_FALSE</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00257">med.h:257</a></div></div>
+<div class="ttc" id="a01055_gae679b270b2e414666979c3f8aaddfa28_html_gae679b270b2e414666979c3f8aaddfa28"><div class="ttname"><a href="a01055_gae679b270b2e414666979c3f8aaddfa28.html#gae679b270b2e414666979c3f8aaddfa28">MEDmeshComputationStepCr</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDmeshComputationStepCr(const med_idt fid, const char *const meshname, const med_int numdt1, const med_int numit1, const med_int numdt2, const med_int numit2, const med_float dt2)</div><div class="ttdoc">Cette routine permet de crÃ©er une nouvelle sÃ©quence de calcul dans un maillage. </div><div class="ttdef"><b>Definition:</b> <a href="a00721_source.html#l00040">MEDmeshComputationStepCr.c:40</a></div></div>
+<div class="ttc" id="a00577_ab69710ecf9f5257080a943579852d0f0_html_ab69710ecf9f5257080a943579852d0f0"><div class="ttname"><a href="a00577_ab69710ecf9f5257080a943579852d0f0.html#ab69710ecf9f5257080a943579852d0f0">MED_COMMENT_SIZE</a></div><div class="ttdeci">#define MED_COMMENT_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00077">med.h:77</a></div></div>
+<div class="ttc" id="a00577_a57867e4bed1d104c865cfc9d23c9204d_html_a57867e4bed1d104c865cfc9d23c9204da682ef7f1042079519664eae87f90297e"><div class="ttname"><a href="a00577_a57867e4bed1d104c865cfc9d23c9204d.html#a57867e4bed1d104c865cfc9d23c9204da682ef7f1042079519664eae87f90297e">MED_CARTESIAN</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00255">med.h:255</a></div></div>
+<div class="ttc" id="a00577_afa4ec8284026c8c5545e5333475fb65a_html_afa4ec8284026c8c5545e5333475fb65a"><div class="ttname"><a href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a></div><div class="ttdeci">hid_t med_idt</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00326">med.h:326</a></div></div>
+<div class="ttc" id="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a_html_a8f72b6ceb3b6f5a67f9efd46cb90707a"><div class="ttname"><a href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a></div><div class="ttdeci">#define MED_NO_DT</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00315">med.h:315</a></div></div>
+<div class="ttc" id="a00577_a213ecd1a546eb96092b980a870bc386b_html_a213ecd1a546eb96092b980a870bc386b"><div class="ttname"><a href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a></div><div class="ttdeci">#define MED_SNAME_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00080">med.h:80</a></div></div>
+<div class="ttc" id="a00577_html"><div class="ttname"><a href="a00577.html">med.h</a></div></div>
+<div class="ttc" id="a00577_a23f7fa6d76886ed3c91dc33b59190dee_html_a23f7fa6d76886ed3c91dc33b59190dee"><div class="ttname"><a href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a></div><div class="ttdeci">med_bool</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00257">med.h:257</a></div></div>
+<div class="ttc" id="a01049_ga9c728192b1e39a31a7da0005fb4a8a41_html_ga9c728192b1e39a31a7da0005fb4a8a41"><div class="ttname"><a href="a01049_ga9c728192b1e39a31a7da0005fb4a8a41.html#ga9c728192b1e39a31a7da0005fb4a8a41">MEDfileCommentRd</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDfileCommentRd(const med_idt fid, char *const comment)</div><div class="ttdoc">Lecture d&#39;un descripteur dans un fichier MED. </div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00033">MEDfileCommentRd.c:33</a></div></div>
+<div class="ttc" id="a00577_adcd0322de9fec3b5e199ffeda3f44c85_html_adcd0322de9fec3b5e199ffeda3f44c85a616bf8345c622a34f0787f42eb400f25"><div class="ttname"><a href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85a616bf8345c622a34f0787f42eb400f25">MED_ACC_RDONLY</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00118">med.h:118</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+GÃ©nÃ©rÃ© le Lundi 10 DÃ©cembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

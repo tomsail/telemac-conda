@@ -1,0 +1,45 @@
+/ This case validates the EUTRO process
+/  of WAQTEL module
+/
+/****************************************************
+TITLE = 'Water Quality- EUTRO  process for Channel'
+/****************************************************
+/----------------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------------
+GEOMETRY FILE             = 'geo_waq2d_eutro.slf'
+BOUNDARY CONDITIONS FILE  = 'geo_waq2d_eutro.cli'
+RESULTS FILE              = 'r2d_waq2d_eutro.slf'
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'U,V,H,S,Q,T*'
+/
+/ Put a smaller period to have a more
+/ accurate time series
+/
+GRAPHIC PRINTOUT PERIOD          = 720
+LISTING PRINTOUT PERIOD          = 720
+MASS-BALANCE                     = YES
+TIME STEP                        = 3600.
+NUMBER OF TIME STEPS             = 8760
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+INITIAL CONDITIONS = 'CONSTANT DEPTH'
+INITIAL DEPTH      = 2.
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+LAW OF BOTTOM FRICTION           = 0
+/************************************
+/ TRACER
+/************************************
+/ initial values of         PHY,PO4,POR,NO3,NOR,NH4,L, O2
+INITIAL VALUES OF TRACERS = 0.5;3.; 1.1;0.2;4.9;5.5;0.7;1.
+/************************************
+/  WATER QUALITY
+/************************************
+COUPLING WITH         = 'WAQTEL'
+WAQTEL STEERING FILE  = 'waq_eutro_steer.cas'
+WATER QUALITY PROCESS = 5

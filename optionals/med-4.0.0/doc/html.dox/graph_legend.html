@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: Légende du graphe</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Légende du graphe</div>  </div>
+</div><!--header-->
+<div class="contents">
+<p>Cette page explique comment interpréter les graphes générés par doxygen.</p>
+<p>Considérez l'exemple suivant : </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;/*! Classe invisible à cause d&#39;une troncature */</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;class Invisible { };</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;/*! Classe tronquée, la relation d&#39;héritage est masquée */</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;class Truncated : public Invisible { };</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;/*! Classe non documentée avec des commentaires Doxygen */</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;class Undocumented { };</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;/*! Classe dérivée par héritage public */</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;class PublicBase : public Truncated { };</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;/*! Un modèle de classe */</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;template&lt;class T&gt; class Templ { };</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;/*! Classe dérivée par héritage protégé */</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;class ProtectedBase { };</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;/*! Classe dérivée par héritage privé */</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;class PrivateBase { };</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;/*! Classe utilisée par la classe dérivée */</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;class Used { };</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;/*! Super-classe qui hérite de plusieurs autres classes */</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;class Inherited : public PublicBase,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                  protected ProtectedBase,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                  private PrivateBase,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                  public Undocumented,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                  public Templ&lt;int&gt;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  private:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    Used *m_usedClass;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
+</div><!-- fragment --><p> Cela aboutira au graphe suivant :</p>
+<center><div class="image">
+<img src="graph_legend.jpg" />
+</div>
+</center><p>Les rectangles du graphe ci-dessus ont la signification suivante : </p><ul>
+<li>
+Un rectangle plein noir représente la structure ou la classe pour laquelle le graphe est généré. </li>
+<li>
+Un rectangle avec un bord noir indique une classe ou une structure documentée. </li>
+<li>
+Un rectangle avec un bord gris indique une classe ou une structure non documentée. </li>
+<li>
+Un rectangle avec un bord rouge indique une structure ou une classe documentée pour laquelle des relations d'héritage ou de collaboration manquent. Un graphe est tronqué s'il n'entre pas dans les limites spécifiées.</li>
+</ul>
+<p>Les flèches ont la signification suivante : </p><ul>
+<li>
+Une flèche bleu foncé est utilisée pour visualiser une relation d'héritage publique entre deux classes. </li>
+<li>
+Une flèche vert foncé est utilisée pour une relation d'héritage protégée. </li>
+<li>
+Une flèche rouge foncé est utilisée pour une relation d'héritage privée. </li>
+<li>
+Une flèche violette en pointillés est utilisée si une classe est contenue ou utilisée par une autre classe. La flèche est étiquetée avec la ou les variable(s) qui permettent d'accéder à la classe ou structure pointée. </li>
+<li>
+Une flèche jaune en pointillés indique une relation entre un modèle d'instance et le modèle de classe duquel il est instancié. La flèche est étiquetée avec les paramètres de modèle de l'instance. </li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:49 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

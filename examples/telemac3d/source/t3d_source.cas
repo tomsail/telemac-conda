@@ -1,0 +1,76 @@
+/ sur HP C3700   96 s  5.5  JMH le 15/12/2004
+/ sur HP C3700   77 s  5.6  JMH le 24/08/2005
+/ sur HP C3700   73 s  5.7  JMH le 13/02/2007 (Nag:163 s,Dell:52 s)
+/ sur HP C3700   77 s  5.8  JMH le 19/12/2007 (Nag:183 s,Dell:54 s)
+/ sur HP C3700   71 s  5.9  JMH le 17/10/2008 (Nag:165 s,Dell:44 s)
+/ sur HP C3700   64 s  6.0  JMH le 04/12/2009 (Nag:132 s,Dell:23 s)
+/
+/ avec schema de convection 13 sur les traceurs, et DT = 1.1
+/
+/ sur HP C3700   50 s  6.0  JMH le 21/05/2010 (Nag:126 s,Intel:24 s)
+/ sur HP C3700   43 s  6.1  JMH le 19/01/2011 (Nag:111 s,Intel:?? s)
+/ sur HP C3700   46 s  6.2  JMH le 25/05/2012
+/
+BOUNDARY CONDITIONS FILE : geo_source.cli
+GEOMETRY FILE            : geo_source.slf
+3D RESULT FILE           : r3d_source.slf
+2D RESULT FILE           : r2d_source.slf
+SOURCES FILE             : src_source.txt
+ORIGINAL DATE OF TIME : 2012;12;31
+ORIGINAL HOUR OF TIME : 12;0;0
+/
+NUMBER OF HORIZONTAL LEVELS : 5
+/----------------------------------------------------------------------/
+/                     OPTIONS GENERALES
+/----------------------------------------------------------------------/
+TITLE = 'TELEMAC 3D : TEST POUR SOURCE'
+VARIABLES FOR 2D GRAPHIC PRINTOUTS : 'U,V,H,S,B,TA*'
+VARIABLES FOR 3D GRAPHIC PRINTOUTS : 'Z,U,V,W,TA*'
+TIME STEP = 1.1
+NUMBER OF TIME STEPS = 1000
+GRAPHIC PRINTOUT PERIOD : 100
+LISTING PRINTOUT PERIOD : 100
+/
+INITIAL CONDITIONS              = 'ZERO ELEVATION'
+/----------------------------------------------------------------------/
+/     SOURCES
+/----------------------------------------------------------------------
+ABSCISSAE OF SOURCES : -21.6234302520752; -0.77898901700974
+ORDINATES OF SOURCES :   5.29613780975342; -9.99086666107178
+ELEVATIONS OF SOURCES     :  -0.5; -0.5
+WATER DISCHARGE OF SOURCES    :   1.0;  1.0
+VELOCITIES OF THE SOURCES ALONG X  :  0.0; 0.5
+VELOCITIES OF THE SOURCES ALONG Y  :  0.0; 2.0
+/ THE KEYWORD VALUE OF THE TRACERS AT THE SOURCES IS NOT READ HERE
+/ BECAUSE THERE IS A SOURCES FILE. IF THERE IS NOT ANY, TO GET THE SAME
+/ RESULTS, THE VALUES HAVE TO BE WRITTEN IN THE FOLLOWING ORDER
+/                                    S1_T1;S1_T2;S1_T3;S2_T1;S2_T2;S2_T3
+VALUE OF THE TRACERS AT THE SOURCES : 10.0; 10.0;  0.0;  0.0; 10.0; 10.0
+/----------------------------------------------------------------------/
+/     PROPAGATION
+/----------------------------------------------------------------------/
+ACCURACY FOR PROPAGATION = 1.E-8
+IMPLICITATION FOR DEPTH   = 0.6
+IMPLICITATION FOR VELOCITIES = 0.6
+/----------------------------------------------------------------------
+MASS-BALANCE : YES
+SCHEME FOR ADVECTION OF TRACERS = 13;13;13
+/----------------------------------------------------------------------/
+/     TRACEUR
+/----------------------------------------------------------------------/
+TIDAL FLATS : NO
+NUMBER OF TRACERS = 3
+INITIAL VALUES OF TRACERS : 0.;0.;0.
+ACCURACY FOR DIFFUSION OF TRACERS = 1.E-9
+/
+/ SCHEME OPTION FOR ADVECTION OF TRACERS : 4 (DEFAULT) NOT POSSIBLE
+/ WITH MURD 13, SHOULD BE CHANGED IN 1 OR 2
+SCHEME OPTION FOR ADVECTION OF TRACERS = 1;1;1
+/
+/ DEFAULT VALUES UNTIL V7P3 KEPT FOR NON REGRESSION
+NON-HYDROSTATIC VERSION : NO
+LAW OF BOTTOM FRICTION : 2
+/
+/ DEFAULT VALUES UNTIL V8P0 KEPT FOR NON REGRESSION
+SCHEME FOR ADVECTION OF VELOCITIES = 1
+FRICTION COEFFICIENT FOR THE BOTTOM = 60.

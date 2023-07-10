@@ -1,0 +1,74 @@
+/
+/
+FICHIER DES CONDITIONS AUX LIMITES  : '../input_data/t2d_garonne.cli'
+FICHIER DE GEOMETRIE                : '../input_data/t2d_garonne.geo'
+FICHIER DES RESULTATS               : sortie_gar.slf
+/
+/
+/
+/
+/----------------------------------------------------------------------/ 
+/                     OPTIONS GENERALES                                  
+/----------------------------------------------------------------------/ 
+TITRE = 'CAS GARONNE'     
+/         
+SUITE DE CALCUL : OUI
+REMISE A ZERO DU TEMPS : OUI
+FICHIER DU CALCUL PRECEDENT :
+'../input_data/r2d_garonne_reprise_zonal.slf'
+/                          
+/CONDITIONS INITIALES : 'PARTICULIERES'                          
+VARIABLES POUR LES SORTIES GRAPHIQUES : 'U,V,H,S,B,L,W,F'    
+/U,V: Vitesse; H: Hauteur d'eau; S: Cote de la surface libre; W:Strickler
+/B: Cote du fond; F: Froude; I,J: Debit; L: Nombre de courant; T: Traceur.  
+VARIABLES A IMPRIMER : ''                                                
+PAS DE TEMPS = 5
+DUREE DU CALCUL = 1800.
+/DUREE DU CALCUL = 259200.
+PERIODE POUR LES SORTIES GRAPHIQUES : 600
+PERIODE DE SORTIE LISTING = 300
+LOI DE FROTTEMENT SUR LE FOND : 3
+COEFFICIENT DE FROTTEMENT = 17.
+/----------------------------------------------------------------------/ 
+/     PROPAGATION                                                        
+/----------------------------------------------------------------------/ 
+MODELE DE TURBULENCE : 1 
+COEFFICIENT DE DIFFUSION DES VITESSES = 1.E-1                                                          
+IMPLICITATION POUR LA HAUTEUR = 1.0 
+IMPLICITATION POUR LA VITESSE = 1.0  
+PRECONDITIONNEMENT : 2 
+ORDRE DU TIR INITIAL POUR H : 1                
+/---------------------------------------------------------------/
+/
+BANCS DECOUVRANTS = OUI	
+OPTION DE TRAITEMENT DES BANCS DECOUVRANTS = 1 	
+BILAN DE MASSE : OUI 
+VALIDATION : NON                                         
+DEBITS IMPOSES = 5300.;0.
+COURBES DE TARAGE = 0;1
+FICHIER DES COURBES DE TARAGE = '../input_data/Tarage-Reole.txt'
+PROFILS DE VITESSE = 1;1
+FORME DE LA CONVECTION   : 13;5
+TRAITEMENT DES HAUTEURS NEGATIVES = 2
+MASS-LUMPING SUR H        = 1.
+CORRECTION DE CONTINUITE = OUI
+OPTION DE SUPG           : 2;0
+NOMBRE DE SOUS-ITERATIONS POUR LES NON-LINEARITES : 1 
+COMPATIBILITE DU GRADIENT DE SURFACE LIBRE = 0.1 
+/
+/EQUATION D'ONDE                                                                                               
+DISCRETISATIONS EN ESPACE: 11;11
+TRAITEMENT DU SYSTEME LINEAIRE : 2
+SOLVEUR : 1
+/OPTION DU SOLVEUR : 4                                    
+MAXIMUM D'ITERATIONS POUR LE SOLVEUR : 200
+PRECISION DU SOLVEUR = 1.E-6
+/
+/
+/                                   
+STOCKAGE DES MATRICES : 3       
+PRODUIT MATRICE-VECTEUR : 1                                   
+/LONGUEUR DU VECTEUR = 1
+
+/----------------------------------------------------------------------/ 
+/&ETA

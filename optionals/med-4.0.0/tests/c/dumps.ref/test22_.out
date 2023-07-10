@@ -1,0 +1,21 @@
+Nombre de variables scalaires dans test21.med = 2
+- Scalaire n°1 de nom VariableEntiere 
+  Type entier. 
+  Description associee : [Une premiere description] 
+  Nombre de pas de temps : 2 
+   Valeur n°1 : 
+   - Aucun de pas de temps 
+   - Aucun numero d'ordre 
+    - Valeur : 56 
+   Valeur n°2 : 
+   - Pas de de temps de numero 1 de valeur 5.500000 [ms] 
+   - Aucun numero d'ordre 
+    - Valeur : -789 
+- Scalaire n°2 de nom VariableFlottante 
+  Type flottant. 
+  Description associee : [Une seconde description] 
+  Nombre de pas de temps : 1 
+   Valeur n°1 : 
+   - Pas de de temps de numero 1 de valeur 5.500000 [ms] 
+   - Numero d'ordre : 2 
+    - Valeur : 67.980000 

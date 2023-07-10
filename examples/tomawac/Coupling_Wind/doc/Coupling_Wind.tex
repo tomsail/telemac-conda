@@ -1,0 +1,76 @@
+\chapter{Coupling Wind}
+\section{Purpose}
+This case has been created to ensure that in case of a coupling between
+\telemac2d or \telemac3d and \tomawac, the wind transmitted as a coupling
+variable is well taken into account.
+
+\section{Description of the cases}
+  
+Several case of coupling are tested. The first one is inheritaded from case
+littoral but to simplify we erased the coupling with (sisyphe/gaia) (steering file
+{\it t2d\_littoral.cas}). From this case, we also test the tel2tom technic. We
+remind here that this technic allows us to couple telemac2d and tomawac on
+different meshes and different domain. First we test the technic on the same mesh
+(steering file {\it t2d\_same.cas}) and then on different meshes (steering file
+{\it t2d\_different.cas}). In the case of different mesh tomawac is calculated on a
+coarser mesh but a little bit bigger.  
+
+In a second time, we are testing the coupling with wind in 3 dimension.
+Note that the wind is still in 2D since \tomawac uses a 2D wind. The first case is
+a 2D coupling in 3 dimension (steering file {\it t3d\_littoral.cas}) and the second
+case is a real 3D coupling (steering file {\it t3d\_3Dcoupling.cas})
+
+In all case, we build the reference with a wind exchanged by file (written by
+\telemac and read by \tomawac). Note that the reference can not be constructed
+anymore, since after the validation, the coupling with the use of a wind file
+in \tomawac is forbidden. Then we verify that the wind exchanged by coupling
+leads to a result equal to the result of the reference. Note that in the case of
+different mesh, the wind written on the mesh of \tomawac is written by another
+telemac2d steering file ({\it t2d\_diffwind.cas}). In that case the boundary
+conditions are not the same as for littoral as it would necessitate a dedicated
+user fortran for that mesh and it is not the point of this test. 
+
+On a practical point of vue, since a wind read by \tomawac is interpolated on time
+step between 2 read, we had to construct our results with a coupling period of 1,
+so that the wind transmitted by coupling has the same actualisation. 
+
+\section{Results}
+We present the results obtained for hm0 in all case, but the most important result
+is that there is no difference if the wind is exchanged by file or by coupling.
+This validates the developpements done for all the coupling.
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/hm0_littoral2d.png}
+ \caption{Hm0 in classical 2D coupling.}
+\label{hm0littoral2d}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/hm0_same.png}
+ \caption{Hm0 with tel2tom and same mesh.}
+\label{hm0same}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/hm0_different.png}
+ \caption{Hm0 with tel2tom and different mesh.}
+\label{hm0different}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/hm0_3dlittoral.png}
+ \caption{Hm0 in the case 3D littoral.}
+\label{hm03dlittoral}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/hm0_3dcoupling.png}
+ \caption{Hm0 in the case 3D coupling.}
+\label{hm03dcoupling}
+\end{figure}
+

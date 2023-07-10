@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: msdcrw</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="a01074.html">Guide de référence du module fortran MEDsubdomainJoint</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="contents">
+<table cellspacing="0" cellpadding="0" border="0">
+  <tr>
+   <td valign="top">
+      <div class="navtab">
+        <table>
+          <tr><td class="navtab"><a class="qindexHL" href="a01074_ga1bfa5efab2c4edb54e5046707251c8ac.html#ga1bfa5efab2c4edb54e5046707251c8ac">msdcrw</a></td></tr>
+          <tr><td class="navtab"><a class="qindex" href="a01074_gad174a460873cbe35cc3d93daec020bd1.html#gad174a460873cbe35cc3d93daec020bd1">msdnjn</a></td></tr>
+        </table>
+      </div>
+   </td>
+   <td valign="top" class="mempage">
+<a class="anchor" id="ga1bfa5efab2c4edb54e5046707251c8ac"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine msdcrw </td>
+          <td>(</td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>fid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character *(*)&#160;</td>
+          <td class="paramname"><em>lmname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character *(*)&#160;</td>
+          <td class="paramname"><em>jname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>numdt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>numit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>entlcl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>geolcl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>entdst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>geodst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer:dimension(*)&#160;</td>
+          <td class="paramname"><em>corrtab</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>cret</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cette routine permet l'écriture d'une correspondance dans un joint pour un type de couple d'entité en regard et une séquence de calcul donnés. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fid</td><td>Identificateur du fichier. </td></tr>
+    <tr><td class="paramname">lmname</td><td>Nom du maillage local, de longueur maximum <a class="el" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a> . </td></tr>
+    <tr><td class="paramname">jname</td><td>Nom du joint, de longueur maximum <a class="el" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a> . </td></tr>
+    <tr><td class="paramname">numdt</td><td>Numéro de pas de temps de l'étape de calcul (<a class="el" href="a00577_a8f72b6ceb3b6f5a67f9efd46cb90707a.html#a8f72b6ceb3b6f5a67f9efd46cb90707a">MED_NO_DT</a> si pas de numéro de pas de temps). </td></tr>
+    <tr><td class="paramname">numit</td><td>Numéro d'itération de l'étape de calcul (<a class="el" href="a00577_a95919207fd7a18ba26e6e03f04811e3f.html#a95919207fd7a18ba26e6e03f04811e3f">MED_NO_IT</a> si pas de numéro d'itération). </td></tr>
+    <tr><td class="paramname">entlcl</td><td>Type des entités du sous-domaine local mises en correspondance </td></tr>
+    <tr><td class="paramname">geolcl</td><td>Type géométrique des entités du sous-domaine local. </td></tr>
+    <tr><td class="paramname">entdst</td><td>Type des entités du sous-domaine en vis à vis mises en correspondance. </td></tr>
+    <tr><td class="paramname">geodst</td><td>Type géométrique des entités du sous-domaine en vis à vis. </td></tr>
+    <tr><td class="paramname">n</td><td>Nombre d'entités de même type géométrique constituant globalement le maillage. </td></tr>
+    <tr><td class="paramname">corrtab</td><td>Tableau de correspondances sur les entités. </td></tr>
+    <tr><td class="paramname">cret</td><td>retour négatif en cas d'erreur, Zéro sinon.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Cette routine permet l'écriture d'un tableau de correspondance dans un joint pour un type de couple d'entité en regard, les correspondances y sont rangées 2 à 2. Le type géométrique peut être : </p><ul>
+<li>Pour les noeuds (MED_NODE) : MED_NONE. </li>
+<li>Pour les mailles (MED_CELL) : MED_POINT1, MED_SEG2, MED_SEG3, MED_SEG4, MED_TRIA3, MED_TRIA7, MED_TRIA6, MED_QUAD4, MED_QUAD8, MED_QUAD9, MED_POLYGON. </li>
+<li>Pour les faces (MED_DESCENDING_FACE) : MED_TRIA3, MED_TRIA6, MED_TRIA7, MED_QUAD4, MED_QUAD8, MED_QUAD9, MED_POLYGON. </li>
+<li>Pour les arêtes (MED_DESCENDING_EDGE) : MED_SEG2, MED_SEG3, MED_SEG4. <dl class="section user"><dt>Remarques</dt><dd>Du point de vue du stockage, un maillage distribué a la même structure qu'un maillage MED classique mais ses composantes (entités géométrique, familles, groupes) peuvent être réparties sur plusieurs sous-domaines affectés à des processeurs disjoints. Lors de cette distribution certains sommets, faces, arêtes ou mailles se retrouvent sur la frontière commune de deux sous-domaines. L'ensemble de ces éléments communs à deux sous-domaines constitue un joint. Dans un cadre très général, les éléments communs à deux sous-domaines peuvent apparaître comme : </dd></dl>
+</li>
+<li>La jointure de deux maillages qui se correspondent parfaitement : on parle alors de raccordement conforme, </li>
+<li>La jointure de deux maillages de pavage différent : raccordement non conforme, </li>
+<li>Le recouvrement de deux maillages qu'il soit conforme ou non. </li>
+</ul>
+
+<p>Définition à la ligne <a class="el" href="a00692_source.html#l00051">51</a> du fichier <a class="el" href="a00692_source.html">medjoint.f</a>.</p>
+
+</div>
+</div>
+    </td>
+  </tr>
+</table>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:49 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

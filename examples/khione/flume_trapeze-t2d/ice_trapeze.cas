@@ -1,0 +1,37 @@
+/----------------------------------------------------------------------
+/
+/ Steering file for the hydrodynamics: KHIONE
+/
+/----------------------------------------------------------------------
+/  FILES
+/----------------------------------------------------
+/
+GEOMETRY FILE                = 'geo_trapeze.slf'
+BOUNDARY CONDITIONS FILE     = 'geo_trapeze.cli'
+RESULTS FILE                 = 'ice_trapeze.slf'
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'F1'
+/
+GRAPHIC PRINTOUT PERIOD          = 30
+LISTING PRINTOUT PERIOD          = 60
+/
+/----------------------------------------------------------------------
+/  PHYSICAL PROPERTIES FOR HEAT EXCHANGES
+/----------------------------------------------------------------------
+/
+ATMOSPHERE-WATER EXCHANGE MODEL = 0
+SOLAR CONSTANT = 0.
+WATER-AIR HEAT EXCHANGE CONSTANT = 0.
+WATER-AIR HEAT EXCHANGE COEFFICIENT = 20.0
+/
+/----------------------------------------------------------------------
+/  PHYSICAL PROPERTIES FOR THERMAL GROWTH
+/----------------------------------------------------------------------
+/
+PRESCRIBED FRAZIL CONCENTRATION VALUES  = 0.;0.
+INITIAL FRAZIL CONCENTRATION VALUES = 0.
+SCHEME FOR ADVECTION OF TRACERS = 14
+COEFFICIENT FOR DIFFUSION OF FRAZIL = 0.
+SCHEME OPTION FOR ADVECTION OF TRACERS = 2
+/
+/----------------------------------------------------------------------

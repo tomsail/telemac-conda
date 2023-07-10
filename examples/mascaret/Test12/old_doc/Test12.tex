@@ -1,0 +1,153 @@
+\documentclass[a4paper,10pt]{article}
+
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P0}
+
+\subsection*{Validation du noyau de calcul transitoire}
+
+\subsection*{\emph{Onde de détente dans un canal rectangulaire.}}
+
+\subsection*{Numéro du cas test : 12}
+
+\subsection*{Auteur : N.GOUTAL}
+
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+Ce cas test a pour but de valider le noyau de calcul REZO dans le cas d'une onde de détente dans un canal rectangulaire. Le domaine de calcul $(x,t)$ est tel que la condition limite aval n'a pas d'influence (canal infini).
+
+\subsection*{Données géométriques}
+
+Le calcul est réalisé dans un canal rectangulaire de pente nulle, de longueur $18\mbox{ } km$ et de largeur $200\mbox{ } m$. La géométrie du canal est décrite par 2 profils en travers situés aux abscisses $X = 0\mbox{ }m$ et $X = 18000\mbox{ } m$.
+
+\subsection*{Données physiques}
+
+Le frottement n'est pas pris en compte.
+
+\begin{itemize}
+ \item Conditions aux limites :
+  \begin{itemize}
+  \item Débit imposé à l'amont tel que la vitesse décroît linéairement :
+  \\
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline Temps($s$) & Débit($m^{3}.s^{-1}$) \\ 
+\hline $ 0 $ & $ 2000 $ \\ 
+\hline $ 25 $ & $ 1936.1036 $ \\ 
+\hline $ 50 $ & $ 1872.9678 $ \\ 
+\hline $ 75 $ & $ 1810.5895 $ \\ 
+\hline $ 100 $ & $ 1748.9646 $ \\ 
+\hline $ 200 $ & $ 1509.9228 $ \\ 
+\hline $ 300 $ & $ 1282.6300 $ \\ 
+\hline $ 400 $ & $ 1066.8414 $ \\ 
+\hline $ 500 $ & $ 862.3125 $ \\ 
+\hline $ 600 $ & $ 668.7986 $ \\ 
+\hline $ 700 $ & $ 496.0551 $ \\ 
+\hline $ 800 $ & $ 313.8372 $ \\ 
+\hline $ 900 $ & $ 151.9004 $ \\ 
+\hline $ 1000 $ & $ 0. $ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+\vspace{0.3cm} 
+
+  \item Cote constante imposée à l'aval : $15\mbox{ } m$
+  \end{itemize}
+ \item Condition initiale :
+  \begin{itemize}
+  \item Ecoulement permanent uniforme
+  \item Débit constant ($2000 m^{3}.s^{-1}$)
+  \item Surface libre horizontale ($15\mbox{ } m$)
+  \end{itemize}
+\end{itemize} 
+
+
+
+\subsection*{Données numériques}
+
+Le domaine a été divisé en 200 mailles de longueur constante égale à $90\mbox{ } m$.\\ 
+Le pas de planimétrage est homogène dans le domaine égal à $0.25\mbox{ } m$ (40 pas de planimétrage). \\
+Le pas de temps est de $10\mbox{ } s$ et le calcul est mené pendant $1000\mbox{ } s$ soit 100 pas de temps.
+
+
+
+\subsection*{Résultats}
+
+La solution analytique peut être calculée à l'aide de la méthode des caractéristiques.\\
+ Le détail des calculs est donnée dans la référence\footnote{A. Lebossé,\emph{Codes de calcul d'écoulement à surface libre filiaire "LIDO", "SARA" et "REZO"-Note de validation}, Rapport HE-43/92/065/B, 1992}.\\ 
+Dans le tableau suivant, nous comparons l'évolution temporelle de la cote à la condition limite amont par rapport à la solution analytique.
+
+
+\begin{center} 
+\begin{tabular}{|c|c|c|c|c|c|} 
+\hline  & & $H$ calculée & $H$ calculée  & $H$ calculée \\ 
+Temps ($s$) & H analytique($m$) &  noyau fluvial  & noyau transcritique 
+ &  noyau transcritique \\ 
+ & & permanent $Dt=10\mbox{ }s$ &  
+Implicite $Dt=10\mbox{ }s$ &  $Dt=5\mbox{ }s$ \\ 
+\hline $200$ &  $ 4.718$ & $4.718$ & $4.718$ &  $4.719$\\ 
+\hline $400 $ & $4.445$ & $4.444$ & $4.445$ & $4.445$ \\ 
+\hline $600$ & $4.180$ & $4.178$ & $4.179$ & $4.180$ \\ 
+\hline $800$ & $3.923$ & $3.920$ & $3.921$ & $3.923$ \\ 
+\hline $1000$ & $3.674$ & $3.671$ & $3.672$ & $3.674$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+	
+	Nous pouvons remarquer le bon accord des deux noyaux de calcul (Schéma implicite et explicite pour le noyau transcritique) avec la solution analytique.\\ 
+Les figures suivantes représentent au temps $T=1000\mbox{ } s$, l'évolution spatiale du débit et de la cote.\\
+ On connaît analytiquement la position du front d'onde $x = 9000\mbox{ }s$ défini par un débit supérieur à $1974 \mbox{ }m^3.s^{-1}$.\\
+Dans le tableau suivant, sont donnés la position de l'onde pour les différents noyaux :
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline Solution analytique & Noyau fluvial & Noyau trans. Explicite  & Noyau trans. Implicite  \\ 
+\hline $9000\mbox{ }m$ & $9090\mbox{ }m$ & $9360\mbox{ }m$ & $10260\mbox{ }m$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+Le schéma "différences finies " du noyau fluvial est d'ordre 2 en espace et par conséquent diffuse moins que les 2 autres schémas qui sont d'ordre 1 en espace d'où la meilleure précision sur le front d'onde. 
+
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure1.eps}
+  \caption{La cote à $t=1000\mbox{ }$s}
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+\begin{figure}[]
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure2.eps}
+  \caption{ Débits $t=1000\mbox{ }s$}
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+\vspace{5cm}
+
+\subsection*{Conclusion}
+
+Les résultats obtenus sur ce cas test sont similaires avec ceux des versions précédentes. De plus, la comparaison entre les différents noyaux permet de compléter cette validation et montrer le bon comportement des 2 noyaux de calcul. 
+
+%
+% fin du document
+%
+\end{document}          

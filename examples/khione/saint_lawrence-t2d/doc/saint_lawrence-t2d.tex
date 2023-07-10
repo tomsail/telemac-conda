@@ -1,0 +1,132 @@
+\renewcommand{\labelitemi}{$\triangleright$}
+
+\chapter{Saint Lawrence}
+
+\section{Purpose}
+
+The border ice formation in the reach of St. Lawrence River from Ogdensburg to Power Dam is
+simulated to test the applicability of the border ice module. This reach is an ideal channel to
+examine the border ice module because of the complex geometry with number of islands and
+large variation of flow depth. 
+This test case also demonstrates that \khione is capable of modeling frazil ice formation,
+transport accumulation at the free surface in a real life configuration.
+
+\section{Description}
+
+\subsection{Geometry, mesh and bathymetry}
+
+The domain upstream boundary is set to Ogdensburg and the downstream is set to the Power Dam.
+%The mesh of the domain was created with a uniform density and with $23960$ elements and $12600$ vertices (cf. figure \ref{fig:mesh}).
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.9\textwidth]}{../img/mesh.png}
+    \end{center}
+    \caption{Domain mesh}
+    \label{fig:mesh}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/bottom.png}
+    \end{center}
+    \caption{Bathymetry}
+    \label{fig:bathy}
+\end{figure}
+
+
+\subsection{Initial conditions}
+
+A hydrodynamics steady state condition is established first separately to reach a constant and uniform elevation and a constant and uniform discharge.
+Water temperature is initially set at $0.0^\circ C$.
+
+\subsection{Atmospheric drivers and boundary conditions}
+
+In Figure \ref{fig:mto_data} the observed discharge and air temperature are given for the winter of 2019.
+Several freeze-up periods are highlighted.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{img/temperature_02-2019.png}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{img/flowrate_02-2019.png}
+    \end{center}
+    \caption{Measured air temperature at Station OBGN6 (8311030 Ogdensburg) and measured discharge during winter 2019 at Robert Moses-Robert H. Saunders power dam on Lake St. Lawrence (source: USGS)}
+    \label{fig:mto_data}
+\end{figure}
+
+There are 2 open boundaries as described in Figure \ref{fig:mesh}.
+The solid boundaries are considered as solid walls with perfect slip conditions.
+A constant water surface elevation of $74.40$ m is considered at the upstream  boundary
+and a constant discharge of $6400$m$^3$/s is imposed at the downstream boundary.
+
+For this test case, the full heat exchanges are used i.e. within the \khione steering file:
+\begin{itemize}
+	\item\textit{ATMOSPHERE-WATER EXCHANGE MODEL = 1}
+\end{itemize}
+Air temperature is set to a constant of $-20^{\circ}$ during the simulation.
+
+\subsection{Physical parameters}
+
+In order to balance the slope and the discharge through the flume, a Manning friction law is used, with a coefficient of $0.025$.
+
+To activate the simulation of border ice processes, the following keywords are added to the \khione steering file:
+\begin{itemize}
+	\item\textit{BORDER ICE COVER = YES}
+  \item\textit{ICE COVER IMPACT ON HYDRODYNAMIC = YES}
+\end{itemize}
+
+
+\subsection{Numerical parameters}
+The time step is set to $1s$ and the number of timestep is set to $86400$ which leads to a simulation time of one day.
+
+\section{Results}
+
+Figure \ref{fig:velocity} shows the simulated steady state water velocity. Figure \ref{fig:observed_border_ice_cover} and Figure \ref{fig:simulated_border_ice_cover} show the
+good agreement between observed and simulated border ice distribution in the St. Lawrence
+River.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/water_depth_1.png}
+    \end{center}
+    \caption{Simulated steady state water depth.}
+    \label{fig:water_depth}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/velocity_1.png}
+    \end{center}
+    \caption{Simulated steady state water velocity.}
+    \label{fig:velocity}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.8\textwidth]}{img/observed_border_ice_cover.png}
+    \end{center}
+    \caption{Observed typical border ice distribution during freeze up in the St. Lawrence River.}
+    \label{fig:observed_border_ice_cover}
+\end{figure}
+
+%\begin{figure}[H]
+%    \begin{center}
+%        \includegraphicsmaybe{[width=\textwidth]}{../img/ice_type_1.png}
+%    \end{center}
+%    \caption{Simulated border ice distribution in the St. Lawrence River.}
+%    \label{fig:simulated_border_ice_cover}
+%\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/ice_titot_1.png}
+    \end{center}
+    \caption{Simulated border ice thickness in the St. Lawrence River.}
+    \label{fig:simulated_border_ice_cover}
+\end{figure}
+
+
+\section{Conclusions}
+This test case shows the ability of \khione to model the formation of border ice along a river during a freeze-up period.
+
+\renewcommand{\labelitemi}{\textbullet}

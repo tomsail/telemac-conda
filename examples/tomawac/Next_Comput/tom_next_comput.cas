@@ -1,0 +1,65 @@
+/********************************************************************
+/             FICHIER DES PARAMETRES DE TOMAWAC
+/********************************************************************
+/
+/
+/--------------------------------------------------------------------
+/     FICHIERS
+/--------------------------------------------------------------------
+GEOMETRY FILE = 'geo_next.slf'
+BOUNDARY CONDITIONS FILE = 'geo_next.cli'
+/
+2D RESULTS FILE = 'r2d_.slf'
+PUNCTUAL RESULTS FILE = 'next_comput.spe'
+GLOBAL RESULT FILE = 'glo_next.slf'
+/--------------------------------------------------------------------
+/ DIVERS ENTREES-SORTIES
+/--------------------------------------------------------------------
+TITLE = 'SHOAL TEST VINCENT AND BRIGGS N1 MESH 80CM'
+PERIOD FOR GRAPHIC PRINTOUTS = 1000
+VARIABLES FOR 2D GRAPHIC PRINTOUTS =
+HM0,DMOY,TMOY,TPR5,TM02,ZF,SPD
+PERIOD FOR LISTING PRINTOUTS = 1000
+ABSCISSAE OF SPECTRUM PRINTOUT POINTS =9.78
+ORDINATES OF SPECTRUM PRINTOUT POINTS =17.07
+/--------------------------------------------------------------------
+/ DISCRETISATION
+/--------------------------------------------------------------------
+TIME STEP = 0.1
+NUMBER OF TIME STEP = 6000
+NUMBER OF DIRECTIONS = 36
+NUMBER OF FREQUENCIES = 22
+MINIMAL FREQUENCY = 0.35
+FREQUENTIAL RATIO = 1.1
+/--------------------------------------------------------------------
+/ COMPUTATION OPTIONS
+/--------------------------------------------------------------------
+MINIMUM WATER DEPTH = 0.01
+CONSIDERATION OF SOURCE TERMS = NO
+CONSIDERATION OF A WIND = NO
+WIND GENERATION = 0
+/--------------------------------------------------------------------
+/  INITIAL CONDITIONS
+/--------------------------------------------------------------------
+TYPE OF INITIAL DIRECTIONAL SPECTRUM = 7
+INITIAL SIGNIFICANT WAVE HEIGHT = 0.
+INITIAL PEAK FREQUENCY = 0.1
+INITIAL PEAK FACTOR = 1.
+INITIAL ANGULAR DISTRIBUTION FUNCTION = 3
+INITIAL DIRECTIONAL SPREAD 1 = 20
+INITIAL MAIN DIRECTION 1 = 0.
+/--------------------------------------------------------------------
+/   BOUNDARY CONDITIONS
+/--------------------------------------------------------------------
+TYPE OF BOUNDARY DIRECTIONAL SPECTRUM = 7
+BOUNDARY PEAK FACTOR = 2.
+/ pour avoir le alpha de briggs en TMA
+BOUNDARY SIGNIFICANT WAVE HEIGHT = 0.1008288189902181
+BOUNDARY PEAK FREQUENCY = 0.7692
+BOUNDARY MAIN DIRECTION 1 = 90.
+BOUNDARY ANGULAR DISTRIBUTION FUNCTION = 3
+BOUNDARY DIRECTIONAL SPREAD 1 = 64.66
+NEXT COMPUTATION : YES
+PREVIOUS COMPUTATION FILE : ini_next.slf
+PREVIOUS COMPUTATION FILE FORMAT = 'SERAFIND'
+/

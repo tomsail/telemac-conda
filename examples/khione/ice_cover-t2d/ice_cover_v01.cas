@@ -1,0 +1,45 @@
+/----------------------------------------------------------------------
+/
+/ Steering file for the hydrodynamics: KHIONE
+/
+/----------------------------------------------------------------------
+/  FILES
+/----------------------------------------------------
+/
+GEOMETRY FILE                       = 'geo_longflume.slf'
+BOUNDARY CONDITIONS FILE            = 'geo_longflume.cli'
+PREVIOUS ICE COVER COMPUTATION FILE = 'ini_cover_v01.slf'
+RESULTS FILE                        = 'ice_cover_v01.slf'
+/
+/----------------------------------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------------------------------
+/
+VARIABLES FOR GRAPHIC PRINTOUTS = 'COV_EQ,COV_ET,COV_EB,COV_THT'
+/
+GRAPHIC PRINTOUT PERIOD          = 360
+LISTING PRINTOUT PERIOD          = 360
+HEAT BUDGET = NO
+WATER DENSITY = 1000.
+/
+/----------------------------------------------------------------------
+/  ICE COVER PARAMETERS
+/----------------------------------------------------------------------
+/
+ICE COVER IMPACT ON HYDRODYNAMIC = YES
+MODEL FOR THE ICE COVER PRESSURE GRADIENT = 2
+/
+/ FRICTION LAW FOR WATER-ICE INTERACTION:
+LAW OF ICE COVER FRICTION = 4 /(Manning)
+MODEL FOR UNDER COVER FRICTION = 1
+/
+/ ROUGNESS AS LINEAR FUNCTION OF ICE COVER THCIKNESS
+/ LAW FOR FRICTION COEFFICIENT     = 1
+/
+/ ICE COVER ROUGHNESS MIN AND MAX USED IN LINEAR ROUGHNESS LAW
+ICE FRICTION COEFFICIENT         = 0.02
+/ MAXIMAL FRICTION COEFFICIENT     = 0.04
+/ EQUIVALENT SURFACE ICE THICKNESS = 0.001
+/
+/----------------------------------------------------------------------
+/

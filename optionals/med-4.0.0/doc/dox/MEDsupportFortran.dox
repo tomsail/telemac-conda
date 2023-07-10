@@ -1,0 +1,87 @@
+/**\ingroup MEDsupportFortran
+   \fn subroutine msmcre(integer fid, character*(*) maa, integer sdim, integer mdim, character*(*) des, integer atype, character*(*) aname, character*(*) aunit, integer cret)
+   \brief \MEDsupportMeshCrBrief
+   \param fid \fid
+   \param maa \supportmeshname
+   \param sdim    \spacedim
+   \param mdim     \meshdim
+   \param des \description
+   \param atype    \axistype
+   \param aname    \axisname
+   \param aunit    \axisunit
+   \param cret \error
+   \see MEDsupportMeshCr
+   \details \MEDsupportMeshCrDetails
+*/
+
+/**\ingroup MEDsupportFortran
+   \fn subroutine msmnsm( integer fid , integer n , integer cret)
+   \brief \MEDnSupportMeshBrief
+   \param fid      \fid
+   \param n \nmesh
+   \param cret \error
+  \see MEDnSupportMesh
+  \details \MEDnSupportMeshDetails
+*/
+
+/**\ingroup MEDsupportFortran
+   \fn subroutine msmsni(integer fid, character*(*) name, integer sdim, integer mdim, character*(*) desc, integer atype, character*(*) aname, character*(*) aunit, integer cret)
+  \brief \MEDsupportMeshInfoByNameBrief
+  \param fid \fid
+  \param name \supportmeshname
+  \param sdim \spacedim
+  \param mdim \meshdim
+  \param desc \description
+  \param atype \axistype
+  \param aname \axisname
+  \param aunit \axisunit
+  \param cret \error
+  \see MEDsupportMeshInfoByName
+  \details \MEDsupportMeshInfoByNameDetails
+*/
+
+/**\ingroup MEDsupportFortran
+   \fn subroutine msmsmi(integer fid, integer it, character*(*) name, integer sdim, integer mdim, character*(*) desc, integer atype, character*(*) aname, character*(*) aunit, integer cret)
+  \brief \MEDsupportMeshInfoBrief
+  \param fid \fid
+  \param it \meshit
+  \param name \supportmeshname
+  \param sdim \spacedim
+  \param mdim \meshdim
+  \param desc \description
+  \param atype \axistype
+  \param aname \axisname
+  \param aunit \axisunit
+  \param cret \error
+  \see MEDsupportMeshInfo
+  \details \MEDsupportMeshInfoDetails
+*/
+
+
+/**\ingroup MEDsupportFortran
+   \fn subroutine  msmnax(integer fid, integer it, integer naxis, integer cret)
+   \brief \MEDsupportMeshnAxisBrief
+   \param fid \fid
+   \param it \meshit
+   \param naxis \naxis
+   \param cret \error
+   \see MEDsupportMeshnAxis
+   \details \MEDsupportMeshnAxisDetails
+*/
+
+/**\ingroup MEDsupportFortran
+   \fn subroutine   msmnan(integer fid, character*(*) name, integer naxis, integer cret)
+   \brief \MEDsupportMeshnAxisByNameBrief
+   \param fid \fid
+   \param name \meshname
+   \param naxis \naxis
+   \param cret \error
+   \see MEDsupportMeshnAxisByName
+   \details \MEDsupportMeshnAxisByNameDetails
+*/
+
+
+
+
+
+

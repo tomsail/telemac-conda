@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: c/2.3.6/test19.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">c/2.3.6/test19.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/******************************************************************************</span></div>
+<div class="line"><span class="comment"> * - Nom du fichier : test19.c</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * - Description : conversion groupes =&gt; famille </span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *****************************************************************************/</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="a00591.html">med_utils.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#ifdef DEF_LECT_ECR</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_LECTURE_ECRITURE</span></div>
+<div class="line"><span class="preprocessor">#elif DEF_LECT_AJOUT</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_LECTURE_AJOUT</span></div>
+<div class="line"><span class="preprocessor">#else</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_CREATION</span></div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a name="a0"></a><a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">{</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line">  <span class="keywordtype">char</span> maa[MED_TAILLE_NOM+1] = <span class="stringliteral">&quot;maillage_test19&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> desc[MED_TAILLE_DESC+1]=<span class="stringliteral">&quot;un maillage pour test19.med&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> mdim=2;</div>
+<div class="line">  <span class="comment">/* Donnees de tests pour MEDgro2FamCr() </span></div>
+<div class="line"><span class="comment">     Les noeuds/mailles sont numerotes de 1 a 5 et les</span></div>
+<div class="line"><span class="comment">     groupes de 1 a 3.</span></div>
+<div class="line"><span class="comment">     Au depart, on a :</span></div>
+<div class="line"><span class="comment">     - G1 : 1,2</span></div>
+<div class="line"><span class="comment">     - G2 : 3,4,6</span></div>
+<div class="line"><span class="comment">     - G3 : 1,4</span></div>
+<div class="line"><span class="comment">     Au retour, on foit avoir 4 familles de noeuds + 4 familles de mailles </span></div>
+<div class="line"><span class="comment">     + la famille 0 dans le fichier :</span></div>
+<div class="line"><span class="comment">     - F0 : 5       - groupes : aucun groupe par defaut (convention habituelle).</span></div>
+<div class="line"><span class="comment">     - F1 : 1       - groupes : G1,G3  </span></div>
+<div class="line"><span class="comment">     - F2 : 2       - groupes : G1</span></div>
+<div class="line"><span class="comment">     - F3 : 3,6     - groupes : G2</span></div>
+<div class="line"><span class="comment">     - F4 : 4       - groupes : G2,G3</span></div>
+<div class="line"><span class="comment">  */</span></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ngroup = 3;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nent = 6;</div>
+<div class="line">  <span class="keywordtype">char</span> nom_groupes[MED_TAILLE_LNOM*3+1];</div>
+<div class="line">  <span class="comment">/*                     0 1  2 3 4  5 6 */</span></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> entites[7] = { 1,2, 3,4,6, 1,4};</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> index[4] =   { 1,   3,     6,   8};</div>
+<div class="line">  <span class="keywordtype">int</span> i;</div>
+<div class="line">  <span class="keywordtype">char</span> nom_famille0[MED_TAILLE_NOM+1] = <span class="stringliteral">&quot;FAMILLE0&quot;</span>;</div>
+<div class="line">  <span class="comment">/* on fait la meme distribution pour des mailles */</span></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ngeo = 3;</div>
+<div class="line">  med_geometrie_element geo[3] = {<a name="a1"></a><a class="code" href="a00577_a29927daaa1a87f2129295a68264ad526.html#a29927daaa1a87f2129295a68264ad526">MED_SEG2</a>,<a name="a2"></a><a class="code" href="a00577_a4a1eb7ba296742a6f5eb8b5b23b39670.html#a4a1eb7ba296742a6f5eb8b5b23b39670">MED_TRIA3</a>,<a name="a3"></a><a class="code" href="a00577_a8924ab0dac0ab1a0c090e0d7fe842a8f.html#a8924ab0dac0ab1a0c090e0d7fe842a8f">MED_TETRA4</a>};</div>
+<div class="line">  <span class="comment">/* MED_SEG2 : M1,M2,M3 - MED_TRI3 : M4,M5 - MED_TETRA4 : M6 */</span></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> index_geo[4] = {1,4,6,7};</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Creation du fichier test19.med */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((fid = MEDouvrir(<span class="stringliteral">&quot;test19.med&quot;</span>,<a name="a4"></a><a class="code" href="a00853_a29a43500a889d39744e184ece0d749be.html#a29a43500a889d39744e184ece0d749be">MODE_ACCES</a>)) &lt; 0) {</div>
+<div class="line">    <a name="a5"></a><a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation du fichier test19.med&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Creation du fichier test19.med \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Creation du maillage */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDmaaCr(fid,maa,mdim,MED_NON_STRUCTURE,desc) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation du maillage&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Creation du maillage \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* on teste la fonction MEDgro2fam() */</span></div>
+<div class="line">  <span class="comment">/* on definit les noms des groupes */</span></div>
+<div class="line">  strcpy(nom_groupes,<span class="stringliteral">&quot;GROUPE 1&quot;</span>);</div>
+<div class="line">  <span class="keywordflow">for</span> (i=8;i&lt;MED_TAILLE_LNOM;i++)</div>
+<div class="line">    nom_groupes[i] = <span class="charliteral">&#39; &#39;</span>;</div>
+<div class="line">  nom_groupes[MED_TAILLE_LNOM] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line">  strcat(nom_groupes,<span class="stringliteral">&quot;GROUPE 2&quot;</span>);</div>
+<div class="line">  <span class="keywordflow">for</span> (i=8;i&lt;MED_TAILLE_LNOM;i++)</div>
+<div class="line">    nom_groupes[MED_TAILLE_LNOM+i] = <span class="charliteral">&#39; &#39;</span>;</div>
+<div class="line">  nom_groupes[2*MED_TAILLE_LNOM] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line">  strcat(nom_groupes,<span class="stringliteral">&quot;GROUPE 3&quot;</span>);</div>
+<div class="line">  <span class="keywordflow">for</span> (i=8;i&lt;MED_TAILLE_LNOM;i++)</div>
+<div class="line">    nom_groupes[2*MED_TAILLE_LNOM+i] = <span class="charliteral">&#39; &#39;</span>;</div>
+<div class="line">  nom_groupes[3*MED_TAILLE_LNOM] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* On cree la famille 0 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDfamCr(fid,maa,nom_famille0,0,NULL,NULL,NULL,0,NULL,0) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation de la famille 0&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Creation de la famille 0 \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* </span></div>
+<div class="line"><span class="comment">   * On definit et on archive les familles de noeuds dans test.19.med </span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDgro2famCr(fid,maa,nom_groupes,index,ngroup,entites,nent,</div>
+<div class="line">                   MED_NOEUD,NULL,NULL,0) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation des familles de noeuds &quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;On constuit les familles de noeuds et on les stocke dans test19.med \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* </span></div>
+<div class="line"><span class="comment">   * On fait la meme chose pour des mailles de differents types </span></div>
+<div class="line"><span class="comment">   */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDgro2famCr(fid,maa,nom_groupes,index,ngroup,entites,nent,</div>
+<div class="line">                   MED_MAILLE,geo,index_geo,ngeo) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation des familles d&#39;elements &quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;On constuit les familles d&#39;elements et on les stocke dans test19.med \n&quot;</span>);  </div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Fermeture du fichier */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDfermer(fid) &lt;0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la fermeture du fichier&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Fermeture du fichier \n&quot;</span>);</div>
+<div class="line">  </div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

@@ -1,0 +1,47 @@
+/  HP C3700 : 60 s  5.5 JMH 16/12/2004
+/  HP C3700 : 57 s  5.5 JMH 04/03/2005 (nouvelle diffusion)
+/  HP C3700 : 53 s  5.6 JMH 24/08/2005
+/  HP C3700 : 38 s  5.6 JMH 12/10/2005 (segments)
+/  HP C3700 : 36 s  5.7 JMH 06/02/2007 (Nag : 99 s,Dell:28 s)
+/  HP C3700 : 34 s  5.8 JMH 19/12/2007 (Nag : 96 s,Dell:29 s)
+/  HP C3700 : 35 s  5.9 JMH 29/08/2008 (Nag :102 s,Dell:28 s)
+/  HP C3700 : 26 s  6.0 JMH 21/05/2010 (Nag : 74 s,Intel:14 s)
+/  HP C3700 : 25 s  6.1 JMH 21/01/2011 (Nag : 73 s,Intel:?? s)
+/  HP C3700 : 27 s  6.2 JMH 29/05/2012 (Nag : ?? s,Intel:?? s)
+/---------------------------------------------
+/ TELEMAC-3D V5.1 NH-EULER
+/ Test case 4b Propagation over uneven seabed
+/---------------------------------------------
+TITLE = 'Propagation over uneven seabed'
+FORTRAN FILE             = 'user_fortran'
+GEOMETRY FILE            = geo_uneven.slf
+BOUNDARY CONDITIONS FILE = geo_uneven.cli
+3D RESULT FILE           = r3d_uneven.slf
+2D RESULT FILE           = r2d_uneven.slf
+/
+NON-HYDROSTATIC VERSION : YES
+/
+INITIAL CONDITIONS : 'PARTICULAR'
+/
+SCHEME FOR ADVECTION OF VELOCITIES = 1
+/
+SCHEME FOR DIFFUSION OF VELOCITIES = 0
+COEFFICIENT FOR HORIZONTAL DIFFUSION OF VELOCITIES = 0.
+COEFFICIENT FOR VERTICAL DIFFUSION OF VELOCITIES   = 0.
+/
+ACCURACY FOR PPE = 1.E-6
+/
+VARIABLES FOR 2D GRAPHIC PRINTOUTS = 'U,V,H,S,B'
+VARIABLES FOR 3D GRAPHIC PRINTOUTS = 'Z,U,V,W'
+/
+NUMBER OF HORIZONTAL LEVELS = 3
+NUMBER OF TIME STEPS = 100
+TIME STEP = 0.25
+LISTING PRINTOUT PERIOD = 20
+GRAPHIC PRINTOUT PERIOD = 50
+/
+LAW OF BOTTOM FRICTION = 0
+TIDAL FLATS = NO
+/
+/ DEFAULT VALUES UNTIL V8P0 KEPT FOR NON REGRESSION
+IMPLICITATION FOR VELOCITIES = 1.

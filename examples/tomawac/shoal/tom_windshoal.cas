@@ -1,0 +1,65 @@
+/********************************************************************
+/              TOMAWAC  STEERING FILE
+/********************************************************************
+/--------------------------------------------------------------------
+/     FILES THIS FILE IS CREATING THE FILE FOR NEXT COMPUTATION
+/--------------------------------------------------------------------
+GEOMETRY FILE = 'geo_shoal.slf'
+BOUNDARY CONDITIONS FILE = 'geo_shoal.cli'
+2D RESULTS FILE = 'r2d_windshoal600.slf'
+PUNCTUAL RESULTS FILE = 'tom_windshoal600.spe'
+GLOBAL RESULT FILE ='glob_res1200.res'
+/--------------------------------------------------------------------
+/ MISCELLANEOUS INPUT-OUTPUT
+/--------------------------------------------------------------------
+TITLE = 'SHOAL TEST MODIFIED WITH WIND'
+PERIOD FOR GRAPHIC PRINTOUTS = 300
+VARIABLES FOR 2D GRAPHIC PRINTOUTS =
+HM0,DMOY,TMOY,TPR5,TM02,ZF,SPD
+PERIOD FOR LISTING PRINTOUTS = 300
+ABSCISSAE OF SPECTRUM PRINTOUT POINTS =9.78
+ORDINATES OF SPECTRUM PRINTOUT POINTS =17.07
+/--------------------------------------------------------------------
+/ DISCRETIZATION
+/--------------------------------------------------------------------
+TIME STEP = 0.1
+NUMBER OF TIME STEP = 12000
+NUMBER OF DIRECTIONS = 36
+NUMBER OF FREQUENCIES = 22
+MINIMAL FREQUENCY = 0.35
+FREQUENTIAL RATIO = 1.1
+/--------------------------------------------------------------------
+/ COMPUTATION OPTIONS
+/--------------------------------------------------------------------
+MINIMUM WATER DEPTH = 0.01
+/--------------------------------------------------------------------
+/  INITIAL CONDITIONS
+/--------------------------------------------------------------------
+TYPE OF INITIAL DIRECTIONAL SPECTRUM = 7
+INITIAL SIGNIFICANT WAVE HEIGHT = 0.
+INITIAL PEAK FREQUENCY = 0.1
+INITIAL PEAK FACTOR = 1.
+INITIAL ANGULAR DISTRIBUTION FUNCTION = 3
+INITIAL DIRECTIONAL SPREAD 1 = 20
+INITIAL MAIN DIRECTION 1 = 0.
+/--------------------------------------------------------------------
+/   BOUNDARY CONDITIONS
+/--------------------------------------------------------------------
+TYPE OF BOUNDARY DIRECTIONAL SPECTRUM = 7
+BOUNDARY PEAK FACTOR = 2.
+/HAUTEUR SIGNIFICATIVE AUX LIMITES = 0.075
+/ pour avoir le alpha de briggs en TMA
+BOUNDARY SIGNIFICANT WAVE HEIGHT = 0.1008288189902181
+BOUNDARY PEAK FREQUENCY = 0.7692
+BOUNDARY MAIN DIRECTION 1 = 90.
+BOUNDARY ANGULAR DISTRIBUTION FUNCTION = 3
+BOUNDARY DIRECTIONAL SPREAD 1 = 64.66
+/--------------------------------------------------------------------
+CONSIDERATION OF SOURCE TERMS = YES
+CONSIDERATION OF A WIND = YES
+WIND GENERATION = 2
+WAVE GROWTH LIMITER           =1
+WIND VELOCITY ALONG Y         =130.28
+WIND VELOCITY ALONG X         =140.15
+STATIONARY WIND         =true
+NUMBER OF ITERATIONS FOR THE SOURCE TERMS = 5

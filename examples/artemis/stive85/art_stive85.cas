@@ -1,0 +1,77 @@
+/---------------------------------------------------------------------
+/ ARTEMIS Version v6p2 juillet 2012
+/ Breaking of monochromatic wave
+/---------------------------------------------------------------------
+/
+/---------------------------------------------------------------------
+/ FILE INPUTS - OUTPUTS
+/---------------------------------------------------------------------
+/
+RESULTS FILE              ='r2d_stive85.slf'
+/
+BOUNDARY CONDITIONS FILE  ='geo_stive85.cli'
+/
+FORTRAN FILE              = f90
+/
+GEOMETRY FILE             ='geo_stive85.slf'
+/
+/---------------------------------------------------------------------
+/ GENERAL SETTINGS
+/---------------------------------------------------------------------
+/
+TITLE ='BREAKING OF RANDOM WAVE - STIVE 1985'
+/
+/
+/---------------------------------------------------------------------
+/ LISTING
+/---------------------------------------------------------------------
+/
+WAVE HEIGHTS SMOOTHING           = NO
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  ='HS,ZF,C,CG,QB'
+/
+/---------------------------------------------------------------------
+/ INITIAL CONDITIONS
+/---------------------------------------------------------------------
+/
+INITIAL CONDITIONS   ='CONSTANT ELEVATION'
+/
+INITIAL WATER LEVEL  = 4.19
+/
+/
+/--------------------------------------------------------------------/
+/ OPTIONS
+/--------------------------------------------------------------------/
+/
+MATRIX STORAGE    : 3
+/
+/---------------------------------------------------------------------
+/ NUMERICAL PARAMETERS
+/---------------------------------------------------------------------
+/
+SOLVER = 8
+/
+/for parallel calculations using n processors
+/add PARALLEL PROCESSORS = n
+/replace SOLVER = 8 by SOLVER = 9
+/
+DISSIPATION RELAXATION = 0.25
+/
+/---------------------------------------------------------------------
+/ PHYSICAL PARAMETERS
+/---------------------------------------------------------------------
+/
+BREAKING        = YES
+/
+PRECONDITIONING = 2
+/
+MONODIRECTIONAL RANDOM WAVE       : YES
+MINIMUM SPECTRAL PERIOD    : 0.5
+MAXIMUM SPECTRAL PERIOD    : 8D0
+PEAK PERIOD : 5.41
+GAMMA : 3.3
+NUMBER OF PERIODS = 10
+DIRECTION OF WAVE PROPAGATION = 0.
+/
+PHASE REFERENCE COORDINATES : 0.; 2.
+/

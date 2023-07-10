@@ -1,0 +1,164 @@
+\chapter{wesel}
+
+\section{Purpose}
+This test case shows a real case application
+%of riverbed stabilization measures 
+with tidal flats and very large time steps.
+It was made for comparison with the program UnTRIM
+from Prof. Casulli (University of Trento)
+and was provided before release v5p5.
+The mesh is compatible with UnTRIM meshes which have restrictions according the
+orthogonality.
+
+Since release 6.2, newer numerical options are tested in t2d\_wesel\_pos.cas
+for the treatment of tidal flats. 
+
+\section{Description}
+
+\subsection{Geometry and mesh}
+The model area is a 9 km stretch of Lower Rhine River near the towns of Wesel
+and Xanten (Rh-km 812.5 - 821.5).
+The resolution is very coarse with mean node distances of about 6 m in the main
+channel and about 30 m at the floodplains.
+The grid contains 9,064 nodes and 17,340 elements and can be seen in Figure
+\ref{t2d:wesel:mesh}.
+The mesh is compatible to UnTRIM meshes which means that the center of each
+triangle is inside the triangle.
+The bathymetry is shown in the Figure \ref{t2d:wesel:Bathy}.
+
+\begin{figure}[h!]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/wesel_mesh.png}
+\caption{Mesh and boundary conditions.}
+\label{t2d:wesel:mesh}
+\end{figure}
+
+
+\begin{figure} [h!]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/Bathy.png}
+\caption{Bathymetry.}
+\label{t2d:wesel:Bathy}
+\end{figure}
+
+
+\subsection{Initial condition}
+
+The initialising of the water level is done with the subroutine
+\telfile{SURFINI} called by \telfile{USER\_CONDIN\_H}.
+From water level measurements in m+NN at low water conditions in 1997 in the
+file fo1\_wesel.txt (\telkey{FORMATTED DATA FILE 1}) the initial water level is
+interpolated (see Figure \ref{t2d:wesel:free_surface0}).
+The coordinates are given as the left and right hectometer points.
+The initial velocities are set to zero.
+
+\begin{figure} [h!]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/FreeSurface0.png}
+\caption{Initial water levels.}
+\label{t2d:wesel:free_surface0}
+\end{figure}
+
+\subsection{Boundary conditions}
+
+At the inlet, the discharge is imposed across the full cross section.
+In order to avoid instabilities at the beginning, the discharge is increased from
+0 to 1,061 m$^3$/s in 30 min and remains constant afterwards.
+At the outlet, the water depth is fixed to 11.82 m+NN.
+
+
+\subsection{Physical parameters}
+For the time optimisation, constant values for the friction and the turbulence
+are chosen:
+The Nikuradse friction law is used and an uniform equivalent sand roughness of
+3.5 cm is applied.
+The constant turbulent viscosity is set to 2 m$^2$/s.
+This very high value stabilises the simulation.
+Typically values of one to two orders of magnitudes lower are applied.
+
+\subsection{Numerical parameters}
+12~h are simulated with a time step of 120~s to ensure steady state conditions.
+Figure \ref{t2d:wesel:fluxes_pos} shows that the flux at the outlet equals the
+flux at the inlet for the configuration with
+\telkey{TREATMENT OF NEGATIVE DEPTHS} = 2 at the end of the simulation time.
+The characteristics are used for the advection type.
+The direct solver with a relatively low solver accuracy of $10^{-5}$ is applied.
+Full implicit conditions are set for depth and velocities. 
+The difference between both configurations consists of using a treatment for
+negative depth, the historical in t2d\_wesel.cas
+(\telkey{TREATMENT OF NEGATIVE DEPTHS} = 1)
+and using the one which always gives positive depths in t2d\_wesel\_pos.cas
+(\telkey{TREATMENT OF NEGATIVE DEPTHS} = 2).
+
+\begin{figure} [h!]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/fluxes_pos.png}
+\caption{Evolution of inlet and outlet fluxes for \telkey{TREATMENT OF NEGATIVE DEPTHS} = 2.}
+\label{t2d:wesel:fluxes_pos}
+\end{figure}
+
+\section{Results}
+
+The final velocities and water levels for the configuration with
+\telkey{TREATMENT OF NEGATIVE DEPTHS} = 2 are
+shown in Figure \ref{t2d:wesel:velocity} and \ref{t2d:wesel:free_surface}.
+The differences between the initial and the final water levels are quite small
+as the initial water levels are calculated from the measurements.
+A comparison along the main channel between the measured water levels and the
+simulated ones for both configurations is presented in Figure
+\ref{t2d:wesel:diff_waterlevels}.
+As the simulated water levels are slightly higher at the inlet, it can be
+assumed that the friction should be minimal decreased for a perfect agreement.
+The differences between the two configurations are rather small but the mass
+conservation is only ensured for \telkey{TREATMENT OF NEGATIVE DEPTHS} = 2
+(compare Figure \ref{t2d:wesel:fluxes_pos} and \ref{t2d:wesel:fluxes}).
+The classical discretisation tends to have higher water levels which could be a
+hint to slightly higher numerical diffusion. 
+
+
+\begin{figure} [h!]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/Velocity_tf_pos.png}
+\caption{Final velocities.}
+\label{t2d:wesel:velocity}
+\end{figure}
+
+\begin{figure} [h!]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/FreeSurface_tf_pos.png}
+\caption{Final water levels.}
+\label{t2d:wesel:free_surface}
+\end{figure}
+
+%Differences of velocities simulated with classic discretisation or wave euqation (wave equation -classic ) are shown in Figure \ref{t2d:wesel:diff_waterlevels}.
+\begin{figure} [h!]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/diff_free_surface.png}
+\caption{Comparison of measured and simulated final water levels with the 2 configurations and wave equation along river axis.}
+\label{t2d:wesel:diff_waterlevels}
+\end{figure}
+
+\begin{figure} [h!]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/fluxes.png}
+\caption{Evolution of inlet and outlet fluxes with \telkey{TREATMENT OF NEGATIVE DEPTHS} = 1.}
+\label{t2d:wesel:fluxes}
+\end{figure}
+
+\section{Conclusion}
+The example shows a successful simulation of low water steady state conditions
+with tidal flats.
+The configuration is time optimised by using a coarse grid, a big time step,
+a low solver accuracy, a full implicit scheme and a high turbulent viscosity.
+It is recommended to use the configuration with
+\telkey{TREATMENT OF NEGATIVE DEPTHS} = 2 to ensure the mass conservation. 
+
+
+%\section{References}
+
+%Karim, F., Kennedy, J. F.: (1981) \textit {Computer – based predictors for sediment discharge and friction factor of alluvial streams}, Report No. 242, Iowa Institute of Hydraulic Research, University of Iowa, Iowa City, Iowa.\newline
+
+%Rátky, Éva: (2006) \textit{Modellierung von Geschiebezugaben am Niederrhein bei Wesel
+%mit einem 2D-tiefengemittelten morphologischen Modell}, Thesis, Universität Karlsruhe (TH), Karlsruhe.\newline
+
+%Savova, S.: (2004) \textit {Datengrundlage für den Testfall Wesel-Xanten}, Report, BAW, Karlsruhe.\newline

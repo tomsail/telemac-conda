@@ -1,0 +1,159 @@
+\renewcommand{\labelitemi}{$\triangleright$}
+
+\chapter{Supercooling and frazil ice growth - 3D}
+%
+% - Purpose & Problem description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved and specify how the numerical solution will be validated
+%
+\section{Purpose}
+This test case demonstrates that \khione is capable of correctly reproduce
+supercooling and frazil ice growth in 3D.
+Water is running down a flat flume over 10 km long at a gentle slope of 1:10,000. A linear thermal budget formulation is used with an air temperature set to -15$^{\circ}$C. At the end of the simulation temperature and frazil ice reach a steady state in the domain. Temperature is decreasing from the inlet to reached a max supercooling temperature of about -0.02$^{\circ}$C, and then converges towards zero as frazil ice is beeing produced.
+
+\section{Description}
+
+\subsection{Geometry, mesh and bathymetry}
+The domain is a long flat-bottom flume, boxed within $(x=0, y=0)$ and $(x=10,000, y=150)$, its length being 10 km along the x-axis and its width being 150 m along the y-axis. The channel has a slope of 1:10,000 between the elevation 5 m (upstream) and 4 m (downstream).
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/mesh.png}
+    \end{center}
+    \caption{Domain mesh}
+    \label{fig:growth_mesh}
+\end{figure}
+
+The mesh of the domain was created with a uniform density of about 0.35 m, resulting in a mesh with $4800$ elements and $2807$ vertices (cf. figure \ref{fig:growth_mesh}). The number of plane in the vertical dimension is 5.
+
+\subsection{Initial conditions}
+
+A hydrodynamics steady state condition is established first separately to reach a constant and uniform water depth of 6.6265 m and a constant and uniform discharge of 300 m$^3$/s.
+Water temperature is initially set at 0.02$^\circ$C. Initial frazil volume fraction is set to $0$. These values are also used for the upstream boundary condition.
+
+\subsection{Boundary conditions}
+
+There are two solid boundaries and 2 open boundaries.
+The solid boundaries are on either side of the length of the flume, considered as solid walls with perfect slip conditions.
+The open boundaries are at $(x=0)$ for the upstream and at $(x=10,000)$ for the downstream of the flume. A constant discharge of 300 m$^3$/s is imposed at the upstream boundary with a temperature set to 0.02$^{\circ}$C. A constant water level is set at 6.6265 m at the downstream boundary.
+A first simulation is carried out with for the hydrodynamics only to get to a steady state equilibrium of a constant and uniform water depth of $6.6265m$ and a constant and uniform discharge of $300m^3/s$ along the entire length of the flume.
+
+
+\subsection{Atmospheric drivers}
+
+For this test case, linear heat exchanges are used i.e. within the \khione steering file:
+\begin{itemize}
+	\item\textit{ATMOSPHERE-WATER EXCHANGE MODEL = 0}
+\end{itemize}
+
+With this model, the net heat flux received by water trought the water/air interface is expressed as:
+\begin{equation}
+\phi^* = \phi_R + \alpha + \beta (T_{air} - T_{water})
+\end{equation}
+where $\phi_R$ the net solar radiation flux, which depends on the solar constant $I_{so}$ and the latitude but
+also atmospheric properties like the nebulosity and the visibility. $\alpha$ and $\beta$ are two coefficient that
+are set to $-50$ W.m$^{-2}$ and $20$ W.m$^{-2}$.K$^{-1}$ by default. $I_{so}$, $\alpha$ and $\beta$ are adjusted within
+the \khione steering file:
+\begin{itemize}
+	\item\textit{SOLAR CONSTANT = 0.}
+	\item\textit{WATER-AIR HEAT EXCHANGE CONSTANT = 0.}
+	\item\textit{WATER-AIR HEAT EXCHANGE COEFFICIENT = 20.}
+\end{itemize}
+Air temperature is set to a constant during the simulation:
+\begin{itemize}
+	\item\textit{AIR TEMPERATURE      = -15.0}
+\end{itemize}
+
+\subsection{Physical parameters}
+
+In order to balance the slope and the discharge through the flume, a Manning friction law is used, with a coefficient of $0.025$.
+
+Physical properties related to frazil growth rate are defined in the \khione steering file. Let us recall
+the expression of the frazil thermal growth source term i.e. $S_{GM}$:
+\begin{equation}
+S_{GM} = \dfrac{q a_0 N}{\rho_i L_i}
+\end{equation}
+where $a_0$ is the surface area of frazil particles normal to the a-axis, $N$ is the number of frazil crystals
+per unit volume, $\rho_i$ the density of ice, $L_i$ the latent heat of fusion and $q$ the heat transfert rate
+defined by:
+\begin{equation}
+q = \dfrac{K_w N_u}{l} (T_f-T)
+\end{equation}
+with $N_u$ the Nusselt number, $l$ is the characteristic length scale of frazil ice particules, supposed to be equal to the radius, $K_w$ the thermal conductivity of water and $T_f$ the fusion temperature. Note that $a_0$ is defined by $a_0 = 2 \pi r e$ with $r$ the radius of frazil ice granules. In \khione $e$ is defined such that $2 r/e = R$ where $R$ is a user defined ratio (set to $8$ by default). The number of particule per unit volume is defined by $N=C/V_0$ with $V_0=\pi e r^2$ and $C$ the volume fraction of frazil ice.
+In this test case, $N_u$, $r$, $R$ are defined with their default values:
+\begin{itemize}
+	\item\textit{NUSSELT NUMBER = 4.}
+	\item\textit{FRAZIL CRYSTALS RADIUS = 1.2E-4}
+	\item\textit{FRAZIL CRYSTALS DIAMETER THICKNESS RATIO  = 10.}
+\end{itemize}
+
+\subsection{Numerical parameters}
+The time step is set to 1 s and the number of timestep is set to $3600$ which leads to a simulation time of 1 h.
+
+\section{Results}
+
+On figures \ref{fig:2d_frazil} and \ref{fig:2d_temperature} the frazil concentration and temperature are plotted along the flume at final time. Figure \ref{fig:surf_temperature} and \ref{fig:surf_frazil} show the surface layer concentration of frazil and temperature. One can note that the formation of the frazil mainly occurs on the top layer, since its concentration is about 10 time higher than the mean vertical concentration.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/T-2d_scalarmap.png}
+    \end{center}
+    \caption{Water temperature along the flume at final time, vertical averaging}
+    \label{fig:2d_temperature}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/Cf-2d_scalarmap.png}
+    \end{center}
+    \caption{Frazil ice concentration along the flume at final time, vertical averaging}
+    \label{fig:2d_frazil}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/T-surface_scalarmap.png}
+    \end{center}
+    \caption{Water temperature along the flume at final time, surface plane}
+    \label{fig:surf_temperature}
+\end{figure}
+
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=\textwidth]}{../img/Cf-surface_scalarmap.png}
+    \end{center}
+    \caption{Frazil ice concentration along the flume at final time, surface plane}
+    \label{fig:surf_frazil}
+\end{figure}
+
+The figure \ref{fig:salinity} shows the impact the water salinity on the melting point.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.5\textwidth]}{../img/temperature_salinity.png}
+    \end{center}
+    \caption{Temperature along the channel at the final time, when the water is salted or not}
+    \label{fig:salinity}
+\end{figure}
+
+As the water temperature goes below 0 $^\circ$C, the creation of frazil floes cools down the water temperature further to a super-cool temperature. In turn, further growth of frazil ice release latent heat, which heats up again water to a temperature just below 0 $^\circ$C.
+
+\section{Conclusions}
+
+The variation in water temperature over the length of the flume highlights the process of thermal growth of the frazil ice with a long exposure to cold air temperature. Coming in the flume at a temperature slightly above zero, the longer water is exposed to the cold air temperature the cooler (or super-cooler) it gets until frazil floes starts to appear.
+
+%~\newline
+%\section{Steering files}
+%
+%\subsection{\telemac2D}
+%\lstinputlisting[language=TelemacCas]{../t2d_frazil.cas}
+%
+%\subsection{\waqtel}
+%\lstinputlisting[language=TelemacCas]{../waq_frazil.cas}
+%
+%\subsection{\khione}
+%\lstinputlisting[language=TelemacCas]{../ice_frazil.cas}
+
+
+\renewcommand{\labelitemi}{\textbullet}

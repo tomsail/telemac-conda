@@ -1,0 +1,47 @@
+<A NAME="____Concepts et fonctionnalit&eacute;s de base pour cr&eacute;er et lire un param&egrave;tre num&eacute;rique____">
+</A>
+<BR>
+</P>
+<H3>Cr&eacute;er un param&egrave;tre num&eacute;rique</H3>
+<P>L'&eacute;criture de param&egrave;tres num&eacute;riques dans un
+fichier MED est optionnelle : un fichier MED peut en contenir de 0 &agrave;
+plusieurs. Le mode d'&eacute;criture pour chaque param&egrave;tre
+consiste &agrave; cr&eacute;er le param&egrave;tre dont le type peut
+&ecirc;tre entier ou r&eacute;el comme pour les champs de r&eacute;sultats.
+La cr&eacute;ation d'un param&egrave;tre num&eacute;rique se fait via
+la routine \ref MEDparameterCr / \ref mprcre. Il est possible ensuite
+d'&eacute;crire des valeurs pour un param&egrave;tre selon plusieurs
+s&eacute;quences de calcul avec la routine \ref MEDparameterValueWr /
+\ref mprrvw \ref mprivw. 
+</P>
+<P>\include test21.c 
+</P>
+<H3>Lire un param&egrave;tre num&eacute;rique</H3>
+<P>Le mode de lecture des param&egrave;tres num&eacute;riques se
+calque sur celui des champs et des maillages. L'acc&egrave;s aux
+param&egrave;tres stock&eacute;s dans un fichier peut se faire via
+deux approches possibles : acc&egrave;s par le nom ou via un
+it&eacute;rateur. La routine \ref MEDparameterInfoByName / \ref
+mprpin permet de lire les informations relatives &agrave; un
+param&egrave;tre dont on conna&icirc;t le nom. Les informations lues
+correspondent &agrave; celles &eacute;crites par la routine \ref
+MEDparameterCr / \ref mprcre. 
+</P>
+<P>Si on utilise l'approche it&eacute;rative, il est tout d'abord
+n&eacute;cessaire de lire le nombre de param&egrave;tre dans le
+fichier avec la routine \ref MEDnParameter / \ref mprnpr, avant
+d'it&eacute;rer sur tous ces param&egrave;tres. La routine \ref
+MEDparameterInfo / \ref mprpri permet de r&eacute;cup&eacute;rer les
+informations relative &agrave; chaque param&egrave;tre dont le nombre
+de s&eacute;quence de calcul (au m&ecirc;me titre que
+MEDparameterInfoByName / mprpin). Il s'agit ensuite d'it&eacute;rer
+sur chaque s&eacute;quence de calcul afin d'une part de r&eacute;cup&eacute;rer
+les informations relatives &agrave; cette s&eacute;quence avec la
+routine \ref MEDparameterComputationStepInfo / \ref mprcsi et d'autre
+part de lire la valeur du param&egrave;tre avec la routine \ref
+MEDparameterValueRd / \ref mprrvr \ref mprivr.</P>
+<P>Le cas d'utilisation suivant donne une approche g&eacute;n&eacute;rique
+pour lire tous les param&egrave;tres num&eacute;riques d'un fichier
+MED.</P>
+<P>\include test22.c</P>
+

@@ -1,0 +1,115 @@
+\chapter{Turning wind}
+%
+
+% - Purpose & Problem description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved and specify how the numerical solution will be validated
+%
+\section{Purpose}
+%
+This test case shows how \tomawac calculate the spectrum when there is a wind
+that is turning. It illustrates the phenomena of white capping and quadruplet
+interactions.
+%This document is a short translation of the french 'doc'
+%version. One can find more details in {\it turning\_wind/doc/turningwind.doc}
+
+%
+\section{Description of the problem}
+%
+The domain is homogeneous, The depth is infinite, the wind given at 10m is
+homogeneous  propagation step is inhibited and no boundary condition are given.
+So the domain of computation can be reduced to a few points as the solution is
+homogeneous and finally we focus on only one of them. The domain is finally
+very simple (see Figure \ref{mailTW})
+
+\section{Physical parameters}
+%
+The modulus of the wind is constant, equal to 20~m/s. Initially the direction
+is set to 90 degrees, (which means that $U_Y$ is null). This is maintained till
+the peak frequency reaches the double of its equilibrium value (peak frequency
+of Pierson-Moskowitz). This occurs after 28800~s (8h), at this time we change
+the direction of wind for 30 degrees (a rotation of 60 degrees). All the values
+of the wind are read in a file called {\it wind.slf  }.
+% - Geometry and Mesh:
+%     This part describes the mesh used in the computation
+%
+%
+\section{Geometry and Mesh}
+%
+The domain is a square of 2~km.
+The mesh is very simple as there are 5 nodes and 4 triangles. That also means
+that this case can not be run in parallel.
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.5\textwidth]}{../img/mesh.png}
+ \caption{Mesh of the domain.}
+\label{mailTW}
+\end{figure}
+% - Initial and boundary conditions:
+%     This part details both initial and boundary conditions used to simulate the case
+%
+%
+\section{Initial and Boundary Conditions}
+%
+Initial conditions are imposed homogeneous on the domain with the option 4,
+with a Phillips constant of 0.024 an initial peak frequency of 0.3~Hz  and an
+initial peak factor of 1.  The initial directionnal spread is set to one and
+the initial main direction to 90 degrees (like the wind).
+Those value has been set to be identical to the Vledder study
+\cite{Vanvledder1990}
+
+Nothing is imposed at the boundaries.
+% - Numerical parameters:
+%     This part is used to specify the numerical parameters used
+%     (adaptive time step, mass-lumping when necessary...)
+%
+%
+\section{Numerical parameters}
+Time duration is set to 115200~s (32~h), time step is equal to 900~s, the
+spectro-angular mesh has 12 angles and 26 frequences spread on a geometric
+progression common ratio 1.1 with a minimum of 0.04177248~Hz.
+
+%
+\section{Results}
+%
+We present here the results only for the rotation of 60 degrees as it is the
+effective rotation that is done in the case. Initially there were 2 more
+rotations one of 90 degrees and one of 30 degrees. The results for those
+rotations are described in \cite{Benoit1996_2}.
+Celerity of wind is 20~m/s. During 28790s, the direction is 90 degrees, then it
+turns to 30 degrees.  
+
+At the moment when the direction changes the established swell is going to
+interact with the wave induced by the new direction of wind. Three phenomenas
+occur in that process.
+\begin {itemize}
+\item Wind contribution to the energy that will raise the new wave,
+\item Attenuation of the swell part of the spectrum,
+\item Non linear interactions between swell and wind sea.
+\end{itemize}
+
+The results of \tomawac are compared to simulations made by two differents code.
+EXACT-NL and WAM-cycle 3 (see \cite{Vanvledder1990}). Figure  \ref{resturnwind}
+shows that there are good agreements of \tomawac results compared to other
+simulations. One can denote that the spectrum tail factor can be sensitive.
+During the first 4 hours a factor 4 is better but after that time a factor 5 is
+better.
+
+Let us remark that those are old results and a new simulation with new linear
+terms might give better results.
+
+\begin{figure} [!h]
+\centering
+\includegraphics[width=0.8\textwidth]{resuTW60.png}
+\caption{Comparison of direction of wave with time after a direction change of
+  60 degree at t=0~s. Simulations are made for differents spectrum tail factor
+  and different initial spectrum.}
+\label{resturnwind}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.8\textwidth]}{../img/timeseries.png}
+ \caption{Wave height hm0 when winds changes.}
+\label{resturningwind}
+\end{figure}

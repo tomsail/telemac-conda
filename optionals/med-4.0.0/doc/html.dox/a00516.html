@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: Créer/Ouvrir/Fermer un fichier MED</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li class="current"><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Créer/Ouvrir/Fermer un fichier MED </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="____Créer/Ouvrir/Fermer un fichier MED____"></a>  </p><h1>Ouverture/Création d'un fichier MED</h1>
+<p>L'ouverture/création d'un fichier MED s'effectue avec la routine <a class="el" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a> (C) / <a class="el" href="a00647_a68bd28216f39b6aac3f3cdeb58ca0343.html#a68bd28216f39b6aac3f3cdeb58ca0343">mfiope</a> (F).</p>
+<p>Cette routine renvoie un identificateur ( <code>fid</code> ) utilisé par les autres routines de l'API pour accéder aux données du fichier. </p>
+<p>Les différents modes d'accès possibles sont : </p>
+<ul>
+<li>
+<p class="startli"></p>
+<p>Création (<em><a class="el" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85aa23dd1c18b596924d5f50c8402b84c8e">MED_ACC_CREAT</a>) </em></p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"></p>
+<p>Ouverture en lecture seule (<em><a class="el" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85a616bf8345c622a34f0787f42eb400f25">MED_ACC_RDONLY</a>)</em></p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"></p>
+<p>Ouverture en lecture/écriture (<em><a class="el" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85ab53f10a6b700d1087d7a50710fe29f00">MED_ACC_RDWR</a>)</em></p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"></p>
+<p>Ouverture en lecture/écriture avec ajout (<em><a class="el" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85a09bafcc9e6dad89588c12c9d6a9efa12">MED_ACC_RDEXT</a>)</em></p>
+<p class="endli"></p>
+</li>
+</ul>
+<p>Dans ce dernier mode, l'écriture n'est possible que pour ajouter dans le fichier de nouvelles données (une erreur est générée si la donnée existe déjà).</p>
+ <div class="fragment"><div class="line">  fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(<span class="stringliteral">&quot;test1.med&quot;</span>,<a class="code" href="a00853_a29a43500a889d39744e184ece0d749be.html#a29a43500a889d39744e184ece0d749be">MODE_ACCES</a>);</div>
+</div><!-- fragment --> <small> <a class="el" href="a00376.html">Fichier d'exemple associé</a> </small> </p>
+<h1>Fermeture d'un fichier MED</h1>
+<p>La routine <a class="el" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a> (C) / <a class="el" href="a00647_abaf92f77da8cad332344587fca32c410.html#abaf92f77da8cad332344587fca32c410">mficlo</a> (F) permet de fermer un fichier.</p>
+ <div class="fragment"><div class="line">  <span class="keywordflow">if</span> ((ret = <a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à la fermeture du fichier&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+</div><!-- fragment --> <small> <a class="el" href="a00376.html">Fichier d'exemple associé</a> </small> </p>
+<h1>Entête de fichier</h1>
+<p>La routine <a class="el" href="a01049_ga08d625f5403fefb9deb7d47f9a915c41.html#ga08d625f5403fefb9deb7d47f9a915c41">MEDfileCommentWr</a> (C) / <a class="el" href="a00647_ab78133f6c93fe7753df1825b03e71a0c.html#ab78133f6c93fe7753df1825b03e71a0c">mficow</a> (F) permet l'écriture d'un en-tête de fichier, la routine <a class="el" href="a01049_ga9c728192b1e39a31a7da0005fb4a8a41.html#ga9c728192b1e39a31a7da0005fb4a8a41">MEDfileCommentRd</a> (C) / <a class="el" href="a00647_ab26d974190257fbd793fe0ea03b7efe0.html#ab26d974190257fbd793fe0ea03b7efe0">mficor</a> (F) la lecture. </p>
+<p>Cet en-tête à usage optionnel est purement descriptif. Il comporte au plus <a class="el" href="a00577_ab69710ecf9f5257080a943579852d0f0.html#ab69710ecf9f5257080a943579852d0f0">MED_COMMENT_SIZE</a> caractères. </p>
+ <div class="fragment"><div class="line">  <span class="keywordtype">char</span> des[<a class="code" href="a00577_ab69710ecf9f5257080a943579852d0f0.html#ab69710ecf9f5257080a943579852d0f0">MED_COMMENT_SIZE</a>+1]=<span class="stringliteral">&quot;Ceci est une courte description de mon fichier test1.med&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01049_ga08d625f5403fefb9deb7d47f9a915c41.html#ga08d625f5403fefb9deb7d47f9a915c41">MEDfileCommentWr</a>(fid,des) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;ecriture de l&#39;en-tete du fichier&quot;</span>);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  }</div>
+</div><!-- fragment --> <small> <a class="el" href="a00376.html">Fichier d'exemple associé</a> </small>  <div class="fragment"><div class="line">  <span class="keywordtype">char</span> des[<a class="code" href="a00577_ab69710ecf9f5257080a943579852d0f0.html#ab69710ecf9f5257080a943579852d0f0">MED_COMMENT_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  ret = <a class="code" href="a01049_ga9c728192b1e39a31a7da0005fb4a8a41.html#ga9c728192b1e39a31a7da0005fb4a8a41">MEDfileCommentRd</a>(fid, des);</div>
+</div><!-- fragment --> <small> <a class="el" href="a00468.html">Fichier d'exemple associé</a> </small> </p>
+<h1>Compatibilité entre la version du fichier et la version de la bibliothèque</h1>
+<p>La routine <a class="el" href="a01049_gac3e0eb335c4d611cbbeaf7688050f054.html#gac3e0eb335c4d611cbbeaf7688050f054">MEDfileCompatibility</a> / <a class="el" href="a01064_gafe8966708bfc658ffa1b8b83550624c1.html#gafe8966708bfc658ffa1b8b83550624c1">mficom</a> permet de vérifier :</p>
+<ul>
+<li>
+<p class="startli"></p>
+<p>Si le fichier est au format HDF5 </p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"></p>
+<p>S'il correspond à un fichier MED compatible avec la bibliothèque.</p>
+<p class="endli"></p>
+</li>
+</ul>
+<p>L'appel à cette routine se fait généralement avant l'ouverture du fichier. </p>
+ <div class="fragment"><div class="line">  <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a>  hdfok=<a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046">MED_FALSE</a>,medok=<a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046">MED_FALSE</a>;</div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01049_gac3e0eb335c4d611cbbeaf7688050f054.html#gac3e0eb335c4d611cbbeaf7688050f054">MEDfileCompatibility</a>(<span class="stringliteral">&quot;test18.med&quot;</span>,&amp;hdfok,&amp;medok)&lt;0 ) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à la vérification de la compatibilité du fichier avec les bibliothèques med et hdf.&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+</div><!-- fragment --> <small> <a class="el" href="a00378.html">Fichier d'exemple associé</a> </small> </p>
+<h1>Lecture de la version du fichier</h1>
+<p>Les routines <a class="el" href="a01049_gaec83c9561b5640ca32a12e58c5d2e10d.html#gaec83c9561b5640ca32a12e58c5d2e10d">MEDfileNumVersionRd</a> / <a class="el" href="a00647_a52a5889f86eb89357c467bcf14259cc9.html#a52a5889f86eb89357c467bcf14259cc9">mfinvr</a> et <a class="el" href="a01049_gab157547245a875e72a53847f64468855.html#gab157547245a875e72a53847f64468855">MEDfileStrVersionRd</a> / <a class="el" href="a00647_a27a2052435f1d113a3b6a12233796f58.html#a27a2052435f1d113a3b6a12233796f58">mfisvr</a> lisent la version de la bibliothèque MED utilisée à la création du fichier. </p>
+<ul>
+<li>
+<p class="startli"></p>
+<p><a class="el" href="a01049_gaec83c9561b5640ca32a12e58c5d2e10d.html#gaec83c9561b5640ca32a12e58c5d2e10d">MEDfileNumVersionRd</a> / <a class="el" href="a00647_a52a5889f86eb89357c467bcf14259cc9.html#a52a5889f86eb89357c467bcf14259cc9">mfinvr</a> lit la version sous forme de trois scalaire majeur,mineur,release  <div class="fragment"><div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>   majeur=0, mineur=0, release=0;</div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="a01049_gaec83c9561b5640ca32a12e58c5d2e10d.html#gaec83c9561b5640ca32a12e58c5d2e10d">MEDfileNumVersionRd</a>(fid, &amp;majeur, &amp;mineur, &amp;release) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture du numero de version de la bibliothèque &quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  fprintf(stdout,<span class="stringliteral">&quot;- Ce fichier a ete cree avec MED &quot;</span>IFORMAT<span class="stringliteral">&quot;.&quot;</span>IFORMAT<span class="stringliteral">&quot;.&quot;</span>IFORMAT<span class="stringliteral">&quot; \n&quot;</span>,majeur,mineur,release); </div>
+</div><!-- fragment --> <small> <a class="el" href="a00378.html">Fichier d'exemple associé</a> </small> </p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"></p>
+<p><a class="el" href="a01049_gab157547245a875e72a53847f64468855.html#gab157547245a875e72a53847f64468855">MEDfileStrVersionRd</a> / <a class="el" href="a00647_a27a2052435f1d113a3b6a12233796f58.html#a27a2052435f1d113a3b6a12233796f58">mfisvr</a> lit la version sous forme de chaîne de caractère  <div class="fragment"><div class="line">  <span class="keywordtype">char</span>      medversion[<a class="code" href="a00577_a213ecd1a546eb96092b980a870bc386b.html#a213ecd1a546eb96092b980a870bc386b">MED_SNAME_SIZE</a>+1]=<span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> ( <a class="code" href="a01049_gab157547245a875e72a53847f64468855.html#gab157547245a875e72a53847f64468855">MEDfileStrVersionRd</a>(fid, medversion) &lt; 0 ) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à la lecture de la version du fichier MED&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  fprintf(stdout,<span class="stringliteral">&quot;- Ce fichier a ete cree avec %s\n&quot;</span>,medversion);</div>
+</div><!-- fragment --> <small> <a class="el" href="a00378.html">Fichier d'exemple associé</a> </small> </p>
+<p class="endli"></p>
+</li>
+</ul>
+<h1>Liens vers les fichiers exemples utilisés</h1>
+<ul>
+<li>
+<p class="startli"></p>
+<p><a class="el" href="a00376.html">Fichier d'exemple test1.c</a> </p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"></p>
+<p><a class="el" href="a00468.html">Fichier d'exemple test2.c</a> </p>
+<p class="endli"></p>
+</li>
+<li>
+<p class="startli"></p>
+<p><a class="el" href="a00378.html">Fichier d'exemple test18.c</a> </p>
+<p class="endli"></p>
+</li>
+</ul>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:48 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

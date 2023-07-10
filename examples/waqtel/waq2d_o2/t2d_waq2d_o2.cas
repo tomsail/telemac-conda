@@ -1,0 +1,47 @@
+/ This case validates the O2 process
+/  of WAQTEL module
+/
+/****************************************************
+TITLE = 'Water Quality- O2 process for Channel'
+/****************************************************
+/----------------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------------
+GEOMETRY FILE             = 'geo_waq2d_o2.slf'
+BOUNDARY CONDITIONS FILE  = 'geo_waq2d_o2.cli'
+RESULTS FILE              = 'r2d_waq2d_o2.slf'
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'U,V,H,S,Q,T1,T2,T3'
+/
+/ Put a smaller period to have a more
+/ accurate time series
+/
+GRAPHIC PRINTOUT PERIOD          = 5400
+LISTING PRINTOUT PERIOD          = 5400
+MASS-BALANCE                     = YES
+TIME STEP                        = 4.
+NUMBER OF TIME STEPS             = 21600
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+INITIAL CONDITIONS = 'CONSTANT DEPTH'
+INITIAL DEPTH      = 2.
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+LAW OF BOTTOM FRICTION           = 0
+/************************************
+/ TRACER
+/************************************
+/ here after, initial values of O2,L, NH4
+INITIAL VALUES OF TRACERS     = 5.;3.;0.01
+DIFFUSION OF TRACERS                 = NO
+/COEFFICIENT FOR DIFFUSION OF TRACERS = 0.;0.;0
+/************************************
+/  WATER QUALITY
+/************************************
+COUPLING WITH         = 'WAQTEL'
+WAQTEL STEERING FILE  = 'waq_o2_steer.cas'
+WATER QUALITY PROCESS = 2

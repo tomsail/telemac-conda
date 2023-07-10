@@ -1,0 +1,75 @@
+/---------------------------------------------------------------------
+/ ARTEMIS Version v7p0  mars 2014
+/ PHASE AUTOMATIQUE + TEST SANS FRONTIERE SOLIDE
+/---------------------------------------------------------------------
+/
+/
+/
+/
+/---------------------------------------------------------------------
+/ FILES NAME
+/---------------------------------------------------------------------
+/
+RESULTS FILE             = 'r2d_phase.slf'
+/
+BOUNDARY CONDITIONS FILE = 'geo_phase.cli'
+/
+FORTRAN FILE             =  f90
+/
+GEOMETRY FILE            = 'geo_phase.slf'
+/
+/---------------------------------------------------------------------
+/ GENERAL SETTINGS
+/---------------------------------------------------------------------
+/
+TITLE ='AUTOMATIC PHASE CALCULATION FOR OFFSHORE -45deg INCIDENT WAVES'
+/
+/
+/---------------------------------------------------------------------
+/ LISTING
+/---------------------------------------------------------------------
+/
+WAVE HEIGHTS SMOOTHING          = NO
+/
+VARIABLES FOR GRAPHIC PRINTOUTS ='HS,PHAS,ZF,INC,QB,C,PHIR,PHII'
+/
+/
+/---------------------------------------------------------------------
+/ INITIAL CONDITIONS
+/---------------------------------------------------------------------
+/
+INITIAL CONDITIONS ='CONSTANT ELEVATION'
+/
+INITIAL WATER LEVEL        =0.
+/
+/
+/--------------------------------------------------------------------/
+/ OPTIONS
+/--------------------------------------------------------------------/
+MATRIX STORAGE =3
+/
+/
+/---------------------------------------------------------------------
+/ NUMERICAL PARAMETERS
+/---------------------------------------------------------------------
+/SOLVER =8
+/
+SOLVER =3
+/AUTOMATIC TETAP CALCULATION : YES
+/SUB-ITERATIONS ACCURACY FOR TETAP=1E-4
+AUTOMATIC CALCULATION OF PHASE            : YES
+REFERENCE WATER DEPTH FOR AUTOMATIC PHASE = 100.
+PHASE REFERENCE COORDINATES               = 0.;0.
+/
+/
+/---------------------------------------------------------------------
+/ PHYSICAL PARAMETERS
+/---------------------------------------------------------------------
+/
+BREAKING =NO
+/
+WAVE PERIOD = 8.
+/
+DIRECTION OF WAVE PROPAGATION : -45.0
+/
+/

@@ -1,0 +1,15 @@
+#  DEBIT A L'ENTREE ET SURFACE LIBRE A LA SORTIE
+#  Rehausser la surface libre imposee en sortie
+#  pour avoir des valeurs superieures au niveau du fond le plus haut
+#
+T         SL(1)  Q(1)  SL(2)  Q(2)
+s         m      m3/s  m      m3/s
+0.        2.55    -15.966   2.55    15.966
+100.      2.55    -15.966   2.55    15.966
+3600.     2.55    -15.966   2.55    15.966
+7200.     2.55    -15.966   2.55    15.966
+14400.    2.55    -15.966   2.55    15.966
+21600.    2.55    -15.966   2.55    15.966
+28800.    2.55    -15.966   2.55    15.966
+99999.    2.55    -15.966   2.55    15.966
+999999.   2.55    -15.966   2.55    15.966

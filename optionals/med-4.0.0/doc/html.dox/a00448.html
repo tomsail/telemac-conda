@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: c/2.3.6/test20.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">c/2.3.6/test20.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/******************************************************************************</span></div>
+<div class="line"><span class="comment"> * - Nom du fichier : test20.c</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * - Description : montage/demontage de fichiers MED </span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *****************************************************************************/</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00591.html">med_utils.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#ifdef DEF_LECT_ECR</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_LECTURE_ECRITURE</span></div>
+<div class="line"><span class="preprocessor">#elif DEF_LECT_AJOUT</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_LECTURE_AJOUT</span></div>
+<div class="line"><span class="preprocessor">#else</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_CREATION</span></div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> <a name="a0"></a><a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">{</div>
+<div class="line">  <span class="keywordtype">int</span> i;</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid,mid,mid2;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncha, ncomp, nmaa;</div>
+<div class="line">  med_type_champ type;</div>
+<div class="line">  <span class="keywordtype">char</span> comp[3*MED_TAILLE_PNOM+1],unit[3*MED_TAILLE_PNOM+1];</div>
+<div class="line">  <span class="keywordtype">char</span> nom[MED_TAILLE_NOM+1];</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Ouverture du fichier test20-0.med en mode lecture et ajout */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((fid = MEDouvrir(<span class="stringliteral">&quot;test20-0.med&quot;</span>,MED_LECTURE_AJOUT)) &lt; 0) {</div>
+<div class="line">    <a name="a1"></a><a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a l&#39;ouverture du fichier test20-0.med&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;On ouvre le fichier test20-0.med \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Lecture du nombre de champs */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((ncha = MEDnChamp(fid,0)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture du nombre de champs&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Nombre de champs dans test20-0.med :&quot;</span><a name="a2"></a><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot; \n&quot;</span>,ncha);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* On fait le montage dans test20-0.med de tous les champs de test10.med */</span></div>
+<div class="line">  mid = MEDmonter(fid,<span class="stringliteral">&quot;test10.med&quot;</span>,MED_CHAMP);</div>
+<div class="line">  <span class="keywordflow">if</span> (mid &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Echec du montage des champs de test10.med&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;On monte les champs du fichier test10.med dans le fichier test20-0.med \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Combien de champs dans le fichier &quot;test20-0.med&quot; apres le montage */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((ncha = MEDnChamp(fid,0)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture du nombre de champ&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Nombre de champs dans test20-0.med apres montage : &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot; \n&quot;</span>,ncha);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* On s&#39;assure que les champs sont bien accessibles */</span></div>
+<div class="line">  <span class="keywordflow">for</span> (i=1;i&lt;=ncha;i++) {</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/* Combien de composantes dans le champ */</span></div>
+<div class="line">    <span class="keywordflow">if</span> ((ncomp = MEDnChamp(fid,i)) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a lecture du nombre de composante du champ&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">return</span> -1;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/* Lecture des infos sur le champ */</span></div>
+<div class="line">    <span class="keywordflow">if</span> (MEDchampInfo(fid,i,nom,&amp;type,comp,unit,ncomp) &lt; 0) {</div>
+<div class="line">      <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture des informations sur le champ&quot;</span>);</div>
+<div class="line">      <span class="keywordflow">return</span> -1;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    printf(<span class="stringliteral">&quot;Champ de nom [%s] de type %d et avec &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot; composantes \n&quot;</span>,nom,type,ncomp);</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* On demonte le fichier */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDdemonter(fid,mid,MED_CHAMP) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Echec du demontage de test10.med&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;On demonte le fichier test10.med dans test20-0.med\n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Combien de champs dans le fichier &quot;test20-0.med&quot; apres le demontage */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((ncha = MEDnChamp(fid,0)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la lecture du nombre de champ&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Nombre de champs dans test20-0.med apres demontage: &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot; \n&quot;</span>,ncha);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* On ferme le fichier test20-0.med */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDfermer(fid) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur lors de la fermeture du fichier&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;On ferme le fichier test20-0.med \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Creation du fichier test20.med */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((fid = MEDouvrir(<span class="stringliteral">&quot;test20.med&quot;</span>,<a name="a3"></a><a class="code" href="a00853_a29a43500a889d39744e184ece0d749be.html#a29a43500a889d39744e184ece0d749be">MODE_ACCES</a>))  &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur a la creation du fichier test20.med&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;On cree le fichier test20.med \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Montage dans test20.med de tous les maillages de test20-0.med */</span></div>
+<div class="line">  mid2 = MEDmonter(fid,<span class="stringliteral">&quot;test20-0.med&quot;</span>,MED_MAILLAGE);</div>
+<div class="line">  <span class="keywordflow">if</span> (mid2 &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Echec du montage de test20-0.med&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;On monte les maillages du fichier test20-0.med dans le fichier test20.med \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Lecture du nombre de maillages */</span></div>
+<div class="line">  nmaa = MEDnMaa(fid);</div>
+<div class="line">  <span class="keywordflow">if</span> (nmaa &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur lors de la lecture du nombre de maillage&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Nombre de maillages apres montage de test20-0.med : &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot;\n&quot;</span>,nmaa);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Montage dans test20.med de tous les champs de test10.med */</span></div>
+<div class="line">  mid = MEDmonter(fid,<span class="stringliteral">&quot;test10.med&quot;</span>,MED_CHAMP);</div>
+<div class="line">  <span class="keywordflow">if</span> (mid &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Echec du montage de test10.med&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;On monte les champs du fichier test10.med dans le fichier test20.med \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Combien de champs dans le fichier &quot;test20.med&quot; apres le montage */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((ncha = MEDnChamp(fid,0)) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur lors de la lecture du nombre de champ&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Nombre de champs dans test20.med apres montage : &quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot; \n&quot;</span>,ncha);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Demontage du fichier test10.med */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDdemonter(fid,mid,MED_CHAMP) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Echec du demontage de test10.med&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;On demonte le fichier test10.med dans test20.med \n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Demontage du fichier test20-0.med */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDdemonter(fid,mid2,MED_MAILLAGE) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Echec du demontage de test20-0.med&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;On demonte le fichier test20-0.med dans test20.med\n&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Fermeture du fichier test20.med */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDfermer(fid) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur de la fermeture du fichier&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  printf(<span class="stringliteral">&quot;On ferme le fichier test20.med \n&quot;</span>);</div>
+<div class="line">  </div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

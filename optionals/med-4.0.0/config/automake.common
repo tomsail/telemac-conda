@@ -1,0 +1,8 @@
+MAINTAINERCLEANFILES = Makefile.in 
+AM_CPPFLAGS=-I$(top_srcdir)/include -I$(top_builddir)/include
+AM_FFLAGS=-I$(top_srcdir)/include  -I$(top_builddir)/include
+AM_FCFLAGS=-I$(top_srcdir)/include  -I$(top_builddir)/include
+AM_CPPFLAGS+=@HDF5_CPPFLAGS@
+AM_LDFLAGS=@HDF5_LDFLAGS@
+#AM_ETAGSFLAGS=
+#SWIG_PYTHON_OPT=

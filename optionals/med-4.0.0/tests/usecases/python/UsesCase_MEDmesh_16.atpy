@@ -1,0 +1,18 @@
+AT_SETUP([test LC_ALL=C.UTF-8 $PYTHON UsesCase_MEDmesh_16])
+
+AT_KEYWORDS([LC_ALL=C.UTF-8 $PYTHON UsesCase_MEDmesh_16])
+
+# List of executables that should be run to perform the tests
+#AT_TESTED([UsesCase_MEDmesh_16.py])
+
+# AT_CHECK([cp $abs_srcdir/UsesCase_MEDmesh_16.expout expout],[0],[ignore],[ignore])
+AT_CHECK([ln -s $builddir/UsesCase_MEDmesh_15.med UsesCase_MEDmesh_15.med])
+AT_CHECK([LC_ALL=C.UTF-8 $PYTHON $testpydir/UsesCase_MEDmesh_16.py],
+         [0],
+         [ignore],
+         [ignore],
+         [],
+         []
+         )
+
+AT_CLEANUP

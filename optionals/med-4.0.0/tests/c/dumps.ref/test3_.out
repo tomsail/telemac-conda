@@ -1,0 +1,35 @@
+ Le maillage maa1 existe.
+ Le maillage maa2 existe.
+ Le maillage maa3 existe.
+ Le maillage maa4 n'existe pas.
+- Nombre de maillage dans test2.med = 3
+maillage 1 de nom maa1, de dimension 3 et de nom univ. C65845 Tue May 23 10:54:09 2017 148778
+La dimension de l'espace est 3 
+Il s'agit d'un maillage non structure 
+Description associee au maillage : un premier maillage 
+
+	 -Noms des axes : x               y               z               
+	 -Unités des axes : cm              cm              cm              
+	 -Type de repère : 0
+	 -Nombre d'étape de calcul : 0
+	 -Unité des dates : s
+maillage 2 de nom maa2, de dimension 2 
+La dimension de l'espace est 3 
+Il s'agit d'un maillage non structure 
+Description associee au maillage : un second maillage 
+
+	 -Noms des axes : x               y               z               
+	 -Unités des axes : cm              cm              cm              
+	 -Type de repère : 0
+	 -Nombre d'étape de calcul : 7
+	 -Unité des dates : s
+maillage 3 de nom maa3, de dimension 1 
+La dimension de l'espace est 3 
+Il s'agit d'un maillage non structure 
+Description associee au maillage : un troisieme maillage 
+
+	 -Noms des axes : x               y               z               
+	 -Unités des axes : cm              cm              cm              
+	 -Type de repère : 0
+	 -Nombre d'étape de calcul : 0
+	 -Unité des dates : s

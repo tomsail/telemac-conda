@@ -1,0 +1,100 @@
+/**\ingroup MEDinterpFortran
+   \fn subroutine mipcre(integer fid, character*(*) name, integer gtype, integer cnode, integer nvar, integer maxd, integer nmaxc, integer cret)
+  \brief \MEDinterpCrBrief
+  \param fid           \fid
+  \param name    \interpname
+  \param gtype       \geotype
+  \param cnode      \cellnode
+  \param nvar  \nvariable
+  \param maxd     \maxdegree
+  \param nmaxc      \nmaxcoef
+  \param cret  \error
+  \see MEDinterpCr
+  \details \MEDinterpCrDetails
+*/
+
+/**\ingroup MEDinterpFortran
+   \fn subroutine mipbfw(integer fid, character*(*) name, integer it, integer nc, integer:dimension(*) pw, real*8:dimension(*) co, integer cret)
+  \brief \MEDinterpBaseFunctionWrBrief
+  \param fid             \fid
+  \param name      \interpname
+  \param it     \basisfuncit
+  \param nc        \ncoef
+  \param pw           \power
+  \param co     \coefficient
+  \param cret  \error	
+  \see MEDinterpBaseFunctionWr
+  \details \MEDinterpBaseFunctionWrDetails
+*/
+
+/**\ingroup MEDinterpFortran
+   \fn subroutine mipbfr(integer fid, character*(*) name, integer it, integer nc, integer:dimension(*) pw, real*8:dimension(*) co, integer cret)
+  \brief \MEDinterpBaseFunctionRdBrief
+  \param fid             \fid
+  \param name      \interpname
+  \param it     \basisfuncit
+  \param nc        \ncoef
+  \param pw           \power
+  \param co     \coefficient
+  \param cret  \error	
+  \see MEDinterpBaseFunctionRd
+  \details \MEDinterpBaseFunctionRdDetails
+*/
+
+
+/**\ingroup MEDinterpFortran
+   \fn subroutine mipnip(integer fid, integer n, integer cret)
+   \brief \MEDnInterpBrief
+   \param fid  \fid
+   \param n \ninterp
+   \param cret \error
+   \see MEDnInterp
+   \details \MEDnInterpDetails
+*/
+
+
+/**\ingroup MEDinterpFortran
+   \fn subroutine mipiin(integer fid, character*(*) name, integer gtype, integer cnode, integer nbf, integer nvar, integer maxd, integer nmaxc, integer cret)
+  \brief \MEDinterpInfoByNameBrief
+  \param fid           \fid
+  \param name    \interpname
+  \param gtype       \geotype
+  \param cnode      \cellnode
+  \param nbf \nbasisfunc
+  \param nvar  \nvariable
+  \param maxd     \maxdegree
+  \param nmaxc      \nmaxcoef
+  \param cret \error
+  \see MEDinterpInfoByName
+  \details \MEDinterpInfoByNameDetails
+*/
+
+
+/**\ingroup MEDinterpFortran
+   \fn subroutine mipipi(integer fid, integer it, character*(*) name, integer gtype, integer cnode, integer nbf, integer nvar, integer maxd, integer nmaxc, integer cret)
+  \brief \MEDinterpInfoBrief
+  \param fid           \fid
+  \param it      \interpit
+  \param name    \interpname
+  \param gtype       \geotype
+  \param cnode      \cellnode
+  \param nbf \nbasisfunc
+  \param nvar  \nvariable
+  \param maxd     \maxdegree
+  \param nmaxc      \nmaxcoef
+  \param cret \error
+  \see MEDinterpInfo
+  \details \MEDinterpInfoDetails
+*/
+
+/**\ingroup MEDinterpFortran
+   \fn subroutine mipcsz(integer fid,character*(*) name, integer it, integer n, integer cret)
+   \brief \MEDinterpBaseFunctionCoefSizeBrief
+   \param fid             \fid
+   \param name      \name
+   \param it     \basisfuncit
+   \param n \ncoef
+   \param cret \error
+   \see MEDinterpBaseFunctionCoefSize
+   \details \MEDinterpBaseFunctionCoefSizeDetails
+*/

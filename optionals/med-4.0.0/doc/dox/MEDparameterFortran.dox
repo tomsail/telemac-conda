@@ -1,0 +1,121 @@
+/**\ingroup MEDparameterFortran
+   \fn subroutine mprcre(integer fid, character*(*) name, integer type, character*(*) des, character*(*) dtunit, integer cret)
+   \brief \MEDparameterCrBrief
+   \param fid \fid
+   \param name \paramname
+   \param type \paramtype
+   \param des \description
+   \param dtunit \dtunit
+   \param cret \error
+   \see MEDparameterCr
+   \details \MEDparameterCrDetails
+*/
+
+/**\ingroup MEDparameterFortran
+  \brief \MEDparameterValueWrBrief
+   \fn subroutine mprrvw(integer fid, character*(*) name, integer numdt, integer numit, real*8 dt, real*8 val, integer cret)
+  \param fid \fid
+  \param name \paramname
+  \param numdt \numdt
+  \param numit \numit
+  \param dt \dt
+  \param val \value
+  \param cret \error 
+  \see MEDparameterValueWr
+  \details \MEDparameterValueWrDetails
+ */
+
+/**\ingroup MEDparameterFortran
+  \brief \MEDparameterValueWrBrief
+   \fn subroutine mprivw(integer fid, character*(*) name, integer numdt, integer numit, real*8 dt, integer val, integer cret)
+  \param fid \fid
+  \param name \paramname
+  \param numdt \numdt
+  \param numit \numit
+  \param dt \dt
+  \param val \value
+  \param cret \error 
+  \see MEDparameterValueWr
+  \details \MEDparameterValueWrDetails
+ */
+
+
+/**\ingroup MEDparameterFortran
+  \brief \MEDparameterValueRdBrief
+   \fn subroutine mprrvr(integer fid, character*(*) name, integer numdt, integer numit, real*8 val, integer cret)
+  \param fid \fid
+  \param name \paramname
+  \param numdt \numdt
+  \param numit \numit
+  \param val \value
+  \param cret \error 
+  \see MEDparameterValueRd
+  \details \MEDparameterValueRdDetails
+ */
+
+/**\ingroup MEDparameterFortran
+  \brief \MEDparameterValueRdBrief
+  \fn subroutine mprivr(integer fid, character*(*) name, integer numdt, integer numit, integer val, integer cret)
+  \param fid \fid
+  \param name \paramname
+  \param numdt \numdt
+  \param numit \numit
+  \param val \value
+  \param cret \error 
+  \see MEDparameterValueRd
+  \details \MEDparameterValueRdDetails
+ */
+
+/**\ingroup MEDparameterFortran
+   \fn subroutine mprnpr(integer fid, integer n, integer cret)
+   \brief \MEDnParameterBrief
+   \param fid \fid
+   \param n \nfield
+   \param cret \error
+   \see MEDnParameter
+   \details \MEDnParameterDetails
+*/
+
+
+/**\ingroup MEDparameterFortran
+   \fn subroutine mprpri(integer fid, integer it, character*(*) name, integer type, character*(*) desc, character*(*) dtunit, integer nstep, integer cret)
+   \brief \MEDparameterInfoBrief
+   \param fid \fid
+   \param it \paramit
+   \param name \paramname
+   \param type \paramtype
+   \param desc \description
+   \param dtunit \dtunit
+   \param nstep \nstep
+   \param cret \error
+   \see MEDparameterInfo
+   \details \MEDparameterInfoDetails
+*/
+
+/**\ingroup MEDparameterFortran
+   \fn subroutine mprpin(integer fid, character*(*) name, integer type, character*(*) desc, character*(*) dtunit, integer nstep, integer cret)
+   \brief \MEDparameterInfoByNameBrief
+   \param fid \fid
+   \param name \paramname
+   \param type \paramtype
+   \param desc \description
+   \param dtunit \dtunit
+   \param nstep \nstep
+   \param cret \error
+   \see MEDparameterInfoByName
+   \details \MEDparameterInfoByNameDetails
+*/
+
+/**\ingroup MEDparameterFortran
+   \fn subroutine mprcsi(integer fid, character*(*) name, integer it, integer numdt, integer numit, real*8 dt, integer cret)
+   \brief \MEDparameterComputationStepInfoBrief
+   \param fid \fid
+   \param name \paramname
+   \param it \csit
+   \param numdt \numdt
+   \param numit \numit
+   \param dt \dt
+   \param cret \error
+   \see MEDparameterComputationStepInfo
+   \details \MEDparameterComputationStepInfoDetails
+*/

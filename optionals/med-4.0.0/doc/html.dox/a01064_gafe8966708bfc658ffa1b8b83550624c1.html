@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: mficom</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="a01064.html">Guide de référence du module fortran MEDfile</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="contents">
+<table cellspacing="0" cellpadding="0" border="0">
+  <tr>
+   <td valign="top">
+      <div class="navtab">
+        <table>
+          <tr><td class="navtab"><a class="qindexHL" href="a01064_gafe8966708bfc658ffa1b8b83550624c1.html#gafe8966708bfc658ffa1b8b83550624c1">mficom</a></td></tr>
+          <tr><td class="navtab"><a class="qindex" href="a01064_ga25a050e72faf164453471cdd0e2d1ffc.html#ga25a050e72faf164453471cdd0e2d1ffc">mfiexi</a></td></tr>
+        </table>
+      </div>
+   </td>
+   <td valign="top" class="mempage">
+<a class="anchor" id="gafe8966708bfc658ffa1b8b83550624c1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mficom </td>
+          <td>(</td>
+          <td class="paramtype">character *(*)&#160;</td>
+          <td class="paramname"><em>fname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>hdfok</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>medok</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer&#160;</td>
+          <td class="paramname"><em>cret</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vérification de la compatibilité d'un fichier avec HDF et MED. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fname</td><td>Nom du fichier. </td></tr>
+    <tr><td class="paramname">hdfok</td><td>Indicateur booleen indiquant si le fichier est dans un format HDF compatible. </td></tr>
+    <tr><td class="paramname">medok</td><td>Indicateur booleen indiquant si le fichier un fichier MED compatible. </td></tr>
+    <tr><td class="paramname">cret</td><td>retour négatif en cas d'erreur, Zéro sinon. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>Voir également</dt><dd><a class="el" href="a01049_gac3e0eb335c4d611cbbeaf7688050f054.html#gac3e0eb335c4d611cbbeaf7688050f054" title="Vérification de la compatibilité d&#39;un fichier avec HDF et MED. ">MEDfileCompatibility</a></dd></dl>
+<p>Cette routine permet de vérifier la compatibilité du fichier passé en argument avec les bibliothèques HDF et MED utilisées : </p><ul>
+<li>
+Le fichier doit être un fichier HDF et dans une version d'HDF utilisable par la bibliothèque MED pour que <em>hdfok</em> soit vrai.</li>
+<li>
+Le fichier doit être dans une version MED utilisable par la bibliothèque MED (Majeur du fichier égal à celui de la bibliothèque et mineur du fichier inférieur ou égal à celui de la bibliothèque quelque soit la valeur release).</li>
+</ul>
+
+<p>Définition à la ligne <a class="el" href="a00647_source.html#l00170">170</a> du fichier <a class="el" href="a00647_source.html">medfile.f</a>.</p>
+
+</div>
+</div>
+    </td>
+  </tr>
+</table>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:49 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

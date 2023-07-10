@@ -1,0 +1,26 @@
+/
+/**********************************************************************
+/
+/           FICHIER DE DECLARATION DES MOTS CLES DU CODE
+/                          STBTEL  V5.5
+/
+/                  Traitement d'un maillage Selafin
+/                 Sans elimination des elements secs
+/  SOGREAH                                                26/01/1999
+/**********************************************************************
+/
+/
+UNIVERSAL FILE                : 'hydro'
+GEOMETRY FILE FOR TELEMAC     : 'geo.slf'
+BOUNDARY CONDITIONS FILE      : 'geo.cli'
+/
+MESH GENERATOR                : 'SELAFIN'
+/
+ELIMINATION OF BACKWARD DEPENDENCIES : NO
+OVERSTRESSED TRIANGLES CUTTING       : YES
+MINIMUM DISTANCE BETWEEN TWO POINTS  : 0.
+/
+DRY ELEMENTS ELIMINATION           : NO
+PARTIALLY DRY ELEMENTS ELIMINATION : NO
+DRY LIMIT                          : 0.2
+STORAGE OF ALL TIME STEPS          : NO

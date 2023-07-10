@@ -1,0 +1,103 @@
+/----------------------------------------------------------------------|
+NESTOR                        = YES
+NESTOR ACTION FILE            = _DigActions.dat
+NESTOR POLYGON FILE           = _DigPolys.dat
+NESTOR SURFACE REFERENCE FILE = _DigRefLevel.dat
+/
+ORIGINAL DATE OF TIME         = 2000;1;1    / year , month  , day
+ORIGINAL HOUR OF TIME         = 0;0;0         / hours, minutes, seconds
+/----------------------------------------------------------------------|
+/
+GEOMETRY FILE                 = geo_nestor2.slf
+BOUNDARY CONDITIONS FILE      = geo_nestor2_mor.cli
+/
+RESULTS FILE                  = sis_nestor2.slf
+/
+GEOMETRY FILE FORMAT          = SERAFIND
+RESULTS FILE FORMAT           = SERAFIND
+/
+/----------------------------------------------------------------------|
+/  GENERAL AND OUTPUT
+/----------------------------------------------------------------------|
+TITLE : 'nestor2_Dump'
+VARIABLES FOR GRAPHIC PRINTOUTS             =
+'E,H,*A**,D50,R,B,U,V,S,M'
+/E,H,*A**,D50,QSBL,QS*,QS10,TOB,R,B,KS,*ES,U,V,S,M,N,P'
+/ '*A**="fraction of sediment of all classes in all layers"';
+/ 'B="bottom elevation (m)"';
+/ 'D50 = "Mean grain diameter"';
+/ 'E="bottom evolution (m)"';
+/ '*ES="thickness of every layer"';
+/ 'H="water depth (m)"';
+/ 'KS="total bed roughness (m)"';
+/ 'M="bed-load discharge (m2/s)"';
+/ 'N="bed-load discharge along x axis (m2/s)"';
+/ 'P="bed-load discharge along y axis (m2/s)"';
+/ 'QSBL="bed load transport rate (m2/s)"';
+/ 'QSi="bed load transport rate of sediment of class i"';
+/ 'R="non erodable bottom"';
+/ 'S="free surface elevation (m)"';
+/ 'TOB="Bed Shear stress (Totalfriction) (N/m2)"';
+/ 'U="velocity along x axis (m/s)"';
+/ 'V="velocity along y axis (m/s)"';
+/
+/----------------------------------------------
+/ SISYPHE NUMERICAL ALGORITHMS
+/----------------------------------------------
+STEADY CASE                              = NO
+MASS-BALANCE                             = YES
+TIDAL FLATS                              = YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS  = 1
+ZERO                                     = 1e-12
+TETA                                     = 0.5
+SOLVER ACCURACY                          = 1.E-8
+MINIMAL VALUE OF THE WATER HEIGHT        = 0.1
+TREATMENT OF FLUXES AT THE BOUNDARIES    = 1
+/
+/----------------------------------------------------------------------|
+/ PHYSICAL PARAMETERS - HYDRODYNAMICS
+/----------------------------------------------------------------------|
+/   0: glatter Boden 3*d50        3: Stickler
+/   1: wellenbeeinflusster Boden  4: Manning
+/   2: Chezy                      5: Nikuradse
+LAW OF BOTTOM FRICTION    = 0
+FRICTION COEFFICIENT      = 0.03087
+/
+/----------------------------------------------------------------------|
+/ PHYSICAL PARAMETERS - BED LOAD
+/----------------------------------------------------------------------|
+BED-LOAD TRANSPORT FORMULA = 1   / Meyer-Peter Mueller
+MPM COEFFICIENT = 0.00D0
+/----------------------------------------------------------------------|
+CRITICAL EVOLUTION RATIO                          = 1000.0
+SEDIMENT DENSITY                                  = 2650.
+OPTION FOR THE TREATMENT OF NON ERODABLE BEDS     = 3    / 4: FINITE VOLUME
+/---- slope effekct ---------------------------------------------------|
+/ 1: Koch et Flokstra
+/ 2: Soulsby
+SLOPE EFFECT                                   = YES
+FORMULA FOR SLOPE EFFECT                       = 2
+FRICTION ANGLE OF THE SEDIMENT                 = 35 /default 40
+/---- deviation: change of direction of bed-load transport ------------|
+/ 1: Koch and Flokstra
+/ 2: Talmon et al. 1995
+FORMULA FOR DEVIATION         = 2
+PARAMETER FOR DEVIATION       = 1.7
+BETA                          = 1.3
+/---- hiding ----------------------------------------------------------|
+/1:Egiazaroff        3:Hunziker mit Bed-load transport formula = 6
+/2:Ashida & Michiue  4:Karim, Holly & Jang
+HIDING FACTOR FORMULA  = 4
+/---- grain composition -----------------------------------------------|
+NUMBER OF BED LOAD MODEL LAYERS             = 3
+NUMBER OF SIZE-CLASSES OF BED MATERIAL      = 4
+MEAN DIAMETER OF THE SEDIMENT  =  0.10D-3; 0.11D-3; 1.91D-3; 2.00D-3
+
+INITIAL FRACTION FOR PARTICULAR SIZE CLASS = 0.2D0;0.2D0;0.2D0;0.4D0
+/
+/----------------------------------------------------------------------|
+/
+CONSTANT ACTIVE LAYER THICKNESS  = YES
+ACTIVE LAYER THICKNESS           = 0.10
+/
+/----------------------------------------------------------------------|

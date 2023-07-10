@@ -1,0 +1,49 @@
+TITLE = 'Widening Channel Test'
+/-----------------------------------------------------------------------
+/     FILES NEEDED FOR GAIA
+/-----------------------------------------------------------------------
+BOUNDARY CONDITIONS FILE = geo_sandpit.cli
+GEOMETRY FILE            = geo_sandpit.slf
+RESULTS FILE             = gai_sandpit_bl8.slf
+WAVE FILE                = tom_sandpit.slf
+/-----------------------------------------------------------------------
+/ OUTPUT
+/-----------------------------------------------------------------------
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,S,E,B,M,W,X,TOB,1ES'
+MASS-BALANCE                    = YES
+/-----------------------------------------------------------------------
+/ NUMERICAL PARAMETERS
+/-----------------------------------------------------------------------
+TIDAL FLATS                               = YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS   = 1
+MINIMAL VALUE OF THE WATER HEIGHT         = 0.001
+FINITE VOLUMES                            = NO
+/-----------------------------------------------------------------------
+/ PHYSICAL PARAMETERS
+/-----------------------------------------------------------------------
+CLASSES TYPE OF SEDIMENT                   = NCO
+BED LOAD FOR ALL SANDS                     = YES
+BED-LOAD TRANSPORT FORMULA FOR ALL SANDS   = 8
+SUSPENSION FOR ALL SANDS                   = NO
+SUSPENSION TRANSPORT FORMULA FOR ALL SANDS = 4
+CLASSES SEDIMENT DIAMETERS                 = 0.0001
+D90 SAND DIAMETER FOR ONLY ONE CLASS       = 0.00013
+CLASSES SEDIMENT DENSITY                   = 2650
+CLASSES SETTLING VELOCITIES                = 0.007
+LAYERS NON COHESIVE BED POROSITY           = 0.4
+SLOPE EFFECT                               = YES
+FORMULA FOR SLOPE EFFECT                   = 1
+BETA                                       = 1.3
+EFFECT OF WAVES                            = YES
+/chromatic waves to be compatible with Sisyphe
+/ better was to choose spectral (=2)
+TYPE OF WAVES = 1
+EQUILIBRIUM INFLOW CONCENTRATION           = YES
+/ not needed because mud is always with partheniades/krone and sand with ref. conc.
+/FORMULATION FOR DEPOSITION AND EROSION     = 3
+/it does accept this setting
+/ even if the dico doesn't give more then 2 options
+SETTLING LAG                               = YES
+ZERO                                       = 1e-12
+SECONDARY CURRENTS                         = NO
+SKIN FRICTION CORRECTION                   = 2

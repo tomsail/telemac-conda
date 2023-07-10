@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+</HEAD>
+<BODY LANG="fr-FR" DIR="LTR">
+<A NAME="____Créer/Ouvrir/Fermer un fichier MED____">
+</A>
+<H1>Ouverture/Création d'un fichier MED</H1>
+<P>L'ouverture/création d'un fichier MED s'effectue avec la routine
+\ref MEDfileOpen (C) / \ref mfiope (F).</P>
+<P>Cette routine renvoie un identificateur ( \c fid ) utilisé par
+les autres routines de l'API pour accéder aux données du fichier. 
+</P>
+<P>Les différents modes d'accès possibles sont : 
+</P>
+<UL>
+	<LI><P>Création (<EM>\ref MED_ACC_CREAT) </EM></P>
+	<LI><P>Ouverture en lecture seule (<EM>\ref MED_ACC_RDONLY)</EM></P>
+	<LI><P>Ouverture en lecture/écriture (<EM>\ref MED_ACC_RDWR)</EM></P>
+	<LI><P>Ouverture en lecture/écriture avec ajout (<EM>\ref
+	MED_ACC_RDEXT)</EM></P>
+</UL>
+<P>Dans ce dernier mode, l'écriture n'est possible que pour ajouter
+dans le fichier de nouvelles données (une erreur est générée si
+la donnée existe déjà).</P>
+<P>\dontinclude test1.c \skipline MEDfileOpen 
+<small>
+\ref c/test1.c "Fichier d'exemple associé"
+</small>
+</P>
+<H1>Fermeture d'un fichier MED</H1>
+<P>La routine \ref MEDfileClose (C) / \ref mficlo (F) permet de
+fermer un fichier.</P>
+<P>
+\dontinclude test1.c \skipline MEDfileClose 
+\until } 
+<small>
+\ref c/test1.c "Fichier d'exemple associé"
+</small>
+</P>
+<H1>Entête de fichier</H1>
+<P>La routine \ref MEDfileCommentWr (C) / \ref mficow (F) permet
+l'écriture d'un en-tête de fichier, la routine \ref
+MEDfileCommentRd (C) / \ref mficor (F) la lecture. 
+</P>
+<P>Cet en-tête à usage optionnel est purement descriptif. Il
+comporte au plus \ref MED_COMMENT_SIZE caractères. 
+</P>
+<P>
+\dontinclude test1.c \skipline des[ 
+\skipline MEDfileCommentWr
+\until } 
+<small>
+\ref c/test1.c "Fichier d'exemple associé"
+</small>
+\dontinclude test2.c \skipline des[ 
+\skipline MEDfileCommentRd 
+<small>
+\ref c/test2.c "Fichier d'exemple associé"
+</small>
+</P>
+<H1>Compatibilité entre la version du fichier et la version de la
+bibliothèque</H1>
+<P>La routine \ref MEDfileCompatibility / \ref mficom permet de
+vérifier :</P>
+<UL>
+	<LI><P>Si le fichier est au format HDF5 
+	</P>
+	<LI><P>S'il correspond à un fichier MED compatible avec la
+	bibliothèque.</P>
+</UL>
+<P>L'appel à cette routine se fait généralement avant l'ouverture du fichier. 
+</P>
+<P>
+\dontinclude test18.c \skipline hdfok
+\skipline MEDfileCompatibility
+\until }
+<small>
+\ref c/test18.c "Fichier d'exemple associé"
+</small>
+</P>
+<H1>Lecture de la version du fichier</H1>
+<P>Les routines \ref MEDfileNumVersionRd / \ref mfinvr et \ref
+MEDfileStrVersionRd / \ref mfisvr lisent la version de la
+bibliothèque MED utilisée à la création du fichier. 
+</P>
+<UL>
+	<LI><P>\ref MEDfileNumVersionRd / \ref mfinvr lit la version sous
+	forme de trois scalaire majeur,mineur,release 
+	\dontinclude test18.c
+	\skipline majeur 
+	\skipline MEDfileNumVersionRd 
+	\until } 
+	\skipline fprintf 
+    <small>
+	\ref c/test18.c "Fichier d'exemple associé" 
+    </small>
+	</P>
+	<LI><P>\ref MEDfileStrVersionRd / \ref mfisvr lit la version sous
+	forme de chaîne de caractère 
+	\dontinclude test18.c 
+	\skipline medversion 
+	\skipline MEDfileStrVersionRd 
+	\until } 
+	\skipline fprintf
+    <small>
+	\ref c/test18.c "Fichier d'exemple associé" 
+    </small>
+	</P>
+</UL>
+<H1>Liens vers les fichiers exemples utilisés</H1>
+<UL>
+	<LI><P>\ref c/test1.c "Fichier d'exemple test1.c"
+	</P>
+	<LI><P>\ref c/test2.c "Fichier d'exemple test2.c"
+	</P>
+	<LI><P>\ref c/test18.c "Fichier d'exemple test18.c" 
+	</P>
+</UL>
+</BODY>
+</HTML>

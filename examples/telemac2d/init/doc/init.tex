@@ -1,0 +1,247 @@
+\chapter{init}
+
+\section{Description}
+
+This example checks some features available in \telemac{2D}:
+\begin{itemize}
+\item sources by nodes,
+\item sources by regions,
+\item kinetic schemes.
+\end{itemize}
+
+The configuration is the same for the 6 computations:
+a section of river (around 1,700~m long and 300~m wide)
+with realistic bottom.
+The geometric data include a groyne in the transversal direction and an island
+(see Figure \ref{t2d:init:fig:bottom}).
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Bottom.png}
+ \caption{Bottom elevation.}
+ \label{t2d:init:fig:bottom}
+\end{figure}
+
+\subsection{Initial and boundary conditions}
+
+There are 6 computations:
+\begin{itemize}
+\item The first computation (with t2d\_init.cas steering file), for which
+the computation is initialised with a constant elevation equal to 265~m and no
+velocity,
+
+\item The second computation (with t2d\_init\_cin.cas steering file), for which
+the computation is initialised with a constant elevation equal to 265~m and no
+velocity,
+
+\item The third computation (with t2d\_init\_cin\_source\_by\_reg.cas steering
+file), for which the computation is initialised with a constant elevation equal
+to 265~m and no velocity,
+
+\item The fourth computation (with t2d\_init-no-water.cas steering file) which
+is initialised with a special treatment: water depth equal to 0~m everywhere
+except along the inlet boundary where elevation is equal to 260~m, and no velocity,
+
+\item The fifth computation (with t2d\_init-restart.cas steering file) is a restart
+computation,
+
+\item The sixth computation (with t2d\_init-restart\_source\_by\_reg.cas steering file)
+is a restart computation.
+
+\end{itemize}
+
+The boundary conditions are:
+\begin{itemize}
+\item For the solid walls, a slip condition on channel banks is used for the
+velocities,
+\item On the bottom, a Strickler law with friction coefficient equal to
+50 or 55~m$^{1/3}$/s is prescribed depending on the computation,
+\item Upstream a flowrate equal to 750~m$^3$/s is prescribed
+(linearly increasing from 0 to 750~m$^3$/s during the first hour),
+%for the first computation and always to 700~m$^3$/s for the second computation.
+%The velocity profile is given in the boundary conditions file along this liquid
+%boundary for the first computation and is a constant normal profile for the
+%second one,
+\item Downstream the water level is equal to 265~m for most of the computations except
+  no-water computation for which it is let free.
+\end{itemize}
+
+\subsection{Mesh and numerical parameters}
+
+The mesh (Figure \ref{t2d:init:fig:meshH})
+is made of 3,780 triangular elements (2,039 nodes).
+Is is refined around the island and in front of the groyne.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Mesh.png}
+ \caption{Horizontal mesh.}
+ \label{t2d:init:fig:meshH}
+\end{figure}
+
+The simulated period is 500~s for most of the computations, except the restart computations
+which simulate 3~h.
+
+The time step is 2.5~s (for the Finite Elements computations).
+Variable time step is used with a desired Courant number equal to 0.9
+for the Kinetic computations.
+
+For Finite Elements computations, to solve the advection:
+\begin{itemize}
+\item the method of characteristics is used for the velocities (scheme 1),
+\item the PSI scheme is used for tracers for restart computations,
+\item the SUPG scheme is used for the $k-\epsilon$ variables
+for the t2d\_init.cas computation. 
+\end{itemize}
+
+The GMRES is used for solving the propagation step (option 7) and diffusion
+of tracer when tracer is modelled.
+
+%When using Finite Element method, implicitation for depth is then set to 1.
+
+2nd order Kinetic scheme is used to solve the kinetic computations
+with desired Courant number equal to 0.9.
+
+\subsection{Physical parameters}
+
+Except for the t2d\_init.cas computation, turbulence is modelled by a constant
+viscosity.
+It is equal to 10$^{-2}$~m$^2$/s for the restart computations, 1~m$^2$/s for
+the no-water computation, and no diffusion for the kinetic computations.
+The $k-\epsilon$ model is used for the t2d\_init.cas computation.
+
+One tracer transport is modelled with the kinetic and the restart computations,
+with one source point or sources defined by regions (defined by a polygon,
+in that case with the keyword \telkey{SOURCE REGIONS DATA FILE}).
+For kinetic computations, the source term is multiplied by a Dirac function
+(\telkey{TYPE OF SOURCES} = 2 which is recommended when the number of sources is
+big) whereas for restart computations, the source term is multiplied by a finite
+element basis (= 1, which is the default choice).
+For restart computations, no diffusion for tracers is considered.
+
+During the restart computations, tracer is released during 2 periods of time,
+between 1,800~s and 3,600~s but also between 4,800~s and 7,200~s.
+
+Porosity is used (\telkey{OPTION FOR THE TREATMENT OF TIDAL FLATS} = 3) for
+the no-water computation.
+
+\section{Results}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurfaceSeq.png}
+\caption{Free surface elevation at final time step ($k-\epsilon$).}
+\label{t2d:init:freesurfseq}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocitySeq.png}
+\caption{Magnitude of velocity at final time step with vectors ($k-\epsilon$).}
+\label{t2d:init:velovectseq}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/ViscositySeq.png}
+\caption{Viscosity at final time step with vectors ($k-\epsilon$).}
+\label{t2d:init:viscosityseq}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/TKESeq.png}
+\caption{Turbulent Kinetic Energy at final time step with vectors ($k-\epsilon$).}
+\label{t2d:init:tkeseq}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/DissipationSeq.png}
+\caption{Dissipation at final time step with vectors ($k-\epsilon$).}
+\label{t2d:init:dissipationseq}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurfaceNoWater.png}
+\caption{Free surface elevation at final time step (no water).}
+\label{t2d:init:freesurfnowater}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityNoWater.png}
+\caption{Magnitude of velocity at final time step with vectors (no water).}
+\label{t2d:init:velovectnowater}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurfaceKin.png}
+\caption{Free surface elevation at final time step (kinetic with sources by points).}
+\label{t2d:init:freesurfkin}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityKin.png}
+\caption{Magnitude of velocity at final time step with vectors (kinetic with sources by points).}
+\label{t2d:init:velovectkin}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/TracerKin.png}
+\caption{Tracer at final time step (kinetic with sources by points).}
+\label{t2d:init:tracerkin}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurfaceKinReg.png}
+\caption{Free surface elevation at final time step (kinetic with sources by regions).}
+\label{t2d:init:freesurfkinreg}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityKinReg.png}
+\caption{Magnitude of velocity at final time step with vectors (kinetic with sources by regions).}
+\label{t2d:init:velovectkinreg}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurfaceRestart.png}
+\caption{Free surface elevation at final time step (restart with sources by points).}
+\label{t2d:init:freesurfrestart}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityRestart.png}
+\caption{Magnitude of velocity at final time step with vectors (restart with sources by points).}
+\label{t2d:init:velovectrestart}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/TracerRestart.png}
+\caption{Tracer at final time step (restart with sources by points).}
+\label{t2d:init:tracerrestart}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurfaceRestartReg.png}
+\caption{Free surface elevation at final time step (restart with sources by regions).}
+\label{t2d:init:freesurfrestartreg}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityRestartReg.png}
+\caption{Magnitude of velocity at final time step with vectors (restart with sources by regions).}
+\label{t2d:init:velovectrestartreg}
+\end{figure}

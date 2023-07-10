@@ -1,0 +1,18 @@
+#
+#  COURBE DE TARAGE FRONTIERE 1
+#
+Q(1)     Z(1)
+m3/s      m
+61.       0.
+62.       0.1
+63.       0.2
+#
+#  COURBE DE TARAGE FRONTIERE 2
+#
+Q(2)     Z(2)
+m3/s      m
+10.       1.
+20.       2.
+30.       3.
+40.       4.
+50.       5.

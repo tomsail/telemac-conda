@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: Dictionnaire des donn&eacute;es du mod&egrave;le MED</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li class="current"><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Dictionnaire des donn&eacute;es du mod&egrave;le MED </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="____Dictionnaire des donn&eacute;es du mod&egrave;le MED____"></a> </p>
+<p><b>Ar&ecirc;te</b> : Une ar&ecirc;te peut &ecirc;tre une ar&ecirc;te d'une maille volumique ou d'une maille surfacique. Elle est constitu&eacute;e par 2 ou 3 noeuds (les sommets et &eacute;ventuellement un noeud milieu). </p>
+<p><b>Champ</b> : Un champ est constitu&eacute; d'une ou plusieurs composantes scalaires. A un champ est associ&eacute; un type et les valeurs correspondant aux diff&eacute;rentes composantes sont toutes du m&ecirc;me type. </p>
+<p><b>Composante</b> : Pour chaque composante d'un champ, et &agrave; chaque entit&eacute; du maillage, peut correspondre une valeur enti&egrave;re ou r&eacute;elle. </p>
+<p><b>Connectivit&eacute;</b> : La connectivit&eacute; d'un maillage d&eacute;finit le type des connexions entre ses sommets. </p>
+<p><b>Connectivit&eacute; de r&eacute;f&eacute;rence</b> : Pour chaque type d'entit&eacute; du maillage, la connectivit&eacute; de r&eacute;f&eacute;rence d&eacute;finit la topologie d'une entit&eacute;. </p>
+<p><b>Connectivit&eacute; descendante</b> : C'est la description des entit&eacute;s de maillage de dimension N par la liste ordonn&eacute;e des entit&eacute;s g&eacute;m&eacute;triques (noeuds, ar&ecirc;tes ou faces) de dimension N-1. </p>
+<p><b>Connectivit&eacute; nodale</b> : C'est la description d'une entit&eacute; du maillage par la liste ordonn&eacute;e des noeuds qui la composent. </p>
+<p><b>Entit&eacute; de r&eacute;f&eacute;rence</b> : A chaque maille, face ou ar&ecirc;te est associ&eacute;e un type g&eacute;om&eacute;trique. </p>
+<p><b>Entit&eacute; du maillage</b> : Ce sont les composants g&eacute;om&eacute;triques du maillage : noeuds, mailles, faces et ar&ecirc;tes. Les faces et les ar&ecirc;tes ne sont que des entit&eacute;s interm&eacute;diaires qui permettent de d&eacute;finir les mailles en connectivit&eacute; descendante. </p>
+<p><b>Equivalence</b> : Une &eacute;quivalence est une liste de correspondance 2 &agrave; 2 entre des entit&eacute;s de m&ecirc;me dimension. </p>
+<p><b>Etude</b> : Une &eacute;tude correspond &agrave; un encha&icirc;nement de s&eacute;quences de calcul. </p>
+<p><b>Face</b> : Face d'une maille volumique (triangle, quadrangle). </p>
+<p><b>Famille</b> : Les entit&eacute;s du maillage sont d&eacute;crites par un certain nombre de caract&eacute;ristiques (conditions limites, appartenance &agrave; des groupes). Les familles sont des classes d'&eacute;quivalence par rapport &agrave; ces caract&eacute;ristiques (deux entit&eacute;s du maillage appartiennent &agrave; la m&ecirc;me famille ssi elles ont les m&ecirc;mes caract&eacute;ristiques). Une famille est d&eacute;crite par une liste d'appartenance aux groupes. </p>
+<p><b>Groupe</b> : Ensemble non ordonn&eacute; d'entit&eacute;s du maillage. Une m&ecirc;me entit&eacute; peut appartenir &agrave; plusieurs groupes. </p>
+<p><b>Joint</b> : Ensemble non ordonn&eacute; d'entit&eacute;s communes &agrave; deux sous-domaines. </p>
+<p><b>Maillage</b> : Un maillage d'un domaine D est un ensemble E recouvrant D. Cet ensemble est constitu&eacute; d'un nombre fini de mailles. </p>
+<p><b>Maillage libre</b> : cf. &quot;Maillage non structur&eacute;&quot;. </p>
+<p><b>Maillage non structur&eacute; </b>: Un maillage est non structur&eacute; si sa connectivit&eacute; est quelconque. </p>
+<p><b>Maillage structur&eacute;</b> : Un maillage structur&eacute; est un maillage dont la construction utilise des directions g&eacute;om&eacute;triques particuli&egrave;res. Un tel maillage est appel&eacute; une grille. En dimension 2, l'&eacute;l&eacute;ment d'une grille est le quadrangle tandis qu'en dimension 3, une grille est compos&eacute; d'h&eacute;xa&egrave;dres. On distingue des grilles quelconques, les grilles cart&eacute;siennes et les grilles polaires. </p>
+<p><b>Maille</b> : Les mailles sont les &eacute;l&eacute;ments de l'ensemble E. Elles sont d&eacute;finies par leur connectivit&eacute;. Une maille peut &ecirc;tre de dimension 0, 1, 2 ou 3. </p>
+<p><b>Noeud</b> : Un noeud peut &ecirc;tre un noeud isol&eacute; du maillage, un noeud sommet ou un noeud milieu d'une ar&ecirc;te. Un noeud est associ&eacute; &agrave; un point. </p>
+<p><b>Num&eacute;rotation globale</b> : Num&eacute;rotation optionnelle des entit&eacute;s (mailles, noeuds, faces et ar&ecirc;te) d'un maillage distribu&eacute; permettant de rep&eacute;rer ces entit&eacute;s de mani&egrave;re absolue sur le maillage global dont elles sont issues. </p>
+<p><b>Point</b> : Entit&eacute; g&eacute;om&eacute;trique d&eacute;finie par ses coordonn&eacute;es dans l'espace de d&eacute;finition du domaine D. </p>
+<p><b>Profil </b>: Un profil sur les entit&eacute;s d'un maillage permet de s&eacute;lectionner un sous-ensemble de ces entit&eacute;s.</p>
+<p><b>R&eacute;sultat</b> : Liste de champs portant sur un m&ecirc;me maillage. </p>
+<p><b>Sous-domaine</b> : Dans le cas d'un maillage distribu&eacute;, sous-partie d'un maillage affect&eacute;e g&eacute;n&eacute;ralement &agrave; un processeur. <br />
+<br />
+<br />
+<br />
+ </p>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:48 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

@@ -1,0 +1,94 @@
+\chapter{Drag force in a channel (dragforce)}
+
+\section{Description}
+
+This example checks that \telemac{2D} is able to represent a drag force
+and porosity.
+
+The configuration is a straight channel 200~m long and 40~m wide
+with a flat horizontal bottom without slope.
+
+\subsection{Initial and boundary conditions}
+
+The computation is initialised with a constant elevation equal to 4~m
+and a constant velocity along $x$ equal to 0.625~m/s.
+
+The boundary conditions are:
+\begin{itemize}
+\item For the solid walls, a slip condition on channel banks is used for the
+velocities,
+\item On the bottom, a Strickler law with friction coefficient equal to
+40~m$^{1/3}$/s is prescribed,
+\item Upstream a flowrate equal to 100~m$^3$/s is prescribed,
+\item Downstream the water level is equal to 4~m.
+\end{itemize}
+
+\subsection{Mesh and numerical parameters}
+
+The mesh (Figure \ref{t2d:dragforce:fig:meshH})
+is made of 7,334 triangular elements (3,740 nodes).
+Is is particularly refined around where the drag force and porosity are applied.
+%(for -15~m < $x$ < 20~m and -10~m < $y$ < 10~m).
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Mesh.png}
+ \caption{Horizontal mesh.}
+ \label{t2d:dragforce:fig:meshH}
+\end{figure}
+
+The time step is 0.2~s for a simulated period of 2,000~s.
+
+To solve the advection, the method of characteristics
+is used for the velocities (scheme 1).
+The conjugate gradient
+is used for solving the propagation step (option 1) and
+the implicitation coefficients
+for depth and velocities are respectively equal to 1 and 0.6.
+
+\subsection{Physical parameters}
+
+The $k-\epsilon$ model is used for turbulence modelling.
+The drag force is activated by setting the keyword
+\telkey{VERTICAL STRUCTURES} = YES.
+The default treatment implemented in the \telfile{DRAGFO} subroutine
+is used in this example but it can be changed if needed.
+
+In addition, porosity is applied by setting
+\telkey{TIDAL FLATS} = YES (default value) +
+\telkey{OPTION FOR THE TREATMENT OF TIDAL FLATS} = 3 and
+by implementing the user subroutine \telfile{USER\_CORPOR}:
+
+\begin{equation*}
+\left\{
+    \begin{array}{rl}
+        \textrm{if } -10 \le x \le 10, & \textrm{porosity} = \frac{19}{20}, \\
+        \textrm{if } x < -10, & \textrm{porosity} = \frac{19}{20} - \frac{1}{20} \frac{x+10}{10},\\
+        \textrm{if } x > 10,  & \textrm{porosity} = \frac{19}{20} + \frac{1}{20} \frac{x-10}{10}.
+    \end{array}
+\right.
+\end{equation*}
+
+\section{Results}
+
+The flow establishes a steady flow where the free surface is lighly higher
+at the entrance and lightly drops (less than 1~cm) after the area where the drag
+force and porosity are applied (see Figure \ref{t2d:dragforce:results}).
+The flow accelerates where porosity and drag force are applied and then
+retrieves quite similar velocity after.
+%, but they are
+%lightly greater in the wake of where the drag force is defined,
+%compared to along the walls.
+
+\begin{figure}[H]
+  \centering
+   \subfloat[][Free surface]{
+  \includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurface.png}}\\
+  \subfloat[][Velocity]{
+  \includegraphicsmaybe{[width=0.9\textwidth]}{../img/Velocity.png}}
+  \caption{Results.}\label{t2d:dragforce:results}
+\end{figure}
+
+\section{Conclusions}
+
+\telemac{2D} is capable to model drag forces and porosity.

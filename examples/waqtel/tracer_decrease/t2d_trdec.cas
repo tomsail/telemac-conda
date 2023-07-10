@@ -1,0 +1,75 @@
+/---------------------------------------------------------------------
+/ TELEMAC2D Version v6p2 14 juin 2012
+/ TELEMAC 2D : TEST DECROISSANCE TRACEURS
+/---------------------------------------------------------------------
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES, FICHIERS
+/---------------------------------------------------------------------
+/
+FORTRAN FILE             = 'user_fortran'
+BOUNDARY CONDITIONS FILE = 'geo_trdec.cli'
+GEOMETRY FILE            = 'geo_trdec.slf'
+RESULTS FILE             = 'r2d_trdec.slf'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES, GENERALITES
+/---------------------------------------------------------------------
+/
+/-------------------------------------------------------------------
+/                     OPTIONS GENERALES
+/-------------------------------------------------------------------
+/
+TITLE = 'TELEMAC 2D : TEST DECROISSANCE TRACEURS'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES, GRAPHIQUES ET LISTING
+/---------------------------------------------------------------------
+/
+VARIABLES FOR GRAPHIC PRINTOUTS = 'H,S,B,T*'
+GRAPHIC PRINTOUT PERIOD = 60
+LISTING PRINTOUT PERIOD = 1080
+MASS-BALANCE            = YES
+/
+/---------------------------------------------------------------------
+/ EQUATIONS
+/---------------------------------------------------------------------
+/
+LAW OF BOTTOM FRICTION : 0
+ADVECTION             = NO
+DIFFUSION OF VELOCITY = NO
+/
+/---------------------------------------------------------------------
+/ EQUATIONS, CONDITIONS INITIALES
+/---------------------------------------------------------------------
+/
+INITIAL CONDITIONS = 'CONSTANT ELEVATION'
+INITIAL ELEVATION  = 2.
+/
+/---------------------------------------------------------------------
+/ EQUATIONS, TRACEUR
+/---------------------------------------------------------------------
+/
+NUMBER OF TRACERS = 5
+NAMES OF TRACERS  = 'Traceur 1';'Traceur 2';'Traceur 3';'Traceur 4';
+'Traceur 5'
+INITIAL VALUES OF TRACERS = 100.;200.;200.;200.;200.
+/
+COUPLING WITH         = 'WAQTEL'
+WAQTEL STEERING FILE  = 'waq_trdec.cas'
+WATER QUALITY PROCESS = 17
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES
+/---------------------------------------------------------------------
+/
+NUMBER OF TIME STEPS = 8640
+TIME STEP            = 10.0
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES, SOLVEUR
+/---------------------------------------------------------------------
+/
+SOLVER FOR DIFFUSION OF TRACERS   = 1
+ACCURACY FOR DIFFUSION OF TRACERS = 1.E-10
+IMPLICITATION COEFFICIENT OF TRACERS = 1.

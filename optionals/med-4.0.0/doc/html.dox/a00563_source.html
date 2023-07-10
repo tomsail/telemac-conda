@@ -1,0 +1,466 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier:  Fichier source de libmedimport.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_922008759471ca0eb310ac45b5f91be6.html">tools</a></li><li class="navelem"><a class="el" href="dir_9c366db0edc8bcb5b0602ad782c15d46.html">medimport</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">libmedimport.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00563.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">/* L&#39;utilisation des med_utils n&#39;est pas optionelle</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">   dans l&#39;outil medimport, elle revet cependant deux</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">   formes :</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">   - Si -DWITH_EXCEPTION EXITIF renvoie une exception MEDerreur</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">   - Sinon exécute l&#39;instruction return */</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#ifdef HAVE_STDBOOL_H</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor"># include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor"># ifndef HAVE__BOOL</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#  ifdef __cplusplus</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">bool</span> <a class="code" href="a00563_aeaff0db5524987a2f50d71ac0162ceb2.html#aeaff0db5524987a2f50d71ac0162ceb2">_Bool</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#  else</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a00563_aeaff0db5524987a2f50d71ac0162ceb2.html#aeaff0db5524987a2f50d71ac0162ceb2">   32</a></span>&#160;<span class="preprocessor">#   define _Bool signed char</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#  endif</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor"># endif</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a00563_abb452686968e48b67397da5f97445f5b.html#abb452686968e48b67397da5f97445f5b">   35</a></span>&#160;<span class="preprocessor"># define bool _Bool</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a00563_a65e9886d74aaee76545e83dd09011727.html#a65e9886d74aaee76545e83dd09011727">   36</a></span>&#160;<span class="preprocessor"># define false 0</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a00563_a41f9c5fb8b08eb5dc3edce4dcb37fee7.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">   37</a></span>&#160;<span class="preprocessor"># define true 1</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a00563_a665b0cc9ee2ced31785321d55cde349e.html#a665b0cc9ee2ced31785321d55cde349e">   38</a></span>&#160;<span class="preprocessor"># define __bool_true_false_are_defined 1</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">/* #ifdef __cplusplus */</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">/* extern &quot;C&quot; { */</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">/* #endif */</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">/* Pour faciliter la detection autotools */</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a00563_addbfa7540e2d024008e842991c1648f5.html#addbfa7540e2d024008e842991c1648f5">   46</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00563_addbfa7540e2d024008e842991c1648f5.html#addbfa7540e2d024008e842991c1648f5">HAVE_MEDimport</a>=1;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">/*Inclusion des .h de la version de la bibliothèque courante*/</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00581.html">med_config.h</a>&gt;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00589.html">med_outils.h</a>&gt;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">/*TODO : En attendant une conversion totale de l&#39;outil libmedimport en 3.0*/</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &lt;2.3.6/med23v30.h&gt;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &lt;2.3.6/med23v30_proto.h&gt;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#include &quot;2.3.6/med23v30_misc.h&quot;</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#ifdef PPRO_NT</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor"># include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor"># include &lt;libgen.h&gt;</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">/* #ifdef __cplusplus */</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">/* } */</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">/* #endif */</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">/*Inclusion des .h spécifiques à medimport */</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">/* Interface publique de l&#39;outil medimport */</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">/* MEDimport.h == MEDimport.hxx */</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00676.html">MEDimport.h</a>&quot;</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00574.html">MAJ_version.h</a>&quot;</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">/* Interfaces privées à l&#39;outil medimport  */</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00566.html">MAJ_21_22.h</a>&quot;</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00567.html">MAJ_231_232.h</a>&quot;</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00568.html">MAJ_236_300.h</a>&quot;</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00569.html">MAJ_300_310.h</a>&quot;</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00570.html">MAJ_310_320.h</a>&quot;</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00571.html">MAJ_320_330.h</a>&quot;</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> <span class="keywordtype">void</span> <a class="code" href="a00584_aa645db37de32784a120a8deb350095e1.html#aa645db37de32784a120a8deb350095e1">_MEDmodeErreurVerrouiller</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="a00563_a0be58e5f5a3be382a29ab11a18b6b23e.html#a0be58e5f5a3be382a29ab11a18b6b23e">   93</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00563_a0be58e5f5a3be382a29ab11a18b6b23e.html#a0be58e5f5a3be382a29ab11a18b6b23e">MEDimport</a>(<span class="keywordtype">char</span> * filein, <span class="keywordtype">char</span> *  fileout) {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid, gid;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> ret;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> majeur, mineur, release;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a> hdfok=<a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046">MED_FALSE</a>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a> medok=<a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046">MED_FALSE</a>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keywordtype">char</span> *_fileout,*tmp=NULL;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keywordtype">int</span>   _fileoutsize;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keywordtype">bool</span>  hasfileout=<span class="keyword">false</span>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordtype">char</span> *commande;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nprofil;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="keywordtype">char</span> chemin_profils[<a class="code" href="a00589_aec6b9cc13cd3600409c89c550ef3cd45.html#aec6b9cc13cd3600409c89c550ef3cd45">MED_PROFILE_GRP_SIZE</a>+1];</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keywordtype">char</span> chemin_liens[<a class="code" href="a00589_a77423fcb79fcbc89f3123d2c45865631.html#a77423fcb79fcbc89f3123d2c45865631">MED_TAILLE_LIENS</a>+1];</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keywordtype">char</span> version[9];</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="keywordtype">int</span> MAJ_21_22 = 0, MAJ_231_232 = 0, MAJ_236_300 = 0, MAJ_300_310 = 0, MAJ_310_320 = 0, MAJ_320_330 = 0 ;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">#ifdef PPRO_NT</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keywordtype">char</span> *drive, *dir, *ext;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> reponse=<span class="charliteral">&#39;o&#39;</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a>      _noversion=<a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046">MED_FALSE</a>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(filein == NULL,<span class="stringliteral">&quot;Le nom du fichier d&#39;entrée est vide : &quot;</span>, filein);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  hasfileout = strcmp(fileout,<span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keywordflow">if</span> ( hasfileout ) {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    _fileoutsize = strlen(fileout);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    _fileout     = fileout;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    _fileoutsize = strlen(filein)+strlen(<a class="code" href="a00581_aa326a05d5e30f9e9a4bb0b4469d5d0c0.html#aa326a05d5e30f9e9a4bb0b4469d5d0c0">PACKAGE_VERSION</a>);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    tmp          = (<span class="keywordtype">char</span> *) malloc(<span class="keyword">sizeof</span>(<span class="keywordtype">char</span>)*(_fileoutsize+1));</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    strcpy(tmp,filein);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    strcat(tmp,<a class="code" href="a00581_aa326a05d5e30f9e9a4bb0b4469d5d0c0.html#aa326a05d5e30f9e9a4bb0b4469d5d0c0">PACKAGE_VERSION</a>);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#ifdef PPRO_NT</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    _splitpath( tmp, drive, dir, _fileout, ext );</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    _fileout     = basename(tmp);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    _fileoutsize = strlen(_fileout);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <span class="comment">/* Test du format du fichier */</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  ret = <a class="code" href="a01049_gac3e0eb335c4d611cbbeaf7688050f054.html#gac3e0eb335c4d611cbbeaf7688050f054">MEDfileCompatibility</a>(filein,&amp;hdfok,&amp;medok);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  <span class="keywordflow">if</span> (ret &lt; 0 ) {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;&gt;&gt;&gt; Attention le fichier %s ne contient pas de numéro de version. \n&quot;</span>,filein);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;&gt;&gt;&gt; Le fichier  %s est supposé être en version 2.1.1. \n&quot;</span>,filein);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="comment">/* Pas d&#39;interactif dans une bibliothèque !*/</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment">/*     fprintf(stdout,&quot;&gt;&gt;&gt; Voulez-vous essayer une conversion d&#39;un fichier  &lt; 2.2 (o/n) ? &quot;); */</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">/*     scanf(&quot;%c&quot;,&amp;reponse); */</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordflow">if</span> ( (reponse != <span class="charliteral">&#39;o&#39;</span>) &amp;&amp; (reponse != <span class="charliteral">&#39;O&#39;</span>) &amp;&amp; (reponse != <span class="charliteral">&#39;y&#39;</span>) &amp;&amp; (reponse != <span class="charliteral">&#39;Y&#39;</span>) ) {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;      <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(<a class="code" href="a01049_gac3e0eb335c4d611cbbeaf7688050f054.html#gac3e0eb335c4d611cbbeaf7688050f054">MEDfileCompatibility</a>(filein,&amp;hdfok,&amp;medok) &lt; 0,</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;              <span class="stringliteral">&quot;Erreur d&#39;appel de  MEDfileCompatibility : &quot;</span>, filein);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    _noversion = <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deeaa9f40f3cd6611d437c39900c63ce80c4">MED_TRUE</a>;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  }</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>( !hdfok ,</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;          <span class="stringliteral">&quot;Le fichier d&#39;entrée n&#39;est pas dans un format HDF compatible : &quot;</span>, filein);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">/*   EXIT_IF( !medok , */</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">/*        &quot;MEDimport ne gère pas le format  MED de ce fichier : &quot;, filein); */</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  <span class="comment">/* Creation et ouverture du fichier que l&#39;on va convertir au format MED actuel */</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  commande = (<span class="keywordtype">char</span> *) malloc(<span class="keyword">sizeof</span>(<span class="keywordtype">char</span>)*(strlen(<span class="stringliteral">&quot;cp &quot;</span>)+strlen(filein)+</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                                           strlen(<span class="stringliteral">&quot; &quot;</span>)+_fileoutsize + 4 +1  ) );</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(commande == NULL,NULL,NULL);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  strcpy(commande,<span class="stringliteral">&quot;cp \&quot;&quot;</span>);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  strcat(commande,filein);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  strcat(commande,<span class="stringliteral">&quot;\&quot; \&quot;&quot;</span>);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  strcat(commande,_fileout);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  strcat(commande,<span class="stringliteral">&quot;\&quot;&quot;</span>);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  fprintf(stdout,<span class="stringliteral">&quot;&gt;&gt;&gt; Creation du fichier %s : %s \n&quot;</span>,_fileout,commande);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  system(commande);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  free(commande);</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  commande = (<span class="keywordtype">char</span> *) malloc(<span class="keyword">sizeof</span>(<span class="keywordtype">char</span>)*(strlen(<span class="stringliteral">&quot;chmod u+w \&quot;&quot;</span>) + _fileoutsize +1 +1  ) );</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(commande == NULL,NULL,NULL);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  strcpy(commande,<span class="stringliteral">&quot;chmod u+w \&quot;&quot;</span>);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  strcat(commande,_fileout);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  strcat(commande,<span class="stringliteral">&quot;\&quot;&quot;</span>);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  fprintf(stdout,<span class="stringliteral">&quot;&gt;&gt;&gt; Chmod +w du fichier %s : %s \n&quot;</span>,_fileout,commande);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  system(commande);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  free(commande);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  fid = <a class="code" href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a>(_fileout,<a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85ab53f10a6b700d1087d7a50710fe29f00">MED_ACC_RDWR</a>);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(fid &lt; 0,<span class="stringliteral">&quot;Ouverture du fichier : &quot;</span>, _fileout);</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  <span class="comment">/* Verification du numero de version */</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  <span class="keywordflow">if</span> (! _noversion)</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    ret = <a class="code" href="a01049_gaec83c9561b5640ca32a12e58c5d2e10d.html#gaec83c9561b5640ca32a12e58c5d2e10d">MEDfileNumVersionRd</a>(fid,&amp;majeur,&amp;mineur,&amp;release);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    ret=0;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    majeur=2;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    mineur=1;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    release=1;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  }</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  sprintf(version, <a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot;_&quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a><span class="stringliteral">&quot;_&quot;</span><a class="code" href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a>, majeur, mineur, release);</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(ret &lt; 0,<span class="stringliteral">&quot;Lecture du numero de version de MED-fichier&quot;</span>,NULL);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  <span class="keywordflow">if</span> (strcmp(version, <span class="stringliteral">&quot;2_2_0&quot;</span>) &lt; 0)</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    MAJ_21_22 = 1;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  <span class="keywordflow">if</span> (strcmp(version, <span class="stringliteral">&quot;2_3_2&quot;</span>) &lt; 0)</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    MAJ_231_232 = 1;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  <span class="keywordflow">if</span> (strcmp(version, <span class="stringliteral">&quot;3_0_0&quot;</span>) &lt; 0)</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    MAJ_236_300 = 1;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;  <span class="keywordflow">if</span> (strcmp(version, <span class="stringliteral">&quot;3_1_0&quot;</span>) &lt; 0)</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    MAJ_300_310 = 1;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  <span class="keywordflow">if</span> (strcmp(version, <span class="stringliteral">&quot;3_2_0&quot;</span>) &lt; 0)</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    MAJ_310_320 = 1;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  <span class="keywordflow">if</span> (strcmp(version, <span class="stringliteral">&quot;3_3_0&quot;</span>) &lt; 0)</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    MAJ_320_330 = 1;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  <span class="comment">/* Ne pas oublier que la version cible du fichier à convertir est celui de la bibliothèque. */</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  <span class="keywordflow">if</span> (MAJ_320_330 == 0) {</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;Le fichier %s est déjà au bon format !!! \n&quot;</span>,_fileout);</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    ret = <a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid);</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(ret &lt; 0,<span class="stringliteral">&quot;Fermeture du fichier&quot;</span>,filein);</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  }</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  <span class="comment">/* On avertit qu&#39;on commence la conversion */</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  fprintf(stdout,<span class="stringliteral">&quot;&gt;&gt;&gt; Lancement de la normalisation du fichier selon le format &quot;</span> <a class="code" href="a00581_aa326a05d5e30f9e9a4bb0b4469d5d0c0.html#aa326a05d5e30f9e9a4bb0b4469d5d0c0">PACKAGE_VERSION</a> <span class="stringliteral">&quot; ...\n&quot;</span>);</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  <span class="comment">/* On inhibe le gestionnaire d&#39;erreur HDF5 */</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  <a class="code" href="a00584_aa645db37de32784a120a8deb350095e1.html#aa645db37de32784a120a8deb350095e1">_MEDmodeErreurVerrouiller</a>();</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  <span class="comment">/* Mise a jour du numero de version */</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  fprintf(stdout,<span class="stringliteral">&quot;- Lancement de la mise à jour du numéro de version ... \n&quot;</span>);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;  <span class="comment">/*   La mise à jour MAJ_version(fid); doit être différée pour que les majs des fichiers anciens</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="comment">       fonctionnent correctement*/</span></div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;  <span class="comment">/*   MAJ_version(fid); */</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;  <a class="code" href="a00574_ac54c573f261305ee7d87a5c9a1dcafd1.html#ac54c573f261305ee7d87a5c9a1dcafd1">MAJ_write_version_num</a>(fid,2,3,6);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;  fprintf(stdout,<span class="stringliteral">&quot;  Numéro de version : ... OK ... \n&quot;</span>);</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keywordflow">if</span> (MAJ_21_22) {</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="comment">/* Mise a jour des maillages : type = MED_NON_STRUCTURE, description, ... */</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;- Lancement de la mise à jour des maillages (21_22)... \n&quot;</span>);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <a class="code" href="a00566_a5b8bcf3bb1000d8ba619ff438bbb42b4.html#a5b8bcf3bb1000d8ba619ff438bbb42b4">MAJ_21_22_maillages</a>(fid);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;  Maillage(s) : ... OK ...\n&quot;</span>);</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="comment">/* Mise a jour des champs */</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;- Lancement de la mise à jour des champs de résultats (21_22)... \n&quot;</span>);</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <a class="code" href="a00566_a93bfd3c918bd2205deb4a38b4ca11916.html#a93bfd3c918bd2205deb4a38b4ca11916">MAJ_21_22_champs</a>(fid);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;  Champs(s) : ... OK ...\n&quot;</span>);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="comment">/* Mise a jour des profils eventuels */</span></div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    nprofil = MEDnProfil(fid);</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keywordflow">if</span> (nprofil &gt; 0) {</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;      fprintf(stdout,<span class="stringliteral">&quot;- Lancement de la mise à jour des profils (21_22)... \n&quot;</span>);</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;      <a class="code" href="a00566_ae4a761200adb5c7cd05a9d784a5a82a6.html#ae4a761200adb5c7cd05a9d784a5a82a6">MAJ_21_22_profils</a>(fid,nprofil);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;      fprintf(stdout,<span class="stringliteral">&quot;  Profils(s) : ... OK ...\n&quot;</span>);</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;      strncpy(chemin_profils,<a class="code" href="a00589_a566ee879aa2702b299a25c4e4823303f.html#a566ee879aa2702b299a25c4e4823303f">MED_PROFILE_GRP</a>,<a class="code" href="a00589_aec6b9cc13cd3600409c89c550ef3cd45.html#aec6b9cc13cd3600409c89c550ef3cd45">MED_PROFILE_GRP_SIZE</a>-1);</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;      chemin_profils[<a class="code" href="a00589_aec6b9cc13cd3600409c89c550ef3cd45.html#aec6b9cc13cd3600409c89c550ef3cd45">MED_PROFILE_GRP_SIZE</a>-1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;      gid = <a class="code" href="a00584_a8230f49902cf763c666d8983aac0ca93.html#a8230f49902cf763c666d8983aac0ca93">_MEDdatagroupCreer</a>(fid,chemin_profils);</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;      <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(gid &lt; 0,<span class="stringliteral">&quot;Creation du groupe HDF sur les profils&quot;</span>,chemin_profils);</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;      ret = <a class="code" href="a00584_ae3ba55fd16381090e93f0ee8e3f9e6c6.html#ae3ba55fd16381090e93f0ee8e3f9e6c6">_MEDdatagroupFermer</a>(gid);</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;      <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(ret &lt; 0,<span class="stringliteral">&quot;Fermeture du groupe HDF sur les profils&quot;</span>,chemin_profils);</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    }</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="comment">/* On cree le groupe HDF pour les liens */</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    strncpy(chemin_liens,<a class="code" href="a00589_ada084121b6ddc68a9598b85492ea7bcd.html#ada084121b6ddc68a9598b85492ea7bcd">MED_LIENS</a>,<a class="code" href="a00589_a77423fcb79fcbc89f3123d2c45865631.html#a77423fcb79fcbc89f3123d2c45865631">MED_TAILLE_LIENS</a>-1);</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    chemin_liens[<a class="code" href="a00589_a77423fcb79fcbc89f3123d2c45865631.html#a77423fcb79fcbc89f3123d2c45865631">MED_TAILLE_LIENS</a>-1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    gid = <a class="code" href="a00584_a8230f49902cf763c666d8983aac0ca93.html#a8230f49902cf763c666d8983aac0ca93">_MEDdatagroupCreer</a>(fid,chemin_liens);</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(gid &lt; 0,<span class="stringliteral">&quot;Creation du groupe HDF sur les liens&quot;</span>,chemin_liens);</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    ret = <a class="code" href="a00584_ae3ba55fd16381090e93f0ee8e3f9e6c6.html#ae3ba55fd16381090e93f0ee8e3f9e6c6">_MEDdatagroupFermer</a>(gid);</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(ret &lt; 0,<span class="stringliteral">&quot;Fermeture du groupe HDF sur les liens&quot;</span>,chemin_liens);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;  }</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  <span class="keywordflow">if</span> (MAJ_231_232) {</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="comment">/* Mise a jour des champs */</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;- Lancement de la mise à jour des champs de résultats (231_232)... \n&quot;</span>);</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <a class="code" href="a00567_a8cfe954975e8fd95d32f999f943ca59e.html#a8cfe954975e8fd95d32f999f943ca59e">MAJ_231_232_champs</a>(fid);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;  Champs(s) : ... OK ...\n&quot;</span>);</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;- Lancement de la mise à jour des noms de maillages (231_232)... \n&quot;</span>);</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <a class="code" href="a00567_a669c17f465ceeacac7efb9a2a18a0680.html#a669c17f465ceeacac7efb9a2a18a0680">MAJ_231_232_maillages</a>(fid);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;  Noms(s) de maillage(s): ... OK ...\n&quot;</span>);</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;  }</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;  <span class="keywordflow">if</span> (MAJ_236_300) {</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="comment">/* Le système de cache de version a été developpé à partir de la 3.0*/</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <span class="comment">/* Initialise le cache sur une 2.3.6 (cas d&#39;absence d&#39;INFO)*/</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <a class="code" href="a00588_aca7328ec48e37b658062ff83a4771667.html#aca7328ec48e37b658062ff83a4771667">_MEDfileVersion</a>(fid);</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="comment">/* Mise a jour des champs */</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;- Lancement de la mise à jour des champs de résultats (236_300)... \n&quot;</span>);</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <a class="code" href="a00568_ac689651b9da30b663cfb9be1c81537ac.html#ac689651b9da30b663cfb9be1c81537ac">MAJ_236_300_champs</a>(fid);</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;  Champs(s) : ... OK ...\n&quot;</span>);</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="comment">/* MAJ_version(fid); */</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;- Lancement de la mise à jour des maillages (236_300)... \n&quot;</span>);</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <a class="code" href="a00568_ad6adc58302900a69ea9e9f8759422fe0.html#ad6adc58302900a69ea9e9f8759422fe0">MAJ_236_300_maillages</a>(fid);</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;  Maillage(s): ... OK ...\n&quot;</span>);</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="comment">/* MAJ_version(fid);  */</span></div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;  }</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;  <span class="keywordflow">if</span> (MAJ_300_310) {</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="comment">/* Le système de cache de version a été developpé à partir de la 3.0*/</span></div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="comment">/* Initialise le cache sur une 3.0.8 (cas d&#39;absence d&#39;INFO)*/</span></div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="comment">/* s&#39;il n&#39;a pas déjà été instanciée ds les MAJ précédentes */</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <a class="code" href="a00574_ac54c573f261305ee7d87a5c9a1dcafd1.html#ac54c573f261305ee7d87a5c9a1dcafd1">MAJ_write_version_num</a>(fid,3,0,8);</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <a class="code" href="a00588_aca7328ec48e37b658062ff83a4771667.html#aca7328ec48e37b658062ff83a4771667">_MEDfileVersion</a>(fid);</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="comment">/* Si le cache était dèjà instancié, met à jour le cache */</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <a class="code" href="a00574_ab88877b4efa8141814f92e5bed812b75.html#ab88877b4efa8141814f92e5bed812b75">MAJ_version_num</a>(fid,3,0,8);</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="comment">/* Mise a jour des champs */</span></div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;- Lancement de la mise à jour des champs de résultats (300_310) ... \n&quot;</span>);</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <a class="code" href="a00569_a1447491d3206d85416feb2ee53fa11a2.html#a1447491d3206d85416feb2ee53fa11a2">MAJ_300_310_champs</a>(fid);</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;  Champs(s) : ... OK ...\n&quot;</span>);</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;  }</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;  <span class="keywordflow">if</span> (MAJ_310_320) {</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    <span class="comment">/* Le système de cache de version a été developpé à partir de la 3.0*/</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <span class="comment">/* Initialise le cache sur une 3.1.0 (cas d&#39;absence d&#39;INFO)*/</span></div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="comment">/* s&#39;il n&#39;a pas été déjà été instanciée ds les MAJ_ précédentes */</span></div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <a class="code" href="a00574_ac54c573f261305ee7d87a5c9a1dcafd1.html#ac54c573f261305ee7d87a5c9a1dcafd1">MAJ_write_version_num</a>(fid,3,1,0);</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <a class="code" href="a00588_aca7328ec48e37b658062ff83a4771667.html#aca7328ec48e37b658062ff83a4771667">_MEDfileVersion</a>(fid);</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="comment">/* Si le cache était dèjà instancié, met à jour le cache */</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <a class="code" href="a00574_ab88877b4efa8141814f92e5bed812b75.html#ab88877b4efa8141814f92e5bed812b75">MAJ_version_num</a>(fid,3,1,0);</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="comment">/* Mise a jour des familles/groupes */</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;- Lancement de la mise à jour des familles/groupes (310_320) ... \n&quot;</span>);</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <a class="code" href="a00570_a2459f39906c681ebf61063182d2ff42b.html#a2459f39906c681ebf61063182d2ff42b">MAJ_310_320_familles</a>(fid);</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;  Famille(s)/Groupe(s) : ... OK ...\n&quot;</span>);</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;  }</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;  <span class="keywordflow">if</span> (MAJ_320_330) {</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="comment">/* Le système de cache de version a été developpé à partir de la 3.0*/</span></div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="comment">/* Initialise le cache sur une 3.2.1 (cas d&#39;absence d&#39;INFO)*/</span></div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="comment">/* s&#39;il n&#39;a pas été déjà été instanciée ds les MAJ_ précédentes */</span></div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <a class="code" href="a00574_ac54c573f261305ee7d87a5c9a1dcafd1.html#ac54c573f261305ee7d87a5c9a1dcafd1">MAJ_write_version_num</a>(fid,3,2,1);</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <a class="code" href="a00588_aca7328ec48e37b658062ff83a4771667.html#aca7328ec48e37b658062ff83a4771667">_MEDfileVersion</a>(fid);</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="comment">/* Si le cache était dèjà instancié, met à jour le cache */</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    <a class="code" href="a00574_ab88877b4efa8141814f92e5bed812b75.html#ab88877b4efa8141814f92e5bed812b75">MAJ_version_num</a>(fid,3,2,1);</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="comment">/* Mise a jour des familles/groupes */</span></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;- Lancement de la mise à jour des champs entiers (321_330) ... \n&quot;</span>);</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <a class="code" href="a00572_a789f791706154f0f287fc03e89bcd9c7.html#a789f791706154f0f287fc03e89bcd9c7">MAJ_320_330_champs</a>(fid);</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    fprintf(stdout,<span class="stringliteral">&quot;  Champs entiers : ... OK ...\n&quot;</span>);</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;  }</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;  <span class="comment">/* A l&#39;écriture d&#39;une nouvelle version de MAJ ex 310_320,</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="comment">   il est necessaire de revisiter les appels à MAJ_version(fid) pour</span></div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment">   les remplacer par les appels MAJ_version(fid,3,1,Lastest31z) */</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;  <a class="code" href="a00574_a57cc3f81a2d54469b7740afc0c8eede2.html#a57cc3f81a2d54469b7740afc0c8eede2">MAJ_version</a>(fid);  </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;  <a class="code" href="a00574_ac54c573f261305ee7d87a5c9a1dcafd1.html#ac54c573f261305ee7d87a5c9a1dcafd1">MAJ_write_version_num</a>(fid,<a class="code" href="a00577_a6747c1ac7c0589009db553b675e3b6a7.html#a6747c1ac7c0589009db553b675e3b6a7">MED_NUM_MAJEUR</a>,<a class="code" href="a00577_a9acc99e52c9a7bd3208f9c934b473baa.html#a9acc99e52c9a7bd3208f9c934b473baa">MED_NUM_MINEUR</a>,<a class="code" href="a00577_adaf617ec343314cca1a68e62bbc2709d.html#adaf617ec343314cca1a68e62bbc2709d">MED_NUM_RELEASE</a>);</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;  <span class="comment">/* Fermeture du fichier */</span></div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;  ret = <a class="code" href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a>(fid);</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;  <a class="code" href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a>(ret &lt; 0,<span class="stringliteral">&quot;Fermeture du fichier&quot;</span>,_fileout);</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;  <span class="comment">/* On avertit que c&#39;est fini */</span></div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;  fprintf(stdout,<span class="stringliteral">&quot;&gt;&gt;&gt; Conversion du fichier %s au format MED V&quot;</span> <a class="code" href="a00581_aa326a05d5e30f9e9a4bb0b4469d5d0c0.html#aa326a05d5e30f9e9a4bb0b4469d5d0c0">PACKAGE_VERSION</a> <span class="stringliteral">&quot; terminée\n&quot;</span>,</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;          _fileout);</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;  <span class="comment">/* On libere la memoire */</span></div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;  <span class="keywordflow">if</span> (!hasfileout) free(tmp);</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;}</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;</div>
+<div class="ttc" id="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba_html_abd29d7c6abaef5da2a5ed1b73464f0ba"><div class="ttname"><a href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a></div><div class="ttdeci">herr_t med_err</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00327">med.h:327</a></div></div>
+<div class="ttc" id="a00568_html"><div class="ttname"><a href="a00568.html">MAJ_236_300.h</a></div></div>
+<div class="ttc" id="a00563_a0be58e5f5a3be382a29ab11a18b6b23e_html_a0be58e5f5a3be382a29ab11a18b6b23e"><div class="ttname"><a href="a00563_a0be58e5f5a3be382a29ab11a18b6b23e.html#a0be58e5f5a3be382a29ab11a18b6b23e">MEDimport</a></div><div class="ttdeci">int MEDimport(char *filein, char *fileout)</div><div class="ttdef"><b>Definition:</b> <a href="a00563_source.html#l00093">libmedimport.c:93</a></div></div>
+<div class="ttc" id="a00568_ac689651b9da30b663cfb9be1c81537ac_html_ac689651b9da30b663cfb9be1c81537ac"><div class="ttname"><a href="a00568_ac689651b9da30b663cfb9be1c81537ac.html#ac689651b9da30b663cfb9be1c81537ac">MAJ_236_300_champs</a></div><div class="ttdeci">void MAJ_236_300_champs(med_idt fid)</div></div>
+<div class="ttc" id="a00569_a1447491d3206d85416feb2ee53fa11a2_html_a1447491d3206d85416feb2ee53fa11a2"><div class="ttname"><a href="a00569_a1447491d3206d85416feb2ee53fa11a2.html#a1447491d3206d85416feb2ee53fa11a2">MAJ_300_310_champs</a></div><div class="ttdeci">void MAJ_300_310_champs(med_idt fid)</div></div>
+<div class="ttc" id="a01049_ga9376a1654b7bf099c3f8941074c5fdfb_html_ga9376a1654b7bf099c3f8941074c5fdfb"><div class="ttname"><a href="a01049_ga9376a1654b7bf099c3f8941074c5fdfb.html#ga9376a1654b7bf099c3f8941074c5fdfb">MEDfileOpen</a></div><div class="ttdeci">MEDC_EXPORT med_idt MEDfileOpen(const char *const filename, const med_access_mode accessmode)</div><div class="ttdoc">Ouverture d&#39;un fichier MED. </div><div class="ttdef"><b>Definition:</b> <a href="a00661_source.html#l00041">MEDfileOpen.c:41</a></div></div>
+<div class="ttc" id="a00588_aca7328ec48e37b658062ff83a4771667_html_aca7328ec48e37b658062ff83a4771667"><div class="ttname"><a href="a00588_aca7328ec48e37b658062ff83a4771667.html#aca7328ec48e37b658062ff83a4771667">_MEDfileVersion</a></div><div class="ttdeci">MEDC_EXPORT med_file_version _MEDfileVersion(const med_idt oid)</div></div>
+<div class="ttc" id="a01049_gac3e0eb335c4d611cbbeaf7688050f054_html_gac3e0eb335c4d611cbbeaf7688050f054"><div class="ttname"><a href="a01049_gac3e0eb335c4d611cbbeaf7688050f054.html#gac3e0eb335c4d611cbbeaf7688050f054">MEDfileCompatibility</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDfileCompatibility(const char *const filename, med_bool *const hdfok, med_bool *const medok)</div><div class="ttdoc">Vérification de la compatibilité d&#39;un fichier avec HDF et MED. </div><div class="ttdef"><b>Definition:</b> <a href="a00652_source.html#l00034">MEDfileCompatibility.c:34</a></div></div>
+<div class="ttc" id="a00589_ada084121b6ddc68a9598b85492ea7bcd_html_ada084121b6ddc68a9598b85492ea7bcd"><div class="ttname"><a href="a00589_ada084121b6ddc68a9598b85492ea7bcd.html#ada084121b6ddc68a9598b85492ea7bcd">MED_LIENS</a></div><div class="ttdeci">#define MED_LIENS</div><div class="ttdef"><b>Definition:</b> <a href="a00589_source.html#l00238">med_outils.h:238</a></div></div>
+<div class="ttc" id="a00676_html"><div class="ttname"><a href="a00676.html">MEDimport.h</a></div></div>
+<div class="ttc" id="a00567_html"><div class="ttname"><a href="a00567.html">MAJ_231_232.h</a></div></div>
+<div class="ttc" id="a00566_a5b8bcf3bb1000d8ba619ff438bbb42b4_html_a5b8bcf3bb1000d8ba619ff438bbb42b4"><div class="ttname"><a href="a00566_a5b8bcf3bb1000d8ba619ff438bbb42b4.html#a5b8bcf3bb1000d8ba619ff438bbb42b4">MAJ_21_22_maillages</a></div><div class="ttdeci">void MAJ_21_22_maillages(med_idt fid)</div></div>
+<div class="ttc" id="a01049_gaec83c9561b5640ca32a12e58c5d2e10d_html_gaec83c9561b5640ca32a12e58c5d2e10d"><div class="ttname"><a href="a01049_gaec83c9561b5640ca32a12e58c5d2e10d.html#gaec83c9561b5640ca32a12e58c5d2e10d">MEDfileNumVersionRd</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDfileNumVersionRd(const med_idt fid, med_int *const major, med_int *const minor, med_int *const release)</div><div class="ttdoc">Lecture du numéro de version de la bibliothèque MED utilisée pour créer le fichier. </div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00034">MEDfileNumVersionRd.c:34</a></div></div>
+<div class="ttc" id="a00570_html"><div class="ttname"><a href="a00570.html">MAJ_310_320.h</a></div></div>
+<div class="ttc" id="a00577_a23f7fa6d76886ed3c91dc33b59190dee_html_a23f7fa6d76886ed3c91dc33b59190deeaa9f40f3cd6611d437c39900c63ce80c4"><div class="ttname"><a href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deeaa9f40f3cd6611d437c39900c63ce80c4">MED_TRUE</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00257">med.h:257</a></div></div>
+<div class="ttc" id="a00568_ad6adc58302900a69ea9e9f8759422fe0_html_ad6adc58302900a69ea9e9f8759422fe0"><div class="ttname"><a href="a00568_ad6adc58302900a69ea9e9f8759422fe0.html#ad6adc58302900a69ea9e9f8759422fe0">MAJ_236_300_maillages</a></div><div class="ttdeci">void MAJ_236_300_maillages(med_idt fid)</div></div>
+<div class="ttc" id="a01049_ga12a0e901c376be997a41a073ce426283_html_ga12a0e901c376be997a41a073ce426283"><div class="ttname"><a href="a01049_ga12a0e901c376be997a41a073ce426283.html#ga12a0e901c376be997a41a073ce426283">MEDfileClose</a></div><div class="ttdeci">MEDC_EXPORT med_err MEDfileClose(med_idt fid)</div><div class="ttdoc">Fermeture d&#39;un fichier MED. </div><div class="ttdef"><b>Definition:</b> <a href="a00649_source.html#l00030">MEDfileClose.c:30</a></div></div>
+<div class="ttc" id="a00572_a789f791706154f0f287fc03e89bcd9c7_html_a789f791706154f0f287fc03e89bcd9c7"><div class="ttname"><a href="a00572_a789f791706154f0f287fc03e89bcd9c7.html#a789f791706154f0f287fc03e89bcd9c7">MAJ_320_330_champs</a></div><div class="ttdeci">void MAJ_320_330_champs(med_idt fid)</div><div class="ttdef"><b>Definition:</b> <a href="a00572_source.html#l00282">MAJ_320_330_champs.c:282</a></div></div>
+<div class="ttc" id="a00566_a93bfd3c918bd2205deb4a38b4ca11916_html_a93bfd3c918bd2205deb4a38b4ca11916"><div class="ttname"><a href="a00566_a93bfd3c918bd2205deb4a38b4ca11916.html#a93bfd3c918bd2205deb4a38b4ca11916">MAJ_21_22_champs</a></div><div class="ttdeci">void MAJ_21_22_champs(med_idt fid)</div></div>
+<div class="ttc" id="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4_html_ad1c568efb9ee28e7f3b0e20bf7e79ff4"><div class="ttname"><a href="a00591_ad1c568efb9ee28e7f3b0e20bf7e79ff4.html#ad1c568efb9ee28e7f3b0e20bf7e79ff4">IFORMAT</a></div><div class="ttdeci">#define IFORMAT</div><div class="ttdef"><b>Definition:</b> <a href="a00591_source.html#l00144">med_utils.h:144</a></div></div>
+<div class="ttc" id="a00567_a8cfe954975e8fd95d32f999f943ca59e_html_a8cfe954975e8fd95d32f999f943ca59e"><div class="ttname"><a href="a00567_a8cfe954975e8fd95d32f999f943ca59e.html#a8cfe954975e8fd95d32f999f943ca59e">MAJ_231_232_champs</a></div><div class="ttdeci">void MAJ_231_232_champs(med_idt fid)</div></div>
+<div class="ttc" id="a00574_ac54c573f261305ee7d87a5c9a1dcafd1_html_ac54c573f261305ee7d87a5c9a1dcafd1"><div class="ttname"><a href="a00574_ac54c573f261305ee7d87a5c9a1dcafd1.html#ac54c573f261305ee7d87a5c9a1dcafd1">MAJ_write_version_num</a></div><div class="ttdeci">void MAJ_write_version_num(med_idt fid, const int majeur, const int mineur, const int release)</div><div class="ttdef"><b>Definition:</b> <a href="a00573_source.html#l00036">MAJ_version.c:36</a></div></div>
+<div class="ttc" id="a00577_adcd0322de9fec3b5e199ffeda3f44c85_html_adcd0322de9fec3b5e199ffeda3f44c85ab53f10a6b700d1087d7a50710fe29f00"><div class="ttname"><a href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85ab53f10a6b700d1087d7a50710fe29f00">MED_ACC_RDWR</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00119">med.h:119</a></div></div>
+<div class="ttc" id="a00574_a57cc3f81a2d54469b7740afc0c8eede2_html_a57cc3f81a2d54469b7740afc0c8eede2"><div class="ttname"><a href="a00574_a57cc3f81a2d54469b7740afc0c8eede2.html#a57cc3f81a2d54469b7740afc0c8eede2">MAJ_version</a></div><div class="ttdeci">void MAJ_version(med_idt fid)</div><div class="ttdef"><b>Definition:</b> <a href="a00573_source.html#l00060">MAJ_version.c:60</a></div></div>
+<div class="ttc" id="a00566_ae4a761200adb5c7cd05a9d784a5a82a6_html_ae4a761200adb5c7cd05a9d784a5a82a6"><div class="ttname"><a href="a00566_ae4a761200adb5c7cd05a9d784a5a82a6.html#ae4a761200adb5c7cd05a9d784a5a82a6">MAJ_21_22_profils</a></div><div class="ttdeci">void MAJ_21_22_profils(med_idt fid, med_int nprofil)</div></div>
+<div class="ttc" id="a00577_a88dc15143f934cc7b771bc89f46372dc_html_a88dc15143f934cc7b771bc89f46372dc"><div class="ttname"><a href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a></div><div class="ttdeci">int med_int</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00337">med.h:337</a></div></div>
+<div class="ttc" id="a00581_html"><div class="ttname"><a href="a00581.html">med_config.h</a></div></div>
+<div class="ttc" id="a00577_a23f7fa6d76886ed3c91dc33b59190dee_html_a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046"><div class="ttname"><a href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190deea30b70cc2a253ed4141db9a78ba696046">MED_FALSE</a></div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00257">med.h:257</a></div></div>
+<div class="ttc" id="a00570_a2459f39906c681ebf61063182d2ff42b_html_a2459f39906c681ebf61063182d2ff42b"><div class="ttname"><a href="a00570_a2459f39906c681ebf61063182d2ff42b.html#a2459f39906c681ebf61063182d2ff42b">MAJ_310_320_familles</a></div><div class="ttdeci">void MAJ_310_320_familles(med_idt fid)</div></div>
+<div class="ttc" id="a00567_a669c17f465ceeacac7efb9a2a18a0680_html_a669c17f465ceeacac7efb9a2a18a0680"><div class="ttname"><a href="a00567_a669c17f465ceeacac7efb9a2a18a0680.html#a669c17f465ceeacac7efb9a2a18a0680">MAJ_231_232_maillages</a></div><div class="ttdeci">void MAJ_231_232_maillages(med_idt fid)</div></div>
+<div class="ttc" id="a00577_a6747c1ac7c0589009db553b675e3b6a7_html_a6747c1ac7c0589009db553b675e3b6a7"><div class="ttname"><a href="a00577_a6747c1ac7c0589009db553b675e3b6a7.html#a6747c1ac7c0589009db553b675e3b6a7">MED_NUM_MAJEUR</a></div><div class="ttdeci">#define MED_NUM_MAJEUR</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00063">med.h:63</a></div></div>
+<div class="ttc" id="a00566_html"><div class="ttname"><a href="a00566.html">MAJ_21_22.h</a></div></div>
+<div class="ttc" id="a00589_aec6b9cc13cd3600409c89c550ef3cd45_html_aec6b9cc13cd3600409c89c550ef3cd45"><div class="ttname"><a href="a00589_aec6b9cc13cd3600409c89c550ef3cd45.html#aec6b9cc13cd3600409c89c550ef3cd45">MED_PROFILE_GRP_SIZE</a></div><div class="ttdeci">#define MED_PROFILE_GRP_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="a00589_source.html#l00225">med_outils.h:225</a></div></div>
+<div class="ttc" id="a00591_a1490910810b7b26086f3df4911027426_html_a1490910810b7b26086f3df4911027426"><div class="ttname"><a href="a00591_a1490910810b7b26086f3df4911027426.html#a1490910810b7b26086f3df4911027426">EXIT_IF</a></div><div class="ttdeci">#define EXIT_IF(expression, message, arg)</div><div class="ttdef"><b>Definition:</b> <a href="a00591_source.html#l00335">med_utils.h:335</a></div></div>
+<div class="ttc" id="a00577_a9acc99e52c9a7bd3208f9c934b473baa_html_a9acc99e52c9a7bd3208f9c934b473baa"><div class="ttname"><a href="a00577_a9acc99e52c9a7bd3208f9c934b473baa.html#a9acc99e52c9a7bd3208f9c934b473baa">MED_NUM_MINEUR</a></div><div class="ttdeci">#define MED_NUM_MINEUR</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00064">med.h:64</a></div></div>
+<div class="ttc" id="a00577_adaf617ec343314cca1a68e62bbc2709d_html_adaf617ec343314cca1a68e62bbc2709d"><div class="ttname"><a href="a00577_adaf617ec343314cca1a68e62bbc2709d.html#adaf617ec343314cca1a68e62bbc2709d">MED_NUM_RELEASE</a></div><div class="ttdeci">#define MED_NUM_RELEASE</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00065">med.h:65</a></div></div>
+<div class="ttc" id="a00589_a566ee879aa2702b299a25c4e4823303f_html_a566ee879aa2702b299a25c4e4823303f"><div class="ttname"><a href="a00589_a566ee879aa2702b299a25c4e4823303f.html#a566ee879aa2702b299a25c4e4823303f">MED_PROFILE_GRP</a></div><div class="ttdeci">#define MED_PROFILE_GRP</div><div class="ttdef"><b>Definition:</b> <a href="a00589_source.html#l00224">med_outils.h:224</a></div></div>
+<div class="ttc" id="a00569_html"><div class="ttname"><a href="a00569.html">MAJ_300_310.h</a></div></div>
+<div class="ttc" id="a00574_html"><div class="ttname"><a href="a00574.html">MAJ_version.h</a></div></div>
+<div class="ttc" id="a00563_addbfa7540e2d024008e842991c1648f5_html_addbfa7540e2d024008e842991c1648f5"><div class="ttname"><a href="a00563_addbfa7540e2d024008e842991c1648f5.html#addbfa7540e2d024008e842991c1648f5">HAVE_MEDimport</a></div><div class="ttdeci">int HAVE_MEDimport</div><div class="ttdef"><b>Definition:</b> <a href="a00563_source.html#l00046">libmedimport.c:46</a></div></div>
+<div class="ttc" id="a00563_aeaff0db5524987a2f50d71ac0162ceb2_html_aeaff0db5524987a2f50d71ac0162ceb2"><div class="ttname"><a href="a00563_aeaff0db5524987a2f50d71ac0162ceb2.html#aeaff0db5524987a2f50d71ac0162ceb2">_Bool</a></div><div class="ttdeci">#define _Bool</div><div class="ttdef"><b>Definition:</b> <a href="a00563_source.html#l00032">libmedimport.c:32</a></div></div>
+<div class="ttc" id="a00577_afa4ec8284026c8c5545e5333475fb65a_html_afa4ec8284026c8c5545e5333475fb65a"><div class="ttname"><a href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a></div><div class="ttdeci">hid_t med_idt</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00326">med.h:326</a></div></div>
+<div class="ttc" id="a00584_ae3ba55fd16381090e93f0ee8e3f9e6c6_html_ae3ba55fd16381090e93f0ee8e3f9e6c6"><div class="ttname"><a href="a00584_ae3ba55fd16381090e93f0ee8e3f9e6c6.html#ae3ba55fd16381090e93f0ee8e3f9e6c6">_MEDdatagroupFermer</a></div><div class="ttdeci">MEDC_EXPORT med_err _MEDdatagroupFermer(med_idt id)</div></div>
+<div class="ttc" id="a00589_html"><div class="ttname"><a href="a00589.html">med_outils.h</a></div></div>
+<div class="ttc" id="a00577_html"><div class="ttname"><a href="a00577.html">med.h</a></div></div>
+<div class="ttc" id="a00574_ab88877b4efa8141814f92e5bed812b75_html_ab88877b4efa8141814f92e5bed812b75"><div class="ttname"><a href="a00574_ab88877b4efa8141814f92e5bed812b75.html#ab88877b4efa8141814f92e5bed812b75">MAJ_version_num</a></div><div class="ttdeci">void MAJ_version_num(med_idt fid, const int majeur, const int mineur, const int release)</div><div class="ttdef"><b>Definition:</b> <a href="a00573_source.html#l00023">MAJ_version.c:23</a></div></div>
+<div class="ttc" id="a00577_a23f7fa6d76886ed3c91dc33b59190dee_html_a23f7fa6d76886ed3c91dc33b59190dee"><div class="ttname"><a href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a></div><div class="ttdeci">med_bool</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00257">med.h:257</a></div></div>
+<div class="ttc" id="a00584_a8230f49902cf763c666d8983aac0ca93_html_a8230f49902cf763c666d8983aac0ca93"><div class="ttname"><a href="a00584_a8230f49902cf763c666d8983aac0ca93.html#a8230f49902cf763c666d8983aac0ca93">_MEDdatagroupCreer</a></div><div class="ttdeci">MEDC_EXPORT med_idt _MEDdatagroupCreer(med_idt pid, const char *const nom)</div></div>
+<div class="ttc" id="a00581_aa326a05d5e30f9e9a4bb0b4469d5d0c0_html_aa326a05d5e30f9e9a4bb0b4469d5d0c0"><div class="ttname"><a href="a00581_aa326a05d5e30f9e9a4bb0b4469d5d0c0.html#aa326a05d5e30f9e9a4bb0b4469d5d0c0">PACKAGE_VERSION</a></div><div class="ttdeci">#define PACKAGE_VERSION</div><div class="ttdef"><b>Definition:</b> <a href="a00581_source.html#l00161">med_config.h:161</a></div></div>
+<div class="ttc" id="a00584_aa645db37de32784a120a8deb350095e1_html_aa645db37de32784a120a8deb350095e1"><div class="ttname"><a href="a00584_aa645db37de32784a120a8deb350095e1.html#aa645db37de32784a120a8deb350095e1">_MEDmodeErreurVerrouiller</a></div><div class="ttdeci">MEDC_EXPORT void _MEDmodeErreurVerrouiller(void)</div></div>
+<div class="ttc" id="a00589_a77423fcb79fcbc89f3123d2c45865631_html_a77423fcb79fcbc89f3123d2c45865631"><div class="ttname"><a href="a00589_a77423fcb79fcbc89f3123d2c45865631.html#a77423fcb79fcbc89f3123d2c45865631">MED_TAILLE_LIENS</a></div><div class="ttdeci">#define MED_TAILLE_LIENS</div><div class="ttdef"><b>Definition:</b> <a href="a00589_source.html#l00239">med_outils.h:239</a></div></div>
+<div class="ttc" id="a00571_html"><div class="ttname"><a href="a00571.html">MAJ_320_330.h</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

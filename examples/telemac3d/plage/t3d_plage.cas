@@ -1,0 +1,46 @@
+BOUNDARY CONDITIONS FILE : geo_plage.cli
+GEOMETRY FILE            : geo_plage.slf
+2D RESULT FILE           : r2d_plage.slf
+3D RESULT FILE           : r3d_plage.slf
+/
+INITIAL CONDITIONS : 'CONSTANT ELEVATION'
+INITIAL ELEVATION  : 0.1
+PRESCRIBED ELEVATIONS : 0.1 ; 0.0
+PRESCRIBED FLOWRATES  : 0.  ; 0.155
+/
+LAW OF BOTTOM FRICTION : 3
+FRICTION COEFFICIENT FOR THE BOTTOM : 60.
+/----------------------------------------------------------------------
+/                        OPTIONS GENERALES
+/----------------------------------------------------------------------
+TITLE : 'TEST CANAL avec cavite et plage'
+VARIABLES FOR 2D GRAPHIC PRINTOUTS : 'U,V,H,S,B'
+VARIABLES FOR 3D GRAPHIC PRINTOUTS : 'Z,U,V,W'
+TIME STEP : 0.2
+NUMBER OF TIME STEPS : 1000
+GRAPHIC PRINTOUT PERIOD : 500
+LISTING PRINTOUT PERIOD : 100
+NUMBER OF HORIZONTAL LEVELS : 7
+/----------------------------------------------------------------------
+/                       OPTIONS NUMERIQUES
+/----------------------------------------------------------------------
+TIDAL FLATS : NO
+/
+MASS-BALANCE                                             : YES
+VERTICAL TURBULENCE MODEL                          : 7
+ACCURACY FOR DIFFUSION OF K-EPSILON                : 1.E-8
+HORIZONTAL TURBULENCE MODEL                        : 7
+/
+SCHEME FOR ADVECTION OF VELOCITIES                 : 1
+/
+ACCURACY FOR DIFFUSION OF VELOCITIES               : 1.E-7
+SOLVER FOR PROPAGATION                             : 2
+IMPLICITATION FOR DEPTH                            : 0.6
+IMPLICITATION FOR VELOCITIES                       : 0.6
+/
+/ DEFAULT VALUE UNTIL V7P3 KEPT FOR NON REGRESSION
+NON-HYDROSTATIC VERSION : NO
+/
+/ DEFAULT VALUES UNTIL V8P0 KEPT FOR NON REGRESSION
+ACCURACY FOR PROPAGATION = 1.E-6
+SCHEME FOR ADVECTION OF K-EPSILON = 1

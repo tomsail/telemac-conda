@@ -1,0 +1,207 @@
+\chapter{Gaussian water surface (gouttedo)}
+
+\section{Purpose}
+
+To demonstrate that the \telemac{2D} solution is not polarised because it can
+simulate the circular spreading of a wave.
+Two types of boundary conditions are tested, solid walls and Thompson.
+The first case shows that the no-flow
+condition is satisfied on solid boundaries and that the solution remains
+symmetric after reflection of the circular wave on the boundaries.
+The second case shows that Thompson boundary condition in \telemac{2D}
+makes it possible to simulate the propagation of a circular wave out of the
+domain without spurious reflections on the open boundaries.
+
+\section{Description of the problem}
+
+\subsection{Geometry and mesh}
+
+\begin{figure}[h]
+\begin{center}
+  \includegraphicsmaybe{[width=0.5\textwidth]}{../img/Mesh.png}
+\end{center}
+\caption{Mesh.}
+\label{fig:gouttedo_mesh}
+\end{figure}
+
+The domain is square with a size of 20.1~m $\times$ 20.1~m with a flat bottom.
+The domain is meshed with 8,978 triangular elements and 4,624 nodes.
+Triangles are obtained by dividing rectangular elements on their diagonals.
+The mean size of obtained triangles is about 0.3~m (see Figure
+\ref{fig:gouttedo_mesh}).
+
+\subsection{Initial conditions}
+The fluid is initially at rest with a Gaussian free surface in the centre of a
+square domain (see Figure \ref{fig:gouttedo_init}). Water depth is given by
+$ H= 2.4 \left(1.0+exp \left( \frac{-\left[ (x-10.05+( y-10.05)^2\right]}{ 4}\right)\right) $
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphicsmaybe{[width=0.9\textwidth]}{../img/InitialElevation.png}
+\end{center}
+\caption{Gouttedo case: initial elevation.}
+\label{fig:gouttedo_init}
+\end{figure}
+
+\subsection{Boundary conditions}
+
+Two cases are considered:
+\begin{itemize}
+\item Boundaries are considered as solid walls with perfect slip conditions
+  (condition 2 2 2),
+\item The Thompson boundary conditions are applied for open boundaries
+  (condition 4 4 4).
+\end{itemize}
+
+\subsection{Physical parameters}
+
+The physical parameters used for this case are the following:
+\begin{itemize}
+\item Friction: Strickler formula with $k_s$ = 40~m$^{1/3}$/s for the solid wall
+  case and no friction for the open case,
+\item Turbulence: Constant viscosity equal to zero.
+%(or disactivation of
+%diffusion step using the keyword \telkey{DIFFUSION OF VELOCITY} = NO)
+\end{itemize}
+
+\subsection{Numerical parameters}
+\begin{itemize}
+\item Type of advection: centred semi-implicit scheme + SUPG upwinding on
+  velocities (2 = SUPG) for the solid wall case and characteristics for
+  the open boundary case,
+\item Type of advection: conservative + modified SUPG on depth (mandatory
+  scheme),
+\item  Type of element: Linear triangle (P1) for $h$ and velocities,
+\item Solver: GMRES with an accuracy =  10$^{-4}$ for the solid wall case
+  and conjugate gradient with an accuracy =  10$^{-6}$ for the open case,
+\item Time step: 0.04~s,
+\item Simulation time: 4~s.
+\end{itemize}
+
+\section{Results with solid walls}
+
+The wave spreads circularly around the initial water surface peak elevation.
+When it reaches the boundaries, reflection occurs.
+Interaction between reflected waves issuing from the four walls can be
+observed after time 2.4~s (cf. Figure \ref{t2d:gouttedo:walls_evol}).
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/t2d_gouttedo_qua_time0.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/t2d_gouttedo_qua_time0_3d.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/t2d_gouttedo_qua_time6.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/t2d_gouttedo_qua_time6_3d.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/t2d_gouttedo_qua_time12.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/t2d_gouttedo_qua_time12_3d.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/t2d_gouttedo_qua_time18.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/t2d_gouttedo_qua_time18_3d.png}
+\end{minipage}
+\caption{Evolution of free surface with solid boundary conditions.}
+\label{t2d:gouttedo:walls_evol}
+\end{figure}
+
+\section{Results with Thompson boundary conditions}
+
+The wave spreads circularly around the initial water surface peak elevation.
+The velocity field is radial.
+No reflection occurs on the open boundaries (cf. Figure
+\ref{t2d:gouttedo:thompson_evol}).
+The initial volume of water in the domain is 999.784~m$^3$.
+The volume that left the domain is 27.83~m$^3$.
+The total volume of water numerically lost is 0.11 $\times$ 10$^{-4}$~m$^3$,
+i.e. 0,000001~\%.
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/WaterDepth_t0.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/WaterDepth_t0_3d.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/WaterDepth_t3.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/WaterDepth_t3_3d.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/WaterDepth_t6.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/WaterDepth_t6_3d.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/WaterDepth_t9.png}
+\end{minipage}
+\begin{minipage}[t]{0.50\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/WaterDepth_t9_3d.png}
+\end{minipage}
+\caption{Evolution of free surface with Thompson boundary conditions.}
+\label{t2d:gouttedo:thompson_evol}
+\end{figure}
+
+
+Long wave celerity is 4.85~m.s$^{-1}$ for $h$ = 2.40~m and 6.86~m.s$^{-1}$ for
+$h$ = 4.80~m,
+which means the peak of the wave should reach the boundary after 1.46 to 2~s
+in the long wave hypothesis.
+The computed value is 1.6~s.
+
+\section{Conclusions}
+
+Even though the mesh is polarised (along the $x$ and $y$ directions and the main
+diagonal), the solution is not.
+Solid boundaries are treated properly: no bias occurs in the reflected wave and
+water mass is conserved.
+With Thompson boundary conditions, no parasite reflection waves are visible.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\chapter{Thompson}
+%
+%\subsection{Initial conditions}
+%
+%\begin{equation}
+%  \label{eq:thompson:initialH}
+%  H = 2.4 \exp{\dfrac{-[(x-10) + (y-10)]}{4}}
+%\end{equation}
+%
+%\subsection{Boundary conditions}
+%The free-surface and velocity components (44) are considered as those of the sea on the boundaries.
+%The Thompson scheme is applied for open boundaries (4).
+%
+%\section{Conclusions}
+%Reflection onto the open boundaries are avoided through the use of the Thompson scheme for open boundaries
+%(keyword OPTION FOR LIQUID BOUNDARIES).
+%\cite{Hervouet2007} %Temporary to avoid problems with bibtex when bibtex on one Case

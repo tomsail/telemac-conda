@@ -1,0 +1,59 @@
+
+
+
+
+            SUMMARY OF MED CONFIGURATION
+            ============================
+
+General Information:
+-------------------
+
+                   MED Version : 4.0.0 
+                   HDF Version : "HDF5 library version: 1.10.3" 
+                  Configured on: Mon Jun 19 19:05:58 CEST 2023
+                  Configured by: root@tomsail-XPS-15-7590
+                    Host system: x86_64-unknown-linux-gnu
+              Uname information: Linux tomsail-XPS-15-7590 5.19.0-45-generic #46~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Wed Jun 7 15:06:04 UTC 20 x86_64 x86_64 x86_64 GNU/Linux
+                      Libraries: static, shared
+             Installation point: /home/tomsail/apps/telemac-mascaret/optionals/med-4.0.0
+
+Compiling Options:
+------------------
+                     C Compiler: /usr/bin/mpicc
+                         CFLAGS: -g -O2
+                       CPPFLAGS: 
+               Shared Libraries: yes
+               Static Libraries: yes
+                Extra libraries:  
+          Fortran Compiler F77 : mpif77 (F77 var. used to build MED library interface)
+       Fortran Compiler FFLAGS : -g -O2 (FFLAGS var. used to build MED library interface)
+        Fortran Compiler FLIBS :  -L/usr/lib/x86_64-linux-gnu/openmpi/lib/fortran/gfortran -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -lmpi_usempif08 -lmpi_usempi_ignore_tkr -lmpi_mpifh -lmpi -lopen-rte -lopen-pal -lhwloc -levent_core -levent_pthreads -lgfortran -lm -lz -lquadmath (FLIBS var. used to build MED library interface)
+                    med_int is : int (based on fortran integer size (if fortran is enabled))
+                   C++ Compiler: mpic++
+                   C++ Flags   : -g -O2
+                hdf5 CPP_FLAGS : -DH5_USE_16_API -I/home/tomsail/apps/telemac-mascaret/optionals/hdf5-1.10.3/include
+                  hdf5 LDFLAGS : -L/home/tomsail/apps/telemac-mascaret/optionals/hdf5-1.10.3/lib
+                        h5dump : /home/tomsail/apps/telemac-mascaret/optionals/hdf5-1.10.3/bin/h5dump
+                    hdf5 is // : yes
+                        Python : Python not available
+			  Swig : SWIG not available.
+
+Features:
+---------
+
+                              Error Messages : yes
+      Return an error if a MED file contains 
+  an object of a previous data model version 
+ which is not managable by a MED3.0 function : yes (may be time/cpu consuming for files 
+                                                    containing fields with many computation steps )
+
+#                  Compiling F90 tests suite : 
+#          FC used to compile MED .f90 tests :     
+#    FCFLAGSS used to compile MED .f90 tests : 
+#    FCLIBS   used to compile MED .f90 tests : 
+
+    FTLDFLAGS var. for linking Fortran tests : 
+      FTLIBS var.  for linking Fortran tests : 
+
+                      Tk/wish used for xmdump : /usr/bin/wish
+

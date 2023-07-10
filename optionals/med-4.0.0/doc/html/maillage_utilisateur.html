@@ -1,0 +1,314 @@
+<A NAME="____Concepts et fonctionnalit&eacute;s de base pour cr&eacute;er et lire un maillage____">
+</A>
+<A HREF="#1.">Cr&eacute;er un maillage non structur&eacute;</A> 
+</P>
+<P><A HREF="#2.">Lire un maillage non structur&eacute;</A> 
+</P>
+<P><A HREF="#3.">Cr&eacute;er un maillage structur&eacute;</A> 
+</P>
+<P><A HREF="#4.">Lire un maillage structur&eacute;</A> 
+</P>
+<P><A HREF="#5.">Cr&eacute;er un maillage avec des familles</A> 
+</P>
+<P><A HREF="#6.">Lire un maillage avec des familles</A> 
+</P>
+<H3 STYLE="font-style: normal"><A NAME="1."></A>Cr&eacute;er un
+maillage non structur&eacute;</H3>
+<P>La routine \ref MEDmeshCr / \ref mmhcre permet de cr&eacute;er un
+maillage dans un fichier MED. Un maillage est identifi&eacute; par
+son nom qui est une cha&icirc;ne de \ref MED_NAME_SIZE caract&egrave;res
+(comme tous les noms d'objets du mod&egrave;le). Lors de la cr&eacute;ation
+du maillage, il est n&eacute;cessaire de pr&eacute;ciser outre son
+nom, sa dimension, la dimension de l'espace de calcul, son type
+(structur&eacute; ou non structur&eacute;), l'unit&eacute; des pas de
+temps et mode de tri de ces pas de temps (utile pour les maillages
+&eacute;volutifs), ainsi que le type de rep&egrave;re des
+coordonn&eacute;es. Dans un premier temps nous ne travaillerons que
+sur des maillages non &eacute;volutifs.</P>
+<P>A minima il est n&eacute;cessaire de d&eacute;finir pour un tel
+maillage les coordonn&eacute;es de ses noeuds, ainsi que la
+connectivit&eacute; de ses mailles (cf. \ref connectivites). 
+</P>
+<P>L'&eacute;criture des coordonn&eacute;es des noeuds d'un maillage
+non structur&eacute; se fait par l'interm&eacute;diaire de la routine
+\ref MEDmeshNodeCoordinateWr / \ref mmhcow. Cette routine permet
+l'&eacute;criture d'un tableau de coordonn&eacute;es selon un pas de
+temps et/ou un num&eacute;ro d'it&eacute;ration donn&eacute;s. Comme
+pour d'autres routines prenant en param&egrave;tre des donn&eacute;es
+multi-composantes, on peut choisir le mode de stockage de ces donn&eacute;es
+en m&eacute;moire -i.e. \ref MED_FULL_INTERLACE (les composantes
+d'une entit&eacute; apparaissent avant celles de l'entit&eacute;
+suivante : X1Y1Z1X2Y2Z2...), ou \ref MED_NO_INTERLACE (les
+composantes n&deg;i de toutes les entit&eacute;s apparaissent avant
+les composantes n&deg;i+1 (X1X2....Y1Y2....Z1Z2...).</P>
+<P>La routine \ref MEDmeshElementConnectivityWr / \ref mmhcyw permet
+d'&eacute;crire les connectivit&eacute;s d'un type g&eacute;om&eacute;trique
+correspondant &agrave; un &eacute;l&eacute;ment d'un maillage selon
+un pas de temps et/ou un num&eacute;ro d'it&eacute;ration donn&eacute;s.
+L'&eacute;criture s'effectue donc type g&eacute;om&eacute;trique par
+type g&eacute;om&eacute;trique pour tous les types d'&eacute;lements
+: maille (\ref MED_CELL), face (\ref MED_DESCENDING_FACE) ou ar&ecirc;te
+(\ref MED_DESCENDING_EDGE). Une maille est d&eacute;crite soit par
+connectivit&eacute; nodale (\ref MED_NODAL : liste ordonn&eacute;e
+des num&eacute;ros des noeuds), soit par connectivit&eacute;
+descendante (\ref MED_DESCENDING : liste ordonn&eacute;e des num&eacute;ros
+des noeuds, ar&ecirc;tes ou faces selon la dimension de la maille
+consid&eacute;r&eacute;e). A noter qu'en connectivit&eacute; nodale,
+on ne doit &eacute;crire que les mailles, les entit&eacute;s faces et
+ar&ecirc;tes n'&eacute;tant utilis&eacute;es que pour la connectivit&eacute;
+descendante. Dans le mod&egrave;le MED, toutes les entit&eacute;s
+d'un maillage ont une num&eacute;rotation globale implicite qui
+d&eacute;bute &agrave; 1. Pour les &eacute;l&eacute;ments, la
+num&eacute;rotation implicite s'obtient en parcourant l'ensemble des
+types g&eacute;om&eacute;triques selon l'ordre de d&eacute;finition
+du mod&egrave;le de donn&eacute;es. La r&egrave;gle &agrave;
+appliquer pour d&eacute;finir la taille m&eacute;moire &quot;T&quot;
+n&eacute;cessaire au stockage de la connectivit&eacute; d'une entit&eacute;
+g&eacute;om&eacute;trique est la suivante. Dans le cas de la
+connectivit&eacute; nodale, on a &quot;T&quot; = nombre de noeuds.
+Dans le cas de la connectivit&eacute; descendante, pour une entit&eacute;
+de dimension 3 on a &quot;T&quot; = nombre de faces ; pour une entit&eacute;
+de dimension 2, on a &quot;T&quot; = nombre d'ar&ecirc;tes, pour une
+entit&eacute; de dimension 1, on a &quot;T&quot; = nombre de noeuds. 
+</P>
+<P>M&ecirc;me si on ne d&eacute;finit aucun rep&eacute;rage sur les
+entit&eacute;s d'un maillage, il est n&eacute;cessaire de cr&eacute;er
+la famille de num&eacute;ro z&eacute;ro qui ne comporte aucun groupe.
+Par d&eacute;faut, toutes les entit&eacute;s du maillage, se
+rattachent &agrave; cette famille. Cette cr&eacute;ation se fait avec
+la routine \ref MEDfamilyCr / \ref mfacre. 
+</P>
+<P>Le premier exemple suivant permet de cr&eacute;er dans un fichier
+MED, un maillage non structur&eacute; 2D.</P>
+<P>\include UsesCase_MEDmesh_1.c</P>
+<H3><A NAME="2."></A>Lire un maillage non structur&eacute;</H3>
+<P>Dans MED, l'acc&egrave;s aux objets du mod&egrave;le stock&eacute;s
+dans un fichier se fait via deux approches possibles : acc&egrave;s
+par le nom ou via un it&eacute;rateur. Pour ce qui concerne les
+maillages, la routine \ref MEDmeshInfoByName / \ref mmhmin permet de
+lire les informations relatives &agrave; un maillage dont on conna&icirc;t
+le nom. Les informations lues correspondent &agrave; celles &eacute;crites
+par la routine \ref MEDmeshCr / \ref mmhcre. 
+</P>
+<P>Il est ensuite n&eacute;cessaire pour chaque type d'entit&eacute;,
+de lire le nombre d'&eacute;l&eacute;ments pr&eacute;sents dans le
+maillage. Cette lecture se faite avec la routine \ref MEDmeshnEntity
+/ \ref mmhnme. 
+</P>
+<P>Une fois les nombres d'entit&eacute;s connus (noeuds, mailles, et
+&eacute;ventuellement faces et ar&ecirc;tes), il est n&eacute;cessaire
+de lire les coordonn&eacute;es des noeuds avec la routine \ref
+MEDmeshNodeCoordinateRd / \ref mmhcor et la connectivit&eacute; de
+chacun des types g&eacute;om&eacute;triques d'&eacute;l&eacute;ments
+pr&eacute;sents dans le fichier avec la routine \ref
+MEDmeshElementConnectivityRd / \ref mmhcyr. 
+</P>
+<P>L'exemple suivant permet la lecture du maillage cr&eacute;&eacute;
+avec le premier cas d'utilisation.</P>
+<P>\include UsesCase_MEDmesh_2.c</P>
+<P>Une approche plus g&eacute;n&eacute;rique dans la lecture d'un
+maillage non structur&eacute; est donn&eacute;e dans l'exemple
+suivant. La routine \ref MEDnMesh / \ref mmhnmh va lire le nombre de
+maillage dans le fichier. Il s'agit ensuite d'it&eacute;rer sur ces
+maillages. La routine \ref MEDmeshInfo / \ref mmhmii permet de lire
+les informations relatives &agrave; un maillage &agrave; partir d'un
+it&eacute;rateur. La routine \ref MEDmeshnAxis / \ref mmhnax permet
+de r&eacute;cup&eacute;rer la dimension de l'espace de calcul en vue
+de dimensionner la taille des param&egrave;tres utiles &agrave; la
+routine MEDmeshInfo.</P>
+<P>Comme dans le cas pr&eacute;c&eacute;dent, il est n&eacute;cessaire
+de lire les coordonn&eacute;es des noeuds et la connectivit&eacute;
+des mailles du maille (on se place dans le cas d'une connectivit&eacute;
+d&eacute;finie en mode nodal). Les routines \ref MEDmeshnEntity /
+\ref mmhnme et \ref MEDmeshNodeCoordinateRd / \ref mmhcor permettent
+respectivement de conna&icirc;tre le nombre de noeuds et lire leurs
+coordonn&eacute;es. Pour ce qui concerne la lecture de la
+connectivit&eacute; des mailles, l'approche propos&eacute;e est ici
+plus g&eacute;n&eacute;rique que pr&eacute;c&eacute;demment. La
+routine \ref MEDmeshnEntity / \ref mmhnme est d'abord utilis&eacute;e
+pour conna&icirc;tre le nombre de type g&eacute;om&eacute;triques de
+mailles pr&eacute;sents dans le maillage. Il s'agit ensuite d'it&eacute;rer
+sur ce nombre afin de r&eacute;cup&eacute;rer &agrave; chaque
+it&eacute;ration : le nom et le type g&eacute;om&eacute;trique avec
+la routine \ref MEDmeshEntityInfo / \ref mmheni, le nombre d'&eacute;l&eacute;ment
+avec la routine \ref MEDmeshnEntity / \ref mmhnme et le tableau de
+connectivit&eacute; avec la routine \ref MEDmeshElementConnectivityRd
+/ \ref mmhcyr.</P>
+<P>\include UsesCase_MEDmesh_3.c</P>
+<H3><A NAME="3."></A>Cr&eacute;er un maillage structur&eacute;</H3>
+<P>La cr&eacute;ation d'un maillage structur&eacute; s'effectue avec
+la routine \ref MEDmeshCr / \ref mmhcre, en pr&eacute;cisant qu'il
+s'agit d'un maillage de type \ref MED_STRUCTURED_MESH. La g&eacute;om&eacute;trie
+d'un maillage structur&eacute; est uniquement d&eacute;finie par ses
+noeuds. La connectivit&eacute; entre les noeuds est de type (i,j,k)
+en 3D, (i,j) en 2D et (i) en 1D. On distingue 3 cat&eacute;gories de
+maillage structur&eacute; : les grilles cart&eacute;siennes d&eacute;finies
+dans un rep&egrave;re de coordonn&eacute;es cart&eacute;sien (\ref
+MED_CARTESIAN_GRID), les grilles d&eacute;finies selon un rep&egrave;re
+de coordonn&eacute;es polaire (\ref MED_POLAR_GRID), et les grilles
+curvilignes (\ref MED_CURVILINEAR_GRID).</P>
+<P STYLE="margin-bottom: 0cm">Dans un maillage structur&eacute;, la
+connaissance des indices d'un noeud en donne la position relative.
+Nous adopterons le syst&egrave;me d'indexation suivant pour ce type
+de maillage : 
+</P>
+<P ALIGN=CENTER><IMG SRC="./png/indexation_grille.png" NAME="Image1" ALIGN=BOTTOM WIDTH=358 HEIGHT=193 BORDER=0>
+</P>
+<P>Par convention &eacute;galement, le noeud &quot;origine&quot;
+d'une grille a pour index (1,1,1) en 3D, (1,1) en 2D et (1) en 1D. 
+</P>
+<P>Voici par exemple le r&eacute;sultat obtenu pour une grille &quot;5x3&quot;.
+</P>
+<P ALIGN=CENTER><IMG SRC="./png/exemple_grille_cartesienne.png" NAME="Image2" ALIGN=BOTTOM WIDTH=620 HEIGHT=274 BORDER=0>
+</P>
+<P>Dans un maillage structur&eacute;, la num&eacute;rotation des
+noeuds et des &eacute;l&eacute;ments est implicite. Consid&eacute;rons
+un maillage structur&eacute; 2D dont le premier axe comporte &quot;n&quot;
+points et le second axe &quot;p&quot; points : le noeud d'index (i,j)
+a pour num&eacute;ro (i + (j-1) *n) ; l'&eacute;l&eacute;ment d'index
+(i,j) (&eacute;l&eacute;ment port&eacute; par le noeud d'index (i,j))
+a pour num&eacute;ro (i + (j-1) * (n-1). 
+</P>
+<P ALIGN=CENTER><IMG SRC="./png/numerotation_grille.png" NAME="Image3" ALIGN=BOTTOM WIDTH=345 HEIGHT=244 BORDER=0>
+</P>
+<P>Si on reporte cette convention de num&eacute;rotation des noeuds
+et des &eacute;l&eacute;ments sur notre grille &quot;5x3&quot;, on
+obtient : 
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><IMG SRC="./png/exemple_numerotation_grille.png" NAME="Image4" ALIGN=BOTTOM WIDTH=668 HEIGHT=327 BORDER=0>
+</P>
+<P><BR><BR>
+</P>
+<P>L'&eacute;criture des coordonn&eacute;es d'un maillage structur&eacute;
+correspondant &agrave; une grille MED_CARTESIAN_GRID ou
+MED_POLAR_GRID ne n&eacute;cessite que l'&eacute;criture des indices
+de coordonn&eacute;es selon chacun des axes du rep&egrave;re de
+coordonn&eacute;es. La routine \ref MEDmeshGridIndexCoordinateWr /
+\ref mmhgcw permet l'&eacute;criture des indices d'un axe donn&eacute;.
+Cette routine doit &ecirc;tre appel&eacute; pour chaque axe du rep&egrave;re
+de coordonn&eacute;es. Pour ce qui concerne une grille
+MED_CURVILINEAR_GRID, il est n&eacute;cessaire d'&eacute;crire toutes
+les coordonn&eacute;es des noeuds au m&ecirc;me titre que pour un
+maillage non structur&eacute; avec la routine \ref
+MEDmeshNodeCoordinateWr / \ref mmhcow. 
+</P>
+<P>Il est inutile dans un maillage structur&eacute; d'&eacute;crire
+la connectivit&eacute; des mailles dont la d&eacute;finition est
+implicite. Cependant ces mailles existent bien. Elles sont de type
+MED_POINT1 pour un maillage 0D, MED_SEG2 pour un maillage 1D,
+MED_QUAD4 pour un maillage 2D et MED_HEXA8 pour un maillage 3D. Il
+est possible d'associer &agrave; ces mailles tout comme pour les
+&eacute;l&eacute;ments d'un maillage non structur&eacute;, les
+attributs des entit&eacute;s d'un maillage : un num&eacute;ro
+(optionnel), un nom (optionnel) de taille \ref MED_SNAME_SIZE
+caract&egrave;res, un num&eacute;ro de famille. La routine \ref
+MEDmeshEntityNumberWr / \ref mmhenw permet d'&eacute;crire un tableau
+de num&eacute;ro pour un type d'entit&eacute; donn&eacute;. La
+routine \ref MEDmeshEntityNameWr / \ref mmheaw permet d'&eacute;crire
+un tableau de noms pour un type d'entit&eacute; donn&eacute;.
+L'&eacute;criture des noms et num&eacute;ros des entit&eacute;s d'un
+maillage est optionnelle. La routine \ref MEDmeshEntityFamilyNumberWr
+/ \ref mmhfnw permet quant &agrave; elle l'&eacute;criture des
+num&eacute;ros de famille. L'&eacute;criture des num&eacute;ros de
+famille est optionnelle uniquement lorsque toutes les entit&eacute;s
+du maillage sont rattach&eacute;s &agrave; la famille 0.</P>
+<P>\include UsesCase_MEDmesh_4.c</P>
+<H3><A NAME="4."></A>Lire un maillage structur&eacute;</H3>
+<P>Une fois le type de maillage identifi&eacute; avec la routine \ref
+MEDmeshInfoByName / \ref mmhmin ou \ref MEDmeshInfo / \ref mmhmii, il
+est n&eacute;cessaire de lire &agrave; quelle cat&eacute;gorie
+correspond le maillage structur&eacute; via la routine \ref
+MEDmeshGridTypeRd / \ref mmhgtr. Pour les grilles MED_CARTESIAN_GRID
+ou MED_POLAR_GRID, il est n&eacute;cessaire de lire les indices de
+coordonn&eacute;es selon chaque axes du rep&egrave;re de coordonn&eacute;es
+: la routine \ref MEDmeshnEntity / \ref mmhnme permet de lire le
+nombre d'indices selon un axe donn&eacute;, la routine \ref
+MEDmeshGridIndexCoordinateRd / \ref mmhgcr permet la lecture des
+indices de coordonn&eacute;es selon les axes de coordonn&eacute;es du
+rep&egrave;re. Pour ce qui concerne une grille MED_CURVILINEAR_GRID,
+il est n&eacute;cessaire de lire toutes les coordonn&eacute;es des
+noeuds au m&ecirc;me titre que pour un maillage non structur&eacute;
+avec la routine \ref MEDmeshNodeCoordinateRd / \ref mmhcor. 
+</P>
+<P STYLE="font-style: normal">L'exemple suivant permet la lecture du
+maillage structur&eacute; cr&eacute;&eacute; dans le cas
+d'utilisation pr&eacute;c&eacute;dent.</P>
+<P>\include UsesCase_MEDmesh_5.c</P>
+<H3><A NAME="5."></A>Cr&eacute;er un maillage avec des familles</H3>
+<P>Dans MED, les familles constituent une partition de l'ensemble des
+entit&eacute;s du maillage : chaque entit&eacute; du maillage (noeud,
+maille, face ou ar&ecirc;te) appartient &agrave; une seule famille.
+Une famille permet de rep&eacute;rer des zones &agrave;
+particulariser pour le calcul : propri&eacute;t&eacute;s physiques,
+conditions aux limites, extraction des r&eacute;sultats, etc. Un
+objet famille est identifi&eacute; par son nom (cha&icirc;ne de \ref
+MED_NAME_SIZE caract&egrave;res) et son num&eacute;ro. Une famille
+est d&eacute;crite par une liste de groupes auxquels les entit&eacute;s
+de la famille appartiennent. Un groupe est identifi&eacute; par une
+cha&icirc;ne de caract&egrave;res de \ref MED_LNAME_SIZE caract&egrave;res.</P>
+<P>Une famille donn&eacute;e ne peut porter que sur un seul type
+d'entit&eacute;, une famille est donc soit (exclusif) : une famille
+de noeuds, une famille d'&eacute;l&eacute;ments
+(mailles/faces/ar&ecirc;tes). Dans un maillage MED, on trouve trois
+types de familles: la famille de num&eacute;ro 0 qui ne comporte
+aucun groupe ; z&eacute;ro ou plusieurs familles de noeuds dont le
+num&eacute;ro doit &ecirc;tre strictement positif ; z&eacute;ro ou
+plusieurs familles d'&eacute;l&eacute;ments (mailles/faces/ar&ecirc;tes)
+dont le num&eacute;ro doit &ecirc;tre strictement n&eacute;gatif. 
+</P>
+<P>La d&eacute;finition de la famille vide de num&eacute;ro 0 est
+obligatoire, elle constitue la famille de r&eacute;f&eacute;rence
+pour tous les noeuds et les &eacute;l&eacute;ments qui
+n'appartiennent &agrave; aucun groupe. Une famille de noeuds peut
+porter le m&ecirc;me nom qu'un famille d'&eacute;l&eacute;ments. Par
+contre les familles d'&eacute;l&eacute;ments (respectivement de
+noeuds) doivent toutes avoir des noms diff&eacute;rents. La cr&eacute;ation
+d'une famille dans un maillage se fait &agrave; l'aide de la routine
+\ref MEDfamilyCr / \ref mfacre. 
+</P>
+<P>Le num&eacute;ro de famille est le lien existant entre la famille
+consid&eacute;r&eacute;e et une entit&eacute; du maillage (noeud,
+maille, face ou ar&ecirc;te). Ce num&eacute;ro doit &ecirc;tre unique
+dans chaque maillage. La routine \ref MEDmeshEntityFamilyNumberWr /
+\ref mmhfnw permet l'&eacute;criture des num&eacute;ros de famille
+pour un type d'entit&eacute; donn&eacute;.</P>
+<P>Le cas d'utilisation suivant cr&eacute;&eacute; dans un maillage
+non structur&eacute; 2D, une famille associ&eacute;e aux noeuds
+situ&eacute;s sur le bord du maillage. Cette famille porte le num&eacute;ro
+1 et tous les noeuds situ&eacute;s au bord sont rattach&eacute;s &agrave;
+cette famille. Les num&eacute;ro de famille des autres noeuds reste &agrave;
+0.</P>
+<P>\include UsesCase_MEDmesh_10.c</P>
+<H3><A NAME="6."></A>Lire un maillage avec des familles</H3>
+<P>Pour lire un maillage MED de fa&ccedil;on g&eacute;n&eacute;rique,
+il est n&eacute;cessaire de lire les familles qui outre la famille 0,
+existent potentiellement dans le maillage. De plus pour chaque type
+d'entit&eacute; pr&eacute;sent dans le maillage, il est n&eacute;cessaire
+de lire le num&eacute;ro de famille.</P>
+<P>La routine \ref MEDnFamily / \ref mfanfa lit le nombre de famille
+dans un maillage. Il s'agit ensuite d'it&eacute;rer sur chacune de
+ces familles. A chaque it&eacute;ration, la routine \ref
+MEDnFamilyGroup / \ref mfanfg permet de lire le nombre de groupe
+d'une famille et la routine \ref MEDfamilyInfo / \ref mfafai permet
+de r&eacute;cup&eacute;rer les informations relatives &agrave; une
+famille : nom, num&eacute;ro, liste des groupes. A noter qu'il est
+&eacute;galement possible d'utiliser la routine \ref MEDfamily23Info
+/ \ref mfaofi pour lire les informations relatives aux familles des
+fichiers MED 2.3 qui en plus des groupes pouvaient comporter une
+liste d'attributs entiers (notion devenue obsol&egrave;te dans MED
+3.0), le nombre d'attribut d'une famille pouvant &ecirc;tre r&eacute;cup&eacute;r&eacute;
+avec la routine \ref MEDnFamily23Attribute / \ref mfaona.</P>
+<P>Il est possible de lire les num&eacute;ros de famille pour chaque
+type d'entit&eacute; du maillage avec la routine \ref
+MEDmeshEntityFamilyNumberRd / \ref mmhfnr. Si le tableau de num&eacute;ro
+n'est pas pr&eacute;sent, cela indique que toutes les entit&eacute;s
+concern&eacute;es portent le num&eacute;ro de famille 0.</P>
+<P>Le cas d'utilisation suivant offre un exemple de lecture des
+familles d'un maillage. 
+</P>
+<P>\include UsesCase_MEDmesh_11.c</P>
+<P>L'exemple suivant propose une approche similaire avec les routines
+permettant la lecture des fichiers MED 2.3.</P>
+<P>\include test9.c</P>
+<P><BR><BR>
+</P>

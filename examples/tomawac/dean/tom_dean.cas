@@ -1,0 +1,67 @@
+/********************************************************************
+/              TOMAWAC  STEERING FILE
+/********************************************************************
+/--------------------------------------------------------------------
+/     FILES
+/--------------------------------------------------------------------
+FORTRAN FILE = 'user_fortran'
+GEOMETRY FILE = geo_dean.slf
+BOUNDARY CONDITIONS FILE = geo_dean.cli
+2D RESULTS FILE = r2d_dean.slf
+/--------------------------------------------------------------------
+/ MISCELLANEOUS INPUT-OUTPUT
+/--------------------------------------------------------------------
+TITLE = 'CAS1 VEG TEST MENDEZ ET AL. 2004'
+PERIOD FOR GRAPHIC PRINTOUTS = 480
+NUMBER OF PRIVATE ARRAYS = 1
+VARIABLES FOR 2D GRAPHIC PRINTOUTS =
+M0,HM0,DMOY,TMOY,VX,VY,ZF,FMOY,TPD,PRI,SXX,SXY,FX,FY,UWB
+PERIOD FOR LISTING PRINTOUTS = 960
+/--------------------------------------------------------------------
+/ DISCRETIZATION
+/--------------------------------------------------------------------
+TIME STEP = 0.1
+NUMBER OF TIME STEP = 4800
+NUMBER OF DIRECTIONS = 36
+NUMBER OF FREQUENCIES = 6
+/Tp = 10 sec
+MINIMAL FREQUENCY = 0.0951
+FREQUENTIAL RATIO = 1.01
+/--------------------------------------------------------------------
+/ OPTIONS DU CALCUL
+/--------------------------------------------------------------------
+SPECTRUM TAIL FACTOR = 4.
+INFINITE DEPTH = NO
+NUMBER OF ITERATIONS FOR THE SOURCE TERMS = 1
+CONSIDERATION OF PROPAGATION = YES
+CONSIDERATION OF SOURCE TERMS = YES
+/--------------------------------------------------------------------
+/  INITIAL CONDITIONS
+/--------------------------------------------------------------------
+LIMIT SPECTRUM MODIFIED BY USER = YES
+/(Hrms*racine2)
+INITIAL SIGNIFICANT WAVE HEIGHT = 3.54
+INITIAL PEAK FREQUENCY = 1.
+/valeur moyenne JONSWAP
+INITIAL PEAK FACTOR = 3.3
+INITIAL ANGULAR DISTRIBUTION FUNCTION = 3
+INITIAL DIRECTIONAL SPREAD 1 = 2.
+INITIAL MAIN DIRECTION 1 = 90.
+/--------------------------------------------------------------------
+/   BOUNDARY CONDITIONS
+/--------------------------------------------------------------------
+TYPE OF BOUNDARY DIRECTIONAL SPECTRUM = 6
+DEPTH-INDUCED BREAKING DISSIPATION = 2
+DEPTH-INDUCED BREAKING 2 (TG) COEFFICIENT GAMMA = 0.6
+TRIAD INTERACTIONS = 0
+/--------------------------------------------------------------------
+/   VEGETATION
+/--------------------------------------------------------------------
+VEGETATION TAKEN INTO ACCOUNT = YES
+VEGETATION DISSIPATION COEFFICIENT = 1.
+NUMBER OF PLANTS M2= 20.
+STEM DIAMETER=0.25
+BULK DRAG COEFFICIENT=0.2
+VEGETATION HEIGHT=1.
+FILE WITH DEFINITION OF POLYGONS = 'Zone.txt'
+

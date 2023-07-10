@@ -1,0 +1,112 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{amsmath}
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P0}
+
+\subsection*{Validation du noyau transcritique}
+
+\subsection*{\emph{Ecoulement en lit composé}}
+
+\subsection*{Numéro du cas test : 22}
+
+\subsection*{Auteur : Fabrice ZAOUI}
+
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+Le noyau transcritique permet de traiter les écoulements en lit composé mineur-majeur. La modélisation \emph{Debord} a été retenue afin de rester cohérent avec ce qui se fait habituellement dans le noyau fluvial de Mascaret.
+
+Ce cas test permet de vérifier l'aptitude du noyau transcritique à traiter de tels écoulements en comparant ces résultats avec le noyau fluvial, validé par ailleurs sur des cas similaires.
+
+\subsection*{Données géométriques}
+
+Le bief modélisé est une partie du bief de Beaucaire, sur le Rhône. Sa longueur est de $12.7\ km$ environ. La figure~\ref{fig1} montre le profil en long du bief qui est relativement accidenté.
+
+\subsection*{Données physiques}
+
+Deux coefficients de frottement sont définis : 44 dans le lit mineur et 22 dans le lit majeur.
+
+\begin{itemize}
+ \item Conditions aux limites :
+ \begin{itemize}
+  \item cote imposée à l'aval égale à $15.56\ m$;
+  \item dÃ©bit imposé à l'amont égal à $9100\ m^3/s$. 
+ \end{itemize}
+ \item Conditions initiales : elles sont issues d'un calcul avec le noyau Sarap en permanent, voir les figures~\ref{fig1} et\ref{fig2}.
+\end{itemize}
+
+
+\subsection*{Données numériques}
+
+Un maillage régulier est utilisé avec $\Delta X = 200\ m$. Le pas de planimétrage est uniforme, égal à $40\ cm$. Ces conditions de calcul sont identiques à celles utilisées dans le noyau fluvial.
+
+Le pas de temps est réglé à chaque itération de manière à vérifier un nombre de Courant égal à $0.8$.
+
+Le calcul est effectué sur $2000$ pas de temps. Un état stationnaire est alors obtenu pour le noyau transcritique.
+
+\subsection*{Résultats}
+
+Les résultats sont visibles sur les figure~\ref{fig3} et \ref{fig4}. La présence d'un lit composé ne permet plus d'assurer la convergence en espace vers une solution à débit constant. De légères fluctuations persistent, de l'ordre de $1\%$ du débit total. Si ce résultat n'est pas totalement satisfaisant du point de vue théorique, il est d'une qualité suffisante pour l'ensemble des études réalisées en lit composé.
+
+La comparaison des débits mineurs et des cotes de la surface libre respectifs confirment la bonne qualité des résultats obtenus. La différence de surface entre les deux noyaux de calcul est partout inférieure à $2\ cm$ et vaut en moyenne $0.5\ cm$.
+
+\subsection*{Conclusion}
+
+Le noyau transcritique peut traiter les écoulements en lits composés pour des études réelles. Les comparaisons réalisées avec le noyau fluvial sont satisfaisantes. Cependant, la présence d'un lit composé ne permet plus d'assurer la convergence vers un état permanent à débit constant. De légères fluctuations persistent, de l'ordre de $1\%$.Ceci est sûrement dû à la façon de discrétiser les termes supplémentaires qui sont apparus dans les équations de Saint-Venant (discrétisation explicite comme terme de forçage du coefficient $\beta$ qui apparaît dans les termes de propagation).
+
+\newpage
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{perm1.eps}
+  \caption{Cote du fond et de la ligne d'eau à l'état initial calculé par le noyau permanent}
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{perm2.eps}
+  \caption{Débits initiaux calculés par le noyau permanent}
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{resu.eps}
+  \caption{Débits à convergence}
+  \label{fig3}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{resu2.eps}
+  \caption{Comparaison des cotes entre les deux noyaux de calcul}
+  \label{fig4}
+ \end{center}
+\end{figure}
+
+%
+% fin du document
+%
+\end{document}          

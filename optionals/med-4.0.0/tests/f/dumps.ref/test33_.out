@@ -1,0 +1,10 @@
+ Erreur à l'ouverture du groupe 
+ du maillage 
+ meshname = "maa1"
+ numit = -1
+ numdt = -1
+ _datagroupname2 = "ARE"
+0
+maillage 0 de nom maa1 comportant le nombre d'arretes    0
+ Ce test doit générer une erreur.
+0

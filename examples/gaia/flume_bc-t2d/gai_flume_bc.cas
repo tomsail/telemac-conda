@@ -1,0 +1,42 @@
+/---------------------------------------------------------------
+/                           GAIA
+/---------------------------------------------------------------
+
+GEOMETRY FILE                   = geo_flume_bc.slf
+BOUNDARY CONDITIONS FILE        = geo_flume_bc.cli
+RESULTS FILE = gai_flume_bc.slf
+/
+/---------------------------------------------------------------
+/                       GENERAL OPTIONS
+/ --------------------------------------------------------------
+TITLE = 'FLUME BC GAIA'
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U;V;H;S;B;R;E;CS1'
+MASS-BALANCE = YES
+/
+/---------------------------------------------------------------
+/                       PHYSICAL PARAMETERS
+/ --------------------------------------------------------------
+CLASSES TYPE OF SEDIMENT = 'NCO'
+CLASSES SEDIMENT DENSITY = 2650.0
+BED LOAD FOR ALL SANDS = YES
+SUSPENSION FOR ALL SANDS = NO
+BED-LOAD TRANSPORT FORMULA FOR ALL SANDS = 1
+/LAYERS NON COHESIVE BED POROSITY = 0.0
+/ 1mm
+CLASSES SEDIMENT DIAMETERS = 0.00032
+SKIN FRICTION CORRECTION = 0
+SLOPE EFFECT = NO
+RATIO BETWEEN SKIN FRICTION AND MEAN DIAMETER = 1.
+PRESCRIBED SOLID DISCHARGES = 0;0.000064528
+/
+/--------------------------------------------------------------
+/                   NUMERICAL PARAMETERS
+/--------------------------------------------------------------
+/TIDAL FLATS = YES
+FINITE VOLUMES = YES
+UPWINDING FOR BEDLOAD = 1.
+
+
+
+
+

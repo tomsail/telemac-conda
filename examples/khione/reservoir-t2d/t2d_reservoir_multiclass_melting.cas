@@ -1,0 +1,70 @@
+/----------------------------------------------------------------------
+/
+/ Steering file for the hydrodynamics: TELEMAC-2D
+/
+TITLE = 'THERMAL BUDGET PROCESSES IN A BOX'
+/
+/----------------------------------------------------------------------
+/  FILES
+/----------------------------------------------------------------------
+/
+GEOMETRY FILE                = 'geo_reservoir.slf'
+BOUNDARY CONDITIONS FILE     = 'geo_reservoir.cli'
+RESULTS FILE                 = 'r2d_reservoir_multiclass_melting.slf'
+/
+/----------------------------------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------------------------------
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'U,V,H,S,B'
+/
+GRAPHIC PRINTOUT PERIOD          = 60
+LISTING PRINTOUT PERIOD          = 800
+MASS-BALANCE                     = YES
+/
+DURATION                         = 1600
+TIME STEP                        = 0.1
+/
+/----------------------------------------------------------------------
+/  TRACER(S)
+/----------------------------------------------------------------------
+/
+/
+DIFFUSION OF TRACERS                 = NO
+/COEFFICIENT FOR DIFFUSION OF TRACERS = 0.
+/
+/----------------------------------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------------------------------
+/
+INITIAL CONDITIONS         = 'CONSTANT ELEVATION'
+INITIAL ELEVATION          = 1.
+/
+INITIAL VALUES OF TRACERS  = 0.1
+/
+/----------------------------------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------------------------------
+/
+LAW OF BOTTOM FRICTION           = 0
+LATITUDE OF ORIGIN POINT         = 44.73
+/
+/----------------------------------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------------------------------
+/
+DISCRETIZATIONS IN SPACE          = 11;11
+TYPE OF ADVECTION                 = 1;5;4
+TIDAL FLATS                       = NO
+CONTINUITY CORRECTION             = YES
+/
+/----------------------------------------------------------------------
+/  THERMIC PROCESS
+/----------------------------------------------------------------------
+/
+COUPLING WITH                = 'KHIONE'
+KHIONE STEERING FILE         = 'ice_reservoir_multiclass_melting.cas'
+AIR TEMPERATURE = 20.
+/
+/----------------------------------------------------------------------
+/

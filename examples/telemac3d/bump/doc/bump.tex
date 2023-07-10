@@ -1,0 +1,147 @@
+\chapter{Flow over a bump (bump)}
+
+\section{Description}
+\bigskip
+This test calculates the fluvial regime in a horizontal straight channel
+including a topographical singularity (a bump on the bottom). 
+It allows to show that \telemac{3D} is able to correctly reproduce the hydrodynamic 
+impact of changing bed slopes, vertical flow contractions and expansions.
+Furthermore, this problem has an analytical solution in 2D. 
+The solution computed by \telemac{3D} will be compared with this analytical 
+solution. Therefore, it allows also testing the accuracy on the computation of the
+free-surface, with respect to the bottom gradient. 
+
+\bigskip
+The geometry dimensions of the channel are 2 m wide and 20.96 m long. 
+The elevation of the flat part of the channel is at -0.2~m 
+(see Figure \ref{t3d:bump:fig:bathy}).
+The maximum elevation of the bump in its middle is 0 m (at $x$ = 10.0~m) 
+with the profile of the singularity (Figure \ref{t3d:bump:fig:profil}) 
+which is defined by:
+\begin{equation*}
+z_{\rm{f}}(x) =max(-0.2, -0.0246875(x-10)^2)
+\end{equation*}
+The studied flow regime provides a transition to super-critical flow conditions 
+located on the bump,
+and the downstream water level imposes the presence of an hydraulic jump 
+in the downstream reach of the channel.
+Note that the turbulent viscosity is constant along the horizontal direction
+and equal to $10^{-6}~\text{m}^2.\text{s}^{-1}$ (default value) and a mixing
+length model is applied in the vertical direction (Prandtl formula).
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/bathy.png}
+ \caption{Bathymetry.}
+ \label{t3d:bump:fig:bathy}
+\end{figure}
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/profil.png}
+ \caption{Bump profile.}
+ \label{t3d:bump:fig:profil}
+\end{figure}
+
+\bigskip
+As seen previously, this problem has an analytical solution in 2D. 
+This solution is based on the Bernoulli equations.\\
+For a given discharge per unit length $q$, imposed at the upstream
+boundary and a water depth $h$ imposed at the downstream boundary,
+the water line follows the Bernoulli equation written below:
+\begin{equation*}
+\frac{q^2}{2gh^3}+ (h + z_{\rm{f}}) = H_0
+\end{equation*}
+where $H_0$ is specific energy and $z_{\rm{f}}$ is bottom elevation.
+
+
+\subsection{Initial and boundary conditions}
+
+\bigskip
+The initial free surface is 0.4~m with a fluid at rest.
+
+\bigskip
+The boundary conditions are:
+\begin{itemize}
+\item For the solid walls, a slip condition on channel banks is used for the velocity,
+\item On the bottom, Strickler law with friction coefficient equal to
+50~$\text{m}^{1/3}.\text{s}^{-1}$ is imposed,
+\item Upstream a flowrate equal to 2~$\text{m}^{3}.\text{s}^{-1}$ is imposed,
+\item Downstream the water level is equal to 0.4~m.
+\end{itemize}
+
+\subsection{Mesh and numerical parameters}
+\bigskip
+The mesh (Figures \ref{t3d:bump:fig:meshH} and \ref{t3d:bump:fig:meshV})  
+is composed of 2,620 triangular elements (1,452 nodes) with 5 planes  
+regularly spaced on the vertical, to form prism elements.
+Note that the mesh is made up of squares whose sides measure 0.16~m cut into
+triangles. 
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Mesh.png}
+ \caption{Horizontal mesh.}
+ \label{t3d:bump:fig:meshH}
+\end{figure}
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/MeshV.png}
+ \caption{Vertical mesh  at initial state.}
+ \label{t3d:bump:fig:meshV}
+\end{figure}
+\bigskip
+The time step is 0.01~s for a simulated period of 50~s. 
+
+\bigskip
+This case is computed with the non-hydrostatic version.
+To solve advection, the method of characteristics is used for the velocities (scheme 1).
+The GMRES (Generalized Minimal Residual Method, scheme 7) is used to solve 
+the Pressure Poisson Equation with an accuracy fixed at the default value
+$10^{-8}$  (since version 8.1).
+The implicitation coefficients for depth and velocities are equal to 0.6. 
+
+\section{Results}
+
+\bigskip
+Qualitatively the variation of the velocity field is regular at the surface and
+vertically in the critical flow area.
+It follows well the shape of the bump (Figures \ref{t3d:bump:fig:veloH} 
+and \ref{t3d:bump:fig:veloV}).
+Generally, the results (Figure \ref{t3d:bump:fig:free_surface}) 
+are in good agreement with the analytical
+solution. This solution is described in details in [1].\\
+Moreover, the position of the hydraulic jump is correctly computed.
+However, a shift (difference of the free surface at the entrance) is
+observed on the free surface, which seems to be due to the way to
+calculate the free surface by \telemac{3D}.
+
+%\section{Conclusion}
+
+\bigskip
+To conclude, this flow is well reproduced by \telemac{3D}.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/veloH.png}
+ \caption{Horizontal distribution of velocities at the surface.}
+ \label{t3d:bump:fig:veloH}
+\end{figure}
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/veloV.png}
+ \caption{Vertical distribution of velocities.}
+ \label{t3d:bump:fig:veloV}
+\end{figure}
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/free_surface.png}
+ \caption{Free surface profile comparison between analytical solution 
+ and \telemac{3D} solution.}
+ \label{t3d:bump:fig:free_surface}
+\end{figure}
+
+\section{Reference}
+
+[1] Hydrodynamics of Free Surface Flows modelling with the finite
+element method. Jean-Michel Hervouet (Wiley, 2007) pp 128-129.

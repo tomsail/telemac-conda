@@ -1,0 +1,58 @@
+/======================================================================
+/ Sisyphe: Wesel-Xanten minimalistic nw97 Q(Wesel)
+/ The Rhine River, Rhein-km 812.5 - 821.5
+/======================================================================
+SECONDARY CURRENTS = YES
+SECONDARY CURRENTS ALPHA COEFFICIENT = 1.0
+/SECONDARY CURRENTS = NO
+BOUNDARY CONDITIONS FILE                     = geo_yen-exp.cli
+PRESCRIBED SOLID DISCHARGES                  = 0.0;0.0
+GEOMETRY FILE                                = geo_yen-exp.slf
+RESULTS FILE                                 = gaia_yen-exp_multi1.slf
+/----------------------------------------------
+/  GENERAL AND OUTPUT
+/----------------------------------------------
+TITLE : 'Yen-180-bend'
+VARIABLES FOR GRAPHIC PRINTOUTS =
+'U,V,S,E,H,B,KS,TOB,M,N,P,1A*,2A*,*ES'
+/
+/----------------------------------------------
+/ NUMERICAL PARAMETERS
+/----------------------------------------------
+/
+MASS-BALANCE                             = YES
+ZERO                                     = 1e-12
+/MINIMAL VALUE OF THE WATER HEIGHT        = 0.001
+/
+/----------------------------------------------
+/ PHYSICAL PARAMETERS - HYDRODYNAMICS
+/----------------------------------------------
+/
+/ 0: wird berechnet: ks = 3*D50
+/ 1: wird berechnet: ks : max(3*d50, ripple height)
+/
+/----------------------------------------------
+/ PHYSICAL PARAMETERS - BED LOAD
+/----------------------------------------------
+CLASSES TYPE OF SEDIMENT = NCO;NCO;NCO;NCO;NCO
+CLASSES SEDIMENT DENSITY = 2650.;2650.;2650.;2650.;2650.
+BED LOAD FOR ALL SANDS = YES
+SUSPENSION FOR ALL SANDS = NO
+BED-LOAD TRANSPORT FORMULA FOR ALL SANDS = 1
+CLASSES SHIELDS PARAMETERS = 0.047;0.047;0.047;0.047;0.047
+CLASSES SETTLING VELOCITIES = -9;-9;-9;-9;-9
+/COEFFICIENT FUNCTION OF THE POROSITY       = 1.6
+LAYERS NON COHESIVE BED POROSITY = 0.37500
+
+CLASSES SEDIMENT DIAMETERS =
+0.00031;0.00064;0.00103;0.00169;0.00336
+CLASSES INITIAL FRACTION =
+0.2;0.2;0.2;0.2;0.2
+CONSTANT ACTIVE LAYER THICKNESS                  = YES
+ACTIVE LAYER THICKNESS                           = 0.10D0
+/
+SLOPE EFFECT = YES
+FORMULA FOR DEVIATION  = 2
+PARAMETER FOR DEVIATION = 0.85
+FORMULA FOR SLOPE EFFECT = 2
+FRICTION ANGLE OF THE SEDIMENT = 35

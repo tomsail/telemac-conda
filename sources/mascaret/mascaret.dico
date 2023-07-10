@@ -1,0 +1,6698 @@
+&DYN
+/ Description of a keyword
+/ NOM : French name
+/ NOM1 : English name
+/ TYPE : STRING, INTEGER, REAL, LOGICAL
+/ INDEX : Index of the keyword
+/ TAILLE : Number of values (0 means between 1 and n)
+/ (opt) SUBMIT : Chain for files
+/ DEFAUT : Defaut value in French
+/ DEFAUT1 : Defaut value in English
+/ MNEMO : Name of the variable in the code
+/ (opt) CONTROLE : min;max for the keyword value
+/ (opt) CHOIX : List of possible values
+/ (opt) CHOIX1 : CHOIX in french
+/ (opt) APPARENCE : Defined how the keyword is filled
+/   LIST, DYNLIST, TUPLE
+/ RUBRIQUE : Classification of the keyword 3 level max
+/ RUBRIQUE1 : RUBRIQUE but in English
+/ (opt) COMPOSE : Used for fudaa
+/ (opt) COMPORT : Used for fudaa
+/ NIVEAU : Level of the keyword (Level 0 is a mandatory keyword)
+/ AIDE : Help in French (LaTeX syntax)
+/ AIDE1 : Help in English (LaTeX syntax)
+/ PATHNODE : corresponding xml tag
+/---SYSTEME-TELEMAC-MASCARET--------------------------------------------
+/
+/////////////////////// PARAMETRES GENERAUX ////////////////////////////
+/
+NOM = 'VERSION DU CODE'
+NOM1 = 'CODE VERSION'
+TYPE = INTEGER
+INDEX = 1
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'VersionCode'
+CHOIX =
+'1=""';
+'2=""';
+'3="MASCARET V8P3 "'
+CHOIX1 =
+'1=""';
+'2=""';
+'3="MASCARET V8P3 "'
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 0
+AIDE = 'Nom et numero de version du code utilise.'
+AIDE1 = 'Name and number of code version used'
+PATHNODE = 'parametresCas/parametresGeneraux/versionCode'
+/
+NOM = 'NOYAU DE CALCUL'
+NOM1 = 'CALCULATION KERNEL'
+TYPE = INTEGER
+INDEX = 2
+TAILLE = 1
+DEFAUT = 3
+DEFAUT1 = 3
+MNEMO = 'Noyau'
+CHOIX =
+'1="SARAP"';
+'2="REZODT"';
+'3="MASCARET"'
+CHOIX1 =
+'1="SARAP"';
+'2="REZODT"';
+'3="MASCARET"'
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 0
+AIDE = 'choix du noyau de calcul, entre :
+ - SARAP : noyau permanent transcritique
+ - REZODT : noyau non-permanent
+ - MASCARET : noyau non-permanent transcritique.'
+AIDE1 = 'choice of the calculation kernel, between :
+ - SARAP : transcritical steady kernel
+ - REZODT : unsteady kernel
+ - MASCARET : transcritical unsteady kernel.'
+PATHNODE = 'parametresCas/parametresGeneraux/code'
+/
+NOM = 'FICHIER DES MOT-CLES'
+NOM1 = 'KEYWORDS FILENAME'
+TYPE = STRING
+INDEX = 1
+TAILLE = 1
+SUBMIT = 'INUTILE;FACUL;LIT;ASC;XCAS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 4
+AIDE = 'Nom du fichier xcas.'
+AIDE1 = 'Xcas file name'
+PATHNODE = 'parametresCas/parametresGeneraux/fichMotsCles'
+/
+NOM = 'DICTIONNAIRE'
+NOM1 = 'DICTIONARY'
+TYPE = STRING
+INDEX = 2
+TAILLE = 1
+SUBMIT = 'INUTILE;FACUL;ASC;DICO'
+DEFAUT = 'mascaret.dico'
+DEFAUT1 = ''
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 4
+AIDE = 'Dictionnaire des mots cles.'
+AIDE1 = 'Keywords dictionnary'
+PATHNODE = 'parametresCas/parametresGeneraux/dictionaire'
+/
+NOM = 'PROGRAMME PRINCIPAL'
+NOM1 = 'PRINCIPAL PROGRAM'
+TYPE = STRING
+INDEX = 3
+TAILLE = 1
+SUBMIT = 'INUTILE;FACUL;ASC;FORTRAN'
+DEFAUT = 'princi.f'
+DEFAUT1 = 'princi.f'
+MNEMO = 'nom\_fortran'
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 4
+AIDE = 'Nom du fichier Fortran (non-utilise dans cette version).'
+AIDE1 = 'Name of Fortran file (unused in this version).'
+PATHNODE = 'parametresCas/parametresGeneraux/progPrincipal'
+/
+NOM = 'LISTE DES BIBLIOTHEQUES'
+NOM1 = 'LIBRARIES LIST'
+TYPE = STRING
+INDEX = 4
+TAILLE = 1
+SUBMIT = 'LIB;FORTRAN;INUTILE;FACUL'
+DEFAUT =
+'pretrait.a mascaret.a pretrait.a damoV3P0.a rezo.a sarap.a stock.a
+planim.a qcl.a post.a intersect.a modules.a'
+DEFAUT1 = ''
+MNEMO = 'nom\_bibli'
+RUBRIQUE = 'PARAMETRES GENERAUX';'BIBLIOTHEQUES';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'LIBRARIES';''
+NIVEAU = 4
+AIDE = 'Etait tilise par la procedure de lancement sur station de
+travail'
+AIDE1 = 'Was used by the procedure for launching on workstation'
+PATHNODE = 'parametresCas/parametresGeneraux/bibliotheques/bibliotheque'
+/
+NOM = 'SAUVEGARDE DU MODELE'
+NOM1 = 'MODEL SAVE'
+TYPE = LOGICAL
+INDEX = 21
+TAILLE = 1
+DEFAUT = False
+DEFAUT1 = False
+MNEMO = 'sauvegarde\_modele'
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 3
+AIDE =
+'Option pour sauvegarder le modele dans fichier texte
+(cf. FICHIER SAUVEGARDE MODEL)'
+AIDE1 =
+'Option to save the model in a ascii file
+(see MODEL SAVE FILE)'
+PATHNODE = 'parametresCas/parametresGeneraux/sauveModele'
+/
+NOM = 'FICHIER SAUVEGARDE DU MODELE'
+NOM1 = 'MODEL SAVE FILE'
+TYPE = STRING
+INDEX = 5
+TAILLE = 1
+SUBMIT = 'ASC;ECR;FACUL'
+DEFAUT = 'temp'
+DEFAUT1 = 'temp'
+MNEMO = 'FichierModele\%Nom'
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 0
+AIDE = 'fichier de sauvegarde du modele (informations generale)'
+AIDE1 = 'Model save file (general informations)'
+PATHNODE = 'parametresCas/parametresGeneraux/fichSauvModele'
+/
+NOM = 'CALCUL POUR VALIDATION DU CODE'
+NOM1 = 'CALCULATION FOR VALIDATION OF THE CODE'
+TYPE = LOGICAL
+INDEX = 1
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'CalculValidation'
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 3
+AIDE =
+'Option pour indiquer que le calcul est un calcul de validation dans
+le listing'
+AIDE1 =
+'Option to indicate that the calculation is calculation of
+validation in the listing'
+PATHNODE = 'parametresCas/parametresGeneraux/validationCode'
+/
+NOM = 'TYPE DE CALCUL DE VALIDATION EFFECTUE'
+NOM1 = 'TYPE OF VALIDATION CALCULATION'
+TYPE = INTEGER
+INDEX = 3
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'typeValidation'
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 3
+AIDE =
+'Entier donnant le type de validation effecuee
+dans le listing (non-utilise actuellement)'
+AIDE1 =
+'Integer given in the listing corresponding
+to the type of validation doing (not used anymore)'
+PATHNODE = 'parametresCas/parametresGeneraux/typeValidation'
+/
+NOM = 'PRESENCE DE CASIERS'
+NOM1 = 'STORAGE AREAS'
+TYPE = LOGICAL
+INDEX = 23
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'OptionCasier'
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 0
+AIDE = 'Option pour activer les casiers (noyau REZODT)'
+AIDE1 = 'Option to activate storage areas (REZODT kernel'
+PATHNODE = 'parametresCas/parametresGeneraux/presenceCasiers'
+/
+NOM = 'OPTION COURLIS'
+NOM1 = 'COURLIS OPTION'
+TYPE = LOGICAL
+INDEX = 29
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'OptionCourlis'
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 0
+AIDE = 'Option pour activer Courlis (module sedimentaire)'
+AIDE1 = 'Option to activate Courlis (sediment transport module)'
+PATHNODE = 'parametresCas/parametresGeneraux/optionCourlis'
+/
+NOM = 'FICHIER DES MOTS-CLEFS COURLIS'
+NOM1 = 'KEYWORD FILE FOR COURLIS'
+TYPE = STRING
+INDEX = 23
+TAILLE = 1
+SUBMIT = 'ASC;LIT;CAS;FACUL'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresGeneraux/fichierMotCleCourlis'
+/
+NOM = 'DICTIONAIRE COURLIS'
+NOM1 = 'COURLIS DICTIONARY'
+TYPE = STRING
+INDEX = 26
+TAILLE = 1
+SUBMIT = ''
+DEFAUT = 'dico\_Courlis.txt'
+DEFAUT1 = 'dico\_Courlis.txt'
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresGeneraux/dictionaireCourlis'
+/
+////////////////////// PARAMETRES PHYSIQUES ///////////////////////////
+/
+NOM = 'PERTES DE CHARGE AUTOMATIQUE AUX CONFLUENTS'
+NOM1 = 'AUTOMATIC HEADLOSS AT JUNCTIONS'
+TYPE = LOGICAL
+INDEX = 22
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'PerteChargeConfluent'
+RUBRIQUE = 'MODELISATION PHYSIQUE';'';''
+RUBRIQUE1 = 'MODELISATION PHYSIQUE';'';''
+NIVEAU = 0
+AIDE =
+'Option pour appliquer des pertes de charges calculees
+automatiquement aux confluences'
+AIDE1 = 'Option to apply automatic calculated headloss
+at junctions'
+PATHNODE = 'parametresCas/parametresModelePhysique/perteChargeConf'
+/
+NOM = 'COMPOSITION DES LITS'
+NOM1 = 'CROSS SECTION LAYOUT'
+TYPE = INTEGER
+INDEX = 4
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'ModeleLit'
+CHOIX =
+'0 = "AUCUN"';
+'1 = "DEBORD"';
+'2 = "FOND / BERGE"'
+CHOIX1 =
+'0 = "NO MODEL"';
+'1 = "DEBORD"';
+'2 = "BOTTOM / BANK"'
+RUBRIQUE = 'MODELISATION PHYSIQUE';'';''
+RUBRIQUE1 = 'MODELISATION PHYSIQUE';'';''
+NIVEAU = 0
+AIDE =
+'Option pour choisir le modele permettant de gerer les interactions
+entre le lit mineur et le lit majeur'
+AIDE1 = 'Option to choose the model handling interaction between
+n channel and floodplain channel'
+PATHNODE = 'parametresCas/parametresModelePhysique/compositionLits'
+/
+NOM = 'CONSERVATION DU FROTTEMENT SUR LES PAROIS VERTICALES'
+NOM1 = 'FRICTION CONVERSATION ALONG VERTICAL WALLS'
+TYPE = LOGICAL
+INDEX = 2
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = 'FrottParoiVerticale'
+RUBRIQUE = 'MODELISATION PHYSIQUE';'';''
+RUBRIQUE1 = 'MODELISATION PHYSIQUE';'';''
+NIVEAU = 0
+AIDE = 'Option pour appliquer un frottement supplementaire en presence
+ de parois verticale (canal par exemple)'
+AIDE1 = 'Option to apply an additional friction if there is
+vertical walls (channel for example)'
+PATHNODE = 'parametresCas/parametresModelePhysique/conservFrotVertical'
+/
+NOM = 'DEBORDEMENT PROGRESSIF LIT MAJEUR'
+NOM1 = 'PROGRESSIVE OVERFLOW IN FLOODPLAIN'
+TYPE = LOGICAL
+INDEX = 3
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'DebProgressifLM'
+RUBRIQUE = 'MODELISATION PHYSIQUE';'DEBORDEMENT PROGRESSIF';''
+RUBRIQUE1 = 'MODELISATION PHYSIQUE';'DEBORDEMENT PROGRESSIF';''
+NIVEAU = 0
+AIDE =
+'Le lit majeur n"est pris en compte qu"au moment ou la cote a la limite
+ des lits mineur-majeur est atteinte.'
+AIDE1 =
+'Floodplain channel is taken into account only when water surface
+elevation reach the bottom elevation at the limit between main and
+floodplain channel'
+PATHNODE =
+'parametresCas/parametresModelePhysique/debordement/litMajeur'
+/
+NOM = 'DEBORDEMENT PROGRESSIF ZONES DE STOCKAGE'
+NOM1 = 'PROGRESSIVE OVERFLOW IN STORAGE AREA'
+TYPE = LOGICAL
+INDEX = 4
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'DebProgressifZS'
+RUBRIQUE = 'MODELISATION PHYSIQUE';'DEBORDEMENT PROGRESSIF';''
+RUBRIQUE1 = 'MODELISATION PHYSIQUE';'DEBORDEMENT PROGRESSIF';''
+NIVEAU = 0
+AIDE =
+'Les zones de stockage ne sont prises en compte qu"au moment ou la cote
+a la limite des lits majeur-stockage est atteinte.'
+AIDE1 =
+'Storage areas channel are taken into account only when water surface
+elevation reach the bottom elevation at the limit between main channel
+and storage area'
+PATHNODE =
+'parametresCas/parametresModelePhysique/debordement/zoneStock'
+/
+NOM = 'ELEVATION DE COTE ARRIVEE DU FRONT'
+NOM1 = 'WATER DEPTH THRESHOLD IDENTIFYING THE WAVE'
+TYPE = REAL
+INDEX = 1
+TAILLE = 1
+DEFAUT = 0.01
+DEFAUT1 = 0.01
+MNEMO = 'DZArriveeFront'
+RUBRIQUE = 'MODELISATION PHYSIQUE';'';''
+RUBRIQUE1 = 'MODELISATION PHYSIQUE';'';''
+NIVEAU = 0
+AIDE = 'Seuil de hauteur d''eau signalant l''arivee du front d''onde'
+AIDE1 = 'Water depth threshold identifying the wave arrival'
+PATHNODE = 'parametresCas/parametresModelePhysique/elevCoteArrivFront'
+/
+NOM = 'INTERPOLATION LINEAIRE DES STRICKLER'
+NOM1 = 'LINEAR INTERPOLATION OF FRICTION COEFFICIENT'
+TYPE = LOGICAL
+INDEX = 18
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'InterpLinCoeffFrott'
+RUBRIQUE = 'MODELISATION PHYSIQUE';'';''
+RUBRIQUE1 = 'MODELISATION PHYSIQUE';'';''
+NIVEAU = 0
+AIDE =
+'Option pour choisir une interpolation lineaire des coefficients
+ de frottement'
+AIDE1 =
+'Option to choose linear interpolation for friction coefficients'
+PATHNODE = 'parametresCas/parametresModelePhysique/interpolLinStrickler'
+/
+////////////////////// PARAMETRES NUMERIQUES //////////////////////////
+/
+NOM = 'TERMES NON HYDROSTATIQUES POUR LE NOYAU TRANSCRITIQUE'
+NOM1 = 'HYDROSTATIC TERMS FOR TRANSCRITICAL KERNEL'
+TYPE = LOGICAL
+INDEX = 28
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'MODELISATION PHYSIQUE';'';''
+RUBRIQUE1 = 'MODELISATION PHYSIQUE';'';''
+NIVEAU = 0
+AIDE = 'Prise en compte de termes additionnels dans les equations de
+Saint Venant du a la prise en compte de la pression non-hydrostatique
+ (ondes de Favre)'
+AIDE1 = 'Additional non-hydrostatics terms in Saint Venant equations'
+PATHNODE = 'parametresCas/parametresNumeriques/termesNonHydrostatiques'
+/
+NOM = 'ATTENUATION DE LA CONVECTION'
+NOM1 = 'ATTENUATION OF CONVECTION'
+TYPE = LOGICAL
+INDEX = 38
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'MODELISATION PHYSIQUE';'';''
+RUBRIQUE1 = 'MODELISATION PHYSIQUE';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresNumeriques/attenuationConvection'
+/
+NOM = 'APPORT DE DEBIT DANS LA QUANTITE DE MVT'
+NOM1 = 'LATERAL INFLOW CONTRIBUTION IN MOMENTUM'
+TYPE = INTEGER
+INDEX = 5
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'cqmv'
+CHOIX =
+'0 = ""';
+'1 = ""'
+CHOIX1 =
+'0 = ""';
+'1 = ""'
+RUBRIQUE = 'MODELISATION PHYSIQUE';'';''
+RUBRIQUE1 = 'MODELISATION PHYSIQUE';'';''
+NIVEAU = 0
+AIDE = 'Introduction d''un moment du au debit lateral dans l''equation
+ de quantite de mouvement'
+AIDE1 = 'The inflow modifies the momentum equation (otherwise, the
+inflow is considered perpendicular to the flow and does not bring
+any momentum)'
+PATHNODE = 'parametresCas/parametresNumeriques/apportDebit'
+/
+NOM = 'CALCUL D''UNE ONDE DE SUBMERSION'
+NOM1 = 'FLOOD WAVE CALCULATION'
+TYPE = LOGICAL
+INDEX = 5
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'';''
+RUBRIQUE1 = 'PARAMETRES NUMERIQUES';'';''
+NIVEAU = 0
+AIDE = 'Calculs d''ondes de submersions en presence d''un barrage'
+AIDE1 = 'Flood waves calculations with dam'
+PATHNODE = 'parametresCas/parametresNumeriques/calcOndeSubmersion'
+/
+NOM = 'DECENTREMENT'
+NOM1 = 'UNCENTERED SCHEME'
+TYPE = LOGICAL
+INDEX = 999
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'';''
+RUBRIQUE1 = 'PARAMETRES NUMERIQUES';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresNumeriques/decentrement'
+/
+NOM = 'FROUDE LIMITE POUR LES CONDITIONS LIMITES'
+NOM1 = 'FROUDE LIMIT AT BOUNDARIES'
+TYPE = REAL
+INDEX = 2
+TAILLE = 1
+DEFAUT = 1.0
+DEFAUT1 = 1.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'';''
+RUBRIQUE1 = 'PARAMETRES NUMERIQUES';'';''
+NIVEAU = 0
+AIDE = 'Nombre de Froude en condition limite'
+AIDE1 = 'Froude number at boundaries'
+PATHNODE = 'parametresCas/parametresNumeriques/froudeLimCondLim'
+/
+NOM = 'TRAITEMENT IMPLICITE DU FROTTEMENT'
+NOM1 = 'IMPLICIT TREATMENT OF FRICTION'
+TYPE = LOGICAL
+INDEX = 20
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'FrottementImplicite'
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'';''
+RUBRIQUE1 = 'PARAMETRES NUMERIQUES';'';''
+NIVEAU = 0
+AIDE = 'Traitement implicite du terme de frottement'
+AIDE1 = 'Implicit treatment of friction term'
+PATHNODE = 'parametresCas/parametresNumeriques/traitImplicitFrot'
+/
+NOM = 'HAUTEUR D''EAU MINIMALE'
+NOM1 = 'MINIMUM WATER DEPTH'
+TYPE = REAL
+INDEX = 335
+TAILLE = 1
+DEFAUT = 0.005
+DEFAUT1 = 0.005
+MNEMO = 'HEPS'
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'';''
+RUBRIQUE1 = 'PARAMETRES NUMERIQUES';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresNumeriques/hauteurEauMini'
+/
+NOM = 'IMPLICITATION DU NOYAU TRANSCRITIQUE'
+NOM1 = 'IMPLICITATION OF TRANSCRITICAL KERNEL'
+TYPE = LOGICAL
+INDEX = 25
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'Impli\_Trans'
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'';''
+RUBRIQUE1 = 'PARAMETRES NUMERIQUES';'';''
+NIVEAU = 0
+AIDE = 'Utilisation du schema implicite pour le noyau transcritique'
+AIDE1 = 'Use of the implicit scheme in the transcrical kernel'
+PATHNODE = 'parametresCas/parametresNumeriques/implicitNoyauTrans'
+/
+NOM = 'OPTIMISATION DU NOYAU TRANSCRITIQUE'
+NOM1 = 'OPTIMIZATION OF TRANSCRITICAL KERNEL'
+TYPE = LOGICAL
+INDEX = 27
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'Opt'
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'';''
+RUBRIQUE1 = 'PARAMETRES NUMERIQUES';'';''
+NIVEAU = 0
+AIDE = 'Option pour optimiser le noyau transcritique'
+AIDE1 = 'Option to optimize transcritical kernel'
+PATHNODE = 'parametresCas/parametresNumeriques/optimisNoyauTrans'
+/
+NOM = 'PERTES DE CHARGE AUTOMATIQUE NOYAU TRANSCRITIQUE'
+NOM1 = 'AUTOMATIC HEADLOSSES TRANSCRITICAL KERNEL'
+TYPE = LOGICAL
+INDEX = 26
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = 'PerteElargissementTrans'
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'';''
+RUBRIQUE1 = 'PARAMETRES NUMERIQUES';'';''
+NIVEAU = 0
+AIDE = 'Prise en compte ou non des pertes de charge a la Borda due a
+un elargissement'
+AIDE1 = 'Automatic headlosses due to enlargement'
+PATHNODE =
+'parametresCas/parametresNumeriques/perteChargeAutoElargissement'
+/
+////////////////////// PARAMETRES TEMPORELS //////////////////////////
+/
+NOM = 'PAS DE TEMPS'
+NOM1 = 'TIME STEP'
+TYPE = REAL
+INDEX = 3
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'DT'
+RUBRIQUE = 'PARAMETRES TEMPORELS';'';''
+RUBRIQUE1 = 'PARAMETRES TEMPORELS';'';''
+NIVEAU = 0
+AIDE = 'Definit le pas de temps en secondes.'
+AIDE1 = 'Define time step in seconds'
+PATHNODE = 'parametresCas/parametresTemporels/pasTemps'
+/
+NOM = 'TEMPS INITIAL'
+NOM1 = 'INTIAL TIME'
+TYPE = REAL
+INDEX = 4
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'TempsInitial'
+RUBRIQUE = 'PARAMETRES TEMPORELS';'';''
+RUBRIQUE1 = 'PARAMETRES TEMPORELS';'';''
+NIVEAU = 0
+AIDE = 'Definit le temps initial du calcul en secondes'
+AIDE1 = 'Define intial calculation time in seconds'
+PATHNODE = 'parametresCas/parametresTemporels/tempsInit'
+/
+NOM = 'CRITERE D''ARRET DU CALCUL'
+NOM1 = 'STOPPING CRITERION'
+TYPE = INTEGER
+INDEX = 6
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'CritereArret'
+RUBRIQUE = 'PARAMETRES TEMPORELS';'';''
+RUBRIQUE1 = 'PARAMETRES TEMPORELS';'';''
+NIVEAU = 0
+AIDE = 'Choix du critere d''arret du calcul'
+AIDE1 = 'Choice of stopping criterion'
+PATHNODE = 'parametresCas/parametresTemporels/critereArret'
+/
+NOM = 'NOMBRE DE PAS DE TEMPS'
+NOM1 = 'NUMBER OF TIME STEPS'
+TYPE = INTEGER
+INDEX = 7
+TAILLE = 1
+DEFAUT = 10000000
+DEFAUT1 = 10000000
+MNEMO = 'NIT'
+RUBRIQUE = 'PARAMETRES TEMPORELS';'';''
+RUBRIQUE1 = 'PARAMETRES TEMPORELS';'';''
+NIVEAU = 0
+AIDE =
+'Definit le nombre de pas de temps effectues lors de l"execution du
+code.'
+AIDE1 = 'Define the number of time steps to compute'
+PATHNODE = 'parametresCas/parametresTemporels/nbPasTemps'
+/
+NOM = 'TEMPS MAXIMUM'
+NOM1 = 'MAXIMAL TIME'
+TYPE = REAL
+INDEX = 5
+TAILLE = 1
+DEFAUT = 10000000.0
+DEFAUT1 = 10000000.0
+MNEMO = 'TempsMaximum'
+RUBRIQUE = 'PARAMETRES TEMPORELS';'';''
+RUBRIQUE1 = 'PARAMETRES TEMPORELS';'';''
+NIVEAU = 0
+AIDE = 'Definit le temps maximal atteint par la simulation en secondes'
+AIDE1 = 'Define maximal time to reach in simulation in seconds'
+PATHNODE = 'parametresCas/parametresTemporels/tempsMax'
+/
+NOM = 'POINT DE CONTROLE ABSCISSE'
+NOM1 = 'CHECKPOINT ABSCISSA'
+TYPE = REAL
+INDEX = 391
+TAILLE = 1
+DEFAUT = -1.0
+DEFAUT1 = -1.0
+MNEMO = 'Bief\_controle'
+RUBRIQUE = 'PARAMETRES TEMPORELS';'';''
+RUBRIQUE1 = 'PARAMETRES TEMPORELS';'';''
+NIVEAU = 0
+AIDE =
+'Definit l''abscisse du point de controle pour l''arret du calcul'
+AIDE1 = 'Define the abscissa of the checkpoint (stopping criterion)'
+PATHNODE = 'parametresCas/parametresTemporels/abscisseControle'
+/
+NOM = 'COTE MAXIMALE DE CONTROLE'
+NOM1 = 'MAXIMAL ELEVATION AT CHECKPOINT'
+TYPE = REAL
+INDEX = 392
+TAILLE = 1
+DEFAUT = -1.0
+DEFAUT1 = -1.0
+MNEMO = 'Cote\_max\_controle'
+RUBRIQUE = 'PARAMETRES TEMPORELS';'';''
+RUBRIQUE1 = 'PARAMETRES TEMPORELS';'';''
+NIVEAU = 0
+AIDE = 'Definit la cote maximale au point de controle
+entrainant l''arret du calcul'
+AIDE1 = 'Define maximal elevation at checkpoint to stop computation'
+PATHNODE = 'parametresCas/parametresTemporels/coteMax'
+/
+NOM = 'POINT DE CONTROLE BIEF ASSOCIE'
+NOM1 = 'CHEKPOINT REACH'
+TYPE = INTEGER
+INDEX = 322
+TAILLE = 1
+DEFAUT = -1
+DEFAUT1 = -1
+MNEMO = 'Bief\_controle'
+RUBRIQUE = 'PARAMETRES TEMPORELS';'';''
+RUBRIQUE1 = 'PARAMETRES TEMPORELS';'';''
+NIVEAU = 0
+AIDE = 'Definit le bief correspondant au point de controle pour le
+critere d''arret du calcul'
+AIDE1 = 'Define the reach where the checkpoint is'
+PATHNODE = 'parametresCas/parametresTemporels/biefControle'
+/
+NOM = 'PAS DE TEMPS VARIABLE SUIVANT NOMBRE DE COURANT'
+NOM1 = 'VARIABLE TIME STEP WITH COURANT NUMBER'
+TYPE = LOGICAL
+INDEX = 6
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'PasTempsVariable'
+RUBRIQUE = 'PARAMETRES TEMPORELS';'';''
+RUBRIQUE1 = 'PARAMETRES TEMPORELS';'';''
+NIVEAU = 0
+AIDE = 'Option pour utiliser un pas de temps variable suivant la
+valeur du nombre de Courant'
+AIDE1 = 'Option to use variable time step according to Courant
+number value'
+PATHNODE = 'parametresCas/parametresTemporels/pasTempsVar'
+/
+NOM = 'NOMBRE DE COURANT SOUHAITE'
+NOM1 = 'COURANT NUMBER'
+TYPE = REAL
+INDEX = 6
+TAILLE = 1
+DEFAUT = 1.0
+DEFAUT1 = 1.0
+MNEMO = 'CourantObj'
+RUBRIQUE = 'PARAMETRES TEMPORELS';'';''
+RUBRIQUE1 = 'PARAMETRES TEMPORELS';'';''
+NIVEAU = 0
+AIDE = 'Definit le nombre de Courant souhaite pour le calcul'
+AIDE1 = 'Define the Courant number value to maintain during
+calculation'
+PATHNODE = 'parametresCas/parametresTemporels/nbCourant'
+/
+//////////////////// PARAMETRES DE CALAGE AUTO ////////////////////////
+/
+NOM = 'OPTION CALAGE AUTO'
+NOM1 = 'OPTION AUTO CALIBRATION'
+TYPE = LOGICAL
+INDEX = 501
+TAILLE = -1
+DEFAUT = False
+DEFAUT1 = TRUE
+MNEMO = ''
+RUBRIQUE = 'CALAGE AUTO';'PARAMETRES';''
+RUBRIQUE1 = 'CALAGE AUTO';'PARAMETRES';''
+NIVEAU = 0
+AIDE = 'Option pour activer le calage automatique'
+AIDE1 = 'Option to activate automatic calibration'
+PATHNODE =
+'parametresCas/parametresCalageAuto/parametres/modeCalageAuto'
+/
+NOM = 'NOMBRE MAX D''ITERATIONS'
+NOM1 = 'AUTO CALIBRATION MAXIMUM NUMBER OF ITERATIONS '
+TYPE = INTEGER
+INDEX = 9
+TAILLE = 1
+DEFAUT = 100
+DEFAUT1 = 100
+MNEMO = 'Calage\_constantes\%NITER'
+RUBRIQUE = 'CALAGE AUTO';'PARAMETRES';''
+RUBRIQUE1 = 'CALAGE AUTO';'PARAMETRES';''
+NIVEAU = 0
+AIDE = 'Definit le nombre maximal d''iterations sur le calcul du
+ gradient pendant le calage automatique'
+AIDE1 = 'Define the maximum number of iterations for automatic
+calibration'
+PATHNODE =
+'parametresCas/parametresCalageAuto/parametres/nbMaxIterations'
+/
+NOM = 'FICHIER RESULTAT DU CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION RESULTS FILE'
+TYPE = STRING
+INDEX = 6
+TAILLE = 1
+SUBMIT = 'ASC;ECR;FACUL;OPT'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'FichierResultatCalage\%nom'
+RUBRIQUE = 'CALAGE AUTO';'PARAMETRES';''
+RUBRIQUE1 = 'CALAGE AUTO';'PARAMETRES';''
+NIVEAU = 0
+AIDE = 'Definit le fichier de resultat du calage automatique'
+AIDE1 = 'Define the results file for automatic calibration results'
+PATHNODE = 'parametresCas/parametresCalageAuto/parametres/nomFichResult'
+/
+NOM = 'FICHIER DE LISTING DU CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION LISTING FILE'
+TYPE = STRING
+INDEX = 7
+TAILLE = 1
+SUBMIT = 'ASC;ECR;FACUL;LIS'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'FichierResultat1Calage\%nom'
+RUBRIQUE = 'CALAGE AUTO';'PARAMETRES';''
+RUBRIQUE1 = 'CALAGE AUTO';'PARAMETRES';''
+NIVEAU = 0
+AIDE = 'Definit le fichier listing du calage automatique'
+AIDE1 = 'Define the listing file for automatic calibration'
+PATHNODE =
+'parametresCas/parametresCalageAuto/parametres/nomFichListing'
+/
+NOM = 'CHOIX DU LIT POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION SELECTED CHANNEL'
+TYPE = INTEGER
+INDEX = 10
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'Calage\_constantes\%IESTIM'
+CHOIX =
+'1 = "Lit mineur"';
+'2 = "Lit majeur"';
+'3 = "Lit mineur + Lit majeur"'
+CHOIX1 =
+'1 = "Main channel"';
+'2 = "Floodplain channel"';
+'3 = "Both"'
+RUBRIQUE = 'CALAGE AUTO';'PARAMETRES';''
+RUBRIQUE1 = 'CALAGE AUTO';'PARAMETRES';''
+NIVEAU = 0
+AIDE = 'Choix du lit pour le calage automatique'
+AIDE1 = 'Choice of channel for automatic calibration'
+PATHNODE = 'parametresCas/parametresCalageAuto/parametres/typeLit'
+/
+NOM = 'PRECISION CONVERGENCE'
+NOM1 = 'AUTO CALIBRATION CONVERGENCE TOLERANCE'
+TYPE = REAL
+INDEX = 8
+TAILLE = 1
+DEFAUT = 0.01
+DEFAUT1 = 0.01
+MNEMO = 'Calage\_constantes\%Precis'
+RUBRIQUE = 'CALAGE AUTO';'PARAMETRES';''
+RUBRIQUE1 = 'CALAGE AUTO';'PARAMETRES';''
+NIVEAU = 0
+AIDE = 'Definit la precision requise pour la convergence'
+AIDE1 = 'Define maximal error value for automatic calibration'
+PATHNODE = 'parametresCas/parametresCalageAuto/parametres/precision'
+/
+NOM = 'NOMBRE DE ZONES POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION NUMBER OF AREAS'
+TYPE = INTEGER
+INDEX = 44
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nb\_zone\_frottement'
+RUBRIQUE = 'CALAGE AUTO';'ZONES';''
+RUBRIQUE1 = 'CALAGE AUTO';'ZONES';''
+NIVEAU = 0
+AIDE = 'Definit le nombre de zones pour le calage automatique'
+AIDE1 = 'Define the number of areas for the
+automatic calibration'
+PATHNODE = 'parametresCas/parametresCalageAuto/zones/nbZones'
+/
+NOM = 'ABSCISSES DE DEBUT DE ZONES POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION ZONES UPSTREAM ABSCISSAE'
+TYPE = REAL
+INDEX = 9
+TAILLE = 0
+MNEMO = 'Calage\_frott(i)\%Abscdeb\_zone\_frott'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE AUTO';'ZONES';''
+RUBRIQUE1 = 'CALAGE AUTO';'ZONES';''
+NIVEAU = 0
+AIDE =
+'Definit les abscisses de debut de zones pour le calage automatique'
+AIDE1 = 'Define the upstream abscissae for each zone in the automatic
+calibration process'
+PATHNODE = 'parametresCas/parametresCalageAuto/zones/absDebZone'
+/
+NOM = 'ABSCISSES DE FIN DE ZONES POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION ZONES DOWNSTREAM ABSCISSAE'
+TYPE = REAL
+INDEX = 10
+TAILLE = 0
+MNEMO = 'Calage\_frott(i)\%Abscfin\_zone\_frott'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE AUTO';'ZONES';''
+RUBRIQUE1 = 'CALAGE AUTO';'ZONES';''
+NIVEAU = 0
+AIDE =
+'Definit les abscisses de fin de zones pour le calage automatique'
+AIDE1 = 'Define the last abscissae for each zone in the automatic
+ calibration process'
+PATHNODE = 'parametresCas/parametresCalageAuto/zones/absFinZone'
+/
+NOM = 'COEFFICIENTS DE LIT MINEUR DE ZONES POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION COEFFICIENTS IN MAIN CHANNEL ZONES'
+TYPE = REAL
+INDEX = 20
+TAILLE = 0
+MNEMO = 'Calage\_frott(i)\%Valeur\_coeff\_min'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE AUTO';'ZONES';''
+RUBRIQUE1 = 'CALAGE AUTO';'ZONES';''
+NIVEAU = 0
+AIDE = 'Definit les coefficients de Strickler initiaux du lit mineur
+ par zone pour le calage automatique'
+AIDE1 = 'Define initial Strickler coefficients in the main channel
+for each zone before the automatic calibration'
+PATHNODE = 'parametresCas/parametresCalageAuto/zones/coefLitMin'
+/
+NOM = 'BORNES INFERIEURES COEF LIT MINEUR DE ZONES POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION LOWER BOUNDS MAIN CHANNEL ZONES COEF'
+TYPE = REAL
+INDEX = 25
+TAILLE = 0
+MNEMO = 'Calage\_frott(i)\%Valeur\_coeff\_min\_binf'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE AUTO';'ZONES';''
+RUBRIQUE1 = 'CALAGE AUTO';'ZONES';''
+NIVEAU = 0
+AIDE = 'Definit les bornes inferieures pour le coefficient de lit
+mineur pour le calage automatique'
+AIDE1 = 'Define the lower bounds of coefficient values in the main
+channel for each zone'
+PATHNODE = 'parametresCas/parametresCalageAuto/zones/coefLitMinBinf'
+/
+NOM = 'BORNES SUPERIEURES COEF LIT MINEUR DE ZONES POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION UPPER BOUNDS MAIN CHANNEL ZONES COEF'
+TYPE = REAL
+INDEX = 26
+TAILLE = 0
+MNEMO = 'Calage\_frott(i)\%Valeur\_coeff\_min\_bsup'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE AUTO';'ZONES';''
+RUBRIQUE1 = 'CALAGE AUTO';'ZONES';''
+NIVEAU = 0
+AIDE = 'Definit les bornes superieures pour le coefficient de lit
+mineur pour le calage automatique'
+AIDE1 = 'Define the upper bounds of coefficient values in the main
+channel for each zone'
+PATHNODE = 'parametresCas/parametresCalageAuto/zones/coefLitMinBsup'
+/
+NOM = 'COEFFICIENTS DE LIT MAJEUR DE ZONES POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION COEFFICIENTS IN FLOODPLAIN ZONES'
+TYPE = REAL
+INDEX = 27
+TAILLE = 0
+MNEMO = 'Calage\_frott(i)\%Valeur\_coeff\_maj'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE AUTO';'ZONES';''
+RUBRIQUE1 = 'CALAGE AUTO';'ZONES';''
+NIVEAU = 0
+AIDE = 'Definit les coefficients de frottement initiaux du lit majeur
+ par zone pour le calage automatique'
+AIDE1 = 'Define initial friction coefficients in the floodplain
+for each zone before the automatic calibration'
+PATHNODE = 'parametresCas/parametresCalageAuto/zones/coefLitMaj'
+/
+NOM = 'BORNES INFERIEURES COEF LIT MAJEUR DE ZONES POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION LOWER BOUNDS FLOODPLAIN ZONES COEF'
+TYPE = REAL
+INDEX = 28
+TAILLE = 0
+MNEMO = 'Calage\_frott(i)\%Valeur\_coeff\_maj\_binf'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE AUTO';'ZONES';''
+RUBRIQUE1 = 'CALAGE AUTO';'ZONES';''
+NIVEAU = 0
+AIDE = 'Definit les bornes inferieures pour le coefficient de lit
+majeur pour le calage automatique'
+AIDE1 = 'Define the lower bounds of coefficient values in the
+floodplain for each zone'
+PATHNODE = 'parametresCas/parametresCalageAuto/zones/coefLitMajBinf'
+/
+NOM = 'BORNES SUPERIEURES COEF LIT MAJEUR DE ZONES POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION UPPER BOUNDS FLOODPLAIN ZONES COEF'
+TYPE = REAL
+INDEX = 29
+TAILLE = 0
+MNEMO = 'Calage\_frott(i)\%Valeur\_coeff\_maj\_bsup'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE AUTO';'ZONES';''
+RUBRIQUE1 = 'CALAGE AUTO';'ZONES';''
+NIVEAU = 0
+AIDE = 'Definit les bornes superieures pour le coefficient de lit
+majeur pour le calage automatique'
+AIDE1 = 'Define the upper bounds of coefficient values in the
+floodplain for each zone'
+PATHNODE = 'parametresCas/parametresCalageAuto/zones/coefLitMajBsup'
+/
+NOM = 'NOMBRE DE CRUES POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION NUMBER OF FLOODS'
+TYPE = INTEGER
+INDEX = 45
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'Calage\_crues\%Nb\_crue'
+RUBRIQUE = 'CALAGE AUTO';'LISTE CRUES';'CRUES'
+RUBRIQUE1 = 'CALAGE AUTO';'LISTE CRUES';'CRUES'
+NIVEAU = 0
+AIDE = 'Definit le nombre de crue pour le calage automatique'
+AIDE1 = 'Define the number of floods for automatic calibration'
+ALLOCATE =
+'parametresCas/parametresCalageAuto/listeCrues/crues
+/structureParametresCrueCalageAutomatique/'
+PATHNODE =
+'parametresCas/parametresCalageAuto/listeCrues/nbCrues'
+/
+NOM = 'DEBIT AMONT DE LA CRUE x POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION INFLOW FOR x FLOW'
+TYPE = REAL
+INDEX = 30
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Calage\_crues\%DEBIT(i)'
+RUBRIQUE = 'CALAGE AUTO';'LISTE CRUES';'CRUE x'
+RUBRIQUE1 = 'CALAGE AUTO';'LISTE CRUES';'CRUE x'
+NIVEAU = 0
+AIDE = 'Definit le debit amont de la crue pour le calage automatique'
+AIDE1 = 'Define the inflow during the flood for the automatic
+calibration'
+PATHNODE =
+'parametresCas/parametresCalageAuto/listeCrues/crues
+/structureParametresCrueCalageAutomatique/debitAmont'
+/
+NOM = 'COTE AVAL DE LA CRUE x POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION DOWNSTREAM ELEVATION FOR FLOOD x'
+TYPE = REAL
+INDEX = 31
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Calage\_crues\%ZAVAL(i)'
+RUBRIQUE = 'CALAGE AUTO';'LISTE CRUES';'CRUES'
+RUBRIQUE1 = 'CALAGE AUTO';'LISTE CRUES';'CRUES'
+NIVEAU = 0
+AIDE = 'Definit la cote aval pendant la crue pour le calage
+automatique'
+AIDE1 = 'Define the elevation downstream during the flood for the
+automatic calibration'
+PATHNODE =
+'parametresCas/parametresCalageAuto/listeCrues/crues
+/structureParametresCrueCalageAutomatique/coteAval'
+/
+NOM = 'NOMBRE MESURES DE LA CRUE x POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION NUMBER OF MEASUREMENTS FOR FLOOD x'
+TYPE = INTEGER
+INDEX = 46
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'Calage\_crues\%Nmes(i)'
+RUBRIQUE = 'CALAGE AUTO';'LISTE CRUES';'CRUE x'
+RUBRIQUE1 = 'CALAGE AUTO';'LISTE CRUES';'CRUE x'
+NIVEAU = 0
+AIDE = 'Definit le nombre de mesures pour decrire la crue'
+AIDE1 = 'Define the number of measures to describe the flood'
+PATHNODE =
+'parametresCas/parametresCalageAuto/listeCrues/crues
+/structureParametresCrueCalageAutomatique/nbMesures'
+/
+NOM = 'ABSCISSES DES MESURES DE LA CRUE x POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION FLOOD MEASUREMENTS ABSCISSAE FOR FLOOD x'
+TYPE = INTEGER
+INDEX = 47
+TAILLE = 0
+MNEMO = 'Calage\_crues\%Xmesu(i,j)'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE AUTO';'LISTE CRUES';'CRUE x'
+RUBRIQUE1 = 'CALAGE AUTO';'LISTE CRUES';'CRUE x'
+NIVEAU = 0
+AIDE = 'Definit les abscisses des points de mesures sur la crue
+pour le calage automatique'
+AIDE1 = 'Define the abscissae of measurements points during the flood'
+PATHNODE =
+'parametresCas/parametresCalageAuto/listeCrues/crues
+/structureParametresCrueCalageAutomatique/absMesures'
+/
+NOM = 'PONDERATIONS DES MESURES DE LA CRUE x POUR CALAGE AUTO'
+NOM1 =
+'AUTO CALIBRATION MEASUREMENTS WEIGHTING COEFFICIENTS FOR FLOOD x'
+TYPE = INTEGER
+INDEX = 48
+TAILLE = 0
+MNEMO = 'Calage\_crues\%Pondmesu(i,j)'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE AUTO';'LISTE CRUES';'CRUE x'
+RUBRIQUE1 = 'CALAGE AUTO';'LISTE CRUES';'CRUE x'
+NIVEAU = 0
+AIDE = 'Definit les ponderations sur les mesures (indiquant leurs
+ fiabilites) de la crue pour le calage automatique'
+AIDE1 = 'Define the weighting coefficient for each measurement during
+ the flood (to assess its reliability)'
+PATHNODE =
+'parametresCas/parametresCalageAuto/listeCrues/crues
+/structureParametresCrueCalageAutomatique/pondMesures'
+/
+NOM = 'NOMBRE D''APPORTS DE LA CRUE x POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION NUMBER OF INFLOWS FOR FLOOD x'
+TYPE = INTEGER
+INDEX = 49
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'Calage\_crues\%NbApports(i)'
+RUBRIQUE = 'CALAGE AUTO';'LISTE CRUES';'CRUE x'
+RUBRIQUE1 = 'CALAGE AUTO';'LISTE CRUES';'CRUE x'
+NIVEAU = 0
+AIDE = 'Definit le nombre d''apports pendant la crue'
+AIDE1 = 'Define the number of inflows for the flood'
+PATHNODE =
+'parametresCas/parametresCalageAuto/listeCrues/crues
+/structureParametresCrueCalageAutomatique/nbApports'
+/
+NOM = 'ABSCISSES DES APPORTS DE LA CRUE x POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION INFLOWS ABSCISSAE FOR FLOOD x'
+TYPE = REAL
+INDEX = 32
+TAILLE = 0
+MNEMO = 'Calage\_Crues\%abscisse(i,j)'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE AUTO';'LISTE CRUES';'CRUE x'
+RUBRIQUE1 = 'CALAGE AUTO';'LISTE CRUES';'CRUE x'
+NIVEAU = 0
+AIDE = 'Definit les abscisses des apports lors de la crue'
+AIDE1 = 'Define the abscissae for inflows during the flood'
+PATHNODE =
+'parametresCas/parametresCalageAuto/listeCrues/crues
+/structureParametresCrueCalageAutomatique/absApports'
+/
+NOM = 'DEBITS DES APPORTS DE LA CRUE x POUR CALAGE AUTO'
+NOM1 = 'AUTO CALIBRATION INFLOWS VALUES FOR FLOOD x'
+TYPE = REAL
+INDEX = 33
+TAILLE = 0
+MNEMO = 'Calage\_crues\%apport\_X(i,j)'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE AUTO';'LISTE CRUES';'CRUES'
+RUBRIQUE1 = 'CALAGE AUTO';'LISTE CRUES';'CRUES'
+NIVEAU = 0
+AIDE = 'Definit les debits d"apport lors de la crue'
+AIDE1 = 'Define the inflows values during the flood'
+PATHNODE =
+'parametresCas/parametresCalageAuto/listeCrues/crues
+/structureParametresCrueCalageAutomatique/debitApports'
+/
+////////////////////// PARAMETRES DE CALAGE ///////////////////////////
+/
+NOM = 'LOI DE FROTTEMENT'
+NOM1 = 'FRICTION LAW'
+TYPE = INTEGER
+INDEX = 31
+TAILLE = -1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'LoiFrottement'
+CHOIX =
+'1 = "STRICKLER"';
+'2 = "CHEZY"';
+'3 = "COLEBROOK"';
+'4 = "BAZIN"'
+CHOIX1 =
+'1 = "STRICKLER"';
+'2 = "CHEZY"';
+'3 = "COLEBROOK"';
+'4 = "BAZIN"'
+RUBRIQUE = 'CALAGE';'FROTTEMENT';''
+RUBRIQUE1 = 'CALAGE';'FROTTEMENT';''
+NIVEAU = 0
+AIDE = 'Definit la loi de friction utilisee'
+AIDE1 = 'Define the friction law'
+PATHNODE = 'parametresCas/parametresCalage/frottement/loi'
+/
+NOM = 'NOMBRE DE ZONES DE FROTTEMENT'
+NOM1 = 'NUMBER OF FRICTION ZONES'
+TYPE = INTEGER
+INDEX = 32
+TAILLE = -1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'nb\_zone\_frottement'
+RUBRIQUE = 'CALAGE';'FROTTEMENT';''
+RUBRIQUE1 = 'CALAGE';'FROTTEMENT';''
+NIVEAU = 0
+AIDE = 'Definit le nombre de zones de frottement'
+AIDE1 = 'Define the number of friction zones'
+PATHNODE = 'parametresCas/parametresCalage/frottement/nbZone'
+/
+NOM = 'NUMERO DE BIEF POUR LA ZONE DE FROTTEMENT'
+NOM1 = 'REACH NUMBER FOR THE FRICTION ZONE'
+TYPE = INTEGER
+INDEX = 33
+TAILLE = 0
+MNEMO = 'branche\_zone\_frott'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE';'FROTTEMENT';''
+RUBRIQUE1 = 'CALAGE';'FROTTEMENT';''
+NIVEAU = 0
+AIDE = 'Definit le numero du bief sur la zone'
+AIDE1 = 'Define the reach number for the friction zone'
+PATHNODE = 'parametresCas/parametresCalage/frottement/numBranche'
+/
+NOM = 'ABSCISSE DEBUT ZONE DE FROTTEMENT'
+NOM1 = 'FRICTION ZONE UPSTREAM ABSCISSA'
+TYPE = REAL
+INDEX = 252
+TAILLE = 0
+MNEMO = 'abscdeb\_zone\_frott'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE';'FROTTEMENT';''
+RUBRIQUE1 = 'CALAGE';'FROTTEMENT';''
+NIVEAU = 0
+AIDE = 'Definit l''abscisse de debut de la zone de frottement'
+AIDE1 = 'Define the upstream abscissa for the friction zone'
+PATHNODE = 'parametresCas/parametresCalage/frottement/absDebZone'
+/
+NOM = 'ABSCISSE FIN ZONE DE FROTTEMENT'
+NOM1 = 'FRICTION ZONE DOWNSTREAM ABSCISSA'
+TYPE = REAL
+INDEX = 253
+TAILLE = 0
+MNEMO = 'abscfin\_zone\_frott'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE';'FROTTEMENT';''
+RUBRIQUE1 = 'CALAGE';'FROTTEMENT';''
+NIVEAU = 0
+AIDE = 'Definit l''abscisse de fin de la zone de frottement'
+AIDE1 = 'Define the downstream abscissa for the friction zone'
+PATHNODE = 'parametresCas/parametresCalage/frottement/absFinZone'
+/
+NOM = 'VALEUR DU COEFFICIENT LIT MINEUR'
+NOM1 = 'MAIN CHANNEL COEFFICIENT'
+TYPE = REAL
+INDEX = 18
+TAILLE = 0
+MNEMO = 'valeur\_coeff\_min'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE';'FROTTEMENT';''
+RUBRIQUE1 = 'CALAGE';'FROTTEMENT';''
+NIVEAU = 0
+AIDE = 'Definit la valeur du coefficient de frottement dans le lit
+mineur'
+AIDE1 = 'Define the value of the friction coefficient in the main
+channel'
+PATHNODE = 'parametresCas/parametresCalage/frottement/coefLitMin'
+/
+NOM = 'VALEUR DU COEFFICIENT LIT MAJEUR'
+NOM1 = 'FLOODPLAIN COEFFICIENT'
+TYPE = REAL
+INDEX = 19
+TAILLE = 0
+MNEMO = 'valeur\_coeff\_maj'
+RUBRIQUE = 'CALAGE';'FROTTEMENT';''
+RUBRIQUE1 = 'CALAGE';'FROTTEMENT';''
+NIVEAU = 0
+AIDE = 'Definit la valeur du coefficient de frottement dans le lit
+majeur'
+AIDE1 = 'Define the value of the friction coefficient in the
+floodplain'
+PATHNODE = 'parametresCas/parametresCalage/frottement/coefLitMaj'
+/
+NOM = 'NOMBRE DE PROFILS COMPORTANT DES ZONES DE STOCKAGE'
+NOM1 = 'NUMBER OF SECTIONS WITH STORAGE ZONES'
+TYPE = INTEGER
+INDEX = 36
+TAILLE = -1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nb\_profil\_zone\_sto'
+RUBRIQUE = 'CALAGE';'ZONES DE STOCKAGE';''
+RUBRIQUE1 = 'CALAGE';'ZONES DE STOCKAGE';''
+NIVEAU = 0
+AIDE = 'Indique le nombre de sections avec des zones de stockage'
+AIDE1 = 'Indicate the number of sections with storage zones'
+PATHNODE = 'parametresCas/parametresCalage/zoneStockage/nbProfils'
+/
+NOM = 'NUMERO PROFIL STOCKAGE'
+NOM1 = 'SECTION NUMBER STORAGE'
+TYPE = INTEGER
+INDEX = 224
+TAILLE = 0
+MNEMO = 'num\_profil\_sto'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE';'ZONES DE STOCKAGE';''
+RUBRIQUE1 = 'CALAGE';'ZONES DE STOCKAGE';''
+NIVEAU = 0
+AIDE = 'Liste les numeros des sections avec des zones de stockage'
+AIDE1 = 'List the numbers of sections with storage zones'
+PATHNODE = 'parametresCas/parametresCalage/zoneStockage/numProfil'
+/
+NOM = 'LIMITE GAUCHE LIT MAJEUR'
+NOM1 = 'FLOODPLAIN LEFT LIMIT'
+TYPE = REAL
+INDEX = 21
+TAILLE = 0
+MNEMO = 'limite\_maj\_gauche'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE';'ZONES DE STOCKAGE';''
+RUBRIQUE1 = 'CALAGE';'ZONES DE STOCKAGE';''
+NIVEAU = 0
+AIDE = 'Definit la limite gauche du lit majeur'
+AIDE1 = 'Define the left limit of the floodplain'
+PATHNODE = 'parametresCas/parametresCalage/zoneStockage/limGauchLitMaj'
+/
+NOM = 'LIMITE DROITE LIT MAJEUR'
+NOM1 = 'FLOODPLAIN RIGHT LIMIT'
+TYPE = REAL
+INDEX = 22
+TAILLE = 0
+MNEMO = 'limite\_maj\_droite'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CALAGE';'ZONES DE STOCKAGE';''
+RUBRIQUE1 = 'CALAGE';'ZONES DE STOCKAGE';''
+NIVEAU = 0
+AIDE = 'Definit la limite droite du lit majeur'
+AIDE1 = 'Define the right limit of the floodplain'
+PATHNODE = 'parametresCas/parametresCalage/zoneStockage/limDroitLitMaj'
+/
+///////////////// PARAMETRES IMPRESSIONS - RESULTATS ///////////////////
+/
+NOM = 'TITRE DU CALCUL'
+NOM1 = 'COMPUTATION TITLE'
+TYPE = STRING
+INDEX = 12
+TAILLE = 1
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'TitreCas'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'';''
+NIVEAU = 0
+AIDE = 'Definit le nom du calcul'
+AIDE1 = 'Define the simulation title'
+PATHNODE = 'parametresCas/parametresImpressionResultats/titreCalcul'
+/
+NOM = 'IMPRESSION DE LA GEOMETRIE'
+NOM1 = 'GEOMETRY PRINTOUTS'
+TYPE = LOGICAL
+INDEX = 8
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'impression\_geo'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'IMPRESSION';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'IMPRESSION';''
+NIVEAU = 0
+AIDE = 'Impression de la geometrie dans le fichier listing'
+AIDE1 = 'Printing of geometry information into listing file'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/impression
+/impressionGeometrie'
+/
+NOM = 'IMPRESSION DU PLANIMETRAGE'
+NOM1 = 'PLANIMETRAGE PRINTOUTS'
+TYPE = LOGICAL
+INDEX = 9
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'ImpressionPlani'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'IMPRESSION';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'IMPRESSION';''
+NIVEAU = 0
+AIDE = 'Impression des informations de planimetrages dans le fichier
+listing'
+AIDE1 = 'Printing of planimetrage information into listing file'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/impression
+/impressionPlanimetrage'
+/
+NOM = 'IMPRESSION DU RESEAU'
+NOM1 = 'NETWORK PRINTOUTS'
+TYPE = LOGICAL
+INDEX = 10
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'impression\_reseau'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'IMPRESSION';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'IMPRESSION';''
+NIVEAU = 0
+AIDE =
+'Impression des informations sur le reseau dans le fichier listing'
+AIDE1 = 'Printing of network information into listing file'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/impression/
+impressionReseau'
+/
+NOM = 'IMPRESSION DES LOIS HYDRAULIQUES'
+NOM1 = 'HYDRAULICS LAWS PRINTOUTS'
+TYPE = LOGICAL
+INDEX = 11
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'impression\_hydrau'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'IMPRESSION';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'IMPRESSION';''
+NIVEAU = 0
+AIDE = 'Impression des lois hydrauliques dans le fichier listing'
+AIDE1 = 'Printing of hydraulics laws into listing file'
+PATHNODE = 'parametresCas/parametresImpressionResultats/impression
+/impressionLoiHydraulique'
+/
+NOM = 'IMPRESSION DE LA LIGNE D''EAU INITIALE'
+NOM1 = 'INITIAL WATER ELEVATIONS PRINTOUTS'
+TYPE = LOGICAL
+INDEX = 12
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'impression\_ligne'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'IMPRESSION';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'IMPRESSION';''
+NIVEAU = 0
+AIDE = 'Impression de la ligne d''eau initiale dans le fichier listing'
+AIDE1 = 'Printing of initial water elevations into listing file'
+PATHNODE = 'parametresCas/parametresImpressionResultats/impression
+/impressionligneEauInitiale'
+/
+NOM = 'IMPRESSION CALCUL'
+NOM1 = 'COMPUTATION PRINTOUTS'
+TYPE = LOGICAL
+INDEX = 19
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'ImpressionCalcul'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'IMPRESSION';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'IMPRESSION';''
+NIVEAU = 0
+AIDE = 'Ecriture du listing au fur et a mesure du calcul'
+AIDE1 = 'The listing file is written during computation'
+PATHNODE = 'parametresCas/parametresImpressionResultats/impression/
+impressionCalcul'
+/
+NOM = 'PREMIER PAS DE TEMPS A STOCKER'
+NOM1 = 'FIRST TIME STEP TO SAVE'
+TYPE = INTEGER
+INDEX = 8
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'PremierPasStocke'
+RUBRIQUE =
+'IMPRESSIONS - RESULTATS';'PAS DE STOCKAGE ET D"IMPRESSION';''
+RUBRIQUE1 =
+'IMPRESSIONS - RESULTATS';'PAS DE STOCKAGE ET D"IMPRESSION';''
+NIVEAU = 0
+AIDE = 'Definit le premier pas de temps stocke dans les fichiers
+resultats'
+AIDE1 = 'Define the first time step to be saved into results files'
+PATHNODE = 'parametresCas/parametresImpressionResultats/pasStockage/
+premPasTpsStock'
+/
+NOM = 'PAS DE STOCKAGE'
+NOM1 = 'PERIOD FOR STORAGE'
+TYPE = INTEGER
+INDEX = 34
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'PasStockage'
+RUBRIQUE =
+'IMPRESSIONS - RESULTATS';'PAS DE STOCKAGE ET D"IMPRESSION';''
+RUBRIQUE1 =
+'IMPRESSIONS - RESULTATS';'PAS DE STOCKAGE ET D"IMPRESSION';''
+NIVEAU = 0
+AIDE = 'Definit le pas de stockage des resultats en nombre de pas de
+temps'
+AIDE1 = 'Define the period to save results in number of time steps'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/pasStockage/pasStock'
+/
+NOM = 'PAS D''IMPRESSION'
+NOM1 = 'PERIOD FOR PRINTOUTS'
+TYPE = INTEGER
+INDEX = 35
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'PasImpression'
+RUBRIQUE =
+'IMPRESSIONS - RESULTATS';'PAS DE STOCKAGE ET D"IMPRESSION';''
+RUBRIQUE1 =
+'IMPRESSIONS - RESULTATS';'PAS DE STOCKAGE ET D"IMPRESSION';''
+NIVEAU = 0
+AIDE = 'Definit le pas d''impresssion des resultats en nombre de pas de
+temps'
+AIDE1 = 'Define the period to print results in number of time steps'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/pasStockage/pasImpression'
+/
+NOM = 'FICHIER RESULTATS'
+NOM1 = 'RESULTS FILE'
+TYPE = STRING
+INDEX = 13
+TAILLE = 1
+SUBMIT = 'ASC;BIN;ECR;OBLIG;OPT;RUB'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierResultat\%Nom'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'RESULTATS';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'RESULTATS';''
+NIVEAU = 0
+AIDE = 'Nom du fichier de resultats lu par RUBENS.'
+AIDE1 = 'Name of the results file read by RUBENS'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/resultats/fichResultat'
+/
+NOM = 'POST-PROCESSEUR'
+NOM1 = 'POST-PROCESSOR'
+TYPE = INTEGER
+INDEX = 11
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'post\_processeur'
+CHOIX =
+'1 = "RUBENS"';
+'2 = "OPTHYCA"';
+'3 = "RUBENS ET OPTHYCA"'
+CHOIX1 =
+'1 = "RUBENS"';
+'2 = "OPTHYCA"';
+'3 = "RUBENS AND OPTHYCA"'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'RESULTATS';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'RESULTATS';''
+NIVEAU = 0
+AIDE = 'Format du fichier des resultats. Si le noyau utilise est SARAP
+ et le post-processeur choisi est RUBENS alors le format sera LIDOP
+(fichier ASCII) sinon il sera LIDONP (format binaire)'
+AIDE1 = 'Results file format. If SARAP kernel is selected and the post
+processor is RUBENS then the format will be LIDOP (ASCII file)
+otherwise it will be LIDONP (binary format)'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/resultats/postProcesseur'
+/
+NOM = 'FICHIER LISTING'
+NOM1 = 'LISTING FILE'
+TYPE = STRING
+INDEX = 15
+TAILLE = 1
+SUBMIT = 'ASC;OBLIG;ECR;LIS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierListing\%Nom'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'LISTING';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'LISTING';''
+NIVEAU = 0
+AIDE = 'Nom du fichier listing'
+AIDE1 = 'Name of listing file'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/listing/fichListing'
+/
+NOM = 'FICHIER DE REPRISE EN ECRITURE'
+NOM1 = 'OUTPUT FILE TO CONTINUE COMPUTATION'
+TYPE = STRING
+INDEX = 16
+TAILLE = -1
+SUBMIT = 'ASC;ECR;LIG'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'FichierRepriseEcr\%Nom'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'FICHIER DE REPRISE';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'FICHIER DE REPRISE';''
+NIVEAU = 0
+AIDE =
+'Nom du fichier de reprise qui est cree avec des conditions permanentes
+(genere uniquement avec le noyau MASCARET)'
+AIDE1 = 'Name of the file created with permanent boundary limits to
+continue computation (only with the MASCARET kernel)'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/fichReprise/fichRepriseEcr'
+/
+NOM = 'ECART ENTRE BRANCHES'
+NOM1 = 'REACHES GAP'
+TYPE = REAL
+INDEX = 7
+TAILLE = 1
+DEFAUT = 1.0
+DEFAUT1 = 1.0
+MNEMO = 'ecart'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'RUBENS';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'RUBENS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresImpressionResultats/rubens/ecartInterBranch'
+/
+NOM = 'OPTION DE STOCKAGE'
+NOM1 = 'STORAGE OPTION'
+TYPE = INTEGER
+INDEX = 227
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+CHOIX =
+'1 = "Toutes les sections"';
+'2 = "A certains sites"'
+CHOIX1 =
+'1 = "All sections"';
+'2 = "Specific locations"'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'STOCKAGE';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'STOCKAGE';''
+NIVEAU = 0
+AIDE = 'Specifie si la sauvegarde des resultats est faite sur toutes
+les sections ou en certains points definis'
+AIDE1 = 'Specify if results are saved for all sections or at specific
+ locations'
+PATHNODE = 'parametresCas/parametresImpressionResultats/stockage/option'
+/
+NOM = 'NOMBRE DE SITES'
+NOM1 = 'NUMBER OF LOCATIONS'
+TYPE = INTEGER
+INDEX = 228
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nb\_site'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'STOCKAGE';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'STOCKAGE';''
+NIVEAU = 0
+AIDE = 'Nombre de sites dont les resultats sont sauvegardes'
+AIDE1 = 'Number of locations whose results are saved'
+PATHNODE = 'parametresCas/parametresImpressionResultats/stockage/nbSite'
+/
+NOM = 'BRANCHE DU SITE'
+NOM1 = 'LOCATION REACH'
+TYPE = INTEGER
+INDEX = 229
+TAILLE = 0
+MNEMO = 'num\_branche'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'STOCKAGE';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'STOCKAGE';''
+NIVEAU = 0
+AIDE = 'Numero de branche du site - allouee a nombre de sites'
+AIDE1 = 'Reach ID for each location'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/stockage/branche'
+/
+NOM = 'ABSCISSE DU SITE'
+NOM1 = 'LOCATION ABSCISSA'
+TYPE = REAL
+INDEX = 274
+TAILLE = 0
+MNEMO = 'abscisse\_rel'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'STOCKAGE';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'STOCKAGE';''
+NIVEAU = 0
+AIDE = 'Abscisse du site - allouee a nombre de sites'
+AIDE1 = 'Location abscissa'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/stockage/abscisse'
+/
+NOM = 'FICHIER RESULTATS CASIERS'
+NOM1 = 'STORAGE AREAS RESULTS FILE'
+TYPE = STRING
+INDEX = 200
+TAILLE = 1
+SUBMIT = 'ASC;FACUL;ECR;CASIER'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'FichierResultatCasier\%Nom'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'CASIER';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'CASIER';''
+NIVEAU = 1
+AIDE = 'Nom du fichier de resultats lu par RUBENS (ancien logiciel
+ de post-traitement).'
+AIDE1 = 'Name of results file read by RUBENS for storage areas
+(CASIER)'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/casier/resultatCasier'
+/
+NOM = 'FICHIER LISTING CASIERS'
+NOM1 = 'STORAGE AREAS LISTING FILE'
+TYPE = STRING
+INDEX = 201
+TAILLE = 1
+SUBMIT = 'ASC;FACUL;ECR;CASIER\_LIS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierListingCasier\%Nom'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'CASIER';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'CASIER';''
+NIVEAU = 1
+AIDE = 'Nom du fichier listing pour les casiers'
+AIDE1 = 'Name of listing file for storage areas (CASIER)'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/casier/listingCasier'
+/
+NOM = 'FICHIER RESULTATS LIAISONS'
+NOM1 = 'STORAGE AREAS LINK RESULTS FILE'
+TYPE = STRING
+INDEX = 202
+TAILLE = 1
+SUBMIT = 'ASC;ECR;FACUL;LIAI'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierResultatLiaison\%Nom'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'CASIER';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'CASIER';''
+NIVEAU = 1
+AIDE = 'Nom du fichier de resultats lu par RUBENS.'
+AIDE1 = 'Name of results file for storage areas links (CASIER)'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/casier/resultatLiaison'
+/
+NOM = 'FICHIER LISTING LIAISONS'
+NOM1 = 'STORAGE AREAS LINK LISTING FILE'
+TYPE = STRING
+INDEX = 203
+TAILLE = 0
+SUBMIT = 'ASC;ECR;FACUL;LIAI\_LIS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierListingLiaison\%Nom'
+RUBRIQUE = 'IMPRESSIONS - RESULTATS';'CASIER';''
+RUBRIQUE1 = 'IMPRESSIONS - RESULTATS';'CASIER';''
+NIVEAU = 1
+AIDE = 'Nom du fichier listing pour les liaisons casiers'
+AIDE1 = 'Name of listing file for storage areas links (CASIER)'
+PATHNODE =
+'parametresCas/parametresImpressionResultats/casier/listingLiaison'
+/
+///////////// PARAMETRES VARIABLES CALCULEES ET STOCKEES //////////////
+/
+NOM = 'VARIABLES CALCULEES'
+NOM1 = 'VARIABLES COMPUTED'
+TYPE = LOGICAL
+INDEX = 13
+TAILLE = 15
+DEFAUT =
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+OUI;
+NON;
+NON;
+OUI;
+NON;
+NON;
+NON;
+NON
+DEFAUT1 =
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+YES;
+NO;
+NO;
+YES;
+NO;
+NO;
+NO;
+NO
+MNEMO = 'VarCalc'
+RUBRIQUE = 'VARIABLES CALCULEES ET STOCKEES';'';''
+RUBRIQUE1 = 'VARIABLES CALCULEES ET STOCKEES';'';''
+NIVEAU = 0
+AIDE = 'Liste les variables a calculer'
+AIDE1 = 'List variables to be computed'
+PATHNODE =
+'parametresCas/parametresVariablesCalculees/variablesCalculees'
+/
+NOM = 'VARIABLES STOCKEES'
+NOM1 = 'VARIABLES SAVED'
+TYPE = LOGICAL
+INDEX = 14
+TAILLE = 42
+DEFAUT =
+OUI;
+NON;
+NON;
+NON;
+NON;
+OUI;
+OUI;
+OUI;
+NON;
+NON;
+OUI;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+OUI;
+NON;
+NON;
+OUI;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON;
+NON
+DEFAUT1 =
+YES;
+NO;
+NO;
+NO;
+NO;
+YES;
+YES;
+YES;
+NO;
+NO;
+YES;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+YES;
+NO;
+NO;
+YES;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO;
+NO
+MNEMO = 'VarSto'
+NIVEAU = 0
+AIDE = '
+ZREF => OUI
+RGC => NON
+RDC => NON
+CF1 => NON
+CF2 => NON
+Z => OUI
+Q1 => OUI
+Q2 => OUI
+S1 => NON
+S2 => NON
+FR => OUI
+BETA => NON
+B1 => NON
+B2 => NON
+BS => NON
+P1 => NON
+P2 => NON
+RH1 => NON
+RH2 => NON
+V1 => OUI
+V2 => NON
+TAUF => NON
+Y => OUI
+HMOY => NON
+Q2G => NON
+Q2D => NON
+SS => NON
+VOL => NON
+VOLS => NON
+CHARG => NON
+ZMAX => NON
+TZMAX => NON
+VZMAX => NON
+ZMIN => NON
+TZMIN => NON
+V1MIN => NON
+V1MAX => NON
+BMAX => NON
+TOND => NON
+QMAX => NON
+TQMAX => NON
+EMAX => NON'
+MNEMO = 'VarSto'
+RUBRIQUE = 'VARIABLES CALCULEES ET STOCKEES';'';''
+RUBRIQUE1 = 'VARIABLES CALCULEES ET STOCKEES';'';''
+NIVEAU = 0
+AIDE = 'Liste des variables stockees'
+AIDE1 = 'List of variables to be saved'
+PATHNODE = 'parametresCas/parametresVariablesStockees/variablesStockees'
+/
+////////////////// PARAMETRES CONDITIONS INITIALES ////////////////////
+/
+NOM = 'REPRISE DE CALCUL'
+NOM1 = 'COMPUTATION CONTINUED'
+TYPE = LOGICAL
+INDEX = 15
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'RepriseCalcul'
+RUBRIQUE = 'CONDITIONS INITIALES';'REPRISE ETUDE';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'REPRISE ETUDE';''
+NIVEAU = 0
+AIDE =
+'Apres avoir cree une ligne d"eau initiale avec des conditions
+permanentes mettre cette valeur a OUI.'
+AIDE1 = 'Continue computation from water elevations'
+PATHNODE =
+'parametresCas/parametresConditionsInitiales/repriseEtude/repriseCalcul'
+/
+NOM = 'FICHIER DE REPRISE EN LECTURE'
+NOM1 = 'INPUT FILE TO CONTINUE COMPUTATION'
+TYPE = STRING
+INDEX = 18
+TAILLE = -1
+SUBMIT = 'FACUL;LIT'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierRepriseLec\%Nom'
+RUBRIQUE = 'CONDITIONS INITIALES';'REPRISE ETUDE';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'REPRISE ETUDE';''
+NIVEAU = 0
+AIDE =
+'Nom du fichier de reprise en lecture qui a ete cree avec des conditions
+permanentes.'
+AIDE1 = 'Name of the file from which to continue computation with
+permanent boundary conditions'
+PATHNODE =
+'parametresCas/parametresConditionsInitiales/repriseEtude/
+fichRepriseLec'
+/
+NOM = 'PRESENCE LIGNE D''EAU INITIALE'
+NOM1 = 'INITIAL WATER ELEVATIONS AVAILABLE'
+TYPE = LOGICAL
+INDEX = 16
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = 'presence\_ligne\_deau'
+RUBRIQUE = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+NIVEAU = 0
+AIDE = 'Indique la presence d"une ligne d"eau initiale'
+AIDE1 = 'Indicate the use of initial water elevations'
+PATHNODE =
+'parametresCas/parametresConditionsInitiales/ligneEau/LigEauInit'
+/
+NOM = 'MODE D''ENTREE DE LA LIGNE D''EAU'
+NOM1 = 'INITIAL WATER ELEVATIONS INPUT'
+TYPE = INTEGER
+INDEX = 12
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'type\_entree\_ligne'
+CHOIX =
+'1 = "entree par fichier"';
+'2 = "entree par clavier"'
+CHOIX1 =
+'1 = "file input"';
+'2 = "keyboard input"'
+RUBRIQUE = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+NIVEAU = 0
+AIDE = 'Indique le mode d"entree pour la ligne d"eau initiale'
+AIDE1 = 'Specify the kind of input for the initial water elevations'
+PATHNODE =
+'parametresCas/parametresConditionsInitiales/ligneEau/modeEntree'
+/
+NOM = 'FICHIER LIGNE D''EAU'
+NOM1 = 'INITIAL WATER ELEVATIONS FILE'
+TYPE = STRING
+INDEX = 20
+TAILLE = -1
+SUBMIT = 'ASC;BIN;OBLIG;LIT;OPT;RUB;LIDOP;LIDONP'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierLigne\%Nom'
+RUBRIQUE = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+NIVEAU = 0
+AIDE = 'Obligatoire pour les noyaux REZODT et MASCARET.'
+AIDE1 = 'Name of the file with initial water elevations, necessary
+with REZODT and MASCARET'
+PATHNODE =
+'parametresCas/parametresConditionsInitiales/ligneEau/fichLigEau'
+/
+NOM = 'FORMAT LIGNE D''EAU'
+NOM1 = 'INITIAL WATER ELEVATIONS FILE FORMAT'
+TYPE = INTEGER
+INDEX = 14
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'format\_ligne'
+CHOIX =
+'1 = "OPTHYCA"';
+'2 = "RUBENS LIDOP"';
+'3 = "RUBENS LIDONP"'
+CHOIX1 =
+'1 = "OPTHYCA"';
+'2 = "RUBENS LIDOP"';
+'3 = "RUBENS LIDONP"'
+RUBRIQUE = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+NIVEAU = 0
+AIDE = 'Format du fichier de ligne d"eau initiale'
+AIDE1 = 'File format for the initial water elevations'
+PATHNODE =
+'parametresCas/parametresConditionsInitiales/ligneEau/formatFichLig'
+/
+NOM = 'NOMBRE POINTS LIGNE D''EAU'
+NOM1 = 'INITIAL WATER ELEVATIONS POINTS NUMBER'
+TYPE = INTEGER
+INDEX = 15
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+NIVEAU = 0
+AIDE = 'Non utilise dans le FORTRAN'
+AIDE1 = 'Unused in FORTRAN'
+PATHNODE = 'parametresCas/parametresConditionsInitiales/ligneEau/nbPts'
+/
+NOM = 'BRANCHE DE LA LIGNE D''EAU'
+NOM1 = 'INITIAL WATER ELEVATIONS REACH'
+TYPE = INTEGER
+INDEX = 998
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+NIVEAU = 0
+AIDE = 'Non utilise dans le FORTRAN'
+AIDE1 = 'Unused in FORTRAN'
+PATHNODE =
+'parametresCas/parametresConditionsInitiales/ligneEau/branche'
+/
+NOM = 'ABSCISSES DE LA LIGNE D''EAU'
+NOM1 = 'INITIAL WATER ELEVATIONS ABSCISSA'
+TYPE = REAL
+INDEX = 997
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+NIVEAU = 0
+AIDE = 'Non utilise dans le FORTRAN'
+AIDE1 = 'Unused in FORTRAN'
+PATHNODE =
+'parametresCas/parametresConditionsInitiales/ligneEau/abscisse'
+/
+NOM = 'COTES DE LA LIGNE D''EAU'
+NOM1 = 'INITIAL WATER ELEVATIONS'
+TYPE = REAL
+INDEX = 996
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+NIVEAU = 0
+AIDE = 'Non utilise dans le FORTRAN'
+AIDE1 = 'Unused in FORTRAN'
+PATHNODE = 'parametresCas/parametresConditionsInitiales/ligneEau/cote'
+/
+NOM = 'DEBITS DE LA LIGNE D''EAU'
+NOM1 = 'INITIAL WATER ELEVATIONS DICHARGES'
+TYPE = REAL
+INDEX = 995
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'LIGNE D"EAU';''
+NIVEAU = 0
+AIDE = 'Non utilise dans le FORTRAN'
+AIDE1 = 'Unused in FORTRAN'
+PATHNODE = 'parametresCas/parametresConditionsInitiales/ligneEau/debit'
+/
+NOM = 'NOMBRE DE ZONES SECHES'
+NOM1 = 'NUMBER OF DRY ZONES'
+TYPE = INTEGER
+INDEX = 16
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nb\_zone\_seche'
+RUBRIQUE = 'CONDITIONS INITIALES';'ZONES SECHES';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'ZONES SECHES';''
+NIVEAU = 0
+AIDE = 'Nombre de zones seches'
+AIDE1 = 'Number of dry zones'
+PATHNODE = 'parametresCas/parametresConditionsInitiales/zonesSeches/nb'
+/
+NOM = 'BRANCHE DE ZONE SECHE'
+NOM1 = 'DRY ZONE REACH'
+TYPE = INTEGER
+INDEX = 225
+TAILLE = 0
+MNEMO = 'num\_branche'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CONDITIONS INITIALES';'ZONES SECHES';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'ZONES SECHES';''
+NIVEAU = 0
+AIDE = 'Numero du bief de la zone seche'
+AIDE1 = 'Reach ID for the dry zone'
+PATHNODE =
+'parametresCas/parametresConditionsInitiales/zonesSeches/branche'
+/
+NOM = 'ABSCISSE DE DEBUT DE ZONE SECHE'
+NOM1 = 'DRY ZONE UPSTREAM ABSCISSA'
+TYPE = REAL
+INDEX = 11
+TAILLE = 0
+MNEMO = 'abs\_rel\_deb'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CONDITIONS INITIALES';'ZONES SECHES';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'ZONES SECHES';''
+NIVEAU = 0
+AIDE = 'Abscisse de debut de la zone seche'
+AIDE1 = 'Upstream abscissa of the dry zone'
+PATHNODE =
+'parametresCas/parametresConditionsInitiales/zonesSeches/absDebut'
+/
+NOM = 'ABSCISSE DE FIN DE ZONE SECHE'
+NOM1 = 'DRY ZONE DOWNSTREAM ABSCISSA'
+TYPE = REAL
+INDEX = 12
+TAILLE = 0
+MNEMO = 'abs\_rel\_fin'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CONDITIONS INITIALES';'ZONES SECHES';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'ZONES SECHES';''
+NIVEAU = 0
+AIDE = 'Abscisse de fin de la zone seche'
+AIDE1 = 'Downstream abscissa of the dry zone'
+PATHNODE =
+'parametresCas/parametresConditionsInitiales/zonesSeches/absFin'
+/
+//////////////// PARAMETRES PLANIMETRAGE ET MAILLAGE //////////////////
+/
+NOM = 'NOMBRE DE PAS DE PLANIMETRAGE'
+NOM1 = 'NOMBRE DE PAS DE PLANIMETRAGE'
+TYPE = INTEGER
+INDEX = 17
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'nb\_pas\_planim'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'PLANIMETRAGE';''
+RUBRIQUE1 = 'PLANIMETRAGE ET MAILLAGE';'PLANIMETRAGE';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresPlanimetrageMaillage/planim/nbPas'
+/
+NOM = 'NOMBRE DE ZONES DE PLANIMETRAGE'
+NOM1 = 'NOMBRE DE ZONES DE PLANIMETRAGE'
+TYPE = INTEGER
+INDEX = 18
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'nb\_zone\_planim'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'PLANIMETRAGE';''
+RUBRIQUE1 = 'PLANIMETRAGE ET MAILLAGE';'PLANIMETRAGE';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresPlanimetrageMaillage/planim/nbZones'
+/
+NOM = 'VALEUR DU PAS'
+NOM1 = 'VALEUR DU PAS'
+TYPE = REAL
+INDEX = 13
+TAILLE = 0
+MNEMO = 'Profil(iprof)\%Pas'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'PLANIMETRAGE';''
+RUBRIQUE1 = 'PLANIMETRAGE ET MAILLAGE';'PLANIMETRAGE';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/planim/valeursPas'
+/
+NOM = 'NUMERO DU PREMIER PROFIL'
+NOM1 = 'NUMERO DU PREMIER PROFIL'
+TYPE = INTEGER
+INDEX = 19
+TAILLE = 0
+MNEMO = 'profdeb\_zone\_planim'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'PLANIMETRAGE';''
+RUBRIQUE1 = 'PLANIMETRAGE ET MAILLAGE';'PLANIMETRAGE';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/planim/num1erProf'
+/
+NOM = 'NUMERO DU DERNIER PROFIL'
+NOM1 = 'NUMERO DU DERNIER PROFIL'
+TYPE = INTEGER
+INDEX = 20
+TAILLE = 0
+MNEMO = 'proffin\_zone\_planim'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'PLANIMETRAGE';''
+RUBRIQUE1 = 'PLANIMETRAGE ET MAILLAGE';'PLANIMETRAGE';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/planim/numDerProf'
+/
+NOM = 'METHODE DE CALCUL DU MAILLAGE'
+NOM1 = 'METHODE DE CALCUL DU MAILLAGE'
+TYPE = INTEGER
+INDEX = 21
+TAILLE = 1
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = 'TypeMaillage'
+CHOIX =
+'1 = "AUX PROFILS"';
+'2 = "PAR SERIE"';
+'3 = "SECTION PAR SECTION"';
+'4 = "REPRIS DE LA LIGNE D"EAU INITIALE"';
+'5 = "PAR SERIE DONT LES PROFILS"'
+CHOIX1 =
+'1 = "AUX PROFILS"';
+'2 = "PAR SERIE"';
+'3 = "SECTION PAR SECTION"';
+'4 = "REPRIS DE LA LIGNE D"EAU INITIALE"';
+'5 = "PAR SERIE DONT LES PROFILS"'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'';''
+RUBRIQUE1 = 'PLANIMETRAGE ET MAILLAGE';'';''
+NIVEAU = 0
+AIDE = ' voir documentation mascaret'
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/methodeMaillage'
+/
+NOM = 'MODE DE SAISIE DU MAILLAGE'
+NOM1 = 'MODE DE SAISIE DU MAILLAGE'
+TYPE = INTEGER
+INDEX = 22
+TAILLE = 1
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = 'mode\_saisie\_maillage'
+CHOIX =
+'1 = "entree par fichier"';
+'2 = "entree par clavier"'
+CHOIX1 =
+'1 = "entree par fichier"';
+'2 = "entree par clavier"'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';''
+RUBRIQUE1 = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage/modeSaisie'
+/
+NOM = 'SAUVEGARDE MAILLAGE'
+NOM1 = 'SAUVEGARDE MAILLAGE'
+TYPE = LOGICAL
+INDEX = 17
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'sauvegarde\_maillage'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';''
+RUBRIQUE1 = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage/sauvMaillage'
+/
+NOM = 'NOMBRE DE SECTIONS DE CALCUL'
+NOM1 = 'NOMBRE DE SECTIONS DE CALCUL'
+TYPE = INTEGER
+INDEX = 23
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'nb\_section'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+RUBRIQUE1 =
+'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage/
+maillageClavier/nbSections'
+/
+NOM = 'BRANCHES DES SECTIONS DE CALCUL'
+NOM1 = 'BRANCHES DES SECTIONS DE CALCUL'
+TYPE = INTEGER
+INDEX = 223
+TAILLE = 0
+MNEMO = 'section\%Branche'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+RUBRIQUE1 =
+'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage
+/maillageClavier/branchesSection'
+/
+NOM = 'ABSCISSES DES SECTIONS DE CALCUL'
+NOM1 = 'ABSCISSES DES SECTIONS DE CALCUL'
+TYPE = REAL
+INDEX = 14
+TAILLE = 0
+MNEMO = 'section\%AbscisseRel'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+RUBRIQUE1 =
+'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage
+/maillageClavier/absSection'
+/
+NOM = 'NOMBRE DE PLAGES DE DISCRETISATION'
+NOM1 = 'NOMBRE DE PLAGES DE DISCRETISATION'
+TYPE = INTEGER
+INDEX = 25
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'nb\_maille'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+RUBRIQUE1 =
+'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage
+/maillageClavier/nbPlages'
+/
+NOM = 'NUMERO DU PREMIER PROFIL DE LA SERIE'
+NOM1 = 'NUMERO DU PREMIER PROFIL DE LA SERIE'
+TYPE = INTEGER
+INDEX = 26
+TAILLE = 0
+MNEMO = 'maille\_e(k)\%ProfilDeb'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+RUBRIQUE1 =
+'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage
+/maillageClavier/num1erProfPlage'
+/
+NOM = 'NUMERO DU DERNIER PROFIL DE LA SERIE'
+NOM1 = 'NUMERO DU DERNIER PROFIL DE LA SERIE'
+TYPE = INTEGER
+INDEX = 27
+TAILLE = 0
+MNEMO = 'maille\_e(k)\%ProfilFin'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+RUBRIQUE1 =
+'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage
+/maillageClavier/numDerProfPlage'
+/
+NOM = 'PAS D''ESPACE DE LA SERIE'
+NOM1 = 'PAS D''ESPACE DE LA SERIE'
+TYPE = REAL
+INDEX = 15
+TAILLE = 0
+MNEMO = 'maille\_e(k)\%Pas'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+RUBRIQUE1 =
+'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+NIVEAU = 0
+AIDE = 'valeurs en metres'
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage
+/maillageClavier/pasEspacePlage'
+/
+NOM = 'NOMBRE DE ZONES DE DISCRETISATION'
+NOM1 = 'NOMBRE DE ZONES DE DISCRETISATION'
+TYPE = INTEGER
+INDEX = 28
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'nb\_maille'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+RUBRIQUE1 =
+'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage
+/maillageClavier/nbZones'
+/
+NOM = 'NUMERO DE BRANCHE DE ZONE'
+NOM1 = 'NUMERO DE BRANCHE DE ZONE'
+TYPE = INTEGER
+INDEX = 29
+TAILLE = 0
+MNEMO = 'maille\_r\%Branche'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+RUBRIQUE1 =
+'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage
+/maillageClavier/numBrancheZone'
+/
+NOM = 'ABSCISSE DE DEBUT DE ZONE'
+NOM1 = 'ABSCISSE DE DEBUT DE ZONE'
+TYPE = REAL
+INDEX = 16
+TAILLE = 0
+MNEMO = 'maille\_r\%AbscisseDeb'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+RUBRIQUE1 =
+'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage
+/maillageClavier/absDebutZone'
+/
+NOM = 'ABSCISSE DE FIN DE ZONE'
+NOM1 = 'ABSCISSE DE FIN DE ZONE'
+TYPE = REAL
+INDEX = 17
+TAILLE = 0
+MNEMO = 'maille\_r\%AbscisseFin'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+RUBRIQUE1 =
+'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage
+/maillageClavier/absFinZone'
+/
+NOM = 'NOMBRE DE SECTIONS DE LA ZONE'
+NOM1 = 'NOMBRE DE SECTIONS DE LA ZONE'
+TYPE = INTEGER
+INDEX = 30
+TAILLE = 0
+MNEMO = 'maille\_r\%NbSection'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+RUBRIQUE1 =
+'PLANIMETRAGE ET MAILLAGE';'MAILLAGE';'MAILLAGE PAR CLAVIER'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresPlanimetrageMaillage/maillage
+/maillageClavier/nbSectionZone'
+/
+//////////////////// PARAMETRES GEOMETRIE-RESEAU //////////////////////
+/
+NOM = 'FICHIER DE GEOMETRIE'
+NOM1 = 'FICHIER DE GEOMETRIE'
+TYPE = STRING
+INDEX = 27
+TAILLE = 1
+SUBMIT = 'ASC;LIT;GEO'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierGeom\%Nom'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'GEOMETRIE';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'GEOMETRIE';''
+NIVEAU = 0
+AIDE = 'Nom du fichier contenant le maillage du calcul a realiser.'
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresGeometrieReseau/geometrie/fichier'
+/
+NOM = 'FORMAT DU FICHIER DE GEOMETRIE'
+NOM1 = 'FORMAT DU FICHIER DE GEOMETRIE'
+TYPE = INTEGER
+INDEX = 37
+TAILLE = 1
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = ''
+CHOIX =
+'1 = "LIDO V2P2"';
+'2 = "LIDO V3P0"'
+CHOIX1 =
+'1 = "LIDO V2P2"';
+'2 = "LIDO V3P0"'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'GEOMETRIE';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'GEOMETRIE';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresGeometrieReseau/geometrie/format'
+/
+NOM = 'PROFILS EN ABSCISSE ABSOLUE'
+NOM1 = 'PROFILS EN ABSCISSE ABSOLUE'
+TYPE = LOGICAL
+INDEX = 24
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'Prof\_Abs'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'GEOMETRIE';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'GEOMETRIE';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresGeometrieReseau/geometrie/profilsAbscAbsolu'
+/
+NOM = 'NOMBRE DE BRANCHES'
+NOM1 = 'NOMBRE DE BRANCHES'
+TYPE = INTEGER
+INDEX = 38
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'NbBief'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'BRANCHES';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'BRANCHES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresGeometrieReseau/listeBranches/nb'
+/
+NOM = 'BRANCHE NUMERO'
+NOM1 = 'BRANCHE NUMERO'
+TYPE = INTEGER
+INDEX = 39
+TAILLE = 15
+DEFAUT = 1;2;3;4;5;6;7;8;9;10;11;12;13;14;15
+DEFAUT1 = 1;2;3;4;5;6;7;8;9;10;11;12;13;14;15
+MNEMO = ''
+RUBRIQUE = 'GEOMETRIE-RESEAU';'BRANCHES';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'BRANCHES';''
+NIVEAU = -1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresGeometrieReseau/listeBranches/numeros'
+/
+NOM = 'ABSCISSE DEBUT'
+NOM1 = 'ABSCISSE DEBUT'
+TYPE = REAL
+INDEX = 23
+TAILLE = 0
+MNEMO = 'AbscRelExtDebBief(ibief)'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'BRANCHES';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'BRANCHES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresGeometrieReseau/listeBranches/abscDebut'
+/
+NOM = 'ABSCISSE FIN'
+NOM1 = 'ABSCISSE FIN'
+TYPE = REAL
+INDEX = 24
+TAILLE = 0
+MNEMO = 'AbscRelExtFinBief(ibief)'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'BRANCHES';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'BRANCHES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresGeometrieReseau/listeBranches/abscFin'
+/
+NOM = 'NUM DE L''EXTREMITE DE DEBUT'
+NOM1 = 'NUM DE L''EXTREMITE DE DEBUT'
+TYPE = INTEGER
+INDEX = 40
+TAILLE = 0
+MNEMO = 'ExtDebBief(ibief)'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'BRANCHES';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'BRANCHES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresGeometrieReseau/listeBranches/numExtremDebut'
+/
+NOM = 'NUM DE L''EXTREMITE DE FIN'
+NOM1 = 'NUM DE L''EXTREMITE DE FIN'
+TYPE = INTEGER
+INDEX = 41
+TAILLE = 0
+MNEMO = 'ExtFinBief(ibief)'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'BRANCHES';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'BRANCHES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresGeometrieReseau/listeBranches/numExtremFin'
+/
+NOM = 'NOMBRE DE NOEUDS'
+NOM1 = 'NODES NUMBER'
+TYPE = INTEGER
+INDEX = 42
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'NbNoeud'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'NOEUDS';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'NOEUDS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATE = 'parametresCas/parametresGeometrieReseau/listeNoeuds/noeuds'
+PATHNODE = 'parametresCas/parametresGeometrieReseau/listeNoeuds/nb'
+/
+NOM = 'INDEX DES NOEUDS'
+NOM1 = 'INDEX OF NODES'
+TYPE = STRING
+INDEX = 43
+TAILLE = 5
+MNEMO = 'ExtNoeud(i, inoeud)'
+APPARENCE =
+'LIST';'UNIQUE'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'NOEUDS';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'NOEUDS';''
+NIVEAU = 0
+AIDE = 'max 5 branches'
+AIDE1 = ''
+ALLOCATED = 'NODES NUMBER'
+PATHNODE =
+'parametresCas/parametresGeometrieReseau/listeNoeuds/noeuds/noeud/num'
+/
+NOM = 'NOMBRE D''EXTREMITES LIBRES'
+NOM1 = 'FREE BOUNDARY NUMBER'
+TYPE = INTEGER
+INDEX = 53
+TAILLE = 1
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = 'NbExtLibre'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATE =
+'parametresCas/parametresGeometrieReseau/extrLibres/noms/string'
+PATHNODE = 'parametresCas/parametresGeometrieReseau/extrLibres/nb'
+/
+NOM = 'EXTREMITE NUMERO'
+NOM1 = 'EXTREMITE NUMERO'
+TYPE = INTEGER
+INDEX = 55
+TAILLE = 0
+MNEMO = 'NumExtLibre'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresGeometrieReseau/extrLibres/numExtrem'
+/
+NOM = 'NOM EXTREMITE'
+NOM1 = 'NOM EXTREMITE'
+TYPE = STRING
+INDEX = 110
+TAILLE = 0
+MNEMO = 'Extremite(iext)\%Nom'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'FREE BOUNDARY NUMBER'
+PATHNODE =
+'parametresCas/parametresGeometrieReseau/extrLibres/noms/string'
+/
+NOM = 'TYPE DE CONDITION'
+NOM1 = 'TYPE DE CONDITION'
+TYPE = INTEGER
+INDEX = 56
+TAILLE = 0
+MNEMO = 'Extremite(i)\%Type'
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'1 = "DEBIT IMPOSE"';
+'2 = "COTE IMPOSEE"';
+'3 = "LOI Z(Q)"';
+'4 = "LOI Q(Z)"';
+'5 = "REGULATION : Zav(Qam)"';
+'6 = "SORTIE LIBRE"';
+'7 = "HAUTEUR NORMALE"'
+CHOIX1 =
+'1 = "DEBIT IMPOSE"';
+'2 = "COTE IMPOSEE"';
+'3 = "LOI Z(Q)"';
+'4 = "LOI Q(Z)"';
+'5 = "REGULATION : Zav(Qam)"';
+'6 = "SORTIE LIBRE"';
+'7 = "HAUTEUR NORMALE"'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresGeometrieReseau/extrLibres/typeCond'
+/
+NOM = 'NUMERO DE LA LOI'
+NOM1 = 'NUMERO DE LA LOI'
+TYPE = INTEGER
+INDEX = 57
+TAILLE = 0
+MNEMO = 'Extremite(i)\%NumeroLoi'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';''
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresGeometrieReseau/extrLibres/numLoi'
+/
+///////////////////////// LOIS HYDRAULIQUES ///////////////////////////
+/
+NOM = 'NOMBRE DE LOIS HYDRAULIQUES'
+NOM1 = 'NUMBER OF HYDRAULIC LAWS'
+TYPE = INTEGER
+INDEX = 58
+TAILLE = 1
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = 'nb\_loi'
+RUBRIQUE = 'LOIS HYDRAULIQUES';'';''
+RUBRIQUE1 = 'LOIS HYDRAULIQUES';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATE =
+'parametresCas/parametresLoisHydrauliques/lois/structureParametresLoi'
+PATHNODE = 'parametresCas/parametresLoisHydrauliques/nb'
+/
+NOM = 'LOI NOM'
+NOM1 = 'LAW NAME'
+TYPE = STRING
+INDEX = 24
+TAILLE = 0
+MNEMO = 'LoiHydrau(iloi)\%Nom'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS HYDRAULIQUES';'LOIS';''
+RUBRIQUE1 = 'LOIS HYDRAULIQUES';'LOIS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'NUMBER OF HYDRAULIC LAWS'
+PATHNODE =
+'parametresCas/parametresLoisHydrauliques/lois/structureParametresLoi/
+nom'
+/
+NOM = 'LOI TYPE'
+NOM1 = 'LOI TYPE'
+TYPE = INTEGER
+INDEX = 59
+TAILLE = 0
+MNEMO = 'LoiHydrau(iloi)\%Type'
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'1 = "HYDROGRAMME Q(T)"';
+'2 = "LIMNIGRAMME Z(T)"';
+'3 = "LIMNHYDROGRAMME Z,Q(T)"';
+'4 = "COURBE DE TARAGE Z=f(Q)"';
+'5 = "COURBE DE TARAGE Q=f(Z)"';
+'6 = "SEUIL Zam=f(Zav,Q)"';
+'7 = "OUVERTURE VANNE Zinf,Zsup=f(T)"'
+CHOIX1 =
+'1 = "HYDROGRAMME Q(T)"';
+'2 = "LIMNIGRAMME Z(T)"';
+'3 = "LIMNHYDROGRAMME Z,Q(T)"';
+'4 = "COURBE DE TARAGE Z=f(Q)"';
+'5 = "COURBE DE TARAGE Q=f(Z)"';
+'6 = "SEUIL Zam=f(Zav,Q)"';
+'7 = "OUVERTURE VANNE Zinf,Zsup=f(T)"'
+RUBRIQUE = 'LOIS HYDRAULIQUES';'LOIS ';''
+RUBRIQUE1 = 'LOIS HYDRAULIQUES';'LOIS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'NUMBER OF HYDRAULIC LAWS'
+PATHNODE =
+'parametresCas/parametresLoisHydrauliques/lois/structureParametresLoi/
+type'
+/
+NOM = 'LOIS MODE D''ENTREE'
+NOM1 = 'LOIS MODE D''ENTREE'
+TYPE = INTEGER
+INDEX = 60
+TAILLE = 0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'1 = "entree par fichier"';
+'2 = "entree par clavier"'
+CHOIX1 =
+'1 = "entree par fichier"';
+'2 = "entree par clavier"'
+RUBRIQUE = 'LOIS HYDRAULIQUES';'LOIS';'DONNEES LOIS'
+RUBRIQUE1 = 'LOIS HYDRAULIQUES';'LOIS';'DONNEES LOIS'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'NUMBER OF HYDRAULIC LAWS'
+PATHNODE =
+'parametresCas/parametresLoisHydrauliques/lois/structureParametresLoi
+/donnees/modeEntree'
+/
+NOM = 'LOIS FICHIER'
+NOM1 = 'LOIS FICHIER'
+TYPE = STRING
+INDEX = 25
+TAILLE = 0
+SUBMIT = 'LIT;LOI;ASC;FACUL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierLoiHydrau\%Nom'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS HYDRAULIQUES';'LOIS';'DONNEES LOIS'
+RUBRIQUE1 = 'LOIS HYDRAULIQUES';'LOIS';'DONNEES LOIS'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'NUMBER OF HYDRAULIC LAWS'
+PATHNODE =
+'parametresCas/parametresLoisHydrauliques/lois/structureParametresLoi
+/donnees/fichier'
+/
+NOM = 'LOIS UNITE DE TEMPS'
+NOM1 = 'TIME UNIT IN LAWS'
+TYPE = INTEGER
+INDEX = 230
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'0 = "seconde"';
+'1 = "seconde"';
+'2 = "minute"';
+'3 = "heure"';
+'4 = "jour"'
+CHOIX1 =
+'0 = "seconde"';
+'1 = "seconde"';
+'2 = "minute"';
+'3 = "heure"';
+'4 = "jour"'
+RUBRIQUE = 'LOIS HYDRAULIQUES';'LOIS';'DONNEES LOIS'
+RUBRIQUE1 = 'LOIS HYDRAULIQUES';'LOIS';'DONNEES LOIS'
+NIVEAU = 0
+AIDE = 'Non utilise dans le FORTRAN'
+AIDE1 = 'Unused in FORTRAN'
+ALLOCATED = 'NUMBER OF HYDRAULIC LAWS'
+PATHNODE =
+'parametresCas/parametresLoisHydrauliques/lois/structureParametresLoi
+/donnees/uniteTps'
+/
+NOM = 'LOIS NOMBRE DE POINTS'
+NOM1 = 'NUMBER OF POINTS IN LAWS'
+TYPE = INTEGER
+INDEX = 61
+TAILLE = 0
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS HYDRAULIQUES';'LOIS';'DONNEES LOIS'
+RUBRIQUE1 = 'LOIS HYDRAULIQUES';'LOIS';'DONNEES LOIS'
+NIVEAU = 0
+AIDE = 'Non utilise dans le FORTRAN'
+AIDE1 = 'Unused in FORTRAN'
+ALLOCATED = 'NUMBER OF HYDRAULIC LAWS'
+PATHNODE =
+'parametresCas/parametresLoisHydrauliques/lois/structureParametresLoi
+/donnees/nbPoints'
+/
+NOM = 'LOIS NOMBRE DE DEBITS DIFFERENTS'
+NOM1 = 'NUMBER OF DIFFERENT DISCHARGES IN LAWS'
+TYPE = INTEGER
+INDEX = 282
+TAILLE = 0
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS HYDRAULIQUES';'LOIS';'DONNEES LOIS'
+RUBRIQUE1 = 'LOIS HYDRAULIQUES';'LOIS';'DONNEES LOIS'
+NIVEAU = 0
+AIDE = 'Non utilise dans le FORTRAN'
+AIDE1 = 'Unused in FORTRAN'
+ALLOCATED = 'NUMBER OF HYDRAULIC LAWS'
+PATHNODE =
+'parametresCas/parametresLoisHydrauliques/lois/structureParametresLoi
+/donnees/nbDebitsDifferents'
+/
+//////////////////// SINGULARITE (BARRAGE-SEUIL) //////////////////////
+/
+NOM = 'NUM BRANCHE DU BARRAGE PRINCIPAL'
+NOM1 = 'NUM BRANCHE DU BARRAGE PRINCIPAL'
+TYPE = INTEGER
+INDEX = 226
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'Barrage\%NumBranche'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'BARRAGE PRINCIPAL';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'BARRAGE PRINCIPAL';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSingularite/barragePrincipal/numBranche'
+/
+NOM = 'ABSCISSE DU BARRAGE PRINCIPAL'
+NOM1 = 'ABSCISSE DU BARRAGE PRINCIPAL'
+TYPE = REAL
+INDEX = 86
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Barrage\%AbscisseRel'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'BARRAGE PRINCIPAL';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'BARRAGE PRINCIPAL';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSingularite/barragePrincipal/abscisse'
+/
+NOM = 'TYPE DE RUPTURE DU BARRAGE PRINCIPAL'
+NOM1 = 'TYPE DE RUPTURE DU BARRAGE PRINCIPAL'
+TYPE = INTEGER
+INDEX = 119
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'Barrage\%TypeRupture'
+CHOIX =
+'2 = "rupture instantanee"';
+'1 = "rupture progressive"'
+CHOIX1 =
+'2 = "rupture instantanee"';
+'1 = "rupture progressive"'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'BARRAGE PRINCIPAL';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'BARRAGE PRINCIPAL';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSingularite/barragePrincipal/typeRupture'
+/
+NOM = 'COTE DE CRETE DU BARRAGE PRINCIPAL'
+NOM1 = 'COTE DE CRETE DU BARRAGE PRINCIPAL'
+TYPE = REAL
+INDEX = 87
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Barrage\%CoteCrete'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'BARRAGE PRINCIPAL';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'BARRAGE PRINCIPAL';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSingularite/barragePrincipal/coteCrete'
+/
+NOM = 'NOMBRE DE SEUILS'
+NOM1 = 'WEIRS NUMBER'
+TYPE = INTEGER
+INDEX = 120
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nb\_sing'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATE =
+'parametresCas/parametresSingularite/seuils/structureParametresSeuil'
+PATHNODE = 'parametresCas/parametresSingularite/nbSeuils'
+/
+NOM = 'NOMS SEUILS'
+NOM1 = 'NOMS SEUILS'
+TYPE = STRING
+INDEX = 64
+TAILLE = 0
+DEFAUT = 'seuil'
+DEFAUT1 = 'weir'
+MNEMO = 'Singularite(ising)\%Nom'
+APPARENCE =
+'DYNLIST';'UNIQUE'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/nom'
+/
+NOM = 'TYPE SEUILS'
+NOM1 = 'TYPE SEUILS'
+TYPE = INTEGER
+INDEX = 121
+TAILLE = 0
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = 'Singularite(ising)\%Type'
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'1 = "Zam=f(Zav,Q)"';
+'2 = "Zam=f(Q)"';
+'3 = "Profil de crete"';
+'4 = "Zam=f(Cote Crete , Coeff Debit)"';
+'5 = "Zam=f(t)"';
+'6 = "Q=f(Zam)"';
+'7 = "Q=f(Zav)"';
+'8 = "Vanne"'
+CHOIX1 =
+'1 = "Zam=f(Zav,Q)"';
+'2 = "Zam=f(Q)"';
+'3 = "Profil de crete"';
+'4 = "Zam=f(Cote Crete , Coeff Debit)"';
+'5 = "Zam=f(t)"';
+'6 = "Q=f(Zam)"';
+'7 = "Q=f(Zav)"';
+'8 = "Vanne"'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/type'
+/
+NOM = 'NUM BRANCHE SEUILS'
+NOM1 = 'NUM BRANCHE SEUILS'
+TYPE = INTEGER
+INDEX = 122
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'Singularite(ising)\%NumBranche'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/numBranche'
+/
+NOM = 'ABSCISSES SEUILS'
+NOM1 = 'ABSCISSES SEUILS'
+TYPE = REAL
+INDEX = 88
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Singularite(ising)\%AbscisseRel'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/abscisse'
+/
+NOM = 'COTES CRETES SEUILS'
+NOM1 = 'COTES CRETES SEUILS'
+TYPE = REAL
+INDEX = 89
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Singularite(ising)\%CoteCrete'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/coteCrete'
+/
+NOM = 'COTES MOYENNES CRETES'
+NOM1 = 'COTES MOYENNES CRETES'
+TYPE = REAL
+INDEX = 275
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Singularite(ising)\%CoteCrete'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE = 'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/coteCreteMoy'
+/
+NOM = 'COTES RUPTURES SEUILS'
+NOM1 = 'COTES RUPTURES SEUILS'
+TYPE = REAL
+INDEX = 90
+TAILLE = 0
+DEFAUT = 10000.0
+DEFAUT1 = 10000.0
+MNEMO = 'Singularite(ising)\%CoteRupture'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/coteRupture'
+/
+NOM = 'COEFF DEBIT SEUILS'
+NOM1 = 'COEFF DEBIT SEUILS'
+TYPE = REAL
+INDEX = 91
+TAILLE = 0
+DEFAUT = 0.38
+DEFAUT1 = 0.38
+MNEMO = 'Singularite(ising)\%CoeffDebit'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/coeffDebit'
+/
+NOM = 'LARGEURS VANNES'
+NOM1 = 'LARGEURS VANNES'
+TYPE = REAL
+INDEX = 254
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Singularite(ising)\%LargeurVanne'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/largVanne'
+/
+NOM = 'NUMEROS LOIS SEUILS'
+NOM1 = 'NUMEROS LOIS SEUILS'
+TYPE = INTEGER
+INDEX = 123
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'Singularite(ising)\%NumeroLoi'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/numLoi'
+/
+NOM = 'NOMBRE DE POINTS DES LOIS SEUILS'
+NOM1 = 'WEIR LAW POINTS NUMBER'
+TYPE = INTEGER
+INDEX = 250
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nb\_point'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/nbPtLoiSeuil'
+/
+NOM = 'ABSCISSES EN TRAVERS CRETE'
+NOM1 = 'ABSCISSES EN TRAVERS CRETE'
+TYPE = REAL
+INDEX = 276
+TAILLE = 0
+MNEMO = 'Singularite(ising)\%PtX(ipoint)'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+ALLOCATED2 = 'WEIR LAW POINTS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/abscTravCrete'
+/
+NOM = 'COTES CRETES'
+NOM1 = 'COTES CRETES'
+TYPE = REAL
+INDEX = 277
+TAILLE = 0
+MNEMO = 'Singularite(ising)\%PtY(ipoint)'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+ALLOCATED2 = 'WEIR LAW POINTS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/cotesCrete'
+/
+NOM = 'EPAISSEURS SEUILS'
+NOM1 = 'EPAISSEURS SEUILS'
+TYPE = INTEGER
+INDEX = 302
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'Singularite(ising)\%Epaisseur\_Seuil'
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'1 = "SEUIL EPAIS"';
+'2 = "SEUIL MINCE"'
+CHOIX1 =
+'1 = "SEUIL EPAIS"';
+'2 = "SEUIL MINCE"'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/epaisseur'
+/
+NOM = 'GRADIENTS DE DESCENTE SEUILS'
+NOM1 = 'GRADIENTS DE DESCENTE SEUILS'
+TYPE = REAL
+INDEX = 371
+TAILLE = 0
+DEFAUT = 5000.0
+DEFAUT1 = 5000.0
+MNEMO = 'Singularite(ising)\%Pente'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'SEUILS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'WEIRS NUMBER'
+PATHNODE =
+'parametresCas/parametresSingularite/seuils
+/structureParametresSeuil/gradient'
+/
+NOM = 'NOMBRE DE PERTES DE CHARGE SINGULIERES'
+NOM1 = 'NOMBRE DE PERTES DE CHARGE SINGULIERES'
+TYPE = INTEGER
+INDEX = 181
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nb\_pc\_sing'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'PERTES DE CHARGES';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'PERTES DE CHARGES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSingularite/pertesCharges/nbPerteCharge'
+/
+NOM = 'NUM BRANCHE DE LA PERTE DE CHARGE SINGULIERE'
+NOM1 = 'NUM BRANCHE DE LA PERTE DE CHARGE SINGULIERE'
+TYPE = INTEGER
+INDEX = 182
+TAILLE = 0
+MNEMO = 'num\_branche'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'PERTES DE CHARGES';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'PERTES DE CHARGES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSingularite/pertesCharges/numBranche'
+/
+NOM = 'ABSCISSE DE LA PERTE DE CHARGE SINGULIERE'
+NOM1 = 'ABSCISSE DE LA PERTE DE CHARGE SINGULIERE'
+TYPE = REAL
+INDEX = 168
+TAILLE = 0
+MNEMO = 'abscisse\_rel'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'PERTES DE CHARGES';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'PERTES DE CHARGES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresSingularite/pertesCharges/abscisses'
+/
+NOM = 'COEFFICIENT DE LA PERTE DE CHARGE SINGULIERE'
+NOM1 = 'COEFFICIENT DE LA PERTE DE CHARGE SINGULIERE'
+TYPE = REAL
+INDEX = 169
+TAILLE = 0
+MNEMO = 'coeff'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'SINGULARITE (BARRAGE-SEUIL)';'PERTES DE CHARGES';''
+RUBRIQUE1 = 'SINGULARITE (BARRAGE-SEUIL)';'PERTES DE CHARGES';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSingularite/pertesCharges/coefficients'
+/
+////////////////////////////// CASIERS ////////////////////////////////
+/
+NOM = 'NOMBRE DE CASIERS'
+NOM1 = 'NOMBRE DE CASIERS'
+TYPE = INTEGER
+INDEX = 404
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nombre\_casier'
+RUBRIQUE = 'CASIERS';'';''
+RUBRIQUE1 = 'CASIERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/nbCasiers'
+/
+NOM = 'CASIERS OPTION DE PLANIMETRAGE'
+NOM1 = 'CASIERS OPTION DE PLANIMETRAGE'
+TYPE = INTEGER
+INDEX = 413
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'option\_planim'
+CHOIX =
+'2 = " "planimetrage automatique"';
+'1 = " "planimetrage manuel"'
+CHOIX1 =
+'2 = " "planimetrage automatique"';
+'1 = " "planimetrage manuel"'
+RUBRIQUE = 'CASIERS';'';''
+RUBRIQUE1 = 'CASIERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/optionPlanimetrage'
+/
+NOM = 'CASIERS OPTION DE CALCUL'
+NOM1 = 'CASIERS OPTION DE CALCUL'
+TYPE = INTEGER
+INDEX = 406
+TAILLE = 0
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = 'option\_calcul'
+CHOIX =
+'1 = " "surface constante"';
+'2 = " "surface dependant de Z"'
+CHOIX1 =
+'1 = " "surface constante"';
+'2 = " "surface dependant de Z"'
+RUBRIQUE = 'CASIERS';'';''
+RUBRIQUE1 = 'CASIERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/optionCalcul'
+/
+NOM = 'CASIERS FICHIER GEOMETRIE'
+NOM1 = 'CASIERS FICHIER GEOMETRIE'
+TYPE = STRING
+INDEX = 204
+TAILLE = 0
+SUBMIT = 'ASC;LIT;FACUL;CASIER'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierGeomCasier\%Nom'
+RUBRIQUE = 'CASIERS';'';''
+RUBRIQUE1 = 'CASIERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/fichierGeomCasiers'
+/
+NOM = 'CASIERS COTE INITIALE'
+NOM1 = 'CASIERS COTE INITIALE'
+TYPE = REAL
+INDEX = 402
+TAILLE = 2
+MNEMO = 'Casier(icasier)\%Cote'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'';''
+RUBRIQUE1 = 'CASIERS';'';''
+NIVEAU = 1
+AIDE = 'Cotes initiales des casiers'
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/cotesInitiale'
+/
+NOM = 'CASIERS PAS DE PLANIMETRAGE'
+NOM1 = 'CASIERS PAS DE PLANIMETRAGE'
+TYPE = REAL
+INDEX = 403
+TAILLE = 0
+MNEMO = 'Casier(icasier)\%PasPlanim'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'';''
+RUBRIQUE1 = 'CASIERS';'';''
+NIVEAU = 1
+AIDE = 'pas de planimetrage du casier pour les lois S(Z) et V(Z)'
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/pasPlanimetrage'
+/
+NOM = 'CASIERS NOMBRE DE COTES DE PLANIMETRAGE'
+NOM1 = 'CASIERS NOMBRE DE COTES DE PLANIMETRAGE'
+TYPE = INTEGER
+INDEX = 414
+TAILLE = 0
+MNEMO = 'Casier(icasier)\%NbCotePlanim'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'';''
+RUBRIQUE1 = 'CASIERS';'';''
+NIVEAU = 1
+AIDE = 'pas de planimetrage du casier pour les lois S(Z) et V(Z)'
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/nbCotesPlanimetrage'
+/
+NOM = 'NOMBRE DE LIAISONS'
+NOM1 = 'NOMBRE DE LIAISONS'
+TYPE = INTEGER
+INDEX = 407
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nombre\_liaison'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/nbLiaisons'
+/
+NOM = 'LIAISON TYPE'
+NOM1 = 'LIAISON TYPE'
+TYPE = INTEGER
+INDEX = 408
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%TypeLiaison'
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'1 = " "liaison seuil"';
+'2 = " "liaison chenal"';
+'3 = " "liaison siphon"';
+'4 = " "liaison orifice"';
+'5 = " "liaison canal"'
+CHOIX1 =
+'1 = " "liaison seuil"';
+'2 = " "liaison chenal"';
+'3 = " "liaison siphon"';
+'4 = " "liaison orifice"';
+'5 = " "liaison canal"'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/types'
+/
+NOM = 'LIAISON NATURE'
+NOM1 = 'LIAISON NATURE'
+TYPE = INTEGER
+INDEX = 409
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%NatureLiaison'
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'1 = " "liaison riviere-casier"';
+'2 = " "liaison casier-casier"'
+CHOIX1 =
+'1 = " "liaison riviere-casier"';
+'2 = " "liaison casier-casier"'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/nature'
+/
+NOM = 'LIAISON COTE'
+NOM1 = 'LIAISON COTE'
+TYPE = REAL
+INDEX = 404
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%Cote'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/cote'
+/
+NOM = 'LIAISON LARGEUR'
+NOM1 = 'LIAISON LARGEUR'
+TYPE = REAL
+INDEX = 405
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%Largeur'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/largeur'
+/
+NOM = 'LIAISON LONGUEUR'
+NOM1 = 'LIAISON LONGUEUR'
+TYPE = REAL
+INDEX = 406
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%Longueur'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/longueur'
+/
+NOM = 'LIAISON RUGOSITE'
+NOM1 = 'LIAISON RUGOSITE'
+TYPE = REAL
+INDEX = 407
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%Rugosite'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/rugosite'
+/
+NOM = 'LIAISON SECTION'
+NOM1 = 'LIAISON SECTION'
+TYPE = REAL
+INDEX = 408
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%Section'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/section'
+/
+NOM = 'LIAISON COEFFICIENT PERTE DE CHARGE'
+NOM1 = 'LIAISON COEFFICIENT PERTE DE CHARGE'
+TYPE = REAL
+INDEX = 409
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%CoefPerteCharge'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/coefPerteCharge'
+/
+NOM = 'LIAISON COEFFICIENT DE DEBIT SEUIL'
+NOM1 = 'LIAISON COEFFICIENT DE DEBIT SEUIL'
+TYPE = REAL
+INDEX = 410
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%CoefDebitSeuil'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/coefDebitSeuil'
+/
+NOM = 'LIAISON COEFFICIENT D''ACTIVATION'
+NOM1 = 'LIAISON COEFFICIENT D''ACTIVATION'
+TYPE = REAL
+INDEX = 411
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%CoefNoye'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/coefActivation'
+/
+NOM = 'LIAISON NUMERO DU CASIER ORIGINE'
+NOM1 = 'LIAISON NUMERO DU CASIER ORIGINE'
+TYPE = INTEGER
+INDEX = 410
+TAILLE = 0
+MNEMO = 'num\_casier\_origine'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/numCasierOrigine'
+/
+NOM = 'LIAISON NUMERO DU CASIER FIN'
+NOM1 = 'LIAISON NUMERO DU CASIER FIN'
+TYPE = INTEGER
+INDEX = 411
+TAILLE = 0
+MNEMO = 'num\_casier\_fin'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/numCasierFin'
+/
+NOM = 'LIAISON ABSCISSE CORRESPONDANTE'
+NOM1 = 'LIAISON ABSCISSE CORRESPONDANTE'
+TYPE = REAL
+INDEX = 412
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%CaracRC\%Abscisse'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/abscBief'
+/
+NOM = 'LIAISON NUMERO DU BIEF ASSOCIE'
+NOM1 = 'LIAISON NUMERO DU BIEF ASSOCIE'
+TYPE = INTEGER
+INDEX = 412
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%CaracRC\%NumBief'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/numBiefAssocie'
+/
+NOM = 'LIAISON COEFFICIENT DE DEBIT ORIFICE'
+NOM1 = 'LIAISON COEFFICIENT DE DEBIT ORIFICE'
+TYPE = REAL
+INDEX = 413
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%CoefDebitOrifice'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/coefDebitOrifice'
+/
+NOM = 'LIAISON TYPE ORIFICE'
+NOM1 = 'LIAISON TYPE ORIFICE'
+TYPE = INTEGER
+INDEX = 415
+TAILLE = 0
+MNEMO = 'Liaison(iliaison)\%TypeOrifice'
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'-1 = " "Choix a faire"';
+'1 = " "orifice simple"';
+'2 = " "clapet sens casier origine casier fin"';
+'3 = " "clapet sens casier fin casier origine "'
+CHOIX1 =
+'-1 = " "Choix a faire"';
+'1 = " "orifice simple"';
+'2 = " "clapet sens casier origine casier fin"';
+'3 = " "clapet sens casier fin casier origine "'
+RUBRIQUE = 'CASIERS';'LIAISONS';''
+RUBRIQUE1 = 'CASIERS';'LIAISONS';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresCasier/liaisons/typeOrifice'
+/
+/////////////////////// APPORTS ET DEVERSOIRS /////////////////////////
+/
+NOM = 'NOMBRE DE DEBITS D''APPORTS'
+NOM1 = 'LATERAL INFLOW DISCHARGES NUMBER'
+TYPE = INTEGER
+INDEX = 183
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nb\_apport'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEBITS D"APPORTS';''
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEBITS D"APPORTS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATE =
+'parametresCas/parametresApportDeversoirs/debitsApports/noms/string'
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/debitsApports/nbQApport'
+/
+NOM = 'NOMS DES APPORTS'
+NOM1 = 'NOMS DES APPORTS'
+TYPE = STRING
+INDEX = 84
+TAILLE = 0
+MNEMO = 'Apport(iapp)\%Nom'
+APPARENCE =
+'DYNLIST';'UNIQUE'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEBITS D"APPORTS';''
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEBITS D"APPORTS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'LATERAL INFLOW DISCHARGES NUMBER'
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/debitsApports/noms/string'
+/
+NOM = 'NUMERO BRANCHE APPORT'
+NOM1 = 'NUMERO BRANCHE APPORT'
+TYPE = INTEGER
+INDEX = 184
+TAILLE = 0
+MNEMO = 'Apport(iapp)\%NumBranche'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEBITS D"APPORTS';''
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEBITS D"APPORTS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/debitsApports/numBranche'
+/
+NOM = 'ABSCISSE APPORT'
+NOM1 = 'ABSCISSE APPORT'
+TYPE = REAL
+INDEX = 170
+TAILLE = 0
+MNEMO = 'Apport(iapp)\%AbscisseRel'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEBITS D"APPORTS';''
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEBITS D"APPORTS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/debitsApports/abscisses'
+/
+NOM = 'LONGUEUR APPORT'
+NOM1 = 'LONGUEUR APPORT'
+TYPE = REAL
+INDEX = 171
+TAILLE = 0
+MNEMO = 'Apport(iapp)\%Longueur'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEBITS D"APPORTS';''
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEBITS D"APPORTS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/debitsApports/longueurs'
+/
+NOM = 'NUMERO LOI APPORT'
+NOM1 = 'NUMERO LOI APPORT'
+TYPE = INTEGER
+INDEX = 185
+TAILLE = 0
+MNEMO = 'Apport(iapp)\%NumeroLoi'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEBITS D"APPORTS';''
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEBITS D"APPORTS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/debitsApports/numLoi'
+/
+NOM = 'NOMBRE DE DEVERSOIRS'
+NOM1 = 'NOMBRE DE DEVERSOIRS'
+TYPE = INTEGER
+INDEX = 186
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nb\_deversoir'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';''
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATE =
+'parametresCas/parametresApportDeversoirs/deversLate/nbDeversoirs/noms'
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/deversLate/nbDeversoirs'
+/
+NOM = 'NOMS DEVERSOIRS'
+NOM1 = 'NOMS DEVERSOIRS'
+TYPE = STRING
+INDEX = 85
+TAILLE = 0
+MNEMO = 'Deversoir(idev)\%Nom'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'NOMBRE DE DEVERSOIRS'
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/deversLate/nbDeversoirs
+/noms/string'
+/
+NOM = 'TYPE DEVERSOIRS'
+NOM1 = 'TYPE DEVERSOIRS'
+TYPE = INTEGER
+INDEX = 187
+TAILLE = 0
+MNEMO = 'Deversoir(idev)\%Type'
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'1 = "Cote Crete , Coeff Debit"';
+'2 = "Loi de seuil"'
+CHOIX1 =
+'1 = "Cote Crete , Coeff Debit"';
+'2 = "Loi de seuil"'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresApportDeversoirs/deversLate/type'
+/
+NOM = 'NUM BRANCHE DEVERSOIRS'
+NOM1 = 'NUM BRANCHE DEVERSOIRS'
+TYPE = INTEGER
+INDEX = 188
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'Deversoir(idev)\%NumBranche'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/deversLate/numBranche'
+/
+NOM = 'ABSCISSE DEVERSOIRS'
+NOM1 = 'ABSCISSE DEVERSOIRS'
+TYPE = REAL
+INDEX = 172
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Deversoir(idev)\%AbscisseRel'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/deversLate/abscisse'
+/
+NOM = 'LONGUEUR DEVERSOIRS'
+NOM1 = 'LONGUEUR DEVERSOIRS'
+TYPE = REAL
+INDEX = 173
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Deversoir(idev)\%Longueur'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/deversLate/longueur'
+/
+NOM = 'COTE CRETE DEVERSOIRS'
+NOM1 = 'COTE CRETE DEVERSOIRS'
+TYPE = REAL
+INDEX = 174
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Deversoir(idev)\%CoteCrete'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/deversLate/coteCrete'
+/
+NOM = 'COEFF DEBIT DEVERSOIRS'
+NOM1 = 'COEFF DEBIT DEVERSOIRS'
+TYPE = REAL
+INDEX = 175
+TAILLE = 0
+DEFAUT = 0.38
+DEFAUT1 = 0.38
+MNEMO = 'Deversoir(idev)\%CoeffDebit'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/deversLate/coeffDebit'
+/
+NOM = 'NUMERO LOI DEVERSOIRS'
+NOM1 = 'NUMERO LOI DEVERSOIRS'
+TYPE = INTEGER
+INDEX = 189
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'Deversoir(idev)\%NumeroLoi'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'DEVERSOIRS LATERAUX';'DEVERSOIRS'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresApportDeversoirs/deversLate/numLoi'
+/
+NOM = 'NOMBRE D''APPORTS DE PLUIE'
+NOM1 = 'NOMBRE D''APPORTS DE PLUIE'
+TYPE = INTEGER
+INDEX = 401
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nombre\_apport'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'CASIER';''
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'CASIER';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/apportCasier/nbApportPluie'
+/
+NOM = 'NUMERO DU CASIER ASSOCIE'
+NOM1 = 'NUMERO DU CASIER ASSOCIE'
+TYPE = INTEGER
+INDEX = 402
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'ApportPluie(iapport)\%Numero'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'CASIER';''
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'CASIER';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/apportCasier/numCasier'
+/
+NOM = 'NUMERO DE LA LOI ASSOCIEE'
+NOM1 = 'NUMERO DE LA LOI ASSOCIEE'
+TYPE = INTEGER
+INDEX = 403
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'ApportPluie(iapport)\%NumeroLoi'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'APPORTS ET DEVERSOIRS';'CASIER';''
+RUBRIQUE1 = 'APPORTS ET DEVERSOIRS';'CASIER';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresApportDeversoirs/apportCasier/numLoi'
+/
+///////////////////////////// CONFLUENTS //////////////////////////////
+/
+NOM = 'NOMBRE DE CONFLUENTS'
+NOM1 = 'NOMBRE DE CONFLUENTS'
+TYPE = INTEGER
+INDEX = 202
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nb\_confluent'
+RUBRIQUE = 'CONFLUENTS';'';''
+RUBRIQUE1 = 'CONFLUENTS';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATE =
+'parametresCas/parametresConfluents
+/confluents/structureParametresConfluent'
+PATHNODE = 'parametresCas/parametresConfluents/nbConfluents'
+/
+NOM = 'NOMBRE D''AFFLUENTS DU CONFLUENT x'
+NOM1 = 'NUMBER OF TRIBUTARIES FOR CONFLUENT x'
+TYPE = INTEGER
+INDEX = 203
+TAILLE = 0
+DEFAUT = 3
+DEFAUT1 = 3
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CONFLUENTS';'CONFLUENT NUMERO x';''
+RUBRIQUE1 = 'CONFLUENTS';'CONFLUENT NUMERO x';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'NOMBRE DE CONFLUENTS'
+PATHNODE =
+'parametresCas/parametresConfluents
+/confluents/structureParametresConfluent/nbAffluent'
+/
+NOM = 'NOM DU CONFLUENT x'
+NOM1 = 'NOM DU CONFLUENT x'
+TYPE = STRING
+INDEX = 90
+TAILLE = 0
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'Confluent(iconf)\%Nom'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CONFLUENTS';'CONFLUENT NUMERO x';''
+RUBRIQUE1 = 'CONFLUENTS';'CONFLUENT NUMERO x';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'NOMBRE DE CONFLUENTS'
+PATHNODE =
+'parametresCas/parametresConfluents
+/confluents/structureParametresConfluent/nom'
+/
+NOM = 'ABSCISSE DE L''AFFLUENT DU CONFLUENT x'
+NOM1 = 'ABSCISSE DE L''AFFLUENT DU CONFLUENT x'
+TYPE = REAL
+INDEX = 192
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Confluent(iconf)\%AbscisseAfflu(iafflu)'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'CONFLUENTS';'CONFLUENT NUMERO x';''
+RUBRIQUE1 = 'CONFLUENTS';'CONFLUENT NUMERO x';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'NOMBRE DE CONFLUENTS'
+ALLOCATED2 = 'NUMBER OF TRIBUTARIES FOR CONFLUENT x'
+PATHNODE =
+'parametresCas/parametresConfluents
+/confluents/structureParametresConfluent/abscisses'
+/
+NOM = 'ORDONNEE DE L''AFFLUENT DU CONFLUENT x'
+NOM1 = 'ORDONNEE DE L''AFFLUENT DU CONFLUENT x'
+TYPE = REAL
+INDEX = 193
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Confluent(iconf)\%OrdonneeAfflu(iafflu)'
+RUBRIQUE = 'CONFLUENTS';'CONFLUENT NUMERO x';''
+RUBRIQUE1 = 'CONFLUENTS';'CONFLUENT NUMERO x';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'NOMBRE DE CONFLUENTS'
+ALLOCATED2 = 'NUMBER OF TRIBUTARIES FOR CONFLUENT x'
+PATHNODE =
+'parametresCas/parametresConfluents
+/confluents/structureParametresConfluent/ordonnees'
+/
+NOM = 'ANGLE DE L''AFFLUENT DU CONFLUENT x'
+NOM1 = 'ANGLE DE L''AFFLUENT DU CONFLUENT x'
+TYPE = REAL
+INDEX = 194
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Confluent(iconf)\%AngleAfflu(iafflu)'
+RUBRIQUE = 'CONFLUENTS';'CONFLUENT NUMERO x';''
+RUBRIQUE1 = 'CONFLUENTS';'CONFLUENT NUMERO x';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'NOMBRE DE CONFLUENTS'
+ALLOCATED2 = 'NUMBER OF TRIBUTARIES FOR CONFLUENT x'
+PATHNODE =
+'parametresCas/parametresConfluents
+/confluents/structureParametresConfluent/angles'
+/
+////////////////// OPTION DE CALCUL DE QUALITE D''EAU /////////////////
+///////////////////////// PARAMETRES TRACEUR //////////////////////////
+/                               (TRACER)
+/
+NOM = 'PRESENCE DE TRACEURS'
+NOM1 = 'TRACERS PRESENCE'
+TYPE = LOGICAL
+INDEX = 700
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'OptionTracer'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 0
+AIDE = ' '
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresTraceur/presenceTraceurs'
+/
+NOM = 'NOMBRE DE TRACEURS'
+NOM1 = 'NUMBER OF TRACERS'
+TYPE = INTEGER
+INDEX = 700
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'Nbtrac'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresTraceur/nbTraceur'
+/
+NOM = 'CONVECTION DES TRACEURS'
+NOM1 = 'TRACERS CONVECTION'
+TYPE = LOGICAL
+INDEX = 701
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = 'Constrac(ib)\%CONV'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresConvectionDiffusion
+/convectionTraceurs'
+/
+NOM = 'OPTION DE CONVECTION POUR LES TRACEURS'
+NOM1 = 'CONVECTION OPTION FOR TRACERS'
+TYPE = INTEGER
+INDEX = 701
+TAILLE = 1
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = 'ConsTrac(ib)\%Scheconv'
+CHOIX =
+'1 = ""';
+'2 = ""';
+'3 = ""';
+'4 = ""'
+CHOIX1 =
+'1 = ""';
+'2 = ""';
+'3 = ""';
+'4 = ""'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresConvectionDiffusion
+/optionConvection'
+/
+NOM = 'ORDRE DU SCHEMA DE CONVECTION VOLUMES FINIS'
+NOM1 = 'ORDER FOR THE CONVECTION FINITE VOLUMES SCHEME'
+TYPE = INTEGER
+INDEX = 840
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'ConsTrac(ib)\%OrdreVF'
+CHOIX =
+'1 = ""';
+'2 = ""';
+'3 = ""'
+CHOIX1 =
+'1 = ""';
+'2 = ""';
+'3 = ""'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresConvectionDiffusion
+/ordreSchemaConvec'
+/
+NOM = 'PARAMETRE W DU SCHEMA DE CONVECTION VOLUMES FINIS'
+NOM1 = 'CONVECTION FINITE VOLUMES SCHEME PARAMETER W'
+TYPE = REAL
+INDEX = 701
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'ConsTrac(ib)\%ParamW'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresConvectionDiffusion/paramW'
+/
+NOM = 'LIMITEUR DE PENTE DU SCHEMA VOLUMES FINIS'
+NOM1 = 'SLOPE LIMITER OF FINITE VOLUMES SCHEME'
+TYPE = LOGICAL
+INDEX = 703
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'ConsTrac(ib)\%LimiteurPente'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresConvectionDiffusion/
+LimitPente'
+/
+NOM = 'DIFFUSION DES TRACEURS'
+NOM1 = 'TRACERS DIFFUSION'
+TYPE = LOGICAL
+INDEX = 702
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = 'ConsTrac(ib)\%DIFF'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresConvectionDiffusion
+/diffusionTraceurs'
+/
+NOM = 'OPTION DE CALCUL DE LA DISPERSION POUR LES TRACEURS'
+NOM1 = 'OPTION FOR DISPERSION CALCULATION FOR TRACERS'
+TYPE = INTEGER
+INDEX = 702
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'ConsTrac(ib)\%OptionCalculDisp'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresConvectionDiffusion
+/optionCalculDiffusion'
+/
+NOM = 'COEFFICIENT DE DIFFUSION 1 POUR LES TRACEURS'
+NOM1 = 'DIFFUSION COEFFICIENT 1 FOR TRACERS'
+TYPE = REAL
+INDEX = 702
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'ConsTrac(ib)\%CoefDiffu(1)'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresConvectionDiffusion
+/coeffDiffusion1'
+/
+NOM = 'COEFFICIENT DE DIFFUSION 2 POUR LES TRACEURS'
+NOM1 = 'DIFFUSION COEFFICIENT 2 FOR TRACERS'
+TYPE = REAL
+INDEX = 703
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'ConsTrac(ib)\%CoefDiffu(2)'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresConvectionDiffusion
+/coeffDiffusion2'
+/
+NOM = 'MODELE DE QUALITE D''EAU'
+NOM1 = 'WATER QUALITY MODEL'
+TYPE = INTEGER
+INDEX = 703
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'Modele\_Qual\_Eau'
+CHOIX =
+'1 = "AUCUN"';
+'2 = "O2"';
+'3 = "BIOMASS"';
+'4 = "EUTRO"';
+'5 = "MICROPOL"';
+'6 = "THERMIC"'
+CHOIX1 =
+'1 = "NONE"';
+'2 = "O2"';
+'3 = "BIOMASS"';
+'4 = "EUTRO"';
+'5 = "MICROPOL"';
+'6 = "THERMIC"'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = 'Choix du modele de QE a utiliser'
+AIDE1 = 'Choice of water quality model'
+PATHNODE =
+'parametresCas/parametresTraceur/parametresNumeriquesQualiteEau
+/modeleQualiteEau'
+/
+NOM = 'FICHIER DES PARAMETRES PHYSIQUES TRACEUR'
+NOM1 = 'TRACER PHYSICAL PARAMETERS FILE'
+TYPE = STRING
+INDEX = 703
+TAILLE = 1
+SUBMIT = 'ASC;LIT;FACUL;PHY'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'Fichier\_Parphy\%nom'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresNumeriquesQualiteEau
+/fichParamPhysiqueTracer'
+/
+NOM = 'FICHIER DES DONNEES METEO TRACEUR'
+NOM1 = 'TRACER WEATHER DATA FILE'
+TYPE = STRING
+INDEX = 704
+TAILLE = 1
+SUBMIT = 'ASC;LIT;FACUL;MET'
+DEFAUT = ' '
+DEFAUT1 = ''
+MNEMO = 'Fichier\_Meteo\%nom'
+RUBRIQUE = 'PARAMETRES TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS PARAMETERS';'';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresNumeriquesQualiteEau
+/fichMeteoTracer'
+/
+NOM = 'FREQUENCE DE COUPLAGE ENTRE HYDRAULIQUE ET TRACEUR'
+NOM1 = 'COUPLING FREQUENCY BETWEEN HYDRAULIC AND TRACER'
+TYPE = INTEGER
+INDEX = 704
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'FreqCouplage'
+RUBRIQUE = 'TRACEURS';'';''
+RUBRIQUE1 = 'TRACERS';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresNumeriquesQualiteEau
+/frequenceCouplHydroTracer'
+/
+NOM = 'FICHIER LISTING TRACEUR'
+NOM1 = 'TRACER LISTING FILE'
+TYPE = STRING
+INDEX = 705
+TAILLE = 1
+SUBMIT = 'ASC;ECR;OPT;TRA\_LIS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierListingTracer\%Nom'
+RUBRIQUE = 'IMPRESSION-RESULTAT TRACEUR';'IMPRESSION TRACEUR';''
+RUBRIQUE1 = 'PRINTOUTS-TRACER RESULTS';'TRACER PRINTOUTS';''
+NIVEAU = 1
+AIDE = 'Nom du fichier listing du module TRACER'
+AIDE1 = 'Name of the listing file for tracers'
+PATHNODE =
+'parametresCas/parametresTraceur/parametresImpressionTraceur/
+fichListTracer'
+/
+NOM = 'IMPRESSION DES CONCENTRATIONS INITIALES'
+NOM1 = 'INITIAL CONCENTRATIONS PRINTOUTS'
+TYPE = LOGICAL
+INDEX = 705
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'ImpressionConcIni'
+RUBRIQUE = 'IMPRESSION-RESULTAT TRACEUR';'IMPRESSION TRACEUR';''
+RUBRIQUE1 = 'PRINTOUTS-TRACER RESULTS';'TRACER PRINTOUTS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresImpressionTraceur/
+concentInit'
+/
+NOM = 'IMPRESSION DES LOIS TRACEUR'
+NOM1 = 'TRACER LAWS PRINTOUTS'
+TYPE = LOGICAL
+INDEX = 706
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'ImpressionLoiTracer'
+RUBRIQUE = 'IMPRESSION-RESULTAT TRACEUR';'IMPRESSION TRACEUR';''
+RUBRIQUE1 = 'PRINTOUTS-TRACER RESULTS';'TRACER PRINTOUTS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresImpressionTraceur/loiTracer'
+/
+NOM = 'IMPRESSION DES CONCENTRATIONS SUR LE LISTING'
+NOM1 = 'CONCENTRATIONS PRINTOUTS INTO LISTING'
+TYPE = LOGICAL
+INDEX = 707
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = 'ImpressionConcListing'
+RUBRIQUE = 'IMPRESSION-RESULTAT TRACEUR';'IMPRESSION TRACEUR';''
+RUBRIQUE1 = 'PRINTOUTS-TRACER RESULTS';'TRACER PRINTOUTS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresImpressionTraceur/
+concentrations'
+/
+NOM = 'IMPRESSION DU BILAN TRACEUR SUR LE LISTING'
+NOM1 = 'TRACER BALANCE PRINTOUTS INTO LISTING'
+TYPE = LOGICAL
+INDEX = 708
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = 'ImpressionBilanTracer'
+RUBRIQUE = 'IMPRESSION-RESULTAT TRACEUR';'IMPRESSION TRACEUR';''
+RUBRIQUE1 = 'PRINTOUTS-TRACER RESULTS';'TRACER PRINTOUTS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresImpressionTraceur/
+bilanTracer'
+/
+NOM = 'FICHIER RESULTATS TRACEUR'
+NOM1 = 'TRACER RESULTS FILE'
+TYPE = STRING
+INDEX = 706
+TAILLE = 1
+SUBMIT = 'ECR;ASC;BIN;FACUL;RUB;OPT'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierResuTracer\%Nom'
+RUBRIQUE = 'IMPRESSION-RESULTAT TRACEUR';'RESULTATS TRACEUR';''
+RUBRIQUE1 = 'PRINTOUTS-TRACER RESULTS';'TRACER RESULTS';''
+NIVEAU = 0
+AIDE = 'Nom du fichier de resultats du module TRACER'
+AIDE1 = 'Name of the results file for tracers'
+PATHNODE =
+'parametresCas/parametresTraceur/parametresImpressionTraceur/
+fichResultTracer'
+/
+NOM = 'POST-PROCESSEUR TRACEUR'
+NOM1 = 'TRACER POST-PROCESSOR'
+TYPE = INTEGER
+INDEX = 706
+TAILLE = 1
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = 'post\_processeur\_tracer'
+CHOIX =
+'1 = "RUBENS"';
+'2 = "OPTHYCA"'
+CHOIX1 =
+'1 = "RUBENS"';
+'2 = "OPTHYCA"'
+RUBRIQUE = 'IMPRESSION-RESULTAT TRACEUR';'RESULTATS TRACEUR';''
+RUBRIQUE1 = 'PRINTOUTS-TRACER RESULTS';'TRACER RESULTS';''
+NIVEAU = 0
+AIDE = 'Format du fichier des resultats du module TRACER'
+AIDE1 = 'File format for tracer results'
+PATHNODE =
+'parametresCas/parametresTraceur/parametresImpressionTraceur/
+formatFichResultat'
+/
+NOM = 'TYPE DE CONDITIONS LIMITES TRACEUR'
+NOM1 = 'TYPE OF BOUNDARY CONDITIONS TRACER'
+TYPE = INTEGER
+INDEX = 710
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'Cond\_Lim(i)\%Type'
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'1 = "Neumann"';
+'2 = "DIRICHLET"'
+CHOIX1 =
+'1 = "Neumann"';
+'2 = "DIRICHLET"'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';'TRACEUR'
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';'TRACEUR'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresConditionsLimitesTraceur
+/typeCondLimTracer'
+/
+NOM = 'NUMERO DES LOIS TRACEUR POUR LES CL'
+NOM1 = 'TRACER LAWS NUMBER FOR BOUNDARIES'
+TYPE = INTEGER
+INDEX = 711
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'Cond\_Lim(i)\%NumeroLoi'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';'TRACEUR'
+RUBRIQUE1 = 'GEOMETRIE-RESEAU';'EXTREMITES LIBRES';'TRACEUR'
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresConditionsLimitesTraceur
+/numLoiCondLimTracer'
+/
+NOM = 'PRESENCE CONCENTRATIONS INITIALES'
+NOM1 = 'INITIAL CONCENTRATIONS PRESENCE'
+TYPE = LOGICAL
+INDEX = 740
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'Presence\_ConcIni'
+RUBRIQUE = 'CONDITIONS INITIALES';'TRACEUR';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'TRACEUR';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/
+parametresConcentrationsInitialesTraceur/presenceConcInit'
+/
+NOM = 'MODE D''ENTREE DES CONCENTRATIONS INITIALES'
+NOM1 = 'INITIAL CONCENTRATIONS INPUT'
+TYPE = INTEGER
+INDEX = 740
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'TypeEntreeConcInit'
+CHOIX =
+'1 = "entree par fichier"';
+'2 = "entree par clavier"'
+CHOIX1 =
+'1 = "file input"';
+'2 = "keyboard input"'
+RUBRIQUE = 'CONDITIONS INITIALES';'TRACEUR';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'TRACEUR';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/
+parametresConcentrationsInitialesTraceur/modeEntree'
+/
+NOM = 'FICHIER DES CONCENTRATIONS INITIALES'
+NOM1 = 'INITIAL CONCENTRATIONS FILE'
+TYPE = STRING
+INDEX = 740
+TAILLE = 1
+SUBMIT = 'LIT;ASC;OPT;CONC'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierConcIni\%Nom'
+RUBRIQUE = 'CONDITIONS INITIALES';'TRACEUR';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'TRACEUR';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/
+parametresConcentrationsInitialesTraceur/fichConcInit'
+/
+NOM = 'NOMBRE POINTS CONCENTRATION INITIALE TRACEUR'
+NOM1 = 'INITIAL TRACER CONCENTRATION POINTS NUMBER'
+TYPE = INTEGER
+INDEX = 43
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'CONDITIONS INITIALES';'TRACEUR';''
+RUBRIQUE1 = 'CONDITIONS INITIALES';'TRACEUR';''
+NIVEAU = 0
+AIDE = 'Non utilise dans le FORTRAN'
+AIDE1 = 'Unused in FORTRAN'
+PATHNODE =
+'parametresCas/parametresTraceur/
+parametresConcentrationsInitialesTraceur/nbPts'
+/
+NOM = 'NOMBRE DE SOURCES DE TRACEURS'
+NOM1 = 'NUMBER OF TRACER SOURCES'
+TYPE = INTEGER
+INDEX = 760
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'nb\_Sources'
+RUBRIQUE = 'TRACEUR';'';''
+RUBRIQUE1 = 'TRACER';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATE =
+'parametresCas/parametresTraceur/parametresSourcesTraceur/nbSources
+/noms/'
+PATHNODE =
+'parametresCas/parametresTraceur/parametresSourcesTraceur/nbSources'
+/
+NOM = 'NOM DES SOURCES'
+NOM1 = 'SOURCES NAME'
+TYPE = STRING
+INDEX = 760
+TAILLE = 0
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'Source\_tracer(i)\%Nom'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'TRACEUR';'';''
+RUBRIQUE1 = 'TRACER';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATED = 'NOMBRE DE SOURCES DE TRACEURS'
+PATHNODE =
+'parametresCas/parametresTraceur/parametresSourcesTraceur/nbSources
+/noms/string'
+/
+NOM = 'TYPE DES SOURCES'
+NOM1 = 'SOURCES TYPE'
+TYPE = INTEGER
+INDEX = 761
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'Source\_Tracer(i)\%Type'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'TRACEUR';'';''
+RUBRIQUE1 = 'TRACER';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresSourcesTraceur/typeSources'
+/
+NOM = 'ABSCISSE DES SOURCES'
+NOM1 = 'SOURCES ABSCISSA'
+TYPE = REAL
+INDEX = 762
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Source\_Tracer(i)\%AbscisseRel'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'TRACEUR';'';''
+RUBRIQUE1 = 'TRACER';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresSourcesTraceur/abscisses'
+/
+NOM = 'BRANCHE DES SOURCES'
+NOM1 = 'SOURCES BRANCH'
+TYPE = INTEGER
+INDEX = 762
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'Source\_Tracer(i)\%NumBranche'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'TRACEUR';'';''
+RUBRIQUE1 = 'TRACER';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresSourcesTraceur/numBranche'
+/
+NOM = 'LONGUEUR DES SOURCES'
+NOM1 = 'SOURCES LENGTHS'
+TYPE = REAL
+INDEX = 763
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = 'Source\_Tracer(i)\%Longueur '
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'TRACEUR';'';''
+RUBRIQUE1 = 'TRACER';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresSourcesTraceur/longueurs'
+/
+NOM = 'NUMERO DES LOIS TRACEUR POUR LES SOURCES'
+NOM1 = 'TRACER NUMBER OF LAWS FOR SOURCES'
+TYPE = INTEGER
+INDEX = 764
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS TRACEUR';'';''
+RUBRIQUE1 = 'TRACER LAWS';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresSourcesTraceur/numLoi'
+/
+NOM = 'NOMBRE DE LOIS TRACEUR'
+NOM1 = 'TRACER NUMBER OF LAWS'
+TYPE = INTEGER
+INDEX = 774
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'nb\_loi\_tracer'
+RUBRIQUE = 'LOIS TRACEUR';'';''
+RUBRIQUE1 = 'TRACER LAWS';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+ALLOCATE =
+'parametresCas/parametresTraceur/parametresLoisTraceur
+/loisTracer/structureSParametresLoiTraceur'
+PATHNODE =
+'parametresCas/parametresTraceur/parametresLoisTraceur/nbLoisTracer'
+/
+NOM = 'LOI TRACEUR NOMS'
+NOM1 = 'TRACER LAW NAMES'
+TYPE = STRING
+INDEX = 794
+TAILLE = 0
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'LoiTracer(iloi)\%Nom'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS TRACEUR';'LOI TRACEUR';''
+RUBRIQUE1 = 'TRACER LAWS';'TRACER LAW';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresLoisTraceur
+/loisTracer/structureSParametresLoiTraceur/nom'
+/
+NOM = 'LOI TRACEUR MODE D''ENTREE'
+NOM1 = 'TRACER LAW INPUT'
+TYPE = INTEGER
+INDEX = 794
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'mode\_entree\_loi'
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'1 = "entree par fichier"';
+'2 = "entree par clavier"'
+CHOIX1 =
+'1 = "file input"';
+'2 = "keyboard input"'
+RUBRIQUE = 'LOIS TRACEUR';'LOI TRACEUR';''
+RUBRIQUE1 = 'TRACER LAWS';'TRACER LAW';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresLoisTraceur
+/loisTracer/structureSParametresLoiTraceur/modeEntree'
+/
+NOM = 'LOI TRACEUR FICHIER'
+NOM1 = 'TRACER LAW FILE'
+TYPE = STRING
+INDEX = 814
+TAILLE = 0
+SUBMIT = 'ASCII;LIT;FACUL;LOI'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = 'FichierLoiTracer\%Nom'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS TRACEUR';'LOI TRACEUR';''
+RUBRIQUE1 = 'TRACER LAWS';'TRACER LAW';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresTraceur/parametresLoisTraceur
+/loisTracer/structureSParametresLoiTraceur/fichier'
+/
+NOM = 'LOI CONC TRACEUR UNITE DE TEMPS'
+NOM1 = 'TIME UNIT IN TRACER CONC LAW'
+TYPE = INTEGER
+INDEX = 231
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'0 = "seconde"';
+'1 = "seconde"';
+'2 = "minute"';
+'3 = "heure"';
+'4 = "jour"'
+CHOIX1 =
+'0 = "seconde"';
+'1 = "seconde"';
+'2 = "minute"';
+'3 = "heure"';
+'4 = "jour"'
+RUBRIQUE = 'LOIS TRACEUR';'LOI TRACEUR';''
+RUBRIQUE1 = 'TRACER LAWS';'TRACER LAW';''
+NIVEAU = 0
+AIDE = 'Non utilise dans le FORTRAN'
+AIDE1 = 'Unused in FORTRAN'
+PATHNODE =
+'parametresCas/parametresTraceur/parametresLoisTraceur
+/loisTracer/structureSParametresLoiTraceur/uniteTps'
+/
+NOM = 'NOMBRE POINTS CONC LOI TRACEUR'
+NOM1 = 'TRACER CONC LAW POINTS NUMBER'
+TYPE = INTEGER
+INDEX = 13
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'LOIS TRACEUR';'LOI TRACEUR';''
+RUBRIQUE1 = 'TRACER LAWS';'TRACER LAW';''
+NIVEAU = 0
+AIDE = 'Non utilise dans le FORTRAN'
+AIDE1 = 'Unused in FORTRAN'
+PATHNODE =
+'parametresCas/parametresTraceur/parametresLoisTraceur
+/loisTracer/structureSParametresLoiTraceur/nbPoints'
+/
+//////////////// OPTION DE CALCUL SEDIMENTAIRE ///////////////
+////////////////// PARAMETRES SEDIMENTAIRES //////////////////
+/                         (COURLIS)
+/
+NOM = 'CALCUL SEDIMENTAIRE'
+NOM1 = 'SEDIMENT CALCULATION'
+TYPE = LOGICAL
+INDEX = 600
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 = 'GENERAL PARAMETERS';'';''
+NIVEAU = 0
+AIDE = 'Utilisation du modele sedimentaire Courlis'
+AIDE1 = 'Use of solid transport model (Courlis)'
+PATHNODE = 'parametresCas/parametresGeneraux/calculSedimentaire'
+/
+NOM = 'CALCUL AVEC SABLE'
+NOM1 = 'CALCULATION WITH SAND'
+TYPE = LOGICAL
+INDEX = 607
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE = 'parametresCas/parametresSedimentaires/calculSable'
+/
+NOM = 'MODE D''ENTREE DES CARACTERISTIQUES SEDIMENTAIRES'
+NOM1 = 'SEDIMENTS PROPERTIES INPUT'
+TYPE = INTEGER
+INDEX = 600
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+CHOIX =
+'1 = "entree par fichier"';
+'2 = "entree par clavier"'
+CHOIX1 =
+'1 = "file input"';
+'2 = "keyboard input"'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'';''
+NIVEAU = 0
+AIDE = 'Indique le mode d"entree pour les caracteristiques
+sedimentaires Courlis'
+AIDE1 = 'Specify the kind of input for the sediments properties'
+PATHNODE = 'parametresCas/parametresSedimentaires/modeEntreeCaracSedi'
+/
+NOM = 'FICHIER DES CARACTERISTIQUES SEDIMENTAIRES'
+NOM1 = 'SEDIMENTS PROPERTIES FILE'
+TYPE = STRING
+INDEX = 600
+TAILLE = 1
+SUBMIT = ''
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'';''
+NIVEAU = 0
+AIDE = 'Nom du fichier des caracteristiques sedimentaires'
+AIDE1 = 'Name of the file with the sediments properties'
+PATHNODE = 'parametresCas/parametresSedimentaires/fichierCaracSedi'
+/
+NOM = 'NOMBRE DE COUCHES'
+NOM1 = 'NUMBER OF LAYERS'
+TYPE = INTEGER
+INDEX = 601
+TAILLE = 1
+DEFAUT = 3
+DEFAUT1 = 3
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'';''
+NIVEAU = 0
+AIDE = 'Definit le nombre de couches sedimentaires'
+AIDE1 = 'Define the number of sediment layers'
+PATHNODE = 'parametresCas/parametresSedimentaires/nbCouches'
+/
+NOM = 'NOM DES COUCHES'
+NOM1 = 'LAYERS NAME'
+TYPE = STRING
+INDEX = 601
+TAILLE = 3
+DEFAUT = ' ';' ';' '
+DEFAUT1 = ' ';' ';' '
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'COUCHES SEDIMENTAIRES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SEDIMENT LAYERS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSedimentaires/couchesSedimentaires/nomCouches'
+/
+NOM = 'CONCENTRATION DES COUCHES'
+NOM1 = 'LAYERS CONCENTRATION'
+TYPE = REAL
+INDEX = 601
+TAILLE = 3
+DEFAUT = 0.0;0.0;0.0
+DEFAUT1 = 0.0;0.0;0.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'COUCHES SEDIMENTAIRES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SEDIMENT LAYERS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSedimentaires/couchesSedimentaires/
+concentrationCouches'
+/
+NOM = 'POURCENTAGE DE SABLE'
+NOM1 = 'SAND PERCENTAGE'
+TYPE = REAL
+INDEX = 602
+TAILLE = 3
+DEFAUT = 0.0;0.0;0.0
+DEFAUT1 = 0.0;0.0;0.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'COUCHES SEDIMENTAIRES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SEDIMENT LAYERS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSedimentaires/couchesSedimentaires/
+pourcentageSable'
+/
+NOM = 'D50 DES SABLES'
+NOM1 = 'SAND D50'
+TYPE = REAL
+INDEX = 603
+TAILLE = 3
+DEFAUT = 0.0;0.0;0.0
+DEFAUT1 = 0.0;0.0;0.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'COUCHES SEDIMENTAIRES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SEDIMENT LAYERS';''
+NIVEAU = 0
+AIDE = 'Diametre median des sables'
+AIDE1 = 'Median diameter for sands'
+PATHNODE =
+'parametresCas/parametresSedimentaires/couchesSedimentaires/d50Sables'
+/
+NOM = 'VITESSE DE CHUTE DES SABLES'
+NOM1 = 'SAND FALL VELOCITY'
+TYPE = REAL
+INDEX = 604
+TAILLE = 3
+DEFAUT = 0.0;0.0;0.0
+DEFAUT1 = 0.0;0.0;0.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'COUCHES SEDIMENTAIRES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SEDIMENT LAYERS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSedimentaires/couchesSedimentaires/
+vitesseChuteSables'
+/
+NOM = 'CONTRAINTE CRITIQUE D''EROSION DES VASES'
+NOM1 = 'SILT EROSION CRITICAL SHEAR STRESS'
+TYPE = REAL
+INDEX = 605
+TAILLE = 3
+DEFAUT = 0.0;0.0;0.0
+DEFAUT1 = 0.0;0.0;0.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'COUCHES SEDIMENTAIRES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SEDIMENT LAYERS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSedimentaires/couchesSedimentaires/
+contrainteCritErosionVases'
+/
+NOM = 'COEFFICIENT DE PARTHENIADES'
+NOM1 = 'PARTHENIADES COEFFICIENT'
+TYPE = REAL
+INDEX = 606
+TAILLE = 3
+DEFAUT = 0.0;0.0;0.0
+DEFAUT1 = 0.0;0.0;0.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'COUCHES SEDIMENTAIRES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SEDIMENT LAYERS';''
+NIVEAU = 0
+AIDE = 'Definit le coefficient de Partheniades'
+AIDE1 = 'Define the Partheniades coefficient'
+PATHNODE = 'parametresCas/parametresSedimentaires/couchesSedimentaires/
+partheniades'
+/
+NOM = 'STRICKLER DE PEAU'
+NOM1 = 'SKIN FRICTION COEFFICIENT'
+TYPE = REAL
+INDEX = 607
+TAILLE = 3
+DEFAUT = 85.0;85.0;85.0
+DEFAUT1 = 85.0;85.0;85.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'COUCHES SEDIMENTAIRES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SEDIMENT LAYERS';''
+NIVEAU = 0
+AIDE = 'Definit le Strickler de peau'
+AIDE1 = 'Define the skin friction coefficient'
+PATHNODE = 'parametresCas/parametresSedimentaires/couchesSedimentaires/
+stricklerPeau'
+/
+NOM = 'STRICKLER TOTAL'
+NOM1 = 'TOTAL FRICTION COEFFICIENT'
+TYPE = REAL
+INDEX = 608
+TAILLE = 3
+DEFAUT = 40.0;40.0;40.0
+DEFAUT1 = 40.0;40.0;40.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'COUCHES SEDIMENTAIRES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SEDIMENT LAYERS';''
+NIVEAU = 0
+AIDE = 'Definit le coefficient de Strickler total'
+AIDE1 = 'Define the total friction coefficient'
+PATHNODE =
+'parametresCas/parametresSedimentaires/couchesSedimentaires/
+stricklerTotal'
+/
+NOM = 'VITESSE DE CHUTE DES VASES'
+NOM1 = 'SILT FALL VELOCITY'
+TYPE = REAL
+INDEX = 609
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'COUCHES SEDIMENTAIRES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SEDIMENT LAYERS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSedimentaires/couchesSedimentaires/
+vitesseChuteVases'
+/
+NOM = 'CONTRAINTE CRITIQUE DE DEPOT DES VASES'
+NOM1 = 'SILT DEPOSITION CRITICAL SHEAR STRESS'
+TYPE = REAL
+INDEX = 610
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'COUCHES SEDIMENTAIRES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SEDIMENT LAYERS';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSedimentaires/couchesSedimentaires/
+contrainteCritDepotVases'
+/
+NOM = 'POURCENTAGE LIMITE DE SABLE'
+NOM1 = 'SAND LIMIT PERCENTAGE'
+TYPE = REAL
+INDEX = 611
+TAILLE = 1
+DEFAUT = 60.0
+DEFAUT1 = 60.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'TRAITEMENT DES COUCHES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'LAYERS TREATMENT';''
+NIVEAU = 0
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSedimentaires/traitementCouches/
+pourcentageLimSable'
+/
+NOM = 'MODELE DE RUPTURE DES TALUS'
+NOM1 = 'SLOPE STABILITY MODEL'
+TYPE = INTEGER
+INDEX = 602
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+CHOIX =
+'1 = ""';
+'2 = ""'
+CHOIX1 =
+'1 = ""';
+'2 = ""'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'TALUS';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SLOPE STABILITY';''
+NIVEAU = 0
+AIDE = 'Choix du modele de rupture des talus'
+AIDE1 = 'Choice of the slope stability model'
+PATHNODE =
+'parametresCas/parametresSedimentaires/talus/modeleRuptureTalus'
+/
+NOM = 'PENTE DE STABILITE DES TALUS IMMERGES'
+NOM1 = 'STABILITY SLOPE FOR SUBMERGED EMBANKMENTS'
+TYPE = REAL
+INDEX = 612
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'TALUS';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SLOPE STABILITY';''
+NIVEAU = 0
+AIDE = 'Definit la pente de stabilite des talus immerges'
+AIDE1 = 'Define the stability slope for embankments underwater'
+PATHNODE =
+'parametresCas/parametresSedimentaires/talus/
+penteStabiliteTalusImmerges'
+/
+NOM = 'PENTE DE STABILITE DES TALUS EMERGES'
+NOM1 = 'STABILITY SLOPE FOR EMERGED EMBANKMENTS'
+TYPE = REAL
+INDEX = 613
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'TALUS';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SLOPE STABILITY';''
+NIVEAU = 0
+AIDE = 'Definit la pente de stabilite des talus emerges'
+AIDE1 = 'Define the stability slope for emerged embankments'
+PATHNODE =
+'parametresCas/parametresSedimentaires/talus/penteStabiliteTalusEmerges'
+/
+NOM = 'COEFFICIENT D''HOMOTHETIE'
+NOM1 = 'HOMOTHETY COEFFICIENT'
+TYPE = REAL
+INDEX = 614
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'TALUS';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SLOPE STABILITY';''
+NIVEAU = 0
+AIDE = 'Definit le coefficient d''homothetie'
+AIDE1 = 'Define the homothetie coefficient'
+PATHNODE = 'parametresCas/parametresSedimentaires/talus/coeffHomothetie'
+/
+NOM = 'COEFFICIENT DE RESISTANCE RESIDUELLE'
+NOM1 = 'RESIDUAL ROBUSTNESS COEFFICIENT'
+TYPE = REAL
+INDEX = 615
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'TALUS';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SLOPE STABILITY';''
+NIVEAU = 0
+AIDE = 'Definit le coefficient de resistance residuelle'
+AIDE1 = 'Define the coefficient of residual robustness'
+PATHNODE =
+'parametresCas/parametresSedimentaires/talus/coeffResistanceResiduelle'
+/
+NOM = 'POIDS VOLUMIQUE DE L''EAU'
+NOM1 = 'WATER WEIGHT BY VOLUME'
+TYPE = REAL
+INDEX = 616
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'TALUS';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SLOPE STABILITY';''
+NIVEAU = 0
+AIDE = 'Definit le poids volumiques de l''eau'
+AIDE1 = 'Define the weight by volume of water'
+PATHNODE =
+'parametresCas/parametresSedimentaires/talus/poidsVolumiqueEau'
+/
+NOM = 'POIDS VOLUMIQUE DES SEDIMENTS'
+NOM1 = 'SEDIMENTS WEIGHT BY VOLUME'
+TYPE = REAL
+INDEX = 617
+TAILLE = 3
+DEFAUT = 0.0;0.0;0.0
+DEFAUT1 = 0.0;0.0;0.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'TALUS';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SLOPE STABILITY';''
+NIVEAU = 0
+AIDE = 'Definit le poids volumiques des sediments'
+AIDE1 = 'Define the weight by volume of sediments'
+PATHNODE =
+'parametresCas/parametresSedimentaires/talus/poidsVolumiqueSedi'
+/
+NOM = 'COEFFICIENT DE DIFFUSION DES VASES'
+NOM1 = 'SILT DIFFUSION COEFFICIENT'
+TYPE = REAL
+INDEX = 618
+TAILLE = 1
+DEFAUT = 50.0
+DEFAUT1 = 50.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'EQUATION DE TRANSPORT';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'TRANSPORT EQUATION';''
+NIVEAU = 0
+AIDE = 'Definit le coefficient de diffusion des vases'
+AIDE1 = 'Define the diffusion coefficient for silts'
+PATHNODE =
+'parametresCas/parametresSedimentaires/equationTransport/
+coefDiffusionVases'
+/
+NOM = 'COEFFICIENT DE DIFFUSION DES SABLES'
+NOM1 = 'SAND DIFFUSION COEFFICIENT'
+TYPE = REAL
+INDEX = 652
+TAILLE = 1
+DEFAUT = 50.0
+DEFAUT1 = 50.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'EQUATION DE TRANSPORT';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'TRANSPORT EQUATION';''
+NIVEAU = 0
+AIDE = 'Definit le coefficient de diffusion des sables'
+AIDE1 = 'Define the diffusion coefficient for sands'
+PATHNODE =
+'parametresCas/parametresSedimentaires/equationTransport/
+coefDiffusionSables'
+/
+NOM = 'CONVECTION DES TRACEURS POUR COURLIS'
+NOM1 = 'COURLIS TRACERS CONVECTION'
+TYPE = LOGICAL
+INDEX = 709
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'EQUATION DE TRANSPORT';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'TRANSPORT EQUATION';''
+NIVEAU = 1
+AIDE = 'Active l''equation de convection des traceurs dans Courlis'
+AIDE1 = 'Activate the convection equation for tracers with Courlis'
+PATHNODE =
+'parametresCas/parametresSedimentaires/equationTransport/
+convTraceursCourlis'
+/
+NOM = 'OPTION DE CONVECTION POUR LES TRACEURS POUR COURLIS'
+NOM1 = 'COURLIS CONVECTION OPTION FOR TRACERS'
+TYPE = INTEGER
+INDEX = 707
+TAILLE = 1
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = ''
+CHOIX =
+'1 = ""';
+'2 = ""';
+'3 = ""';
+'4 = ""'
+CHOIX1 =
+'1 = ""';
+'2 = ""';
+'3 = ""';
+'4 = ""'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'EQUATION DE TRANSPORT';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'TRANSPORT EQUATION';''
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+PATHNODE =
+'parametresCas/parametresSedimentaires/equationTransport/
+optionConvTraceursCourlis'
+/
+NOM = 'ORDRE DU SCHEMA DE CONVECTION VOLUMES FINIS POUR COURLIS'
+NOM1 = 'COURLIS CONVECTION FINITE VOLUMES SCHEME ORDER'
+TYPE = INTEGER
+INDEX = 841
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'EQUATION DE TRANSPORT';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'TRANSPORT EQUATION';''
+NIVEAU = 1
+AIDE = 'Ordre du schema de convection en volumes finis de Courlis'
+AIDE1 = 'Order of the convection schemes (finite volumes) in Courlis'
+PATHNODE =
+'parametresCas/parametresSedimentaires/equationTransport/
+ordreConvVolFinisCourlis'
+/
+NOM = 'PARAMETRE W DU SCHEMA DE CONVECTION VOLUMES FINIS POUR COURLIS'
+NOM1 = 'COURLIS CONVECTION FINITE VOLUMES SCHEME PARAMETER W'
+TYPE = REAL
+INDEX = 704
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'EQUATION DE TRANSPORT';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'TRANSPORT EQUATION';''
+NIVEAU = 1
+AIDE = 'Valeur du parametre W du schema de convection en volumes finis
+de Courlis'
+AIDE1 = 'Value of W in the convection scheme (finite volumes) in
+Courlis'
+PATHNODE =
+'parametresCas/parametresSedimentaires/equationTransport/
+parametreWConvVolFinisCourlis'
+/
+NOM = 'LIMITEUR DE PENTE DU SCHEMA VOLUMES FINIS POUR COURLIS'
+NOM1 = 'SLOPE LIMITER FOR THE FINITE VOLUMES SCHEME FOR COURLIS'
+TYPE = LOGICAL
+INDEX = 710
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'EQUATION DE TRANSPORT';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'TRANSPORT EQUATION';''
+NIVEAU = 1
+AIDE = 'Activation du limiteur de pente du schema volumes finis pour
+Courlis'
+AIDE1 = 'Activation of the slope limiter in the finite volumes scheme
+for Courlis'
+PATHNODE =
+'parametresCas/parametresSedimentaires/equationTransport/
+limitPenteVolFinisCourlis'
+/
+NOM = 'FICHIER DE GEOMETRIE COURLIS'
+NOM1 = 'COURLIS GEOMETRY FILE'
+TYPE = STRING
+INDEX = 602
+TAILLE = 1
+SUBMIT = 'LIT;ASC;FACUL;GEOC'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = ''
+RUBRIQUE = 'GEOMETRIE SEDIMENTAIRE';'';''
+RUBRIQUE1 = 'SEDIMENT GEOMETRY';'';''
+NIVEAU = 0
+AIDE = 'Nom du fichier de geometrie Courlis (geoC)'
+AIDE1 = 'Name of the geometry file for Courlis (geoC)'
+PATHNODE = 'parametresCas/geometrieSedimentaire/fichierGeometrieCourlis'
+/
+NOM = 'MODE D''ENTREE DES CONCENTRATIONS INITIALES POUR COURLIS'
+NOM1 = 'COURLIS INITIAL CONCENTRATIONS INPUT'
+TYPE = INTEGER
+INDEX = 603
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+CHOIX =
+'1 = "entree par fichier"';
+'2 = "entree par clavier"'
+CHOIX1 =
+'1 = "file input"';
+'2 = "keyboard input"'
+RUBRIQUE = 'CONDITIONS INITIALES COURLIS';'';''
+RUBRIQUE1 = 'INITIAL CONDITIONS COURLIS';'';''
+NIVEAU = 0
+AIDE = 'Indique le mode d"entree pour les concentration initiales
+Courlis'
+AIDE1 = 'Specify the kind of input for the initial concentrations
+ in Courlis'
+PATHNODE = 'parametresCas/conditionInitialesCourlis/
+modeEntreeConcIniCourlis'
+/
+NOM = 'NOMBRE DE TRACEURS POUR COURLIS'
+NOM1 = 'COURLIS NUMBER OF TRACERS'
+TYPE = INTEGER
+INDEX = 605
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'CONDITIONS INITIALES COURLIS';'';''
+RUBRIQUE1 = 'INITIAL CONDITIONS COURLIS';'';''
+NIVEAU = 0
+AIDE = 'Indique le nombre de traceurs pour Courlis'
+AIDE1 = 'Specify the number of tracers for Courlis'
+PATHNODE = 'parametresCas/conditionInitialesCourlis/nbTraceursCourlis'
+/
+NOM = 'NOMBRE DE POINTS DECRIVANT LES CONC INITIALES POUR COURLIS'
+NOM1 = 'COURLIS INTIAL CONDITIONS NUMBER OF POINTS'
+TYPE = INTEGER
+INDEX = 604
+TAILLE = 1
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = ''
+RUBRIQUE = 'CONDITIONS INITIALES COURLIS';'';''
+RUBRIQUE1 = 'INITIAL CONDITIONS COURLIS';'';''
+NIVEAU = 0
+AIDE = 'Nombre de point decrivant les concentrations initiales courlis'
+AIDE1 = 'Number of points to describe initial concentrations for
+Courlis'
+PATHNODE = 'parametresCas/conditionInitialesCourlis/nbPtsConcIniCourlis'
+/
+NOM = 'FICHIER DES CONCENTRATIONS INITIALES POUR COURLIS'
+NOM1 = 'COURLIS INITIAL CONDITIONS FILE'
+TYPE = STRING
+INDEX = 603
+TAILLE = 1
+SUBMIT = 'ASC;LIT;FACUL;CONC\_INI'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = ''
+RUBRIQUE = 'CONDITIONS INITIALES COURLIS';'';''
+RUBRIQUE1 = 'INITIAL CONDITIONS COURLIS';'';''
+NIVEAU = 0
+AIDE = 'Nom du fichier de concentrations initiales Courlis'
+AIDE1 = 'Name of the file with initial concentrations for Courlis'
+PATHNODE =
+'parametresCas/conditionInitialesCourlis/fichierConcIniCourlis'
+/
+NOM = 'ABSCISSES DES CONC INI'
+NOM1 = 'INITIAL CONCENTRATIONS ABSCISSAE'
+TYPE = REAL
+INDEX = 619
+TAILLE = 2
+DEFAUT = 0.0;0.0
+DEFAUT1 = 0.0;0.0
+MNEMO = ''
+RUBRIQUE = 'CONDITIONS INITIALES COURLIS';'';''
+RUBRIQUE1 = 'INITIAL CONDITIONS COURLIS';'';''
+NIVEAU = 0
+AIDE = 'Abscisses des concentrations initiales'
+AIDE1 = 'Abscissae for initial concentrations'
+PATHNODE = 'parametresCas/conditionInitialesCourlis/abscissesConcIni'
+/
+NOM = 'CONCENTRATION EN VASE INI'
+NOM1 = 'SILT INITIAL CONCENTRATION'
+TYPE = REAL
+INDEX = 620
+TAILLE = 2
+DEFAUT = 0.0;0.0
+DEFAUT1 = 0.0;0.0
+MNEMO = ''
+RUBRIQUE = 'CONDITIONS INITIALES COURLIS';'';''
+RUBRIQUE1 = 'INITIAL CONDITIONS COURLIS';'';''
+NIVEAU = 0
+AIDE = 'Concentration initiale des vases'
+AIDE1 = 'Initial concentration for silts'
+PATHNODE =
+'parametresCas/conditionInitialesCourlis/concentrationVaseIni'
+/
+NOM = 'CONCENTRATION EN SABLE INI'
+NOM1 = 'SAND INITIAL CONCENTRATION'
+TYPE = REAL
+INDEX = 621
+TAILLE = 2
+DEFAUT = 0.0;0.0
+DEFAUT1 = 0.0;0.0
+MNEMO = ''
+RUBRIQUE = 'CONDITIONS INITIALES COURLIS';'';''
+RUBRIQUE1 = 'INITIAL CONDITIONS COURLIS';'';''
+NIVEAU = 0
+AIDE = 'Concentration initiale des sables'
+AIDE1 = 'Initial concentration for sands'
+PATHNODE =
+'parametresCas/conditionInitialesCourlis/concentrationSableIni'
+/
+NOM = 'FICHIER LISTING COURLIS'
+NOM1 = 'LISTING COURLIS FILE'
+TYPE = STRING
+INDEX = 604
+TAILLE = 1
+SUBMIT = 'ASC;ECR;LISTINGCOURLIS;FACUL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = ''
+RUBRIQUE = 'IMPRESSION-RESULTAT COURLIS';'RESULTATS COURLIS';''
+RUBRIQUE1 = 'PRINTOUTS-COURLIS RESULTS';'COURLIS RESULTS';''
+NIVEAU = 0
+AIDE = 'Nom du fichier listing'
+AIDE1 = 'Name of listing file'
+PATHNODE =
+'parametresCas/impressionResCourlis/resultatsCourlis/
+fichierListingCourlis'
+/
+NOM = 'FICHIER RESULTATS PROFIL EN LONG'
+NOM1 = 'LONGITUDINAL PROFILE RESULTS FILE'
+TYPE = STRING
+INDEX = 605
+TAILLE = 1
+SUBMIT = 'ASC;ECR;FACUL;PLONG'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = ''
+RUBRIQUE = 'IMPRESSION-RESULTAT COURLIS';'RESULTATS COURLIS';''
+RUBRIQUE1 = 'PRINTOUTS-COURLIS RESULTS';'COURLIS RESULTS';''
+NIVEAU = 0
+AIDE = 'Nom du fichier resultat pour les profils en long'
+AIDE1 = 'Name of the results file for the longitudinal profiles'
+PATHNODE =
+'parametresCas/impressionResCourlis/resultatsCourlis/
+fichierResProfilLong'
+/
+NOM = 'FICHIER RESULTATS PROFIL EN TRAVERS'
+NOM1 = 'CROSS SECTION RESULTS FILE'
+TYPE = STRING
+INDEX = 606
+TAILLE = 1
+SUBMIT = 'ASC;ECR;FACUL;PTRAVERS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = ''
+RUBRIQUE = 'IMPRESSION-RESULTAT COURLIS';'RESULTATS COURLIS';''
+RUBRIQUE1 = 'PRINTOUTS-COURLIS RESULTS';'COURLIS RESULTS';''
+NIVEAU = 0
+AIDE = 'Nom du fichier resultat pour les sections en travers'
+AIDE1 = 'Name of the results file for the cross sections'
+PATHNODE =
+'parametresCas/impressionResCourlis/resultatsCourlis/
+fichierResProfilTravers'
+/
+NOM = 'IMPRESSION DES PARAMETRES SEDIMENTAIRES'
+NOM1 = 'PRINTOUTS SEDIMENT PARAMETERS'
+TYPE = LOGICAL
+INDEX = 601
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'IMPRESSION-RESULTAT COURLIS';'IMPRESSION COURLIS';''
+RUBRIQUE1 = 'PRINTOUTS-COURLIS RESULTS';'COURLIS PRINTOUTS';''
+NIVEAU = 0
+AIDE = 'Imprime les parametres sedimentaires'
+AIDE1 = 'Print the sediment parameters'
+PATHNODE =
+'parametresCas/impressionResCourlis/impressionCourlis/
+impressionInterfacesSedi'
+/
+NOM = 'IMPRESSION DES INTERFACES SEDIMENTAIRES'
+NOM1 = 'PRINTOUTS SEDIMENT INTERFACES'
+TYPE = LOGICAL
+INDEX = 602
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'IMPRESSION-RESULTAT COURLIS';'IMPRESSION COURLIS';''
+RUBRIQUE1 = 'PRINTOUTS-COURLIS RESULTS';'COURLIS PRINTOUTS';''
+NIVEAU = 0
+AIDE = 'Imprime les interfaces sedimentaires'
+AIDE1 = 'Print the sediment interfaces (between layers)'
+PATHNODE =
+'parametresCas/impressionResCourlis/impressionCourlis/
+impressionInterfacesSedi'
+/
+NOM = 'IMPRESSION DES PARAMETRES DE COUPLAGE'
+NOM1 = 'PRINTOUTS COUPLING PARAMETERS'
+TYPE = LOGICAL
+INDEX = 603
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'IMPRESSION-RESULTAT COURLIS';'IMPRESSION COURLIS';''
+RUBRIQUE1 = 'PRINTOUTS-COURLIS RESULTS';'COURLIS PRINTOUTS';''
+NIVEAU = 0
+AIDE = 'Imprime les parametres de couplage'
+AIDE1 = 'Print the coupling parameters'
+PATHNODE =
+'parametresCas/impressionResCourlis/impressionCourlis/
+impressionParamCouplage'
+/
+NOM = 'IMPRESSION DES CONC INITIALES POUR COURLIS'
+NOM1 = 'PRINTOUTS INITIAL CONC LAWS FOR COURLIS'
+TYPE = LOGICAL
+INDEX = 604
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'IMPRESSION-RESULTAT COURLIS';'IMPRESSION COURLIS';''
+RUBRIQUE1 = 'PRINTOUTS-COURLIS RESULTS';'COURLIS PRINTOUTS';''
+NIVEAU = 0
+AIDE = 'Imprime les concentrations initiales'
+AIDE1 = 'Print the initial concentrations'
+PATHNODE =
+'parametresCas/impressionResCourlis/impressionCourlis/
+impressionConcInitiales'
+/
+NOM = 'IMPRESSION DES LOIS DE CONCENTRATION'
+NOM1 = 'PRINTOUTS CONCENTRATION LAWS'
+TYPE = LOGICAL
+INDEX = 605
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'IMPRESSION-RESULTAT COURLIS';'IMPRESSION COURLIS';''
+RUBRIQUE1 = 'PRINTOUTS-COURLIS RESULTS';'COURLIS PRINTOUTS';''
+NIVEAU = 0
+AIDE = 'Imprime les lois de concentration'
+AIDE1 = 'Print the concentration laws'
+PATHNODE =
+'parametresCas/impressionResCourlis/impressionCourlis/
+impressionLoisConcentration'
+/
+NOM = 'IMPRESSION DES APPORTS SEDIMENTAIRES'
+NOM1 = 'PRINTOUTS SEDIMENT INFLOWS'
+TYPE = LOGICAL
+INDEX = 606
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'IMPRESSION-RESULTAT COURLIS';'IMPRESSION COURLIS';''
+RUBRIQUE1 = 'PRINTOUTS-COURLIS RESULTS';'COURLIS PRINTOUTS';''
+NIVEAU = 0
+AIDE = 'Imprime les apports sedimentaires'
+AIDE1 = 'Print the sediment inflows'
+PATHNODE =
+'parametresCas/impressionResCourlis/impressionCourlis/
+impressionApportsSedi'
+/
+NOM = 'PAS D''IMPRESSION COURLIS'
+NOM1 = 'PERIOD FOR PRINTOUTS COURLIS'
+TYPE = INTEGER
+INDEX = 606
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'IMPRESSION-RESULTAT COURLIS';'';''
+RUBRIQUE1 = 'PRINTOUTS-COURLIS RESULTS';'';''
+NIVEAU = 0
+AIDE = 'Definit le pas d''impresssion des resultats en nombre de pas de
+temps dans le listing Courlis'
+AIDE1 = 'Define the period to print results into the Courlis listing
+in number of time steps'
+PATHNODE = 'parametresCas/impressionResCourlis/pasImpressionCourlis'
+/
+NOM = 'PAS DE STOCKAGE POUR LE PROFIL EN TRAVERS'
+NOM1 = 'STORAGE PERIOD FOR THE CROSS SECTION PROFILE'
+TYPE = INTEGER
+INDEX = 608
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'IMPRESSION-RESULTAT COURLIS';'';''
+RUBRIQUE1 = 'PRINTOUTS-COURLIS RESULTS';'';''
+NIVEAU = 0
+AIDE = 'Definit le pas de stockage pour les profils en travers
+en nombre de pas de temps'
+AIDE1 = 'Define the number of time steps between two cross section
+ profiles saved'
+PATHNODE = 'parametresCas/impressionResCourlis/pasStockageProfilTravers'
+/
+NOM = 'PAS DE STOCKAGE POUR LE PROFIL EN LONG'
+NOM1 = 'STORAGE PERIOD FOR THE LONGITUDINAL PROFILE'
+TYPE = INTEGER
+INDEX = 607
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'IMPRESSION-RESULTAT COURLIS';'';''
+RUBRIQUE1 = 'PRINTOUTS-COURLIS RESULTS';'';''
+NIVEAU = 0
+AIDE = 'Definit le pas de stockage pour les profils en longs
+en nombre de pas de temps'
+AIDE1 = 'Define the number of time steps between two longitudinal
+ profiles saved'
+PATHNODE = 'parametresCas/impressionResCourlis/pasStockageProfilLong'
+/
+NOM = 'NOMBRE D''ITERATIONS HYDRAULIQUE'
+NOM1 = 'NUMBER OF ITERATIONS FOR THE HYDRAULIC MODEL'
+TYPE = INTEGER
+INDEX = 610
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'COUPLAGE';'';''
+RUBRIQUE1 = 'COUPLING';'';''
+NIVEAU = 0
+AIDE = 'Specifie le nombre d''iterations sur l''hydraulique
+(Mascaret)'
+AIDE1 = 'Specify the number of iterations of the hydraulic model
+(Mascaret)'
+PATHNODE = 'parametresCas/couplage/nbIterationsHydraulique'
+/
+NOM = 'NOMBRE D''ITERATIONS SEDIMENTO'
+NOM1 = 'NUMBER OF ITERATIONS FOR THE SEDIMENT MODEL'
+TYPE = INTEGER
+INDEX = 611
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'COUPLAGE';'';''
+RUBRIQUE1 = 'COUPLING';'';''
+NIVEAU = 0
+AIDE = 'Specifie le nombre d''iterations sur le calcul sedimentaire
+(Courlis)'
+AIDE1 = 'Specify the number of iterations of the sediment model
+(Courlis)'
+PATHNODE = 'parametresCas/couplage/nbIterationsSedimento'
+/
+NOM = 'NUMERO LOI CONC AMONT VASE'
+NOM1 = 'NUMBER CONCENTRATION LAW UPSTREAM SILT'
+TYPE = INTEGER
+INDEX = 612
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = ''
+RUBRIQUE = 'APPORTS DE CONCENTRATION';'CONDITIONS AMONT';''
+RUBRIQUE1 = 'CONCENTRATION INFLOW';'UPSTREAM CONDITIONS';''
+NIVEAU = 0
+AIDE = 'Numero de la loi de concentration en amont pour les
+vases'
+AIDE1 = 'Number of the concentration law used at upstream boundaries
+for silts'
+PATHNODE =
+'parametresCas/apportsConcentration/conditionsAmont/numLoiConcAmontVase'
+/
+NOM = 'NUMERO LOI CONC AMONT SABLE'
+NOM1 = 'NUMBER CONCENTRATION LAW UPSTREAM SAND'
+TYPE = INTEGER
+INDEX = 613
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = ''
+RUBRIQUE = 'APPORTS DE CONCENTRATION';'CONDITIONS AMONT';''
+RUBRIQUE1 = 'CONCENTRATION INFLOW';'UPSTREAM CONDITIONS';''
+NIVEAU = 0
+AIDE = 'Numero de la loi de concentration en amont pour les
+sables'
+AIDE1 = 'Number of the concentration law used at upstream boundaries
+for sands'
+PATHNODE =
+'parametresCas/apportsConcentration/conditionsAmont/
+numLoiConcAmontSable'
+/
+NOM = 'NUMERO LOI CONC APPORT VASE'
+NOM1 = 'NUMBER CONCENTRATION LAW LATERAL SILT'
+TYPE = INTEGER
+INDEX = 614
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = ''
+RUBRIQUE = 'APPORTS DE CONCENTRATION';'APPORTS SEDIMENTAIRES';''
+RUBRIQUE1 = 'CONCENTRATION INFLOW';'SEDIMENT INFLOWS';''
+NIVEAU = 0
+AIDE = 'Numero de la loi de concentration en apport lateral pour les
+vases'
+AIDE1 = 'Number of the concentration law used at lateral boundaries
+for silts'
+PATHNODE =
+'parametresCas/apportsConcentration/apportsSedimentaires/
+numLoiConcApportVase'
+/
+NOM = 'NUMERO LOI CONC APPORT SABLE'
+NOM1 = 'NUMBER CONCENTRATION LAW LATERAL SAND'
+TYPE = INTEGER
+INDEX = 615
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = ''
+RUBRIQUE = 'APPORTS DE CONCENTRATION';'APPORTS SEDIMENTAIRES';''
+RUBRIQUE1 = 'CONCENTRATION INFLOW';'SEDIMENT INFLOWS';''
+NIVEAU = 0
+AIDE = 'Numero de la loi de concentration en apport lateral pour les
+sables'
+AIDE1 = 'Number of the concentration law used at lateral boundaries
+for sands'
+PATHNODE =
+'parametresCas/apportsConcentration/apportsSedimentaires/
+numLoiConcApportSable'
+/
+NOM = 'NOMBRE DE LOIS DE CONCENTRATION'
+NOM1 = 'NUMBER OF CONCENTRATION LAWS'
+TYPE = INTEGER
+INDEX = 616
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'LOIS DE CONCENTRATION';'';''
+RUBRIQUE1 = 'CONCENTRATION LAWS';'';''
+NIVEAU = 0
+AIDE = 'Nombre de lois de concentration'
+AIDE1 = 'Number of concentration laws'
+ALLOCATE = 'parametresCas/loisDeConcentration/lois'
+PATHNODE = 'parametresCas/loisDeConcentration/nbLois'
+/
+NOM = 'LOI CONC x NOM'
+NOM1 = 'CONCENTRATION LAW x NAME'
+TYPE = STRING
+INDEX = 621
+TAILLE = 0
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS DE CONCENTRATION';'LOIS CONC';''
+RUBRIQUE1 = 'CONCENTRATION LAWS';'CONCENTRATION LAWS';''
+NIVEAU = 0
+AIDE = 'Nom de la loi de concentration'
+AIDE1 = 'Concentration law name'
+ALLOCATED = 'NUMBER OF CONCENTRATION LAWS'
+PATHNODE = 'parametresCas/loisDeConcentration/lois/nom'
+/
+NOM = 'LOI CONC x MODE D''ENTREE'
+NOM1 = 'CONCENTRATION LAW x INPUT'
+TYPE = INTEGER
+INDEX = 631
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+CHOIX =
+'1 = "entree par fichier"';
+'2 = "entree par clavier"'
+CHOIX1 =
+'1 = "file input"';
+'2 = "keyboard input"'
+RUBRIQUE = 'LOIS DE CONCENTRATION';'LOIS CONC';''
+RUBRIQUE1 = 'CONCENTRATION LAWS';'CONCENTRATION LAWS';''
+NIVEAU = 0
+AIDE = 'Indique le mode d"entree pour la loi de concentration'
+AIDE1 = 'Specify the kind of input for the concentration law'
+ALLOCATED = 'NUMBER OF CONCENTRATION LAWS'
+PATHNODE = 'parametresCas/loisDeConcentration/lois/modeEntree'
+/
+NOM = 'LOI CONC x FICHIER'
+NOM1 = 'CONCENTRATION LAW x FILE'
+TYPE = STRING
+INDEX = 636
+TAILLE = -1
+DEFAUT = ' '
+DEFAUT1 = ' '
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS DE CONCENTRATION';'LOIS CONC';''
+RUBRIQUE1 = 'CONCENTRATION LAWS';'CONCENTRATION LAWS';''
+NIVEAU = 0
+AIDE = 'Nom du fichier contenant la loi de concentration'
+AIDE1 = 'File name for the concentration law'
+ALLOCATED = 'NUMBER OF CONCENTRATION LAWS'
+PATHNODE = 'parametresCas/loisDeConcentration/lois/fichier'
+/
+NOM = 'LOI CONC x NOMBRE DE POINTS'
+NOM1 = 'CONCENTRATION LAW x NUMBER OF POINTS'
+TYPE = INTEGER
+INDEX = 646
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS DE CONCENTRATION';'LOIS CONC';''
+RUBRIQUE1 = 'CONCENTRATION LAWS';'CONCENTRATION LAWS';''
+NIVEAU = 0
+AIDE = 'Specifie le nombre de points pour la loi de concentration'
+AIDE1 = 'Specify the number of points for the concentration law'
+ALLOCATED = 'NUMBER OF CONCENTRATION LAWS'
+PATHNODE = 'parametresCas/loisDeConcentration/lois/nbPts'
+/
+NOM = 'LOI CONC x TEMPS'
+NOM1 = 'CONCENTRATION LAW x TIME'
+TYPE = REAL
+INDEX = 636
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS DE CONCENTRATION';'LOIS CONC';''
+RUBRIQUE1 = 'CONCENTRATION LAWS';'CONCENTRATION LAWS';''
+NIVEAU = 0
+AIDE = 'Liste les temps des lois de concentration'
+AIDE1 = 'List the time values for concentration laws'
+ALLOCATED = 'NUMBER OF CONCENTRATION LAWS'
+ALLOCATED2 = 'CONCENTRATION LAW x NUMBER OF POINTS'
+PATHNODE = 'parametresCas/loisDeConcentration/lois/temps'
+/
+NOM = 'LOI CONC x CONCENTRATION'
+NOM1 = 'CONCENTRATION LAW x CONCENTRATION'
+TYPE = REAL
+INDEX = 651
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS DE CONCENTRATION';'LOIS CONC';''
+RUBRIQUE1 = 'CONCENTRATION LAWS';'CONCENTRATION LAWS';''
+NIVEAU = 0
+AIDE = 'Liste les concentrations des lois de concentration'
+AIDE1 = 'List the concentrations for concentration laws'
+ALLOCATED = 'NUMBER OF CONCENTRATION LAWS'
+ALLOCATED2 = 'CONCENTRATION LAW x NUMBER OF POINTS'
+PATHNODE = 'parametresCas/loisDeConcentration/lois/concentration'
+/
+NOM = 'LOI CONC x UNITE DE TEMPS'
+NOM1 = 'CONCENTRATION LAW x TIME UNIT'
+TYPE = INTEGER
+INDEX = 647
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+APPARENCE =
+'DYNLIST'
+RUBRIQUE = 'LOIS DE CONCENTRATION';'LOIS CONC';''
+RUBRIQUE1 = 'CONCENTRATION LAWS';'CONCENTRATION LAWS';''
+NIVEAU = 0
+AIDE = 'Definit l''unite de temps des lois de concentration'
+AIDE1 = 'Define the time unit for concentration laws'
+ALLOCATED = 'NUMBER OF CONCENTRATION LAWS'
+PATHNODE = 'parametresCas/loisDeConcentration/lois/uniteDeTemps'
+/
+NOM = 'CLIP EVOLUTION'
+NOM1 = 'CLIP EVOLUTION'
+TYPE = REAL
+INDEX = 662
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';'CLIPPING'
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';'CLIPPING'
+NIVEAU = 0
+AIDE = 'Indique le seuil de clipping en pourcentage de hauteur d''eau'
+AIDE1 = 'Specify the clipping threshold in percent of water depth'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/clipping/clipEvolution'
+/
+NOM = 'PENTE LOCALE'
+NOM1 = 'LOCAL SLOPE'
+TYPE = LOGICAL
+INDEX = 663
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';'PENTE D''ENERGIE'
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';'ENERGY SLOPE'
+NIVEAU = 0
+AIDE = 'La pente d''energie est calculee localement a partir de la
+formule de Strickler (sinon calculee via la charge)'
+AIDE1 = 'The energy slope is calculated locally from Strickler formula
+(otherwise it is deduced from head values)'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/penteEnergie/
+penteLocale'
+/
+NOM = 'D84'
+NOM1 = 'D84'
+TYPE = REAL
+INDEX = 664
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'PARAMETRES PHYSIQUES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'PHYSICAL PARAMETERS';''
+NIVEAU = 0
+AIDE = 'Diametre pour lequel 84\\% des grains ont une taille inferieure
+ (representatif de la fraction grossiere)'
+AIDE1 = 'Particle size for which 84\\% of the distribution is finer'
+PATHNODE =
+'parametresCas/parametresSedimentaires/parametresPhysiques/d84'
+/
+NOM = 'DIAMETRE MOYEN'
+NOM1 = 'MEAN DIAMETER'
+TYPE = REAL
+INDEX = 665
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'PARAMETRES PHYSIQUES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'PHYSICAL PARAMETERS';''
+NIVEAU = 0
+AIDE = 'Diametre moyen'
+AIDE1 = 'Mean diameter'
+PATHNODE =
+'parametresCas/parametresSedimentaires/parametresPhysiques/dm'
+/
+NOM = 'D16'
+NOM1 = 'D16'
+TYPE = REAL
+INDEX = 666
+TAILLE = 1
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'PARAMETRES PHYSIQUES';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'PHYSICAL PARAMETERS';''
+NIVEAU = 0
+AIDE = 'Diametre pour lequel 16\\% des grains ont une taille inferieure
+ (representatif de la fraction fine)'
+AIDE1 = 'Particle size for which 16\\% of the distribution is finer'
+PATHNODE =
+'parametresCas/parametresSedimentaires/parametresPhysiques/d16'
+/
+NOM = 'OPTION CHARRIAGE'
+NOM1 = 'BEDLOAD OPTION'
+TYPE = LOGICAL
+INDEX = 667
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';''
+NIVEAU = 0
+AIDE = 'Modelisation du charriage'
+AIDE1 = 'Bedload model'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/charriageOpt'
+/
+NOM = 'OPTION SUSPENSION'
+NOM1 = 'SUSPENSION OPTION'
+TYPE = LOGICAL
+INDEX = 668
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'SUSPENSION';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'SUSPENSION';''
+NIVEAU = 0
+AIDE = 'Modelisation de la suspension'
+AIDE1 = 'Suspension model'
+PATHNODE =
+'parametresCas/parametresSedimentaires/suspension/suspensionOpt'
+/
+NOM = 'OPTION DE RUPTURE DE TALUS'
+NOM1 = 'SEDIMENT SLIDE OPTION'
+TYPE = LOGICAL
+INDEX = 669
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';'RUPTURE DE TALUS'
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';'SEDIMENT SLIDE'
+NIVEAU = 0
+AIDE = 'Active le modele de rupture de talus'
+AIDE1 = 'Activate sediment slide model'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/ruptureTalus/
+optRuptureTalus'
+/
+NOM = 'OPTION DE CLIPPING'
+NOM1 = 'CLIPPING OPTION'
+TYPE = LOGICAL
+INDEX = 670
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';'CLIPPING'
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';'CLIPPING'
+NIVEAU = 0
+AIDE = 'Active l''option de clipping en pourcentage de hauteur d''eau'
+AIDE1 = 'Activate the clipping option in water depth percentage'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/clipping/optClipping'
+/
+NOM = 'CLIP ABSOLU SUR L''EVOLUTION'
+NOM1 = 'ABSOLUTE CLIP EVOLUTION'
+TYPE = REAL
+INDEX = 671
+TAILLE = 1
+DEFAUT = 1e-05
+DEFAUT1 = 1e-05
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';'CLIPPING'
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';'CLIPPING'
+NIVEAU = 0
+AIDE = 'Definit le seuil de clipping en evolution du fond (metres)'
+AIDE1 = 'Define clipping threshold in bottom evolution (meters)'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/clipping/
+clipAbsoluEvol'
+/
+NOM = 'LOI DE TRANSPORT'
+NOM1 = 'TRANSPORT LAW'
+TYPE = INTEGER
+INDEX = 672
+TAILLE = -1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+CHOIX =
+'1="MEYER-PETER-MULLER"';
+'2="LEFORT"';
+'3="RECKING 2013"';
+'4="RECKING 2015"'
+CHOIX1 =
+'1="MEYER-PETER-MULLER"';
+'2="LEFORT"';
+'3="RECKING 2013"';
+'4="RECKING 2015"'
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';''
+NIVEAU = 0
+AIDE = 'Choix de la loi de transport'
+AIDE1 = 'Choice of the bedload law'
+PATHNODE = 'parametresCas/parametresSedimentaires/charriage/
+loiTransport'
+/
+NOM = 'POROSITE'
+NOM1 = 'POROSITY'
+TYPE = REAL
+INDEX = 673
+TAILLE = 1
+DEFAUT = 0.25
+DEFAUT1 = 0.25
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';''
+NIVEAU = 0
+AIDE = 'Definit la porosite des sediments'
+AIDE1 = 'Define sediment porosity'
+PATHNODE = 'parametresCas/parametresSedimentaires/charriage/porosite'
+/
+NOM = 'CONCENTRATION AMONT SANS LES VIDES'
+NOM1 = 'UPSTREAM SEDIMENT CONCENTRATION WITHOUT VOIDS'
+TYPE = LOGICAL
+INDEX = 674
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';''
+NIVEAU = 0
+AIDE = 'Option pour indiquer que la concentration solide amont
+est donnee sans les vides'
+AIDE1 = 'Option to indicate that the upstream sediment concentration
+does not take into account voids'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/
+concentrationAmontSansVides'
+/
+NOM = 'RAPPORT RUGOSITE AVEC QSTAR POUR LEFORT'
+NOM1 = 'ROUGHNESS RATIO WITH QSTAR FOR LEFORT'
+TYPE = LOGICAL
+INDEX = 675
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';'LEFORT'
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';'LEFORT'
+NIVEAU = 0
+AIDE = 'Option pour calculer le rapport entre la rugosite et la
+rugosite de peau lorsque celui-ci est inconnu'
+AIDE1 = 'Option to calculate the ratio between the friction and
+the skin friction when it is unknown'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/lefort/
+rapportRugositeQstarLefort'
+/
+NOM = 'DEBUG CHARRIAGE'
+NOM1 = 'DEBUG BEDLOAD'
+TYPE = LOGICAL
+INDEX = 676
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';''
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';''
+NIVEAU = 0
+AIDE = 'Option pour afficher les variables de transport solide dans la
+console en cours de calcul'
+AIDE1 = 'Option to print solid transport variables during calculation'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/debugBedload'
+/
+NOM = 'CONCENTRATION AMONT CALCULEE AVEC PENTE EQUILIBRE'
+NOM1 = 'UPSTREAM SEDIMENT CONCENTRATION FROM EQUILIBRIUM SLOPE'
+TYPE = LOGICAL
+INDEX = 677
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';'PENTE D''EQUILIBRE'
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';'EQUILIBRIUM SLOPE'
+NIVEAU = 0
+AIDE = 'Option pour calculer les concentrations amont a partir d''une
+pente d''equilibre'
+AIDE1 = 'Option to calculate upstream sediment concentration from an
+equilibrium slope given by the user'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/penteEquilibre/
+optPenteEquilibre'
+/
+NOM = 'PENTE EQUILIBRE AMONT'
+NOM1 = 'UPSTREAM EQUILIBRIUM SLOPE'
+TYPE = REAL
+INDEX = 678
+TAILLE = 1
+DEFAUT = 0.005
+DEFAUT1 = 0.005
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';'PENTE D''EQUILIBRE'
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';'EQUILIBRIUM SLOPE'
+NIVEAU = 0
+AIDE = 'Pente d''equilibre correspondant aux apports solides amont'
+AIDE1 = 'Equilibrium slope associated to sediment discharge at upstream
+ boundary'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/penteEquilibre/
+penteAmont'
+/
+NOM = 'OPTION ARRONDI PENTE ENERGIE'
+NOM1 = 'OPTION ROUNDED ENERGY SLOPE'
+TYPE = LOGICAL
+INDEX = 679
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';'PENTE D''ENERGIE'
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';'ENERGY SLOPE'
+NIVEAU = 0
+AIDE = 'La pente d''energie pour la formule de transport est arrondie'
+AIDE1 = 'The transport formula uses rounded energy slope'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/penteEnergie/
+optArrondi'
+/
+NOM = 'PRECISION ARRONDI PENTE ENERGIE'
+NOM1 = 'PRECISION ROUNDED ENERGY SLOPE'
+TYPE = INTEGER
+INDEX = 680
+TAILLE = 1
+DEFAUT = 3
+DEFAUT1 = 3
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';'PENTE D''ENERGIE'
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';'ENERGY SLOPE'
+NIVEAU = 0
+AIDE = 'Nombre de decimales conservees dans la pente d''energie'
+AIDE1 = 'Number of decimals to keep for the energy slope'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/penteEnergie/precision'
+/
+NOM = 'MORPHOLOGY OPTION RECKING 2015'
+NOM1 = 'MORPHOLOGY OPTION RECKING 2015'
+TYPE = INTEGER
+INDEX = 681
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';'RECKING2015'
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';'RECKING2015'
+NIVEAU = 0
+AIDE = 'Calcul de la contrainte de mobilite suivant la morphologie
+(1 : seuils-mouilles et bancs alternes ; 2 : autres)'
+AIDE1 = 'Mobility shear stress for 1 : riffle-pools or 2 : others
+morphologies'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/recking2015/
+morphoOptRecking2015'
+/
+NOM = 'CALCUL CONTRAINTE AVEC LE DEBIT POUR RECKING 2015'
+NOM1 = 'SHIELDS SHEAR STRESS WITH DISCHARGE FOR RECKING 2015'
+TYPE = LOGICAL
+INDEX = 682
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+MNEMO = ''
+RUBRIQUE = 'PARAMETRES SEDIMENTAIRES';'CHARRIAGE';'RECKING2015'
+RUBRIQUE1 = 'SEDIMENT PARAMETERS';'BEDLOAD';'RECKING2015'
+NIVEAU = 0
+AIDE = 'Calcul du nombre de Shields grace au debit pour la formule
+de Recking 2015'
+AIDE1 = 'Use of a discharge formula to obtain the Sheilds number with
+Recking formula (2015)'
+PATHNODE =
+'parametresCas/parametresSedimentaires/charriage/recking2015
+/calculContrainteDebitRecking2015'
+/

@@ -1,0 +1,78 @@
+/---------------------------------------------------------------------
+/ ARTEMIS Version v6p2 juillet 2012
+/ Breaking of monochromatic wave
+/---------------------------------------------------------------------
+/
+/---------------------------------------------------------------------
+/ FILE INPUTS - OUTPUTS
+/---------------------------------------------------------------------
+/
+/
+RESULTS FILE              ='r2d_breaking_Dally.slf'
+/
+BOUNDARY CONDITIONS FILE  ='geo_breaking.cli'
+/
+FORTRAN FILE              = f90
+/
+GEOMETRY FILE             ='geo_breaking.slf'
+/
+/---------------------------------------------------------------------
+/ GENERAL SETTINGS
+/---------------------------------------------------------------------
+/
+TITLE ='BREAKING OF MONOCHROMATIC WAVE'
+/
+/
+/---------------------------------------------------------------------
+/ LISTING
+/---------------------------------------------------------------------
+/
+WAVE HEIGHTS SMOOTHING           = NO
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  ='HS,PHAS,ZS,ZF,C,CG,QB'
+/
+/---------------------------------------------------------------------
+/ INITIAL CONDITIONS
+/---------------------------------------------------------------------
+/
+INITIAL CONDITIONS   ='CONSTANT ELEVATION'
+/
+INITIAL WATER LEVEL  = 0.
+/
+/
+/--------------------------------------------------------------------/
+/ OPTIONS
+/--------------------------------------------------------------------/
+/
+MATRIX STORAGE    : 3
+/
+/---------------------------------------------------------------------
+/ NUMERICAL PARAMETERS
+/---------------------------------------------------------------------
+/
+SOLVER = 8
+/
+/for parallel calculations using n processors
+/add PARALLEL PROCESSORS = n
+/replace SOLVER = 8 by SOLVER = 3
+/
+DISSIPATION RELAXATION = 0.25
+/
+/---------------------------------------------------------------------
+/ PHYSICAL PARAMETERS
+/---------------------------------------------------------------------
+/
+BREAKING        = YES
+BREAKING LAW    = 2
+/
+PRECONDITIONING = 2
+/
+WAVE PERIOD     = 1.79
+/
+DIRECTION OF WAVE PROPAGATION = 0.
+/
+KDALLY = 0.25
+GDALLY = 0.4
+/
+PHASE REFERENCE COORDINATES : -10.; 0.
+/

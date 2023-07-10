@@ -1,0 +1,28 @@
+/---------------------------------------------------------------------
+/ ARTEMIS Version v7p0 mars 2014
+/ CAS DU PORT SCHEMATIQUE DE DELFT + CALCUL TETAP AUTO
+/ (FYI : incidence angles plot using scilab file scilab -f post.sci)
+/---------------------------------------------------------------------
+BOUNDARY CONDITIONS FILE           : 'geo_delft-harbour.cli'
+GEOMETRY FILE                      : 'geo_delft-harbour.slf'
+RESULTS FILE                       : 'r2d_port_auto.slf'
+/
+MATRIX STORAGE                     : 3
+/
+TITLE = 'AUTOMATIC TETAP FOR SCHEMATIC DELFT HARBOUR'
+WAVE PERIOD : 1.4
+DIRECTION OF WAVE PROPAGATION   : 90.
+/
+VARIABLES FOR GRAPHIC PRINTOUTS    :
+'HS,PHAS,ZS,ZF,INC,PHIR,PHII,U0,V0'
+INITIAL CONDITIONS   : 'CONSTANT ELEVATION'
+INITIAL WATER LEVEL  : 0.3
+/
+/SOLVER =8
+SOLVER =3
+AUTOMATIC TETAP CALCULATION : YES
+SUB-ITERATIONS ACCURACY FOR TETAP=1E-2
+/for parallel calculations using n processors
+/add PARALLEL PROCESSORS : n
+/replace SOLVER : 8 by SOLVER : 9
+/

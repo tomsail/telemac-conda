@@ -1,0 +1,3474 @@
+&DYN
+/---SYSTEME-TELEMAC-----------------------------------------ARTEMIS-------------
+/
+/ INDICES IN USE SO FAR:
+/ INTEGER INDEX USED: 1-4,8-17,19-29,31 OUT OF  26
+/ REAL INDEX USED: 1-5,7-16,18-42 OUT OF  40
+/ LOGICAL INDEX USED: 1-18 OUT OF  18
+/ STRING INDEX USED: 1-10,15-21,24-24,28-39,41-44 OUT OF  34
+/
+/-------------------------------------------------------------------------------
+/
+NOM = 'FICHIER DE GEOMETRIE'
+NOM1 = 'GEOMETRY FILE'
+TYPE = STRING
+INDEX = 6
+MNEMO = 'NOMGEO'
+TAILLE = 1
+SUBMIT = 'NGEO-READ;ARTGEO;OBLIG;BIN;LIT;SELAFIN-GEOM'
+/DEFAUT = ' '
+/DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+COMPORT =
+ 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Nom du fichier contenant le maillage du calcul a realiser.'
+AIDE1 = '
+Name of the file which contains the computational mesh.'
+
+NOM = 'TITRE'
+NOM1 = 'TITLE'
+TYPE = STRING
+INDEX = 1
+MNEMO = 'TITCAS'
+TAILLE = 1
+DEFAUT = ''
+DEFAUT1 = ''
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'GLOBAL';''
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'GLOBAL';''
+COMPORT = 'Foreground ("ENTREES-SORTIES,GENERALITES*CALCUL")
+IS VALEUR (red)'
+NIVEAU = 1
+AIDE = 'Titre du cas etudie.'
+AIDE1 = 'Title of the studied case.'
+/
+NOM  = 'DEBUGGER'
+NOM1 = 'DEBUGGER'
+TYPE = INTEGER
+INDEX = 28
+MNEMO = 'DEBUG'
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE =
+'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 =
+'GENERAL PARAMETERS';'';''
+COMPORT = 'Foreground ("PARAMETRES NUMERIQUES") IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE= 'Pour imprimer la sequence des appels, mettre 1.'
+AIDE1 = 'If 1, calls of subroutines will be printed in the listing.'
+
+NOM = 'LONGUEUR DU VECTEUR'
+NOM1 = 'VECTOR LENGTH'
+TYPE = INTEGER
+INDEX = 17
+MNEMO = 'LVMAC'
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'GLOBAL';''
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'GLOBAL';''
+COMPORT = 'Foreground ("ENTREES-SORTIES,GENERALITES*ENVIRONNEMENT")
+IS VALEUR (red)'
+NIVEAU = 2
+AIDE =
+'Longueur du vecteur pour les machines vectorielles.'
+AIDE1 =
+'Vector length on vector machines.'
+
+/NOM = 'LOI DE FROTTEMENT SUR LE FOND'
+/NOM1 = 'LAW OF BOTTOM FRICTION'
+/TYPE = INTEGER
+/INDEX = 18
+/MNEMO = 'KFROT'
+/TAILLE = 1
+/DEFAUT = 0
+/DEFAUT1 = 0
+/RUBRIQUE = 'DISSIPATION';'FROTTEMENT FOND'
+/RUBRIQUE1 = 'DISSIPATION';'BOTTOM FRICTION'
+/COMPORT = 'Foreground ("DISSIPATION*FROTTEMENT") IS VALEUR (BLUE)'
+/NIVEAU = 2
+/AIDE = '
+/Non utilise dans ARTEMIS. On le laisse par coherence avec \telemac{2d}.'
+/AIDE1 = '
+/Not used in ARTEMIS. It is kept for consistence with \telemac{2d}.'
+
+NOM = 'STOCKAGE DES MATRICES'
+NOM1 = 'MATRIX STORAGE'
+TYPE = INTEGER
+INDEX = 19
+MNEMO = 'OPTASS'
+TAILLE = 1
+DEFAUT = 3
+DEFAUT1 = 3
+CHOIX =
+'1="EBE classique"';
+'2="EBE assemble"';
+'3="Stockage par segments"'
+CHOIX1 =
+'1="Classical EBE"';
+'2="Assembled EBE"';
+'3="Edge-based storage"'
+RUBRIQUE = 'PARAMETRES NUMERIQUES'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS'
+COMPORT = 'Foreground ("PARAMETRES NUMERIQUES") IS VALEUR (Blue)'
+NIVEAU = 2
+AIDE =
+'Permet de definir la methode de stockage des matrices.
+Les choix possibles sont :
+\begin{itemize}
+\item 1 : EBE classique ;
+\item 2 : EBE assemble ;
+\item 3 : stockage par segments.
+\end{itemize}
+Attention, avec 2, il faut une numerotation speciale des points.'
+AIDE1 =
+'Defines the method to store matrices. The possible choices are:
+\begin{itemize}
+\item 1: classical EBE,
+\item 2: assembled EBE,
+\item 3: edge-based storage.
+\end{itemize}
+Beware, with option 2, a special numbering of points is required.'
+
+NOM = 'PRODUIT MATRICE-VECTEUR'
+NOM1 = 'MATRIX-VECTOR PRODUCT'
+TYPE = INTEGER
+INDEX = 20
+MNEMO = 'PRODUC'
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE =
+'PARAMETRES NUMERIQUES'
+RUBRIQUE1 =
+'NUMERICAL PARAMETERS'
+COMPORT = 'Foreground ("PARAMETRES NUMERIQUES") IS VALEUR (Blue)'
+NIVEAU = 2
+AIDE =
+'Les choix possibles sont :
+\begin{itemize}
+\item 1 : Ancien Produit ;
+\item 2 : Nouveau Produit Frontal.
+\end{itemize}'
+AIDE1 =
+'Possible choices are:
+\begin{itemize}
+\item 1: Classical Product,
+\item 2: New Frontal Product.
+\end{itemize}'
+
+NOM = 'PERIODE DE SORTIE GRAPHIQUE'
+NOM1 = 'GRAPHIC PRINTOUT PERIOD'
+TYPE = INTEGER
+INDEX = 1
+MNEMO = 'LEOPRD'
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'RESULTS'
+COMPORT = 'Foreground ("ENTREES-SORTIES,GRAPHIQUES ET LISTING")
+IS VALEUR (Red)'
+NIVEAU = 1
+AIDE = 'Determine la periode, en nombre de periodes de houle,
+d impression des \telkey{VARIABLES POUR LES SORTIES GRAPHIQUES}
+(voir ce mot-cle) dans le \telkey{FICHIER DES RESULTATS}.'
+AIDE1 = 'Fixes the period, in number of wave periods, for the writing
+of the \telkey{VARIABLES FOR GRAPHIC PRINTOUTS} (see this keyword)
+in the \telkey{RESULTS FILE}.'
+
+NOM = 'PERIODE DE SORTIE LISTING'
+NOM1 = 'LISTING PRINTOUT PERIOD'
+TYPE = INTEGER
+INDEX = 2
+MNEMO = 'LISPRD'
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'LISTING'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'LISTING'
+COMPORT = 'Foreground ("ENTREES-SORTIES,GRAPHIQUES ET LISTING")
+IS VALEUR (Red)'
+NIVEAU = 1
+AIDE = 'Determine la periode, en nombre de periodes de houle,
+d impression des \telkey{VARIABLES A IMPRIMER} (voir ce mot-cle). Pour
+la mise au point, il faut savoir que la sortie des resultats est
+effectuee systematiquement sur le fichier de retour d execution du code
+(actuellement accessible par le menu 3.e de SPF sur IBM).'
+AIDE1 = 'Fixes the period, in number of wave periods, for the writing
+of the \telkey{VARIABLES TO BE PRINTED} (see this keyword).'
+
+NOM = 'MAXIMUM D''ITERATIONS POUR LE SOLVEUR'
+NOM1 = 'MAXIMUM NUMBER OF ITERATIONS FOR SOLVER'
+TYPE = INTEGER
+INDEX = 3
+MNEMO = 'SLVART\%NITMAX'
+TAILLE = 1
+DEFAUT = 60000
+DEFAUT1 = 60000
+RUBRIQUE =
+'PARAMETRES NUMERIQUES';'INFO SOLVEUR';''
+RUBRIQUE1 =
+'NUMERICAL PARAMETERS';'SOLVER INFO';''
+COMPORT = 'Foreground ("PARAMETRES NUMERIQUES,SOLVEUR")
+ IS VALEUR (Blue)'
+NIVEAU = 2
+AIDE = 'Les algorithmes utilises pour la resolution du systeme
+matriciel etant iteratifs, il est necessaire de limiter le nombre
+d iterations autorisees.'
+AIDE1 = 'Algorithms used for solving the matrix system are iterative.
+It is then necessary to limit the maximum number of iterations.'
+
+NOM = 'NOMBRE DE PERIODES DE DISCRETISATION'
+NOM1 = 'NUMBER OF PERIODS'
+TYPE = INTEGER
+INDEX = 10
+MNEMO = 'NPALE'
+TAILLE = 0
+DEFAUT = 5
+DEFAUT1 = 5
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE ALEATOIRE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'RANDOM WAVE'
+COMPORT = 'Foreground ("PARAMETRES PHYSIQUES*HOULE ALEATOIRE")
+ IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Valeur utilisee avec l option
+\telkey{HOULE ALEATOIRE MONODIRECTIONNELLE} = OUI
+  ou avec l option
+\telkey{HOULE ALEATOIRE MULTIDIRECTIONNELLE} = OUI.
+Pour un calcul en houle aleatoire monodirectionnelle ou
+multidirectionnelle, nombre de bandes d egale energie servant a
+discretiser le spectre d energie en frequence.'
+AIDE1 = '
+Used with option
+\telkey{MONODIRECTIONAL RANDOM WAVE} = YES
+   or
+\telkey{MULTIDIRECTIONAL RANDOM WAVE} = YES.
+It fixes the number of iso-energy frequency bands which discretize
+the energy spectrum.'
+
+NOM = 'LISSAGES DU FOND'
+NOM1 = 'BOTTOM TOPOGRAPHY SMOOTHING'
+TYPE = INTEGER
+INDEX = 9
+MNEMO = 'LISFON'
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+COMPORT = 'Foreground ("EQUATIONS,LISSAGE") IS VALEUR (Brown)'
+NIVEAU = 2
+AIDE = '
+Nombre de lissages effectues sur la topographie.
+Chaque lissage, effectue a l aide d une matrice de masse,
+est conservatif.
+Utilise lorsque les donnees de bathymetrie donnent des resultats
+trop irreguliers apres interpolation.'
+AIDE1 = '
+Number of smoothings done on the topography.
+Each smoothing, using a mass matrix, is conservative.
+It is used when bathymetric data provide too irregular results
+after interpolation.'
+
+NOM = 'COTE INITIALE'
+NOM1 = 'INITIAL WATER LEVEL'
+TYPE = REAL
+INDEX =  7
+MNEMO = 'COTINI'
+TAILLE = 1
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'INITIALISATION'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'INITIALIZATION'
+COMPORT = 'Foreground
+ ("EQUATIONS CONDITIONS INITIALES") IS VALEUR (Brown)'
+NIVEAU = 1
+AIDE =
+'Valeur utilisee avec l option
+\telkey{CONDITIONS INITIALES} : ''COTE CONSTANTE''.'
+AIDE1 =
+'Value to be used with the option
+\telkey{INITIAL CONDITIONS}: ''CONSTANT ELEVATION''.'
+
+NOM = 'PRECONDITIONNEMENT'
+NOM1 = 'PRECONDITIONING'
+TYPE = INTEGER
+INDEX = 4
+MNEMO = 'SLVART\%PRECON'
+TAILLE = 1
+DEFAUT = 2
+DEFAUT1 = 2
+RUBRIQUE =
+'PARAMETRES NUMERIQUES';'INFO SOLVEUR';''
+RUBRIQUE1 =
+'NUMERICAL PARAMETERS';'SOLVER INFO';''
+COMPORT = 'Foreground ("PARAMETRES NUMERIQUES,SOLVEUR")
+ IS VALEUR (Blue)'
+NIVEAU = 2
+CHOIX =
+'0="pas de preconditionnement"';
+'2="preconditionnement diagonal"';
+'3="preconditionnement bloc-diagonal"';
+'5="preconditionnement diagonal en valeur absolue"';
+'7="preconditionnement de Crout par element"'
+CHOIX1 =
+'0="no preconditioning"';
+'2="diagonal preconditioning"';
+'3="block-diagonal preconditioning"';
+'5="absolute value diagonal preconditioning"';
+'7="Crout preconditioning"'
+AIDE = '
+Permet de preconditionner le systeme de l etape de propagation afin
+d accelerer la convergence lors de sa resolution.
+\begin{itemize}
+\item 0 : pas de preconditionnement ;
+\item 2 : preconditionnement diagonal ;
+\item 3 : preconditionnement bloc-diagonal ;
+\item 5 : preconditionnement diagonal en valeur absolue ;
+\item 7 : preconditionnement de Crout par element.
+\end{itemize}
+Certains preconditionnements sont cumulables
+(les diagonaux 2 ou 3 avec les autres).
+Pour cette raison on ne retient que les nombres premiers pour
+designer les preconditionnements. Si l on souhaite en cumuler
+plusieurs on formera le produit des options correspondantes.'
+AIDE1 = '
+Enables to apply preconditionning the matrix system to accelerate
+the convergence of the solver.
+\begin{itemize}
+\item 0: no preconditionning,
+\item 2: diagonal preconditionning,
+\item 3: block-diagonal preconditionning,
+\item 5: diagonal preconditionning in absolute value,
+\item 7: Element Crout preconditionning.
+\end{itemize}
+Few of them can be combined
+(numbers 2 or 3 with the other).
+To combine some preconditionnings, impose the product of the previous
+numbers: example 6 means preconditioning 2 and 3 applied.'
+
+NOM = 'SOLVEUR'
+NOM1 = 'SOLVER'
+TYPE = INTEGER
+INDEX = 8
+MNEMO = 'SLVART\%SLV'
+TAILLE = 1
+DEFAUT = 8
+DEFAUT1 = 8
+RUBRIQUE =
+'PARAMETRES NUMERIQUES';'INFO SOLVEUR';''
+RUBRIQUE1 =
+'NUMERICAL PARAMETERS';'SOLVER INFO';''
+COMPORT = 'Foreground ("PARAMETRES NUMERIQUES,SOLVEUR")
+IS VALEUR (Blue)'
+NIVEAU = 2
+CHOIX =
+'1="gradient conjugue"';
+'2="residu conjugue"';
+'3="gradient conjugue sur equation normale"';
+'4="erreur minimale"';
+'5="gradient conjugue carre (non programme)"';
+'6="CGSTAB"';
+'7="GMRES"';
+'8="direct"';
+'9="direct parallele (MUMPS)"'
+CHOIX1 =
+'1="conjugate gradient"';
+'2="conjugate residual"';
+'3="conjugate gradient on a normal equation"';
+'4="minimum error"';
+'5="squared conjugate gradient"';
+'6="CGSTAB"';
+'7="GMRES"';
+'8="direct"';
+'9="parallel direct (MUMPS)"'
+AIDE = '
+Permet de choisir le solveur utilise pour la resolution de l etape de
+propagation. Toutes les methodes proposees actuellement s apparentent
+au Gradient Conjugue. Ce sont :
+\begin{itemize}
+\item 1 : gradient conjugue ;
+\item 2 : residu conjugue ;
+\item 3 : gradient conjugue sur equation normale ;
+\item 4 : erreur minimale ;
+\item 5 : gradient conjugue carre (non programme) ;
+\item 6 : gradient conjugue de type CGSTAB ;
+\item 7 : GMRES ;
+\item 8 : solveur direct.
+\end{itemize}'
+AIDE1 = '
+Enables to choose the solver used for solving the matrix system.
+They are:
+\begin{itemize}
+\item 1: conjugate gradient,
+\item 2: conjugate residual,
+\item 3: conjugate gradient on the normal equation,
+\item 4: minimum error,
+\item 5: squared conjugate gradient (not programmed),
+\item 6: CGSTAB conjugate gradient,
+\item 7: GMRES,
+\item 8: direct solver.
+\end{itemize}'
+
+NOM = 'OPTION DU SOLVEUR'
+NOM1 = 'SOLVER OPTION'
+TYPE = INTEGER
+INDEX = 16
+MNEMO = 'SLVART\%KRYLOV'
+TAILLE = 1
+DEFAUT = 3
+DEFAUT1 = 3
+RUBRIQUE =
+'PARAMETRES NUMERIQUES';'INFO SOLVEUR';''
+RUBRIQUE1 =
+'NUMERICAL PARAMETERS';'SOLVER INFO';''
+COMPORT = 'Foreground ("PARAMETRES NUMERIQUES,SOLVEUR")
+IS VALEUR (Blue)'
+NIVEAU = 2
+AIDE = '
+Parametre definissant la dimension de l espace de Krylov
+pour le solveur 7 (GMRES).'
+AIDE1 = '
+Defines the dimension of the Krylov space when using
+the solver 7 (GMRES).'
+
+NOM = 'PERIODE DE PIC'
+NOM1 = 'PEAK PERIOD'
+TYPE = REAL
+INDEX = 12
+MNEMO = 'PERPIC'
+TAILLE = 0
+DEFAUT = 10.0
+DEFAUT1 = 10.0
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE ALEATOIRE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'RANDOM WAVE'
+COMPORT = 'Foreground ("PARAMETRES PHYSIQUES*HOULE ALEATOIRE")
+IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Valeur utilisee avec l option
+\telkey{HOULE ALEATOIRE MONODIRECTIONNELLE} = OUI
+  ou avec l option
+\telkey{HOULE ALEATOIRE MULTIDIRECTIONNELLE} = OUI.
+Fixe la periode de pic (en secondes) du spectre d energie.'
+AIDE1 = '
+Used with option
+\telkey{MONODIRECTIONAL RANDOM WAVE} = YES
+   or
+\telkey{MULTIDIRECTIONAL RANDOM WAVE} = YES.
+Fixes the peak period (in seconds) of the energy spectrum.'
+
+NOM = 'GAMMA'
+NOM1 = 'GAMMA'
+TYPE = REAL
+INDEX = 13
+MNEMO = 'GAMMA'
+TAILLE = 0
+DEFAUT = 3.3
+DEFAUT1 = 3.3
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE ALEATOIRE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'RANDOM WAVE'
+COMPORT = 'Foreground ("PARAMETRES PHYSIQUES*HOULE ALEATOIRE")
+IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Valeur utilisee avec l option
+\telkey{HOULE ALEATOIRE MONODIRECTIONNELLE} = OUI
+  ou avec l option
+\telkey{HOULE ALEATOIRE MULTIDIRECTIONNELLE} = OUI.
+Indique la valeur de $\gamma$ pour le spectre d energie :
+\begin{itemize}
+\item GAMMA = 1   : spectre de Pierson-Moskowitz ;
+\item GAMMA = 3.3 : spectre de JONSWAP moyen (valeur par defaut).
+\end{itemize}'
+AIDE1 = '
+Used with option
+\telkey{MONODIRECTIONAL RANDOM WAVE} = YES
+   or
+\telkey{MULTIDIRECTIONAL RANDOM WAVE} = YES.
+Fixes the $\gamma$ value tor the JONSWAP wave energy spectrum:
+\begin{itemize}
+\item GAMMA = 1: Pierson-Moskowitz,
+\item GAMMA = 3.3: mean JONSWAP spectrum (default value).
+\end{itemize}'
+
+NOM = 'HOULE ALEATOIRE MONODIRECTIONNELLE'
+NOM1 = 'MONODIRECTIONAL RANDOM WAVE'
+TYPE = LOGICAL
+INDEX = 4
+MNEMO = 'ALEMON'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE ALEATOIRE';'MONODIRECTIONNELLE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'RANDOM WAVE';'MONODIRECTIONAL'
+COMPORT = 'Foreground
+("PARAMETRES PHYSIQUES*HOULE ALEATOIRE MONODIRECTIONNELLE")
+IS VALEUR (Blue)';
+'Affichage
+("PARAMETRES PHYSIQUES*HOULE ALEATOIRE")
+IS VALEUR ()'
+NIVEAU = 1
+AIDE = '
+Oui, si l on veut effectuer un calcul en houle aleatoire
+monodirectionnelle (voir reels index 12, 13 et entier index 10).'
+AIDE1 = '
+Yes, if one wants to run computation in random monodirectional waves
+(see real keywords of index 12, 13 and integer of index 10).'
+
+NOM = 'HOULE ALEATOIRE MULTIDIRECTIONNELLE'
+NOM1 = 'MULTIDIRECTIONAL RANDOM WAVE'
+TYPE = LOGICAL
+INDEX = 5
+MNEMO = 'ALEMUL'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE ALEATOIRE';'MULTIDIRECTIONNELLE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'RANDOM WAVE';'MULTIDIRECTIONAL'
+COMPORT = 'Foreground
+("PARAMETRES PHYSIQUES*HOULE ALEATOIRE MULTIDIRECTIONNELLE")
+IS VALEUR (Blue)';
+'Affichage
+("PARAMETRES PHYSIQUES*HOULE ALEATOIRE MULTIDIRECTIONNELLE*DONNEES")
+IS VALEUR ()';
+'Affichage
+("PARAMETRES PHYSIQUES*HOULE ALEATOIRE")
+IS VALEUR ()'
+NIVEAU = 1
+AIDE = '
+Oui, si l on veut effectuer un calcul en houle aleatoire
+multidirectionnelle (voir les reels index 12, 13, 14, 15 et 16 et
+les entiers index 10 et 11.'
+AIDE1 = '
+Yes, if one wants to run computation in random multidirectional waves
+(see real keywords of index 12, 13 and integer of index 10).'
+
+NOM = 'BALAYAGE EN PERIODE'
+NOM1 = 'PERIOD SCANNING'
+TYPE = LOGICAL
+INDEX = 3
+MNEMO = 'BALAYE'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'BALAYAGE EN PERIODES'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'PERIODS SCANNING'
+COMPORT = 'Foreground ("PARAMETRES PHYSIQUES*BALAYAGE EN PERIODES")
+ IS VALEUR (Blue)';
+'Affichage
+("PARAMETRES PHYSIQUES*BALAYAGE EN PERIODES*DONNEES")
+IS VALEUR ()'
+NIVEAU = 1
+AIDE = '
+Oui, si l on veut effectuer plusieurs calculs en balayant un
+intervalle de periodes (voir reels index 8,9 et 10).'
+AIDE1 = '
+Yes, if one wants to run computations by scanning a period range
+(resonance computations, see also reals of index 8, 9, and 10).'
+
+NOM = 'PRECISION DU SOLVEUR'
+NOM1 = 'SOLVER ACCURACY'
+TYPE = REAL
+INDEX = 5
+MNEMO = 'SLVART\%EPS'
+TAILLE = 1
+DEFAUT = 1.E-4
+DEFAUT1 = 1.E-4
+RUBRIQUE =
+'PARAMETRES NUMERIQUES';'INFO SOLVEUR';''
+RUBRIQUE1 =
+'NUMERICAL PARAMETERS';'SOLVER INFO';''
+COMPORT = 'Foreground ("PARAMETRES NUMERIQUES,SOLVEUR")
+IS VALEUR (Blue)'
+NIVEAU = 2
+AIDE = '
+Precision demandee pour la resolution de l equation de Berkhoff.'
+AIDE1 = '
+Accuracy requested for the linear system solver.'
+
+NOM = 'HAUTEUR INITIALE'
+NOM1 = 'INITIAL DEPTH'
+TYPE = REAL
+INDEX = 8
+MNEMO = 'HAUTIN'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'INITIALISATION'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'INITIALIZATION'
+COMPORT = 'Foreground
+ ("EQUATIONS CONDITIONS INITIALES") IS VALEUR (Brown)'
+NIVEAU = 1
+AIDE =
+'Valeur utilisee avec l option
+\telkey{CONDITIONS INITIALES} : ''HAUTEUR CONSTANTE''.'
+AIDE1 =
+'Value to be used along with the option
+\telkey{INITIAL CONDITIONS}: ''CONSTANT DEPTH''.'
+
+NOM = 'PERIODE DE LA HOULE'
+NOM1 = 'WAVE PERIOD'
+TYPE = REAL
+INDEX = 1
+MNEMO = 'PER'
+TAILLE = 0
+DEFAUT = 10.
+DEFAUT1 = 10.
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE MONOCHROMATIQUE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'MONOCHROMATIC WAVE'
+COMPORT = 'Foreground ("PARAMETRES PHYSIQUES*GENERALITES")
+ IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Definit la periode de la houle en mode monochromatique.'
+AIDE1 = '
+Defines the wave period for monochromatic mode.'
+
+NOM = 'ACCELERATION DE LA PESANTEUR'
+NOM1 = 'GRAVITY ACCELERATION'
+TYPE = REAL
+INDEX = 3
+MNEMO = 'GRAV'
+TAILLE = 1
+DEFAUT = 9.81
+DEFAUT1 = 9.81
+RUBRIQUE =
+'PARAMETRES PHYSIQUES'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS'
+COMPORT =
+'Foreground ("CONSTANTES PHYSIQUES") IS VALEUR (Yellow)'
+NIVEAU = 1
+AIDE =
+'Fixe la valeur de l acceleration de la pesanteur en m/s$^2$.'
+AIDE1 =
+'Sets the value of the acceleration due to gravity in m/s$^2$.'
+
+NOM = 'CONDITIONS INITIALES'
+NOM1 = 'INITIAL CONDITIONS'
+TYPE = STRING
+INDEX = 24
+MNEMO = 'CDTINI'
+TAILLE = 1
+DEFAUT = 'COTE NULLE'
+DEFAUT1 = 'ZERO ELEVATION'
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'INITIALISATION'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'INITIALIZATION'
+COMPORT = 'Foreground ("EQUATIONS CONDITIONS INITIALES")
+IS VALEUR (Brown)'
+NIVEAU = 1
+CHOIX =
+'COTE NULLE';
+'COTE CONSTANTE';
+'HAUTEUR NULLE';
+'HAUTEUR CONSTANTE';
+'PARTICULIERES'
+CHOIX1 =
+'ZERO ELEVATION';
+'CONSTANT ELEVATION';
+'ZERO DEPTH';
+'CONSTANT DEPTH ';
+'SPECIAL'
+/APPARENCE = 'LISTE  IS EDITABLE'
+AIDE = '
+Permet de definir les conditions initiales sur les hauteurs d eau.
+Les valeurs possibles sont :
+\begin{itemize}
+\item COTE NULLE : Initialise la cote de surface libre a 0.
+           Les hauteurs d eau initiales sont alors retrouvees en
+           faisant la difference entre les cotes de surface libre
+           et du fond ;
+\item COTE CONSTANTE : Initialise la cote de surface libre a la
+valeur donnee par le mot-cle \telkey{COTE INITIALE}. Les hauteurs
+d eau initiales sont calculees comme precedemment.
+\item HAUTEUR NULLE : Initialise les hauteurs d eau a 0.
+\item HAUTEUR CONSTANTE : Initialise les hauteurs d eau a la valeur
+donnee par le mot-cle \telkey{HAUTEUR INITIALE}.
+\item PARTICULIERES : Les conditions initiales sur la hauteur d eau
+doivent etre precisees dans le sous-programme \telfile{CONDIH}.
+\end{itemize}'
+AIDE1 = '
+Enables to define the initial conditions on water depths.
+The possible values are as follows:
+\begin{itemize}
+\item ZERO ELEVATION: fixes the free surface level to 0.
+Water depths are then equal to the difference between
+free surface level and bottom level,
+\item CONSTANT ELEVATION: fixes the free surface level to the value
+specified by the keyword \telkey{INITIAL WATER LEVEL}. Water
+level are then computed as before,
+\item ZERO DEPTH: initializes the water depths to 0,
+\item CONSTANT DEPTH: initializes the water depths to the value
+specified by the keyword \telkey{INITIAL DEPTH},
+\item SPECIAL: initial conditions on water depths are to be
+precised in the subroutine \telfile{CONDIH}.
+\end{itemize}'
+
+/NOM = 'COEFFICIENT DE RELAXATION'
+/NOM1 = 'RELAXATION COEFFICIENT'
+/TYPE = REAL
+/INDEX = 17
+/MNEMO = 'RELAX'
+/TAILLE = 0
+/DEFAUT = 1.4
+/DEFAUT1 = 1.4
+/RUBRIQUE =
+/ 'ENTREES-SORTIES,GRAPHIQUES ET LISTING';'GENERALITES,SOLVEUR'
+/RUBRIQUE1 = 'INPUT-OUTPUT,GRAPHICS AND LISTING';'INFORMATION,SOLVER'
+/COMPORT =
+/'Foreground
+/ ("ENTREES-SORTIES,GRAPHIQUES ET LISTING*GENERALITES,SOLVEUR")
+/IS VALEUR (Red)'
+/NIVEAU = 1
+/AIDE = '
+/  Non utilise dans la version 3.0 .
+/  Ce coefficient doit etre compris entre 0 et 2.
+/  coefficient de relaxation  dans le cas d une resolution par la
+/  methode  de panchang et al.
+/  voir Solution of the Mild Slope Wave Problem by Iteration
+/       Applied Ocean Research, 1991, Vol. 13, No. 4.'
+/AIDE1 = '
+/  Not used in version 3.0 .
+/  This coefficient is a real between 0 and 2.
+/  It is a relaxation coefficient used in the solving method proposed
+/  by Panchang et al.
+/  See  Solution of the Mild Slope Wave Problem by Iteration
+/       Applied Ocean Research, 1991, Vol. 13, No. 4.'
+
+NOM = 'NOMBRE DE DIRECTIONS DE DISCRETISATION'
+NOM1 = 'NUMBER OF DIRECTIONS'
+TYPE = INTEGER
+INDEX = 11
+MNEMO = 'NDALE'
+TAILLE = 0
+DEFAUT = 5
+DEFAUT1 = 5
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE ALEATOIRE';'MULTIDIRECTIONNELLE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'RANDOM WAVE';'MULTIDIRECTIONAL'
+NIVEAU = 1
+COMPORT = 'Foreground
+("PARAMETRES PHYSIQUES*HOULE ALEATOIRE MULTIDIRECTIONNELLE*DONNEES")
+ IS VALEUR (Blue)'
+AIDE = '
+Valeur utilisee avec l option
+\telkey{HOULE ALEATOIRE MULTIDIRECTIONNELLE} = OUI.
+Pour un calcul en houle aleatoire multidirectionnelle,
+nombre de bandes d egale energie servant a discretiser le spectre
+directionnel d energie.'
+AIDE1 = '
+Used with the option
+\telkey{MULTIDIRECTIONAL RANDOM WAVE} = YES.
+It fixes the number of iso-energy bands which discretizes the wave
+directional spectrum.'
+
+NOM = 'DIRECTION DE PROPAGATION DE LA HOULE'
+NOM1 = 'DIRECTION OF WAVE PROPAGATION'
+TYPE = REAL
+INDEX = 2
+MNEMO = 'TETAH'
+TAILLE = 0
+DEFAUT = 0.0
+DEFAUT1 = 0.0
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE MONOCHROMATIQUE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'MONOCHROMATIC WAVE'
+COMPORT = 'Foreground
+("PARAMETRES PHYSIQUES*GENERALITES") IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Donne la direction du vecteur d onde de la houle incidente. L angle
+est donne en degres et est compte positivement dans le sens direct
+a partir de l axe des $x$.
+Il s agit de la direction principale de propagation.
+Cette direction est la meme a toutes les frontieres maritimes.
+Si l utilisateur veut specifier des directions differentes sur
+differentes frontieres, il doit le faire dans son FORTRAN dans le
+sous-programme \telfile{BORH} en specifiant la variable
+\telfile{TETAB}.'
+AIDE1 = '
+Fixes the direction towards the incident waves at boundaries go to.
+It is counted in degrees and positively in the trigonometric sense
+relatively to the $x$ axis.
+This value is prescribed as a constant value along all the wave
+incident type boundaries. If one wants to specify a non uniform value,
+the user has to specify the value \telfile{TETAB} in the subroutine
+ \telfile{BORH}.'
+
+NOM = 'ZERO'
+NOM1 = 'ZERO'
+TYPE = REAL
+INDEX = 4
+MNEMO = 'SLVART\%ZERO'
+TAILLE = 0
+DEFAUT = 1.E-12
+DEFAUT1 = 1.E-12
+RUBRIQUE =
+'PARAMETRES NUMERIQUES'
+RUBRIQUE1 =
+'NUMERICAL PARAMETERS'
+COMPORT =
+'Foreground ("PARAMETRES NUMERIQUES")
+IS VALEUR (Blue)'
+NIVEAU = 13
+AIDE = '
+Non active pour l instant.'
+AIDE1 = '
+Non active at the moment.'
+
+NOM = 'PERIODE DE DEBUT POUR LE BALAYAGE EN PERIODE'
+NOM1 = 'BEGINNING PERIOD FOR PERIOD SCANNING'
+TYPE = REAL
+INDEX = 9
+MNEMO = 'PERDEB'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'BALAYAGE EN PERIODES';'DONNEES'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'PERIODS SCANNING';'DATA'
+COMPORT =
+ 'Foreground ("PARAMETRES PHYSIQUES*BALAYAGE EN PERIODES*DONNEES")
+ IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Valeur utilisee avec l option
+\telkey{BALAYAGE EN PERIODE} = OUI.
+Indique la borne gauche de l intervalle de periodes a parcourir
+  (pour par exemple rechercher les periodes de resonances).'
+AIDE1 = '
+Used with the option
+\telkey{PERIOD SCANNING} = YES.
+Fixes the minimum value (in seconds) of the period range to be used for
+the period scanning.'
+
+NOM = 'PERIODE DE FIN POUR LE BALAYAGE EN PERIODE'
+NOM1 = 'ENDING PERIOD FOR PERIOD SCANNING'
+TYPE = REAL
+INDEX = 10
+MNEMO = 'PERFIN'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'BALAYAGE EN PERIODES';'DONNEES'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'PERIODS SCANNING';'DATA'
+COMPORT =
+ 'Foreground ("PARAMETRES PHYSIQUES*BALAYAGE EN PERIODES*DONNEES")
+ IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Valeur utilisee avec l option
+\telkey{BALAYAGE EN PERIODE} = OUI.
+Indique la borne droite de l intervalle de periodes a parcourir
+  (pour par exemple rechercher les periodes de resonances).'
+AIDE1 = '
+Used with the option
+\telkey{PERIOD SCANNING} = YES.
+Fixes the maximum value (in seconds) of the period range to be used for
+the period scanning.'
+
+NOM = 'PAS POUR LE BALAYAGE EN PERIODE'
+NOM1 = 'STEP FOR PERIOD SCANNING'
+TYPE = REAL
+INDEX = 11
+MNEMO = 'PERPAS'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'BALAYAGE EN PERIODES';'DONNEES'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'PERIODS SCANNING';'DATA'
+COMPORT =
+ 'Foreground ("PARAMETRES PHYSIQUES*BALAYAGE EN PERIODES*DONNEES")
+ IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Valeur utilisee avec l option
+\telkey{BALAYAGE EN PERIODE} = OUI.
+Indique le pas a prendre pour effectuer le balayage en periodes
+  (pour par exemple rechercher les periodes de resonances).'
+AIDE1 = '
+Used with the option
+\telkey{PERIOD SCANNING} = YES.
+Fixes the value of the period step (in seconds) to be used for
+the period scanning.'
+
+NOM = 'ANGLE MINIMUM DE PROPAGATION'
+NOM1 = 'MINIMUM ANGLE OF PROPAGATION'
+TYPE = REAL
+INDEX = 14
+MNEMO = 'TETMIN'
+TAILLE = 0
+DEFAUT = -180.
+DEFAUT1 = -180.
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE ALEATOIRE';'MULTIDIRECTIONNELLE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'RANDOM WAVE';'MULTIDIRECTIONAL'
+COMPORT = 'Foreground
+("PARAMETRES PHYSIQUES*HOULE ALEATOIRE MULTIDIRECTIONNELLE*DONNEES")
+ IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Valeur utilisee avec l option
+\telkey{HOULE ALEATOIRE MULTIDIRECTIONNELLE} = OUI.
+Indique la borne inferieure de l intervalle des directions de
+  propagation dans le cas d une houle aleatoire multidirectionnelle
+  L angle est donne en degres et est compte positivement dans le sens
+  direct a partir de l axe $x$.'
+AIDE1 = '
+Used with the option
+\telkey{MULTIDIRECTIONAL RANDOM WAVE} = YES.
+Fixes the minimum value (in degrees) of the directions range. It is
+counted positively in the trigonometric sense relatively to the $x$
+axis.'
+
+NOM = 'ANGLE MAXIMUM DE PROPAGATION'
+NOM1 = 'MAXIMUM ANGLE OF PROPAGATION'
+TYPE = REAL
+INDEX = 15
+MNEMO = 'TETMAX'
+TAILLE = 0
+DEFAUT = 180.
+DEFAUT1 = 180.
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE ALEATOIRE';'MULTIDIRECTIONNELLE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'RANDOM WAVE';'MULTIDIRECTIONAL'
+COMPORT = 'Foreground
+("PARAMETRES PHYSIQUES*HOULE ALEATOIRE MULTIDIRECTIONNELLE*DONNEES")
+ IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Valeur utilisee avec l option
+\telkey{HOULE ALEATOIRE MULTIDIRECTIONNELLE} = OUI.
+Indique la borne superieure de l intervalle des directions de
+  propagation dans le cas d une houle aleatoire multidirectionnelle.
+  L angle est donne en degres et est compte positivement dans le sens
+  direct a partir de l axe $x$.'
+AIDE1 = '
+Used with the option
+\telkey{MULTIDIRECTIONAL RANDOM WAVE} = YES.
+Fixes the maximum value (in degrees) of the directions range. It is
+counted positively in the trigonometric sense relatively to the $x$
+axis.'
+
+NOM = 'EXPOSANT S'
+NOM1 = 'S EXPONENT'
+TYPE = REAL
+INDEX = 16
+MNEMO = 'EXPOS'
+TAILLE = 0
+DEFAUT = 20.
+DEFAUT1 = 20.
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE ALEATOIRE';'MULTIDIRECTIONNELLE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'RANDOM WAVE';'MULTIDIRECTIONAL'
+COMPORT = 'Foreground
+("PARAMETRES PHYSIQUES*HOULE ALEATOIRE MULTIDIRECTIONNELLE*DONNEES")
+ IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Valeur utilisee avec l option
+\telkey{HOULE ALEATOIRE MULTIDIRECTIONNELLE} = OUI.
+Indique la valeur maximale de l exposant $s$ dans l expression donnant
+  la repartition directionnelle de la houle.
+  Cette expression est celle donnee par Goda dans Random Seas and
+  Design of Maritime Structures - University of Tokyo Press:
+  G(f,teta) = G0 * (cos(teta/2))**2s. f est la frequence et teta est
+  la direction de propagation de la houle.'
+AIDE1 = '
+Used with the option
+\telkey{MULTIDIRECTIONAL RANDOM WAVE} = YES.
+Fixes the maximum value of exponent $S$ in the Goda formula used to
+express the directional wave energy spreading.
+See GODA Y., Random Seas and Design of Maritime Structures - Univ.
+of Tokyo Press, 1987.'
+
+NOM = 'SORTIE LISTING'
+NOM1 = 'LISTING PRINTOUT'
+TYPE = LOGICAL
+INDEX = 1
+MNEMO = 'LISTIN'
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'LISTING'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'LISTING'
+NIVEAU = 1
+COMPORT =
+'Foreground
+ ("ENTREES-SORTIES,GRAPHIQUES ET LISTING*GENERALITES,SOLVEUR")
+IS VALEUR (Red)'
+AIDE = '
+Sortie des resultats sur support papier.
+Si l on met NON le listing ne contient que l en-tete et la mention
+FIN NORMALE DU PROGRAMME.
+Commande a eviter.'
+AIDE1 = '
+If NO is specified for this keyword, the printout listing just
+contains the head and the sentence END OF PROGRAM.
+It is advised not to use this way.'
+
+NOM = 'INFORMATIONS SUR LE SOLVEUR'
+NOM1 = 'INFORMATIONS ABOUT SOLVER'
+TYPE = LOGICAL
+INDEX = 2
+MNEMO = 'INFOGR'
+TAILLE = 1
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'LISTING'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'LISTING'
+COMPORT =
+'Foreground
+ ("ENTREES-SORTIES,GRAPHIQUES ET LISTING*GENERALITES,SOLVEUR")
+IS VALEUR (Red)'
+NIVEAU = 1
+AIDE = '
+Donne le nombre d iterations necessaires a la convergence du solveur.'
+AIDE1 = '
+Gives the iterations number which was necessary for the solver
+to converge.'
+
+NOM = 'VARIABLES POUR LES SORTIES GRAPHIQUES'
+NOM1 = 'VARIABLES FOR GRAPHIC PRINTOUTS'
+TYPE = STRING
+INDEX = 2
+MNEMO = 'VARDES'
+TAILLE = 1
+DEFAUT = 'HS,PHAS,ZS,ZF'
+DEFAUT1 = 'HS,PHAS,ZS,ZF'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'RESULTS'
+NIVEAU = 1
+CHOIX =
+'HS="hauteur de la houle"';
+'PHAS="phase de la houle"';
+'U0="vitesse u en surface a t=0"';
+'V0="vitesse v en surface a t=0"';
+'ZS="cote de la surface libre"';
+'ZF="fond"';
+'HW="hauteur d eau au repos"';
+'C="vitesse de phase"';
+'CG="vitesse de groupe"';
+'K="nombre d onde"';
+'PHIR="potentiel reel"';
+'PHII="potentiel imaginaire"';
+'D="prive(1,1)"';
+'E="prive(1,2)"';
+'F="prive(1,3)"';
+'G="prive(1,4)"';
+'T01="premiere periode moyenne spectrale"';
+'T02="deuxieme periode moyenne spectrale"';
+'TM="troisieme periode moyenne spectrale"';
+'FX="force en X"';
+'FY="force en Y"';
+'INC="incidence de la houle"';
+'QB="taux de deferlement"';
+'SXX="contrainte SXX"';
+'SXY="contrainte SXY"';
+'SYY="contrainte SYY"'
+CHOIX1 =
+'HS="wave height"';
+'PHAS="wave phase"';
+'U0="velocity u (free surface)(t=0)"';
+'V0="velocity v (free surface)(t=0)"';
+'ZS="free surface elevation (t=0)"';
+'ZF="bottom elevation"';
+'HW="still water height"';
+'C="phase velocity"';
+'CG="group velocity"';
+'K="wave number"';
+'PHIR="real potential"';
+'PHII="imaginal potential"';
+'D="prive(1,1)"';
+'E="prive(1,2)"';
+'F="prive(1,3)"';
+'G="prive(1,4)"';
+'T01="first mean spectral period"';
+'T02="second mean spectral period"';
+'TM="third mean spectral period"';
+'FX="force along X"';
+'FY="force along Y"';
+'INC="wave incidence radian"';
+'QB="breaking rate"';
+'SXX="SXX stress"';
+'SXY="SXY stress"';
+'SYY="SYY stress"'
+COMPOSE = ','
+APPARENCE =
+'DYNLIST'
+AIDE = '
+Noms des variables que l utilisateur veut ecrire dans
+le \telkey{FICHIER DES RESULTATS}.
+Le choix des separateurs est libre.
+Les possibilites offertes sont les suivantes :
+\begin{itemize}
+\item HS hauteur de la houle ;
+\item PHAS phase de la houle ;
+\item U0 vitesse u en surface      (a $t$ = 0) ;
+\item V0 vitesse v en surface      (a $t$ = 0) ;
+\item ZS cote de la surface libre  (a $t$ = 0) ;
+\item ZF fond ;
+\item HW hauteur d eau au repos ;
+\item C vitesse de phase ;
+\item CG vitesse de groupe ;
+\item K nombre d onde ;
+\item PHIR potentiel reel ;
+\item PHII potentiel imaginaire ;
+\item D prive(1,1) (variable 13) ;
+\item E prive(1,2) (variable 14) ;
+\item F prive(1,3) (variable 15) ;
+\item G prive(1,4) (variable 16) ;
+\item T01 premiere periode moyenne spectrale ;
+\item T02 deuxieme periode moyenne spectrale ;
+\item TM troisieme periode moyenne spectrale ;
+\item FX force en X ;
+\item FY force en Y ;
+\item INC incidence de la houle ;
+\item QB taux de deferlement ;
+\item SXX contrainte SXX ;
+\item SXY contrainte SXY ;
+\item SYY contrainte SYY.
+\end{itemize}
+L utilisateur dispose de 4 champs libres, qu il peut
+utiliser pour ecrire dans le fichier des resultats des variables
+qu il cree lui-meme. Ces variables propres a l utlisateur doivent
+etre calculees dans le sous-programme \telfile{CALRES} et le nom que
+l on desire leur donner doit etre ecrit dans le sous-programme
+\telfile{NOMVAR}.
+Ces 4 champs sont :
+\telfile{D, E, F, G} qui correspondent aux tableaux
+\telfile{PRIVE(1,1), PRIVE(1,2), PRIVE(1,3), PRIVE(1,4)}.
+A la difference des variables
+     precedentes, celles-ci sont conservees dans tout le programme, et
+     peuvent donc etre reutilisees.
+     Dans ce dernier cas ne pas oublier de donner une taille
+     suffisante au tableau PRIVE,
+en precisant le parametre \telfile{NPRIV}
+(dans le programme principal).'
+AIDE1 = '
+Names of the variables that the user wants to write in the
+\telkey{RESULTS FILE}.
+Separators between variable names can be choosen free.
+ The allowable values are:
+\begin{itemize}
+\item HS=wave height,
+\item PHAS=wave phase,
+\item U0=velocity u (free surface at $t$ = 0),
+\item V0=velocity v (free surface at $t$ = 0),
+\item ZS=free surface elevation (at $t$ = 0),
+\item ZF=bottom elevation,
+\item HW=still water height,
+\item C=phase velocity,
+\item CG=group velocity,
+\item K=wave number,
+\item PHIR=real potential,
+\item PHII=imaginal potential,
+\item D=prive(1,1),
+\item E=prive(1,2),
+\item F=prive(1,3),
+\item G=prive(1,4),
+\item T01=first mean spectral period,
+\item T02=second mean spectral period,
+\item TM=third mean spectral period,
+\item FX=force along X,
+\item FY=force along Y,
+\item INC=wave incidence radian,
+\item QB=breaking rate,
+\item SXX=SXX stress,
+\item SXY=SXY stress,
+\item SYY=SYY stress.
+\end{itemize}
+The user has 4 free variables at his/her disposal to create other
+variables by him/herself. These variables have to be computed
+in the \telfile{CALRES} subroutine, and the name that we want to
+attribute has to be precibed in the \telfile{NOMVAR} subroutine.
+The 4 free variable fields are:
+\telfile{D, E, F, G} which corresponds to the private arrays
+\telfile{PRIVE(1,1), PRIVE(1,2), PRIVE(1,3) and PRIVE (1,4)}.
+Contrary to the previous
+     variables, these are conserved all through the computation, and can
+     be used again.
+     Do not forget to specify the number of private arrays you want to
+use in the principal programme (variable \telfile{NPRIV}).'
+
+NOM = 'VARIABLES A IMPRIMER'
+NOM1 = 'VARIABLES TO BE PRINTED'
+TYPE = STRING
+INDEX = 3
+MNEMO = 'VARIMP'
+TAILLE = 0
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'LISTING'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'LISTING'
+NIVEAU = 2
+CHOIX =
+'HS="hauteur de la houle"';
+'PHAS="phase de la houle"';
+'U0="vitesse u en surface a t=0"';
+'V0="vitesse v en surface a t=0"';
+'ZS="cote de la surface libre"';
+'ZF="fond"';
+'HW="hauteur d eau au repos"';
+'C="vitesse de phase"';
+'CG="vitesse de groupe"';
+'K="nombre d onde"';
+'PHIR="potentiel reel"';
+'PHII="potentiel imaginaire"';
+'D="prive(1,1)"';
+'E="prive(1,2)"';
+'F="prive(1,3)"';
+'G="prive(1,4)"';
+'T01="premiere periode moyenne spectrale"';
+'T02="deuxieme periode moyenne spectrale"';
+'TM="troisieme periode moyenne spectrale"';
+'FX="force en X"';
+'FY="force en Y"';
+'INC="incidence de la houle"';
+'QB="taux de deferlement"';
+'SXX="contrainte SXX"';
+'SXY="contrainte SXY"';
+'SYY="contrainte SYY"'
+CHOIX1 =
+'HS="wave height"';
+'PHAS="wave phase"';
+'U0="velocity u (free surface)(t=0)"';
+'V0="velocity v (free surface)(t=0)"';
+'ZS="free surface elevation (t=0)"';
+'ZF="bottom elevation"';
+'HW="still water height"';
+'C="phase velocity"';
+'CG="group velocity"';
+'K="wave number"';
+'PHIR="real potential"';
+'PHII="imaginal potential"';
+'D="prive(1,1)"';
+'E="prive(1,2)"';
+'F="prive(1,3)"';
+'G="prive(1,4)"';
+'T01="first mean spectral period"';
+'T02="second mean spectral period"';
+'TM="third mean spectral period"';
+'FX="force along X"';
+'FY="force along Y"';
+'INC="wave incidence radian"';
+'QB="breaking rate"';
+'SXX="SXX stress"';
+'SXY="SXY stress"';
+'SYY="SYY stress"'
+COMPOSE = ','
+APPARENCE =
+'packing IS XmPACK_COLUMN';'numColumns IS 22';'LISTE IS EDITABLE'
+AIDE = '
+Nom des variables que l utilisateur desire ecrire a l ecran.
+Memes possibilites que pour les sorties graphiques.'
+AIDE1 = '
+Name of variables taht the user whishes to write on the screen.
+Possibilities are the same as for graphic outputs.'
+
+NOM = 'FICHIER FORTRAN'
+NOM1 = 'FORTRAN FILE'
+TYPE = STRING
+INDEX = 7
+MNEMO = 'NOMFOR'
+TAILLE = 1
+SUBMIT = 'INUTILE;INUTILE;FACUL;ASC;LIT;FORTRAN'
+DEFAUT = ''
+DEFAUT1 = ''
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE =
+'FILE_OR_FOLDER'
+NIVEAU = 1
+AIDE =
+'Nom du fichier FORTRAN a soumettre, contenant les
+sous-programmes specifiques au modele.'
+AIDE1 =
+'Name of the FORTRAN file to be submitted, including specific
+subroutines of the model.'
+
+NOM = 'FICHIER DES PARAMETRES'
+NOM1 = 'STEERING FILE'
+TYPE = STRING
+INDEX = 8
+MNEMO = NOMCAS
+TAILLE = 1
+SUBMIT = 'INUTILE;ARTCAS;OBLIG;ASC;LIT;CAS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE =
+'INTERNE';'';''
+RUBRIQUE1 =
+'INTERNAL';'';''
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Nom du fichier contenant les parametres du calcul a realiser.'
+AIDE1 = '
+Name of the steering file used for the computation.'
+
+NOM = 'FICHIER DES CONDITIONS AUX LIMITES'
+NOM1 = 'BOUNDARY CONDITIONS FILE'
+TYPE = STRING
+INDEX = 9
+MNEMO = 'ART\_FILES(ARTCLI)\%NAME'
+TAILLE = 1
+SUBMIT = 'NLIM-READ;ARTCLI;OBLIG;ASC;LIT;CONLIM'
+/DEFAUT = ' '
+/DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Nom du fichier contenant les types de conditions aux limites.
+Ce fichier est construit de facon automatique par le mailleur et \stbtel
+au moyen de couleurs affectees aux noeuds des frontieres du domaine
+de calcul.'
+AIDE1 = '
+Name of the boundary conditions file. It is automatically built
+by \stbtel or by the mesh generator MATISSE.'
+
+NOM = 'FICHIER DES RESULTATS'
+NOM1 = 'RESULTS FILE'
+TYPE = STRING
+INDEX = 10
+MNEMO = 'ART\_FILES(ARTRES)\%NAME'
+TAILLE = 1
+SUBMIT = 'NRES-WRITE;ARTRES;OBLIG;BIN;ECR;SELAFIN'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'RESULTS'
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Nom du fichier dans lequel seront ecrits les resultats du calcul,
+avec la periodicite donnee par le mot cle
+\telkey{PERIODE DE SORTIE GRAPHIQUE}.
+Sur IBM, ce fichier est alloue automatiquement s il n existe pas,
+avec les caracteristiques suivantes :
+  Format d enregistrement   : VBS ;
+  Longueur d enregistrement : X ;
+  Taille de bloc            : 6204 ;
+  Nombre de pistes          : 50 en primaire, 10 en secondaire.
+La place memoire ainsi reservee est suffisante pour la plupart des
+calculs de dimension moyenne.'
+AIDE1 = '
+Name of the results file corresponding to the computations and
+which contains the variables specified by the keyword
+\telkey{VARIABLES FOR GRAPHIC PRINTOUTS}.'
+
+NOM = 'FICHIER DES FONDS'
+NOM1 = 'BOTTOM TOPOGRAPHY FILE'
+TYPE = STRING
+INDEX = 15
+MNEMO = 'ART\_FILES(ARTFON)\%NAME'
+TAILLE = 1
+SUBMIT = 'NFON-READ;ARTFON;FACUL;ASC;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Nom du fichier eventuel contenant la bathymetrie associee au
+maillage.
+Si ce mot-cle est utilise, c est cette bathymetrie qui sera
+utilisee pour le calcul.'
+AIDE1 = '
+Name of a potential bathymetry file. If this keyword is specified,
+the bathymetry which it is defining is accounted for.'
+
+
+NOM = 'FICHIER DE DONNEES BINAIRE 1'
+NOM1 = 'BINARY DATA FILE 1'
+TYPE = STRING
+INDEX = 16
+MNEMO = 'ART\_FILES(ARTBI1)\%NAME'
+TAILLE = 1
+SUBMIT = 'NBI1-READ;ARTBI1;FACUL;BIN;LIT;SCAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Fichier de donnees, code en binaire, mis a la disposition de
+l utilisateur.'
+AIDE1 = '
+Data file, written in binary mode, at the disposal of the user.'
+
+NOM = 'FICHIER DE DONNEES BINAIRE 2'
+NOM1 = 'BINARY DATA FILE 2'
+TYPE = STRING
+INDEX = 17
+MNEMO = 'ART\_FILES(ARTBI2)\%NAME'
+TAILLE = 1
+SUBMIT = 'NBI2-READ;ARTBI2;FACUL;BIN;LIT;SCAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Fichier de donnees, code en binaire, mis a la disposition de
+l utilisateur.'
+AIDE1 = '
+Data file, written in binary mode, at the disposal of the user.'
+
+NOM = 'FICHIER DE DONNEES FORMATE 1'
+NOM1 = 'FORMATTED DATA FILE 1'
+TYPE = STRING
+INDEX = 18
+MNEMO = 'ART\_FILES(ARTFO1)\%NAME'
+TAILLE = 1
+SUBMIT = 'NFO1-READ;ARTFO1;FACUL;ASC;LIT;SCAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Fichier de donnees formate mis a la disposition de l utilisateur.'
+AIDE1 = '
+Data file, written in ASCII mode, at the disposal of the user.'
+
+NOM = 'FICHIER DE DONNEES FORMATE 2'
+NOM1 = 'FORMATTED DATA FILE 2'
+TYPE = STRING
+INDEX = 19
+MNEMO = 'ART\_FILES(ARTFO2)\%NAME'
+TAILLE = 0
+SUBMIT = 'NFO2-READ;ARTFO2;FACUL;ASC;LIT;SCAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Fichier de donnees formate mis a la disposition de l utilisateur.'
+AIDE1 = '
+Data file, written in ASCII mode, at the disposal of the user.'
+
+NOM = 'FICHIER DES RESULTATS BINAIRE'
+NOM1 = 'BINARY RESULTS FILE'
+TYPE = STRING
+INDEX = 20
+MNEMO = 'ART\_FILES(ARTRBI)\%NAME'
+TAILLE = 1
+SUBMIT = 'NRBI-WRITE;ARTRBI;FACUL;BIN;ECR;SCAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'RESULTS'
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Fichier des resultats, code en binaire, mis a la disposition de
+l utilisateur.'
+AIDE1 = '
+Results file, written in binary mode, at the disposal of the user.'
+
+NOM = 'FICHIER DES RESULTATS FORMATE'
+NOM1 = 'FORMATTED RESULTS FILE'
+TYPE = STRING
+INDEX = 21
+MNEMO = 'ART\_FILES(ARTRFO)\%NAME'
+TAILLE = 1
+SUBMIT = 'NRFO-WRITE;ARTRFO;FACUL;ASC;ECR;SCAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'RESULTS'
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Fichier des resultats formate mis a la disposition de l utilisateur.'
+AIDE1 = '
+Results file, written in ASCII mode, at the disposal of the user.'
+
+NOM = 'PRECISION SUR LES SOUS-ITERATIONS POUR LA DISSIPATION'
+NOM1 = 'SUB-ITERATIONS ACCURACY FOR DISSIPATION'
+TYPE = REAL
+INDEX = 18
+MNEMO = 'EPSDIS'
+TAILLE = 0
+DEFAUT = 1.E-2
+DEFAUT1 = 1.E-2
+RUBRIQUE =
+'PARAMETRES NUMERIQUES';'DISSIPATION'
+RUBRIQUE1 =
+'NUMERICAL PARAMETERS';'DISSIPATION'
+COMPORT = 'Foreground
+("DISSIPATION*GENERALITES")
+IS VALEUR (RED)'
+NIVEAU = 3
+AIDE = '
+Donne la precision requise pour les sous-iterations du calcul
+du coefficient de dissipation.'
+AIDE1 = '
+Fixes the accuracy requested for sub-iterations necessary to
+determine the dissipation coefficients.'
+
+NOM = 'PRECISION SUR LES SOUS-ITERATIONS POUR COURANT'
+NOM1 = 'SUB-ITERATIONS ACCURACY FOR CURRENT'
+TYPE = REAL
+INDEX = 36
+MNEMO = 'EPSDIR'
+TAILLE = 0
+DEFAUT = 1.E-2
+DEFAUT1 = 1.E-2
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'INFO COURANT'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'CURRENT INFO'
+NIVEAU = 3
+AIDE = '
+Donne la precision requise pour les sous-iterations du calcul
+du nombre d onde en presence de courant (vecteur d onde).'
+AIDE1 = '
+Fixes the accuracy requested for sub-iterations necessary to
+determine the wave vector.'
+
+NOM = 'PRECISION SUR LES SOUS-ITERATIONS POUR TETAP'
+NOM1 = 'SUB-ITERATIONS ACCURACY FOR TETAP'
+TYPE = REAL
+INDEX = 37
+MNEMO = 'EPSTP'
+TAILLE = 0
+DEFAUT = 1.E-2
+DEFAUT1 = 1.E-2
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'ANGLE TETAP AUTOMATIQUE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'AUTOMATIC TETAP ANGLE'
+NIVEAU = 3
+AIDE = '
+Donne la precision requise pour les sous-iterations du calcul
+automatique de cos($\theta_p$).'
+AIDE1 = '
+Fixes the accuracy requested for sub-iterations necessary to
+determine value of $\theta_p$ (criterion on cos($\theta_p$)).'
+
+
+NOM = 'DEFERLEMENT'
+NOM1 = 'BREAKING'
+TYPE = LOGICAL
+INDEX = 6
+MNEMO = 'DEFERL'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'DEFERLEMENT BATHYMETRIQUE'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BATHYMETRIC BREAKING'
+COMPORT = 'Foreground
+("DISSIPATION*DEFERLEMENT")
+IS VALEUR (Blue)';
+/'Affichage
+/("DISSIPATION*DEFERLEMENT*CHOIX DE LA FORMULATION")
+/IS VALEUR ()';
+'Affichage
+("DISSIPATION*DEFERLEMENT*FORMULATION DE DALLY")
+IS VALEUR ()';
+'Affichage
+("DISSIPATION*DEFERLEMENT*FORMULATION DE BATTJES")
+IS VALEUR ()'
+NIVEAU = 1
+AIDE = '
+Oui, si l on souhaite integrer le processus de deferlement
+bathymetrique (voir reels index 18, 19, 20, 21, 22, 23
+et entiers index 12, 13).'
+AIDE1 = '
+Yes, if one wants to account for breaking process (see also
+reals of index 18, 19, 20, 21, 22, 23, and integer of index
+12, 13).'
+
+NOM = 'COURANT'
+NOM1 = 'CURRENT'
+TYPE = LOGICAL
+INDEX = 13
+MNEMO = 'COURANT'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'INFO COURANT'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'CURRENT INFO'
+COMPORT = 'Foreground
+("CURRENT")
+IS VALEUR (Blue)';
+/'Affichage
+/("CURRENT")
+/IS VALEUR ()';
+/'Affichage
+/("CURRENT KIRBY KOSTENSE")
+/IS VALEUR ()';
+'Affichage
+("DISSIPATION*DEFERLEMENT*FORMULATION DE BATTJES")
+IS VALEUR ()'
+NIVEAU = 1
+AIDE =
+'Si = OUI : Prise en compte de la refraction de la houle par le courant.
+Modele retenu : Kostense et Al. (1988).'
+AIDE1 =
+'If = TRUE: Wave refraction due to current is described using
+ Kostense model (1988).'
+
+NOM = 'CALCUL AUTOMATIQUE DE TETAP'
+NOM1 = 'AUTOMATIC TETAP CALCULATION'
+TYPE = LOGICAL
+INDEX = 14
+MNEMO = 'LANGAUTO'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'ANGLE TETAP AUTOMATIQUE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'AUTOMATIC TETAP ANGLE'
+NIVEAU = 1
+AIDE =
+'Si = OUI : calcul automatique des angles $\theta_p$
+(basee sur la direction de la vitesse).'
+AIDE1 =
+'If = TRUE: automatic calculation of $\theta_p$
+(based on velocity direction).'
+
+NOM =  'CALCUL AUTOMATIQUE DE LA PHASE'
+NOM1 = 'AUTOMATIC CALCULATION OF PHASE'
+TYPE = LOGICAL
+INDEX = 15
+MNEMO = 'LPHASEAUTO'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'PHASE AUTOMATIQUE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'AUTOMATIC PHASE'
+NIVEAU = 1
+AIDE =
+'OUI : calcul automatique de la phase
+(basee sur une profondeur de reference).'
+AIDE1 =
+'TRUE: automatic calculation of incident phase
+(based on reference water depth).'
+
+NOM = 'PROFONDEUR DE REFERENCE POUR LA PHASE AUTOMATIQUE'
+NOM1 = 'REFERENCE WATER DEPTH FOR AUTOMATIC PHASE'
+TYPE = REAL
+INDEX = 34
+MNEMO = 'DEPREF'
+TAILLE = 0
+DEFAUT = -1.0
+DEFAUT1 = -1.0
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'PHASE AUTOMATIQUE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'AUTOMATIC PHASE'
+NIVEAU = 1
+AIDE =
+'Profondeur de reference pour le calcul de la phase.
+Essayez de mettre la frontiere incidente sur une zone
+de bathymetrie homogene.
+La profondeur a renseigner doit etre representative de la profondeur
+d eau sur la frontiere.'
+AIDE1 =
+'Water depth for automatic incident phase calculation.
+Try to put the incident wave boundary on a regular topography zone.
+The reference water depth should be representative of the water depth
+on the boundary.'
+
+NOM = 'COORDONNEES DE REFERENCE POUR LA PHASE'
+NOM1 = 'PHASE REFERENCE COORDINATES'
+TYPE = REAL
+INDEX = 35
+MNEMO = 'X\_PHREF,Y\_PHREF'
+TAILLE = 2
+DEFAUT  = 0.;0.
+DEFAUT1 = 0.;0.
+/RUBRIQUE = 'GENERALITES';'DEFINITION DE LA PHASE'
+/RUBRIQUE1 = 'INFORMATION';'PHASE DEFINITION'
+RUBRIQUE =
+'CONDITIONS AUX LIMITES'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS'
+NIVEAU = 1
+AIDE = 'Coordonnees pour l origine des phases. Ne change rien
+aux hauteurs de vagues calculees.'
+AIDE1 = 'Coordinates of reference point for phase. Will
+not change the wave height computed.'
+
+NOM = 'KDALLY'
+NOM1 = 'KDALLY'
+TYPE = REAL
+INDEX = 22
+MNEMO = 'KDALLY'
+TAILLE = 0
+DEFAUT = 0.1
+DEFAUT1 = 0.1
+/RUBRIQUE =
+/'DISSIPATION';'DEFERLEMENT BATHYMETRIQUE';'FORMULATION DE DALLY'
+/RUBRIQUE1 =
+/'DISSIPATION';'BATHYMETRIC BREAKING';'FORMULATION OF DALLY'
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'DEFERLEMENT BATHYMETRIQUE'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BATHYMETRIC BREAKING'
+COMPORT = 'Foreground
+("DISSIPATION*DEFERLEMENT*FORMULATION DE DALLY")
+IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Donne le coefficient $K$ dans la formulation de la dissipation
+par deferlement d apres Dally et al., 1984.'
+AIDE1 = '
+Fixes the coefficient $K$ used in the formulation of the dissipation
+coefficient proposed by Dally et al. 1984.'
+
+NOM = 'FORMULATION DU DEFERLEMENT'
+NOM1 = 'BREAKING LAW'
+TYPE = INTEGER
+INDEX = 12
+MNEMO = 'IBREAK'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'DEFERLEMENT BATHYMETRIQUE'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BATHYMETRIC BREAKING'
+COMPORT = 'Foreground
+("DISSIPATION*DEFERLEMENT")
+IS VALEUR (Blue)'
+NIVEAU = 1
+CHOIX=
+'1="BATTJES \& JANSSEN"';
+'2="DALLY"'
+CHOIX1=
+'1="BATTJES \& JANSSEN"';
+'2="DALLY"'
+AIDE = '
+Specifie la formulation choisie pour le coefficient de dissipation
+par deferlement. N est effectif qu en houle reguliere.
+\begin{itemize}
+\item 1 : Formulation de Battjes \& Jansen, 1978 ;
+\item 2 : Formulation de Dally et al., 1984.
+\end{itemize}
+En houle aleatoire, la seule formulation utilisee est celle de
+Battjes \& Janssen, 1978.'
+AIDE1 = '
+Specifies the formulation chosen for calculating the dissipation
+coefficient through breaking. Only effective for monochromatic wave
+mode.
+\begin{itemize}
+\item 1: Formulation of Battjes \& Janssen, 1978,
+\item 2: Formulation of Dally et al., 1984.
+\end{itemize}
+In random wave mode, the formulation of B \& J, 1978 is the only one
+to be used.'
+
+NOM = 'MAXIMUM DE SOUS-ITERATIONS'
+NOM1 = 'MAXIMUM OF SUB-ITERATIONS'
+TYPE = INTEGER
+INDEX = 13
+MNEMO = 'NITDIS'
+TAILLE = 0
+DEFAUT = 15
+DEFAUT1 = 15
+RUBRIQUE =
+'PARAMETRES NUMERIQUES';'DISSIPATION'
+RUBRIQUE1 =
+'NUMERICAL PARAMETERS';'DISSIPATION'
+COMPORT = 'Foreground
+("DISSIPATION*GENERALITES")
+IS VALEUR (RED)'
+NIVEAU = 3
+AIDE = '
+Donne le nombre maximum admis de sous-iterations pour le calcul
+du coefficient de dissipation.'
+AIDE1 = '
+Fixes the maximum number of sub-iterations for the computation
+of dissipation.'
+
+NOM = 'RELAXATION SUR LA DISSIPATION'
+NOM1 = 'DISSIPATION RELAXATION'
+TYPE = REAL
+INDEX = 19
+MNEMO = 'RELDIS'
+TAILLE = 0
+DEFAUT = 0.5
+DEFAUT1 = 0.5
+RUBRIQUE =
+'PARAMETRES NUMERIQUES';'DISSIPATION'
+RUBRIQUE1 =
+'NUMERICAL PARAMETERS';'DISSIPATION'
+COMPORT = 'Foreground
+("DISSIPATION*GENERALITES")
+IS VALEUR (RED)'
+NIVEAU = 3
+AIDE = '
+Donne le coefficient de relaxation entre deux sous-iterations
+pour le calcul du coefficient de dissipation.'
+AIDE1 = '
+Fixes the relaxation coefficient used between two sub-iterations
+for the computation of the dissipation term.'
+
+NOM = 'MAXIMUM DE SOUS-ITERATIONS POUR TETAP'
+NOM1 = 'MAXIMUM OF SUB-ITERATIONS FOR TETAP'
+TYPE = INTEGER
+INDEX = 27
+MNEMO = 'NITTP'
+TAILLE = 0
+DEFAUT = 15
+DEFAUT1 = 15
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'ANGLE TETAP AUTOMATIQUE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'AUTOMATIC TETAP ANGLE'
+COMPORT = 'Foreground
+("DISSIPATION*GENERALITES")
+IS VALEUR (RED)'
+NIVEAU = 3
+AIDE = '
+Donne le nombre maximum admis de sous-iterations pour le calcul
+automatique de $\theta_p$.'
+AIDE1 = '
+Fixes the maximum number of sub-iterations for the automatic
+computation of $\theta_p$.'
+
+NOM = 'RELAXATION SUR TETAP'
+NOM1 = 'RELAXATION ON TETAP'
+TYPE = REAL
+INDEX = 38
+MNEMO = 'RELTP'
+TAILLE = 0
+DEFAUT = 1.
+DEFAUT1 = 1.
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'ANGLE TETAP AUTOMATIQUE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'AUTOMATIC TETAP ANGLE'
+COMPORT = 'Foreground
+("DISSIPATION*GENERALITES")
+IS VALEUR (RED)'
+NIVEAU = 3
+AIDE = '
+Donne le coefficient de relaxation entre deux sous-iterations
+pour le calcul de l angle d incidence automatique.'
+AIDE1 = '
+Fixes the relaxation coefficient used between two sub-iterations
+for the computation of automatic $\theta_p$.'
+
+NOM = 'ALPHA'
+NOM1 = 'ALPHA'
+TYPE = REAL
+INDEX = 20
+MNEMO = 'ALFABJ'
+TAILLE = 0
+DEFAUT = 1.0
+DEFAUT1 = 1.0
+/RUBRIQUE =
+/'DISSIPATION';'DEFERLEMENT BATHYMETRIQUE';'FORMULATION DE BATTJES'
+/RUBRIQUE1 =
+/'DISSIPATION';'BATHYMETRIC BREAKING';'FORMULATION OF BATTJES'
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'DEFERLEMENT BATHYMETRIQUE'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BATHYMETRIC BREAKING'
+COMPORT = 'Foreground
+("DISSIPATION*DEFERLEMENT*FORMULATION DE BATTJES")
+IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Donne le coefficient $\alpha$ dans la formulation de la dissipation
+par deferlement en houle aleatoire d apres Battjes \& Janssen.'
+AIDE1 = '
+Fixes the coefficient $\alpha$ used in the formulation of the
+dissipation coefficient through breaking proposed by Battjes \& Janssen,
+1978 for random waves.'
+
+NOM = 'GAMMAS'
+NOM1 = 'GAMMAS'
+TYPE = REAL
+INDEX = 21
+MNEMO = 'GAMMAS'
+TAILLE = 0
+DEFAUT = 0.88
+DEFAUT1 = 0.88
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'DEFERLEMENT BATHYMETRIQUE'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BATHYMETRIC BREAKING'
+COMPORT = 'Foreground
+("DISSIPATION")
+IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Donne le coefficient $\gamma_s$ dans le critere de la hauteur de
+deferlement. Ne pas confondre avec le coefficient $\gamma$ qui
+intervient dans la formule du spectre de JONSWAP.'
+AIDE1 = '
+Fixes the coefficient $\gamma_s$ used in the criterion of the critical
+breaking wave height. Do not confuse with coefficient $\gamma$
+used in the JONSWAP spectrum.'
+
+NOM = 'GDALLY'
+NOM1 = 'GDALLY'
+TYPE = REAL
+INDEX = 23
+MNEMO = 'GDALLY'
+TAILLE = 0
+DEFAUT = 0.4
+DEFAUT1 = 0.4
+/RUBRIQUE =
+/'DISSIPATION';'DEFERLEMENT BATHYMETRIQUE';'FORMULATION DE DALLY'
+/RUBRIQUE1 =
+/'DISSIPATION';'BATHYMETRIC BREAKING';'FORMULATION OF DALLY'
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'DEFERLEMENT BATHYMETRIQUE'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BATHYMETRIC BREAKING'
+COMPORT = 'Foreground
+("DISSIPATION*DEFERLEMENT*FORMULATION DE DALLY")
+IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Donne le coefficient $\Gamma$ dans la formulation de la dissipation par
+Dally et al., 1984. Ne pas confondre avec $\gamma$ (Formule de JONSWAP)
+et Gammas (Critere de deferlement).'
+AIDE1 = '
+Fixes the $\Gamma$ coefficient used in the formulation of Dally et al.,
+1984, for the dissipation coefficient in surf-breaking. Do not confuse
+with the coefficient $\gamma$ used in the JONSWAP formulae and
+coefficient gammas used to determine the breaking wave height
+criterion.'
+
+NOM = 'FROTTEMENT'
+NOM1 = 'FRICTION'
+TYPE = LOGICAL
+INDEX = 7
+MNEMO = 'FROTTE'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT")
+IS VALEUR (BLUE)';
+'Affichage
+("DISSIPATION*FROTTEMENT*GENERALITES")
+IS VALEUR ()';
+'Affichage
+("DISSIPATION*FROTTEMENT*CHOIX DE LA FORMULATION")
+IS VALEUR ()'
+NIVEAU = 1
+AIDE = '
+Oui, si on veut prendre en compte le frottement sur le fond dans
+la simulation.'
+AIDE1 = '
+Yes, if one wants to include dissipation through bottom friction
+in the computation.'
+
+NOM = 'VISCOSITE CINEMATIQUE DU FLUIDE'
+NOM1 = 'FLUID KINEMATIC VISCOSITY'
+TYPE = REAL
+INDEX = 24
+MNEMO = 'VISCO'
+TAILLE = 0
+DEFAUT = 1.0E-6
+DEFAUT1 = 1.0E-6
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT*GENERALITES")
+IS VALEUR (Blue)'
+NIVEAU = 1
+APPARENCE = 'LISTE IS SELECT'
+AIDE = '
+Viscosite cinematique du fluide (eau) en m$^2$/s.
+\begin{itemize}
+\item 1.793E-6 : Pour une temperature de 0 C ;
+\item 1.567E-6 : Pour une temperature de 4 C ;
+\item 1.237E-6 : Pour une temperature de 12 C ;
+\item 1.112E-6 : Pour une temperature de 16 C ;
+\item 1.011E-6 : Pour une temperature de 20 C ;
+\item 0.802E-6 : Pour une temperature de 30 C ;
+\item 0.661E-6 : Pour une temperature de 40 C.
+\item 1.0E-6   : Valeur par defaut.
+\end{itemize}'
+AIDE1 = '
+Kinematic viscosity of the fluid (water) in m$^2$/s.
+\begin{itemize}
+\item 1.793E-6: for a temperature of 0 C,
+\item 1.567E-6: for a temperature of 4 C,
+\item 1.237E-6: for a temperature of 12 C,
+\item 1.112E-6: for a temperature of 16 C,
+\item 1.011E-6: for a temperature of 20 C,
+\item 0.802E-6: for a temperature of 30 C,
+\item 0.661E-6: for a temperature of 40 C,
+\item 1.0E-6: default value.
+\end{itemize}'
+
+NOM = 'DIAMETRE90'
+NOM1 = 'DIAMETER90'
+TYPE = REAL
+INDEX = 25
+MNEMO = 'DIAM90'
+TAILLE = 0
+DEFAUT = 0.15E-3
+DEFAUT1 = 0.15E-3
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT*GENERALITES")
+IS VALEUR (Blue)'
+NIVEAU = 1
+APPARENCE = 'LISTE IS SELECT'
+AIDE = '
+\telfile{DIAM90} represente le diametre maximum, en m, de 90 \%
+en poids des sediments.
+\begin{itemize}
+\item 1.0E-3   : Pour des sables tres grossiers ;
+\item 0.5E-3   : Pour des sables grossiers ;
+\item 0.25E-3  : Pour des sables moyens ;
+\item 0.125E-3 : Pour des sables fins ;
+\item 0.062E-3 : Pour des sables tres fins ;
+\item 0.15E-3  : Valeur par defaut.
+\end{itemize}'
+AIDE1 = '
+\telfile{DIAM90} is the maximum grain diameter, in m, which defines
+90 \% of the total weight of sediment.
+\begin{itemize}
+\item 1.0E-3: for very coarse sand,
+\item 0.5E-3: for coarse sand,
+\item 0.25E-3: for medium sand,
+\item 0.125E-3: for fine sand,
+\item 0.062E-3: for very fine sand,
+\item 0.15E-3: default value.
+\end{itemize}'
+
+NOM = 'DIAMETRE50'
+NOM1 = 'DIAMETER50'
+TYPE = REAL
+INDEX = 26
+MNEMO = 'DIAM50'
+TAILLE = 0
+DEFAUT = 0.10E-3
+DEFAUT1 = 0.10E-3
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT*GENERALITES")
+IS VALEUR (Blue)'
+NIVEAU = 1
+APPARENCE = 'LISTE IS SELECT'
+AIDE = '
+\telfile{DIAM50} represente le diametre maximum de 50 \% en poids des
+sediments. En general, on a \telfile{DIAM90} = 1.5 $\times$
+\telfile{DIAM50}
+\telfile{DIAM50} est plus souvent donne dans des tables
+\begin{itemize}
+\item 0.66E-3  : Pour des sables tres grossiers ;
+\item 0.33E-3  : Pour des sables grossiers ;
+\item 0.17E-3  : Pour des sables moyens ;
+\item 0.083E-3 : Pour des sables fins ;
+\item 0.040E-3 : Pour des sables tres fins ;
+\item 0.10E-3  : Valeur par defaut.
+\end{itemize}'
+AIDE1 = '
+\telfile{DIAM50} is the maximum grain diameter, in m, which defines
+50 \% of the total weight of sediment. Usually, we have
+\telfile{DIAM90} = 1.5 $\times$ \telfile{DIAM50}.
+\telfile{DIAM50} is a more common value used.
+\begin{itemize}
+\item 0.66E-3: for very coarse sand,
+\item 0.33E-3: for coarse sand,
+\item 0.17E-3: for medium sand,
+\item 0.083E-3: for fine sand,
+\item 0.040E-3: for very fine sand,
+\item 0.10E-3: default value.
+\end{itemize}'
+
+NOM = 'MASSE VOLUMIQUE DU SEDIMENT'
+NOM1 = 'SEDIMENT SPECIFIC WEIGHT'
+TYPE = REAL
+INDEX = 27
+MNEMO = 'MVSED'
+TAILLE = 0
+DEFAUT = 2650.0
+DEFAUT1 = 2650.0
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT*GENERALITES")
+IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Masse volumique du sediment en kg/m$^3$.'
+AIDE1 = '
+Sediment specific weight in kg/m$^3$.'
+
+NOM = 'MASSE VOLUMIQUE DU FLUIDE'
+NOM1 = 'FLUID SPECIFIC MASS'
+TYPE = REAL
+INDEX = 28
+MNEMO = 'MVEAU'
+TAILLE = 0
+DEFAUT = 1000.0
+DEFAUT1 = 1000.0
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT")
+IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = '
+Masse volumique du fluide (eau) en kg/m$^3$.'
+AIDE1 = '
+Fluid specific weight (water) in kg/m$^3$.'
+
+NOM = 'REGIME HYDRAULIQUE IMPOSE'
+NOM1 = 'HYDRAULIC REGIME IMPOSED'
+TYPE = LOGICAL
+INDEX = 9
+MNEMO = 'ENTREG'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+/RUBRIQUE =
+/'DISSIPATION';'FROTTEMENT FOND';'CHOIX DU REGIME HYDRAULIQUE'
+/RUBRIQUE1 =
+/'DISSIPATION';'BOTTOM FRICTION';'FORMULATION OF REGIME'
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT*CHOIX DU REGIME HYDRAULIQUE")
+IS VALEUR (BLUE)'
+NIVEAU = 1
+AIDE = '
+Utilise avec l option \telkey{FROTTEMENT} = OUI.
+Permet de choisir d imposer le regime hydraulique dans le cas
+d un calcul automatique du facteur de frottement sur fonds sableux.'
+AIDE1 = '
+Used with the option \telkey{FRICTION} = YES.
+Enables to impose the hydraulic regime in the case of an automatic
+calculation of the friction factor for sandy beds.'
+
+NOM = 'RUGOSITE DE PEAU SEULE'
+NOM1 = 'SKIN ROUGHNESS ONLY'
+TYPE = LOGICAL
+INDEX = 10
+MNEMO = 'ENTRUG'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT*CHOIX DE LA RUGOSITE")
+IS VALEUR (BLUE)'
+NIVEAU = 1
+AIDE = '
+Utilise avec l option \telkey{FROTTEMENT} = OUI.
+Permet de choisir de ne prendre en compte
+que la rugosite de peau dans le cas d un calcul automatique
+du facteur de frottement sur fonds sableux.'
+AIDE1 = '
+Used with the option \telkey{FRICTION} = YES.
+Enables to restrict the total roughness to the skin roughness
+in the case of an automatic calculation of the friction
+factor for sandy beds.'
+
+NOM = 'LISSAGE DES HAUTEURS DE HOULE'
+NOM1 = 'WAVE HEIGHTS SMOOTHING'
+TYPE = LOGICAL
+INDEX = 11
+MNEMO = 'LISHOU'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE MONOCHROMATIQUE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'MONOCHROMATIC WAVE'
+COMPORT = 'Foreground ("ENTREES-SORTIES,GRAPHIQUES ET LISTING")
+ IS VALEUR (Red)'
+NIVEAU = 1
+AIDE = '
+OUI si on souhaite lisser les hauteurs de houle
+pour ameliorer le calcul des contraintes de radiation
+(actif uniquement en houle reguliere).
+Valeur par defaut = NON.'
+AIDE1 = '
+YES when one wants to smooth the wave heights
+to improve the radiation stresses computation
+(only used in regular wave mode).
+Default value = NO.'
+
+NOM = 'VALIDATION'
+NOM1 = 'VALIDATION'
+TYPE = LOGICAL
+INDEX = 12
+MNEMO = 'VALID'
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+NIVEAU = 1
+AIDE = 'Option utilisee principalement pour le dossier de validation.
+Le \telkey{FICHIER DE REFERENCE} est alors considere comme une
+reference a laquelle on va comparer le calcul. La comparaison est
+effectuee par le sous-programme \telfile{BIEF\_VALIDA} qui peut etre une
+comparaison avec une solution exacte par exemple.'
+AIDE1 = 'This option is primarily used for the validation documents.
+The \telkey{REFERENCE FILE} is then considered as a
+reference which the computation is going to be compared with.
+The comparison is made by the subroutine \telfile{BIEF\_VALIDA},
+which can be modified as to
+so as to include, for example, a comparison with an exact solution.'
+
+NOM = 'TYPE DU REGIME HYDRAULIQUE'
+NOM1 = 'HYDRAULIC REGIME TYPE'
+TYPE = INTEGER
+INDEX = 14
+MNEMO = 'REGIDO'
+TAILLE = 0
+DEFAUT =  1
+DEFAUT1 =  1
+/RUBRIQUE =
+/'DISSIPATION';'FROTTEMENT FOND';'CHOIX DU REGIME HYDRAULIQUE'
+/RUBRIQUE1 =
+/'DISSIPATION';'BOTTOM FRICTION';'FORMULATION OF REGIME'
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT*CHOIX DU REGIME HYDRAULIQUE")
+IS VALEUR (BLUE)'
+NIVEAU = 1
+CHOIX=
+'1="regime laminaire"';
+'2="regime turbulent lisse"';
+'3="regime turbulent rugueux"';
+'4="regime transitoire"'
+CHOIX1=
+'1="laminar regime"';
+'2="smooth-turbulent regime"';
+'3="rough-turbulent regime"';
+'4="transient regime"'
+APPARENCE= 'LISTE IS SELECT'
+AIDE = '
+Utilise si le mot-cle \telkey{REGIME HYDRAULIQUE IMPOSE} = OUI.
+Determine le regime hydraulique.
+\begin{itemize}
+\item regime laminaire ;
+\item turbulent lisse ;
+\item turbulent rugueux ;
+\item transitoire.
+\end{itemize}'
+AIDE1 = '
+Used with option \telkey{HYDRAULIC REGIME IMPOSED} = YES.
+Determines the type of the hydraulic regime (laminar,
+smooth-turbulent, rough-turbulent, transient).
+\begin{itemize}
+\item laminar regime,
+\item smooth-turbulent regime,
+\item rough-turbulent regime,
+\item transient regime.
+\end{itemize}'
+
+NOM = 'FORMULATION DU FROTTEMENT DE FOND'
+NOM1 = 'BOTTOM FRICTION LAW'
+TYPE = INTEGER
+INDEX = 15
+MNEMO = 'FORMFR'
+TAILLE = 0
+DEFAUT =  1
+DEFAUT1 =  1
+/RUBRIQUE = 'DISSIPATION';'FROTTEMENT FOND';'CHOIX DE LA FORMULATION'
+/RUBRIQUE1 = 'DISSIPATION';'BOTTOM FRICTION';'FORMULATION'
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT*CHOIX DE LA FORMULATION")
+IS VALEUR (BLUE)'
+NIVEAU = 1
+CHOIX=
+'1="Formulation de Kostense integrant le calcul de Ue (1986)"';
+'2="Formulation de Putnam \& Johnson (1949)"'
+CHOIX1=
+'1="Kostense formulation integrating Ue calculation (1986)"';
+'2="Putnam \& Johnson formulation (1949)"'
+APPARENCE= 'LISTE IS SELECT'
+AIDE = '
+Utilise avec l option \telkey{FROTTEMENT} = OUI.
+Fixe le choix de la formulation du frottement :
+\begin{itemize}
+\item 1 : Kostense et al., 1986 ;
+\item 2 : Putnam \& Johnson, 1949.
+\end{itemize}'
+AIDE1 = '
+Used with the option \telkey{FRICTION} = YES.
+Fixes the formulation used for bottom friction law:
+\begin{itemize}
+\item 1: Kostense et al., 1986,
+\item 2: Putnam \& Johnson, 1949.
+\end{itemize}'
+
+NOM = 'FACTEUR DE FROTTEMENT IMPOSE'
+NOM1 = 'FRICTION FACTOR IMPOSED'
+TYPE = LOGICAL
+INDEX = 8
+MNEMO = 'ENTFW'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+/RUBRIQUE = 'DISSIPATION';'FROTTEMENT FOND';'CHOIX DE FW'
+/RUBRIQUE1 = 'DISSIPATION';'BOTTOM FRICTION';'FORMULATION OF FW'
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground ("DISSIPATION*FROTTEMENT*CHOIX DE FW")
+IS VALEUR (BLUE)'
+NIVEAU = 1
+AIDE = '
+Utilise avec l option \telkey{FROTTEMENT} = OUI.
+OUI permet de choisir d imposer un facteur de frottement, par un
+mot-cle s il est uniforme (voir le reel d index 29) ou en
+programmant dans le sous-programme \telfile{FWSPEC}.
+Si NON, \artemis considere par defaut que les fonds sont sableux,
+et calcule automatiquement le facteur de frottement avec les
+caracteristiques du sediment et de l ecoulement.'
+AIDE1 = '
+Used with the option \telkey{FRICTION} = YES.
+If YES, enables the user to impose a friction factor, by a keyword
+for a constant value (see real of index 29) or by programming in
+the \telfile{FWSPEC} subroutine for non-uniform value.
+If NO, \artemis automatically computes the friction factor assuming
+that the bottom is sandy and uses the characteristics of sediment
+and of motion.'
+
+NOM = 'FACTEUR DE FROTTEMENT'
+NOM1 = 'FRICTION FACTOR'
+TYPE = REAL
+INDEX = 29
+MNEMO = 'FWCOEF'
+TAILLE = 0
+DEFAUT =  0.
+DEFAUT1 =  0.
+/RUBRIQUE = 'DISSIPATION';'FROTTEMENT FOND';'CHOIX DE FW'
+/RUBRIQUE1 = 'DISSIPATION';'BOTTOM FRICTION';'FORMULATION OF FW'
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT*CHOIX DE FW")
+IS VALEUR (BLUE)'
+NIVEAU = 1
+AIDE = '
+Utilise si le mot-cle \telkey{FACTEUR DE FROTTEMENT IMPOSE} = OUI.
+Fixe le facteur de frottement choisi uniforme sur le domaine.'
+AIDE1 = '
+Used with the option \telkey{FRICTION FACTOR IMPOSED} = YES.
+Fixes the value of the friction factor uniform over the domain.'
+
+NOM = 'COEFFICIENT DE FROTTEMENT'
+NOM1 = 'FRICTION COEFFICIENT'
+TYPE = REAL
+INDEX = 31
+MNEMO = 'FFON'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT")
+IS VALEUR (BLUE)'
+NIVEAU = 2
+AIDE = '
+A ne pas confondre avec le \telkey{FACTEUR DE FROTTEMENT}.
+Non utilise dans \artemis.
+On le laisse par coherence avec \telemac{2d}.'
+AIDE1 = '
+Do not confuse with the \telkey{FRICTION FACTOR}.
+Not used in \artemis.
+It is let here for consistence with \telemac{2d}.'
+
+NOM = 'COEFFICIENT DE RIDES'
+NOM1 = 'RIPPLES COEFFICIENT'
+TYPE = REAL
+INDEX = 30
+MNEMO = 'RICOEF'
+TAILLE = 0
+DEFAUT =  0.7
+DEFAUT1 =  0.7
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'DISSIPATION';'FROTTEMENT FOND'
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'DISSIPATION';'BOTTOM FRICTION'
+COMPORT = 'Foreground
+("DISSIPATION*FROTTEMENT*GENERALITES")
+IS VALEUR (BLUE)'
+APPARENCE = 'LISTE IS SELECT'
+NIVEAU = 3
+AIDE = '
+Specifie le coefficient de rides utilise dans la formule de
+Van Rijn pour calculer le facteur de frottement :
+\begin{itemize}
+\item 1.0 : pour des rides seules,
+\item 0.7 : pour des rides superposees a des vagues de sable.
+\end{itemize}'
+AIDE1 = '
+Fixes the ripples coefficient used in the formulae of Van Rijn
+to calculate the friction factor:
+\begin{itemize}
+\item 1.0: for single ripples,
+\item 0.7: for ripples superimposed to sand waves.
+\end{itemize}'
+
+NOM = 'PERIODE MINIMUM DU SPECTRE'
+NOM1 = 'MINIMUM SPECTRAL PERIOD'
+TYPE = REAL
+INDEX = 32
+MNEMO = 'PMIN'
+TAILLE = 0
+DEFAUT = 0.02
+DEFAUT1 = 0.02
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE ALEATOIRE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'RANDOM WAVE'
+COMPORT = 'Foreground ("PARAMETRES PHYSIQUES*HOULE ALEATOIRE")
+ IS VALEUR (Blue)'
+NIVEAU = 2
+AIDE = '
+Valeur de la periode minimum voulue en secondes
+si on veut tronquer le spectre pour le calcul
+des periodes en houle aleatoire (voir sous-programme \telfile{PERALE}).'
+AIDE1 = '
+Minimum period value requested in seconds
+if it is necessary to alter the energy spectrum
+for the computation of the periods in the case
+of random waves (see \telfile{PERALE} subroutine).'
+
+NOM = 'PERIODE MAXIMUM DU SPECTRE'
+NOM1 = 'MAXIMUM SPECTRAL PERIOD'
+TYPE = REAL
+INDEX = 33
+MNEMO = 'PMAX'
+TAILLE = 0
+DEFAUT = 200.
+DEFAUT1 = 200.
+RUBRIQUE =
+'CONDITIONS AUX LIMITES';'HOULE ALEATOIRE'
+RUBRIQUE1 =
+'BOUNDARY CONDITIONS';'RANDOM WAVE'
+COMPORT = 'Foreground ("PARAMETRES PHYSIQUES*HOULE ALEATOIRE")
+ IS VALEUR (Blue)'
+NIVEAU = 2
+AIDE = '
+Valeur de la periode maximum voulue en secondes
+si on veut tronquer le spectre pour le calcul
+des periodes en houle aleatoire (voir sous-programme \telfile{PERALE}).'
+AIDE1 = '
+Maximum period value requested in seconds
+if it is necessary to alter the energy spectrum
+for the computation of the periods in the case
+of random waves (see \telfile{PERALE} subroutine).'
+
+NOM = 'DATE DE L''ORIGINE DES TEMPS'
+NOM1 = 'ORIGINAL DATE OF TIME'
+TYPE = INTEGER
+INDEX = 21
+MNEMO = 'MARDAT'
+TAILLE = 3
+DEFAUT = 0;0;0
+DEFAUT1 = 0;0;0
+RUBRIQUE =
+'PARAMETRES GENERAUX';'TEMPS';''
+RUBRIQUE1 =
+'GENERAL PARAMETERS';'TIME';''
+NIVEAU = 1
+AIDE = 'Permet de fixer la date d origine des temps du modele lors
+de la prise en compte de la force generatrice de la maree.'
+AIDE1 ='Give the date of the time origin of the model when taking into
+account the tide generating force.'
+
+NOM = 'HEURE DE L''ORIGINE DES TEMPS'
+NOM1 = 'ORIGINAL HOUR OF TIME'
+TYPE = INTEGER
+INDEX = 22
+MNEMO = 'MARTIM'
+TAILLE = 3
+DEFAUT = 0;0;0
+DEFAUT1 = 0;0;0
+RUBRIQUE =
+'PARAMETRES GENERAUX';'TEMPS';''
+RUBRIQUE1 =
+'GENERAL PARAMETERS';'TIME';''
+NIVEAU = 1
+AIDE = 'Permet de fixer l heure d origine des temps du modele lors
+de la prise en compte de la force generatrice de la maree.'
+AIDE1 ='Give the time of the time origin of the model when taking into
+account the tide generating force.'
+
+NOM = 'NOMBRE DE VARIABLES PRIVEES'
+NOM1 = 'NUMBER OF PRIVATE VARIABLES'
+TYPE = INTEGER
+INDEX = 23
+MNEMO = 'NPRIV'
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'RESULTS'
+COMPORT = 'Foreground ("PARAMETRES NUMERIQUES")
+ IS VALEUR (Blue)'
+NIVEAU = 1
+AIDE = 'Permet de fixer le nombre de variables privees.'
+AIDE1 ='Give the number of private variables.'
+
+NOM = 'PROCESSEURS PARALLELES'
+NOM1 = 'PARALLEL PROCESSORS'
+TYPE = INTEGER
+INDEX = 24
+MNEMO = 'NCSIZE'
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'GLOBAL';''
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'GLOBAL';''
+NIVEAU = 2
+AIDE = 'Nombre de processeurs pour la decomposition en parallele :
+\begin{itemize}
+\item 0 : 1 machine, compilation sans bibliotheque de parallelisme ;
+\item 1 : 1 machine, compilation avec bibliotheque de parallelisme ;
+\item 2 : 2 processeurs ou machines en parallele.
+etc...
+\end{itemize}'
+AIDE1 = 'Number of processors for domain partition:
+\begin{itemize}
+\item 0: 1 machine, compiling without parallel library,
+\item 1: 1 machine, compiling with a parallel library,
+\item 2: 2 processors or machines in parallel.
+etc...
+\end{itemize}'
+
+NOM = 'PARTITIONNEUR'
+NOM1 = 'PARTITIONING TOOL'
+TYPE = STRING
+INDEX = 5
+TAILLE = 1
+DEFAUT  = 'METIS'
+DEFAUT1 = 'METIS'
+CHOIX =
+'METIS';
+'SCOTCH';
+'PARMETIS';
+'PTSCOTCH'
+CHOIX1 =
+'METIS';
+'SCOTCH';
+'PARMETIS';
+'PTSCOTCH'
+NIVEAU = 1
+RUBRIQUE =
+'INTERNE';'';''
+RUBRIQUE1 =
+'INTERNAL';'';''
+AIDE =
+'Choix du partitionneur :
+\begin{itemize}
+\item 1 : METIS ;
+\item 2 : SCOTCH ;
+\item 3 : PARMETIS ;
+\item 4 : PTSCOTCH.
+\end{itemize}'
+AIDE1 =
+'Partitioning tool selection:
+\begin{itemize}
+\item 1: METIS,
+\item 2: SCOTCH,
+\item 3: PARMETIS,
+\item 4: PTSCOTCH.
+\end{itemize}'
+
+NOM = 'COORDONNEES DE L''ORIGINE'
+NOM1 = 'ORIGIN COORDINATES'
+TYPE = INTEGER
+INDEX = 25
+MNEMO = 'I\_ORIG,J\_ORIG'
+TAILLE = 2
+DEFAUT  = 0;0
+DEFAUT1 = 0;0
+RUBRIQUE =
+'PARAMETRES GENERAUX';'LOCALISATION';''
+RUBRIQUE1 =
+'GENERAL PARAMETERS';'LOCATION';''
+NIVEAU = 2
+AIDE = 'Valeur en metres, utilise pour eviter les trop grands
+nombres, transmis
+dans le format SERAFIN mais pas d autre traitement pour l instant.'
+AIDE1 = 'Value in metres, used to avoid large real numbers,
+added in SERAFIN format, but so far no other treatment.'
+
+NOM = 'FICHIER DE REFERENCE'
+NOM1 = 'REFERENCE FILE'
+TYPE = STRING
+INDEX = 28
+TAILLE = 1
+MNEMO = 'ART\_FILES(ARTREF)\%NAME'
+SUBMIT = 'NRBI-READ;ARTREF;FACUL;BIN;LIT;SELAFIN'
+DEFAUT = ' '
+DEFAUT1 = ' '
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+NIVEAU = 1
+AIDE = 'Fichier de resultats de reference pour la validation.'
+AIDE1 = 'Binary-coded result file for validation.'
+
+
+/V6P1 AJOUT ART_FILES
+
+NOM = 'FORMAT DU FICHIER DE GEOMETRIE'
+NOM1 = 'GEOMETRY FILE FORMAT'
+TYPE = STRING
+INDEX = 29
+MNEMO = 'ART\_FILES(ARTGEO)\%FMT'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+NIVEAU = 2
+CHOIX = 'SERAFIN ';'SERAFIND';'MED     '
+CHOIX1 = 'SERAFIN ';'SERAFIND';'MED     '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+AIDE =
+'Format du \telkey{FICHIER DE GEOMETRIE}.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'Format of the \telkey{GEOMETRY FILE}.
+Possible values are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+
+NOM = 'FORMAT DU FICHIER DE RESULTATS'
+NOM1 = 'RESULTS FILE FORMAT'
+TYPE = STRING
+INDEX = 30
+MNEMO = 'ART\_FILES(ARTRES)\%FMT'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+CHOIX = 'SERAFIN ';'SERAFIND';'MED     '
+CHOIX1 = 'SERAFIN ';'SERAFIND';'MED     '
+NIVEAU = 2
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'RESULTS'
+AIDE =
+'Format du \telkey{FICHIER DE RESULTATS}.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'Format of the \telkey{RESULTS FILE}. Possible values are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+
+NOM = 'FORMAT DU FICHIER DE REFERENCE'
+NOM1 = 'REFERENCE FILE FORMAT'
+TYPE = STRING
+INDEX = 31
+MNEMO = 'ART\_FILES(ARTREF)\%FMT'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+CHOIX = 'SERAFIN ';'SERAFIND';'MED     '
+CHOIX1 = 'SERAFIN ';'SERAFIND';'MED     '
+NIVEAU = 2
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+AIDE = 'Format du \telkey{FICHIER DE REFERENCE}.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 = '\telkey{REFERENCE FILE} format.
+Possible values are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+
+NOM = 'FORMAT DU FICHIER DE DONNEES BINAIRE 1'
+NOM1 = 'BINARY DATA FILE 1 FORMAT'
+TYPE = STRING
+INDEX = 32
+MNEMO = 'ART\_FILES(ARTBI1)\%FMT'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+CHOIX = 'SERAFIN ';'SERAFIND';'MED     '
+CHOIX1 = 'SERAFIN ';'SERAFIND';'MED     '
+NIVEAU = 2
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+AIDE =
+'Format du \telkey{FICHIER DE DONNEES BINAIRE 1}.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'\telkey{BINARY DATA FILE 1} format.
+Possible values are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+
+NOM = 'FORMAT DU FICHIER DE DONNEES BINAIRE 2'
+NOM1 = 'BINARY DATA FILE 2 FORMAT'
+TYPE = STRING
+INDEX = 33
+MNEMO = 'ART\_FILES(ARTBI2)\%FMT'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+CHOIX = 'SERAFIN ';'SERAFIND';'MED     '
+CHOIX1 = 'SERAFIN ';'SERAFIND';'MED     '
+NIVEAU = 2
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+AIDE =
+'Format du \telkey{FICHIER DE DONNEES BINAIRE 2}.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'\telkey{BINARY DATA FILE 2} format.
+Possible values are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+
+/ VERSION 6.1
+
+NOM = 'VARIATION RAPIDE DE LA BATHYMETRIE'
+NOM1 = 'RAPIDLY VARYING TOPOGRAPHY'
+TYPE = INTEGER
+INDEX = 26
+MNEMO = 'IPENTCO'
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+/RUBRIQUE  = 'EFFET DE BATHYMETRIE,EXTENSION BERKHOFF'
+/RUBRIQUE1 = 'TOPOGRAPHY EFFECTS,EXTENDED MILD-SLOPE EQUATION'
+RUBRIQUE = 'PARAMETRES PHYSIQUES';'VARIATION BATHYMETRIE'
+RUBRIQUE1 = 'PHYSICAL PARAMETERS';'VARYING TOPOGRAPHY'
+COMPORT = 'Foreground
+("VARIATION BATHYMETRIE")
+IS VALEUR (Blue)'
+NIVEAU = 1
+CHOIX =
+   '0="BERKHOFF SIMPLE"';
+   '1="PRISE EN COMPTE TERME DE PENTE"';
+   '2="PRISE EN COMPTE TERME DE COURBURE"';
+   '3="PRISE EN COMPTE DES TERMES DE PENTE ET COURBURE"'
+CHOIX1 =
+   '0="mild-slope equation"';
+   '1="gradient second order term"';
+   '2="curvature second order term"';
+   '3="gradient + curvature second order terms"'
+AIDE =
+'Prise en compte des fortes pentes et courbures dans Berkhoff
+\begin{itemize}
+\item 0 : Berkhoff simple ;
+\item 1 : prise en compte terme pente en grad($h$)$^2$ ;
+\item 2 : prise en compte terme courbure en laplacien($h$) ;
+\item 3 : prise en compte des termes de pente et courbure.
+\end{itemize}
+Modele retenu pour les fonctions E1 et E2 : Chamberlain
+et Porter (1995).'
+AIDE1 = 'Extension of mild-slope equation with second
+          order bottom effects
+\begin{itemize}
+\item 0: mild-slope equation,
+\item 1: gradient second order term: grad($h$)$^2$,
+\item 2: curvature second order term: laplacian($h$),
+\item 3: gradient + curvature second order terms.
+\end{itemize}
+Model used for functions E1 and E2 expression: Chamberlain
+and Porter (1995).'
+/
+/  VERSION 7.1
+/
+NOM = 'VERIFICATION DU MAILLAGE'
+NOM1 = 'CHECKING THE MESH'
+TYPE = LOGICAL
+INDEX = 16
+/ in declarations_telemac
+MNEMO = 'CHECK\_MESH'
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'GLOBAL';''
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'GLOBAL';''
+NIVEAU = 1
+AIDE =
+'Si OUI on appelle le sous-programme \telfile{CHECKMESH}
+qui verifie la coherence du maillage, points superposes, etc.'
+AIDE1 =
+'If this keyword is equal to YES, a call to subroutine
+\telfile{CHECKMESH} will look for errors in the mesh,
+superimposed points, etc.'
+/
+/  VERSION 7.3
+/
+NOM  = 'ANIMATION DE LA SURFACE LIBRE'
+NOM1 = 'FREE SURFACE ANIMATION'
+TYPE = LOGICAL
+INDEX = 17
+MNEMO = 'ANIMFS'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'SURFACE LIBRE'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'FREE SURFACE'
+NIVEAU = 1
+AIDE = 'Option utilisee si l on veut produire le fichier de phases
+et amplitudes qui servira a calculer la position de la surface libre
+en tout point du maillage.
+A besoin des noms de \telkey{FICHIER DES PHASES ET AMPLITUDES} et
+\telkey{FICHIER DE SURFACE LIBRE}.'
+AIDE1 = 'This option informs that the phase and amplitude file is to
+be generated. This file will be used to determine the free surface
+elevation throughout the model area.
+Remember to give \telkey{AMPLITUDE AND PHASE FILE} and
+\telkey{FREE SURFACE FILE}.'
+
+NOM = 'FICHIER DES PHASES ET AMPLITUDES'
+NOM1 = 'AMPLITUDE AND PHASE FILE'
+TYPE = STRING
+INDEX = 34
+MNEMO = 'ART\_FILES(ARTAMP)\%NAME'
+TAILLE = 0
+SUBMIT = 'NAMP-WRITE;ARTAMP;FACUL;BIN;ECR;SELAFIN'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'SURFACE LIBRE'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'FREE SURFACE'
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Nom du fichier dans lequel seront ecrits les phases et amplitudes
+pour toutes les periodes et directions simulees dans le fichier des
+parametres.'
+AIDE1 = '
+Name of the results file corresponding to the computations and
+which contains the phase and amplitude at every point for all the
+periods and directions specified in the steering file.'
+
+NOM = 'FORMAT DU FICHIER DES PHASES ET AMPLITUDES'
+NOM1 = 'AMPLITUDE AND PHASE FILE FORMAT'
+TYPE = STRING
+INDEX = 35
+MNEMO = 'ART\_FILES(ARTAMP)\%FMT'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+NIVEAU = 2
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'SURFACE LIBRE'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'FREE SURFACE'
+AIDE =
+'Format du \telkey{FICHIER DES PHASES ET AMPLITUDES}.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'Format of the \telkey{AMPLITUDE AND PHASE FILE}.
+Possible choices are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+
+NOM = 'FICHIER DE SURFACE LIBRE'
+NOM1 = 'FREE SURFACE FILE'
+TYPE = STRING
+INDEX = 38
+MNEMO = NOMFST
+TAILLE = 0
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'SURFACE LIBRE'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'FREE SURFACE'
+COMPORT = 'Foreground ("ENTREES-SORTIES,FICHIERS*NOMS") IS VALEUR (Red)'
+APPARENCE = 'LISTE IS EDITABLE'
+NIVEAU = 1
+AIDE = '
+Nom du fichier dans lequel sera ecrite la surface libre fonction du
+temps pour permettre une animation du fichier.'
+AIDE1 = '
+Name of the results file corresponding to the computations and
+which contains the free surface at every point as a function of time.
+This file can be animated to check free surface variations with time.'
+
+NOM = 'FORMAT DU FICHIER DE SURFACE LIBRE'
+NOM1 = 'FREE SURFACE FILE FORMAT'
+TYPE = STRING
+INDEX = 39
+MNEMO = '?????'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+NIVEAU = 2
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'SURFACE LIBRE'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'FREE SURFACE'
+AIDE =
+'Format du \telkey{FICHIER DE SURFACE LIBRE}.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'Format of the \telkey{FREE SURFACE FILE}.
+Possible values are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+
+NOM = 'PREMIER TEMPS DANS LE FICHIER DE SURFACE LIBRE'
+NOM1 = 'FIRST TIME IN THE FREE SURFACE FILE'
+TYPE = REAL
+INDEX = 40
+MNEMO = 'TINIFS'
+TAILLE = 0
+DEFAUT = 10000.
+DEFAUT1 = 10000.
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'SURFACE LIBRE'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'FREE SURFACE'
+NIVEAU = 2
+AIDE = 'Determine le temps a partir duquel debute l ecriture
+des resultats dans le \telkey{FICHIER DE SURFACE LIBRE}.'
+AIDE1 = 'Determines the time from which the results are written
+in the \telkey{FREE SURFACE FILE}.'
+
+NOM = 'PAS DE TEMPS'
+NOM1 = 'TIME STEP'
+TYPE = REAL
+INDEX = 41
+MNEMO = 'DTFS'
+TAILLE = 1
+DEFAUT = 0.25
+DEFAUT1 = 0.25
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'SURFACE LIBRE'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'FREE SURFACE'
+NIVEAU = 1
+AIDE = 'Definit le pas de temps en secondes pour la sortie graphique
+\telkey{FICHIER DE SURFACE LIBRE}.'
+AIDE1 = 'Specifies the time step in seconds in
+ \telkey{FREE SURFACE FILE}.'
+
+NOM = 'NOMBRE DE PAS DE TEMPS'
+NOM1 = 'NUMBER OF TIME STEPS'
+TYPE = INTEGER
+INDEX = 29
+MNEMO = 'NITFS'
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'SURFACE LIBRE'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'FREE SURFACE'
+COMPORT = 'Foreground ("PARAMETRES NUMERIQUES")
+IS VALEUR (blue)'
+NIVEAU = 1
+AIDE = 'Definit le nombre de pas de temps pour la sortie graphique
+\telkey{FICHIER DE SURFACE LIBRE}.'
+AIDE1 = 'Specifies the number of time steps in
+ \telkey{FREE SURFACE FILE}.'
+
+/
+/  VERSION 8.0
+/
+NOM  = 'CHAINAGE AVEC MODELE GLOBAL TOMAWAC'
+NOM1 = 'NESTING WITHIN TOMAWAC OUTER MODEL'
+TYPE = INTEGER
+INDEX = 31
+MNEMO = 'CHAINTWC'
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+CHOIX = '0="Pas de chainage"';
+'1="Utilise un spectre TOMAWAC (1 point) en entree du calcul artemis"';
+'2="Utilise plusieurs spectres TOMAWAC le long de la frontiere"'
+CHOIX1 = '0="No nesting"';
+'1="Uses a TOMAWAC spectrum (1 point) as input to ARTEMIS"';
+'2="Uses several TOMAWAC spectra located along ARTEMIS boundary"'
+RUBRIQUE = 'CHAINAGE AVEC TOMAWAC'
+RUBRIQUE1 = 'NESTING WITH TOMAWAC'
+NIVEAU = 1
+AIDE = 'A besoin de NOMBRE DE DIRECTION DANS LE SPECTRE TOMAWAC et
+NOMBRE DE FREQUENCES DANS LE SPECTRE TOMAWAC pour l option 1.
+A besoin des noms de \telkey{FICHIER DE RESULTATS GLOBAL TOMAWAC},
+\telkey{FICHIER DE SPECTRE GLOBAL TOMAWAC} et
+\telkey{COORDONNEES POUR LE SPECTRE F DE REFERENCE} pour l option 2.
+Donner \telkey{INSTANT DE LECTURE DU SPECTRE TOMAWAC} pour 1 et 2'
+AIDE1 = 'Remember to give NUMBER OF DIRECTIONS IN TOMAWAC SPECTRUM
+and NUMBER OF FREQUENCIES IN TOMAWAC SPECTRUM with option 1.
+Remember to give \telkey{TOMAWAC OUTER RESULT FILE},
+\telkey{TOMAWAC OUTER SPECTRAL FILE} and
+\telkey{COORDINATES OF THE REFERENCE F SPECTRUM} if using option 2.
+\telkey{INSTANT FOR READING TOMAWAC SPECTRUM} required
+in cases 1 and 2.'
+
+NOM = 'INSTANT DE LECTURE DU SPECTRE TOMAWAC'
+NOM1 = 'INSTANT FOR READING TOMAWAC SPECTRUM'
+TYPE = REAL
+INDEX = 39
+MNEMO = 'TPSTWC'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'CHAINAGE AVEC TOMAWAC'
+RUBRIQUE1 = 'NESTING WITH TOMAWAC'
+COMPORT = 'Foreground
+("CHAINAGE*TOMAWAC")
+IS VALEUR (RED)'
+NIVEAU = 3
+AIDE = '
+Indique l instant de calcul \tomawac associe au spectre
+qui doit etre importe dans \artemis.'
+AIDE1 = '
+Give the instant of the \tomawac computation at which we
+want to import the spectrum for \artemis.'
+
+NOM = 'FICHIER DE SPECTRE GLOBAL TOMAWAC'
+NOM1 = 'TOMAWAC OUTER SPECTRAL FILE'
+TYPE = STRING
+INDEX = 36
+MNEMO = 'ART\_FILES(WACSPE)\%NAME'
+SUBMIT = 'NSPE-READ;WACSPE;FACUL;BIN;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE =
+'CHAINAGE AVEC TOMAWAC';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'NESTING WITH TOMAWAC';'INPUT';'DATA'
+AIDE = 'Nom du fichier de spectre provenant d un modele global
+\tomawac.'
+AIDE1 = 'Name of the spectral file from an outer \tomawac wave
+model.'
+
+NOM = 'FORMAT DU FICHIER DE SPECTRE GLOBAL TOMAWAC'
+NOM1 = 'TOMAWAC OUTER SPECTRAL FILE FORMAT'
+TYPE = STRING
+INDEX = 37
+MNEMO = 'ART\_FILES(WACSPE)\%FMT'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+NIVEAU = 2
+RUBRIQUE =
+'CHAINAGE AVEC TOMAWAC';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'NESTING WITH TOMAWAC';'INPUT';'DATA'
+AIDE =
+'Format du \telkey{FICHIER DE SPECTRE GLOBAL TOMAWAC}.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'Format of the \telkey{TOMAWAC OUTER SPECTRAL FILE}.
+Possible choices are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+
+NOM = 'FICHIER DE RESULTATS GLOBAL TOMAWAC'
+NOM1 = 'TOMAWAC OUTER RESULT FILE'
+TYPE = STRING
+INDEX = 41
+MNEMO = 'ART\_FILES(WACRES)\%NAME'
+SUBMIT = 'NTOM-READ;WACRES;FACUL;BIN;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE =
+'CHAINAGE AVEC TOMAWAC';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'NESTING WITH TOMAWAC';'OUTPUT';'RESULTS'
+AIDE = 'Nom du fichier de resultats 2D provenant d un modele global
+\tomawac.'
+AIDE1 = 'Name of a file containing the results of an outer \tomawac
+wave model.'
+
+NOM = 'FORMAT DU FICHIER DE RESULTATS GLOBAL TOMAWAC'
+NOM1 = 'TOMAWAC OUTER RESULT FILE FORMAT'
+TYPE = STRING
+INDEX = 42
+MNEMO = 'ART\_FILES(WACRES)\%FMT'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+NIVEAU = 2
+RUBRIQUE =
+'CHAINAGE AVEC TOMAWAC';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'NESTING WITH TOMAWAC';'OUTPUT';'RESULTS'
+AIDE =
+'Format du \telkey{FICHIER DE RESULTATS GLOBAL TOMAWAC}.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'Format of the \telkey{TOMAWAC OUTER RESULT FILE}.
+Possible choices are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+
+NOM = 'FICHIER DE FRONTIERES LIQUIDES TOMAWAC'
+NOM1 = 'TOMAWAC LIQUID BOUNDARY FILE'
+TYPE = STRING
+INDEX = 43
+MNEMO = 'ART\_FILES(WACLQD)\%NAME'
+SUBMIT = 'NTOM-READ;WACLQD;FACUL;BIN;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE =
+'CHAINAGE AVEC TOMAWAC';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'NESTING WITH TOMAWAC';'INPUT';'DATA'
+AIDE = 'Nom du fichier de frontieres liquides provenant d un modele
+global \tomawac.'
+AIDE1 = 'Name of a file containing the liquid boundaries derived
+from an outer \tomawac wave model.'
+
+NOM = 'FORMAT DU FICHIER DE FRONTIERES LIQUIDES TOMAWAC'
+NOM1 = 'TOMAWAC LIQUID BOUNDARY FILE FORMAT'
+TYPE = STRING
+INDEX = 44
+MNEMO = 'ART\_FILES(WACLQD)\%FMT'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+NIVEAU = 2
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE =
+'CHAINAGE AVEC TOMAWAC';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'NESTING WITH TOMAWAC';'INPUT';'DATA'
+AIDE =
+'Format du \telkey{FICHIER DE FRONTIERES LIQUIDES TOMAWAC}.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'Format of the \telkey{TOMAWAC LIQUID BOUNDARY FILE}.
+Possible choices are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+
+NOM = 'COORDONNEES POUR LE SPECTRE F DE REFERENCE'
+NOM1 = 'COORDINATES OF THE REFERENCE F SPECTRUM'
+TYPE = REAL
+INDEX = 42
+MNEMO = 'X\_SFREF,Y\_SFREF'
+TAILLE = 2
+DEFAUT = -99999.9;-99999.9
+DEFAUT1 = -99999.9;-99999.9
+RUBRIQUE = 'CHAINAGE AVEC TOMAWAC'
+RUBRIQUE1 = 'NESTING WITH TOMAWAC'
+NIVEAU = 1
+AIDE = 'Coordonnees du point de reference pour le spectre en
+frequence.'
+AIDE1 = 'Coordinates for the frequency spectrum reference point.'
+
+//-----------------------------------------------------------------
+
+NOM = 'DICTIONNAIRE'
+NOM1 = 'DICTIONARY'
+TYPE = STRING
+INDEX = 4
+TAILLE = 1
+MNEMO = ''
+SUBMIT = 'INUTILE;ARTDICO;OBLIG;ASC;LIT;DICO'
+DEFAUT = 'artemis.dico'
+DEFAUT1 = 'artemis.dico'
+RUBRIQUE =
+'INTERNE';'';''
+RUBRIQUE1 =
+'INTERNAL';'';''
+NIVEAU = -3
+AIDE ='Dictionnaire des mots cles.'
+AIDE1 ='Key word dictionary.'
+/
+/~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
+/ ALGORITHMIC DIFFERENTIATION                                         /
+/~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
+/
+/NOM = 'AD NOMBRE DE DERIVEES'
+/NOM1 = 'AD NUMBER OF DERIVATIVES'
+/TYPE = INTEGER
+/INDEX = 30
+/MNEMO = 'NADVAR'
+/TAILLE = 1
+/DEFAUT = 0
+/DEFAUT1 = 0
+/RUBRIQUE =
+/'DIFFERENTIATION AUTOMATIQUE';'';''
+/RUBRIQUE1 =
+/'AUTOMATIC DIFFERENTIATION';'';''
+/NIVEAU = 1
+/AIDE = 'Definit le nombre de derivees utilisateurs, dans le cadre
+/de la differentiation algorithmique.'
+/AIDE1 = 'Defines the number of user derivatives, within the framework
+/of the algorithmic differentiation.'
+/
+/NOM = 'AD NOMS DES DERIVEES'
+/NOM1 = 'AD NAMES OF DERIVATIVES'
+/TYPE = STRING
+/INDEX = 40
+/MNEMO = 'NAME\_ADVAR'
+/TAILLE = 2
+/RUBRIQUE =
+/'DIFFERENTIATION AUTOMATIQUE';'';''
+/RUBRIQUE1 =
+/'AUTOMATIC DIFFERENTIATION';'';''
+/NIVEAU = 1
+/AIDE = 'Noms des derivees utilisateurs en 32 caracteres,
+/         16 pour le nom, 16 pour l unite'
+/AIDE1 = 'Name of user derivatives in 32 characters,
+/         16 for the name, 16 for the unit.'
+/
+NOM = 'CONCATENATION SORTIE PARTEL'
+NOM1 = 'CONCATENATE PARTEL OUTPUT'
+TYPE = LOGICAL
+INDEX = 18
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'CONCAT\_PARTEL'
+RUBRIQUE =
+'INTERNE';'';''
+RUBRIQUE1 =
+'INTERNAL';'';''
+NIVEAU = 0
+AIDE =
+'Avec cette option, partel ne generera plus un fichier (GEO/CLI/PAR)
+par processeur mais une concatenation de ceux-ci, ainsi qu un fichier
+d index associe. Ainsi plutot que d avoir 3P fichiers, il n y en a
+plus que 6.'
+AIDE1 =
+'With this option, partel no more generates a file (GEO/CLI/PAR) per
+process but a single concatenate file of them, associated to an index
+file. Then instead of having partel generating 3P files, it only
+generates 6 files.'

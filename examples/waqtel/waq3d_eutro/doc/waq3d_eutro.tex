@@ -1,0 +1,108 @@
+\chapter{waq3d\_eutro}
+
+\section{Purpose}
+
+This case is an example of the use of the EUTRO module of \waqtel coupled with
+\telemac{3D}.
+
+\section{Description}
+
+A square basin at rest is considered (length and width = 10~m)
+with flat bathymetry and elevation at 0~m.
+
+\section{Computational options}
+
+\subsection{Mesh}
+
+The triangular mesh is composed of 272 triangular elements and 159 nodes
+(see Figure \ref{fig:waq3d_eutro:mesh}).
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.6\textwidth]}{../img/res_mesh.png}
+\caption{Mesh}
+ \label{fig:waq3d_eutro:mesh}
+\end{figure}
+
+To build the 3D mesh of prisms, 5 planes are regularly spaced over the vertical.
+The vertical mesh between nodes of coordinates (-5 ; 0) to (5 ; 0) can be
+seen on Figure \ref{fig:waq3d_eutro:mesh_section}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphicsmaybe{[width=0.95\textwidth]}{../img/res_mesh_section.png}
+\caption{Vertical mesh}
+ \label{fig:waq3d_eutro:mesh_section}
+\end{figure}
+
+\subsection{Physical parameters}
+
+The EUTRO module is activated by setting \telkey{WATER QUALITY PROCESS} = 5
+in the \telemac{3D} \telkey{STEERING FILE}.\\
+
+8 tracers are considered:
+\begin{itemize}
+\item phytoplanktonic biomass (PHY),
+\item dissolved mineral phosphorus (PO$_4$),
+\item degradable phosphorus non assimilated by phytoplankton (POR),
+\item dissolved mineral nitrogen assimilated by phytoplankton (NO$_3$),
+\item degradable nitrogen assimilated by phyto phytoplankton (NOR),
+\item ammoniacal load (NH$_4$),
+\item organic load (L),
+\item dissolved oxygen (O$_2$).
+\end{itemize}
+
+Only the following water quality parameters have been changed
+in the \waqtel \telkey{STEERING FILE} compared to the default values:
+\begin{itemize}
+\item \telkey{K2 REAERATION COEFFICIENT} = 0.3,
+\item \telkey{FORMULA FOR COMPUTING K2} = 0 (i.e. $k_2$ is constant),
+\item \telkey{O2 SATURATION DENSITY OF WATER (CS)} = 9~mgO$_2$/l ($C_s$ is constant),
+\item \telkey{SECCHI DEPTH} = 0.1~m,
+\item \telkey{VEGETAL TURBIDITY COEFFICIENT WITHOUT PHYTO} = 0.01~m$^{-1}$,
+\item \telkey{SUNSHINE FLUX DENSITY ON WATER SURFACE} = 0.01~W/m$^2$,
+\item \telkey{WATER TEMPERATURE} = 20$^\circ$C (which is the mean temperature of water).
+\end{itemize}
+
+\subsection{Initial and Boundary Conditions}
+
+The initial water depth is 2~m with a fluid at rest.\\
+%
+The initial values for tracers are homogeneous:\\
+([PHY],[PO4],[POR],[NO3],[NOR],[NH$_4$],[L],[O$_2$]) =
+(50~$\mu$gChlA/l, 3~mg/l, 0.01~mg/l, 2.9~mg/l, 9~mg/l, 1~mgNH$_4$/l, 0.2~mgO$_2$/l, 0.06~mgO$_2$/l).\\
+%
+There are only closed lateral boundaries with free slip condition and no
+friction at the bottom.
+
+\subsection{General parameters}
+
+The time step is 1~h = 3,600~s for a simulated period of 8,760~h = 365~days.
+
+\subsection{Numerical parameters}
+
+Basin at rest (no advection nor diffusion for hydrodynamics).\\
+
+The advection scheme for the tracers is LIPS (new default value since release 8.1) activated
+with the combo \telkey{SCHEME FOR ADVECTION OF TRACERS} = 5
+and \telkey{SCHEME OPTION FOR ADVECTION OF TRACERS} = 4.
+
+Moreover, the \telkey{ACCURACY FOR DIFFUSION OF TRACERS} is to be set to 10$^{-15}$ to
+get mass balance with a good accuracy.
+For this example, the current default value = 10$^{-8}$ is not enough.
+
+\section{Results}
+
+Figure \ref{fig:waq3d_eutro:res} shows the 8 tracers evolution along time.
+All of them rather quickly reach an asymptote.
+
+\begin{figure} [H]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/res_tracers.png}
+ \caption{Tracers evolution for different tracers of the EUTRO module}
+ \label{fig:waq3d_eutro:res}
+\end{figure}
+
+\section{Conclusion}
+
+The EUTRO module of \waqtel can be coupled with \telemac{3D}.

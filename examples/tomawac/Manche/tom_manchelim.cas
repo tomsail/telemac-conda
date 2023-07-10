@@ -1,0 +1,61 @@
+/********************************************************************
+/             FICHIER DES PARAMETRES DE TOMAWAC
+/********************************************************************
+/--------------------------------------------------------------------
+/     FILES
+GEOMETRY FILE : 'geo_spherique.slf'
+FORTRAN FILE : 'user_fortran2'
+
+BOUNDARY CONDITIONS FILE : 'manche.cl'
+FORMATTED FILE 1 : 'manche.lar'
+BINARY WINDS FILE : 'vents.slf'
+WINDS FILE FORMAT : 3
+2D RESULTS FILE : 'manche2.slf'
+PUNCTUAL RESULTS FILE : 'manche.spe'
+/------------------------------------------------------------------
+/ DIVERS ENTREES-SORTIES
+/------------------------------------------------------------------
+TITLE : 'CAS TEST TEMPETE EN MANCHE'
+PERIOD FOR LISTING PRINTOUTS : 200
+VARIABLES FOR 2D GRAPHIC PRINTOUTS :
+HM0,DMOY,FMOY,FM01,FPD,VX,VY,ZF,BETAWC
+PERIOD FOR GRAPHIC PRINTOUTS : 36
+ABSCISSAE OF SPECTRUM PRINTOUT POINTS :
+-12.13; -3.; -7.; 2.50;-4.0;-5.12;-6.0;-4.75;-3.13; -2.0;-0.88;
+1.5
+ORDINATES OF SPECTRUM PRINTOUT POINTS :
+43.13;45.;47.6;54.75;47.7;48.45; 51.;49.28;48.98;49.58; 50.1;
+51.
+/------------------------------------------------------------------
+/ DISCRETISATION
+/------------------------------------------------------------------
+NAMES OF VARIABLES : 'VITESSE U       M/S             ';
+                     'VITESSE V       M/S             ';
+                     'VENT X          M/S             ';
+                     'VENT Y          M/S             ';
+                     'HAUTEUR D EAU   M               '
+DATE OF COMPUTATION BEGINNING : 1161500
+NUMBER OF TIME STEP : 1008
+TIME STEP : 300.0
+NUMBER OF DIRECTIONS : 12
+NUMBER OF FREQUENCIES : 25
+MINIMAL FREQUENCY : 0.04177248
+FREQUENTIAL RATIO : 1.1
+CONSIDERATION OF A STATIONARY CURRENT : NO
+CONSIDERATION OF A WIND : YES
+STATIONARY WIND : NO
+SPHERICAL COORDINATES : YES
+INFINITE DEPTH : NO
+LIMIT SPECTRUM MODIFIED BY USER = OUI
+CONSIDERATION OF SOURCE TERMS : YES
+TYPE OF INITIAL DIRECTIONAL SPECTRUM = 1
+//--------------------------------------------------------------------
+/ TERMES SOURCES
+/--------------------------------------------------------------------
+NUMBER OF ITERATIONS FOR THE SOURCE TERMS = 1
+WIND GENERATION = 1
+WHITE CAPPING DISSIPATION = 1
+BOTTOM FRICTION DISSIPATION = 1
+NON-LINEAR TRANSFERS BETWEEN FREQUENCIES = 1
+DEPTH-INDUCED BREAKING DISSIPATION = 0
+

@@ -1,0 +1,86 @@
+/
+/  Temps calcul sur HP C3700                 : 27 s  5.5 24/11/2005
+/
+/  Temps calcul sur HP C3700 compilateur HP  : 14 s  5.7 17/04/2007
+/  Temps calcul sur HP C3700 compilateur Nag : 35 s  5.7 17/04/2007
+/  Temps calcul sur Linux compilateur pgi 6.2: 11 s  5.7 17/04/2007
+/
+/  Temps calcul sur HP C3700 compilateur HP  : 13 s  5.8 13/11/2007
+/  Temps calcul sur HP C3700 compilateur Nag : 34 s  5.8 20/12/2007
+/  Temps calcul sur Linux compilateur pgi 6.2: 11 s  5.8 19/12/2007
+/
+/  Temps calcul sur HP C3700 compilateur HP  : 14 s  5.9 15/10/2008
+/  Temps calcul sur HP C3700 compilateur Nag : 35 s  5.9 16/10/2008
+/  Temps calcul sur Linux compilateur pgi 6.2: 11 s  5.9 15/10/2008
+/
+/  Temps calcul sur HP C3700 compilateur HP  : 14 s  6.0 24/11/2009
+/  Temps calcul sur HP C3700 compilateur Nag : 35 s  6.0 26/11/2009
+/  Temps calcul sur Linux compilateur pgi 6.2:  8 s  6.0 26/11/2009
+/
+/  Version 6.2
+/
+/  Temps calcul sur HP C3700 compilateur HP  : 13 s  04/05/2012
+/
+/
+/  Note : fichier des flotteurs au format Tecplot
+/
+/----------------------------------------------------------------------
+/             Exemple d'initiation - Calcul numero 2
+/          Calcul de stabilisation 2eme PHASE avec reprise
+/                 Passage au debit de 700m3/sec
+/              Utilisation des sections de controle
+/----------------------------------------------------------------------
+/                      ENVIRONNEMENT INFORMATIQUE
+/----------------------------------------------------------------------
+/
+FORTRAN FILE              : 'user_fortran-v2p0'
+BOUNDARY CONDITIONS FILE  : geo_flotteurs.cli
+GEOMETRY FILE             : geo_flotteurs.slf
+RESULTS FILE              : r2d_flotteurs_v2p0.slf
+PREVIOUS COMPUTATION FILE : pre_flotteurs_v1p0.slf
+ASCII DROGUES FILE        : flo.dat
+/
+/----------------------------------------------------------------------
+/                        OPTIONS GENERALES
+/----------------------------------------------------------------------
+/
+TITLE : 'TELEMAC-2D - Initiation - Calcul numero 2'
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  : 'U,V,S,B,H,Q,M,F,L'
+TIME STEP                        : 5.
+NUMBER OF TIME STEPS             : 1440
+GRAPHIC PRINTOUT PERIOD          : 72
+LISTING PRINTOUT PERIOD          : 144
+COMPUTATION CONTINUED            : YES
+/
+/----------------------------------------------------------------------
+/                    CONDITIONS AUX LIMITES
+/----------------------------------------------------------------------
+/
+LAW OF BOTTOM FRICTION           : 3
+FRICTION COEFFICIENT             : 55.
+PRESCRIBED ELEVATIONS            : 265.;0.
+PRESCRIBED FLOWRATES             : 0.;700.
+/
+/----------------------------------------------------------------------
+/                       OPTIONS NUMERIQUES
+/----------------------------------------------------------------------
+/
+TIDAL FLATS                                  : NO
+TURBULENCE MODEL                             : 1
+MASS-BALANCE                                 : YES
+SOLVER ACCURACY                              : 1.E-4
+TYPE OF ADVECTION                            : 1;5
+VELOCITY DIFFUSIVITY                         : 1.E-2
+SOLVER                                       : 7
+SOLVER OPTION                                : 3
+MASS-LUMPING ON H                            : 1.
+MASS-LUMPING ON VELOCITY                     : 1.
+TREATMENT OF THE LINEAR SYSTEM               : 2
+/
+/----------------------------------------------------------------------
+/ FLOTTEURS ET SECTIONS DE CONTROLE
+/----------------------------------------------------------------------
+CONTROL SECTIONS                             : 56;211;286;43
+MAXIMUM NUMBER OF DROGUES                    : 100
+PRINTOUT PERIOD FOR DROGUES                  : 60

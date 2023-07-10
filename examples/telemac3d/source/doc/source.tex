@@ -1,0 +1,238 @@
+\chapter{Sources of fluid and tracers (source)}
+
+\section{Description}
+\bigskip
+%This test is a basin at rest with source points 
+%injecting tracers and fluid.
+This test shows the capability of \telemac{3D} to manage multiple
+sources of fluid and tracers.
+It also demonstrates the ability to compute injection and conservation
+of multiple tracers.
+
+\bigskip
+A 100~m long and 40~m wide flat bottom basin with a constant water depth of 1~m is
+considered (the bottom being $z$ = -1~m). The fluid is at rest.
+Sources are specified at two points of the mesh.
+Three tracers are used, one is the sum of the two others (tracer 2).\\
+Note that the turbulent viscosity is constant in both directions 
+and equal to the water molecular viscosity (10$^{-6}$ m$^2\cdot\text{s}^{-1}$,
+default value).
+
+\subsection{Initial and boundary conditions}
+
+\bigskip
+Initially, the fluid is at rest and the water level is null.
+
+\bigskip
+The boundary conditions are:
+\begin{itemize}
+\item Solid boundaries without roughness (slip conditions) everywhere,
+ i.e., no entrance and no outlet in the domain,
+\item On the bottom, Chézy law with friction coefficient equal to 
+60~$\text{m}^{1/2}.\text{s}^{-1}$ is imposed (default value
+for the friction coefficient until version 8.0).
+\end{itemize}
+
+%\subsection{Definition of sources}
+\bigskip
+The sources are defined at following positions:
+\begin{itemize}
+\item Position source 1: $x \approx$ -21.6~m, $y \approx$ 5.3~m, $z$ = -0.5~m,
+\item Position source 2: $x \approx$ -0.8~m, $y \approx$ -10.~m, $z$ = -0.5~m
+\end{itemize}
+A constant discharge of 1~m$^3$.s$^{-1}$ is imposed at both sources.
+The source 1 diffuses without any velocity in every direction , 
+whereas source 2 has an initial velocity: 
+$U$ = 0.5~m.s$^{-1}$, $V$ = 2~m.s$^{-1}$.
+At source 1, the tracers 1 and 2 are discharged. At source 2, 
+the tracers 2 and 3 are discharged with a concentration 
+of 10~kg.m$^{-3}$ (or g.L$^{-1}$) for all tracers.\\
+Note that the definition of the discharges and tracer concentrations at sources
+has been done in the \telkey{SOURCES FILE}.
+As this last file is present in the examples directory, the keyword
+\telkey{VALUES OF THE TRACERS AT THE SOURCES} is ignored but is given
+as an example coherent with what is done in the \telkey{SOURCES FILE}.
+
+\subsection{Mesh and numerical parameters}
+
+\bigskip
+Figure \ref{t3d:source:fig:meshH} shows the horizontal mesh and sources
+positions. The mesh is composed of 674 triangular elements (373 nodes) with 5 planes  
+regularly spaced on the vertical, to form prism elements.\\
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Mesh.png}
+ \caption{Horizontal mesh.}
+ \label{t3d:source:fig:meshH}
+\end{figure}
+
+The time step is 1.1~s for a simulated period of 1,100~s.
+
+\bigskip
+This case is computed with the hydrostatic pressure assumption. 
+To solve the advection, the method of characteristics 
+is used for the velocities (scheme 1, default until version 8.0)
+and the explicit finite volume 
+Leo Postma scheme for tidal flats is used for the tracer (scheme 13).
+
+
+\section{Results}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/velo_vec.png}
+ \caption{Horizontal velocity field at mid depth at 550~s.}
+ \label{t3d:source:velo}
+\end{figure}
+
+\bigskip
+Figure \ref{t3d:source:velo} highlights the influence of the initial velocity of
+source 2 on the horizontal velocity field at mid depth at 550~s.
+Additionally, it shows tracer 2 spreads in every direction
+at source 1, unlike at source 2 where tracer 2 diffuses in the initial
+velocity direction.\\
+The horizontal and vertical plumes of each tracer at 1,100~s, in
+Figures \ref{t3d:source:hor_shape} and \ref{t3d:source:ver_shape}
+respectively, allow verifying that the plume of tracer 2 is the
+combination of the plumes of tracer 1 and 3.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/plumTr_H.png}
+ \caption{Horizontal shape of the plumes for each tracers.}
+ \label{t3d:source:hor_shape}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphicsmaybe{[width=\textwidth]}{../img/plumTr_V.png}\\
+ \caption{Vertical shape of the plumes for each tracers.}
+ \label{t3d:source:ver_shape}
+\end{figure}
+\bigskip
+Moreover, the following mass balance of the \telemac{3D} simulation
+shows that the amount of water injected by the sources is very good
+(2,200~m$^3$ = 2 sources $\times$ 1~m$^3\cdot\text{s}^{-1}~\times$ 1,100~s
+with an error lower than 10$^{-6}~\rm{m}^3$, thus a relative error
+lower than 10$^{-9}$). If the keywords for accuracy for propagation and diffusion of tracers
+are equal to 10$^{-14}$, the error becomes lower than
+$10^{-12}~\rm{m}^3$, thus a relative error lower than the machine
+accuracy 10$^{-15}$.\\
+The mass balance also shows the conservation and the amount of
+discharged tracer 1, 2 and 3 is good
+(e.g. for tracer 2: 10~kg$\cdot\text{m}^{-3} \times$ 2 sources $\times$ 1,100~s
+$\times$ 1~m$^3\cdot\text{s}^{-1}$ = 22,000~kg with an error lower than 10$^{-5}$~kg,
+so a relative error lower than 10$^{-9}$).
+To get an error lower than 2.10$^{-8}$~kg, so a relative error lower
+than 2.10$^{-12}$, an accuracy of 10$^{-14}$ is required for the
+diffusion of tracers and propagation.
+Otherwise, the mass balances may be worse but sufficient enough,
+depending on the accuracy the user wishes.
+
+\bigskip
+Balance for \telkey{ACCURACY FOR PROPAGATION} $= 10^{-8}$ and
+\telkey{ACCURACY FOR DIFFUSION OF TRACERS} $= 10^{-9}$ in serial:
+
+\begin{lstlisting}[language=TelFortran]
+                        FINAL MASS BALANCE
+        T =        1100.0000
+
+        --- WATER ---
+        INITIAL MASS                        :     4000.000
+        FINAL MASS                          :     6200.000
+        MASS LEAVING THE DOMAIN (OR SOURCE) :    -2200.000
+        MASS LOSS                           :    0.2391803E-06
+
+        --- TRACER 1: TRACER 1        , UNIT : ??              * M3)
+        INITIAL MASS                        :     0.000000
+        FINAL MASS                          :     11000.00
+        MASS EXITING (BOUNDARIES OR SOURCE) :    -11000.00
+        MASS LOSS                           :    0.5897147E-05
+
+        --- TRACER 2: TRACER 2        , UNIT : ??              * M3)
+        INITIAL MASS                        :     0.000000
+        FINAL MASS                          :     22000.00
+        MASS EXITING (BOUNDARIES OR SOURCE) :    -22000.00
+        MASS LOSS                           :    0.2584195E-05
+
+        --- TRACER 3: TRACER 3        , UNIT : ??              * M3)
+        INITIAL MASS                        :     0.000000
+        FINAL MASS                          :     11000.00
+        MASS EXITING (BOUNDARIES OR SOURCE) :    -11000.00
+        MASS LOSS                           :   -0.3261903E-05
+\end{lstlisting}
+
+\bigskip
+Balance for \telkey{ACCURACY FOR PROPAGATION} $= 10^{-8}$ and
+\telkey{ACCURACY FOR DIFFUSION OF TRACERS} $= 10^{-9}$ in parallel
+(4 processors):
+
+\begin{lstlisting}[language=TelFortran]
+
+	                FINAL MASS BALANCE
+	T =        1100.0000
+
+	--- WATER ---
+	INITIAL MASS                        :     4000.000
+	FINAL MASS                          :     6200.000
+	MASS LEAVING THE DOMAIN (OR SOURCE) :    -2200.000
+	MASS LOSS                           :    0.2391880E-06
+
+	--- TRACER 1: TRACER 1        , UNIT : ??              * M3)
+	INITIAL MASS                        :     0.000000
+	FINAL MASS                          :     11000.00
+	MASS EXITING (BOUNDARIES OR SOURCE) :    -11000.00
+	MASS LOSS                           :    0.5897129E-05
+
+	--- TRACER 2: TRACER 2        , UNIT : ??              * M3)
+	INITIAL MASS                        :     0.000000
+	FINAL MASS                          :     22000.00
+	MASS EXITING (BOUNDARIES OR SOURCE) :    -22000.00
+	MASS LOSS                           :    0.2584253E-05
+
+	--- TRACER 3: TRACER 3        , UNIT : ??              * M3)
+	INITIAL MASS                        :     0.000000
+	FINAL MASS                          :     11000.00
+	MASS EXITING (BOUNDARIES OR SOURCE) :    -11000.00
+	MASS LOSS                           :   -0.3261830E-05
+\end{lstlisting}
+
+\bigskip
+Balance for \telkey{ACCURACY FOR PROPAGATION} $= 10^{-14}$ and
+\telkey{ACCURACY FOR DIFFUSION OF TRACERS} $= 10^{-14}$ in serial:
+
+\begin{lstlisting}[language=TelFortran]
+                        FINAL MASS BALANCE
+        T =        1100.0000
+
+        --- WATER ---
+        INITIAL MASS                        :     4000.000
+        FINAL MASS                          :     6200.000
+        MASS LEAVING THE DOMAIN (OR SOURCE) :    -2200.000
+        MASS LOSS                           :    0.4547474E-12
+
+        --- TRACER 1: TRACER 1        , UNIT : ??              * M3)
+        INITIAL MASS                        :     0.000000
+        FINAL MASS                          :     11000.00
+        MASS EXITING (BOUNDARIES OR SOURCE) :    -11000.00
+        MASS LOSS                           :   -0.1768058E-07
+
+        --- TRACER 2: TRACER 2        , UNIT : ??              * M3)
+        INITIAL MASS                        :     0.000000
+        FINAL MASS                          :     22000.00
+        MASS EXITING (BOUNDARIES OR SOURCE) :    -22000.00
+        MASS LOSS                           :   -0.1020817E-07
+
+        --- TRACER 3: TRACER 3        , UNIT : ??              * M3)
+        INITIAL MASS                        :     0.000000
+        FINAL MASS                          :     11000.00
+        MASS EXITING (BOUNDARIES OR SOURCE) :    -11000.00
+        MASS LOSS                           :    0.7525159E-08
+\end{lstlisting}
+
+%\section{Conclusion}
+
+\bigskip
+To conclude, \telemac{3D} is able to compute the evolution and the conservation of
+tracers discharged by sources.

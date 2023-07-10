@@ -1,0 +1,83 @@
+/  HP C3700           : 951 s   5.5 JMH  17/12/2004
+/  HP C3700           : 620 s   5.5 JMH  04/03/2005 (nouvelle diffusion)
+/  HP C3700           : 411 s   5.6 JMH  29/09/2005 (segment)
+/  DELL 2.8 MHz Linux : 285 s   5.6 JMH  10/11/2005
+/
+/  CAS NON-HYDROSTATIQUE A FOND PLAT
+/
+/ 5.7 HP:373 s, Nag:871 s, Dell:239 s 14/02/2007
+/ 5.8 HP:390 s, Nag:941 s, Dell:244 s 03/01/2008 (schema N)
+/ 5.9 HP:374 s, Nag:??? s, Dell:233 s 20/10/2008
+/ 6.0 HP:308 s, Nag:751 s, Intel:147 s 07/12/2009
+/ 6.1 HP:333 s, Nag:??? s, Intel:??? s 06/12/2010
+/ 6.2 HP:318 s, Nag:??? s, Intel:??? s 29/05/2012
+/
+FORTRAN FILE                    : 'user_fortran'
+BOUNDARY CONDITIONS FILE        : geo_cooper.cli
+GEOMETRY FILE                   : geo_cooper.slf
+3D RESULT FILE                  : r3d_cooper.slf
+2D RESULT FILE                  : r2d_cooper.slf
+/
+MESH TRANSFORMATION : 3
+/----------------------------------------------------------------------
+TITLE : 'BOX SOURCE. Discharge = 20 m3/s. Buoyant tracer.'
+VARIABLES FOR 2D GRAPHIC PRINTOUTS : 'U,V,H,B'
+VARIABLES FOR 3D GRAPHIC PRINTOUTS : 'Z,U,V,W,TA1'
+NUMBER OF HORIZONTAL LEVELS = 11
+TIME STEP = 5.
+NUMBER OF TIME STEPS = 360
+GRAPHIC PRINTOUT PERIOD = 180 / every 15 minutes
+LISTING PRINTOUT PERIOD = 60
+/----------------------------------------------------------------------
+SCHEME FOR ADVECTION OF VELOCITIES : 4
+SCHEME FOR ADVECTION OF TRACERS    : 4
+COEFFICIENT FOR HORIZONTAL DIFFUSION OF TRACERS : 0.
+COEFFICIENT FOR VERTICAL DIFFUSION OF TRACERS   : 0.1
+ACCURACY FOR DIFFUSION OF TRACERS : 1.E-12
+/----------------------------------------------------------------------
+COEFFICIENT FOR HORIZONTAL DIFFUSION OF VELOCITIES = 1.E-4
+COEFFICIENT FOR VERTICAL DIFFUSION OF VELOCITIES   = 0.
+/----------------------------------------------------------------------
+HORIZONTAL TURBULENCE MODEL : 1
+VERTICAL TURBULENCE MODEL : 2
+LAW OF BOTTOM FRICTION : 5
+FRICTION COEFFICIENT FOR THE BOTTOM = 0.01
+/----------------------------------------------------------------------
+/SOLVER FOR PROPAGATION : 7  / 7 for hydro and supg versions
+SOLVER FOR PROPAGATION : 2
+ACCURACY FOR PROPAGATION = 1.E-8
+/----------------------------------------------------------------------
+MASS-BALANCE : YES
+/----------------------------------------------------------------------/
+IMPLICITATION FOR DEPTH = 1.
+/----------------------------------------------------------------------/
+TIDAL FLATS : NO
+/----------------------------------------------------------------------
+INITIAL CONDITIONS : 'CONSTANT ELEVATION'
+INITIAL ELEVATION : 0.0
+INITIAL VALUES OF TRACERS : 0.
+/----------------------------------------------------------------------
+ABSCISSAE OF SOURCES = 2000.0
+ORDINATES OF SOURCES = 2000.0
+ELEVATIONS OF SOURCES = -5.0
+WATER DISCHARGE OF SOURCES = 20.0
+VALUE OF THE TRACERS AT THE SOURCES = 333.33
+/----------------------------------------------------------------------
+NUMBER OF TRACERS = 1
+DENSITY LAW : 4
+BETA EXPANSION COEFFICIENT FOR TRACERS = 0.0003
+/BETA EXPANSION COEFFICIENT FOR TRACERS = 0.
+STANDARD VALUES FOR TRACERS : 0.
+/----------------------------------------------------------------------
+/  NON-HYDROSTATIC PART
+/----------------------------------------------------------------------
+/MAXIMUM NUMBER OF ITERATIONS FOR PPE = 200
+ACCURACY FOR PPE = 1.E-6
+NON-HYDROSTATIC VERSION : YES
+/
+/ DEFAULT VALUES UNTIL V8P0 KEPT FOR NON REGRESSION
+SCHEME OPTION FOR ADVECTION OF VELOCITIES = 1
+IMPLICITATION FOR VELOCITIES = 1.
+ACCURACY FOR DIFFUSION OF VELOCITIES = 1.E-5
+SOLVER FOR PPE = 1
+SCHEME OPTION FOR ADVECTION OF TRACERS = 1

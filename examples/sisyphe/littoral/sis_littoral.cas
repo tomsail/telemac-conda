@@ -1,0 +1,48 @@
+/
+TITLE = 'LITTORAL'
+/
+/ FILES (1)
+/ ______________
+/mode sisyphe seul
+GEOMETRY FILE = 'geo_littoral.slf'
+BOUNDARY CONDITIONS FILE = 'geo_sis_littoral.cli'
+RESULTS FILE ='sis_littoral.slf'
+/
+/ FRICTION
+/______________________
+/
+LAW OF BOTTOM FRICTION = 5
+FRICTION COEFFICIENT = 0.05
+RATIO BETWEEN SKIN FRICTION AND MEAN DIAMETER = 3
+/
+/ INPUTS - OUTPUTS
+/ ________________________________________
+/
+VARIABLES FOR GRAPHIC PRINTOUTS = U,V,H,M,W,X,TOB
+/
+MASS-BALANCE = YES
+/ meme que pour fichier cas Telemac
+GRAPHIC PRINTOUT PERIOD = 1
+LISTING PRINTOUT PERIOD = 2
+NUMBER OF TIME STEPS  = 10
+TIME STEP = 10.
+/
+/ NUMERICAL PARAMETERS (1)
+/ -----------------------
+/
+ZERO = 1e-12
+TETA = 0.5
+/
+/TRANSPORT SOLIDE (1)
+/ __________________
+/
+BED-LOAD TRANSPORT FORMULA = 5
+EFFECT OF WAVES = YES
+/ attention seule la deviation est prise en compte
+/ dans Koch et Flochstra
+SLOPE EFFECT = YES
+BETA = 0.
+/
+MEAN DIAMETER OF THE SEDIMENT = 0.0003
+NON COHESIVE BED POROSITY = 0.375
+/

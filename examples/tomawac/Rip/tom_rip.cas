@@ -1,0 +1,72 @@
+/DEBUGGER = 1
+/--------------------------------------------------------------------/
+/     FICHIERS3D
+/--------------------------------------------------------------------/
+
+STEERING FILE = './tom_rip.cas'
+GEOMETRY FILE = 'geo_rip.slf'
+BOUNDARY CONDITIONS FILE = 'tom_bc.cli'
+/
+2D RESULTS FILE = 'tom_rip.slf'
+/--------------------------------------------------------------------/
+/ DIVERS ENTREES-SORTIES
+/--------------------------------------------------------------------/
+TITLE = 'RIP'
+PERIOD FOR GRAPHIC PRINTOUTS =1000
+VARIABLES FOR 2D GRAPHIC PRINTOUTS =
+HM0,FM01,DMOY,FX,FY,WD,ZF,UX,UY,BETA
+PERIOD FOR LISTING PRINTOUTS = 1000
+BOTTOM TOPOGRAPHY FILE='./Bath_rip.csv'
+
+/--------------------------------------------------------------------/
+/ DISCRETISATION DU SPECTRE DIRECTIONNEL
+/--------------------------------------------------------------------/
+MINIMAL FREQUENCY = 0.187
+FREQUENTIAL RATIO = 1.4
+NUMBER OF FREQUENCIES = 7
+
+NUMBER OF DIRECTIONS =24
+SPHERICAL COORDINATES = NO
+MINIMUM WATER DEPTH = 0.01
+INFINITE DEPTH = FALSE
+
+/ DISCRETISATION TEMPORELLE
+/--------------------------------------------------------------------/
+TIME STEP = 0.03
+NUMBER OF TIME STEP =30000
+/--------------------------------------------------------------------/
+/ CONDITIONS AUX LIMITES
+/--------------------------------------------------------------------/
+LIMIT SPECTRUM MODIFIED BY USER=NO
+
+TYPE OF BOUNDARY DIRECTIONAL SPECTRUM = 6
+/-------------- Caracteristiques de la houle au large (a modifier) :
+BOUNDARY SIGNIFICANT WAVE HEIGHT = 0.067
+BOUNDARY PEAK FREQUENCY = 1
+BOUNDARY MAIN DIRECTION 1 = 90.
+/--- ----------
+BOUNDARY PEAK FACTOR =2
+BOUNDARY ANGULAR DISTRIBUTION FUNCTION = 3
+BOUNDARY DIRECTIONAL SPREAD 1 =100.
+/--------------------------------------------------------------------/
+/ CONDITIONS INITIALES
+/--------------------------------------------------------------------/
+INITIAL STILL WATER LEVEL = 0
+TYPE OF INITIAL DIRECTIONAL SPECTRUM = 6
+INITIAL SIGNIFICANT WAVE HEIGHT = 0.067
+INITIAL PEAK FREQUENCY = 1
+INITIAL PEAK FACTOR = 2
+INITIAL ANGULAR DISTRIBUTION FUNCTION = 3
+INITIAL MAIN DIRECTION 1 = 90.
+INITIAL DIRECTIONAL SPREAD 1 = 100.
+
+/--------------------------------------------------------------------/
+/ TERMES SOURCES ET PUITS D ENERGIE
+/--------------------------------------------------------------------/
+CONSIDERATION OF SOURCE TERMS = YES
+BOTTOM FRICTION DISSIPATION = 1
+BOTTOM FRICTION COEFFICIENT = 0.067
+
+DEPTH-INDUCED BREAKING DISSIPATION =1
+DEPTH-INDUCED BREAKING 1 (BJ) COEFFICIENT GAMMA2=1.0
+

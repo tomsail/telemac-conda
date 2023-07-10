@@ -1,0 +1,80 @@
+\chapter{Porous}
+%
+% - Purpose & Problem description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved and specify how the numerical solution will be validated
+%
+\section{Purpose}
+%
+This test case has been created to test the dissipation due to a porous media.
+That is only a test that checks non regression solution. In order to test the
+subroutine of the trunk the test has not any fortran user. This implies to have
+porous media in all the domain of calculation.  
+
+
+%
+\section{Description of the problem}
+%
+We simulate the dissipation due to porous media in a square. The domain is a
+square defined by the points (0,0) and (100,100). Since we are using the domain
+set in {\it qporos}, The porous media is a square between points (40,39) and
+(50,61).  
+
+
+\section{Physical parameters}
+Simulations were carried out with a water depth h = 2.0~m and a wave heigth of
+0.56~m at the incident wave boundary. The media defined in {\it qporos} has a
+porosity rate of 0.8 a damping mass coefficient  of 2.5, and a linear friction
+coefficient of 1.
+
+\section{Geometry and Mesh}
+The computational domain was composed of a flat (slope = 0.0) 2D grid with an
+aspect ratio of 1 (cross-shore direction):10 (along shore direction).
+The calculation grid size was set as 2.0~m in the wave propagation direction.
+There are 906 nodes and 1500 triangles.
+
+The area where Porous media is taken into account is defined by the file
+{\it Zone.txt'}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/mesh.png}
+ \caption{Mesh of the domain.}
+\label{meshPorous}
+\end{figure}
+%
+\section{Initial and Boundary Conditions}
+%
+The initial  significative heigth is 0.015~m with an initial frequency of 1
+Hz and an initial peak factor of 3.3 and a mean direction of $90^{\circ}$ and a
+initial directionnal spread of 0.
+The boundary conditions are given by a jonswap spectrum with a boundary pic
+factor of 3.3Hz a significative heigth of 0.5656~m and a boundary frequency pic
+of 1~Hz.
+
+% - Numerical parameters:
+%     This part is used to specify the numerical parameters used
+%     (adaptive time step, mass-lumping when necessary...)
+%
+%
+\section{Numerical parameters}
+%
+The time step was of 1s and the duration of the computation of 1200~s. The
+spectro-angular mesh has 36 directions and 6 frequencies. The frequential
+ratio was of 1.01 and the minimum frequency of 0.9705~Hz.
+
+\section{Results}
+We can see on Figure \ref{resPorous} the impact of porous media compared to
+Figure \ref{ressans}
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.6\textwidth]}{../img/results.png}
+ \caption{Wave heigth hm0 with porous media.}
+\label{resPorous}
+\end{figure}
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.6\textwidth]}{../img/sans.png}
+ \caption{Wave heigth hm0 without porous media.}
+\label{ressans}
+\end{figure}

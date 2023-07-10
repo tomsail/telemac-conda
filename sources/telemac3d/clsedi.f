@@ -1,0 +1,263 @@
+!                   *****************
+                    SUBROUTINE CLSEDI
+!                   *****************
+!
+     &( ATABOF , BTABOF  ,
+     &  WC     ,
+     &  Z      , HN      , DELTAR ,
+     &  TOB    , DENSI   , S3D_EPAI, S3D_CFDEP,
+     &  S3D_CONC, S3D_HDEP, S3D_FLUER, S3D_FLUDPT, LITABF ,
+     &  KLOG    , NPOIN3 , NPOIN2  , NPLAN  ,
+     &  S3D_NCOUCH, DT     , RHO0    ,  S3D_RHOS,
+     &  S3D_TOCD, S3D_MPART, S3D_TOCE, UETCAR  , GRAV   ,
+     &  S3D_SEDCO, S3D_DMOY, S3D_CREF, ZREF    , CF     ,
+     &  S3D_AC , S3D_KSPRATIO, S3D_ICR, S3D_ICQ , RUGOF  ,
+     &  S3D_SETDEP, HMIN    , S3D_WCS, S3D_EPAICO, S3D_EPAINCO,
+     &  S3D_MIXTE, S3D_SEDNCO, S3D_FLUDPTC, S3D_FLUDPTNC, S3D_FLUERC,
+     &  S3D_FLUERNC, NTRAC   , ITRAC)
+!
+!***********************************************************************
+! TELEMAC3D   V7P0                                   21/08/2010
+!***********************************************************************
+!
+!brief    EXPRESSES THE BOUNDARY CONDITIONS FOR THE SEDIMENT,
+!+                AT THE BOTTOM AND SURFACE (FOR COHESIVE SEDIMENT OR NOT).
+!
+!history  JACEK A. JANKOWSKI PINXIT
+!+        **/03/99
+!+
+!+   FORTRAN95 VERSION
+!
+!history  CAMILLE LEQUETTE
+!+        **/06/03
+!+
+!+
+!
+!history  C LE NORMANT (LNH)
+!+        12/09/07
+!+        V5P0
+!+
+!
+!history  N.DURAND (HRW), S.E.BOURBAN (HRW)
+!+        13/07/2010
+!+        V6P0
+!+   Translation of French comments within the FORTRAN sources into
+!+   English comments
+!
+!history  N.DURAND (HRW), S.E.BOURBAN (HRW)
+!+        21/08/2010
+!+        V6P0
+!+   Creation of DOXYGEN tags for automated documentation and
+!+   cross-referencing of the FORTRAN sources
+!
+!history  C. VILLARET & T. BENSON & D. KELLY (HR-WALLINGFORD)
+!+        27/02/2014
+!+        V7P0
+!+   New developments in sediment merged on 25/02/2014.
+!
+!history  G. ANTOINE & M. JODEAU & J.M. HERVOUET (EDF - LNHE)
+!+        13/10/2014
+!+        V7P0
+!+   New developments in sediment for mixed sediment transport
+!
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!| ATABOF         |<->| FOR BOUNDARY CONDITION (BOTTOM)
+!| BTABOF         |<->| FOR BOUNDARY CONDITION (BOTTOM)
+!| CF             |-->| QUADRATIC FRICTION COEFFICIENT
+!| DELTAR         |-->| DELTA RHO / RHO0 = (RHO-RHO0)/RHO0
+!| DENSI          |<->| WATER DENSITY
+!| DT             |-->| HYDRODYNAMICS TIME STEP
+!| GRAV           |-->| ACCELERATION OF GRAVITY
+!| HMIN           |-->| THRESHOLD FOR EROSION FLUXES ON TIDAL FLATS
+!| HN             |-->| WATER DEPTH AT TIME N
+!| ITRAC          |-->| INDEX OF THE ACTIVE TRACER
+!| KLOG           |-->| CONVENTION FOR LOGARITHMIC WALL
+!| LITABF         |<->| FOR BOUNDARY CONDITION BOTTOM
+!| NPLAN          |-->| NUMBER OF PLANES IN THE 3D MESH OF PRISMS
+!| NPOIN2         |-->| NUMBER OF POINTS IN 2D
+!| NPOIN3         |-->| NUMBER OF POINTS IN 3D
+!| NTRAC          |-->| NUMBER OF TRACERS
+!| RHO0           |-->| WATER DENSITY (REFERENCE)
+!| RUGOF          |-->| FRICTION COEFFICIENT
+!| S3D_AC         |-->| CRITICAL SHIELDS PARAMETER
+!| S3D_CFDEP      |-->| MUD DEPOSITION CONCENTRATION (G/L)
+!| S3D_CONC       |-->| MUD CONCENTRATION FOR EACH LAYER
+!| S3D_DMOY       |-->| DIAMETRE MOYEN DES GRAINS
+!| S3D_CREF       |<->| EQUILIBRIUM NEAR-BED CONCENTRATION
+!| S3D_EPAI       |<->| THICKNESS OF BOTTOM LAYERS IN
+!|                |   | MATERIAL COORDINATES (S3D_EPAI=DZ/(1+S3D_IVIDE))
+!| S3D_EPAICO     |-->| THICKNESS OF COHESIVE SUB-LAYER
+!| S3D_EPAINCO    |-->| THICKNESS OF NON-COHESIVE SUB-LAYER
+!| S3D_FLUDPT     |<->| IMPLICIT DEPOSITION FLUX
+!| S3D_FLUDPTC    |<->| IMPLICIT DEPOSITION FLUX FOR COHESIVE SEDIMENT
+!| S3D_FLUDPTNC   |<->| IMPLICIT DEPOSITION FLUX FOR NON-COHESIVE SEDIMENT
+!| S3D_FLUER      |<->| EROSION FLUX FOR POINTS IN 2D
+!| S3D_FLUERC     |<->| EROSION FLUX FOR COHESIVE SEDIMENT IN 2D
+!| S3D_FLUERNC    |<->| EROSION FLUX FOR NON-COHESIVE SEDIMENT IN 2D
+!| S3D_HDEP       |<->| THICKNESS OF FRESH DEPOSIT (FLUID MUD LAYER)
+!| S3D_ICR        |-->| FLAG FOR THE SKIN FRICTION OPTION
+!| S3D_ICQ        |-->| FLAG FOR THE REFERENCE CONCENTRATION FORMULA
+!| S3D_KSPRATIO   |-->| RELATION BETWEEN SKIN BED ROUGHNESS AND SEDIMENT
+!|                |   | DIAMETER
+!| S3D_MIXTE      |-->| LOGICAL, MIXED SEDIMENTS OR NOT
+!| S3D_MPART      |-->| EROSION COEFFICIENT (PARTHENIADES'S LAW)
+!| S3D_NCOUCH     |-->| NUMBER OF LAYERS FOR THE COHESIVE MULTILAYER MODEL
+!| S3D_RHOS       |-->| MASSE VOLUMIQUE DU SEDIMENT
+!| S3D_SEDCO      |-->| LOGICAL, SEDIMENT COHESIVE OR NOT
+!| S3D_SEDNCO     |-->| LOGICAL, SEDIMENT NON-COHESIVE OR NOT
+!| S3D_SETDEP     |-->| SETTLING SCHEME (0 or 1)
+!| S3D_TOCD       |-->| CRITICAL DEPOSITION SHEAR STRESS
+!| S3D_TOCE       |-->| CRITICAL EROSION SHEAR STRESS
+!| S3D_WCS        |-->| SETTLING VELOCITY OF SAND
+!| TOB            |-->| BED SHEAR STRESS (TOTAL FRICTION)
+!| UETCAR         |-->| SQUARE OF THE FRICTION VELOCITY
+!| WC             |-->| SETTLING VELOCITY OF MUD
+!| Z              |-->| THIRD NODE COORDINATE
+!| ZREF           |-->| VERTICAL COORDINATE OF THE HARD BOTTOM
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!
+      USE BIEF
+      USE INTERFACE_TELEMAC3D, EX_CLSEDI => CLSEDI
+      USE DECLARATIONS_SPECIAL
+      IMPLICIT NONE
+!
+!+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+!
+      INTEGER, INTENT(IN) :: NPOIN2,NPOIN3,KLOG,S3D_ICQ, ITRAC, NTRAC
+      INTEGER, INTENT(IN) :: S3D_NCOUCH,NPLAN,S3D_ICR
+!
+      DOUBLE PRECISION, INTENT(INOUT) :: ATABOF(NPOIN2), BTABOF(NPOIN2)
+!
+      DOUBLE PRECISION, INTENT(IN)  :: Z(NPOIN3)
+      DOUBLE PRECISION, INTENT(IN)  :: S3D_CFDEP
+      DOUBLE PRECISION, INTENT(IN)  :: WC(NPOIN3), DELTAR(NPOIN3)
+      DOUBLE PRECISION, INTENT(IN)  :: S3D_WCS(*)
+!
+      TYPE(BIEF_OBJ), INTENT(INOUT) :: TOB,S3D_CREF,ZREF,RUGOF
+      TYPE(BIEF_OBJ), INTENT(IN)    :: S3D_DMOY,HN,CF
+!
+      DOUBLE PRECISION, INTENT(INOUT) :: S3D_EPAI(NPOIN2,S3D_NCOUCH)
+      DOUBLE PRECISION, INTENT(IN)    :: S3D_EPAICO(*), S3D_EPAINCO(*)
+      DOUBLE PRECISION, INTENT(IN)    :: S3D_CONC(NPOIN2,S3D_NCOUCH)
+!
+      DOUBLE PRECISION, INTENT(INOUT) :: DENSI(NPOIN2)
+      DOUBLE PRECISION, INTENT(INOUT) :: UETCAR(NPOIN2)
+      DOUBLE PRECISION, INTENT(INOUT) :: S3D_HDEP(NPOIN2)
+      DOUBLE PRECISION, INTENT(INOUT) :: S3D_FLUER(NPOIN2)
+      DOUBLE PRECISION, INTENT(INOUT) :: S3D_FLUERC(*), S3D_FLUERNC(*)
+      DOUBLE PRECISION, INTENT(INOUT) :: S3D_FLUDPT(NPOIN2)
+      DOUBLE PRECISION, INTENT(INOUT) :: S3D_FLUDPTC(*)
+      DOUBLE PRECISION, INTENT(INOUT) :: S3D_FLUDPTNC(*)
+!
+      DOUBLE PRECISION, INTENT(IN) :: DT, RHO0, S3D_RHOS, HMIN
+      DOUBLE PRECISION, INTENT(IN) :: S3D_TOCD, GRAV
+      DOUBLE PRECISION, INTENT(IN) :: S3D_MPART
+      DOUBLE PRECISION, INTENT(IN) :: S3D_TOCE(NPOIN2,S3D_NCOUCH)
+!
+      INTEGER, INTENT(INOUT)       :: LITABF(NPOIN2)
+      LOGICAL, INTENT(IN)          :: S3D_SEDCO, S3D_MIXTE, S3D_SEDNCO
+      INTEGER, INTENT(IN)          :: S3D_SETDEP
+      DOUBLE PRECISION, INTENT(IN) :: S3D_AC, S3D_KSPRATIO
+!
+!+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+!
+      DOUBLE PRECISION KSP,A,ZERO,HCLIP,MU
+      INTEGER IPOIN
+!
+!-----------------------------------------------------------------------
+!
+      ZERO = 1.D-6
+!
+      IF (S3D_MIXTE) THEN
+        DO IPOIN=1,NPOIN2
+          S3D_FLUERC(IPOIN) = 0.D0
+          S3D_FLUERNC(IPOIN)= 0.D0
+        ENDDO
+      ENDIF
+!
+      DO IPOIN=1,NPOIN2
+!       COMPUTES THE FLUID DENSITY
+        DENSI(IPOIN) = (DELTAR(IPOIN)+1.D0)*RHO0
+!       COMPUTES THE STRESS AT THE BOTTOM
+        TOB%R(IPOIN) = DENSI(IPOIN)*UETCAR(IPOIN)
+      ENDDO
+!
+      IF(S3D_ICR.EQ.1) THEN
+!
+        DO IPOIN=1,NPOIN2
+!         CORRECTION FOR SKIN FRICTION (SEE TOB_SISYPHE)
+          KSP=S3D_KSPRATIO*S3D_DMOY%R(IPOIN)
+          IF(CF%R(IPOIN).GT.ZERO.AND.HN%R(IPOIN).GT.KSP) THEN
+            HCLIP=MAX(HN%R(IPOIN),KSP)
+            A = 2.5D0*LOG(12.D0*HCLIP/KSP)
+            MU =2.D0/(A**2*CF%R(IPOIN))
+          ELSE
+            MU=0.D0
+          ENDIF
+          TOB%R(IPOIN) = MU* TOB%R(IPOIN)
+        ENDDO
+!
+      ENDIF
+!
+!      -----COMPUTES THE EXPLICIT EROSION FLUX-----
+!
+      IF(S3D_SEDCO) THEN
+!
+        CALL ERODC(S3D_CONC,S3D_EPAI,S3D_FLUER,TOB%R,
+     &             S3D_MPART,DT,NPOIN2,S3D_NCOUCH,S3D_TOCE,
+     &             HN%R,HMIN,S3D_MIXTE,S3D_EPAICO)
+!
+      ELSEIF(S3D_SEDNCO) THEN
+!
+        CALL ERODNC(S3D_CFDEP,WC,S3D_HDEP,S3D_FLUER,TOB,DT,
+     &              NPOIN2,NPOIN3,S3D_AC,S3D_RHOS,RHO0,HN,
+     &              GRAV,S3D_DMOY,S3D_CREF,ZREF,S3D_ICQ,RUGOF,Z,
+     &              UETCAR,S3D_SETDEP,S3D_EPAINCO,S3D_MIXTE)
+!
+      ELSEIF(S3D_MIXTE) THEN
+!
+        CALL ERODC(S3D_CONC,S3D_EPAI,S3D_FLUERC,TOB%R,
+     &             S3D_MPART,DT,NPOIN2,S3D_NCOUCH,S3D_TOCE,
+     &             HN%R,HMIN,S3D_MIXTE,S3D_EPAICO)
+!
+        CALL ERODNC(S3D_CFDEP,S3D_WCS,S3D_HDEP,S3D_FLUERNC,TOB,DT,
+     &              NPOIN2,NPOIN3,S3D_AC,S3D_RHOS,RHO0,HN,
+     &              GRAV,S3D_DMOY,S3D_CREF,ZREF,S3D_ICQ,RUGOF,Z,
+     &              UETCAR,S3D_SETDEP,S3D_EPAINCO,S3D_MIXTE)
+!
+        DO IPOIN=1,NPOIN2
+          S3D_FLUER(IPOIN) = S3D_FLUERNC(IPOIN) + S3D_FLUERC(IPOIN)
+        ENDDO
+!
+      ENDIF
+
+!      -----WRITES THE BOUNDARY CONDITIONS AT THE BOTTOM / SURFACE-----
+!      -----                FOR THE SEDIMENT                      -----
+!
+      CALL FLUSED(ATABOF , BTABOF ,
+     &            LITABF , WC      ,
+     &            HN%R   ,
+     &            TOB%R  , S3D_FLUDPT, S3D_FLUER, S3D_TOCD,
+     &            NPOIN3 , NPOIN2 , NPLAN  , KLOG    ,
+     &            HMIN   , S3D_SEDCO, S3D_SETDEP, S3D_SEDNCO,
+     &            S3D_WCS, S3D_MIXTE, S3D_FLUDPTC, S3D_FLUDPTNC)
+!
+!-----------------------------------------------------------------------
+!
+
+
+      IF(S3D_MIXTE.AND.ITRAC.EQ.NTRAC)THEN
+        DO IPOIN=1,NPOIN2
+          ATABOF(IPOIN) = -S3D_FLUDPTC(IPOIN)
+          BTABOF(IPOIN) =  S3D_FLUERC(IPOIN)
+        ENDDO
+      ELSEIF(S3D_MIXTE.AND.(ITRAC.EQ.NTRAC-1))THEN
+        DO IPOIN=1,NPOIN2
+          ATABOF(IPOIN) = -S3D_FLUDPTNC(IPOIN)
+          BTABOF(IPOIN) =  S3D_FLUERNC(IPOIN)
+        ENDDO
+      ENDIF
+
+
+      RETURN
+      END

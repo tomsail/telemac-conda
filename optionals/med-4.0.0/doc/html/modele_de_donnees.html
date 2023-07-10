@@ -1,0 +1,62 @@
+<A NAME="____Nature des donn&eacute;es &eacute;changeables avec MED____">
+Les donn&eacute;es du mod&egrave;le sont des donn&eacute;es destin&eacute;es
+&agrave; &ecirc;tre &eacute;chang&eacute;es entre codes de calcul au
+cours d'une &eacute;tude de simulation num&eacute;rique, ces donn&eacute;es
+portent sur les notions de maillage, de r&eacute;sultat de calcul et
+de param&egrave;tre num&eacute;rique. Une &eacute;tude correspond &agrave;
+un encha&icirc;nement de s&eacute;quences de calculs, elle s'appuie
+sur un ou plusieurs maillages et aboutit sur des r&eacute;sultats sur
+les maillages utilis&eacute;s en entr&eacute;e. Maillages, r&eacute;sultats
+et param&egrave;tres num&eacute;riques peuvent &eacute;voluer au
+cours des s&eacute;quences de calcul.</P>
+<P>Le maillage fournit une repr&eacute;sentation du domaine de
+calcul. A ce titre, un maillage contient les types d'informations
+suivants : les informations g&eacute;om&eacute;triques port&eacute;es
+par les entit&eacute;s du maillage (noeuds, mailles et &eacute;ventuellement
+faces et des ar&ecirc;tes), les informations sur l'interpolation par
+&eacute;l&eacute;ments finis, les informations permettant la mise en
+oeuvre des calculs physiques (rep&eacute;rages pour affecter les
+caract&eacute;ristiques physiques des mat&eacute;riaux, conditions
+initiales et conditions aux limites), <SPAN STYLE="font-weight: medium">les
+informations permettant la distribution du domaine de calcul sur
+plusieurs sous-domaines</SPAN>. On distingue dans MED les maillages
+structur&eacute;s des maillages non structur&eacute;s. Un maillage
+est non structur&eacute; si sa connectivit&eacute; est quelconque. Un
+maillage structur&eacute; est un maillage dont la construction
+utilise des directions g&eacute;om&eacute;triques particuli&egrave;res.</P>
+<P>Un r&eacute;sultat est constitu&eacute; d'un ensemble de valeurs
+d&eacute;finies sur les entit&eacute;s du maillage. Un r&eacute;sultat
+est constitu&eacute; d'un ou plusieurs champs, les champs pouvant
+avoir plusieurs composantes (valeurs scalaires). Les champs peuvent
+&ecirc;tre d&eacute;finis sur les noeuds, les &eacute;l&eacute;ments,
+les points d'int&eacute;gration des &eacute;l&eacute;ments et aux
+noeuds des &eacute;l&eacute;ments. 
+</P>
+<P>Un param&egrave;tre num&eacute;rique correspond &agrave; une
+variable scalaire ind&eacute;pendante de tout maillage et de tout
+  r&eacute;sultat.</P>
+
+\image html Content_of_MAILLAGE.png
+\image html Content_of_MAILLE.png				
+\image html Content_of_FACE.png					
+\image html Content_of_ARETE.png				
+\image html Content_of_NOEUD.png				
+\image html Content_of_ELEMENT_DE_STRUCTURE.png			
+\image html Content_of_EVOLUTION_TEMPORELLE.png			
+\image html Content_of_PROFIL.png				
+\image html Content_of_FAMILLE.png				
+\image html Content_of_MAILLE0D.png				
+\image html Content_of_MAILLE1D.png				
+\image html Content_of_MAILLE2D.png				
+\image html Content_of_MAILLE3D.png
+\image html Content_of_RESULTAT.png				
+\image html Content_of_VALEURS_SUR_ENTITE.png			
+\image html Content_of_VALEUR_SUR_ENTITE.png			
+\image html Content_of_LOCALISATION_DES_POINTS_DE_GAUSS.png	
+\image html Content_of_VARIABLE_SCALAIRE_NUMERIQUE.png
+\image html Content_of_EQUIVALENCE.png				
+\image html Content_of_FICHIER.png				
+\image html Content_of_DEFINITION_TYPE.png			
+\image html Content_of_Exemple_Repere_Cartesien_3D.png		
+\image html Content_of_Exemple_Repere_Cylindrique_3D.png	
+\image html Content_of_Exemple_Repere_Spherique_3D.png		

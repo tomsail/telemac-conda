@@ -1,0 +1,68 @@
+/**\ingroup MEDprofileFortran
+   \fn subroutine mpfprw(integer fid, character*(*) pname, integer psize, integer:dimension(*) profil, integer cret)
+   \brief \MEDprofileWrBrief
+   \param fid \fid
+   \param pname \profilename
+   \param psize \profilesize
+   \param profil \profilearray 
+   \param cret \error
+   \see MEDprofileWr
+   \details \MEDprofileWrDetails
+   \par Remarques
+   \MEDprofileDef
+*/
+
+/**\ingroup MEDprofileFortran
+   \fn subroutine mpfnpf(integer fid, integer n, integer cret)
+   \brief \MEDnProfileBrief
+   \param fid \fid
+   \param n \nProfile
+   \param cret \error
+   \see MEDnProfile
+   \details \MEDnProfileDetails
+   \par Remarques
+   \MEDprofileDef
+*/
+
+/**\ingroup MEDprofileFortran
+   \fn subroutine mpfpfi(integer fid, integer it, character*(*) pname, integer psize, integer cret)
+   \brief \MEDprofileInfoBrief
+   \param fid \fid
+   \param it \profileit
+   \param pname \profilename
+   \param psize \profilesize
+   \param cret \error
+   \see MEDprofileInfo
+   \details \MEDprofileInfoDetails
+   \par Remarques
+   \MEDprofileDef
+*/
+
+
+/**\ingroup MEDprofileFortran
+   \fn subroutine mpfpsn(integer fid, character*(*) pname, integer psize, integer cret)
+   \brief \MEDprofileSizeByNameBrief
+   \param fid \fid
+   \param pname \profilename
+   \param psize \profilesize
+   \param cret \error
+   \see MEDprofileSizeByName
+   \details \MEDprofileSizeByNameDetails
+   \par Remarques
+   \MEDprofileDef
+*/
+
+/**\ingroup MEDprofileFortran
+   \fn subroutine  mpfprr(integer fid, character*(*) pname, integer:dimension(*) profil, integer cret)
+   \brief \MEDprofileRdBrief
+   \param fid \fid
+   \param pname \profilename
+   \param profil \profilearray
+   \param cret \error
+   \see MEDprofileRd
+   \details \MEDprofileRdDetails
+   \par Remarques
+   \MEDprofileDef
+*/
+
+

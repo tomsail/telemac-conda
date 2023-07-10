@@ -1,0 +1,92 @@
+/---------------------------------------------------------------------
+/ TELEMAC2D Version v6p1 16 juil. 2012
+/ TELEMAC 2D : rupture digue  - Qinitial
+/---------------------------------------------------------------------
+/
+/ ENTREES-SORTIES, FICHIERS
+/---------------------------------------------------------------------
+/
+BOUNDARY CONDITIONS FILE  = 'geo_breach.cli'
+GEOMETRY FILE             = 'geo_breach.slf'
+LIQUID BOUNDARIES FILE    = 't2d_breach.liq'
+RESULTS FILE              = 'r2d_breach.slf'
+PREVIOUS COMPUTATION FILE = 'ini_breach.slf'
+BREACHES DATA FILE        = 'breach.txt'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES, GENERALITES
+/---------------------------------------------------------------------
+/
+COMPUTATION CONTINUED = YES
+INITIAL TIME SET TO ZERO = YES
+/
+/---------------------------------------------------------------------
+/
+TITLE='TELEMAC 2D : rupture digue  - Qinitial'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES, GRAPHIQUES ET LISTING
+/---------------------------------------------------------------------
+/
+MASS-BALANCE             = YES
+/
+VARIABLES FOR GRAPHIC PRINTOUTS = U,V,S,H,B,L,D,W
+GRAPHIC PRINTOUT PERIOD  = 120
+LISTING PRINTOUT PERIOD  = 300
+/
+/---------------------------------------------------------------------
+/ EQUATIONS
+/---------------------------------------------------------------------
+/
+LAW OF BOTTOM FRICTION = 3
+FRICTION COEFFICIENT   = 15.
+VELOCITY DIFFUSIVITY   = 0.005
+/
+/---------------------------------------------------------------------
+/ EQUATIONS, CONDITIONS INITIALES
+/---------------------------------------------------------------------
+/ INITIAL CONDITIONS READ IN THE PREVIOUS COMPUTATION FILE
+INITIAL CONDITIONS = 'CONSTANT ELEVATION'
+INITIAL ELEVATION = 2.0
+/
+/---------------------------------------------------------------------
+/ EQUATIONS, CONDITIONS LIMITES
+/---------------------------------------------------------------------
+/
+PRESCRIBED FLOWRATES         =  0.;50.0
+PRESCRIBED ELEVATIONS        = 2.0;0.
+VELOCITY PROFILES            = 1;4
+OPTION FOR LIQUID BOUNDARIES = 1;1
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES
+/---------------------------------------------------------------------
+/
+BREACH                              = YES
+/
+TIME STEP                           = 0.5
+NUMBER OF TIME STEPS                = 5400
+/
+TREATMENT OF THE LINEAR SYSTEM      = 2
+FREE SURFACE GRADIENT COMPATIBILITY = 0.8
+CONTINUITY CORRECTION               = YES
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES, SOLVEUR
+/---------------------------------------------------------------------
+/
+SOLVER          = 1
+SOLVER ACCURACY = 1.E-5
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR
+/---------------------------------------------------------------------
+/
+MASS-LUMPING ON H          = 1.
+MASS-LUMPING ON VELOCITY   = 1.
+IMPLICITATION FOR DEPTH    = 0.6
+IMPLICITATION FOR VELOCITY = 0.6
+/TREATMENT TO AVOID NEGATIVE DEPTHS
+TREATMENT OF NEGATIVE DEPTHS = 2
+SUPG OPTION = 2;0
+MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES = 100

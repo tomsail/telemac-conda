@@ -1,0 +1,31 @@
+Maillage de nom : |maa1| , de dimension : 2 , et de type 0
+	 -Dimension de l'espace : 2
+	 -Description du maillage : |un maillage pour test4|
+	 -Noms des axes : |x               y               |
+	 -Unités des axes : |cm              cm              |
+	 -Type de repère : 0
+	 -Nombre d'étape de calcul : 5
+	 -Unité des dates : |s|
+	 -Nombre de noeuds isolés             : 0
+	 -Nombre de noeuds sommets            : 4
+	 -Nombre maximum de noeuds par maille : 0
+Nombre de noeuds : 4 
+Valeur de coo1 : 0.00 1.00 0.00 3.00 0.00 5.00 0.00 7.00 
+Valeur de coo1 : 0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 
+Valeur de coo2 : 0.00 0.00 2.00 0.00 4.00 0.00 0.00 0.00 
+Valeur de coo2 : 0.00 0.00 2.00 3.00 4.00 5.00 0.00 0.00 
+Valeur de coo2 : 0.00 0.00 2.00 3.00 4.00 5.00 0.00 0.00 
+Valeur de coo2 : 0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 
+Type de repere : 0 
+Nom des coordonnees : 
+|x               | |y               | 
+Unites des coordonnees : 
+|cm              | |cm              | 
+Coordonnees des noeuds : 
+0.000000 1.000000 2.000000 3.000000 4.000000 5.000000 6.000000 7.000000 
+Noms des noeuds : 
+|nom1            ||nom2            ||nom3            ||nom4            |
+Numeros des noeuds : 
+1 2 3 4 
+Numeros des familles des noeuds : 
+0 1 2 2 

@@ -1,0 +1,106 @@
+/PARALLEL PROCESSORS = 20
+/----------------------------------------------------------------------
+/ experiment of Yen 180 bend
+/
+/ Version 5.8
+/ Dell 2.8 GHz Linux, compilateur pgi :  1414 s  JMH 29/01/2008
+/ HP C3700, compilateur HP            :  2459 s  JMH 30/01/2008
+/ HP C3700, compilateur Nag           :  7480 s  JMH 30/01/2008
+/
+/
+/ Probleme non resolu : differences d'evolution entre :
+/
+/ BAW            : 8 cm
+/ LNHE DT = 0.01 : 3 cm
+/ LNHE DT = 0.25 : 1 cm
+/
+/ Version 5.9 (reference refaite sur HP le 30/12/2008)
+/
+/ HP C3700, compilateur HP              : 2490 s  JMH 30/12/2008
+/ HP C3700, compilateur Nag             : 6327 s  JMH 08/12/2009
+/
+/ Version 6.0
+/
+/ Dell 2.8 GHz Linux, compilateur Intel :  836 s  JMH 10/12/2009
+/ HP C3700, compilateur HP              : ???? s  JMH
+/ HP C3700, compilateur Nag             : 6327 s  JMH 08/12/2009
+/
+/  Dell 2.8 GHz Linux, compilateur Intel :  472 s  CV 07/06/2010
+/----------------------------------------------------------------------
+/                      FILE DEFINITION
+/----------------------------------------------------------------------
+/
+COUPLING WITH                    = 'GAIA'
+GAIA STEERING FILE    = gai_yen-exp_multi1.cas
+FORTRAN FILE                     :  'user_fortran_multi'
+BOUNDARY CONDITIONS FILE         :  geo_yen-exp.cli
+GEOMETRY FILE                    :  geo_yen-exp.slf
+RESULTS FILE                     :  r2d_yen-exp_multi.slf
+LIQUID BOUNDARIES FILE		 :  t2d_zulauf.qsl
+PREVIOUS COMPUTATION FILE        :  ini_yen-exp.slf
+/
+/----------------------------------------------------------------------
+/                        GENERAL OPTIONS
+/----------------------------------------------------------------------
+/
+TITLE : '1st try Yen-Versuch'
+/
+VARIABLES FOR GRAPHIC PRINTOUTS             : 'U,V,S,B,H,Q,M,W'
+/VARIABLES TO BE PRINTED                     : 'U,V,S,B,H,Q,M,W'
+TIME STEP : 0.1
+/
+NUMBER OF TIME STEPS : 72000
+GRAPHIC PRINTOUT PERIOD                     :  4000
+LISTING PRINTOUT PERIOD                     : 6000
+//
+/NUMBER OF TIME STEPS : 20000
+/GRAPHIC PRINTOUT PERIOD                     : 2000
+/LISTING PRINTOUT PERIOD                     : 200
+/
+COMPUTATION CONTINUED                       : YES
+/
+/----------------------------------------------------------------------
+/                    BOUNDARY CONDITIONS
+/----------------------------------------------------------------------
+/
+LAW OF BOTTOM FRICTION                      : 5
+FRICTION COEFFICIENT                        : 0.0035
+PRESCRIBED ELEVATIONS                       : 9.9955; 9.9955
+PRESCRIBED FLOWRATES                        : 0.02; 0.02
+/
+/----------------------------------------------------------------------
+/                      INITIAL CONDITIONS
+/----------------------------------------------------------------------
+/
+INITIAL CONDITIONS                          :'CONSTANT DEPTH'
+INITIAL DEPTH                               : 0.0544
+INITIAL TIME SET TO ZERO                    : TRUE
+/
+/----------------------------------------------------------------------
+/                       NUMERICAL OPTIONS
+/----------------------------------------------------------------------
+/
+MASS-BALANCE                                : YES
+SOLVER					    : 1
+INFORMATION ABOUT SOLVER : YES
+/
+TREATMENT OF THE LINEAR SYSTEM              : 2
+FREE SURFACE GRADIENT COMPATIBILITY         : 0.9 / 0.5
+MASS-LUMPING ON H                           : 1.
+SOLVER ACCURACY                             : 1.E-6
+PRECONDITIONING			            : 2
+TYPE OF ADVECTION                           : 4;5 / 1;5
+SUPG OPTION                                 : 1;1
+MATRIX STORAGE				    : 3
+IMPLICITATION FOR DEPTH : 1.0 / 0.6
+IMPLICITATION FOR VELOCITY : 0.6
+/
+/----------------------------------------------------------------------
+/                       TURBULENCE MODEL
+/----------------------------------------------------------------------
+/
+TURBULENCE MODEL                            : 2
+VELOCITY DIFFUSIVITY                        : 1.E-6 / 1.E-2
+OPTION FOR THE DIFFUSION OF VELOCITIES      : 1
+/......................................................................
+/

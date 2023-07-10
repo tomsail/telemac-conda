@@ -1,0 +1,87 @@
+/**\ingroup MEDfamilyFortran
+   \fn subroutine mfacre(integer fid, character*(*) name, character*(*) fname, integer fnum, integer ngro, character*(*) gname, integer cret)
+   \brief \MEDfamilyCrBrief
+   \param fid \fid
+   \param name \meshname
+   \param fname \familyname
+   \param fnum \familynumber
+   \param ngro \ngroup
+   \param gname \groupname
+   \param cret \error
+   \see MEDfamilyCr
+   \details \MEDfamilyCrDetails
+*/
+
+
+/**\ingroup MEDfamilyFortran
+   \fn subroutine mfanfa(integer fid, character*(*) name, integer n, integer cret)
+   \brief \MEDnFamilyBrief
+   \param fid \fid
+   \param name \meshname
+   \param n \nfamily
+   \param cret \error
+   \see MEDnFamily
+   \details \MEDnFamilyDetails
+*/
+
+
+/**\ingroup MEDfamilyFortran
+   \fn subroutine mfanfg(integer fid, character*(*) maa, integer it, integer n, integer cret)
+   \brief \MEDnFamilyGroupBrief
+   \param fid \fid
+   \param maa \meshname
+   \param it \famit
+   \param n \ngroup
+   \param cret \error
+   \see MEDnFamilyGroup
+   \details \MEDnFamilyGroupDetails
+*/
+
+/**\ingroup MEDfamilyFortran
+   \fn subroutine mfafai(integer fid, character*(*) maa, integer ind, character*(*) fam, integer num, character*(*) gro, integer cret)
+   \brief \MEDfamilyInfoBrief 
+   \param fid \fid
+   \param maa \meshname
+   \param ind \famit
+   \param fam \familyname
+   \param num \familynumber
+   \param gro \groupname
+   \param cret \error
+   \see MEDfamilyInfo
+   \details \MEDfamilyInfoDetails
+*/
+
+
+/**\ingroup MEDfamilyFortran
+   \fn subroutine mfaona(integer fid, character*(*) maa, integer it, integer n, integer cret)
+   \brief \MEDnFamily23AttributeBrief
+   \param fid \fid
+   \param maa \meshname
+   \param it \famit
+   \param n \natt
+   \param cret \error
+   \see MEDnFamily23Attribute
+   \details \MEDnFamily23AttributeDetails
+*/
+
+
+/**\ingroup MEDfamilyFortran
+   \fn subroutine mfaofi(integer fid, character*(*) maa, integer it, character*(*) fam, integer:dimension(*) attnum, integer:dimension(*) attval, character*(*) attdes, integer num, character*(*) gro, integer cret)
+   \brief \MEDfamily23InfoBrief
+   \param fid \fid
+   \param maa \meshname
+   \param it \famit
+   \param fam \familyname
+   \param attnum \attributenumber
+   \param attval \attributevalue
+   \param attdes \attributedes
+   \param num \familynumber
+   \param gro \groupname
+   \param cret \error
+   \see MEDfamily23Info
+   \details \MEDfamily23InfoDetails
+*/
+
+
+
+

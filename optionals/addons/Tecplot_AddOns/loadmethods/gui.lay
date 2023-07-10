@@ -1,0 +1,407 @@
+#!MC 1000
+$!SETSTYLEBASE FACTORY
+$!PAPER 
+  BACKGROUNDCOLOR = WHITE
+  ISTRANSPARENT = NO
+  ORIENTPORTRAIT = NO
+  SHOWGRID = NO
+  SHOWRULER = NO
+  SHOWPAPER = YES
+  PAPERSIZE = LETTER
+  PAPERSIZEINFO
+    {
+    LETTER
+      {
+      WIDTH = 8.5
+      HEIGHT = 11
+      LEFTHARDCLIPOFFSET = 0.125
+      RIGHTHARDCLIPOFFSET = 0.125
+      TOPHARDCLIPOFFSET = 0.125
+      BOTTOMHARDCLIPOFFSET = 0.125
+      }
+    CUSTOM1
+      {
+      WIDTH = 3
+      HEIGHT = 3
+      }
+    }
+  RULERSPACING = ONEINCH
+  PAPERGRIDSPACING = HALFINCH
+  REGIONINWORKAREA
+    {
+    X1 = -0.05
+    Y1 = -0.05
+    X2 = 11.05
+    Y2 = 8.55
+    }
+$!COLORMAP 
+  CONTOURCOLORMAP = SMRAINBOW
+$!COLORMAPCONTROL RESETTOFACTORY
+### Frame Number 1 ###
+$!FRAMELAYOUT 
+  SHOWHEADER = NO
+  BACKGROUNDCOLOR = CUSTOM2
+  HEADERCOLOR = GREEN
+  XYPOS
+    {
+    X = 5.3979
+    Y = 4.2556
+    }
+  WIDTH = 5.1858
+  HEIGHT = 3.4613
+$!FRAMENAME  = 'ID=2 MODE=MODAL TITLE="Create Binary Test File" OKCLOSEBUTTON=T APPLYBUTTON=F CANCELBUTTON=T HELPBUTTON=T' 
+$!SKETCHAXIS 
+  DEPXTOYRATIO = 1
+$!SKETCHAXIS 
+  XDETAIL
+    {
+    RANGEMIN = 0
+    RANGEMAX = 0.99997991456731372
+    GRSPACING = 0.2
+    }
+$!SKETCHAXIS 
+  YDETAIL
+    {
+    RANGEMIN = 0
+    RANGEMAX = 0.6674438810389608
+    GRSPACING = 0.1
+    }
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 11.856585527
+    Y = 65.5337575294
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    BOXTYPE = HOLLOW
+    MARGIN = 55
+    COLOR = WHITE
+    FILLCOLOR = CUSTOM2
+    }
+  LINESPACING = 1.5
+  MACROFUNCTIONCOMMAND = 'VarName=DataFormat Type=RadioBox' 
+  TEXT = '<math>7</math>  Block\n<math>7</math>  Point' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 71.1865289
+    Y = 68.7781673947
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    BOXTYPE = FILLED
+    MARGIN = 45
+    FILLCOLOR = CUSTOM2
+    }
+  MACROFUNCTIONCOMMAND = 'VarName=NumPoints Type=TextField' 
+  TEXT = 'TF:            ' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 71.1865289
+    Y = 46.2346219612
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    BOXTYPE = FILLED
+    MARGIN = 45
+    FILLCOLOR = CUSTOM2
+    }
+  MACROFUNCTIONCOMMAND = 'VarName=NumVars Type=TextField' 
+  TEXT = 'TF:            ' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 11.181480846
+    Y = 20.942893301
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    BOXTYPE = HOLLOW
+    MARGIN = 55
+    COLOR = WHITE
+    FILLCOLOR = CUSTOM2
+    }
+  LINESPACING = 1.5
+  MACROFUNCTIONCOMMAND = 'VarName=DataType Type=RadioBox' 
+  TEXT = '<math>7</math>  Integer\n<math>7</math>  Float\n<math>7</math>  Double' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 71.1865289
+    Y = 23.6910765278
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    BOXTYPE = FILLED
+    MARGIN = 45
+    FILLCOLOR = CUSTOM2
+    }
+  MACROFUNCTIONCOMMAND = 'VarName=NumZones Type=TextField' 
+  TEXT = 'TF:            ' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 45.790482164
+    Y = 69.6266379276
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    MARGIN = 0.2
+    FILLCOLOR = CUSTOM2
+    }
+  MACROFUNCTIONCOMMAND = 'VarName=LBL9 Type=Label' 
+  TEXT = '# Points' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 46.1280345044
+    Y = 46.74639459
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    MARGIN = 0.2
+    FILLCOLOR = CUSTOM2
+    }
+  MACROFUNCTIONCOMMAND = 'VarName=LBL10 Type=Label' 
+  TEXT = '# Variables' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 46.8031391854
+    Y = 23.8661512525
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    MARGIN = 0.2
+    FILLCOLOR = CUSTOM2
+    }
+  MACROFUNCTIONCOMMAND = 'VarName=LBL11 Type=Label' 
+  TEXT = '# Zones' 
+$!ATTACHGEOM 
+  GEOMTYPE = RECTANGLE
+  ANCHORPOS
+    {
+    X = 0.0601917787075
+    Y = 0.350440879109
+    }
+  MACROFUNCTIONCOMMAND = 'Data Type' 
+  RAWDATA
+0.307172089815 -0.253759384155 
+$!ATTACHGEOM 
+  GEOMTYPE = RECTANGLE
+  ANCHORPOS
+    {
+    X = 0.0601917787075
+    Y = 0.582755791814
+    }
+  MACROFUNCTIONCOMMAND = 'Data File Format' 
+  RAWDATA
+0.307172060013 -0.189426004887 
+### Frame Number 2 ###
+$!CREATENEWFRAME 
+$!FRAMELAYOUT 
+  SHOWHEADER = NO
+  BACKGROUNDCOLOR = CUSTOM2
+  HEADERCOLOR = GREEN
+  XYPOS
+    {
+    X = 0.30402
+    Y = 0.40048
+    }
+  WIDTH = 7.5665
+  HEIGHT = 3.6466
+$!FRAMENAME  = 'ID=1 MODE=MODAL TITLE="Load Binary File" OKCLOSEBUTTON=T APPLYBUTTON=F CANCELBUTTON=T HELPBUTTON=T' 
+$!SKETCHAXIS 
+  DEPXTOYRATIO = 1
+$!SKETCHAXIS 
+  XDETAIL
+    {
+    RANGEMIN = 0
+    RANGEMAX = 1.0000024680445414
+    GRSPACING = 0.2
+    }
+$!SKETCHAXIS 
+  YDETAIL
+    {
+    RANGEMIN = 0
+    RANGEMAX = 0.4819408645591558
+    GRSPACING = 0.1
+    }
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 92.3042031377
+    Y = 8.37549815073
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    BOXTYPE = FILLED
+    MARGIN = 45
+    FILLCOLOR = CUSTOM2
+    }
+  MACROFUNCTIONCOMMAND = 'VarName=Browse Type=PushButton' 
+  TEXT = '...' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 18.0551726076
+    Y = 8.37549815073
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    BOXTYPE = FILLED
+    MARGIN = 45
+    FILLCOLOR = CUSTOM2
+    }
+  MACROFUNCTIONCOMMAND = 'VarName=FileName Type=TextField' 
+  TEXT = 'TF:                                                                                ' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 10.8439285055
+    Y = 38.1274453025
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    BOXTYPE = HOLLOW
+    MARGIN = 55
+    COLOR = WHITE
+    FILLCOLOR = CUSTOM2
+    }
+  LINESPACING = 1.5
+  MACROFUNCTIONCOMMAND = 'VarName=LoadMethod Type=RadioBox' 
+  TEXT = '<math>7</math>  Load Variable \n<math>7</math>  Deferred Load Variable\n<math>7</math>  Auto Load Var. on Demand\n<math>7</math>  Custom Load Var. on Demand\n<math>7</math>  Custom Load Value on Demand' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 5.6816403592
+    Y = 8.60523583163
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  TEXT = 'File: ' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 68.2342897035
+    Y = 88.365775987
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    BOXTYPE = FILLED
+    MARGIN = 45
+    FILLCOLOR = CUSTOM2
+    }
+  MACROFUNCTIONCOMMAND = 'VarName=CreateFile Type=PushButton' 
+  TEXT = 'Create Test File  ... ' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 68.493105977
+    Y = 33.2503714565
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    BOXTYPE = FILLED
+    MARGIN = 45
+    FILLCOLOR = CUSTOM2
+    }
+  MACROFUNCTIONCOMMAND = 'VarName=SpecFunction Type=PushButton' 
+  TEXT = 'Specify Function ...' 
+$!ATTACHTEXT 
+  ANCHORPOS
+    {
+    X = 71.283824926
+    Y = 47.9669280661
+    }
+  TEXTSHAPE
+    {
+    HEIGHT = 16
+    }
+  BOX
+    {
+    BOXTYPE = HOLLOW
+    MARGIN = 55
+    COLOR = WHITE
+    FILLCOLOR = CUSTOM2
+    }
+  LINESPACING = 1.5
+  MACROFUNCTIONCOMMAND = 'VarName=SpecifyVars Type=RadioBox' 
+  TEXT = '<math>7</math>  All\n<math>7</math>  Odd\n<math>7</math>  Even' 
+$!ATTACHGEOM 
+  GEOMTYPE = RECTANGLE
+  ANCHORPOS
+    {
+    X = 0.0568162760224
+    Y = 0.422208823279
+    }
+  MACROFUNCTIONCOMMAND = 'Load Method' 
+  RAWDATA
+0.562188386917 -0.274246007204 
+$!ATTACHGEOM 
+  GEOMTYPE = RECTANGLE
+  ANCHORPOS
+    {
+    X = 0.667685101426
+    Y = 0.379806751117
+    }
+  MACROFUNCTIONCOMMAND = 'Variables for Deferred Load' 
+  RAWDATA
+0.293810039759 -0.173918128014 
+$!SETSTYLEBASE CONFIG

@@ -1,0 +1,107 @@
+\chapter{Manche}
+%
+% - Purpose & Problem description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved and specify how the numerical solution will be validated
+%
+\section{Purpose}
+%
+This test case has been exhibited from an old version (V5P4), the reference
+case at this time was called r2d.V1P3. It has got mainly one interest, to
+compare results from old versions to the new version.  
+
+%
+\section{Description of the problem}
+We simulate the storm that occured in 1990 in Manche. This test was a test
+described in the validation of \tomawac 1.0 \cite{Benoit1996_3}. Because of many
+changes in the code it had been abandonned. It now works with the new version
+but not in parallel because of the fortran user that sets the boundary. 
+
+We discretize with 25 frequencies and 12 directions. The minimal frequency is
+0.04177248 and the frequential ratio 1.1. The mesh is shown on picture
+\ref{figmanchemesh}, as we are interested in storm in the Manche the mesh is
+finer around the manche. 
+The time step is 300s and we simulate during 14 days. 
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/mesh.png}
+ \caption{Mesh of the sea.}
+\label{figmanchemesh}
+\end{figure}
+
+In fact we are going to work with spherical coordinate so the 'real' bathymetry
+will be the one showed on Figure \ref{realbathymanche}. In the code if the
+bathymetry is more than -10 m, it is set to -10 m.
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/bathy.png}
+ \caption{Real Bathymetry used in the code.}
+\label{realbathymanche}
+\end{figure}
+
+We take into account the wind through a file that gives the wind in all point
+of the mesh every 6 hours. On this point, in the original file the time was
+given with a deprecated format, so we took the wind from the results of the
+old simulation which was given in a new format (number of seconds after 0).
+
+Nowadays time format is given through a number \textit{YYYYMMDDHHMMNN}, and it
+used to be given by MDDHH. As we kept the fortran user to describe boundaries
+conditions one will read this format in the keyword \textit{DATE DE DEBUT DU
+  CALCUL = 1161500} for \textit{1990 01 16 15:00:00}
+
+\section{Results and Comments}
+
+If one run the validation with old results, one will see a difference of
+30\% wave heigth result, it is only on a few points (see
+figure\ref{figmanchedif}) and it does not spread on all the results, it can be
+explained by a bug corrected in characteristic method on boundaries some years
+ago. 
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{diff.png}
+ \caption{In colour points where diff of wave height is more than 1 meter.}
+\label{figmanchedif}
+\end{figure}
+
+When we observe global results, we would say that there are no difference
+between reference and new result (see \ref{figmanchehm0} \ref{figmanchehm02}
+and \ref{figmanchehm0v1P3}). To run validation we have updated the reference,
+it is a result of the version 7.2
+
+As the calculation is made in spherical coordinates but the initial mesh is
+done in cartesian coordinates. \tomawac calculates a conversion through Fortran
+user. The result is a little bit different if we take the conversion from the
+coordinate of the old version because of simple precision in the coordinate.
+That is the reason of the difference between last comparison when running
+validation.  
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/results.png}
+ \caption{Wave height for last version.}
+\label{figmanchehm0}
+\end{figure}
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/results2.png}
+ \caption{Wave height for coordinate changed outside the code.}
+\label{figmanchehm02}
+\end{figure}
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/resultsV1P3.png}
+ \caption{Wave height for V1P3 version.}
+\label{figmanchehm0v1P3}
+\end{figure}
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/direction.png}
+ \caption{Mean Direction for last version.}
+\label{figmanchedirection}
+\end{figure}
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/directionref.png}
+ \caption{Mean direction for reference file.}
+\label{figmanchedirectionref}
+\end{figure}

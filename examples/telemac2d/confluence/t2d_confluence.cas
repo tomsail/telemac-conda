@@ -1,0 +1,83 @@
+/-------------------------------------------------------------------/
+/   TELEMAC-2D      -  VALIDATION TEST CASE NUMBER 11  -  1         /
+/                          RIVER CONFLUENCE                         /
+/-------------------------------------------------------------------/
+/
+/ HP C3700 compilateur HP      : 100 s  version 5.7 20/04/2007
+/ HP C3700 compilateur Nag     : 236 s  version 5.7 20/04/2007
+/ Dell 2.8 MHz compilateur pgi :  59 s  version 5.7 20/04/2007
+/
+/ HP C3700 compilateur HP      :  90 s  version 5.8 30/11/2007
+/ HP C3700 compilateur Nag     : 238 s  version 5.8 26/12/2007
+/ Dell 2.8 MHz compilateur pgi :  60 s  version 5.8 19/12/2007
+/
+/ HP C3700 compilateur HP      :  91 s  version 5.9 16/10/2008
+/ HP C3700 compilateur Nag     : 238 s  version 5.9 17/10/2008
+/ Dell 2.8 MHz compilateur pgi :  57 s  version 5.9 16/10/2008
+/
+/ WAVE EQUATION
+/
+/ HP C3700 compilateur HP      :  24 s  version 6.0 24/11/2009
+/ HP C3700 compilateur Nag     :  63 s  version 6.0 27/11/2009
+/ Dell 2.8 MHz compil.   Intel :  11 s  version 6.0 26/11/2009
+/
+/ Version 6.2
+/
+/ HP C3700 compilateur HP      :  23 s  04/05/2012
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+FORTRAN FILE                    = 'user_fortran'
+BOUNDARY CONDITIONS FILE        = geo_confluence.cli
+GEOMETRY FILE                   = geo_confluence.slf
+RESULTS FILE                    = r2d_confluence.slf
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE                            = 'RIVER CONFLUENCE'
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'U,V,H,S,B'
+GRAPHIC PRINTOUT PERIOD          = 1000
+LISTING PRINTOUT PERIOD          = 100
+MASS-BALANCE                     = YES
+TIME STEP                        = 0.1
+NUMBER OF TIME STEPS             = 1000
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS               = 'CONSTANT ELEVATION'
+INITIAL ELEVATION                = 0.2852
+/
+/----------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------
+/
+PRESCRIBED FLOWRATES             = 0.;0.035;0.070
+PRESCRIBED ELEVATIONS            = 0.2852;0.;0.
+VELOCITY PROFILES                = 2;2;2
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION           = 3
+FRICTION COEFFICIENT             = 62.
+TURBULENCE MODEL                 = 1
+VELOCITY DIFFUSIVITY             = 1.E-3
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+/
+TYPE OF ADVECTION                 = 1;5
+TREATMENT OF THE LINEAR SYSTEM    = 2
+SOLVER                            = 1
+IMPLICITATION FOR DEPTH           = 1.
+IMPLICITATION FOR VELOCITY        = 1.
+MASS-LUMPING ON H                 = 1.
+SOLVER ACCURACY                   = 1.e-10

@@ -1,0 +1,75 @@
+/-------------------------------------------------------------------/
+/ TELEMAC-2D       -  VALIDATION TEST CASE NUMBER  -                /
+/                       RITTER DAM-BREAK SOLUTION                   /
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+FORTRAN FILE                    = 'user_fortran'
+BOUNDARY CONDITIONS FILE        = geo_ritter.cli
+GEOMETRY FILE                   = geo_ritter.slf
+RESULTS FILE                    = r2d_ritter-eria.slf
+FORMATTED RESULTS FILE 1        = energy_balance.txt
+FORMATTED RESULTS FILE 2        = mass_balance.txt
+FORMATTED RESULTS FILE 3        = mass_matrix_tf.txt
+FORMATTED RESULTS FILE 4        = error_Linf.txt
+FORMATTED RESULTS FILE 5        = error_L1.txt
+FORMATTED RESULTS FILE 6        = error_L2.txt
+/
+/----------------------------------------------
+NUMBER OF PRIVATE ARRAYS = 3
+NAMES OF PRIVATE VARIABLES =
+'ANALYTIC SOL H';
+'ANALYTIC SOL U';
+'ANALYTIC SOL V'
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE                           = 'RITTER DAM-BREAK SOLUTION'
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,H,N,O,R'
+GRAPHIC PRINTOUT PERIOD         = 2
+LISTING PRINTOUT PERIOD         = 100
+TIME STEP                       = 0.0025
+DURATION                        = 2.5
+MASS-BALANCE                    = YES
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS : 'PARTICULAR'
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 0 /NO FRICTION
+TURBULENCE MODEL                = 1 /LAMINAR
+VELOCITY DIFFUSIVITY            = 0.
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+/
+EQUATIONS                       = 'SAINT-VENANT FE'
+TIDAL FLATS                     = YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS : 1
+TREATMENT OF NEGATIVE DEPTHS : 3
+TYPE OF ADVECTION               = 15;5
+SUPG OPTION                     = 0;0 /No upwinding
+MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES : 70
+DISCRETIZATIONS IN SPACE        = 11;11
+SOLVER ACCURACY                 = 1.E-8
+SOLVER                          = 1
+IMPLICITATION FOR DEPTH         = 1.
+IMPLICITATION FOR VELOCITY      = 0.6
+/
+TREATMENT OF THE LINEAR SYSTEM : 2
+MASS-LUMPING ON H : 1.
+CONTINUITY CORRECTION : YES
+FREE SURFACE GRADIENT COMPATIBILITY : 0.9
+/
+OPTION FOR LIQUID BOUNDARIES    = 2

@@ -1,0 +1,91 @@
+/      From test case pluie
+/      ex exchange with atmosphere, now called through a coupling call
+/      between TELEMAC-3D and WAQTEL with WAQ process n 11
+/----------------------------------------------------------------------
+TITLE = 'TELEMAC 3D : CANAL'
+/
+FORTRAN FILE                : 'user_fortran'
+BOUNDARY CONDITIONS FILE    : geo_heat_exchange.cli
+GEOMETRY FILE               : geo_heat_exchange.slf
+ASCII ATMOSPHERIC DATA FILE : meteo_data.txt
+3D RESULT FILE              : r3d_heat_exchange_rain_wind.slf
+2D RESULT FILE              : r2d_heat_exchange_rain_wind.slf
+/----------------------------------------------------------------------
+/     GENERAL OPTIONS
+/----------------------------------------------------------------------
+ORIGINAL DATE OF TIME : 2006;10;1
+ORIGINAL HOUR OF TIME : 0;0;0
+/ 30 DAYS
+NUMBER OF TIME STEPS = 21600
+TIME STEP = 120.
+GRAPHIC PRINTOUT PERIOD = 90
+LISTING PRINTOUT PERIOD = 720
+/
+NUMBER OF HORIZONTAL LEVELS = 26
+/
+VARIABLES FOR 2D GRAPHIC PRINTOUTS = U,V,H,TA1
+VARIABLES FOR 3D GRAPHIC PRINTOUTS = Z,U,V,W,TA1
+MASS-BALANCE = YES
+/----------------------------
+/     INITIAL CONDITIONS
+/----------------------------
+INITIAL CONDITIONS : 'CONSTANT DEPTH'
+INITIAL DEPTH : 5.
+/----------------------------
+/     TURBULENCE
+/----------------------------
+/VERTICAL TURBULENCE MODEL = 2
+/MIXING LENGTH MODEL                   : 6        / Tsanis 
+/DAMPING FUNCTION                      : 3        / Munk et Anderson 
+VERTICAL TURBULENCE MODEL             : 3        / k-eps 
+HORIZONTAL TURBULENCE MODEL           : 1        / viscosite constante 
+/----------------------------
+/     SOLVERS
+/----------------------------
+/SOLVER FOR PROPAGATION = 2
+/
+PRECONDITIONING FOR DIFFUSION OF VELOCITIES = 34
+PRECONDITIONING FOR DIFFUSION OF TRACERS    = 34
+PRECONDITIONING FOR DIFFUSION OF K-EPSILON  = 34
+/
+ACCURACY FOR PPE                     : 1.E-4
+ACCURACY FOR PROPAGATION             : 1.E-6
+/
+MAXIMUM NUMBER OF ITERATIONS FOR PPE = 200
+/----------------------------
+/     SOURCE TERMS
+/----------------------------
+LAW OF BOTTOM FRICTION = 5
+FRICTION COEFFICIENT FOR THE BOTTOM = 0.001
+/----------------------------
+/     TRACER
+/----------------------------
+NUMBER OF TRACERS : 1
+NAMES OF TRACERS : 'TEMPERATURE     DEGRE C'
+INITIAL VALUES OF TRACERS : 20.
+DENSITY LAW : 1
+/----------------------------
+/     WATER QUALITY
+/----------------------------
+COUPLING WITH          = 'WAQTEL'
+WAQTEL STEERING FILE   = 'waq_steer.cas'
+WATER QUALITY PROCESS  = 11
+LATITUDE OF ORIGIN POINT = 43.4458
+LONGITUDE OF ORIGIN POINT = 5.1139
+/----------------------------
+/     METEO
+/----------------------------
+RAIN OR EVAPORATION = YES
+WIND = YES
+COEFFICIENT OF WIND INFLUENCE VARYING WITH WIND SPEED = YES
+/----------------------------
+/     NUMERICS
+/----------------------------
+NON-HYDROSTATIC VERSION = YES
+/ METHOD OF CHARACTERISTICS TO ACCELERATE THE COMPUTATION
+SCHEME FOR ADVECTION OF VELOCITIES = 1
+SCHEME FOR ADVECTION OF K-EPSILON  = 1
+SCHEME OPTION FOR ADVECTION OF TRACERS = 1 / PSI LIGHTLY FASTER THAN LIPS HERE
+/ MORE STABILITY
+FREE SURFACE GRADIENT COMPATIBILITY : 0.9
+MASS-LUMPING FOR DIFFUSION   : 1.

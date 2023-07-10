@@ -1,0 +1,63 @@
+/----------------------------------------------------------------------/
+/                       GENERAL OPTIONS
+/----------------------------------------------------------------------/
+TITLE = 'Bosse-t3d'
+FORTRAN FILE              = 'user_fortran'
+BOUNDARY CONDITIONS FILE  = geo_bosse-t3d.cli
+GEOMETRY FILE             = geo_bosse-t3d.slf
+3D RESULT FILE            = r3d_bosse-t3d.slf
+2D RESULT FILE            = r2d_bosse-t3d.slf
+GRAPHIC PRINTOUT PERIOD   = 1000
+LISTING PRINTOUT PERIOD   = 1000
+VARIABLES FOR 2D GRAPHIC PRINTOUTS = U,V,W,H,S,B,U,US
+VARIABLES FOR 3D GRAPHIC PRINTOUTS = Z,U,V,W,NUZ
+/
+/----------------------------------------------------------------------/
+/                      NUMERICAL PARAMETERS
+/----------------------------------------------------------------------/
+TIME STEP                   = 1.
+NUMBER OF TIME STEPS        = 14000
+NUMBER OF HORIZONTAL LEVELS = 16
+MESH TRANSFORMATION         = 2
+PRECONDITIONING FOR DIFFUSION OF VELOCITIES = 7
+SCHEME OPTION FOR ADVECTION OF VELOCITIES   = 2
+FREE SURFACE GRADIENT COMPATIBILITY         = 0.9
+/
+/----------------------------------------------------------------------/
+/               INITIAL AND BOUNDARY CONDITIONS
+/----------------------------------------------------------------------/
+PRESCRIBED FLOWRATES  = 0.0 ; 0.25
+PRESCRIBED ELEVATIONS = 0.6 ; 0.0
+VELOCITY VERTICAL PROFILES = 0;2
+2D CONTINUATION             = YES
+FILE FOR 2D CONTINUATION    = bosse-t2d_init.slf
+INITIAL TIME SET TO ZERO    = YES
+/
+/----------------------------------------------------------------------/
+/                    PHYSICAL PARAMETERS
+/----------------------------------------------------------------------/
+AVERAGE WATER DENSITY = 1000.
+HORIZONTAL TURBULENCE MODEL = 1
+COEFFICIENT FOR HORIZONTAL DIFFUSION OF VELOCITIES = 0.1
+VERTICAL TURBULENCE MODEL   = 2
+COEFFICIENT FOR VERTICAL DIFFUSION OF VELOCITIES   = 1.E-6
+MIXING LENGTH MODEL = 3
+LAW OF BOTTOM FRICTION = 3
+FRICTION COEFFICIENT FOR THE BOTTOM = 50
+/
+/----------------------------------------------------------------------/
+/                        COUPLING WITH GAIA
+/----------------------------------------------------------------------/
+COUPLING WITH = GAIA
+GAIA STEERING FILE = gai_bosse-t3d.cas
+/
+/----------------------------------------------------------------------/
+/                        MISCELLANEOUS
+/----------------------------------------------------------------------/
+/ DEFAULT VALUES UNTIL V7P3 KEPT FOR NON REGRESSION
+NON-HYDROSTATIC VERSION : NO
+/
+/ DEFAULT VALUES UNTIL V8P0 KEPT FOR NON REGRESSION
+IMPLICITATION FOR VELOCITIES = 1.
+
+

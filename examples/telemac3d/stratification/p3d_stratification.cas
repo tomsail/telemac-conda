@@ -1,0 +1,24 @@
+/**********************************************************************/
+/
+/           FICHIER DE DECLARATION DES MOTS CLES DU CODE               /
+/                            POSTEL 3D                                 /
+/
+/**********************************************************************/
+/
+/
+GEOMETRY FILE     : geo_stratification.slf
+3D RESULT FILE    : f3d_stratification.slf
+/
+VERTICAL CROSS SECTION FILE      : tov
+/
+NUMBER OF HORIZONTAL CROSS SECTIONS : 0
+NUMBER OF VERTICAL CROSS SECTIONS   : 1
+/
+NUMBER OF FIRST RECORD FOR CROSS SECTIONS : 1
+PRINTOUT PERIOD FOR CROSS SECTIONS : 1
+/
+ABSCISSAE OF THE VERTICES OF VERTICAL CROSS SECTION 1 :
+0.;2000.
+ORDINATES OF THE VERTICES OF VERTICAL CROSS SECTION 1 :
+10.;10.
+DISTORSION BETWEEN VERTICAL AND HORIZONTAL   : 40.

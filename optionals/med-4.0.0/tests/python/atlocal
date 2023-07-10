@@ -1,0 +1,2 @@
+#TODO: Utiliser une substitution commune avec le Makefile.am
+testpydir=/home/tomsail/apps/telemac-mascaret/optionals/med-4.0.0/bin/testpy

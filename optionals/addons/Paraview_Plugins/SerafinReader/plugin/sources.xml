@@ -1,0 +1,58 @@
+<ServerManagerConfiguration>
+  <ProxyGroup name="sources">
+
+    <SourceProxy class="vtkSerafinReader"
+                 name="SerafinReader">
+
+      <Documentation short_help= "Read a serafin/selafin file."
+				long_help = "Read a serafin file into a vtkUnstructuredGrid.">
+					The SERAFIN reader reads a binary file creating a vtkUnstructuredGrid.
+					The default file extension is .srf for this software.
+      </Documentation>
+
+      <StringVectorProperty number_of_elements="1"
+                            animateable="0"
+                            name="FileName"
+                            command="SetFileName">
+        <FileListDomain name="files" />
+        <Documentation>
+						This property specifies the file name for the SERAFIN reader.
+        </Documentation>
+      </StringVectorProperty>
+
+      <DoubleVectorProperty name="TimestepValues"
+                            repeatable="1"
+                            information_only="1">
+        <TimeStepsInformationHelper/>
+      </DoubleVectorProperty>
+
+      <DoubleVectorProperty name="TimeRange"
+                            information_only="1">
+        <TimeRangeInformationHelper/>
+      </DoubleVectorProperty>
+
+      <IntVectorProperty name="Time Units"
+                         command="SetTimeUnit"
+                         number_of_elements="1"
+                         default_values="1">
+        <EnumerationDomain name="enum">
+          <Entry value="1" text="Seconds"/>
+          <Entry value="2" text="Hours"/>
+          <Entry value="3" text="Days"/>
+          <Entry value="4" text="Years"/>
+        </EnumerationDomain>
+        <Documentation>
+          This property indicates which transform mode will be used.
+        </Documentation>
+      </IntVectorProperty>
+
+      <Hints>
+        <ReaderFactory extensions="slf srf res res3d ser r2d spe"
+                       file_description="serafin files (Plugin)" />
+      </Hints>
+
+    </SourceProxy>
+
+  </ProxyGroup>
+</ServerManagerConfiguration>
+

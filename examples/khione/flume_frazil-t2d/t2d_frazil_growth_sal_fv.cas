@@ -1,0 +1,76 @@
+/----------------------------------------------------------------------
+/
+/ This case validates the growth and transport of frazil ice in a
+/    long flume.
+/
+/ Setting up a steady state hydrodynamics for use as continuation file
+/
+/ Steering file for the hydrodynamics: TELEMAC-2D
+/
+TITLE = 'WATER FLOWING DOWN A LONG FLUME'
+/
+/----------------------------------------------------------------------
+/  FILES
+/----------------------------------------------------------------------
+/
+GEOMETRY FILE                = 'geo_longflume.slf'
+BOUNDARY CONDITIONS FILE     = 'geo_longflume.cli'
+RESULTS FILE                 = 'r2d_growth_salinity.slf'
+/
+/ FORTRAN FILE = 'fortran'
+/----------------------------------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------------------------------
+/
+EQUATIONS                        = 'SAINT-VENANT FV'
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'U,V,H,B,S,T*'
+/
+GRAPHIC PRINTOUT PERIOD          = 10
+LISTING PRINTOUT PERIOD          = 600
+MASS-BALANCE                     = YES
+TIME STEP                        = 1.
+DURATION                         = 3600
+VARIABLE TIME-STEP               = YES
+DESIRED COURANT NUMBER           = 0.9
+INFORMATION ABOUT SOLVER         = YES
+/
+/----------------------------------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------------------------------
+/
+ORIGINAL DATE OF TIME      = 2016;12;2
+ORIGINAL HOUR OF TIME      = 0;0;0
+INITIAL TIME SET TO ZERO   = YES
+/
+COMPUTATION CONTINUED      = YES
+PREVIOUS COMPUTATION FILE  = 'ini_longflume.slf'
+/
+INITIAL VALUES OF TRACERS  = 2.E-2 ; 1.0
+/
+/----------------------------------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------------------------------
+/
+PRESCRIBED FLOWRATES          = 0.0    ; 300
+PRESCRIBED ELEVATIONS         = 6.6265 ;  0.0
+VELOCITY PROFILES             = 1      ;  1                /!\ added !
+/
+CONTINUITY CORRECTION      = YES
+/
+/ BOUND1 ( TEMPERATURE; SALINITY ; FRAZIL ); BOUND2 ...
+PRESCRIBED TRACERS VALUES  =     0.0;1.  ;  2.E-2;1.
+/
+/----------------------------------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------------------------------
+/
+LAW OF BOTTOM FRICTION  = 3
+FRICTION COEFFICIENT    = 40.
+/
+/----------------------------------------------------------------------
+/  THERMIC PROCESS
+/----------------------------------------------------------------------
+/
+COUPLING WITH                = 'KHIONE'
+KHIONE STEERING FILE         = 'ice_frazil_growth_sal.cas'
+ASCII ATMOSPHERIC DATA FILE  = 't2d_frazil_growth_meteo.lqd'

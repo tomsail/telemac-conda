@@ -1,0 +1,17 @@
+/**********************************************************************
+/           FICHIER DE DECLARATION DES MOTS CLES DU CODE
+/                            STBTEL V5.5
+/           EXEMPLE DE TRAITEMENT D'UN FICHIER SUPERTAB
+/**********************************************************************
+/
+UNIVERSAL FILE              : 'grid48_v1_quad.grd'
+/
+GEOMETRY FILE FOR TELEMAC   : 'geo.slf'
+BOUNDARY CONDITIONS FILE    : 'geo.cli'
+/
+OVERSTRESSED TRIANGLES CUTTING : NO
+/
+ELIMINATION OF BACKWARD DEPENDENCIES  : NO
+/
+MESH GENERATOR                        : ADCIRC
+/

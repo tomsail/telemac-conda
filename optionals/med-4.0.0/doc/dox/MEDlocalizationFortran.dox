@@ -1,0 +1,110 @@
+/**\ingroup MEDlocalizationFortran
+   \fn subroutine mlclow(integer fid, character*(*) lname, integer gtype, integer sdim, real*8:dimension(*) ecoo, integer swm, integer nip, real*8:dimension(*) ipcoo, real*8:dimension(*) wght, character*(*) giname, character*(*) isname, integer cret)
+   \brief \MEDlocalizationWrBrief
+   \param fid \fid
+   \param lname \localizationname
+   \param gtype \geotype
+   \param sdim \spacedimension
+   \param ecoo \elementcoordinate
+   \param swm \switchmode
+   \param nip \nipoint
+   \param ipcoo \ipointcoordinate
+   \param wght \weight
+   \param giname \geointerpname
+   \param isname \sectionmeshname
+   \param cret \error
+   \see MEDlocalizationWr
+   \details \MEDlocalizationWrDetails
+   \par Définition
+   \MEDlocalizationDef
+   \remarks
+   \MEDlocalizationRem
+   \MEDlocalizationWrRem
+*/
+
+
+/**\ingroup MEDlocalizationFortran
+   \fn subroutine mlcnlc(integer fid, integer n, integer cret)
+   \brief \MEDnLocalizationBrief
+   \param fid \fid
+   \param n \nlocalization
+   \param cret \error
+   \see MEDnLocalization
+   \details \MEDnLocalizationDetails
+   \par Remarques
+   \MEDlocalizationDef
+*/
+
+
+/**\ingroup MEDlocalizationFortran
+   \fn subroutine mlclci(integer fid, integer it, character*(*) lname, integer gtype, integer sdim,  integer nip, character*(*) giname, character*(*) isname, integer nsmc, integer sgtype, integer cret)
+   \brief \MEDlocalizationInfoBrief
+   \param fid \fid
+   \param it Iterateur
+   \param lname \localizationname
+   \param gtype \geotype
+   \param sdim \spacedimension
+   \param nip \nipoint
+   \param giname \geointerpname
+   \param isname \sectionmeshname
+   \param nsmc \nsectionmeshcell
+   \param sgtype \sectiongeotype
+   \param cret \error
+   \see MEDlocalizationInfo
+   \details \MEDlocalizationInfoDetails
+   \par Définition
+   \MEDlocalizationDef
+   \remarks
+   \MEDlocalizationRem
+*/
+
+/**\ingroup MEDlocalizationFortran
+   \fn subroutine mlclni(integer fid, character*(*) lname, integer gtype, integer sdim,  integer nip, character*(*) giname, character*(*) isname, integer nsmc, integer sgtype, integer cret)
+   \brief \MEDlocalizationInfoByNameBrief
+   \param fid \fid
+   \param lname \localizationname
+   \param gtype \geotype
+   \param sdim \spacedimension
+   \param nip \nipoint
+   \param giname \geointerpname
+   \param isname \sectionmeshname
+   \param nsmc \nsectionmeshcell
+   \param sgtype \sectiongeotype
+   \param cret \error
+   \see MEDlocalizationInfoByName
+   \details \MEDlocalizationInfoByNameDetails
+   \par Définition
+   \MEDlocalizationDef
+   \remarks
+   \MEDlocalizationRem
+*/
+
+
+/**\ingroup MEDlocalizationFortran
+   \fn subroutine mlclor(integer fid, character*(*) lname, integer swm, real*8:dimension(*) ecoo, real*8:dimension(*) ipcoo, real*8:dimension(*) wght, integer cret)
+   \brief \MEDlocalizationRdBrief
+   \param fid \fid
+   \param lname \localizationname
+   \param swm \switchmode
+   \param ecoo \elementcoordinate
+   \param ipcoo \ipointcoordinate
+   \param wght \weight
+   \param cret \error
+   \see MEDlocalizationRd
+   \details \MEDlocalizationRdDetails
+   \par Définition
+   \MEDlocalizationDef
+   \remarks
+   \MEDlocalizationRem
+   \MEDlocalizationRdRem
+ */
+
+
+
+
+
+
+
+
+
+

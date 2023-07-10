@@ -1,0 +1,2 @@
+- Attention les tableaux MEDCHAR utilisés en lecture doivent être dimensionnés avec le +1 (C)
+- La valeur entière des enums est obtenue par <enum instance>.val

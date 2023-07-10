@@ -1,0 +1,68 @@
+/---------------------------------------------------------------------
+/ TELEMAC2D Version v8p4
+/ VALIDATION TEST FOR RAIN IN 2D- here option 3:
+/   1- case without infiltration
+/   2- case with Horton rainfall-runoff model and FC values in formatted
+/      data file
+/   3- case with Horton rainfall-runoff model and FC values in geometry
+/      file and rainfall defined as a hyetograph in formatted data file
+/
+/
+/---------------------------------------------------------------------
+RAINFALL-RUNOFF MODEL                    = 2
+DURATION OF RAIN OR EVAPORATION IN HOURS = 6.
+ANTECEDENT MOISTURE CONDITIONS           = 2
+RAIN OR EVAPORATION                      = YES
+RAIN OR EVAPORATION IN MM PER DAY        = 100.0
+NUMBER OF PRIVATE ARRAYS = 4
+NAMES OF PRIVATE VARIABLES = 'FC'
+/FORMATTED DATA FILE 2 =runoff_data.dat
+FORMATTED DATA FILE 1 =hyetograph_ga.txt
+/
+/---------------------------------------------------------------------
+/ EQUATIONS
+/---------------------------------------------------------------------
+
+FRICTION COEFFICIENT   = 70.
+LAW OF BOTTOM FRICTION = 3
+
+/---------------------------------------------------------------------
+/ EQUATIONS, BOUNDARY CONDITIONS
+/---------------------------------------------------------------------
+
+/---------------------------------------------------------------------
+/ EQUATIONS, INITIAL CONDITIONS
+/---------------------------------------------------------------------
+
+INITIAL CONDITIONS = 'CONSTANT ELEVATION'
+INITIAL ELEVATION  = 0.
+/---------------------------------------------------------------------
+/ INPUT-OUTPUT, FILES
+/---------------------------------------------------------------------
+BOUNDARY CONDITIONS FILE = 't2d_geo_pluie_h.cli'
+GEOMETRY FILE            = 't2d_geo_pluie_h.slf'
+RESULTS FILE             = 'r2d_rain_fc_geo_hyetograph_fv.slf'
+FORTRAN FILE             = 'user_fortran-fc_geo_hyetograph'
+/ Fortran file used to print rainfall parameters to result file
+/ (variables O,R,Z), but the case works also without
+/---------------------------------------------------------------------
+/ INPUT-OUTPUT, GRAPHICS AND LISTING
+/---------------------------------------------------------------------
+LISTING PRINTOUT PERIOD         = 1800
+GRAPHIC PRINTOUT PERIOD         = 36
+VARIABLES FOR GRAPHIC PRINTOUTS = U,V,B,H,S,L,F,O,R,Z
+MASS-BALANCE                    = YES
+/---------------------------------------------------------------------
+/ INPUT-OUTPUT, INFORMATION
+/---------------------------------------------------------------------
+TITLE = 'Varying rain with Horton infiltration model FV'
+/---------------------------------------------------------------------
+/ NUMERICAL PARAMETERS
+/---------------------------------------------------------------------
+EQUATIONS                           = 'SAINT-VENANT FV'
+FINITE VOLUME SCHEME                = 5
+TIME STEP                           = 200
+DURATION                            = 28800.
+VARIABLE TIME-STEP                  = YES
+DESIRED COURANT NUMBER              = 0.9
+DIFFUSION OF VELOCITY               = NO

@@ -1,0 +1,12 @@
+ Copyright (C) 2004-2005 JP Renaud - University of Bristol
+
+ --------------------------------------------------------------------------
+
+ - fix volfin support
+ - clean up of comments
+ - make verbose option actually useful
+ - provide some tests
+ - handle automatically tecio.a in makefile
+ - documentation
+ - old option to create tecplot 9 files 
+ - headder/license

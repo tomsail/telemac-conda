@@ -1,0 +1,73 @@
+#### Makefile hooks for post-installation tests
+
+SUFFIXES		      = .at
+AUTOTEST		      = autom4te --language=autotest 
+CHECK_TESTS		      =
+INSTALLCHECK_TESTS	      =
+PYTHONINSTALLCHECK_TESTS      =
+CHECK_PROGS		      =
+INSTALLCHECK_PROGS	      =
+PYTHONINSTALLCHECK_PROGS      =
+OUTFILES		      =
+
+CHECKTESTSUITE		      =
+INSTALLCHECKTESTSUITE	      =
+PYTHONINSTALLCHECKTESTSUITE   = python_installcheck_testsuite
+
+EXTRA_DIST		      = $(PYTHONINSTALLCHECK_PROGS)
+EXTRA_DIST		     += $(srcdir)/python_installcheck_testsuite.at
+EXTRA_DIST		     += $(PYTHONINSTALLCHECK_TESTS)
+EXTRA_DIST		     += $(OUTFILES)
+EXTRA_DIST		     += atconfig.in
+
+CLEANFILES		      = *.log
+CLEANFILES		     += $(PYTHONINSTALLCHECKTESTSUITE)
+CLEANFILES		     += expout
+DISTCLEANFILES		      = atconfig
+
+$(CHECKTESTSUITE)	      : $(srcdir)/check_testsuite.at
+$(CHECKTESTSUITE)	      : $(top_builddir)/config/package.m4
+$(CHECKTESTSUITE)	      : $(CHECK_TESTS)
+
+$(INSTALLCHECKTESTSUITE)      : $(srcdir)/installcheck_testsuite.at
+$(INSTALLCHECKTESTSUITE)      : $(top_builddir)/config/package.m4
+$(INSTALLCHECKTESTSUITE)      : $(INSTALLCHECK_TESTS)
+
+$(PYTHONINSTALLCHECKTESTSUITE): $(srcdir)/python_installcheck_testsuite.at
+$(PYTHONINSTALLCHECKTESTSUITE): $(top_builddir)/config/package.m4
+$(PYTHONINSTALLCHECKTESTSUITE): $(PYTHONINSTALLCHECK_TESTS)
+
+.at:
+	$(AUTOTEST) -I $(top_srcdir)/config -I $(top_builddir)/config -I $(srcdir) $< -o $@.tmp
+	mv $@.tmp $@
+
+subdir = tests/python
+
+atconfig: $(top_builddir)/config.status
+	cd $(top_builddir) && \
+	$(SHELL) ./config.status $(subdir)/$@
+
+#check-local: atconfig atlocal $(CHECKTESTSUITE)
+#	@echo "*** INFO: run 'make check CHECKTESTSUITE_FLAGS=list_of_test_numbers' if you want to replay some tests"
+#	$(SHELL) $(CHECKTESTSUITE) $(CHECK_TESTS_ENVIRONMENT) $(CHECKTESTSUITE_FLAGS) $(ADAPT_CHECK_TESTS_EXPONENT)
+
+if WITH_PYTHON
+if INSTALLTEST
+
+installcheck-local:
+#	$(MAKE) installcheck-cplusplus
+	$(MAKE) installcheck-python
+endif
+endif
+
+installcheck-cplusplus: atconfig atlocal $(INSTALLCHECKTESTSUITE)
+	@echo "*** INFO: run 'make installcheck INSTALLCHECKTESTSUITE_FLAGS=list_of_test_numbers' if you want to replay some tests"
+	$(SHELL) $(INSTALLCHECKTESTSUITE) $(INSTALLCHECK_TESTS_ENVIRONMENT) $(INSTALLCHECKTESTSUITE_FLAGS) $(ADAPT_CHECK_TESTS_EXPONENT)
+
+installcheck-python: atconfig atlocal $(PYTHONINSTALLCHECKTESTSUITE)
+	@echo "*** INFO: run 'make installcheck PYTHONINSTALLCHECKTESTSUITE_FLAGS=list_of_test_numbers' if you want to replay some tests"
+	$(SHELL) $(PYTHONINSTALLCHECKTESTSUITE) $(INSTALLCHECK_TESTS_ENVIRONMENT) $(PYTHONINSTALLCHECKTESTSUITE_FLAGS) $(ADAPT_CHECK_TESTS_EXPONENT)
+
+
+clean-local:
+	rm -rf *.dir

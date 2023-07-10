@@ -1,0 +1,70 @@
+/----------------------------------------------------------------------/
+/                   STEERING FILE OF TELEMAC 2D
+/                       'CULM' TEST-CASE
+/
+/  PAS DE TEMPS DE 4 s :     86 s
+/  PAS DE TEMPS DE 8 s :     44 s  5.6  04/10/2004
+/
+/  HP C3700 compilateur HP :  44 s  version 5.7 19/04/2007
+/  HP C3700 compilateur Nag: 112 s  version 5.7 19/04/2007
+/
+/  HP C3700 compilateur HP            :  42 s  version 5.8 26/11/2007
+/  HP C3700 compilateur Nag           : 107 s  version 5.8 26/12/2007
+/  Dell 2.8 GHz Linux compilateur pgi :  32 s  version 5.8 19/12/2007
+/
+/  HP C3700 compilateur HP            :  43 s  version 5.9 16/10/2008
+/  HP C3700 compilateur Nag           : 105 s  version 5.9 17/10/2008
+/  Dell 2.8 GHz Linux compilateur pgi :  30 s  version 5.9 16/10/2008
+/
+/  HP C3700 compilateur HP              :  42 s  version 6.0 24/11/2009
+/  HP C3700 compilateur Nag             : 102 s  version 6.0 27/11/2009
+/  Dell 2.8 GHz Linux compilateur Intel :  23 s  version 6.0 26/11/2009
+/
+/  Version 6.2
+/
+/  HP C3700 compilateur HP              :  47 s  04/05/2012
+/
+/----------------------------------------------------------------------/
+/        INITIAL CONDITIONS IF NOT COMPUTATION CONTINUED
+/        DO 10 I=1,NPOIN
+/          H%R(I) = MAX( 1.D0 , 23.77D0-ZF%R(I) )
+/10      CONTINUE
+/
+BOUNDARY CONDITIONS FILE          : geo_culm.cli
+GEOMETRY FILE                     : geo_culm.slf
+PREVIOUS COMPUTATION FILE         : ini_culm.slf
+RESULTS FILE                      : r2d_culm.slf
+LIQUID BOUNDARIES FILE            : t2d_culm.qsl
+/
+/----------------------------------------------------------------------/
+/ GENERAL OPTIONS
+/----------------------------------------------------------------------/
+TITLE = 'TELEMAC 2D : RIVER CULM'
+COMPUTATION CONTINUED :YES
+INITIAL TIME SET TO ZERO : YES
+/TIME STEP = 8.
+TIME STEP = 2.
+NUMBER OF TIME STEPS = 27000
+GRAPHIC PRINTOUT PERIOD : 250
+LISTING PRINTOUT PERIOD =  1500
+VARIABLES FOR GRAPHIC PRINTOUTS : 'U,V,S,B,H'
+LAW OF BOTTOM FRICTION = 3
+FRICTION COEFFICIENT = 30.
+VELOCITY DIFFUSIVITY = 2.
+TURBULENCE MODEL : 1
+SOLVER ACCURACY = 1.E-4
+/SOLVER : 7  SOLVER OPTION : 2   PRECONDITIONING : 2
+IMPLICITATION FOR DEPTH = 1.
+IMPLICITATION FOR VELOCITY = 1.
+INITIAL CONDITIONS : 'CONSTANT ELEVATION'
+INITIAL ELEVATION : 50.
+PRESCRIBED FLOWRATES : 28.32 ;  0.
+PRESCRIBED ELEVATIONS : 0.   ; 23.77
+MASS-BALANCE : YES
+TYPE OF ADVECTION : 1;5
+SUPG OPTION : 1;0
+MASS-LUMPING ON H : 1.
+TIDAL FLATS : YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS : 1
+TREATMENT OF THE LINEAR SYSTEM : 2
+SOLVER : 1

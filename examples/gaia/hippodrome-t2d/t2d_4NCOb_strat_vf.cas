@@ -1,0 +1,72 @@
+/----------------------------------------------------------------------
+/                         COUPLING
+/----------------------------------------------------------------------
+COUPLING WITH = GAIA
+GAIA STEERING FILE = gai_4NCOb_strat_vf.cas
+/----------------------------------------------------------------------
+/                        INPUT OUTPUT FILES
+/----------------------------------------------------------------------
+BOUNDARY CONDITIONS FILE : geo_hippodrome.cli
+GEOMETRY FILE            : geo_hippodrome.slf
+RESULTS FILE             : r2d_4NCOb_strat_vf.slf
+/----------------------------------------------------------------------
+/                        GENERAL OPTION
+/----------------------------------------------------------------------
+TITLE : 'HIPPODROME SEVERAL SAND CLASS SEVERAL LAYER FINITE VOLUME'
+/
+DURATION                        : 2000.
+TIME STEP                       : 5.
+LISTING PRINTOUT PERIOD         : 120
+GRAPHIC PRINTOUT PERIOD         : 120
+VARIABLES FOR GRAPHIC PRINTOUTS : 'U,V,S,B,H,X,Y,M'
+MASS-BALANCE                    : YES
+/----------------------------------------------------------------------
+/                    INITIAL CONDITIONS
+/----------------------------------------------------------------------
+INITIAL CONDITIONS :  'CONSTANT ELEVATION'
+INITIAL ELEVATION  :   5.D0
+/----------------------------------------------------------------------
+/                      FRICTION
+/----------------------------------------------------------------------
+LAW OF BOTTOM FRICTION =  3
+FRICTION COEFFICIENT   = 45.
+/----------------------------------------------------------------------
+/                     TURBULENCE
+/----------------------------------------------------------------------
+DIFFUSION OF VELOCITY = YES
+TURBULENCE MODEL = 4
+VELOCITY DIFFUSIVITY = 1.D-6
+/----------------------------------------------------------------------
+/                       WIND
+/----------------------------------------------------------------------
+WIND                                    = YES
+OPTION FOR WIND = 2
+/********WIND VARIABLE IN SPACE: SEE FORTRAN
+COEFFICIENT OF WIND INFLUENCE = 6.0D-6
+THRESHOLD DEPTH FOR WIND = 0.1D0
+/
+/----------------------------------------------------------------------
+/                       NUMERICAL OPTIONS
+/----------------------------------------------------------------------
+TYPE OF ADVECTION                       = 1;5
+/ solver 1: conjugate gradient
+SOLVER                                  = 1
+SOLVER ACCURACY                         = 1e-09
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER = 200
+MASS-LUMPING ON H                       = 1.
+MASS-LUMPING ON VELOCITY                = 0.9
+IMPLICITATION FOR DEPTH                 = 0.6
+IMPLICITATION FOR VELOCITY              = 0.6
+/
+TREATMENT OF THE LINEAR SYSTEM          = 2
+FREE SURFACE GRADIENT COMPATIBILITY     = 0.9
+/
+TIDAL FLATS                             = TRUE
+CONTINUITY CORRECTION                   = YES
+TREATMENT OF NEGATIVE DEPTHS            = 2
+MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES = 20
+/
+SUPG OPTION                             = 2;0
+/
+/ DEFAULT VALUE UNTIL V8P1 KEPT FOR NON REGRESSION
+COEFFICIENT OF WIND INFLUENCE VARYING WITH WIND SPEED = NO

@@ -1,0 +1,18 @@
+Maillage de nom : |maa1| , de dimension : 2 , et de type 0
+	 -Dimension de l'espace : 2
+	 -Description du maillage : un maillage pour test14
+	 -Noms des axes : x               y               
+	 -Unit~s des axes : cm              cm              
+	 -Type de rep~re : 0
+	 -Nombre d'~tapes de calcul : 1
+	 -Unit~ des dates : s
+
+Nombre d'arretes : 0 
+ Erreur à l'ouverture du groupe 
+ du maillage 
+ meshname = "maa1"
+ numit = -1
+ numdt = -1
+ _datagroupname2 = "FAC"
+ Erreur a la lecture de de la numerotation globale pour les arretes
+ ce qui etait attendu puisqu'il n'y a pas de numerotation globale sur les arretes!

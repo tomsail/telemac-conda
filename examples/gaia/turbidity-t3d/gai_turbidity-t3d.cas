@@ -1,0 +1,44 @@
+/-------------------------------------------------------------------/
+/   GAIA      -  turbidity current                                  /
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------------------------------/
+/ INPUT-OUTPUTS,FILES
+/----------------------------------------------------------------------/
+GEOMETRY FILE            = geo_turbidity-t3d.slf
+BOUNDARY CONDITIONS FILE = geo_turbidity-t3d.cli
+RESULTS FILE             = gai_turbidity.slf
+/----------------------------------------------------------------------/
+/ OUTPUTS                                                              /
+/----------------------------------------------------------------------/
+VARIABLES FOR GRAPHIC PRINTOUTS = 'B,E,CS1,C2DS1'
+MASS-BALANCE                    = YES
+/----------------------------------------------------------------------/
+/ INITIAL CONDITIONS
+/----------------------------------------------------------------------/
+INITIAL SUSPENDED SEDIMENTS CONCENTRATION VALUES    = 0.
+PRESCRIBED SUSPENDED SEDIMENTS CONCENTRATION VALUES = 50.;0.
+VERTICAL PROFILES OF SUSPENDED SEDIMENTS            = 1;1
+/----------------------------------------------------------------------/
+/  PHYSICAL OPTIONS
+/----------------------------------------------------------------------/
+CLASSES TYPE OF SEDIMENT                                    = CO
+CLASSES SEDIMENT DENSITY                                    = 2650.0
+CLASSES SETTLING VELOCITIES                                 = 1.D-4
+NUMBER OF LAYERS FOR INITIAL STRATIFICATION                 = 1
+LAYERS INITIAL THICKNESS                                    = 0.D0
+LAYERS MASS TRANSFER                                        = 0.D0
+LAYERS CRITICAL EROSION SHEAR STRESS OF THE MUD             = 1000.D0
+LAYERS PARTHENIADES CONSTANT                                = 5.D-3
+LAYERS MUD CONCENTRATION                                    = 900.D0
+CLASSES CRITICAL SHEAR STRESS FOR MUD DEPOSITION            = 1.D-1
+SKIN FRICTION CORRECTION                                    = 0
+COEFFICIENT FOR HORIZONTAL DIFFUSION OF SUSPENDED SEDIMENTS = 1.E-6
+COEFFICIENT FOR VERTICAL DIFFUSION OF SUSPENDED SEDIMENTS   = 1.E-6
+/----------------------------------------------------------------------/
+/ NUMERICAL OPTIONS
+/----------------------------------------------------------------------/
+SCHEME FOR ADVECTION OF SUSPENDED SEDIMENTS        = 5
+ADVECTION-DIFFUSION SCHEME WITH SETTLING VELOCITY  = 1
+SCHEME OPTION FOR ADVECTION OF SUSPENDED SEDIMENTS = 1
+SOLVER FOR DIFFUSION OF SUSPENSION                 = 1

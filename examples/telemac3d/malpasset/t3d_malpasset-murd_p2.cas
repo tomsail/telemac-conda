@@ -1,0 +1,91 @@
+/  AVEC 2 PLANS
+/
+/ 807 s 6.0 JMH le 10/07/2009 (Nag:??? s,Dell:??? s)
+/ 771 LE 28/07/2009
+/ 744 LE 12/08/2009
+/ 648 LE 25/08/2009 (PREDIV OPTIMISE POUR 2 PLANS)
+/ 639 LE 26/08/2009 (VOLU3D DANS CVDF3D)
+/ 630 LE 04/12/2009 (MURD3D_POS OPTIMISE) (Nag:1742 s,Intel:293 s)
+/ 653 LE 16/03/2010 (MICHAEL SWAP + DIFF3D CORRIGE)
+/ 759 LE 21/05/2010
+/
+/ Version 6.1 avec nouvel algorithme independant de la numerotation des
+/             segments.
+/
+/  985 s 6.1 le 07/01/2011 (Nag:??? s,Dell:??? s)
+/  216 s 6.1 le 29/12/2010 (HP Z600 Linux calibre 5 avec 1 processeur )
+/   40 s 6.1 le 21/01/2011 (HP Z600 Linux calibre 5 avec 8 processeurs)
+/
+/ Version 6.2
+/
+/  981 s le 29/12/2011 (HP Unix)
+/   36 s le 08/08/2012 (HP Z600 Linux calibre 7 avec 8 processeurs)
+/
+/ Version 6.3
+/
+/   154 s le 30/09/2013 (HP Z600 Linux calibre 7, compilateur Nag, 1 processeur)
+/    28 s le 30/09/2013 (HP Z600 Linux calibre 7, compilateur Nag, 8 processeurs)
+/
+TITLE = 'TELEMAC 3D : MALPASSET EN 3D NON-HYDROSTATIQUE'
+/
+FORTRAN FILE             : 'user_fortran'
+BOUNDARY CONDITIONS FILE : geo_malpasset.cli
+GEOMETRY FILE            : geo_malpasset.slf
+3D RESULT FILE           : r3d_malpasset-murd_p2.slf
+2D RESULT FILE           : r2d_malpasset-murd_p2.slf
+FORMATTED RESULTS FILE   : rfo_malpasset-murd_p2.txt
+FORMATTED RESULTS FILE 1 : mass.txt
+/----------------------------------------------------------------------
+/     GENERAL OPTIONS
+/----------------------------------------------------------------------
+NUMBER OF TIME STEPS = 1000
+TIME STEP = 4.
+GRAPHIC PRINTOUT PERIOD = 50
+LISTING PRINTOUT PERIOD = 100
+/
+NUMBER OF HORIZONTAL LEVELS = 2
+/
+VARIABLES FOR 2D GRAPHIC PRINTOUTS = 'U,V,H,B,S'
+VARIABLES FOR 3D GRAPHIC PRINTOUTS = 'Z,U,V,W,DP'
+MASS-BALANCE = YES
+/
+INITIAL CONDITIONS = 'PARTICULAR'
+SCHEME FOR ADVECTION OF VELOCITIES = 14
+MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES = 50
+/
+HORIZONTAL TURBULENCE MODEL = 1
+VERTICAL TURBULENCE MODEL   = 1
+COEFFICIENT FOR HORIZONTAL DIFFUSION OF VELOCITIES = 0.1
+COEFFICIENT FOR VERTICAL DIFFUSION OF VELOCITIES   = 0.1
+/----------------------------
+/     SOURCE TERMS
+/----------------------------
+FRICTION COEFFICIENT FOR THE BOTTOM = 30.
+LAW OF BOTTOM FRICTION = 3
+/----------------------------
+/     PROPAGATION
+/----------------------------
+SOLVER FOR PROPAGATION = 2
+/
+PRECONDITIONING FOR DIFFUSION OF VELOCITIES = 34
+/
+TIDAL FLATS = YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS : 1
+TREATMENT OF NEGATIVE DEPTHS : 2
+/BYPASS VOID VOLUMES : NO
+/
+IMPLICITATION FOR DEPTH = 1.
+MASS-LUMPING FOR DEPTH : 1.
+/
+/ NON-HYDROSTATIC
+/
+NON-HYDROSTATIC VERSION : YES
+/
+SOLVER FOR PPE = 2
+ACCURACY FOR PPE = 1.E-5
+/
+/ DEFAULT VALUES UNTIL V8P0 KEPT FOR NON REGRESSION
+SCHEME OPTION FOR ADVECTION OF VELOCITIES = 1
+IMPLICITATION FOR VELOCITIES = 1.
+ACCURACY FOR PROPAGATION = 1.E-6
+ACCURACY FOR DIFFUSION OF VELOCITIES = 1.E-5

@@ -1,0 +1,18 @@
+/**********************************************************************/
+/                         STEERING FILE FOR                            /
+/                            STBTEL V4.1                               /
+/                 EXAMPLE OF SUPERTAB FILE TREATMENT                   /
+/**********************************************************************/
+/
+/
+UNIVERSAL FILE                        : sup6.unv
+/
+GEOMETRY FILE FOR TELEMAC             : geo.slf
+BOUNDARY CONDITIONS FILE              : geo.cli
+/
+OVERSTRESSED TRIANGLES CUTTING        : NO
+/
+ELIMINATION OF BACKWARD DEPENDENCIES  : YES
+VECTOR LENGTH                         : 128
+/
+MESH GENERATOR                        : SUPERTAB6

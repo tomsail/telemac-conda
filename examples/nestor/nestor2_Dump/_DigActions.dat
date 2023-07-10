@@ -1,0 +1,46 @@
+
+RESTART  = FALSE
+/
+/======================================================================
+ACTION
+   ActionType             =    Dump_by_time
+
+   TimeStart              =  2000.01.01-00:00:02    / [yyyy.mm.dd-hh:mm:ss]
+   TimeEnd                =  2000.01.01-00:02:02    / [yyyy.mm.dd-hh:mm:ss]
+
+   FieldDump              =   401_hollow1_1173m**2
+   DumpPlanar             =   FALSE 
+   
+   DumpVolume             =  586.50                 / [ m**3 ]
+   GrainClass             =    0.2
+   GrainClass             =    0.1
+   GrainClass             =    0.0
+   GrainClass             =    0.7
+ENDACTION
+/======================================================================
+ACTION
+   ActionType             =    Dump_by_time
+
+
+
+   TimeStart              =  2000.01.01-00:00:02    / [yyyy.mm.dd-hh:mm:ss]
+   TimeEnd                =  2000.01.01-00:02:02    / [yyyy.mm.dd-hh:mm:ss]
+
+   FieldDump              =   402_hollow2_1173m**2
+
+   DumpPlanar             =   TRUE 
+   ReferenceLevel         =   SECTIONS              /  key word: NO; GRID; SECTIONS; WATERLVL1; ..; WATERLVL3
+   
+   DumpVolume             =  586.50                 / [ m**3 ]
+   GrainClass             =    0.0
+   GrainClass             =    0.1
+   GrainClass             =    0.6
+   GrainClass             =    0.3
+
+ENDACTION
+/======================================================================
+ENDFILE 
+
+
+
+

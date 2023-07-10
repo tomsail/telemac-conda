@@ -1,0 +1,62 @@
+{% set name = "telemac" %}
+{% set version = "0.0.0" %}
+{% set build = 0 %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: /home/tomsail/apps/telemac.tar.gz
+  sha256: 6ee77a34b1b827463b7a61e00149b1781af7db340d329b8e36bdcd85ae545553
+
+build:
+  noarch: python
+  number: {{ build }}
+  skip: true #[win]
+  merge_build_host: true
+
+outputs:
+  - name: telemac
+    build:
+      noarch: python
+      script: build.sh
+    
+    requirements:
+      host:
+        - python 3.10
+        - numpy 1.23
+        - pip
+        - git
+        - {{ compiler('cxx') }}
+        - {{ compiler('c') }}
+        - {{ compiler('fortran') }}
+        - metis
+        - parmetis
+        - openblas
+        - liblapack
+      run:
+        - python 3.10
+        - numpy 1.23
+        - scipy
+        - netcdf4
+        - mpi4py
+        - matplotlib
+        - jupyter 
+        - jupyterlab 
+        - mpi4py
+    test:
+      imports:
+        - numpy
+        - data_utils.formats.selafin
+
+about:
+  home: https://gitlab.pam-retd.fr/otm/telemac-mascaret
+  license: Apache-2
+  license_family: APACHE
+  license_file: LICENSE.txt
+  summary: 'TELEMAC Suite with all the modules and API functions'
+
+extra:
+  recipe-maintainers:
+#   - brey

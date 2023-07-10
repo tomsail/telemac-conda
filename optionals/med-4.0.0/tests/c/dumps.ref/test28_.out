@@ -1,0 +1,40 @@
+
+Maillage de nom : |grille_cartesian| , de dimension : 2 , et de type 1
+	 -Dimension de l'espace : 2
+	 -Description du maillage : |un exemple de grille cartesienne|
+	 -Noms des axes : |X               Y               |
+	 -Unités des axes : |cm              cm              |
+	 -Type de repère : 0
+	 -Nombre d'étapes de calcul : 1
+	 -Unité des dates : |s|
+	 - Type : Maillage structure 
+	 - Grille cartesienne 
+Lecture de la taille de l'indice : 4 
+Axe X                [cm              ] : [  1.000000  1.100000  1.200000  1.300000  ] 
+Lecture de la taille de l'indice : 4 
+Axe Y                [cm              ] : [  2.000000  2.100000  2.200000  2.300000  ] 
+
+Maillage de nom : |grille_curvilinear| , de dimension : 2 , et de type 1
+	 -Dimension de l'espace : 2
+	 -Description du maillage : |un exemple de grille standard|
+	 -Noms des axes : |X               Y               |
+	 -Unités des axes : |cm              cm              |
+	 -Type de repère : 0
+	 -Nombre d'étapes de calcul : 1
+	 -Unité des dates : |s|
+	 - Type : Maillage structure 
+	 - Grille de-structureee 
+Nombre de noeuds : 4 
+Structure des noeuds de la grille : [  2  2  ] 
+Coordonnees : [  0.000000  0.000000  1.000000  0.000000  0.000000  1.000000  1.000000  1.000000  ] 
+
+Maillage de nom : |maillage vide| , de dimension : 2 , et de type 0
+	 -Dimension de l'espace : 2
+	 -Description du maillage : |un maillage vide|
+	 -Noms des axes : |X               Y               |
+	 -Unités des axes : |cm              cm              |
+	 -Type de repère : 0
+	 -Nombre d'étapes de calcul : 0
+	 -Unité des dates : |s|
+	 - Type : Maillage non structure 
+Fermeture du fichier 

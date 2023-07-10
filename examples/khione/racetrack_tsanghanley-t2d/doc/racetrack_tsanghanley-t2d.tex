@@ -1,0 +1,214 @@
+\renewcommand{\labelitemi}{$\triangleright$}
+
+\chapter{Validation with Tsang \& Hanley experiments (1984)}
+
+\section{Purpose}
+
+This test case consists in reproducing the experiments carried out by Tsang \& Hanley in 1984 \citep{Tsang_1984} 
+to demonstrate that \khione is capable of correctly fit with supercooling and frazil ice growth experimental data.
+Experiments are carried out with saline water and several initial seeding times are tested.
+These experiments are reproduced with \khione with both the multi-class and mono-class suspended frazil ice models.
+
+\section{Description}
+
+\subsection{Geometry, mesh and bathymetry}
+
+Tsang \& Hanley experiments \cite{Tsang_1984} (C) were conducted in a recirculating, racetrack shaped, 
+flume of $65$ cm long, $13$ cm deep and $15$ cm wide.
+The tank was filled with sea-water of salinity comprised between $29$ and $31$ ppt.
+The frazil concentration was estimated using temperature measurements,
+made with a thermometer calibrated to 0.0001 $^\circ $C, with repeatability of 0.001 $^\circ$C. 
+This leads to an absolute error of $ 1.25 \cdot 10^{-5}$ $m^3\cdot m^{-3}$ on frazil observations.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.85\textwidth]}{../img/mesh.png}
+    \end{center}
+    \caption{Domain mesh}
+    \label{fig:growth_mesh}
+\end{figure}
+
+\subsection{Initial conditions}
+
+To reproduce experiments, a momentum source term is introduced to simulate the propeller. The source
+term is adjusted in order to reach an hydrodynamic steady state with a mean flow velocity of $0.15$ m.s$^{-1}$.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.9\textwidth]}{../img/racetrack2d_-1.png}
+    \end{center}
+    \caption{Computed hydrodynamic steady state during the experiments. The black box represent the location of the propeller 
+momentum source term and the red dot is where the extraction of frazil ice volume fraction and temperature are done.}
+    \label{fig:hydro}
+\end{figure}
+
+\subsection{Boundary conditions}
+
+The solid boundaries are on each side of the racetrack, considered as solid walls with perfect slip conditions.
+
+\subsection{Atmospheric drivers}
+
+For this test case, linear heat exchanges are used i.e. within the \khione steering file:
+\begin{itemize}
+	\item\textit{ATMOSPHERE-WATER EXCHANGE MODEL = 0}
+\end{itemize}
+With this model, the net heat flux received by water trought the water/air interface is expressed as:
+\begin{equation}
+\phi^* = \phi_R + \alpha + \beta (T_{air} - T_{water})
+\end{equation}
+where $\phi_R$ the net solar radiation flux, $\alpha$ and $\beta$ are two coefficient. 
+To match the exact constant cooling rate as in the experiments (cf. table \ref{table:physical_parameters}), 
+$I_{so}$ and $\beta$ are set to zero within the \khione steering file.
+Only $\alpha$ is set to match the coling rate of the experiment: \textit{WATER-AIR HEAT EXCHANGE CONSTANT = -13.42}.
+
+\subsection{Physical parameters}
+
+The physical parameters of the experiment are summed up in the Table \ref{table:physical_parameters}.
+\begin{center}
+\begin{tabular}{lcccccc}
+\hline
+Case & $H$ $(m)$ & $U$ $(m/s)$ & Cooling rate $(W/m^3)$ & $S$ $(ppt)$ & $k$ $(m^2/s^2)$ & $\varepsilon$ $(m^2/s^3)$ \\
+\hline \hline
+(C) & $0.11$ & $0.15$ & $122$ & $29-31$ & $7 \cdot 10^{-6}$ & $2.36 \cdot 10^{-6}$ \\
+\hline
+\end{tabular}
+\captionof{table}{Physical parameters of the experiments.}
+\label{table:physical_parameters}
+\end{center}
+
+Physical properties related to frazil growth rate are defined in the \khione steering file. 
+For both the mono-class and multi-class models, the turbulent parameters are set to constants
+and defined with the keywords:
+\begin{itemize}
+	\item\textit{MODEL FOR ESTIMATION OF TURBULENCE PARAMETERS = 0}
+	\item\textit{CONSTANT TURBULENCE PARAMETERS = 7.E-6; 2.36E-6; 1.91E-6; 3.18E-2}
+\end{itemize}
+with respectively the turbulent kinetic energy ($k$),
+the turbulent dissipation rate ($\varepsilon$), the turbulent viscosity ($\nu_t$) and 
+turbulent instensity ($\alpha_t$).
+The Nusselt number is then computed within \khione depending on these parameters, 
+with \textit{MODEL FOR THE NUSSELT NUMBER = 2}.
+
+\subsubsection{Mono-class model parameters}
+With the mono-class model, frazil ice related parameters are set to default 
+for both experiments:
+\begin{itemize}
+	\item\textit{NUMBER OF CLASSES FOR SUSPENDED FRAZIL ICE = 1}
+	\item\textit{FRAZIL CRYSTALS RADIUS = 1.2E-4}
+	\item\textit{FRAZIL CRYSTALS DIAMETER THICKNESS RATIO = 10.}
+\end{itemize}
+
+The initial seeding is defined with a minimum threshold for the number of crystals per unit volume.
+\begin{itemize}
+  \item\textit{MODEL FOR FRAZIL SEEDING = 1}
+  \item\textit{MINIMUM NUMBER OF FRAZIL CRYSTALS = 1.5E4}
+\end{itemize}
+The parameters \textit{MINIMUM NUMBER OF FRAZIL CRYSTALS} is set to its default value.
+
+\subsubsection{Multi-class model parameters}
+With the mono-class model, frazil ice crystal' sizes are defined as:
+\begin{itemize}
+	\item\textit{NUMBER OF CLASSES FOR SUSPENDED FRAZIL ICE = 10}
+	\item\textit{FRAZIL CRYSTALS RADIUS = 1.E-4 ; 2.E-4 ; ... ; 9.E-4 ; 10.E-4}
+	\item\textit{FRAZIL CRYSTALS DIAMETER THICKNESS RATIO = 10.}
+\end{itemize}
+
+Similarly to the monoclass system, the initial seeding is defined 
+with a minimum threshold for the number of crystals per unit volume.
+The parameters \textit{MINIMUM NUMBER OF FRAZIL CRYSTALS} is
+defined in the table \ref{table:calibration}.
+
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+Case & $\alpha_{floc}$ $(s^{-1})$ & $n_{max}$ & Min. $n_k$ $(m^{-3})$ \\
+\hline \hline
+(C) & $10^{-4}$ & $2. \cdot 10^{6}$ & $2 \cdot 10^{3}$ \\
+\hline
+\end{tabular}
+\captionof{table}{Calibrated parameters.}
+\label{table:calibration}
+\end{center}
+
+Two new processes are taken into account compared to the mono-class,
+which are the secondary nucleation and the flocculation processes for which
+the parameters are defined as follows:
+\begin{itemize}
+	\item\textit{MODEL FOR THE BUOYANCY VELOCITY = 4}
+	\item\textit{MODEL FOR THE SECONDARY NUCLEATION = 1}
+	\item\textit{SECONDARY NUCLEATION NMAX PARAMETER = see table \ref{table:calibration}}
+	\item\textit{MODEL FOR THE FLOCCULATION AND BREAKUP = 1}
+	\item\textit{FLOCCULATION AFLOC PARAMETER = see table \ref{table:calibration}}
+\end{itemize}
+The parameters $n_{max}$ and $a_{floc}$ parameters are taken as calibration parameters 
+that are tuned to fit with the experimental data.
+
+\subsection{Numerical parameters}
+
+The time step is set to $0.01$s and the simulation time is set to $600$s.
+
+\section{Results}
+
+Total frazil volume fraction and temperature are plotted against time $t^*=t/t_c$ 
+where the characteristic time $t_c$ corresponds to the
+moment when $90$ percent of the maximum temperature depression is recovered.
+
+\subsubsection{Mono-class model:}
+
+The figure \ref{fig:tsang_monoclass}
+show the temperature and the frazil volume fraction results with the mono-class 
+model against Tsang \& Hanley experimental data at different seeding temperature.
+
+\begin{figure}[H]
+    \begin{center}
+        \subfloat[][$ T_n = -1.728^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang0_monoclass.png}}
+        \subfloat[][$ T_n = -1.8  ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang1_monoclass.png}}
+        \subfloat[][$ T_n = -1.9  ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang2_monoclass.png}}
+        \\
+        \subfloat[][$ T_n = -2   ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang3_monoclass.png}}
+        \subfloat[][$ T_n = -2.1 ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang4_monoclass.png}}
+        \subfloat[][$ T_n = -2.2 ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang5_monoclass.png}}
+        \\
+        \subfloat[][$ T_n = -2.3 ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang6_monoclass.png}}
+        \subfloat[][$ T_n = -2.4 ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang7_monoclass.png}}
+        \subfloat[][$ T_n = -2.5 ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang8_monoclass.png}}
+    \end{center}
+    \caption{Simulated temperature and normalized total frazil volume fraction with comparison to Tsang \& Hanley experiments for different seeding temperature with the mono-class model.}
+    \label{fig:tsang_monoclass}
+\end{figure}
+
+\subsubsection{Multi-class model:}
+
+The figure \ref{fig:tsang_multiclass}
+show the temperature and the total frazil volume fraction results with the multi-class 
+model against Tsang \& Hanley experimental data at different seeding temperature.
+
+\begin{figure}[H]
+    \begin{center}
+        \subfloat[][$ T_n = -1.728^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang0_multiclass.png}}
+        \subfloat[][$ T_n = -1.8  ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang1_multiclass.png}}
+        \subfloat[][$ T_n = -1.9  ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang2_multiclass.png}}
+        \\
+        \subfloat[][$ T_n = -2   ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang3_multiclass.png}}
+        \subfloat[][$ T_n = -2.1 ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang4_multiclass.png}}
+        \subfloat[][$ T_n = -2.2 ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang5_multiclass.png}}
+        \\
+        \subfloat[][$ T_n = -2.3 ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang6_multiclass.png}}
+        \subfloat[][$ T_n = -2.4 ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang7_multiclass.png}}
+        \subfloat[][$ T_n = -2.5 ^\circ C$]{\includegraphicsmaybe{[width=0.32\textwidth]}{../img/tsang8_multiclass.png}}
+    \end{center}
+    \caption{Simulated temperature and normalized total frazil volume fraction with comparison to Tsang \& Hanley experiments for different seeding temperature with the multi-class model.}
+    \label{fig:tsang_multiclass}
+\end{figure}
+
+\section{Conclusions}
+
+The default parameters of the mono-class model allow a good match with experiments even if the initial supercooling 
+phase is not captured as accurately as with the multi-class model.
+On the other hand the multi-class model comes with additionnal computational cost and requires to tune additionnal parameters.
+
+As a conclusion, the confrontation of numerical results to experimental data is 
+encouraging as both models are able to reproduce supercooling and temperature recovery 
+under different turbulent and salinity conditions.
+
+\renewcommand{\labelitemi}{\textbullet}

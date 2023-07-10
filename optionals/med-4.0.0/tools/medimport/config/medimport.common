@@ -1,0 +1,7 @@
+
+SUFFIXES = built.cxx
+
+.cbuilt.cxx :
+	${CP} -f $< $@
+
+AM_CXXFLAGS= -DWITH_EXCEPTIONS

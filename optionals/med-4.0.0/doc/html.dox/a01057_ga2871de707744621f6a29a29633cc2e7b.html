@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: MEDprofileSizeByName</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="a01057.html">Guide de référence du module MEDprofile</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="contents">
+<table cellspacing="0" cellpadding="0" border="0">
+  <tr>
+   <td valign="top">
+      <div class="navtab">
+        <table>
+          <tr><td class="navtab"><a class="qindex" href="a01057_ga984674c8806c7374a95cd451219f8e81.html#ga984674c8806c7374a95cd451219f8e81">MEDnProfile</a></td></tr>
+          <tr><td class="navtab"><a class="qindex" href="a01057_ga58f36a5e3b4fb4a2e510b421c6608102.html#ga58f36a5e3b4fb4a2e510b421c6608102">MEDprofileInfo</a></td></tr>
+          <tr><td class="navtab"><a class="qindex" href="a01057_ga93bec578fad63ceaaae0d7ea511d7a3e.html#ga93bec578fad63ceaaae0d7ea511d7a3e">MEDprofileRd</a></td></tr>
+          <tr><td class="navtab"><a class="qindexHL" href="a01057_ga2871de707744621f6a29a29633cc2e7b.html#ga2871de707744621f6a29a29633cc2e7b">MEDprofileSizeByName</a></td></tr>
+          <tr><td class="navtab"><a class="qindex" href="a01057_gaf7ec6ed01898dcfe98556f399ed044d1.html#gaf7ec6ed01898dcfe98556f399ed044d1">MEDprofileWr</a></td></tr>
+        </table>
+      </div>
+   </td>
+   <td valign="top" class="mempage">
+<a class="anchor" id="ga2871de707744621f6a29a29633cc2e7b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> MEDprofileSizeByName </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a>&#160;</td>
+          <td class="paramname"><em>fid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *const&#160;</td>
+          <td class="paramname"><em>profilename</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cette routine permet de lire la taille d'un profil dont on connait le nom. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fid</td><td>Identificateur du fichier. </td></tr>
+    <tr><td class="paramname">profilename</td><td>Nom du profil utilisé (de taille maximum <a class="el" href="a00577_a0ae989cbbfeecbb5296b3ceba8dab886.html#a0ae989cbbfeecbb5296b3ceba8dab886">MED_NAME_SIZE</a> ) ou (<a class="el" href="a00577_aaa89a5e5e6d32de69614b70cf74e29cc.html#aaa89a5e5e6d32de69614b70cf74e29cc">MED_NO_PROFILE</a> | <a class="el" href="a00577_a35f886ccd78c3f756148e02b768dae9c.html#a35f886ccd78c3f756148e02b768dae9c">MED_ALLENTITIES_PROFILE</a> ) s'il n'y a pas de profil. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><ul>
+<li>med_int Taille du profil. </li>
+<li>med_int retour négatif en cas d'erreur, Zéro sinon.</li>
+</ul>
+Cette routine permet de lire la taille d'un profil dont on connait le nom. </dd></dl>
+<dl class="section user"><dt>Remarques</dt><dd>Un profil est un tableau de numéros d'entités (numérotation MED relative à un type géométrique d'élément commence à 1. ) associés aux valeurs à traiter. Un profil permet de sélectionner les entités d'un maillage lors de la lecture ou l'écriture d'un champ ou d'un maillage. La définition d'un profil se fait selon les conventions suivantes : <ul>
+<li>Les numéros d'entité utilisés pour définir un profil sont ceux de la numérotation implicite (ordre d'apparition des entités par ordre croissant). </li>
+<li>Il s'agit d'une liste compacte : on ne met que les numéros représentatifs. Exemple : sur un maillage de 30 noeuds, si on a un champ portant sur les noeuds de numéros de référence 4, 5 et 12, le profil correspondant sera la liste (4,5,12). </li>
+</ul>
+</dd></dl>
+
+<p>Définition à la ligne <a class="el" href="a00811_source.html#l00037">37</a> du fichier <a class="el" href="a00811_source.html">MEDprofileSizeByName.c</a>.</p>
+
+</div>
+</div>
+    </td>
+  </tr>
+</table>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:49 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

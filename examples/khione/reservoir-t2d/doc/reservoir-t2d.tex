@@ -1,0 +1,207 @@
+\renewcommand{\labelitemi}{$\triangleright$}
+
+\chapter{Frazil formation in a reservoir}
+%
+% - Purpose & Problem description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved and specify how the numerical solution will be validated
+%
+\section{Purpose}
+
+The purpose of this test case is to validate the implementation of the multiclass frazil ice model.
+In order to validate implementation each process i.e. thermal growth, 
+seeding, secondary nucleation, flocculation and the impact of salinity are tested independently.
+This test case demonstrates that \khione is capable of modeling 
+supercooling and frazil ice growth with several classes of frazil particles.
+
+\section{Description}
+
+\subsection{Mesh, bathymetry and boundary conditions}
+
+The bathymetry is set to zero at all points of the domain. The mesh and the boundary conditions are represented in Figure \ref{fig:res_mesh}.
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.5\textwidth]}{../img/mesh.png}
+    \end{center}
+    \caption{Domain mesh}
+    \label{fig:res_mesh}
+\end{figure}
+
+\subsection{Initial conditions}
+
+The initial condition is a constant elevation of 1 m and no velocity. The value of tracer in \telemac{2D} are set to 0 at the initial time. For thermal growth, the initial volume fraction of frazil is nil, and for melting, it is set to 0.001.
+
+\subsection{Atmospheric drivers}
+
+For this test case, linear heat exchanges are used i.e. within the \khione steering file:
+\begin{itemize}
+	\item\textit{ATMOSPHERE-WATER EXCHANGE MODEL = 0}
+\end{itemize}
+A contant air temperature of $-25^\circ C$ is applied in the case of growth and $+20^\circ C$ in the case of melting.
+
+\subsection{Physical parameters}
+
+Physical properties related to frazil growth rate are defined in the \khione steering file. 
+For both the mono-class and multi-class models, the turbulent parameters are set to constants
+and defined with the keywords:
+\begin{itemize}
+	\item\textit{MODEL FOR ESTIMATION OF TURBULENCE PARAMETERS = 0}
+	\item\textit{CONSTANT TURBULENCE PARAMETERS = 9.6D-4; 1.2D-3; 6.912D-05; 8.76D-2}
+\end{itemize}
+i.e. turbulent kinetic energy ($k$),
+turbulent dissipation rate ($\varepsilon$), turbulent viscosity ($\nu_t$) and 
+turbulent instensity ($\alpha_t$) respectively.
+The Nusselt number is then computed within \khione depending on these parameters, 
+with \textit{MODEL FOR THE NUSSELT NUMBER = 2}.
+
+\subsubsection{Mono-class model parameters}
+With the mono-class model, frazil ice related parameters are set to default.
+The initial seeding is defined with a minimum threshold for the number of crystals per unit volume.
+\begin{itemize}
+  \item\textit{MODEL FOR FRAZIL SEEDING = 1}
+\end{itemize}
+The parameters \textit{MINIMUM NUMBER OF FRAZIL CRYSTALS} is set to default values.
+
+\subsubsection{Multi-class model parameters}
+With the mono-class model, frazil ice crystal' sizes are defined as:
+\begin{itemize}
+	\item\textit{NUMBER OF CLASSES FOR SUSPENDED FRAZIL ICE = 10}
+	\item\textit{FRAZIL CRYSTALS RADIUS = 1.E-4 ; 2.E-4 ; ... ; 9.E-4 ; 10.E-4}
+\end{itemize}
+The initial seeding is either defined 
+with a minimum threshold for the number of crystals or a seeding rate.
+In the second case, the seeding rate is only applied on the first class.
+The parameters \textit{MINIMUM NUMBER OF FRAZIL CRYSTALS} and \textit{FRAZIL SEEDING RATE}
+\begin{itemize}
+	\item\textit{MINIMUM NUMBER OF FRAZIL CRYSTALS = 3200.}
+	\item\textit{ FRAZIL SEEDING RATE = 8.E3 ; 0. ; 0. ; 0. ; 0.; 0. ; 0. ; 0. ; 0. ; 0.}
+\end{itemize}
+Note that in case of multiple classes the parameters \textit{MINIMUM NUMBER OF FRAZIL CRYSTALS}
+stands for the total number of crystals, and is equally shared between all classes. 
+In case of $10$ classes \textit{MINIMUM NUMBER OF FRAZIL CRYSTALS = 3200.} means
+$320$ min. crystals for each class.
+The secondary nucleation and the flocculation processes are defined as follows:
+\begin{itemize}
+	\item\textit{MODEL FOR THE BUOYANCY VELOCITY = 4}
+	\item\textit{MODEL FOR THE SECONDARY NUCLEATION = 1}
+	\item\textit{SECONDARY NUCLEATION NMAX PARAMETER = 1.E6}
+	\item\textit{MODEL FOR THE FLOCCULATION AND BREAKUP = 1}
+	\item\textit{FLOCCULATION AFLOC PARAMETER = 1.E-4}
+\end{itemize}
+The parameters $n_{max}$ and $a_{floc}$ parameters are taken as calibration parameters 
+that are tuned to fit with the experimental data.
+
+These default parameters defined above are modified in the tests to evaluate the response of the model
+for each process.
+
+\subsection{Numerical parameters}
+The time step is set to $0.1$ s and the duration is set to $800$ s for the thermal growth cases and $1600$ s for melting tests.
+
+\section{Results}
+
+The result of the monoclass and multiclass test are presented in Figures \ref{fig:monoclass_TCf}.
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.49\textwidth]}{../img/monoclass_TCf.png}
+        \includegraphicsmaybe{[width=0.49\textwidth]}{../img/multiclass_TCf.png}
+    \end{center}
+    \caption{Temperature and frazil volume fraction for monoclass (left) and multiclass (right) models}
+    \label{fig:monoclass_TCf}
+\end{figure}
+Figure \ref{fig:multiclass_TCf_melt} shows the results for the multiclass melting case.
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.5\textwidth]}{../img/multiclass_TCf_melt.png}
+    \end{center}
+    \caption{Temperature and frazil volume fraction for multiclass run in case of melting}
+    \label{fig:multiclass_TCf_melt}
+\end{figure}
+
+The figure \ref{fig:seed} show the influence of the chosen seeding model in the frazil volume fraction and temperature values.
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/seed_temp.png}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/seed_fra.png}
+    \end{center}
+    \caption{Temperature and frazil volume fraction for multiclass run depending on the seeding model chosen}
+    \label{fig:seed}
+\end{figure}
+
+The figure \ref{fig:seeding_rate} show the influence of the chosen seeding rate in the frazil volume fraction and temperature values.
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/seeding_rate_temp.png}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/seeding_rate_fra.png}
+    \end{center}
+    \caption{Temperature and frazil volume fraction for multiclass run depending on the seeding rate}
+    \label{fig:seeding_rate}
+\end{figure}
+
+The figure \ref{fig:min_part_fra} show the influence of the minimum particle value given for the seeding on the frazil volume fraction and temperature in the multiclass model.
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/min_part_temp.png}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/min_part_fra.png}
+    \end{center}
+    \caption{Temperature and frazil volume fraction for multiclass run depending on the minimal particle given for seeding}
+    \label{fig:min_part_fra}
+\end{figure}
+
+The figure \ref{fig:floc_model_fra} show the influence of the activation of the floculation model in the temperature and frazil volume fraction values for the multiclass model.
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/floc_model_temp.png}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/floc_model_fra.png}
+    \end{center}
+    \caption{Temperature and frazil volume fraction for multiclass run whether the floculation model is activated or not}
+    \label{fig:floc_model_fra}
+\end{figure}
+
+The figure \ref{fig:floc_alpha_fra} show the sensitivity of the model to the variation of the afloc parameter in the floculation model.
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/floc_alpha_temp.png}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/floc_alpha_fra.png}
+    \end{center}
+    \caption{Temperature and frazil volume fraction for multiclass run depending on the chosen afloc parameter}
+    \label{fig:floc_alpha_fra}
+\end{figure}
+
+The figure \ref{fig:nmax_fra} show the sensitivity of the model to the variation of the nmax parameter in the nucleation model.
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/nmax_temp.png}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/nmax_fra.png}
+    \end{center}
+    \caption{Temperature and frazil volume fraction for multiclass run depending on the chosen nmax parameter}
+    \label{fig:nmax_fra}
+\end{figure}
+
+The figure \ref{fig:nuc_model_fra} show the influence of the activation of the nucleation model in the temperature and frazil volume fraction values for the multiclass model.
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/nuc_model_temp.png}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/nuc_model_fra.png}
+    \end{center}
+    \caption{Temperature and frazil volume fraction for multiclass run whether the secondary nucleation model is activated or not}
+    \label{fig:nuc_model_fra}
+\end{figure}
+
+The figure \ref{fig:buo_fra} show the influence of the buoyancy velocity model chosen in the volume fraction and temperature values.
+\begin{figure}[H]
+    \begin{center}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/buo_temp.png}
+        \includegraphicsmaybe{[width=0.45\textwidth]}{../img/buo_fra.png}
+    \end{center}
+    \caption{Temperature and frazil volume fraction for multiclass depending on the buoyancy model chosen}
+    \label{fig:buo_fra}
+\end{figure}
+
+\section{Conclusions}
+
+The model is able to reproduce the supercooling and formation of frazil with several classes. 
+A small analysis shows that the equilibrium between the secondary nucleation parameter and the
+floculation model parameter must be found in order to have a good repartition of the frazil classes in the total volume fraction.
+
+\renewcommand{\labelitemi}{\textbullet}

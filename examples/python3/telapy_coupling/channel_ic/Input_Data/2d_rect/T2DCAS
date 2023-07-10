@@ -1,0 +1,64 @@
+//----------------------------------------------------------------------
+//                        OPTIONS GENERALES
+//----------------------------------------------------------------------
+TITRE : 'TELEMAC-2D - CAS SIMPLE1 - Initiation - Calcul numero 1'
+FICHIER DES CONDITIONS AUX LIMITES = T2DCLI
+FICHIER DE GEOMETRIE = T2DGEO
+FICHIER DES RESULTATS = T2D_Resultats.slf
+VARIABLES POUR LES SORTIES GRAPHIQUES             = 'U,V,S,B,H,Q'
+VARIABLES A IMPRIMER                              = ''
+PAS DE TEMPS = 1.0
+/NOMBRE DE COURANT SOUHAITE                        = 1.
+DUREE DU CALCUL =       10000.0
+PERIODE POUR LES SORTIES GRAPHIQUES               = 100
+//----------------------------------------------------------------------
+//                    CONDITIONS INITIALES
+//----------------------------------------------------------------------
+SUITE DE CALCUL : NON
+FICHIER DU CALCUL PRECEDENT = WaterLineInit_0.slf
+CONDITIONS INITIALES = 'COTE CONSTANTE'
+COTE INITIALE = 8.5
+//----------------------------------------------------------------------
+//                    CONDITIONS AUX LIMITES
+//----------------------------------------------------------------------
+LOI DE FROTTEMENT SUR LE FOND                     =    3
+COEFFICIENT DE FROTTEMENT                         =   30.5889796533
+COTES IMPOSEES = 5.;7.549
+DEBITS IMPOSES = 1000.; 1000.
+PROFILS DE VITESSE : 1;4
+//----------------------------------------------------------------------
+//                    SOURCES//PUITS
+//----------------------------------------------------------------------
+//ABSCISSES DES SOURCES       =
+//ORDONNEES DES SOURCES       = 
+//DEBITS DES SOURCES          = 
+
+//----------------------------------------------------------------------
+//                       OPTIONS NUMERIQUES
+//----------------------------------------------------------------------
+BANCS DECOUVRANTS                                 = NON
+MODELE DE TURBULENCE                              = 1
+BILAN DE MASSE                                    = OUI
+NOMBRE DE SOUS-ITERATIONS POUR LES NON-LINEARITES = 1
+PRECISION DU SOLVEUR                              = 1.E-6
+FORME DE LA CONVECTION                            = 1;1
+PRECONDITIONNEMENT				  = 2 
+//1;5
+OPTION DE SUPG                                    = 2;2
+//0;0
+DIFFUSION DES VITESSES	= NON
+//COEFFICIENT DE DIFFUSION DES VITESSES             = 1.E-2
+SOLVEUR                                           = 7
+//SOLVEUR                                           = 1
+//SOLVEUR                                           = 8
+OPTION DU SOLVEUR                                 = 3
+//MASS-LUMPING SUR H                                = 1
+//MASS-LUMPING SUR LA VITESSE                       = 1
+//STOCKAGE DES MATRICES                             = 3
+//TRAITEMENT DU SYSTEME LINEAIRE                    = 1
+TRAITEMENT DU SYSTEME LINEAIRE                    = 2
+//COMPATIBILITE DU GRADIENT DE SURFACE LIBRE       = 0.95
+CORRECTION DE CONTINUITE 			  = OUI
+EQUATIONS                                         ='SAINT-VENANT EF'
+//SCHEMA EN VOLUMES FINIS                           = 0
+&FIN

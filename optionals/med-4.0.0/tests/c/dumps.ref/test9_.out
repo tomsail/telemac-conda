@@ -1,0 +1,32 @@
+Maillage de nom : |maa1| , de dimension : 2 , et de type 0
+	 -Dimension de l'espace : 2
+	 -Description du maillage : un maillage pour test8
+	 -Noms des axes : |x               y               |
+	 -Unités des axes : |cm              cm              |
+	 -Type de repère : 0
+	 -Nombre d'étape de calcul : 0
+	 -Unité des dates : |s|
+Nombre de familles : 6 
+Famille 1 a 0 attributs et 1 groupes 
+Famille de nom FAMILLE_ELEMENT_1 et de numero -1 : 
+Attributs : 
+gro = groupe1
+Famille 2 a 0 attributs et 1 groupes 
+Famille de nom FAMILLE_ELEMENT_2 et de numero -2 : 
+Attributs : 
+gro = groupe1
+Famille 3 a 0 attributs et 1 groupes 
+Famille de nom FAMILLE_ELEMENT_3 et de numero -3 : 
+Attributs : 
+gro = groupe1
+Famille 4 a 0 attributs et 0 groupes 
+Famille de nom FAMILLE_ZERO et de numero 0 : 
+Attributs : 
+Famille 5 a 0 attributs et 1 groupes 
+Famille de nom FAMILLE_NOEUD_1 et de numero 1 : 
+Attributs : 
+gro = groupe1
+Famille 6 a 0 attributs et 1 groupes 
+Famille de nom FAMILLE_NOEUD_2 et de numero 2 : 
+Attributs : 
+gro = groupe1

@@ -1,0 +1,238 @@
+\chapter{Tidal\_flats-t3d}
+%
+% - Purpose & Description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved, the geometry and specify how the numerical solution will be validated
+%
+\section{Purpose}
+%
+For modelling 3D sediment transport, it is necessary to model the vertical 
+fluxes of the sediment in suspension due to settling and diffusion in addition to
+the bed exchange fluxes due to erosion and deposition. In shallow
+tidal areas, the combination of high bed shear stresses and small water volumes 
+can lead to oscillations in the numerical solution, making it inherently difficult 
+to model these vertical processes efficiently and accurately.
+%
+The objective of this test case is to assess the vertical 
+settling algorithm and diffusion scheme with respect to mass 
+conservation and stability on tidal flats (wetting and drying of mesh elements). 
+It is shown that by choosing the keyword option ADVECTION-DIFFUSION SCHEME WITH SETTLING VELOCITY = 1 
+the computation can be more efficient and achieves good mass conservation 
+in the situation of tidal flats when considering suspended sediments [1]. 
+%
+\section{Description}
+%
+In this test case, a large scale tidal flume (50~km long, 5~km wide and 10~m deep) is 
+used, with a 2~m tidal range imposed on the seaward (west) boundary. At the opposite end
+of the tidal flume, the bed shallows to create a region of wetting and drying.
+The currents induced by the tide cause sediment on the right hand side of the model to be eroded into
+suspension. Sediment is therefore in suspension in the area of wetting and drying and erosion 
+and deposition can also occur here. Therefore the simulation is well designed to test the 
+mass conservation of sediment in intertidal areas.
+%
+% - Geometry and Mesh:
+%     This part describes the mesh used in the computation
+%
+%
+\subsection{Geometry}
+%
+%
+\subsubsection{Model domain}
+%
+The model domain is rectangular, with a length of 50~km and width of ~5km.
+%
+\subsubsection{Mesh}
+%
+The finite element mesh (Figure \ref{mesh}) comprises 4762 triangular elements and
+2492 nodes. Element sizes are up to 500~m in the west hand side of the domain
+and reduce to 80~m near sloping bed area on the right hand side of the model. 
+The vertical discretisation of the model consists of 10 regularly spaced sigma planes.
+
+% Figure - model mesh
+\begin{figure} [h]
+\centering
+\includegraphicsmaybe{[scale=0.3]}{../img/mesh.png}
+\caption{Tidal flats model mesh}\label{mesh}
+\end{figure}
+
+%
+\subsubsection{Bathymetry}
+%
+The bathymetry of the flume is -10~m~MSL across most of the domain, with a 
+linear slope on the eastern end of the domain rising from -10~m~MSL to +2~m~MSL 
+over a distance of 10~km. 
+%
+% - Physical parameters:
+%     This part specifies the physical parameters
+%
+%
+\subsection{Physical parameters}
+%
+\subsubsection{Friction}
+Bed friction is specified using a Nikuradse roughness length of 0.01~m
+
+\subsubsection{Turbulence}
+Vertical turbulence is modelled using the mixing length model of Nezu
+and Nakagawa. Horizontal turbulence, which is less important for this
+test case, is applied using a constant viscosity of 0.5~m$^2$/s for the
+velocities and 0.01 for the suspended sediment.
+
+\subsubsection{Sediment}
+Suspended concentration is initialised to zero throughout the domain. A single bed
+layer of 10 m thickness (density 500 g/l) is initialised in the right half of the domain. 
+This sediment is too far from the boundary to pass out of the domain in the modelled 
+time frame, therefore boundary fluxes can be ignored in the mass conservation checks. 
+
+Erosion is parameterised using a critical shear stress for erosion of 0.01 N/m2 
+and a Partheniades erosion rate parameter of 4.0 10-5 kg/m2/s. An additional limitation 
+to prevent erosion when the water depth is below a minimum value of 0.1 m is applied.
+
+For settling, a constant settling velocity of 1 mm/s is prescribed. 
+
+%
+% Experimental results (if needed)
+%\subsection{Experimental results}
+%
+% bibliography can be here or at the end
+%\subsection{Reference}
+%
+% Section for computational options
+%\section{Computational options}
+%
+% - Initial and boundary conditions:
+%     This part details both initial and boundary conditions used to simulate the case
+%
+%
+\subsection{Initial and Boundary Conditions}
+%
+\subsubsection{Initial conditions}
+%
+Initial conditions are set using a constant elevation of 1~m (i.e. 11~m
+depth) and velocities are not initialised (i.e. they start at zero).
+Sediment concentration is initialised to 0.~g/L everywhere.
+
+A single bed layer of 10 m thickness (density 500 g/l) is initialised in the right half 
+of the model domain. This sediment is too far from the boundary to pass out of the domain 
+in the modelled timeframe, therefore boundary fluxes can be ignored in the mass conservation checks. 
+%
+\subsubsection{Boundary conditions}
+%
+An open boundary is specified at the western end and forced using a sinusoidal tide 
+(1 m amplitude, 0 m MSL mean level, 12 hour period). 
+\\
+Upstream boundary:
+\begin{itemize}
+\item prescribed tidal curve  (2~m amplitude, 12~h period)
+\item zero sediment concentration applied (it is eroded from the bed)
+\end{itemize}
+Bottom:
+\begin{itemize}
+\item
+solid boundary with Nikuradse bed roughness of $k_s$ = 0.01~m
+\end{itemize}
+Lateral wall:
+\begin{itemize}
+\item no friction
+\end{itemize}
+%
+\subsection{General parameters}
+%
+The model was run with a time step of 50~s for a total simulation
+duration of 86,400~s (24 hours)
+%
+% - Numerical parameters:
+%     This part is used to specify the numerical parameters used
+%     (adaptive time step, mass-lumping when necessary...)
+%
+%
+\subsection{Numerical parameters}
+%
+Advection for velocities and sediment: Scheme 13 (MURD3D\_POS) Option 1 (explicit)
+%
+%\subsection{Comments}
+%
+% - Results:
+%     We comment in this part the numerical results against the reference ones,
+%     giving understanding keys and making assumptions when necessary.
+%
+%
+\section{Results}
+%
+The currents generated due to the tidal boundary create currents which suspend the 
+bed sediment in the model domain (Figure \ref{sedplanview}) at t = 22~hours.
+
+% Figure - suspended sediment plan view
+\begin{figure} [h]
+\centering
+\includegraphicsmaybe{[scale=0.3]}{../img/sediment_plan_view.png}
+\caption{Suspended sediment plan view}\label{sedplanview}
+\end{figure}
+
+Figure \ref{velsection} shows a 5.5~km longitudinal section on the slope of the velocity U at time
+22~h. Figure \ref{sscsection} shows the suspended concentration for the same longitudinal section.
+
+% Figure - velocity section
+\begin{figure} [h]
+\centering
+\includegraphicsmaybe{[scale=0.3]}{../img/velocityU_section.png}
+\caption{Velocity U section}\label{velsection}
+\end{figure}
+
+% Figure - sediment section
+\begin{figure} [h]
+\centering
+\includegraphicsmaybe{[scale=0.3]}{../img/sediment_section.png}
+\caption{Suspended sediment section}\label{sscsection}
+\end{figure}
+
+Capring of the mass error for suspended sediment for the models run with either SETDEP=0 or SETDEP=1 
+(Figure \ref{susmasserr}) shows that using SETDEP=1 is marginally better in terms of mass conservation. 
+The model run also runs about twice as quickly due the use of the direct tridiagonal solver method 
+(as opposed to the iterative solver method which requires a high accuracy of convergence).
+
+The bed mass errors are extremely small if using either SETDEP=1 or SETDEP=0 (Figure \ref{bedmasserr}). When
+the mass errors for the suspension and the bed are combined, the plot is almost identical to the mass
+error for suspension only (Figure \ref{totmasserr}).
+
+% Figure - suspended mass error timeseries
+\begin{figure} [h]
+\centering
+\includegraphicsmaybe{[scale=0.3]}{../img/sus_mass_error_series.png}
+\caption{Suspended mass error comparison}\label{susmasserr}
+\end{figure}
+
+% Figure - bed mass error timeseries
+\begin{figure} [h]
+\centering
+\includegraphicsmaybe{[scale=0.3]}{../img/bed_mass_error_series.png}
+\caption{Bed mass error comparison}\label{bedmasserr}
+\end{figure}
+
+% Figure - total mass error timeseries
+\begin{figure} [h]
+\centering
+\includegraphicsmaybe{[scale=0.3]}{../img/tot_mass_error_series.png}
+\caption{Combined mass error comparison}\label{totmasserr}
+\end{figure}
+
+
+\section{Conclusion}
+%
+The vertical advection-diffusion scheme (option=1) is found to be remarkably 
+stable and mass conservative even when using relatively large time steps, 
+whereas option=0 necessitates a reduction in the time step and an increase in
+solver accuracy.
+%
+% - Reference:
+%     This part gives the reference solution we are comparing to and
+%     explicits the analytical solution when available;
+%
+% bibliography can be here or at the end
+%\subsection{Reference}
+%
+%
+\subsection{Reference}
+%
+[1] BENSON T., VILLARET C., KELLY D.M., BAUGH J. (2014) Improvements in 3D 
+sediment transport modelling with application to water quality issues. 
+Proceedings of the 21st Telemac and Mascaret Users Conference. Grenoble, France.

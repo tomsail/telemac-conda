@@ -1,0 +1,65 @@
+/ Evolution of an isolated bump in 2D
+/ Test by Mathilde Chavatte, under supervision of Pablo Tassi and Kamal el Kadi (EDF-LNHE-LHSV)
+/ References:
+/ [1] Benkhaldoun, F., Sahmim, S. and Seaid, M. (2010), A two-dimensional finite volume morphodynamic model on unstructured triangular grids. Int. J. Numer. Meth. Fluids, 63: 1296–1327.
+/ [2] Canastrelli A., Dumbser M., Siviglia A. and Toro E. (2010) Well-balanced high-order centered schemes on unstructured meshes for shallow water equations with fixed and mobile bed. Advances in Water Resources, 33: 291-303.
+/ [4] de Vriend H.J. (1987), 2DH mathematical modelling of morphological evolutions in shallow water. Coastal Engineering, 11: 1-27.
+/ [3] Hudson, J. and Sweby, P. K. (2005), A high-resolution scheme for the equations governing 2D bed-load sediment transport. Int. J. Numer. Meth. Fluids, 47: 1085–1091.
+/
+FORTRAN FILE              : 'user_fortran'
+BOUNDARY CONDITIONS FILE  : geo_bump2d-t2d.cli
+GEOMETRY FILE             : geo_bump2d-t2d.slf
+PREVIOUS COMPUTATION FILE : t2d_ini_bump2d.slf
+COMPUTATION CONTINUED     : YES
+INITIAL TIME SET TO ZERO  : YES
+RESULTS FILE              : r2d_bump2d-t2d.slf
+GAIA STEERING FILE        : gai_bump2d-t2d.cas
+/----------------------------------------------------------------------/
+/                       GENERAL OPTIONS
+/----------------------------------------------------------------------/
+TITLE = 'TELEMAC 2D : EVOLUTION OF AN ISOLATED 2D BUMP'
+COUPLING WITH : 'GAIA'
+TIME STEP = 1.
+NUMBER OF TIME STEPS = 360000
+MASS-BALANCE = YES
+GRAPHIC PRINTOUT PERIOD = 36000
+LISTING PRINTOUT PERIOD = 36000
+VARIABLES FOR GRAPHIC PRINTOUTS : 'U,V,S,B,F,H,L'
+/----------------------------------------------------------------------
+/                      NUMERICAL PARAMETERS
+/----------------------------------------------------------------------/
+/ gmres
+SOLVER : 7
+/Krylov space dimension
+SOLVER OPTION = 3
+SOLVER ACCURACY = 1.E-6
+IMPLICITATION FOR DEPTH = 0.6
+IMPLICITATION FOR VELOCITY = 0.6
+MASS-LUMPING ON H = 1.
+TYPE OF ADVECTION = 1;5
+SUPG OPTION         = 1;0
+/ supression of oscillations
+FREE SURFACE GRADIENT COMPATIBILITY = 0.9
+/
+/----------------------------------------------------------------------
+/                    EQUATIONS AND PARAMETERS
+/----------------------------------------------------------------------/
+WATER DENSITY = 1000.
+/no friction
+LAW OF BOTTOM FRICTION = 0
+/constant viscosity
+TURBULENCE MODEL = 1
+VELOCITY DIFFUSIVITY = 0.D0
+EQUATIONS = 'SAINT-VENANT FE'
+/
+/----------------------------------------------------------------------
+/               INITIAL CONDITIONS AND BOUNDARY CONDITIONS
+/----------------------------------------------------------------------/
+INITIAL CONDITIONS = 'CONSTANT ELEVATION'
+INITIAL ELEVATION = 10.
+PRESCRIBED FLOWRATES = 10000.  ; 10000.
+PRESCRIBED ELEVATIONS = 10. ; 0.
+/----------------------------------------------------------------------/
+/
+/ DEFAULT VALUE UNTIL V8P1 KEPT FOR NON REGRESSION
+TREATMENT OF THE LINEAR SYSTEM = 1

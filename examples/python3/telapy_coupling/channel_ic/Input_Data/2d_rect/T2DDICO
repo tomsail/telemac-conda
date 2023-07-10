@@ -1,0 +1,4700 @@
+&DYN
+/
+/!RUBRIQUE 'ENTREES-SORTIES, FICHIERS'
+/!BACKGROUND 'LightGray'
+/!FOREGROUND 'Brown'
+/!RUBRIQUE 'ENTREES-SORTIES, GENERALITES'
+/!BACKGROUND 'LightGray'
+/!FOREGROUND 'Brown'
+/!RUBRIQUE 'ENTREES-SORTIES, GRAPHIQUES ET LISTING'
+/!BACKGROUND 'LightGray'
+/!FOREGROUND 'Brown'
+/!RUBRIQUE 'PARAMETRES NUMERIQUES'
+/!BACKGROUND 'LightGray'
+/!FOREGROUND 'Brown'
+/!RUBRIQUE 'PARAMETRES NUMERIQUES, SOLVEUR'
+/!BACKGROUND 'LightGray'
+/!FOREGROUND 'Brown'
+/!RUBRIQUE 'PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR'
+/!BACKGROUND 'LightGray'
+/!FOREGROUND 'Brown'
+/!RUBRIQUE 'PARAMETRES NUMERIQUES, MODELE K-EPSILON'
+/!BACKGROUND 'LightGray'
+/!FOREGROUND 'Brown'
+/!RUBRIQUE 'EQUATIONS'
+/!BACKGROUND 'LightGray'
+/!FOREGROUND 'Brown'
+/!RUBRIQUE 'EQUATIONS, CONDITIONS LIMITES'
+/!BACKGROUND 'LightGray'
+/!FOREGROUND 'Brown'
+/!RUBRIQUE 'EQUATIONS, CONDITIONS INITIALES'
+/!BACKGROUND 'LightGray'
+/!FOREGROUND 'Brown'
+/!RUBRIQUE 'EQUATIONS, SOURCES'
+/!BACKGROUND 'LightGray'
+/!FOREGROUND 'Brown'
+/!RUBRIQUE 'CONSTANTES PHYSIQUES'
+/!BACKGROUND 'LightGray'
+/!FOREGROUND 'Brown'
+/---SYSTEME-TELEMAC-V6P0------------------------------TELEMAC-2D-------------
+/
+/Signification des differents mode d'acquisition/restitution
+/des fichiers vis a vis du parallelisme :
+/
+/  - "SCAL" :	
+/     Même fichier pour tous les processeurs lu par tous.	
+/     Seule la version du maître est consideree apres calcul.
+/
+/  - "SELAFIN" :	
+/     Le fichier est "decompose/regroupe en sous-domaines" avec les outils
+/      "partel/gretel" (dans le mode par defaut "parallelisme automatique")	
+/     Chaque processeur dispose d'un fichier prive.
+/  - "SELAFIN-GEOM" :
+/     idem SELAFIN mais pour le fichier de geometrie ='FICHIER DE GEOMETRIE'
+/      (usage par le regroupeur GRETEL en parallelisme)
+/
+/  - "PARAL" :	
+/     Le fichier est duplique avant calcul ("LIT") pour chaque processeur
+/      (avec une extension numerique), sauf s'il pre-existe avec cette  
+/      extension numerique : il est alors utilise (copie).	
+/     En mode "non automatique" : les fichiers lus doivent pre-exister avec 
+/      leur extension numerique.	
+/     S'il s'agit d'un fichier resultat ("ECR"), le fichier est restitue
+/      avec son extension numerique (fichier specifique a chaque processeur).	
+/
+/  - "CONLIM" :	
+/     Cette valeur designe le fichier des "conditions aux limites"	
+/     (utilise par le decoupeur "partel").
+/
+/---SYSTEME-TELEMAC-V6P0------------------------DeltaCAD-/-Septembre-2003----
+
+NOM = 'FICHIER DE GEOMETRIE'
+NOM1 = 'GEOMETRY FILE'
+TYPE = CARACTERE
+INDEX = 6
+MNEMO = 'NOMGEO, CANAL NGEO'
+TAILLE = 0
+SUBMIT = 'NGEO-READ-01;T2DGEO;OBLIG;BIN;LIT;SELAFIN-GEOM'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+COMPORT =
+'Foreground ("ENTREES-SORTIES, FICHIERS*NOMS")
+IS VALEUR (red)'
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+AIDE = 'Nom du fichier contenant le maillage du calcul a realiser.'
+AIDE1 = 'Name of the file containing the mesh. This file may also
+contain the topography and the friction coefficients.'
+
+NOM = 'CONTROLE DES LIMITES'
+NOM1 = 'CONTROL OF LIMITS'
+TYPE = LOGIQUE
+INDEX = 23
+MNEMO = 'CORREC'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 =  NO
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CONTROLE'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'CONTROL'
+COMPORT = 'Affichage ("VALEURS LIMITES") IS VALEUR ()'
+NIVEAU = 2
+AIDE = 'UTILISER AVEC LE MOT-CLE : VALEURS LIMITES, LE PROGRAMME
+S''ARRETE SI LES LIMITES SUR U,V,H OU T SONT DEPASSEES'
+AIDE1 = 'USE WITH THE KEY-WORD : LIMIT VALUES, THE PROGRAM IS STOPPED IF
+THE LIMITS ON U,V,H, OR T ARE TRESPASSED'
+
+NOM = 'VALEURS LIMITES'
+NOM1 = 'LIMIT VALUES'
+TYPE = REEL
+INDEX = 15
+MNEMO = ''
+TAILLE = 8
+DEFAUT  = -1000.;9000.;-1000.;1000.;-1000.;1000.;-1000.;1000.
+DEFAUT1 = -1000.;9000.;-1000.;1000.;-1000.;1000.;-1000.;1000.
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CONTROLE'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'CONTROL'
+COMPORT =
+'Foreground ("ENTREES-SORTIES, GENERALITES*CONTROLE")
+IS VALEUR (red)'
+NIVEAU = 2
+AIDE = 'Utilise avec le mot-cle CONTROLE DES LIMITES
+        valeurs mini et maxi acceptables pour H,U,V et T dans l''ordre
+        suivant : min(H) max(H) min(U) max(U)
+                  min(V) max(V) min(T) max(T)'
+AIDE1 = 'To be used with the key-word CONTROL OF LIMITS
+        min and max acceptable values for H,U,V et T in the following
+        order   : min(H) max(H) min(U) max(U)
+                  min(V) max(V) min(T) max(T)'
+
+NOM = 'PERIODE POUR LES SORTIES GRAPHIQUES'
+NOM1 = 'GRAPHIC PRINTOUT PERIOD'
+TYPE = ENTIER
+INDEX = 1
+MNEMO = 'LEOPRD'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'ENTREES-SORTIES, GRAPHIQUES ET LISTING'
+RUBRIQUE1 = 'INPUT-OUTPUT, GRAPHICS AND LISTING'
+COMPORT =
+'Foreground ("ENTREES-SORTIES, GRAPHIQUES ET LISTING")
+IS VALEUR (red)'
+NIVEAU = 1
+AIDE = 'Determine la periode en nombre de pas de temps d''impression
+des ''VARIABLES POUR LES SORTIES GRAPHIQUES'' (voir ce mot-cle)
+dans le FICHIER DES RESULTATS.'
+AIDE1 = 'Determines, in number of time steps, the printout period for
+the VARIABLES FOR GRAPHIC PRINTOUTS in the RESULTS FILE.'
+
+NOM = 'PERIODE DE SORTIE LISTING'
+NOM1 = 'LISTING PRINTOUT PERIOD'
+TYPE = ENTIER
+INDEX = 2
+MNEMO = 'LISPRD'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'ENTREES-SORTIES, GRAPHIQUES ET LISTING'
+RUBRIQUE1 = 'INPUT-OUTPUT, GRAPHICS AND LISTING'
+NIVEAU = 1
+AIDE = 'Determine la periode en nombre de pas de temps d''impression
+des ''VARIABLES A IMPRIMER'' (voir ce mot-cle) Pour la mise au point,
+il faut savoir que la sortie des resultats est effectuee
+systematiquement sur le fichier de retour d''execution du code
+(actuellement accessible par le menu 3.f de SPF sur IBM, et dans
+le fichier !CAS.SORTIE sur station de travail)'
+AIDE1 = 'Determines, in number of time steps, the printout period of
+the VARIABLES TO BE PRINTED
+The results are systematically printed out on the listing file
+(file CAS.SORTIE at the workstation).'
+
+NOM = 'NOMBRE DE PAS DE TEMPS'
+NOM1 = 'NUMBER OF TIME STEPS'
+TYPE = ENTIER
+INDEX = 3
+MNEMO = 'NIT'
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'DUREE DU CALCUL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'DURATION'
+COMPORT =
+'Foreground ("PARAMETRES NUMERIQUES*DUREE DU CALCUL")
+IS VALEUR (blue)'
+NIVEAU = 1
+AIDE = 'Definit le nombre de pas de temps effectues lors de
+l''execution du code.'
+AIDE1 = 'Specifies the number of time steps performed when running
+the code.'
+
+NOM = 'ENTIER LIBRE 1'
+NOM1 = 'FREE INTEGER 1'
+TYPE = ENTIER
+INDEX = 4
+MNEMO = 'ICONV'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = -13
+AIDE = 'Non active pour l''instant'
+AIDE1 = 'So far not implemented'
+
+NOM = 'FORME DE LA CONVECTION'
+NOM1 = 'TYPE OF ADVECTION'
+TYPE = ENTIER
+INDEX = 5
+MNEMO = 'ICONVF'
+TAILLE = 4
+DEFAUT = 1;5;1;1
+DEFAUT1 = 1;5;1;1
+CHOIX =
+'1="CARACTERISTIQUES"';
+'2="SUPG"';
+'3="SCHEMA N CONSERVATIF"' ;
+'4="SCHEMA N CONSERVATIF"' ;
+'5="SCHEMA PSI CONSERVATIF"';
+'6="SCHEMA PSI NON CONSERVATIF"';
+'7="SCHEMA N IMPLICITE NON CONSERVATIF"';
+'13="SCHEMA N PAR SEGMENTS";
+'14="SCHEMA N PAR SEGMENTS"'
+CHOIX1 =
+'1="CHARACTERISTICS"';
+'2="SUPG"';
+'3="CONSERVATIVE N-SCHEME"';
+'4="CONSERVATIVE N-SCHEME"';
+'5="CONSERVATIVE PSI-SCHEME"';
+'6="NON CONSERVATIVE PSI SCHEME"';
+'7="IMPLICIT NON CONSERVATIVE N SCHEME"';
+'13="EDGE-BASED N-SCHEME";
+'14="EDGE-BASED N-SCHEME"'
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'FORME DE LA CONVECTION'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'TYPE OF ADVECTION'
+COMPORT =
+'Foreground ("PARAMETRES NUMERIQUES*FORME DE LA CONVECTION")
+IS VALEUR (blue)'
+NIVEAU = 1
+AIDE = 'Choix du schema de convection pour chaque variable
+ces coefficients sont respectivement appliques a
+1) U et V     2) H     3) T     4) K ET EPSILON
+1 : caracteristiques sur h
+2 : SUPG
+3 : 
+4 : 
+5 : Sur h seulement (schema conservatif sans sous-iteration)
+6 :  Schema PSI'
+AIDE1 = 'Choice of advection schemes for every variable
+These coefficients are applied respectively to
+1) U et V     2) H     3) T     4) K and EPSILON
+1: characteristics
+2: SUPG
+3: 
+4: 
+5: On h only (mass conservative scheme without sub-iterations)
+6: PSI scheme (explicit with stability criterion)'
+NOM = 'INTERPOLATION'
+NOM1 = 'INTERPOLATION'
+TYPE = ENTIER
+INDEX = 6
+MNEMO = 'ICONVI'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+COMPORT =
+'Foreground ("PARAMETRES NUMERIQUES*GENERAL")
+IS VALEUR (blue)'
+NIVEAU = -13
+AIDE = 'Interpolation dans la methode des caracteristiques
+Non active pour l''instant'
+AIDE1 = 'Interpolation in the method of characteristics
+Not yet implemented'
+
+NOM = 'PRECONDITIONNEMENT'
+NOM1 = 'PRECONDITIONING'
+TYPE = ENTIER
+INDEX = 14
+MNEMO = 'IPRECO'
+TAILLE = 0
+DEFAUT = 2
+DEFAUT1 = 2
+CHOIX = '2="diagonal"'; '0="aucun"';
+'3="diagonal condensee"'; '7="crout"';'11="gauss-seidel"';
+'14="diagonal et crout"'; '21="diagonal condense et crout"'
+CHOIX1 = '2="diagonal"'; '0="no preconditioning"';
+'3="diagonal condensee"'; '7="crout"';'11="gauss-seidel"';
+'14="diagonal and crout"'; '21="diagonal condensed and crout"'
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+COMPORT =
+'Foreground ("PARAMETRES NUMERIQUES*GENERAL")
+IS VALEUR (blue)'
+NIVEAU = 2
+AIDE = 'Permet de preconditionner le systeme de l''etape de propagation
+afin d''accelerer la convergence lors de sa resolution.
+ - 0 : pas de preconditionnement;
+ - 2 : preconditionnement diagonal.
+ - 3 : preconditionnement diagonal-bloc
+ - 7 : preconditionnement de Crout par element ou segment
+ -11 : preconditionnement de Gauss-Seidel par element ou segment
+Certains preconditionnements sont cumulables
+(les diagonaux 2 ou 3 avec les autres)
+Pour cette raison on ne retient que les nombres premiers pour
+designer les preconditionnements. Si l''on souhaite en cumuler
+plusieurs on formera le produit des options correspondantes.'
+AIDE1 = 'Choice of the preconditioning in the propagation step linear
+system that the convergence is speeded up when it is being solved.
+ 0: no preconditioning
+ 2: diagonal preconditioning
+ 3: diagonal preconditioning with the condensed matrix
+ 7: Crout''s preconditioning per element or segment
+11: Gauss-Seidel''s preconditioning per element or segment
+Some operations (either 2 or 3 diagonal preconditioning) can be
+performed concurrently with the others.
+Only prime numbers are therefore kept to denote the preconditioning
+operations. When several of them are to be performed concurrently,
+the product of relevant options shall be made.'
+
+NOM = 'MAXIMUM D''ITERATIONS POUR LE SOLVEUR'
+NOM1 = 'MAXIMUM NUMBER OF ITERATIONS FOR SOLVER'
+TYPE = ENTIER
+INDEX = 10
+MNEMO = 'NITMAX'
+TAILLE = 0
+DEFAUT = 100
+DEFAUT1 = 100
+RUBRIQUE = 'PARAMETRES NUMERIQUES, SOLVEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, SOLVER'
+COMPORT =
+'Foreground ("PARAMETRES NUMERIQUES, SOLVEUR")
+IS VALEUR (blue)'
+NIVEAU = 2
+AIDE = 'Les algorithmes utilises pour la resolution de l''etape de
+propagation etant iteratifs; il est necessaire de limiter le nombre
+d''iterations autorisees.
+Remarque : un maximum de 40 iterations par pas de temps semble
+raisonnable.'
+AIDE1 = 'Since the algorithms used for solving the propagation step are
+iterative, the allowed number of iterations should be limited.
+NOTE: a maximum number of 40 iterations per time step seems to be
+reasonable.'
+
+NOM = 'ORDRE DU TIR INITIAL POUR H'
+NOM1 = 'INITIAL GUESS FOR H'
+TYPE = ENTIER
+INDEX = 15
+MNEMO = 'IORDRH'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+CHOIX = '1=precedent';
+'0=zero';
+'2=extrapolation'
+CHOIX1 = '1=previous';
+'0=zero';
+'2=extrapolation'
+RUBRIQUE = 'PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, VELOCITY-CELERITY-HIGHT'
+COMPORT =
+'Foreground ("PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR")
+IS VALEUR (blue)'
+NIVEAU = 2
+AIDE = 'Tir initial du solveur de l''etape de propagation.
+Offre la possibilite de modifier la valeur initiale de DH,
+accroissement de H, a chaque iteration,
+dans l''etape de propagation en utilisant les valeurs
+finales de cette variable aux pas de temps precedents. Ceci peut
+permettre d''accelerer la vitesse de convergence lors de la resolution
+du systeme. Trois possibilites sont offertes :
+ 0 : DH = 0.
+ 1 : DH = DHn (valeur finale de DH au pas de temps precedent),
+ 2 : DH = 2DHn - DHn-1 (extrapolation).'
+AIDE1 = 'Initial guess for the solver in the propagation step.
+Makes it possible to modify the initial value of C, upon each
+iteration in the propagation step, by using the ultimate values this
+variable had in the earlier time steps. Thus, the convergence can be
+speeded up when the system is being solved. 3 options are available:
+ 0: DH = 0
+ 1: DH = DHn (ultimate DH value in the next previous time step)
+ 2: DH = 2DHn - DHn-1 (extrapolation)'
+
+NOM = 'MAXIMUM D''ITERATIONS POUR K ET EPSILON'
+NOM1 = 'MAXIMUM NUMBER OF ITERATIONS FOR K AND EPSILON'
+TYPE = ENTIER
+INDEX = 13
+MNEMO = 'NKEMAX'
+TAILLE = 0
+DEFAUT = 50
+DEFAUT1 = 50
+RUBRIQUE = 'PARAMETRES NUMERIQUES, MODELE K-EPSILON'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, K-EPSILON MODEL'
+COMPORT =
+'Foreground ("PARAMETRES NUMERIQUES, MODELE K-EPSILON")
+IS VALEUR (blue)'
+NIVEAU = 2
+AIDE = 'Fixe le nombre maximum d''iterations accepte lors de la
+resolution du systeme diffusion-termes sources du modele k-epsilon.'
+AIDE1 = 'Sets the maximum number of iterations that are acceptable when
+solving the diffusion source-terms step of the k-epsilon model.'
+
+NOM = 'LOI DE FROTTEMENT SUR LE FOND'
+NOM1 = 'LAW OF BOTTOM FRICTION'
+TYPE = ENTIER
+INDEX = 8
+MNEMO = 'KFROT'
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+CHOIX = '0="PAS DE FROTTEMENT"';
+'1="HAALAND"';
+'2="CHEZY"';
+'3="STRICKLER"';
+'4="MANNING"';
+'5="NIKURADSE"'
+CHOIX1 = '0="NO FRICTION"';
+'1="HAALAND"';
+'2="CHEZY"';
+'3="STRICKLER"';
+'4="MANNING"';
+'5="NIKURADSE"'
+RUBRIQUE = 'EQUATIONS';'FROTTEMENT ET LISSAGE'
+RUBRIQUE1 = 'EQUATIONS';'FRICTION AND SMOOTHINGS'
+COMPORT =
+'Foreground ("EQUATIONS*FROTTEMENT ET LISSAGE")
+IS VALEUR (brown)'
+NIVEAU = 1
+AIDE = 'selectionne le type de formulation utilisee pour le calcul
+du frottement sur le fond.
+Les lois possibles sont les suivantes (cf.
+Note de principe) : - 0 : pas de frottement sur le fond;
+1 : formule de Haaland
+2 : formule de Chezy
+3 : formule de STRICKLER
+4 : formule de MANNING
+5 : formule de NIKURADSE '
+AIDE1 = 'Selects the type of formulation used for the bottom friction.
+The possible laws are as follows (refer to the Principle note):
+0: no friction against bottom,
+1: Haaland''s formula
+2: CHEZY''s formula
+3: STRICKLER''s formula
+4: MANNING''s formula
+5: NIKURADSE''s formula '
+
+NOM = 'MAXIMUM D''ITERATIONS POUR LA DIFFUSION DES TRACEURS'
+NOM1 = 'MAXIMUM NUMBER OF ITERATIONS FOR DIFFUSION OF TRACERS'
+TYPE = ENTIER
+INDEX = 9
+MNEMO = 'NITDIF'
+TAILLE = 0
+DEFAUT = 60
+DEFAUT1 = 60
+RUBRIQUE = 'EQUATIONS';'TRACEUR';'OPTIONS TRACEUR'
+RUBRIQUE1 = 'EQUATIONS';'TRACER';'TRACER OPTIONS'
+COMPORT =
+'Foreground ("EQUATIONS*TRACEUR*OPTIONS TRACEUR") IS VALEUR (brown)'
+NIVEAU = 2
+AIDE = 'Limite le nombre d''iterations du solveur a chaque pas
+de temps pour le calcul de la diffusion du traceur.'
+AIDE1 = 'Limits the number of solver iterations at each time step for
+the diffusion of tracer.'
+
+NOM = 'SOLVEUR POUR LA DIFFUSION DES TRACEURS'
+NOM1 = 'SOLVER FOR DIFFUSION OF TRACERS'
+TYPE = ENTIER
+INDEX = 11
+MNEMO = 'SLVTRA%SLV'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+CHOIX = '1="gradient conjuge"';
+'2="residu conjuge"';
+'3="gradient conjuge sur equation normale"';
+'4="erreur minimale"';
+'5="gradient conjuge carre"';
+'6="cgstab"';
+'7="gmres (voir ausi option du solveur)"';
+'8="direct"'
+CHOIX1 = '1="conjugate gradient"';
+'2="conjugate residual"';
+'3="conjugate gradient on a normal equation"';
+'4="minimum error"';
+'5="squared conjugate gradient"';
+'6="cgstab"';
+'7="gmres (see option for the solver for tracer diffusion)"';
+'8="direct"'
+RUBRIQUE = 'PARAMETRES NUMERIQUES, SOLVEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, SOLVER'
+NIVEAU = 2
+AIDE = '1 : gradient conjugue 2 : residu conjugue 3 : gradient conjugue
+sur equation normale 4 : erreur minimale 5 : gradient conjugue carre'
+AIDE1 = '1 : conjugate gradient 2 : conjugate gradient
+3 :  conjugate gradient on a normal equation 4 : minimum error
+5 : squared conjugate gradient 6 : cgstab
+7 : gmres (see option for the solver for tracer diffusion)
+8 : direct'
+
+NOM = 'OPTION DE PROPAGATION'
+NOM1 = 'PROPAGATION OPTION'
+TYPE = ENTIER
+INDEX = 12
+MNEMO = 'OPTPRO'
+TAILLE = 0
+DEFAUT = 3
+DEFAUT1 = 3
+RUBRIQUE = 'EQUATIONS';'PROPAGATION'
+RUBRIQUE1 = 'EQUATIONS';'PROPAGATION'
+COMPORT =
+'Foreground ("EQUATIONS*PROPAGATION") IS VALEUR (brown)'
+NIVEAU = -13
+AIDE = 'Non active pour l''instant.'
+AIDE1 = 'Not yet implemented.'
+
+NOM = 'ENTIER LIBRE 17'
+NOM1 = 'FREE INTEGER 17'
+TYPE = ENTIER
+INDEX = 17
+MNEMO = 'STDGEO'
+TAILLE = 0
+DEFAUT = 3
+DEFAUT1 = 3
+NIVEAU = 2
+AIDE = ' '
+AIDE1 = ' '
+
+NOM = 'ENTIER LIBRE 18'
+NOM1 = 'FREE INTEGER 18'
+TYPE = ENTIER
+INDEX = 18
+MNEMO = 'STDRES'
+TAILLE = 0
+DEFAUT = 3
+DEFAUT1 = 3
+NIVEAU = 2
+AIDE = ' '
+AIDE1 = ' '
+
+NOM = 'SOLVEUR'
+NOM1 = 'SOLVER'
+TYPE = ENTIER
+INDEX = 19
+MNEMO = 'ISOLVE'
+TAILLE = 0
+DEFAUT = 3
+DEFAUT1 = 3
+CHOIX = '3="equation normale"';
+'1="gradient conjuge"';
+'2="residu conjuge"';
+'4="erreur minimale"';
+'6="cgstab"';
+'7="gmres"';
+'8="direct"'
+CHOIX1 = '3="conjugate gradient on a normal equation"';
+'1="conjugate gradient"';
+'2="conjugate residual"';
+'4="minimum error"';
+'6="cgstab"';
+'7="gmres"';
+'8="direct"'
+RUBRIQUE = 'PARAMETRES NUMERIQUES, SOLVEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, SOLVER'
+NIVEAU = 2
+AIDE = 'Permet de choisir le solveur utilise pour la resolution de
+l''etape de propagation. Toutes les methodes proposees actuellement
+s''apparentent au Gradient Conjugue. Ce sont :
+  1 : gradient conjugue
+  2 : residu conjugue
+  3 : gradient conjugue sur equation normale
+  4 : erreur minimale
+  5 : gradient conjugue carre (non programme)
+  6 : gradient conjugue carre stabilise (cgstab)
+  7 : gmres (voir aussi option du solveur)
+  8 : direct'
+AIDE1 = 'Makes it possible to select the solver used for solving the
+propagation step. All the currently available methods are variations
+of the Conjugate Gradient method. They are as follows:
+1: conjugate gradient
+2: conjugate residual
+3: conjugate gradient on a normal equation
+4: minimum error
+5: conjugate gradient squared (not implemented)
+6: conjugate gradient squared stabilised (cgstab)
+7: gmres (see option for solver)
+8: direct'
+
+NOM = 'ENTIER LIBRE 20'
+NOM1 = 'FREE INTEGER 20'
+TYPE = ENTIER
+INDEX = 20
+MNEMO = 'STDPRE'
+TAILLE = 0
+DEFAUT = 3
+DEFAUT1 = 3
+NIVEAU = 2
+AIDE = ' '
+AIDE1 = ' '
+
+NOM = 'NOMBRE DE SOUS-ITERATIONS POUR LES NON-LINEARITES'
+NOM1 = 'NUMBER OF SUB-ITERATIONS FOR NON-LINEARITIES'
+TYPE = ENTIER
+INDEX = 21
+MNEMO = 'NSOUSI'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Permet de reactualiser, pour un meme pas de temps, les champs
+convecteur et propagateur au cours de plusieurs sous-iterations. A la
+premiere sous-iteration, ces champs sont donnes par C et le champ de
+vitesses au pas de temps precedent. Aux iterations suivantes, ils sont
+pris egaux au champ de vitesse obtenu a la fin de la sous-iteration
+precedente. Cette technique permet d''ameliorer la prise en compte des
+non linearites.'
+AIDE1 = 'Used for updating, within one time step, the advection and
+propagation field.
+upon the first sub-iteration, these fields are given by
+C and the velocity field in the previous time step. At subsequent
+iterations, the results of the previous sub-iteration is used to
+update the advection and propagation field.
+The non-linearities can be taken into account through this technique.'
+
+NOM = 'NUMERO DU PREMIER PAS DE TEMPS POUR LES SORTIES GRAPHIQUES'
+NOM1 = 'NUMBER OF FIRST TIME STEP FOR GRAPHIC PRINTOUTS'
+TYPE = ENTIER
+INDEX = 22
+MNEMO = 'PTINIG'
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE = 'ENTREES-SORTIES, GRAPHIQUES ET LISTING'
+RUBRIQUE1 = 'INPUT-OUTPUT, GRAPHICS AND LISTING'
+NIVEAU = 2
+AIDE = 'Determine le nombre de pas de temps a partir duquel debute
+l''ecriture des resultats dans le ''FICHIER DES RESULTATS''.'
+AIDE1 = 'Determines the number of time steps after which the results
+are first written into the RESULTS FILE.'
+
+NOM = 'NUMERO DU PREMIER PAS DE TEMPS POUR LES SORTIES LISTING'
+NOM1 = 'NUMBER OF FIRST TIME STEP FOR LISTING PRINTOUTS'
+TYPE = ENTIER
+INDEX = 23
+MNEMO = 'PTINIL'
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE = 'ENTREES-SORTIES, GRAPHIQUES ET LISTING'
+RUBRIQUE1 = 'INPUT-OUTPUT, GRAPHICS AND LISTING'
+NIVEAU = 2
+AIDE = 'Determine le nombre de pas de temps a partir duquel debute
+l''ecriture des resultats dans le listing.'
+AIDE1 = 'Determines the number of time steps after which the results
+are first written into the listing.'
+
+NOM = 'PRECONDITIONNEMENT POUR LA DIFFUSION DES TRACEURS'
+NOM1 = 'PRECONDITIONING FOR DIFFUSION OF TRACERS'
+TYPE = ENTIER
+INDEX = 24
+MNEMO = 'IPREDI'
+TAILLE = 0
+DEFAUT = 2
+DEFAUT1 = 2
+CHOIX = '2="diagonal"'; '0="aucun"';
+'3="diagonal condensee"'; '7="crout"';
+'14="diagonal et crout"'; '21="diagonal condense et crout"'
+CHOIX1 = '2="diagonal"'; '0="no preconditioning "';
+'3="diagonal condensed"'; '7="crout"';
+'14="diagonal and crout"'; '21="diagonal condensed and crout"'
+RUBRIQUE = 'EQUATIONS';'TRACEUR';'OPTIONS TRACEUR'
+RUBRIQUE1 = 'EQUATIONS';'TRACER';'TRACER OPTIONS'
+NIVEAU = 2
+AIDE = 'Permet de preconditionner le systeme relatif au traceur.
+Memes definition et possibilites que pour le mot-cle PRECONDITIONNEMENT.
+  0 : pas de preconditionnement;
+  2 : preconditionnement diagonal.
+  3 : preconditionnement diagonal avec la matrice conde'
+AIDE1 = 'Preconditioning of the linear system in the tracer diffusion
+step.
+Same definition and possibilities as for the keyword  PRECONDITIONING
+ 0: no preconditioning
+ 2: diagonal preconditioning
+ 3: diagonal preconditioning with the condensed matrix
+ 7: Crout''s preconditioning per element.'
+
+NOM = 'SOLVEUR POUR LE MODELE K-EPSILON'
+NOM1 = 'SOLVER FOR K-EPSILON MODEL'
+TYPE = ENTIER
+INDEX = 25
+MNEMO = 'ISOLKE'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+CHOIX = '1="gradient conjugue"';
+'2="residu conjuge"';
+'3="gradient conjugue sur equation normal"';
+'4="erreur minimale"';
+'5="gradient conjugue carre"';
+'6="gradient conjugue carre stabilise (cgstab)"';
+'7="gmres (voir aussi option du solveur pour le modele k-epsilon"';
+'8="direct"'
+CHOIX1 = '1="conjugate gradient"';
+'2="conjugate residuals"';
+'3="conjugate gradient on normal equation"';
+'4="minimum error"';
+'5="conjugate gradient squared"';
+'6="conjugate gradient squared stabilised (cgstab)"';
+'7="gmres (see option for the solver for k-epsilon model)"';
+'8="direct"'
+RUBRIQUE = 'EQUATIONS';'MODELE DE TURBULENCE';'MODELE K-EPSILON'
+RUBRIQUE1 = 'EQUATIONS';'TURBULENCE MODEL';'K-EPSILON MODEL'
+COMPORT =
+'Foreground ("EQUATIONS*MODELE DE TURBULENCE*MODELE K-EPSILON")
+IS VALEUR (brown)'
+NIVEAU = 2
+AIDE = 'Permet de choisir le solveur utilise pour la resolution
+du systeme du modele k-epsilon :
+1 : gradient conjugue
+2 : residu conjugue
+3 : gradient conjugue sur equation normale
+4 : erreur minimale
+5 : gradient conjugue carre
+6 : gradient conjugue carre stabilise (cgstab)
+7 : gmres (voir aussi option du solveur pour le modele k-epsilon)
+8 : direct'
+AIDE1 = 'Makes it possible to select the solver used for solving
+the system of the k-epsilon model.
+1: conjugate gradient
+2: conjugate residuals
+3: conjugate gradient on normal equation
+4: minimum error
+5: conjugate gradient squared
+6: conjugate gradient squared stabilised (cgstab)
+7: gmres (see option for the solver for k-epsilon model)
+8: direct'
+
+NOM = 'PRECONDITIONNEMENT POUR LE MODELE K-EPSILON'
+NOM1 = 'PRECONDITIONING FOR K-EPSILON MODEL'
+TYPE = ENTIER
+INDEX = 26
+MNEMO = 'IPREKE'
+TAILLE = 0
+DEFAUT = 2
+DEFAUT1 = 2
+CHOIX = '2="diagonal"'; '0="aucun"';
+'3="diagonal condensee"'; '7="crout"';
+'14="diagonal et crout"'; '21="diagonal condense et crout"'
+CHOIX1 = '2="diagonal"'; '0="no preconditioning"';
+'3="diagonal condensed"'; '7="crout"';
+'14="diagonal and crout"'; '21="diagonal condensed and crout"'
+RUBRIQUE = 'PARAMETRES NUMERIQUES, MODELE K-EPSILON'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, K-EPSILON MODEL'
+NIVEAU = 2
+AIDE = 'Permet de preconditionner le systeme relatif au modele k-epsilon
+0 : pas de preconditionnement;
+2 : preconditionnement diagonal.
+3 : preconditionnement diagonal avec la matrice condensee.
+7 : preconditionnement de Crout par element.'
+AIDE1 = 'Preconditioning of the linear system in the diffusion step of
+the k-epsilon model.
+0: no preconditioning
+2: diagonal preconditioning
+3: diagonal preconditioning with the condensed matrix
+7: Crout''s preconditioning per element'
+
+NOM = 'REGIME DE TURBULENCE POUR LES PAROIS'
+NOM1 = 'TURBULENCE MODEL FOR SOLID BOUNDARIES'
+TYPE = ENTIER
+INDEX = 27
+MNEMO = 'LISRUG'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+CHOIX = '1=lisse'; '2=rugueux'
+CHOIX1 = '1=smooth'; '2=rough'
+RUBRIQUE = 'EQUATIONS';'MODELE DE TURBULENCE';'MODELE K-EPSILON'
+RUBRIQUE1 = 'EQUATIONS';'TURBULENCE MODEL';'K-EPSILON MODEL'
+NIVEAU = 1
+AIDE = 'Permet de choisir le regime de turbulence aux parois;
+lors de l''utilisation du modele k-epsilon (cf Note de principe).
+ - 1 : regime turbulent lisse.
+ - 2 : regime turbulent rugueux.'
+AIDE1 = 'Provided for selecting the type of friction on the walls
+when the k-epsilon model is being used (refer to principle note)
+   1: smooth
+   2: rough'
+
+NOM = 'NOMBRE DE FLOTTEURS'
+NOM1 = 'NUMBER OF DROGUES'
+TYPE = ENTIER
+INDEX = 28
+MNEMO = 'NFLOT'
+CONTROLE = 0 ; 10
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE = 'ENTREES-SORTIES, GRAPHIQUES ET LISTING'
+RUBRIQUE1 = 'INPUT-OUTPUT, GRAPHICS AND LISTING'
+NIVEAU = 2
+AIDE = 'Permet d''effectuer un suivi de flotteurs'
+AIDE1 = 'Number of drogues in the computation.
+The user must then fill the subroutine FLOT specifying
+the coordinates of the starting points, their departure
+and arrival times.
+The trajectory of drogues is recorded in the BINARY RESULTS
+FILE that must be given in the steering file'
+
+NOM = 'PERIODE POUR LES SORTIES FLOTTEURS'
+NOM1 = 'PRINTOUT PERIOD FOR DROGUES'
+TYPE = ENTIER
+INDEX = 29
+MNEMO = 'FLOPRD'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'ENTREES-SORTIES, GRAPHIQUES ET LISTING'
+RUBRIQUE1 = 'INPUT-OUTPUT, GRAPHICS AND LISTING'
+NIVEAU = 2
+AIDE = 'Nombre de pas de temps entre 2 sorties de positions de
+flotteurs dans le fichier des resultats binaire supplementaire
+N affecte pas la qualite du calcul de la trajectoire'
+AIDE1 = 'Number of time steps between 2 outputs of drogues
+positions in the binary file'
+
+NOM = 'NOMBRE DE DERIVES LAGRANGIENNES'
+NOM1 = 'NUMBER OF LAGRANGIAN DRIFTS'
+TYPE = ENTIER
+INDEX = 30
+MNEMO = 'NFLAG'
+CONTROLE = 0; 10
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = 'Permet d''effectuer simultanement plusieurs calculs de derives
+lagrangiennes initiees a des pas differents'
+AIDE1 = 'Provided for performing several computations of lagrangian
+drifts starting at different times.
+Add A and G in the VARIABLES FOR GRAPHIC PRINTOUTS key-word'
+
+NOM = 'LISSAGES DU FOND'
+NOM1 = 'BOTTOM SMOOTHINGS'
+TYPE = ENTIER
+INDEX = 31
+MNEMO = 'LISFOND'
+TAILLE = 0
+CONTROLE = 0 ; 10
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE = 'EQUATIONS';'FROTTEMENT ET LISSAGE'
+RUBRIQUE1 = 'EQUATIONS';'FRICTION AND SMOOTHINGS'
+NIVEAU = 2
+AIDE = 'Nombre de lissages effectues sur la topographie.
+chaque lissage, effectue a l''aide d''une matrice de masse,
+est conservatif.
+Utilise lorsque les donnees de bathymetrie donnent des resultats
+trop irreguliers apres interpolation.'
+AIDE1 ='Number of smoothings on bottom topography.
+each smoothing is mass conservative.
+to be used when interpolation of bathymetry on the mesh gives
+very rough results.'
+
+NOM = 'OPTION DU SOLVEUR POUR LA DIFFUSION DES TRACEURS'
+NOM1 = 'SOLVER OPTION FOR TRACERS DIFFUSION'
+TYPE = ENTIER
+INDEX = 32
+MNEMO = 'ISOLDI'
+TAILLE = 0
+DEFAUT = 2
+DEFAUT1 = 2
+RUBRIQUE = 'EQUATIONS';'TRACEUR';'OPTIONS TRACEUR'
+RUBRIQUE1 = 'EQUATIONS';'TRACER';'TRACER OPTIONS'
+NIVEAU = 2
+AIDE = 'si le solveur est GMRES (7) le mot cle est la dimension de
+l''espace de KRILOV (valeurs conseillees entre 2 et 15)'
+AIDE1 = 'WHEN GMRES (7) IS CHOSEN, DIMENSION OF THE KRYLOV SPACE
+TRY VALUES BETWEEN 2 AND 15'
+
+NOM = 'OPTION DU SOLVEUR'
+NOM1 = 'SOLVER OPTION'
+TYPE = ENTIER
+INDEX = 33
+MNEMO = 'ISOLVE'
+TAILLE = 0
+DEFAUT = 2
+DEFAUT1 = 2
+RUBRIQUE = 'PARAMETRES NUMERIQUES, SOLVEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, SOLVER'
+NIVEAU = 2
+AIDE = 'si le solveur est GMRES (7) le mot cle est la dimension de
+l''espace de KRILOV (valeurs conseillees entre 2 et 15)'
+AIDE1 = 'WHEN GMRES (7) IS CHOSEN, DIMENSION OF THE KRYLOV SPACE
+TRY VALUES BETWEEN 2 AND 15'
+
+NOM = 'OPTION DU SOLVEUR POUR LE MODELE K-EPSILON'
+NOM1 = 'OPTION FOR THE SOLVER FOR K-EPSILON MODEL'
+TYPE = ENTIER
+INDEX = 34
+MNEMO = 'ISOLKE'
+TAILLE = 0
+DEFAUT = 2
+DEFAUT1 = 2
+RUBRIQUE = 'EQUATIONS';'MODELE DE TURBULENCE';'MODELE K-EPSILON'
+RUBRIQUE1 = 'EQUATIONS';'TURBULENCE MODEL';'K-EPSILON MODEL'
+NIVEAU = 2
+AIDE = 'si le solveur est GMRES (7) le mot cle est la dimension de
+l''espace de KRILOV (valeurs conseillees entre 2 et 15)'
+AIDE1 = 'WHEN GMRES (7) IS CHOSEN, DIMENSION OF THE KRYLOV SPACE
+TRY VALUES BETWEEN 2 AND 15'
+
+NOM = 'PAS DE TEMPS'
+NOM1 = 'TIME STEP'
+TYPE = REEL
+INDEX = 1
+MNEMO = 'DT'
+TAILLE = 0
+DEFAUT = 1.
+DEFAUT1 = 1.
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'DUREE DU CALCUL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'DURATION'
+NIVEAU = 1
+AIDE = 'Definit le pas de temps en secondes.
+Remarque : Pour une bonne precision; il est souhaitable de choisir
+le pas de temps de telle sorte que le nombre de Courant de propagation
+soit inferieur à 2 ; voir 3.
+Ceci peut etre realisable en hydraulique fluviale ; mais ne l''est
+pratiquement jamais en hydraulique maritime ou l''on peut atteindre
+des valeurs de 50.'
+AIDE1 = 'Specifies the time step in seconds.'
+
+NOM = 'ZERO'
+NOM1 = 'ZERO'
+TYPE = REEL
+INDEX = 3
+MNEMO = 'ZERO'
+TAILLE = 0
+DEFAUT = 1.E-12
+DEFAUT1 = 1.E-12
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = -13
+AIDE = 'Non active pour l''instant.'
+AIDE1 = 'Not yet implemented'
+
+NOM = 'COEFFICIENT DE FROTTEMENT'
+NOM1 = 'FRICTION COEFFICIENT'
+TYPE = REEL
+INDEX = 4
+MNEMO = 'FFON'
+TAILLE = 0
+DEFAUT = 50.
+DEFAUT1 = 50.
+RUBRIQUE = 'EQUATIONS';'FROTTEMENT ET LISSAGE'
+RUBRIQUE1 = 'EQUATIONS';'FRICTION AND SMOOTHINGS'
+NIVEAU = 1
+AIDE = 'Fixe la valeur du coefficient de frottement pour la
+formulation choisie.
+Attention; la signification de ce chiffre varie suivant la formule
+choisie :
+                    1 : coefficient lineaire
+                    2 : coefficient de Chezy
+                    3 : coefficient de Strickler
+                    4 : coefficient de Manning
+                    5 : hauteur de rugosite de Nikuradse'
+AIDE1 = 'Sets the value of the friction coefficient for the selected
+formulation. It is noteworthy that the meaning of this figure changes
+according to the selected formula (Chezy, Strickler, etc.) :
+                    1 : linear coefficient
+                    2 : Chezy coefficient
+                    3 : Strickler coefficient
+                    4 : Manning coefficient
+                    5 : Nikuradse grain size'
+
+NOM = 'COEFFICIENT D''INFLUENCE DU VENT'
+NOM1 = 'COEFFICIENT OF WIND INFLUENCE'
+TYPE = REEL
+INDEX = 6
+MNEMO = 'FAIR'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'EQUATIONS';'VENT';'VALEURS NUMERIQUES'
+RUBRIQUE1 = 'EQUATIONS';'WIND';'NUMERICS VALUES'
+COMPORT =
+'Foreground ("EQUATIONS*VENT*VALEURS NUMERIQUES") IS VALEUR (brown)'
+NIVEAU = 1
+AIDE = 'Fixe la valeur du coefficient d''entrainement du vent (cf.
+Note de principe).'
+AIDE1 = 'Sets the value of the wind driving coefficient.
+Refer to principle note.'
+
+NOM = 'VITESSE DU VENT SUIVANT X'
+NOM1 = 'WIND VELOCITY ALONG X'
+TYPE = REEL
+INDEX = 7
+MNEMO = 'FUAIR'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'EQUATIONS';'VENT';'VALEURS NUMERIQUES'
+RUBRIQUE1 = 'EQUATIONS';'WIND';'NUMERICS VALUES'
+NIVEAU = 1
+AIDE = 'Composante de la vitesse du vent suivant l''axe des x (m/s).'
+AIDE1 = 'Wind velocity, component along x axis (m/s).'
+
+NOM = 'VITESSE DU VENT SUIVANT Y'
+NOM1 = 'WIND VELOCITY ALONG Y'
+TYPE = REEL
+INDEX = 8
+MNEMO = 'FVAIR'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'EQUATIONS';'VENT';'VALEURS NUMERIQUES'
+RUBRIQUE1 = 'EQUATIONS';'WIND';'NUMERICS VALUES'
+NIVEAU = 1
+AIDE = 'Composante de la vitesse du vent suivant l''axe des y (m/s).'
+AIDE1 = 'Wind velocity, component along y axis (m/s).'
+
+NOM = 'VENT'
+NOM1 = 'WIND'
+TYPE = LOGIQUE
+INDEX = 14
+MNEMO = 'VENT'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'EQUATIONS';'VENT'
+RUBRIQUE1 = 'EQUATIONS';'WIND'
+COMPORT =
+'Affichage ("EQUATIONS*VENT*VALEURS NUMERIQUES") IS VALEUR ()';
+'Foreground ("EQUATIONS*VENT") IS VALEUR (brown)'
+NIVEAU = 1
+AIDE = 'Prise en compte ou non des effets du vent.'
+AIDE1 = 'Determines whether the wind effects are to be taken into
+account or not.'
+
+NOM = 'VALEURS INITIALES DES TRACEURS'
+NOM1 = 'INITIAL VALUES OF TRACERS'
+TYPE = REEL
+INDEX = 9
+MNEMO = 'TRAC0'
+TAILLE = 2
+DEFAUT = 0.;0.
+DEFAUT1 = 0.;0.
+RUBRIQUE = 'EQUATIONS';'TRACEUR';'OPTIONS TRACEUR'
+RUBRIQUE1 = 'EQUATIONS';'TRACER';'TRACER OPTIONS'
+NIVEAU = 1
+AIDE = 'Fixe la valeur initiale du traceur.'
+AIDE1 = 'Sets the initial value of the tracer.'
+
+NOM = 'COEFFICIENT DE DIFFUSION DES TRACEURS'
+NOM1 = 'COEFFICIENT FOR DIFFUSION OF TRACERS'
+TYPE = REEL
+INDEX = 10
+MNEMO = 'DIFNU'
+TAILLE = 0
+DEFAUT = 1.E-6
+DEFAUT1 = 1.E-6
+RUBRIQUE = 'EQUATIONS';'TRACEUR';'OPTIONS TRACEUR'
+RUBRIQUE1 = 'EQUATIONS';'TRACER';'TRACER OPTIONS'
+NIVEAU = 1
+AIDE = 'Fixe la valeur du coefficient de diffusion du traceur.
+L''influence de ce parametre sur l''evolution du traceur dans
+le temps est importante.'
+AIDE1 = 'Sets the value of the tracer diffusivity.'
+
+NOM = 'PRECISION POUR LA DIFFUSION DES TRACEURS'
+NOM1 = 'ACCURACY FOR DIFFUSION OF TRACERS'
+TYPE = REEL
+INDEX = 11
+MNEMO = 'EPSDIF'
+TAILLE = 0
+DEFAUT = 1.E-6
+DEFAUT1 = 1.E-6
+RUBRIQUE = 'EQUATIONS';'SOLVEUR'
+RUBRIQUE1 = 'EQUATIONS';'SOLVER'
+COMPORT =
+'Foreground ("EQUATIONS*SOLVEUR") IS VALEUR (brown)'
+NIVEAU = 2
+AIDE = 'Fixe la precision demandee pour le calcul de la diffusion
+du traceur.'
+AIDE1 = 'Sets the required accuracy for computing the tracer
+diffusion.'
+
+NOM = 'COEFFICIENT D''IMPLICITATION DES TRACEURS'
+NOM1 = 'IMPLICITATION COEFFICIENT OF TRACERS'
+TYPE = REEL
+INDEX = 12
+MNEMO = 'TETADF'
+TAILLE = 0
+DEFAUT = 0.6
+DEFAUT1 = 0.6
+RUBRIQUE = 'EQUATIONS';'TRACEUR';'OPTIONS TRACEUR'
+RUBRIQUE1 = 'EQUATIONS';'TRACER';'TRACER OPTIONS'
+NIVEAU = 2
+AIDE = 'Fixe la valeur du coefficient d''implicitation du traceur'
+AIDE1 = 'Sets the value of the implicitation coefficient for the tracer'
+
+NOM = 'COEFFICIENT DE DIFFUSION DES VITESSES'
+NOM1 = 'VELOCITY DIFFUSIVITY'
+TYPE = REEL
+INDEX = 13
+MNEMO = 'PROPNU'
+TAILLE = 0
+DEFAUT = 1.E-4
+DEFAUT1 = 1.E-4
+RUBRIQUE = 'EQUATIONS';'MODELE DE TURBULENCE';'VISCOSITE CONSTANTE'
+RUBRIQUE1 = 'EQUATIONS';'TURBULENCE MODEL';'CONSTANT VISCOSITY'
+COMPORT =
+'Foreground ("EQUATIONS*MODELE DE TURBULENCE*VISCOSITE CONSTANTE")
+IS VALEUR (brown)'
+NIVEAU = 1
+AIDE = 'Fixe de facon uniforme pour l''ensemble du domaine;
+la valeur du coefficient de diffusion de viscosite globale (dynamique +
+turbulente). Cette valeur peut avoir une influence non negligeable sur
+la forme et la taille des recirculations.'
+AIDE1 = 'Sets, in an even way for the whole domain, the value of the
+coefficient of global (dynamic+turbulent) viscosity. this value may
+have a significant effect both on the shapes and sizes of
+recirculation zones.'
+
+NOM = 'MODELE DE TURBULENCE'
+NOM1 = 'TURBULENCE MODEL'
+TYPE = ENTIER
+INDEX = 7
+MNEMO = 'ITURB'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+CHOIX = '1="VISCOSITE CONSTANTE"';'2="ELDER"';'3="MODELE K-EPSILON"'
+;'4="SMAGORINSKI"'
+CHOIX1 = '1="CONSTANT VISCOSITY"';'2="ELDER"';'3="K-EPSILON MODEL"'
+;'4="SMAGORINSKI"'
+RUBRIQUE = 'EQUATIONS';'MODELE DE TURBULENCE'
+RUBRIQUE1 = 'EQUATIONS';'TURBULENCE MODEL'
+COMPORT = 'Affichage
+("COEFFICIENT DE DIFFUSION DES VITESSES")
+IS VALEUR (#"MODELE DE TURBULENCE" - 3)';
+'Affichage
+("EQUATIONS*MODELE DE TURBULENCE*MODELE K-EPSILON") IS VALEUR
+(#"MODELE DE TURBULENCE" - 1)';
+'Foreground ("EQUATIONS*MODELE DE TURBULENCE") IS VALEUR (brown)'
+NIVEAU = 1
+AIDE = '3 choix sont possibles actuellement : viscosite constante (1)
+modele de Elder (2) ou modele k-epsilon (3).
+Attention : si on choisit l''option 1
+il ne faut pas oublier d''ajuster la valeur du mot-cle COEFFICIENT DE
+DIFFUSION DES VITESSES.
+si on choisit l''option 2
+il ne faut pas oublier d''ajuster les deux valeurs du mot-cle :
+COEFFICIENTS ADIMENSIONNELS DE DISPERSION
+Si on choisit l''option 3;
+ce meme parametre doit retrouver sa vraie valeur physique car elle est
+utilisee comme telle dans le modele de turbulence'
+AIDE1 = 'The current alternatives are as follows: constant viscosity (1)
+elder''s model (2) or k-epsilon model (3).
+NOTE: when option 1 is chosen, it should be kept in mind that the
+value of the keyword VELOCITY DIFFUSIVITY has to be ajusted.
+When option 2 is chosen, the two values of key-word :
+NON-DIMENSIONAL DISPERSION COEFFICIENTS are used
+When option 3 is chosen, this parameter should recover its true
+physical value, since it is used as such in the turbulence model.'
+
+NOM = 'PRECISION DU SOLVEUR'
+NOM1 = 'SOLVER ACCURACY'
+TYPE = REEL
+INDEX = 14
+MNEMO = 'EPSI1'
+TAILLE = 0
+DEFAUT = 1.E-4
+DEFAUT1 = 1.E-4
+RUBRIQUE = 'PARAMETRES NUMERIQUES, SOLVEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, SOLVER'
+NIVEAU = 2
+AIDE = 'Precision demandee pour la resolution de l''etape de propagation
+ (cf.  Note de principe).'
+AIDE1 = 'Required accuracy for solving the propagation step
+(refer to Principle note).'
+
+NOM = 'REEL LIBRE 2'
+NOM1 = 'FREE REAL 2'
+TYPE = REEL
+INDEX = 16
+MNEMO = ''
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = -13
+AIDE = 'Non active pour l''instant'
+AIDE1 = 'Not yet implemented'
+
+NOM = 'IMPLICITATION POUR LA HAUTEUR'
+NOM1 = 'IMPLICITATION FOR DEPTH'
+TYPE = REEL
+INDEX = 17
+MNEMO = 'TETAC'
+TAILLE = 0
+DEFAUT = 0.55
+DEFAUT1 = 0.55
+RUBRIQUE = 'PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, VELOCITY-CELERITY-HIGHT'
+NIVEAU = 2
+CONTROLE = 0.5
+AIDE = 'Fixe la valeur du coefficient d''implicitation sur C dans
+l''etape de propagation (cf.  Note de principe).
+Les valeurs inferieures à 0.5 donnent un schema instable.'
+AIDE1 = 'Sets the value of the implicitation coefficient for C
+(the celerity of waves) in the propagation step
+(refer to principle note).
+Values below 0.5 result in an unstable scheme.'
+
+NOM = 'IMPLICITATION POUR LA VITESSE'
+NOM1 = 'IMPLICITATION FOR VELOCITY'
+TYPE = REEL
+INDEX = 18
+MNEMO = 'TETAU'
+TAILLE = 0
+DEFAUT = 0.55
+DEFAUT1 = 0.55
+RUBRIQUE = 'PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, VELOCITY-CELERITY-HIGHT'
+NIVEAU = 2
+AIDE = 'Fixe la valeur du coefficient d''implicitation sur la vitesse
+dans l''etape de propagation (cf.  Note de principe).
+Les valeurs inferieures à 0.5 donnent un schema instable.'
+AIDE1 = 'Sets the value of the implicitation coefficient for velocity
+in the propagation step (refer to principle note).
+Values below 0.5 result in an unstable condition.'
+
+NOM = 'IMPLICITATION POUR LA DIFFUSION DES VITESSES'
+NOM1 = 'IMPLICITATION FOR DIFFUSION OF VELOCITY'
+TYPE = REEL
+INDEX = 19
+MNEMO = 'TETAD'
+TAILLE = 0
+DEFAUT = 1.
+DEFAUT1 = 1.
+RUBRIQUE = 'PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, VELOCITY-CELERITY-HIGHT'
+NIVEAU = 2
+AIDE = 'Fixe la valeur du coefficient d''implicitation sur les termes de
+diffusion des vitesses'
+AIDE1 = 'Sets the value of the implicitation coefficient for
+the diffusion of velocity'
+
+NOM = 'MASS-LUMPING SUR H'
+NOM1 = 'MASS-LUMPING ON H'
+TYPE = REEL
+INDEX = 20
+MNEMO = 'AGGLOC'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, VELOCITY-CELERITY-HIGHT'
+NIVEAU = 2
+AIDE = 'TELEMAC offre la possibilite d''effectuer du mass-lumping
+sur H ou U.
+Ceci revient a ramener tout ou partie (suivant la valeur de ce
+coefficient) des matrices AM1 (h) ou AM2 (U) et AM3 (V) sur
+leur diagonale.
+Cette technique permet d''accelerer le code dans des proportions tres
+importantes et de le rendre egalement beaucoup plus stable. Cependant
+les solutions obtenues se trouvent lissees.
+Ce parametre fixe le taux de mass-lumping effectue sur h.'
+AIDE1 = 'TELEMAC provides an opportunity to carry out mass-lumping
+either on C,H or on the velocity.
+This is equivalent to bringing the matrices AM1 (h) or AM2 (U) and
+AM3 (V) wholly or partly, back onto their diagonal.
+Thanks to that technique, the code can be speeded up to a quite
+significant extent and it can also be made much more stable. The
+resulting solutions, however, become artificially smoothed.
+This parameter sets the extent of mass-lumping that is performed on h.'
+
+NOM = 'MASS-LUMPING SUR LA VITESSE'
+NOM1 = 'MASS-LUMPING ON VELOCITY'
+TYPE = REEL
+INDEX = 21
+MNEMO = 'AGGLOU'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, VELOCITY-CELERITY-HIGHT'
+NIVEAU = 2
+AIDE = 'Fixe le taux de mass-lumping effectue sur la vitesse.'
+AIDE1 = 'Sets the amount of mass-lumping that is performed on
+the velocity.'
+
+NOM = 'VALEUR MINIMUM DE H'
+NOM1 = 'MINIMUM VALUE OF DEPTH'
+TYPE = REEL
+INDEX = 22
+MNEMO = 'HMIN'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, VELOCITY-CELERITY-HIGHT'
+NIVEAU = 3
+AIDE = 'Fixe la valeur minimale de a lorsque l''option CLIPPING
+DE H est activee.'
+AIDE1 = 'Sets the minimum H value when option H CLIPPING is
+implemented. Not fully implemented.'
+
+NOM = 'REDUCTION DU PAS DE TEMPS POUR LE MODELE K-EPSILON'
+NOM1 = 'TIME STEP REDUCTION FOR K-EPSILON MODEL'
+TYPE = REEL
+INDEX = 23
+MNEMO = 'REDUC'
+TAILLE = 0
+DEFAUT = 1.
+DEFAUT1 = 1.
+RUBRIQUE = 'PARAMETRES NUMERIQUES, MODELE K-EPSILON'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, K-EPSILON MODEL'
+NIVEAU = 3
+AIDE = 'Coefficient reducteur du pas de temps pour le modele k-epsilon
+(qui est normalement identique à celui du systeme hydrodynamique).
+Utilisation deconseillee'
+AIDE1 = 'Time step reduction coefficient for k-epsilon model
+(which is normally same the same as that of the hydrodynamic system)
+Not recommended for use.'
+
+NOM = 'PRECISION SUR K'
+NOM1 = 'ACCURACY OF K'
+TYPE = REEL
+INDEX = 24
+MNEMO = 'EPSIK'
+TAILLE = 0
+DEFAUT = 1.E-9
+DEFAUT1 = 1.E-9
+RUBRIQUE = 'PARAMETRES NUMERIQUES, MODELE K-EPSILON'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, K-EPSILON MODEL'
+NIVEAU = 2
+AIDE = 'Fixe la precision demandee sur k pour le test d''arret dans
+l''etape de diffusion et termes sources du modele k-epsilon.'
+AIDE1 = 'Sets the required accuracy for computing k in the diffusion
+and source terms step of the k-epsilon model.'
+
+NOM = 'PRECISION SUR EPSILON'
+NOM1 = 'ACCURACY OF EPSILON'
+TYPE = REEL
+INDEX = 25
+MNEMO = 'EPSIE'
+TAILLE = 0
+DEFAUT = 1.E-9
+DEFAUT1 = 1.E-9
+RUBRIQUE = 'PARAMETRES NUMERIQUES, MODELE K-EPSILON'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, K-EPSILON MODEL'
+NIVEAU = 2
+AIDE = 'Fixe la precision demandee sur epsilon pour le test d''arret dan
+s l''etape de diffusion et termes sources de k et epsilon.'
+AIDE1 = 'Sets the required accuracy for computing epsilon in
+the diffusion and source-terms step of the k-epsilon model.'
+
+NOM = 'PROFONDEUR MOYENNE POUR LA LINEARISATION'
+NOM1 = 'MEAN DEPTH FOR LINEARIZATION'
+TYPE = REEL
+INDEX = 26
+MNEMO = 'HAULIN'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'EQUATIONS';'HAUTEUR'
+RUBRIQUE1 = 'EQUATIONS';'HIGHT'
+COMPORT =
+'Foreground ("EQUATIONS*HAUTEUR") IS VALEUR (brown)'
+NIVEAU = 2
+AIDE = 'Fixe la hauteur d''eau autour de laquelle s''effectue la
+linearisation lorsque l''option PROPAGATION LINEARISEE est choisie.'
+AIDE1 = 'Sets the water depth about which the linearization is made when
+the LINEARIZED PROPAGATION OPTION is selected.'
+
+NOM = 'COEFFICIENT DE RUGOSITE DES BORDS'
+NOM1 = 'ROUGHNESS COEFFICIENT OF BOUNDARIES'
+TYPE = REEL
+INDEX = 29
+MNEMO = 'SB'
+TAILLE = 0
+DEFAUT = 100.
+DEFAUT1 = 100.
+RUBRIQUE = 'EQUATIONS';'MODELE DE TURBULENCE';'MODELE K-EPSILON'
+RUBRIQUE1 = 'EQUATIONS';'TURBULENCE MODEL';'K-EPSILON MODEL'
+NIVEAU = 1
+AIDE = 'Fixe la valeur du coefficient de frottement sur les frontieres
+solides lorsqu''on utilise le modele k-epsilon avec un regime
+turbulent rugueux sur les bords du domaine.
+meme convention que pour le coefficient de frottement:
+                    1 : non programme
+                    2 : coefficient de Chezy
+                    3 : coefficient de Strickler
+                    4 : coefficient de Manning
+                    5 : hauteur de rugosite de Nikuradse'
+AIDE1 = 'Sets the value of the friction coefficient of the solid boundar
+when using the k-epsilon model with the bed roughness option.
+same meaning than the friction coefficient'
+
+NOM = 'DEBITS IMPOSES'
+NOM1 = 'PRESCRIBED FLOWRATES'
+TYPE = REEL
+INDEX = 30
+MNEMO = 'DEBIT'
+TAILLE = 2
+RUBRIQUE = 'EQUATIONS, CONDITIONS LIMITES'
+RUBRIQUE1 = 'EQUATIONS, BOUNDARY CONDITIONS'
+COMPORT =
+'Foreground ("EQUATIONS, CONDITIONS LIMITES") IS VALEUR (brown)'
+NIVEAU = 1
+AIDE = ' Valeurs des debits imposes aux frontieres liquides entrantes.
+Lire la partie du mode d''emploi consacree aux conditions aux limites'
+AIDE1 = 'Values of prescribed flowrates at the inflow boundaries.
+The section about boundary conditions is to be read in the manual'
+
+NOM = 'COTES IMPOSEES'
+NOM1 = 'PRESCRIBED ELEVATIONS'
+TYPE = REEL
+INDEX = 31
+MNEMO = 'COTES'
+TAILLE = 2
+RUBRIQUE = 'EQUATIONS, CONDITIONS LIMITES'
+RUBRIQUE1 = 'EQUATIONS, BOUNDARY CONDITIONS'
+NIVEAU = 1
+AIDE = 'Valeurs des cotes imposees aux frontieres liquides entrantes.
+Lire la partie du mode d''emploi consacree aux conditions aux limites'
+AIDE1 = 'Values of prescribed elevations at the inflow boundaries.
+The section about boundary conditions is to be read in the manual'
+
+NOM = 'VITESSES IMPOSEES'
+NOM1 = 'PRESCRIBED VELOCITIES'
+TYPE = REEL
+INDEX = 32
+MNEMO = 'VITES'
+TAILLE = 2
+RUBRIQUE = 'EQUATIONS, CONDITIONS LIMITES'
+RUBRIQUE1 = 'EQUATIONS, BOUNDARY CONDITIONS'
+COMPORT =
+'Foreground ("EQUATIONS, CONDITIONS LIMITES") IS VALEUR (brown)'
+NIVEAU = 1
+AIDE = 'Valeurs des vitesses imposees aux frontieres liquides entrantes.
+Lire la partie du mode d''emploi consacree aux conditions aux limites'
+AIDE1 ='Values of prescribed velocities at the liquid inflow boundaries.
+Refer to the section dealing with the boundary conditions'
+
+NOM = 'COTE INITIALE'
+NOM1 = 'INITIAL ELEVATION'
+TYPE = REEL
+INDEX = 33
+MNEMO = 'COTINI'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'EQUATIONS, CONDITIONS INITIALES'
+RUBRIQUE1 = 'EQUATIONS, INITIAL CONDITIONS'
+COMPORT =
+'Foreground ("EQUATIONS, CONDITIONS INITIALES") IS VALEUR (brown)'
+NIVEAU = 1
+CONTROLE = 0; 2000
+AIDE = 'Valeur utilisee avec l''option :
+     CONDITIONS INITIALES - COTE CONSTANTE'
+AIDE1 ='Value to be used with the option :
+INITIAL CONDITIONS  -CONSTANT ELEVATION'
+
+NOM = 'HAUTEUR INITIALE'
+NOM1 = 'INITIAL DEPTH'
+TYPE = REEL
+INDEX = 34
+MNEMO = 'HAUTINI'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'EQUATIONS, CONDITIONS INITIALES'
+RUBRIQUE1 = 'EQUATIONS, INITIAL CONDITIONS'
+NIVEAU = 1
+CONTROLE = 0; 20
+AIDE = 'Valeur utilisee avec l''option :
+CONDITIONS INITIALES :-HAUTEUR CONSTANTE-'
+AIDE1 = 'Value to be used along with the option:
+         INITIAL CONDITIONS -CONSTANT DEPTH-'
+
+NOM = 'VALEURS IMPOSEES DES TRACEURS'
+NOM1 = 'PRESCRIBED TRACERS VALUES'
+TYPE = REEL
+INDEX = 35
+MNEMO = 'TRACER'
+TAILLE = 2
+RUBRIQUE = 'EQUATIONS, CONDITIONS LIMITES'
+RUBRIQUE1 = 'EQUATIONS, BOUNDARY CONDITIONS'
+NIVEAU = 1
+AIDE = 'Valeurs du traceur imposees aux frontieres liquides entrantes.
+Lire la partie du mode d''emploi consacree aux conditions aux limites'
+AIDE1 = 'Tracer values prescribed at the inflow boundaries.
+Read the usermanual section dealing with the boundary conditions'
+
+NOM = 'ABSCISSES DES SOURCES'
+NOM1 = 'ABSCISSAE OF SOURCES'
+TYPE = REEL
+INDEX = 36
+MNEMO = 'XSCE'
+CONTROLE = -10000 ; 10000
+TAILLE = 2
+RUBRIQUE = 'EQUATIONS, SOURCES'
+RUBRIQUE1 = 'EQUATIONS, SOURCE TERMS'
+NIVEAU = 1
+AIDE = 'Valeurs des abscisses des sources de debit et de traceur.'
+AIDE1 = 'abscissae of sources of flowrate and/or tracer'
+
+NOM = 'ORDONNEES DES SOURCES'
+NOM1 = 'ORDINATES OF SOURCES'
+TYPE = REEL
+INDEX = 37
+MNEMO = 'YSCE'
+CONTROLE = -10000 ; 10000
+TAILLE = 2
+RUBRIQUE = 'EQUATIONS, SOURCES'
+RUBRIQUE1 = 'EQUATIONS, SOURCE TERMS'
+NIVEAU = 1
+AIDE = 'Valeurs des ordonnees des sources de debit et de traceur.'
+AIDE1 = 'ordinates of sources of flowrate and/or tracer'
+
+NOM = 'DEBITS DES SOURCES'
+NOM1 = 'WATER DISCHARGE OF SOURCES'
+TYPE = REEL
+INDEX = 38
+MNEMO = 'DSCE'
+CONTROLE = 0 ; 10000
+TAILLE = 2
+RUBRIQUE = 'EQUATIONS, SOURCES'
+RUBRIQUE1 = 'EQUATIONS, SOURCE TERMS'
+NIVEAU = 1
+AIDE = 'Valeurs des debits des sources.'
+AIDE1 = 'values of water discharge of sources'
+
+NOM = 'VALEURS DES TRACEURS DES SOURCES'
+NOM1 = 'VALUES OF THE TRACERS AT THE SOURCES'
+TYPE = REEL
+INDEX = 39
+MNEMO = 'TSCE'
+CONTROLE = 0 ; 10000
+TAILLE = 2
+RUBRIQUE = 'EQUATIONS, SOURCES'
+RUBRIQUE1 = 'EQUATIONS, SOURCE TERMS'
+NIVEAU = 1
+AIDE = 'Valeurs des traceurs a chacune des sources'
+AIDE1 = 'Values of the tracers at the sources'
+
+NOM = 'VITESSES DES SOURCES SELON X'
+NOM1 = 'VELOCITIES OF THE SOURCES ALONG X'
+TYPE = REEL
+INDEX = 43
+MNEMO = 'USCE'
+CONTROLE = 0 ; 10000
+TAILLE = 2
+RUBRIQUE = 'EQUATIONS, SOURCES'
+RUBRIQUE1 = 'EQUATIONS, SOURCE TERMS'
+NIVEAU = 1
+AIDE = 'Vitesses du courant a chacune des sources. Si elles ne sont pas
+donnees, on considere que la vitesse est celle du courant'
+AIDE1 = 'Velocities at the sources. If they are not given, the velocity
+of the flow at this location is taken'
+
+NOM = 'VITESSES DES SOURCES SELON Y'
+NOM1 = 'VELOCITIES OF THE SOURCES ALONG Y'
+TYPE = REEL
+INDEX = 44
+MNEMO = 'VSCE'
+CONTROLE = 0 ; 10000
+TAILLE = 2
+RUBRIQUE = 'EQUATIONS, SOURCES'
+RUBRIQUE1 = 'EQUATIONS, SOURCE TERMS'
+NIVEAU = 1
+AIDE = 'Vitesses du courant a chacune des sources'
+AIDE1 = 'Velocities at the sources'
+
+NOM = 'COEFFICIENTS DE DECENTREMENT'
+NOM1 = 'UPWIND COEFFICIENTS'
+TYPE = REEL
+INDEX = 40
+MNEMO = 'COSUPG'
+CONTROLE = 0 ; 10
+TAILLE = 4
+DEFAUT = 1.;1.;1.;1
+DEFAUT1 = 1.;1.;1.;1
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 3
+AIDE = 'Coefficients utilises par la methode S.U.P.G.
+ces coefficients sont respectivement appliques a
+        1) U et V
+        2) H ou C
+        3) T
+        4) K ET EPSILON  '
+AIDE1 = 'Upwind coefficients used by the S.U.P.G. method
+These coefficients are applied respectively to
+        1) U and V
+        2) H  or C
+        3) T
+        4) K and epsilon  '
+
+NOM = 'CRITERES D''ARRET'
+NOM1 = 'STOP CRITERIA'
+TYPE = REEL
+INDEX = 41
+MNEMO = 'CRIPER'
+CONTROLE = 0 ; 10
+TAILLE = 3
+DEFAUT = 1.E-4;1.E-4;1.E-4
+DEFAUT1= 1.E-4;1.E-4;1.E-4
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = 'Criteres d''arret pour un ecoulement permanent
+ces coefficients sont respectivement appliques a
+        1) U et V
+        2) H ou C
+        3) T
+A utiliser avec le mot-cle : ARRET SI UN ETAT PERMANENT EST ATTEINT'
+AIDE1 = 'Stop criteria for a steady state
+These coefficients are applied respectively to
+        1) U and V
+        2) H  or C
+        3) T
+To be used with the key-word: STOP IF A STEADY STATE IS REACHED'
+
+
+NOM = 'DUREE DU CALCUL'
+NOM1 = 'DURATION'
+TYPE = REEL
+INDEX = 45
+MNEMO = 'DUREE'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1= 0.
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'DUREE DU CALCUL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'DURATION'
+NIVEAU = 1
+AIDE = 'duree de la simulation. alternative au parametre nombre de pas
+de temps. On en deduit le nombre de pas de temps en prenant l''entier le
+plus proche de (duree du calcul/pas de temps). Si le nombre de pas de
+temps est aussi donne, on prend la plus grande valeur'
+AIDE1 = 'duration of simulation. May be used instead of the parameter
+NUMBER OF TIME STEPS. The nearest integer to (duration/time step) is
+taken.
+If NUMBER OF TIME STEPS is also given, the greater value is taken'
+
+NOM = 'NORD'
+NOM1 = 'NORTH'
+TYPE = REEL
+INDEX = 46
+MNEMO = 'NORD'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1= 0.
+RUBRIQUE = 'CONSTANTES PHYSIQUES'
+RUBRIQUE1 = 'PHYSICAL CONSTANTS'
+NIVEAU = 2
+AIDE = 'Direction du nord en degres, par rapport a l''axe des y
+dans le sens trigonometrique. Notation decimale 10.5 signifie  10 degres
+et trente minutes.'
+AIDE1 = 'Angle of the North with the y axis, in degrees. 10.5 means
+10 degrees and 30 minutes.'
+
+NOM = 'TITRE'
+NOM1 = 'TITLE'
+TYPE = CARACTERE
+INDEX = 1
+MNEMO = 'TITCAS'
+TAILLE = 0
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CALCUL'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATIONAL INFORMATION'
+COMPORT =
+'Foreground ("ENTREES-SORTIES, GENERALITES*CALCUL")
+IS VALEUR (red)'
+NIVEAU = 1
+AIDE = 'Titre du cas etudie. Ce titre figurera sur les dessins.'
+AIDE1 = 'Title of the case being considered. This title shall be marked
+on the drawings.'
+
+NOM = 'VARIABLES POUR LES SORTIES GRAPHIQUES'
+NOM1 = 'VARIABLES FOR GRAPHIC PRINTOUTS'
+TYPE = CARACTERE
+INDEX = 2
+MNEMO = 'SORTIE'
+TAILLE = 0
+DEFAUT = 'U,V,H,B'
+DEFAUT1 = 'U,V,H,B'
+CHOIX = 'U="vitesse suivant l''axe des x  (m/s)"';
+'V="vitesse suivant l''axe des y  (m/s)"';
+'C="celerite des onde  (m/s)"';
+'H="hauteur d''eau  (m)"';
+'S="cote de surface libre  (m)"';
+'B="cote du fond  (m)"';
+'F="nombre de Froude  "';
+'Q="debit scalaire du fluide  (m2/s)"';
+'T1="traceur 1, etc. "';
+'K="energie turbulente du modele k-epsilon  (J/kg)"';
+'E="dissipation de l''energie turbulente  (W/kg)"';
+'D="viscosite turbulente du modele k-epsilon  (m2/s)"';
+'I="debit suivant l''axe des x  (m2/s)"';
+'J="debit suivant l''axe des y  (m2/s)"';
+'M="vitesse scalaire  (m/s)"';
+'X="vent suivant l''axe des x  (m/s)"';
+'Y="vent suivant l''axe des y  (m/s)"';
+'P="pression atmospherique  (Pa)"';
+'W="coefficient de frottement sur le fond  "';
+'A="derive en x  (m)"';
+'G="derive en y  (m)"';
+'L="nombre de Courant  "';
+'N="variable supplementaire N "';
+'O="variable supplementaire O "';
+'R="variable supplementaire R "';
+'Z="variable supplementaire Z "';
+'MAXZ="cote maximum "';
+'TMXZ="temps de la cote maximum "';
+'MAXV="vitesse maximum "';
+'TMXV="temps de la vitesse maximum "';
+'US="vitesse de frottement "'
+CHOIX1= 'U="velocity along x axis  (m/s)"';
+'V="velocity along y axis  (m/s)"';
+'C="wave celerity  (m/s)"';
+'H="water depth  (m)"';
+'S="free surface elevation  (m)"';
+'B="bottom elevation  (m)"';
+'F="Froude number  "';
+'Q="scalar flowrate of fluid  (m2/s)"';
+'T1="tracer 1 etc. "';
+'K="turbulent kinetic energy in k-epsilon model  (J/kg)"';
+'E="dissipation of turbulent energy  (W/kg)"';
+'D="turbulent viscosity of k-epsilon model  (m2/s)"';
+'I="flowrate along x axis  (m2/s)"';
+'J="flowrate along y axis  (m2/s)"';
+'M="scalar velocity  (m/s)"';
+'X="wind along x axis  (m/s)"';
+'Y="wind along y axis  (m/s)"';
+'P="air pressure  (Pa)"';
+'W="friction coefficient"';
+'A="drift along x  (m)"';
+'G="drift along y  (m)"';
+'L="Courant number "';
+'N="supplementary variable N "';
+'O="supplementary variable O "';
+'R="supplementary variable R "';
+'Z="supplementary variable Z  "';
+'MAXZ="maximum elevation"';
+'TMXZ="time of maximum elevation "';
+'MAXV="maximum velocity"';
+'TMXV="time of maximum velocity"';
+'US="friction velocity  "'
+COMPOSE=','
+APPARENCE = 'packing IS XmPACK_COLUMN' ;
+    'numColumns IS 26';'LISTE IS EDITABLE'
+RUBRIQUE = 'ENTREES-SORTIES, GRAPHIQUES ET LISTING'
+RUBRIQUE1 = 'INPUT-OUTPUT, GRAPHICS AND LISTING'
+NIVEAU = 1
+AIDE = 'Noms des variables que l''utilisateur veut ecrire dans
+le fichier des resultats.
+Chaque variable est representee par une lettre.
+Le choix des separateurs est libre.
+Les possibilites offertes sont les suivantes :
+   - U : vitesse suivant l''axe des x (m/s),
+   - V : vitesse suivant l''axe des y (m/s),
+   - C : celerite des ondes (m/s),
+   - H : hauteur d''eau (m),
+   - S : cote de surface libre (m),
+   - B : cote du fond (m),
+   - F : nombre de Froude,
+   - Q : debit scalaire du fluide (m2/s),
+   - T : traceur,
+   - K : energie turbulente du modele k-epsilon (J/kg),
+   - E : dissipation de l''energie turbulente (W/kg),
+   - D : viscosite turbulente du modele k-epsilon (m2/s),
+   - I : debit suivant l''axe des x (m2/s),
+   - J : debit suivant l''axe des y (m2/s),
+   - M : vitesse scalaire (m/s),
+   - X : vent suivant l''axe des x (m/s),
+   - Y : vent suivant l''axe des y (m/s),
+   - P : pression atmospherique (Pa),
+   - W : coefficient de frottement sur le fond,
+   - A : derive en x (m),
+   - G : derive en y (m),
+   - L : coefficient de frottement sur le fond.
+L''utilisateur dispose egalement de 4 champs libres, qu''il peut
+utiliser pour ecrire dans le fichier des resultats des variables
+qu''il cree lui-meme. Ces variables propres a l''utlisateur doivent
+etre calculees dans le sous-programme PRERES et le nom que l''on
+desire leur donner doit etre ecrit dans le sous-programme NOMVAR.
+Ces 7 champs sont :
+  - N, O, R, Z qui correspondent aux tableaux PRIVE(1,1), PRIVE(1,2),
+PRIVE(1,3), PRIVE(1,4). A la difference des variables
+precedentes, celles-ci sont conservees dans tout le programme, et
+peuvent donc etre reutilisees.
+Dans ce dernier cas ne pas oublier de donner une taille
+suffisante au tableau PRIVE (dans le programme principal).
+Il est ainsi possible de limiter, par exemple, la taille des fichiers
+de resultats pour de tres gros calculs. Cependant, il faut etre
+conscient du fait que, dans l''eventualite d''une reprise de calcul,
+le code doit disposer, dans le fichier des resultats, des informations
+necessaires a sa poursuite, a savoir :
+ - les vitesses U et V,
+ - les hauteurs d''eau H,
+ - les cotes du fond B.
+Toutefois, TELEMAC peut recalculer certaines de ces variables a partir
+d''autres qui lui seront fournies (par exemple, il recalculera H a
+partir de S et B).'
+AIDE1 = 'Names of variables the user wants to write into the results
+file. Each variable is represented by a letter. The separators can be
+freely selected.
+The available capabilities are as follows:
+        U     :   velocity along x axis (m/s),
+        V     :   velocity along y axis (m/s),
+        C     :   wave celerity (m/s),
+        H     :   water depth (m),
+        S     :   free surface elevation (m),
+        B     :   bottom elevation (m),
+        F     :   Froude number,
+        Q     :   scalar flowrate of fluid (m2/s),
+        T     :   tracer
+        K     :   turbulent kinetic energy in k-epsilon model (J/kg),
+        E     :   dissipation of turbulent energy (W/kg),
+        D     :   turbulent viscosity of k-epsilon model (m2/s),
+        I     :   flowrate along x axis (m2/s),
+        J     :   flowrate along y axis (m2/s),
+        M     :   scalar velocity (m/s),
+        X     :   wind along x axis (m/s)
+        Y     :   wind along y axis (m/s),
+        P     :   air pressure (Pa),
+        W     :   friction coefficient ,
+        A     :   drift along x,
+        G     :   drift along y,
+        L     :   nombre de courant.
+
+four other variables are also made available to the user who may use
+them for writing into the file the results of variables he creates
+himself. These user-specific variables should be computed in the
+subroutine PRERES and their desired name should be written
+into the subroutine NOMVAR.
+These seven variables are as follows:
+        -N, O, R, Z which correspond to arrays PRIVE(1,1) up to PRIVE(1,
+Unlike the preceding variables, they are preserved throughout the
+program, so that they can be used again.
+In the latter case, do not forget to provide the array PRIVE with
+sufficiently large dimensions (in FORTRAN file).
+With this key-word, one can limit the size of the RESULTS FILE.
+It should be kept in mind, however, that if a computation has to be
+continued, the RESULTS FILE should contain the appropriate information
+for running the code,i.e.:
+ - velocities U and V,
+ - water depths H,
+ - bottom elevations B.
+TELEMAC, however, can compute some of these variables from others
+for example, it will compute H from S and B.'
+
+NOM = 'VARIABLES A IMPRIMER'
+NOM1 = 'VARIABLES TO BE PRINTED'
+TYPE = CARACTERE
+INDEX = 3
+MNEMO = 'VARIMP'
+TAILLE = 0
+DEFAUT = ' '
+DEFAUT1 = ' '
+/CHOIX = '" "="pas de variables"';
+CHOIX = 'U="vitesse suivant l''axe des x (m/s)"';
+'V="vitesse suivant l''axe des y (m/s)"';
+'C="celerite des ondes (m/s)"';
+'H="hauteur d''eau (m)"';
+'S="cote de surface libre (m)"';
+'B="cote du fond (m)"';
+'F="nombre de Froude"';
+'Q="debit scalaire du fluide (m2/s)"';
+'T="traceur"';
+'K="energie turbulente du modele k-epsilon (J/kg)"';
+'E="dissipation de l''energie turbulente (W/kg)"';
+'D="viscosite turbulente du modele k-epsilon (m2/s)"';
+'I="debit suivant l''axe des x (m2/s)"';
+'J="debit suivant l''axe des y (m2/s)"';
+'M="vitesse scalaire (m/s)"';
+'X="vent suivant l''axe des x (m/s)"';
+'Y="vent suivant l''axe des y (m/s)"';
+'P="pression atmospherique (Pa)"';
+'W="coefficient de frottement sur le fond"';
+'A="derive en x  (m)"';
+'G="derive en y  (m)"';
+'L="nombre de courants "';
+'N="variable supplementaire N"';
+'O="variable supplementaire O"';
+'R="variable supplementaire R"';
+'Z="variable supplementaire Z"'
+CHOIX1 = 'U="velocity along x axis (m/s)"';
+'V="velocity along y axis (m/s)"';
+'C="wave celerity (m/s)"';
+'H="water depth (m)"';
+'S="free surface elevation (m)"';
+'B="bottom elevation (m)"';
+'F="Froude number"';
+'Q="scalar flowrate of fluid (m2/s)"';
+'T="tracer"';
+'K="turbulent kinetic energy in k-epsilon model (J/kg)"';
+'E="dissipation of turbulent energy (W/kg)"';
+'D="turbulent viscosity of k-epsilon model (m2/s)"';
+'I="flowrate along x axis (m2/s)"';
+'J="flowrate along y axis (m2/s)"';
+'M="scalar velocity (m/s)"';
+'X="wind along x axis (m/s)"';
+'Y="wind along y axis (m/s)"';
+'P="air pressure (Pa)"';
+'W="friction coefficient"';
+'A="drift along x  (m)"';
+'G="drift along y  (m)"';
+'L="nombre de courants "';
+'N="supplementary variable N"';
+'O="supplementary variable O"';
+'R="supplementary variable R"';
+'Z="supplementary variable Z"'
+COMPOSE=','
+APPARENCE = 'packing IS XmPACK_COLUMN' ; 'numColumns IS 26' ;
+'LISTE IS EDITABLE'
+
+RUBRIQUE = 'ENTREES-SORTIES, GRAPHIQUES ET LISTING'
+RUBRIQUE1 = 'INPUT-OUTPUT, GRAPHICS AND LISTING'
+NIVEAU = 1
+AIDE = 'Nom des variables que l''utilisateur desire ecrire a l''ecran.
+Meme possibilites que pour les sorties graphiques.'
+AIDE1 = ''
+
+NOM = 'USER CRAY'
+NOM1 = 'USER CRAY'
+TYPE = CARACTERE
+INDEX = 4
+MNEMO = ''
+TAILLE = 0
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'ENVIRONNEMENT'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATION ENVIRONMENT'
+COMPORT =
+'Foreground ("ENTREES-SORTIES, GENERALITES*ENVIRONNEMENT")
+IS VALEUR (red)'
+NIVEAU = 2
+AIDE = 'Userid CRAY de l''utilisateur.'
+AIDE1 = 'User''s identity on CRAY.'
+
+NOM = 'MOT DE PASSE CRAY'
+NOM1 = 'PASSWORD'
+TYPE = CARACTERE
+INDEX = 5
+MNEMO = ''
+TAILLE = 0
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'ENVIRONNEMENT'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATION ENVIRONMENT'
+NIVEAU = 2
+AIDE = 'Mot de passe associe a l''USER CRAY.'
+AIDE1 = 'Password related to USER CRAY.'
+
+NOM = 'FICHIER FORTRAN'
+NOM1 = 'FORTRAN FILE'
+TYPE = CARACTERE
+INDEX = 7
+MNEMO = 'NOMFOR'
+SUBMIT = 'INUTILE;t2dfort.f;FACUL;ASC;LIT;FORTRAN'
+DEFAUT = 'DEFAUT'
+DEFAUT1 = 'DEFAUT'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+AIDE = 'Nom du fichier FORTRAN a soumettre.'
+AIDE1 = 'Name of FORTRAN file to be submitted.'
+
+NOM = 'FICHIER DES PARAMETRES'
+NOM1 = 'STEERING FILE'
+TYPE = CARACTERE
+INDEX = 8
+MNEMO = 'NOMCAS'
+SUBMIT = 'INUTILE;T2DCAS;OBLIG;ASC;LIT;CAS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Nom du fichier contenant les parametres du calcul a realiser.'
+AIDE1 = 'Name of the file containing the parameters of the computation
+Written by the user.'
+
+NOM = 'FICHIER DES CONDITIONS AUX LIMITES'
+NOM1 = 'BOUNDARY CONDITIONS FILE'
+TYPE = CARACTERE
+INDEX = 9
+MNEMO = 'NOMDYN, CANAL NLIM'
+SUBMIT = 'NLIM-READ-07;T2DCLI;OBLIG;ASC;LIT;CONLIM'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+APPARENCE = 'LISTE IS FICHIER'
+NIVEAU = 1
+AIDE = 'Nom du fichier contenant les types de conditions aux limites.
+Ce fichier est rempli de facon automatique par le mailleur au moyen de
+couleurs affectees aux noeuds des frontieres du domaine de calcul.'
+AIDE1 = 'Name of the file containing the types of boundary conditions.
+This file is filled automatically by the mesh generator through
+through colourss that are assigned to the boundary nodes.'
+
+NOM = 'FICHIER DU CALCUL PRECEDENT'
+NOM1 = 'PREVIOUS COMPUTATION FILE'
+TYPE = CARACTERE
+INDEX = 10
+MNEMO = 'NOMPRE, CANAL NPRE'
+SUBMIT = 'NPRE-READ-04;T2DPRE;FACUL;BIN;LIT;SELAFIN'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Nom d''un fichier contenant les resultats d''un calcul precedent
+realise sur le meme maillage et dont le dernier pas de temps enregistre
+va fournir les conditions initiales pour une suite de de calcul.'
+AIDE1 = 'Name of a file containing the results of an earlier computation
+which was made on the same mesh. The last recorded time step will provid
+the initial conditions for the new computation.'
+
+NOM = 'FICHIER DES RESULTATS'
+NOM1 = 'RESULTS FILE'
+TYPE = CARACTERE
+INDEX = 11
+MNEMO = 'NOMLEO, CANAL NRES'
+/ READWRITE CAR RELU EN CAS DE VALIDATION
+SUBMIT = 'NRES-READWRITE-08;T2DRES;OBLIG;BIN;ECR;SELAFIN'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Nom du fichier dans lequel seront ecrits les resultats du calcul
+avec la periodicite donnee par le mot cle ''PERIODE POUR LES SORTIES
+GRAPHIQUES''.'
+AIDE1 = 'Name of the file into which the computation results shall be
+written,
+the periodicity being given by the key-word:
+GRAPHIC PRINTOUT PERIOD.'
+
+NOM = 'NUMERO DE VERSION'
+NOM1 = 'RELEASE'
+TYPE = CARACTERE
+INDEX = 12
+MNEMO = ''
+TAILLE = 0
+DEFAUT = 'V6P0,V6P0,V6P0,V6P0,V6P0,V6P0'
+DEFAUT1 = 'V6P0,V6P0,V6P0,V6P0,V6P0,V6P0'
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CALCUL'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATIONAL INFORMATION'
+NIVEAU = -3
+AIDE = 'Numero de version des bibliothèques utilisees par TELEMAC.
+SUR UNE STATION DE TRAVAIL
+5 versions sont donnees correspondant a :
+TELEMAC,DAMO,UTILE,BIEF,HP'
+AIDE1 = 'version number of the libraries used by TELEMAC.
+ON A WORKSTATION
+5 numbers are given, corresponding to the libraries called:
+TELEMAC,DAMO,UTILE,BIEF,HP'
+
+NOM = 'TEMPS MACHINE CRAY'
+NOM1 = 'CPU TIME'
+TYPE = CARACTERE
+INDEX = 13
+MNEMO = ''
+DEFAUT = '10'
+DEFAUT1 = '10'
+NIVEAU = 2
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'ENVIRONNEMENT'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATION ENVIRONMENT'
+AIDE = 'Temps CPU (en secondes) alloue pour la realisation du calcul.
+Attention; il s''agit bien d''une chaine de caracteres.'
+AIDE1 = 'C.P.U. time (in seconds) allowed for making the computation.
+Please note that this keyword is a string of characters.'
+
+NOM = 'PLACE MEMOIRE CRAY'
+NOM1 = 'MEMORY SPACE'
+TYPE = CARACTERE
+INDEX = 14
+MNEMO = ''
+TAILLE = 0
+DEFAUT = '1500000W'
+DEFAUT1 = '1500000W'
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'ENVIRONNEMENT'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATION ENVIRONMENT'
+NIVEAU = 2
+AIDE = 'Place memoire (en mots de 8 octets) reservee en machine pour la
+realisation du calcul.'
+AIDE1 = 'Storage capacity (in words of 8 bytes) reserved in machine for
+making the computation.'
+
+NOM = 'FICHIER DES FONDS'
+NOM1 = 'BOTTOM TOPOGRAPHY FILE'
+TYPE = CARACTERE
+INDEX = 15
+MNEMO = 'NOMFON, CANAL NFON'
+SUBMIT = 'NFON-READ-23;T2DFON;FACUL;ASC;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Nom du fichier eventuel contenant la bathymetrie associee au
+maillage.
+Si ce mot-cle est utilise; c''est cette bathymetrie qui sera utilisee
+pour le calcul.'
+AIDE1 = 'Name of the possible file containing the bathymetric data.
+Where this keyword is used, these bathymetric data shall be used in
+the computation.'
+
+NOM = 'NUMERO DE COMPTE'
+NOM1 = 'ACCOUNT NUMBER'
+TYPE = CARACTERE
+INDEX = 16
+MNEMO = ' '
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 2
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'ENVIRONNEMENT'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATION ENVIRONMENT'
+AIDE = 'Numero du compte calcul sur lequel sera impute le cout
+du calcul.'
+AIDE1 = 'Account number to which the cost of computation shall be
+charged.'
+
+NOM = 'FICHIER DE DONNEES BINAIRE 1'
+NOM1 = 'BINARY DATA FILE 1'
+TYPE = CARACTERE
+INDEX = 17
+MNEMO = 'NOMBI1, CANAL NBI1'
+/WITH WAVE FORCING, IS A SELAFIN FILE
+SUBMIT = 'NBI1-READ-24;T2DBI1;FACUL;BIN;LIT;SELAFIN'
+/SUBMIT = 'NBI1-READ-24;T2DBI1;FACUL;BIN;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+APPARENCE = 'LISTE IS FICHIER'
+NIVEAU = 1
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de donnees code en binaire mis a la disposition
+de l''utilisateur.
+Les donnees de ce fichier seront a lire sur le canal 24.'
+AIDE1 = 'Binary-coded data file made available to the user.
+The data in this file shall be read on channel 24.'
+
+NOM = 'FICHIER DE DONNEES BINAIRE 2'
+NOM1 = 'BINARY DATA FILE 2'
+TYPE = CARACTERE
+INDEX = 18
+MNEMO = 'NOMBI2, CANAL NBI2'
+TAILLE = 0
+SUBMIT = 'NBI2-READ-25;T2DBI2;FACUL;BIN;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de donnees code en binaire mis a la disposition
+de l''utilisateur.
+Les donnees de ce fichier seront a lire sur le canal 25.'
+AIDE1 = 'Binary-coded data file made available to the user.
+The data in this file shall be read on channel 25.'
+
+NOM = 'FICHIER DE DONNEES FORMATE 1'
+NOM1 = 'FORMATTED DATA FILE 1'
+TYPE = CARACTERE
+INDEX = 19
+MNEMO = 'NOMFO1, CANAL NFO1'
+SUBMIT = 'NFO1-READ-26;T2DFO1;FACUL;ASC;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de donnees formate mis a la disposition de
+l''utilisateur.
+Les donnees de ce fichier seront a lire sur le canal 26.'
+AIDE1 = 'Formatted data file made available to the user.
+The data in this file shall be read on channel 26.'
+
+NOM = 'FICHIER DE DONNEES FORMATE 2'
+NOM1 = 'FORMATTED DATA FILE 2'
+TYPE = CARACTERE
+INDEX = 20
+MNEMO = 'NOMFO2, CANAL NFO2'
+SUBMIT = 'NFO2-READ-27;T2DFO2;FACUL;ASC;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de donnees formate mis a la disposition de
+l''utilisateur.
+Les donnees de ce fichier seront a lire sur le canal 27.'
+AIDE1 = 'Formatted data file made available to the user.
+The data in this file shall be read on channel 27.'
+
+NOM = 'DESTINATION'
+NOM1 = 'DESTINATION'
+TYPE = CARACTERE
+INDEX = 21
+MNEMO = ''
+DEFAUT = 'CHE43A'
+DEFAUT1 = 'CHE43A'
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'ENVIRONNEMENT'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATION ENVIRONMENT'
+NIVEAU = 2
+AIDE = 'Nom eventuel d''une station de travail sur laquelle
+l''utilisateur desire rediriger le fichier des resultats du calcul.'
+AIDE1 = 'Possible name of a workstation to which the user wants
+to reroute the result file.'
+
+NOM = 'USER SUR LA DESTINATION'
+NOM1 = 'USER ON DESTINATION'
+TYPE = CARACTERE
+INDEX = 22
+MNEMO = ''
+TAILLE = 0
+DEFAUT = 'JMH'
+DEFAUT1 = 'JMH'
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'ENVIRONNEMENT'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATION ENVIRONMENT'
+NIVEAU = 2
+AIDE = 'Nom de l''USER de l''utilisateur sur la station de travail
+ou l''on desire rediriger le fichier de resultts.'
+AIDE1 = 'User''s name of USER at the workstation onto which the
+results file shall desirebly be rerouted.'
+
+NOM = 'NOMS DES VARIABLES CLANDESTINES'
+NOM1 = 'NAMES OF CLANDESTINE VARIABLES'
+TYPE = CARACTERE
+INDEX = 23
+MNEMO = 'VARCLA'
+TAILLE = 2
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CALCUL'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATIONAL INFORMATION'
+NIVEAU = 1
+AIDE = 'Noms de variables qui ne sont pas utilisees par TELEMAC;
+mais qui doivent etre conservees lors de son execution.
+Ceci peut etre utilise entre autres lors du couplage de TELEMAC
+avec un autre code.
+Les variables clandestines sont alors des variables propres a l''autre
+code et sont rendues dans le fichier de resultats.'
+AIDE1 = 'Names of variables that are not used by TELEMAC, but should be
+preserved when it is being run. This keyword may be used, for instance
+when it if TELEMAC is coupled with another code. Thus, the clandestine
+variables belong to the other code and are given back in the results
+file.'
+
+
+NOM = 'FICHIER DE RESULTATS BINAIRE'
+NOM1 = 'BINARY RESULTS FILE'
+TYPE = CARACTERE
+INDEX = 24
+MNEMO = 'NOMRBI, CANAL NRBI'
+SUBMIT = 'NRBI-WRITE-28;T2DRBI;FACUL;BIN;ECR;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+NIVEAU = 1
+AIDE = 'Fichier de resultats code en binaire mis a la disposition
+de l''utilisateur. Les resultats a placer dans ce fichier seront a
+ecrire sur le canal 28.'
+AIDE1 = 'Additional binary-coded result file made available
+to the user. The results to be entered into this file shall be written
+on channel 28.'
+
+NOM = 'FICHIER DE RESULTATS FORMATE'
+NOM1 = 'FORMATTED RESULTS FILE'
+TYPE = CARACTERE
+INDEX = 25
+MNEMO = 'NOMRFO, CANAL NRFO'
+SUBMIT = 'NRFO-WRITE-29;T2DRFO;FACUL;ASC;ECR;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de resultats formate mis a la disposition de
+l''utilisateur.
+Les resultats a placer dans ce fichier seront a ecrire sur
+le canal 29.'
+AIDE1 = 'Formatted file of results made available to the user.
+The results to be entered into this file shall be written
+on channel 29.'
+
+NOM = 'CONDITIONS INITIALES'
+NOM1 = 'INITIAL CONDITIONS'
+TYPE = CARACTERE
+INDEX = 26
+MNEMO = 'CDTINI'
+DEFAUT = 'COTE NULLE'
+DEFAUT1 = 'ZERO ELEVATION'
+NIVEAU = 1
+CHOIX = '"COTE NULLE"'; '"COTE CONSTANTE"';
+'"HAUTEUR NULLE"'; '"HAUTEUR CONSTANTE"'; '"PARTICULIERES"'
+CHOIX1 = '"ZERO ELEVATION"'; '"CONSTANT ELEVATION"';
+'"ZERO DEPTH"'; '"CONSTANT DEPTH"'; '"SPECIAL"'
+RUBRIQUE = 'EQUATIONS, CONDITIONS INITIALES'
+RUBRIQUE1 = 'EQUATIONS, INITIAL CONDITIONS'
+AIDE = 'Permet de definir les conditions initiales sur
+les hauteurs d''eau.
+Les valeurs possibles sont :
+   - COTE NULLE. Initialise la cote de surface libre a 0.
+           Les hauteurs d''eau initiales sont alors retrouvees en
+           faisant la difference entre les cotes de surface libre
+           et du fond.
+   - COTE CONSTANTE .Initialise la cote de surface libre a la
+           valeur donnee par le mot-cle COTE INITIALE. Les hauteurs
+           d''eau initiales sont calculees comme precedemment.
+   - HAUTEUR NULLE .Initialise les hauteurs d''eau a 0.
+   - HAUTEUR CONSTANTE. Initialise les hauteurs d''eau a la valeur
+           donnee par le mot-cle HAUTEUR INITIALE.
+   - PARTICULIERES. Les conditions initiales sur la hauteur d''eau
+           doivent etre precisees dans le sous-programme CONDIN.'
+AIDE1 = 'Makes it possible to define the initial conditions with
+the water depth.
+The possible values are as follows:
+-ZERO ELEVATION-. Initializes the free surface elevation to 0.
+The initial water depths are then found by computing the difference
+between the free surface and the bottom.
+-CONSTANT ELEVATION-. Initializes the water elevation to the value
+given by the keyword -INITIAL ELEVATION-. The initial water depths
+are computed as in the previous case.
+-ZERO DEPTH-. Initializes the water depths to 0.
+-CONSTANT DEPTH-. Initializes the water depths to the value given
+by the key-word -INITIAL DEPTH-.
+-SPECIAL-. The initial conditions with the water depth should be
+stated in the CONDIN subroutine'
+
+NOM = 'FORMAT DU FICHIER DE GEOMETRIE'
+NOM1 = 'GEOMETRY FILE FORMAT'
+TYPE = CARACTERE
+INDEX = 27
+MNEMO = '????'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+NIVEAU = 2
+CHOIX = 'SERAFIN ';'SERAFIND';'MED     '
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES'
+AIDE = 'Format du fichier de geometrie.
+Les valeurs possibles sont :
+- SERAFIN : format standard simple precision pour Telemac; 
+- SERAFIND: format standard double precision pour Telemac;
+- MED     : format MED base sur HDF5'
+AIDE1 = 'Geometry file format.
+Possible values are:
+- SERAFIN : classical single precision format in Telemac; 
+- SERAFIND: classical double precision format in Telemac;
+- MED     : MED format based on HDF5'
+
+NOM = 'FORMAT DU FICHIER DES RESULTATS'
+NOM1 = 'RESULTS FILE FORMAT'
+TYPE = CARACTERE
+INDEX = 28
+MNEMO = '?????'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+CHOIX = 'SERAFIN ';'SERAFIND';'MED     '
+NIVEAU = 2
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES'
+AIDE = 'Format du fichier de resultats.
+Les valeurs possibles sont :
+- SERAFIN : format standard simple precision pour Telemac; 
+- SERAFIND: format standard double precision pour Telemac;
+- MED     : format MED base sur HDF5'
+AIDE1 = 'Results file format. Possible values are:
+- SERAFIN : classical single precision format in Telemac; 
+- SERAFIND: classical double precision format in Telemac;
+- MED     : MED format based on HDF5'
+
+NOM = 'FORMAT DU FICHIER DU CALCUL PRECEDENT'
+NOM1 = 'PREVIOUS COMPUTATION FILE FORMAT'
+TYPE = CARACTERE
+INDEX = 29
+MNEMO = '?????'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+CHOIX = 'SERAFIN ';'SERAFIND';'MED     '
+NIVEAU = 2
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES'
+AIDE = 'Format du fichier de resultats du calcul precedent.
+Les valeurs possibles sont :
+- SERAFIN : format standard simple precision pour Telemac; 
+- SERAFIND: format standard double precision pour Telemac;
+- MED     : format MED base sur HDF5'
+AIDE1 = 'Previous computation results file format.
+Possible values are:
+- SERAFIN : classical single precision format in Telemac; 
+- SERAFIND: classical double precision format in Telemac;
+- MED     : MED format based on HDF5'
+
+NOM = 'BIBLIOTHEQUES'
+NOM1 = 'LIBRARIES'
+TYPE = CARACTERE
+INDEX = 30
+MNEMO = ''
+TAILLE = 0
+DEFAUT =' '
+DEFAUT1 =' '
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CALCUL'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATIONAL INFORMATION'
+NIVEAU = 1
+AIDE = 'Obsolete'
+AIDE1 = 'Obsolete'
+
+NOM = 'PRIORITE'
+NOM1 = 'PRIORITY'
+TYPE = CARACTERE
+INDEX = 31
+MNEMO = ''
+TAILLE = 0
+CHOIX = 'JOUR';'NUIT';'WEEK-END'
+DEFAUT = 'JOUR'
+DEFAUT1 = 'JOUR'
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'ENVIRONNEMENT'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATION ENVIRONMENT'
+NIVEAU = 2
+AIDE = 'Utilise par la procedure de lancement sur station de travail'
+AIDE1 = 'Utilise par la procedure de lancement sur station de travail'
+
+
+NOM = 'SUITE DE CALCUL'
+NOM1 = 'COMPUTATION CONTINUED'
+TYPE = LOGIQUE
+INDEX = 1
+MNEMO = 'DEBU'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CALCUL'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATIONAL INFORMATION'
+NIVEAU = 1
+AIDE = 'Determine si le calcul en cours est independant de tout autre
+resultat ou est une reprise effectuee a partir du resultat d''un calcul
+precedent.
+NON : Il s''agit du premier passage pour ce calcul et il est necessaire
+de definir un jeu complet de conditions initiales
+OUI : Il s''agit d''une reprise de calcul :
+les conditions initiales sont constituees par le dernier pas de
+temps du ''FICHIER DU CALCUL PRECEDENT'' du fichier des parametres
+utilise pour soumettre le calcul.
+Par contre, l''ensemble des donnees du fichier des parametres
+peuvent etre redefinies ; ce qui offre la possibilite de changer
+par exemple, le pas de temps, le modele de turbulence, le
+frottement, d''ajouter ou retirer un traceur ...
+De meme, il est necessaire de definir des conditions aux limites
+(sous-programme BORD ou valeurs placees dans le fichier des
+parametres), qui peuvent egalement etre modifiees.'
+AIDE1 = 'Determines whether the computation under way is independent
+result or is following an earlier result.
+NO: It is the first run for this computation and a whole set of
+initial conditions should be defined.
+YES: It follows a former computation:
+the initial conditions consist in the last time step of the
+PREVIOUS COMPUTATION FILE in the steering file used for submitting
+the computation.
+All the data from the steering file may be defined once again, which
+provides an opportunity to change, for example, the time step,
+the turbulence model, the friction, to add or remove a tracer...
+It is also possible to define new boundary conditions.'
+
+NOM = 'DIFFUSION DES TRACEURS'
+NOM1 = 'DIFFUSION OF TRACERS'
+TYPE = LOGIQUE
+INDEX = 11
+MNEMO = 'DIFT'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CALCUL'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATIONAL INFORMATION'
+NIVEAU = 2
+AIDE = 'Prise en compte ou non de la diffusion du traceur passif.'
+AIDE1 = 'The diffusion of the passive tracer is taken into account
+or ignored.'
+
+NOM = 'logique libre 2'
+NOM1 = 'logique libre 2'
+TYPE = LOGIQUE
+INDEX = 2
+MNEMO = ''
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'EQUATIONS';'TRACEUR'
+RUBRIQUE1 = 'EQUATIONS';'TRACER'
+COMPORT = 'Affichage ("EQUATIONS*TRACEUR*OPTIONS TRACEUR")
+IS VALEUR ()';
+'Foreground ("EQUATIONS*TRACEUR") IS VALEUR (brown)'
+NIVEAU = 1
+AIDE = ''
+AIDE1 = ''
+
+NOM = 'SORTIE LISTING'
+NOM1 = 'LISTING PRINTOUT'
+TYPE = LOGIQUE
+INDEX = 3
+MNEMO = 'LISTIN'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'ENTREES-SORTIES, GRAPHIQUES ET LISTING'
+RUBRIQUE1 = 'INPUT-OUTPUT, GRAPHICS AND LISTING'
+NIVEAU = 1
+AIDE = 'Sortie des resultats sur support papier.
+Si l''on met NON le listing ne contient que l''entete et la mention
+FIN NORMALE DU PROGRAMME
+Commande a eviter'
+AIDE1 = 'Result printout on hard copy.
+When NO is selected, the listing only includes the heading and the
+phrase "NORMAL END OF PROGRAM"
+In addition, the options MASS BALANCE and VALIDATION are inhibited.
+Not recommended for use.'
+
+NOM = 'DIFFUSION DES VITESSES'
+NOM1 = 'DIFFUSION OF VELOCITY'
+TYPE = LOGIQUE
+INDEX = 4
+MNEMO = 'DIFVIT'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'EQUATIONS';'DIFFUSION DES VITESSES'
+RUBRIQUE1 = 'EQUATIONS';'DIFFUSION OF VELOCITY'
+COMPORT =
+'Foreground ("EQUATIONS*DIFFUSION DES VITESSES") IS VALEUR (brown)'
+NIVEAU = 2
+AIDE = 'Permet de decider si l''on prend ou non en compte la diffusion
+des vitesses.'
+AIDE1 = 'Makes it possible to decide whether the diffusion of velocity
+(i.e. viscosity) is taken into account or not.'
+
+NOM = 'PRESSION ATMOSPHERIQUE'
+NOM1 = 'AIR PRESSURE'
+TYPE = LOGIQUE
+INDEX = 5
+MNEMO = 'ATMOS'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'EQUATIONS';'PRESSION ATMOSPHERIQUE'
+RUBRIQUE1 = 'EQUATIONS';'AIR PRESSURE'
+COMPORT =
+'Foreground ("EQUATIONS*PRESSION ATMOSPHERIQUE") IS VALEUR (brown)'
+NIVEAU = 1
+AIDE = 'Permet de decider si l''on prend ou non en compte l''influence
+d''un champ de pression.'
+AIDE1 = 'Provided to decide whether the influence of an atmosphere field
+is taken into account or not.'
+
+NOM = 'CONVECTION'
+NOM1 = 'ADVECTION'
+TYPE = LOGIQUE
+INDEX = 6
+MNEMO = 'CONV'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'EQUATIONS';'CONVECTION'
+RUBRIQUE1 = 'EQUATIONS';'ADVECTION'
+COMPORT =
+'Foreground ("EQUATIONS*CONVECTION") IS VALEUR (brown)'
+NIVEAU = 2
+AIDE = 'Prise en compte ou non des termes de convection.
+En cas de reponse positive;
+on peut encore supprimer certains termes de convection avec
+les mots-cles CONVECTION DE ...'
+AIDE1 = 'Are the advection terms taken into account or not?
+If YES, some advection terms can still be deleted using the keywords
+-ADVECTION OF ..-'
+
+NOM = 'CONVECTION DE U ET V'
+NOM1 = 'ADVECTION OF U AND V'
+TYPE = LOGIQUE
+INDEX = 7
+MNEMO = 'CONVV(1)'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'EQUATIONS';'CONVECTION'
+RUBRIQUE1 = 'EQUATIONS';'ADVECTION'
+NIVEAU = 2
+AIDE = 'Prise en compte ou non de la convection de U et V.'
+AIDE1= 'The advection of U and V is taken into account or ignored.'
+
+NOM = 'CONVECTION DE H'
+NOM1 = 'ADVECTION OF H'
+TYPE = LOGIQUE
+INDEX = 8
+MNEMO = 'CONVV(2)'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'EQUATIONS';'CONVECTION'
+RUBRIQUE1 = 'EQUATIONS';'ADVECTION'
+NIVEAU = 2
+AIDE = 'Prise en compte ou non de la convection de H.
+Il s''agit en fait dans la version 2.0 de la convection de C'
+AIDE1 = 'The advection of H  is taken into account or ignored.
+Actually, in version 2.0, the matter is about C advection.'
+
+NOM = 'CONVECTION DES TRACEURS'
+NOM1 = 'ADVECTION OF TRACERS'
+TYPE = LOGIQUE
+INDEX = 9
+MNEMO = 'CONVV(3)'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'EQUATIONS';'CONVECTION'
+RUBRIQUE1 = 'EQUATIONS';'ADVECTION'
+NIVEAU = 2
+AIDE = 'Prise en compte ou non de la convection du traceur passif.'
+AIDE1 = 'The advection of the passive tracer is taken into account
+or ignored.'
+
+NOM = 'CONVECTION DE K ET EPSILON'
+NOM1 = 'ADVECTION OF K AND EPSILON'
+TYPE = LOGIQUE
+INDEX = 10
+MNEMO = 'CONVV(4)'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'EQUATIONS';'MODELE DE TURBULENCE';'MODELE K-EPSILON'
+RUBRIQUE1 = 'EQUATIONS';'TURBULENCE MODEL';'K-EPSILON MODEL'
+NIVEAU = 2
+AIDE = 'Prise en compte ou non de la convection de k et epsilon.'
+AIDE1 ='The k and epsilon advection is taken into account or ignored.'
+
+NOM = 'PROPAGATION'
+NOM1 = 'PROPAGATION'
+TYPE = LOGIQUE
+INDEX = 12
+MNEMO = 'PROPA'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'EQUATIONS';'PROPAGATION'
+RUBRIQUE1 = 'EQUATIONS';'PROPAGATION'
+NIVEAU = 2
+AIDE = 'Prise en compte ou non de la propagation de la vitesse et de la
+hauteur d''eau.
+La diffusion etant contenue dans cette etape sera supprimee aussi.'
+AIDE1 = 'Determines whether the propagation step is taken into account
+or not.
+The diffusion being included in that step will be deleted as well.'
+
+NOM = 'CORIOLIS'
+NOM1 = CORIOLIS
+TYPE = LOGIQUE
+INDEX = 13
+MNEMO = 'CORIOL'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'EQUATIONS';'CORIOLIS'
+RUBRIQUE1 = 'EQUATIONS';'CORIOLIS'
+COMPORT =
+'Foreground ("EQUATIONS*CORIOLIS") IS VALEUR (brown)'
+NIVEAU = 1
+AIDE = 'Prise en compte ou non de la force de Coriolis.'
+AIDE1 = 'The Coriolis force is taken into account or ignored.'
+
+NOM = 'INFORMATIONS SUR LE SOLVEUR'
+NOM1 = 'INFORMATION ABOUT SOLVER'
+TYPE = LOGIQUE
+INDEX = 15
+MNEMO = 'INFOGR'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'ENTREES-SORTIES, GRAPHIQUES ET LISTING'
+RUBRIQUE1 = 'INPUT-OUTPUT, GRAPHICS AND LISTING'
+NIVEAU = 2
+AIDE = 'Donne a chaque pas de temps le nombre d''iterations necessaires
+a la convergence du solveur de l''etape de propagation.'
+AIDE1 = 'if YES, prints the number of iterations that have been necessar
+to get the solution of the linear system.'
+
+NOM = 'BILAN DE MASSE'
+NOM1 = 'MASS-BALANCE'
+TYPE = LOGIQUE
+INDEX = 16
+MNEMO = 'BILMAS'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'ENTREES-SORTIES, GRAPHIQUES ET LISTING'
+RUBRIQUE1 = 'INPUT-OUTPUT, GRAPHICS AND LISTING'
+NIVEAU = 1
+AIDE = 'Determine si l''on effectue ou non le bilan de masse
+sur le domaine.
+Cette procedure calcule a chaque pas de temps :
+ - les flux aux entrees et sorties du domaine;
+ - le flux global a travers l''ensemble des parois du domaine (liquides
+ou solides)
+- l''erreur relative sur la masse pour ce pas de temps.
+En fin de listing, on trouve l''erreur relative sur la masse pour
+l''ensemble du calcul.
+Il ne s''agit que d''un calcul indicatif car il n''existe pas
+d''expression compatible du debit en formulation c,u,v.'
+AIDE1 = 'Determines whether a check of the mass-balance over
+the domain is mader or not.
+This procedures computes the following at each time step:
+the domain inflows and outflows,
+the overall flow across all the boundaries,
+the relative error in the mass for that time step.
+The relative error in the mass over the whole computation can be found
+at the end of the listing.'
+
+NOM = 'CLIPPING DE H'
+NOM1 = 'H CLIPPING'
+TYPE = LOGIQUE
+INDEX = 17
+MNEMO = 'CLIPH'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, VELOCITY-CELERITY-HIGHT'
+NIVEAU = 2
+AIDE = 'Determine si l''on desire ou non limiter par valeur inferieure
+la hauteur d''eau H (dans le cas des bancs decouvrants par exemple).'
+AIDE1 = 'Determines whether limiting the water depth H by a lower value
+desirable or not. (for instance in the case of tidal flats)
+This key-word may have an influence on mass conservation since
+the truncation of depth is equivalent to adding mass.'
+
+NOM = 'COORDONNEES SPHERIQUES'
+NOM1 = 'SPHERICAL COORDINATES'
+TYPE = LOGIQUE
+INDEX = 18
+MNEMO = 'SPHERI'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'EQUATIONS';'COORDONNEES SPHERIQUES'
+RUBRIQUE1 = 'EQUATIONS';'SPHERICAL COORDINATES'
+COMPORT =
+'Foreground ("EQUATIONS*COORDONNEES SPHERIQUES") IS VALEUR (brown)'
+NIVEAU = 1
+AIDE = 'Choix des coordonnees spheriques pour la realisation du calcul
+( pour les grands domaines de calcul).
+Attention : cette option est etroitement liee au maillage qui doit avoir
+ete saisi sur une carte marine en projection de Mercator.
+Il faut de plus relever sur la carte la LATITUDE DU POINT ORIGINE
+(autre mot-cle) qui correspond dans le maillage a l''ordonnee y = 0.'
+AIDE1 = 'Selection of spherical coordinates to perform the computation
+(for large computation domains).
+Warning: this option is closely related to the mesh that should have
+been entered onto a nautical chart drawn as per Mercator projection
+The LATITUDE OF ORIGIN POINT (another keyword), which corresponds to
+ordinate y=0 in the mesh, must moreover be given.'
+
+NOM = 'COEFFICIENT DE FROTTEMENT VARIABLE EN ESPACE'
+NOM1 = 'FRICTION COEFFICIENT VARIABLE IN SPACE'
+TYPE = LOGIQUE
+INDEX = 19
+MNEMO = 'FROVAR'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'EQUATIONS';'FROTTEMENT ET LISSAGE'
+RUBRIQUE1 = 'EQUATIONS';'FRICTION AND SMOOTHINGS'
+NIVEAU = -13
+AIDE = 'Inactive. Sera retire de la prochaine version'
+AIDE1 = 'No longer activated. Will be removed from next release'
+
+NOM = 'PROPAGATION LINEARISEE'
+NOM1 = 'LINEARIZED PROPAGATION'
+TYPE = LOGIQUE
+INDEX = 20
+MNEMO = 'PROLIN'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'EQUATIONS';'PROPAGATION'
+RUBRIQUE1 = 'EQUATIONS';'PROPAGATION'
+NIVEAU = 3
+AIDE = 'Permet de lineariser l''etape de propagation;
+par exemple lors de la realisation de cas tests pour lesquels on dispose
+d''une solution analytique dans le cas linearise.'
+AIDE1 = 'Provided for linearizing the propagation step, e.g. when
+performing test-cases for which an analytical solution in the linearized
+case is available.'
+
+NOM = 'VALIDATION'
+NOM1 = 'VALIDATION'
+TYPE = LOGIQUE
+INDEX = 21
+MNEMO = 'VALID'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CALCUL'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATIONAL INFORMATION'
+NIVEAU = 1
+AIDE = 'Option utilisee principalement pour le dossier de validation. Le
+fichier des resultats du calcul precedent est alors considere comme une
+reference a laquelle on va comparer le calcul. La comparaison
+est effectuee par le sous-programme VALIDA qui peut etre une comparaison
+avec une solution exacte par exemple.'
+AIDE1 = 'This option is primarily used for the validation documents.
+The PREVIOUS COMPUTATION FILE is then considered as a
+reference which the computation is going to be compared with.
+The comparison is made by the subroutine VALIDA, which can be
+modified as to
+so as to include, for example,a comparison with an exact solution.'
+
+NOM = 'INFORMATIONS SUR LE MODELE K-EPSILON'
+NOM1 = 'INFORMATION ABOUT K-EPSILON MODEL'
+TYPE = LOGIQUE
+INDEX = 22
+MNEMO = 'INFOKE'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'PARAMETRES NUMERIQUES, MODELE K-EPSILON'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, K-EPSILON MODEL'
+NIVEAU = 2
+AIDE = 'Donne le nombre d''iterations du solveur de l''etape de
+diffusion et termes sources du modele k-epsilon.'
+AIDE1 = 'Gives the number of iterations of the solver in the diffusion
+and source terms step of the k-epsilon model.'
+
+NOM = 'BANCS DECOUVRANTS'
+NOM1 = 'TIDAL FLATS'
+TYPE = LOGIQUE
+INDEX = 24
+MNEMO = 'BANDEC'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'permet de supprimer les tests sur les bancs decouvrants, dans
+les cas ou l''on est certain qu''il n''y en aura pas.
+En cas de doute : oui'
+AIDE1 = 'When no, the specific treatments for tidal flats are by-passed.
+This spares time, but of course you must be sure that you have no
+tidal flats'
+
+NOM = 'ARRET SI UN ETAT PERMANENT EST ATTEINT'
+NOM1 = 'STOP IF A STEADY STATE IS REACHED'
+TYPE = LOGIQUE
+INDEX = 25
+MNEMO = 'STOPER'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = 'A UTILISER AVEC LE MOT-CLE : CRITERES D''ARRET'
+AIDE1 = 'TO BE USED WITH THE KEY-WORD: STOP CRITERIA'
+
+NOM = 'ELEMENTS MASQUES PAR L''UTILISATEUR'
+NOM1 = 'ELEMENTS MASKED BY USER'
+TYPE = LOGIQUE
+INDEX = 26
+MNEMO = 'MSKUSE'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = 'SI OUI REMPLIR LE SOUS-PROGRAMME MASKOB'
+AIDE1 = 'IF YES REWRITE SUBROUTINE MASKOB'
+
+NOM = 'EFFETS DE DENSITE'
+NOM1 = 'DENSITY EFFECTS'
+TYPE = LOGIQUE
+INDEX = 27
+MNEMO = 'ROVAR'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'PRISE EN COMPTE DU GRADIENT HORIZONTAL DE DENSITE
+        LE TRACEUR EST ALORS LA SALINITE'
+AIDE1 = 'THE HORIZONTAL GRADIENT OF DENSITY IS TAKEN INTO ACCOUNT
+         THE TRACER IS THEN THE SALINITY'
+
+NOM = 'OPTION DE TRAITEMENT DES BANCS DECOUVRANTS'
+NOM1 = 'OPTION FOR THE TREATMENT OF TIDAL FLATS'
+TYPE = INTEGER
+INDEX = 35
+MNEMO = 'OPTBAN'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Utilise si BANCS DECOUVRANTS est vrai
+1 : EQUATIONS RESOLUES PARTOUT AVEC CORRECTION SUR LES BANCS DECOUVRANTS
+2 : GEL DES ELEMENTS DECOUVRANTS
+3 : COMME 1 MAIS AVEC POROSITE (METHODE DEFINA)'
+AIDE1 = 'Used if TIDAL FLATS is true
+1 : EQUATIONS SOLVED EVERYWHERE WITH CORRECTION ON TIDAL FLATS
+2 : DRY ELEMENTS FROZEN
+3 : LIKE 1 BUT WITH POROSITY (DEFINA METHOD)'
+
+NOM = 'LONGUEUR DU VECTEUR'
+NOM1 = 'VECTOR LENGTH'
+TYPE = INTEGER
+INDEX = 36
+MNEMO = 'LVMAC'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 3
+AIDE = 'LONGUEUR DU VECTEUR POUR LES MACHINES VECTORIELLES'
+AIDE1 = 'VECTOR LENGTH ON VECTOR MACHINES'
+
+NOM = 'OPTION DE SUPG'
+NOM1 = 'SUPG OPTION'
+TYPE = INTEGER
+INDEX = 37
+MNEMO = 'OPTSUP'
+TAILLE = 4
+DEFAUT = 2;2;2;2
+DEFAUT1 = 2;2;2;2
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = '0:pas de decentrement SUPG  1:SUPG classique   2:SUPG modifiee
+ces coefficients sont respectivement appliques a
+1) U et V     2) H      3) T     4) K ET EPSILON  '
+AIDE1 ='0:no upwinding              1: classical SUPG  2:modified SUPG
+These coefficients are applied respectively to
+1) U et V     2) H      3) T     4) K and EPSILON '
+
+NOM = 'ORDRE DU TIR INITIAL POUR U'
+NOM1 = 'INITIAL GUESS FOR U'
+TYPE = INTEGER
+INDEX = 38
+MNEMO = 'IORDRU'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+CHOIX = '0=zero' ; '1=precedent'; '2=extrapolation'
+CHOIX1 = '0=zero' ; '1=previous';  '2=extrapolation'
+RUBRIQUE = 'PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, VELOCITY-CELERITY-HIGHT'
+NIVEAU = 2
+AIDE = 'Tir initial du solveur de l''etape de propagation.
+Offre la possibilite de modifier la valeur initiale de U, a chaque
+iteration, dans l''etape de propagation en utilisant les valeurs
+finales de cette variable aux pas de temps precedents. Ceci peut
+permettre d''accelerer la vitesse de convergence lors de la resolution
+du systeme. Trois possibilites sont offertes :
+ 0 : U = 0
+ 1 : U = U(n)
+ 2 : U = 2 U(n)- U(n-1) (extrapolation)'
+AIDE1 = 'Initial guess for the solver in the propagation step.
+Makes it possible to modify the initial value of U, upon each
+iteration in the propagation step, by using the ultimate values this
+variable had in the earlier time steps. Thus, the convergence can be
+speeded up when the system is being solved. 3 options are available:
+ 0 : U = 0
+ 1 : U = U(n)
+ 2 : U = 2 U(n)- U(n-1) (extrapolation)'
+
+NOM = 'OPTION DU SCHEMA HYBRIDE'
+NOM1 = 'HYBRID SCHEME OPTION'
+TYPE = ENTIER
+INDEX = 39
+MNEMO = 'OPTHYB'
+TAILLE = 4
+DEFAUT = 1;1;1;1
+DEFAUT1 = 1;1;1;1
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = '1: normal  2: conservation de hu ou hT  3: mass-lumping'
+AIDE1 ='1: normal  2: conservation of hu or hT  3: mass-lumping'
+
+NOM = 'MASSE VOLUMIQUE DE L''EAU'
+NOM1 = 'WATER DENSITY'
+TYPE = REEL
+INDEX = 27
+MNEMO = 'ROEAU'
+TAILLE = 0
+DEFAUT = 1020.
+DEFAUT1 = 1020.
+RUBRIQUE = 'CONSTANTES PHYSIQUES'
+RUBRIQUE1 = 'PHYSICAL CONSTANTS'
+NIVEAU = 1
+AIDE = 'Fixe la valeur de la masse volumique de l''eau.'
+AIDE1 = 'set the value of water density'
+
+NOM = 'LATITUDE DU POINT ORIGINE'
+NOM1 = 'LATITUDE OF ORIGIN POINT'
+TYPE = REEL
+INDEX = 28
+MNEMO = 'LAMBDO'
+TAILLE = 0
+DEFAUT = 48.
+DEFAUT1 = 48.
+RUBRIQUE = 'CONSTANTES PHYSIQUES'
+RUBRIQUE1 = 'PHYSICAL CONSTANTS'
+NIVEAU = 1
+AIDE = 'Determine l''origine utilisee pour le calcul de latitudes
+lorsque l''on effectue un calcul en coordonnees spheriques.'
+AIDE1 = 'Determines the origin used for computing latitudes when
+a computation is made in spherical coordinates.
+this latitude is in particular used to compute the Coriolis force.
+In cartesian coordinates, Coriolis coefficient is considered constant.'
+
+NOM = 'TEMPERATURE MOYENNE'
+NOM1 = 'MEAN TEMPERATURE'
+TYPE = REEL
+INDEX = 42
+MNEMO = 'TREF'
+CONTROLE = 0.; 100.
+TAILLE = 0
+DEFAUT = 20.
+DEFAUT1= 20.
+RUBRIQUE = 'CONSTANTES PHYSIQUES'
+RUBRIQUE1 = 'PHYSICAL CONSTANTS'
+NIVEAU = 1
+AIDE = 'TEMPERATURE DE REFERENCE POUR LE CALCUL DES EFFETS DE DENSITE
+        A UTILISER AVEC LE MOT-CLE "EFFETS DE DENSITE"'
+AIDE1 = 'REFERENCE TEMPERATURE FOR DENSITY EFFECTS
+        TO BE USED WITH THE KEY-WORD "DENSITY EFFECTS"'
+
+NOM = 'ACCELERATION DE LA PESANTEUR'
+NOM1 = 'GRAVITY ACCELERATION'
+TYPE = REEL
+INDEX = 2
+MNEMO = 'GRAV'
+TAILLE = 0
+DEFAUT = 9.81
+DEFAUT1 = 9.81
+RUBRIQUE = 'CONSTANTES PHYSIQUES'
+RUBRIQUE1 = 'PHYSICAL CONSTANTS'
+COMPORT =
+'Foreground ("CONSTANTES PHYSIQUES") IS VALEUR (yellow)'
+NIVEAU = 1
+AIDE = 'Fixe la valeur de l''acceleration de la pesanteur.'
+AIDE1 = 'Set the value of the acceleration due to gravity.'
+
+NOM = 'COEFFICIENT DE CORIOLIS'
+NOM1 = 'CORIOLIS COEFFICIENT'
+TYPE = REEL
+INDEX = 5
+MNEMO = 'FCOR'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'CONSTANTES PHYSIQUES'
+RUBRIQUE1 = 'PHYSICAL CONSTANTS'
+NIVEAU = 1
+AIDE = 'Fixe la valeur du coefficient de la force de Coriolis.
+Celui-ci doit etre calcule en fonction de la latitude l par la formule
+     FCOR = 2w sin(l) , w etant la vitesse de rotation de la terre.
+                        w = 7.27 10-5 rad/s
+Les composantes de la force de Coriolis sont alors :
+   FU =   FCOR x V
+   FV = - FCOR x U'
+AIDE1 = 'Sets the value of the Coriolis force coefficient, in cartesian
+coordinates.
+This coefficient, denoted FCOR in the code, should be equal to
+2 w sin(l)d  where w denotes the earth angular speed of rotation
+and l the latitude. w = 7.27 10-5 rad/sec
+The Coriolis force components are then:
+FU =  FCOR x V,
+FV = -FCOR x U
+In spherical coordinates, the latitudes are known'
+/
+/
+/
+/
+/ NOUVEAUTES 3.1
+/
+/
+/
+/
+NOM = 'DISCRETISATIONS EN ESPACE'
+NOM1 = 'DISCRETIZATIONS IN SPACE'
+TYPE = ENTIER
+INDEX = 16
+MNEMO = 'DISCRE'
+TAILLE = 4
+DEFAUT = 11;11;11;11
+DEFAUT1 = 11;11;11;11
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 13
+AIDE = 'Choix de la discretisation pour chaque variable
+ces coefficients sont respectivement appliques a
+1) U et V     2) H      3) T     4) K ET EPSILON (NON PROGRAMME)
+11 : lineaire
+12 : quasi-bulle
+13 : quadratique'
+AIDE1 = 'Choice of space discretisation for every variable
+These coefficients are applied respectively to
+1) U and V     2) H      3) T     4) K and EPSILON (NOT IMPLEMENTED)
+11: linear
+12: quasi-bubble
+13: quadratic'
+
+NOM = 'STOCKAGE DES MATRICES'
+NOM1 = 'MATRIX STORAGE'
+TYPE = ENTIER
+INDEX = 40
+MNEMO = 'OPTASS'
+TAILLE = 0
+DEFAUT = 3
+DEFAUT1 = 3
+CHOIX = '1="EBE classique"';
+'3="Stockage par segments"'
+CHOIX1 = '1="classical EBE"';
+'3="Edge-based storage"'
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = '1 : EBE classique  3 : Stockage par segments'
+AIDE1 = '1 : classical EBE  3 : Edge-based storage'
+
+NOM = 'COEFFICIENTS ADIMENSIONNELS DE DISPERSION'
+NOM1 = 'NON-DIMENSIONAL DISPERSION COEFFICIENTS'
+TYPE = REEL
+INDEX = 47
+MNEMO = 'ELDER'
+CONTROLE = 0 ; 10
+TAILLE = 2
+DEFAUT = 6. ; 0.6
+DEFAUT1= 6. ; 0.6
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = 'coefficients longitudinal et transversal dans la formule de
+Elder. Utilises uniquement avec le modele de turbulence 2'
+AIDE1 = 'Longitudinal and transversal coefficients in elder s formula.
+ Used only with turbulence model number 2'
+
+NOM = 'DICTIONNAIRE'
+NOM1 = 'DICTIONARY'
+TYPE = CARACTERE
+INDEX = 100
+MNEMO = ''
+SUBMIT = 'INUTILE;T2DDICO;OBLIG;ASC;LIT;DICO'
+DEFAUT = 'telemac2dv6p0.dico'
+DEFAUT1 = 'telemac2dv6p0.dico'
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'ENVIRONNEMENT'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATION ENVIRONMENT'
+NIVEAU = -3
+AIDE ='Dictionnaire des mots cles.'
+AIDE1 ='Key word dictionary.'
+
+NOM = 'DATE DE L''ORIGINE DES TEMPS'
+NOM1 = 'ORIGINAL DATE OF TIME'
+TYPE = INTEGER
+INDEX = 41
+MNEMO = 'MARDAT'
+TAILLE = 3
+DEFAUT = 0;0;0
+DEFAUT1 = 0;0;0
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Permet de fixer la date d''origine des temps du modele lors
+de la prise en compte de la force generatrice de la maree.'
+AIDE1 ='Give the date of the time origin of the model when taking into
+account the tide generating force.'
+
+NOM = 'HEURE DE L''ORIGINE DES TEMPS'
+NOM1 = 'ORIGINAL HOUR OF TIME'
+TYPE = INTEGER
+INDEX = 42
+MNEMO = 'MARTIM'
+TAILLE = 3
+DEFAUT = 0;0;0
+DEFAUT1 = 0;0;0
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Permet de fixer l''heure d''origine des temps du modele lors
+de la prise en compte de la force generatrice de la maree.'
+AIDE1 ='Give the time of the time origin of the model when taking into
+account of the tide generator force.'
+
+NOM  = 'LONGITUDE DU POINT ORIGINE'
+NOM1 = 'LONGITUDE OF ORIGIN POINT'
+TYPE = REEL
+INDEX = 48
+MNEMO = 'PHI0'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1= 0.
+RUBRIQUE = 'CONSTANTES PHYSIQUES'
+RUBRIQUE1 = 'PHYSICAL CONSTANTS'
+NIVEAU = 2
+AIDE = 'Fixe la valeur de la longitude du point origine du modele,
+lors de l''utilisation de la force generatrice de la maree.'
+AIDE1 = 'Give the value of the longitude of the origin point
+of the model, when taking into account of the tide generator force.'
+
+NOM = 'FORCE GENERATRICE DE LA MAREE'
+NOM1 = 'TIDE GENERATING FORCE'
+TYPE = LOGIQUE
+INDEX = 28
+MNEMO = 'MAREE'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Active la prise en compte de la force generatrice de la maree'
+AIDE1 = 'The tide generating force is taken into account. '
+
+NOM = 'MASS-LUMPING SUR LES TRACEURS'
+NOM1 = 'MASS-LUMPING ON TRACERS'
+TYPE = REEL
+INDEX = 49
+MNEMO = 'AGGLOT'
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+RUBRIQUE = 'EQUATIONS';'TRACEUR';'OPTIONS TRACEUR'
+RUBRIQUE1 = 'EQUATIONS';'TRACER';'TRACER OPTIONS'
+NIVEAU = 2
+AIDE = 'Fixe le taux de mass-lumping effectue sur le traceur.'
+AIDE1 = 'Sets the amount of mass-lumping that is performed on
+ the tracer.'
+
+NOM = 'CORRECTION DE CONTINUITE'
+NOM1 = 'CONTINUITY CORRECTION'
+TYPE = LOGIQUE
+INDEX = 29
+MNEMO = 'CORCON'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 =  NO
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = 'Corrige les vitesses sur les points avec hauteur imposee ou
+l''equation de continuite n''a pas ete resolue'
+AIDE1 = 'Correction of the velocities on points with a prescribed
+elevation, where the continuity equation has not been solved'
+
+/ NOUVEAUTES 3.2
+
+NOM = 'REMISE A ZERO DU TEMPS'
+NOM1 = 'INITIAL TIME SET TO ZERO'
+TYPE = LOGIQUE
+INDEX = 30
+MNEMO = 'RAZTIM'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 =  NO
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = 'Remet le temps a zero en cas de suite de calcul'
+AIDE1 = 'Initial time set to zero in case of restart'
+
+NOM = 'PRODUIT MATRICE-VECTEUR'
+NOM1 = 'MATRIX-VECTOR PRODUCT'
+TYPE = ENTIER
+INDEX = 43
+MNEMO = 'PRODUC'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = '1 : classique  2 : frontal
+attention, avec 2, il faut une numerotation speciale des points'
+AIDE1 = '1 : classic    2 : frontal
+beware, with option 2, a special numbering of points is required'
+
+NOM = 'SECTIONS DE CONTROLE'
+NOM1 = 'CONTROL SECTIONS'
+TYPE = INTEGER
+INDEX = 44
+MNEMO = 'CTRLSC'
+TAILLE = 2
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Couples de points (numeros globaux dans le maillage) entre
+lesquels les debits instantanes et cumules seront donnes.'
+AIDE1 ='Couples of points (global numbers in the mesh) defining sections
+ where the instantaneous and cumulated discharges will be given'
+
+
+
+NOM = 'NOMBRE DE SEUILS'
+NOM1 = 'NUMBER OF WEIRS'
+TYPE = ENTIER
+INDEX = 45
+MNEMO = 'NWEIRS'
+CONTROLE = 0; 100
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = 'Nombre de seuils qui seront traites par des conditions aux
+limites. Ces seuils doivent etre decrits comme des frontieres du
+domaine de calcul, et leurs caracteristiques sont donnees dans le
+fichier de donnees formate 1 (voir la documentation ecrite)'
+AIDE1 = 'Number of weirs that will be treated by boundary conditions.
+They must be described as boundaries of the domain and their features
+are given in the formatted data file 1 (see written documentation)'
+
+NOM = 'NOMBRE DE SIPHONS'
+NOM1 = 'NUMBER OF CULVERTS'
+TYPE = ENTIER
+INDEX = 46
+MNEMO = 'NSIPH'
+CONTROLE = 0; 100
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = 'Nombre de siphons ou buses traites comme des termes sources ou
+puits. Ces siphons doivent etre decrits comme des sources dans le
+fichier cas. Leurs caracteristiques sont donnees dans le
+fichier de donnees formate 1 (voir la documentation ecrite)'
+AIDE1 = 'Number of culverts treated as source terms.
+They must be described as sources in the domain and their features
+are given in the formatted data file 1 (see written documentation)'
+
+NOM = 'OPTION POUR LES FRONTIERES LIQUIDES'
+NOM1 = 'OPTION FOR LIQUID BOUNDARIES'
+TYPE = ENTIER
+INDEX = 47
+MNEMO = 'FRTYPE'
+CONTROLE = 1;2
+TAILLE = 2
+RUBRIQUE = 'EQUATIONS, CONDITIONS LIMITES'
+RUBRIQUE1 = 'EQUATIONS, BOUNDARY CONDITIONS'
+NIVEAU = 1
+AIDE = 'On donne 1 entier par frontiere liquide
+     1 : conditions aux limites classiques
+     2 : methode de Thompson avec calcul de caracteristiques'
+AIDE1 = 'One integer per liquid boundary is given
+     1 : classical boundary conditions
+     2 : Thompson method based on characteristics'
+
+NOM = 'BIBLIOTHEQUE PVM1'
+NOM1 = 'PVM1 LIBRARY'
+TYPE = CARACTERE
+INDEX = 32
+MNEMO = ''
+TAILLE = 0
+/CHOIX= '1="conditions aux limites classiques"';
+/       '2="methode de Thompson avec calcul de caracteristiques"'
+/CHOIX1 = '1="classical boundary conditions"';
+/       '2="Thompson method based on characteristics"'
+DEFAUT = ' '
+DEFAUT1 = ' '
+CHOIX = '" "="pas de biliothèque"';
+'"$PVM_ROOT/lib/$PVM_ARCH/libpvm3.a"="bibliothèque PVM1"'
+CHOIX1 = '" "="no library"';
+'"$PVM_ROOT/lib/$PVM_ARCH/libpvm3.a"="PVM1 library"'
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'ENVIRONNEMENT'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATION ENVIRONMENT'
+NIVEAU = 2
+AIDE = 'Utilise par la procedure de lancement sur station de travail'
+AIDE1 = 'Utilise par la procedure de lancement sur station de travail'
+
+
+NOM = 'BIBLIOTHEQUE PVM2'
+NOM1 = 'PVM2 LIBRARY'
+TYPE = CARACTERE
+INDEX = 33
+MNEMO = ''
+TAILLE = 0
+DEFAUT = ' '
+DEFAUT1 = ' '
+CHOIX = '" "="pas de biliothèque"';
+'"$PVM_ROOT/lib/$PVM_ARCH/libgpvm3.a"="bibliothèque PVM2"'
+CHOIX1 = '" "="no library"';
+'"$PVM_ROOT/lib/$PVM_ARCH/libgpvm3.a"="PVM2 library"'
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'ENVIRONNEMENT'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATION ENVIRONMENT'
+NIVEAU = 2
+AIDE = 'Utilise par la procedure de lancement sur station de travail'
+AIDE1 = 'Utilise par la procedure de lancement sur station de travail'
+
+
+NOM = 'NOM DU CRAY'
+NOM1 = 'CRAY NAME'
+TYPE = CARACTERE
+INDEX = 35
+DEFAUT = 'clcraya'
+NIVEAU = 1
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'ENVIRONNEMENT'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATION ENVIRONMENT'
+AIDE = ''
+AIDE1 = ''
+
+/ NOUVEAUTES 4.0
+
+NOM = 'PRECONDITIONNEMENT C-U'
+NOM1 = 'C-U PRECONDITIONING'
+TYPE = LOGIQUE
+INDEX = 31
+MNEMO = 'PRECCU'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 =  YES
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = 'Changement de variable de H en C dans le systeme lineaire final'
+AIDE1 = 'Change of variable from H to C in the final linear system'
+
+NOM = 'PAS DE TEMPS VARIABLE'
+NOM1 = 'VARIABLE TIME-STEP'
+TYPE = LOGIQUE
+INDEX = 32
+MNEMO = 'DTVARI'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 =  NO
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = 'Pas de temps variable pour avoir un nombre de courant souhaite'
+AIDE1 = 'Variable time-step to get a given Courant number'
+
+NOM = 'TRAITEMENT DU SYSTEME LINEAIRE'
+NOM1 = 'TREATMENT OF THE LINEAR SYSTEM'
+TYPE = ENTIER
+INDEX = 48
+MNEMO = 'SOLSYS'
+CONTROLE = 1;2
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 =1
+CHOIX = '1="traitement couple"';'2="Equation d''onde"'
+CHOIX1 = '1="coupled"';'2="Wave equation"'
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = '1 : Traitement couple 2 : equation d onde'
+AIDE1 = '1 : Coupled  2 : wave equation'
+
+NOM = 'NOMBRE DE COURANT SOUHAITE'
+NOM1 = 'DESIRED COURANT NUMBER'
+TYPE = REEL
+INDEX = 50
+MNEMO = 'CFLWTD'
+TAILLE = 0
+DEFAUT = 1.
+DEFAUT1 = 1.
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'DUREE DU CALCUL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'DURATION'
+NIVEAU = 2
+AIDE = 'Nombre de Courant souhaite en cas de pas de temps variable'
+AIDE1 = 'Desired Courant number when VARIABLE TIME-STEP is set to YES'
+
+NOM = 'PROCESSEURS PARALLELES'
+NOM1 = 'PARALLEL PROCESSORS'
+TYPE = ENTIER
+INDEX = 49
+MNEMO = 'NCSIZE'
+CONTROLE = 0;256
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 2
+AIDE = 'NOMBRE DE PROCESSEURS EN CALCUL PARALLELE
+0 : 1 machine, compilation sans bibliotheque de parallelisme
+1 : 1 machine, compilation avec bibliotheque de parallelisme
+2 : 2 processeurs ou machines en parallele
+etc... '
+AIDE1 = 'NUMBER OF PROCESSORS FOR PARALLEL PROCESSING
+0 : 1 machine, compiling without parallel library
+1 : 1 machine, compiling with a parallel library
+2 : 2 processors or machines in parallel
+etc....'
+
+NOM = 'EQUATIONS'
+NOM1 = 'EQUATIONS'
+TYPE = CARACTERE
+INDEX = 36
+MNEMO = 'EQUA'
+DEFAUT  = 'SAINT-VENANT EF'
+DEFAUT1 = 'SAINT-VENANT EF'
+CHOIX  = '"SAINT-VENANT EF"';'"SAINT-VENANT VF"';'"BOUSSINESQ"'
+CHOIX1 = '"SAINT-VENANT EF"';'"SAINT-VENANT VF"';'"BOUSSINESQ"'
+NIVEAU = 1
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+AIDE = 'CHOIX DES EQUATIONS A RESOUDRE : SAINT-VENANT ELEMENTS FINIS,
+SAINT-VENANT VOLUMES FINIS OU BOUSSINESQ   20 CARACTERES'
+AIDE1 = 'CHOICE OF EQUATIONS TO SOLVE : SAINT-VENANT FINITE ELEMENTS,
+SAINT-VENANT FINITE VOLUMES OR BOUSSINESQ   20 CHARACTERS'
+
+NOM = 'PROFILS DE VITESSE'
+NOM1 = 'VELOCITY PROFILES'
+TYPE = INTEGER
+INDEX = 50
+MNEMO = 'PROVEL'
+TAILLE = 2
+CHOIX='1="Profil normal constant"';'2="u et v dans le fichier
+ conlim"';'3="Vitesse normale donnee dans ubor dans le fichier
+ conlim"';'4="vitesse en racine carree de h"'
+CHOIX1='1="constant normal profile"';'2="u and v given in the
+ conlim file"';'3="normal velocity given in ubor in the conlim
+ file"';'4="velocity proportional to square root of depth"'
+RUBRIQUE = 'EQUATIONS, CONDITIONS LIMITES'
+RUBRIQUE1 = 'EQUATIONS, BOUNDARY CONDITIONS'
+NIVEAU = 1
+AIDE = '1:profil normal constant  2:u et v donnes dans le fichier conlim
+        3:vitesse normale donnee dans ubor dans le fichier conlim
+        4:profil en racine de la profondeur'
+AIDE1= '1:constant normal profile 2:u and v given in the conlim file
+        3:normal velocity given in ubor in the conlim file
+        4:sqrt(depth) profile'
+                                                                   
+NOM = 'OPTION POUR LA DIFFUSION DES TRACEURS'                              
+NOM1 = 'OPTION FOR THE DIFFUSION OF TRACERS'                              
+TYPE = INTEGER                                                           
+INDEX = 51                                                               
+MNEMO = 'OPDTRA'                                                         
+TAILLE = 0                                                               
+DEFAUT = 1                                                               
+DEFAUT1 = 1                                                               
+CHOIX = '1="div( nu grad(T) )"';                                         
+'2="1/h div ( h nu grad(T)"'                                             
+CHOIX1= '1="div( nu grad(T) )"';                                          
+'2="1/h div ( h nu grad(T)"'                                              
+RUBRIQUE = 'EQUATIONS';'TRACEUR';'OPTIONS TRACEUR'                       
+RUBRIQUE1 = 'EQUATIONS';'TRACER';'TRACER OPTIONS'                         
+NIVEAU = 1                                                                
+AIDE = '1: Diffusion de la forme div( nu grad(T) )                       
+        2: Diffusion de la forme 1/h div ( h nu grad(T) )'                 
+AIDE1= '1: Diffusion in the form div( nu grad(T) )                         
+        2: Diffusion in the form 1/h div ( h nu grad(T) )'                 
+                                                                           
+NOM = 'OPTION POUR LA DIFFUSION DES VITESSES'                              
+NOM1 = 'OPTION FOR THE DIFFUSION OF VELOCITIES'                            
+TYPE = INTEGER                                                             
+INDEX = 52                                                                 
+MNEMO = 'OPDVIT'                                                           
+TAILLE = 0                                                                 
+DEFAUT = 1                                                                 
+DEFAUT1 = 1                                                                
+CHOIX = '1="div( nu grad(U) )"';                                           
+'2="1/h div ( h nu grad(U)"'                                               
+CHOIX1= '1="div( nu grad(U) )"';                                           
+'2="1/h div ( h nu grad(U)"'                                               
+RUBRIQUE = 'PARAMETRES NUMERIQUES, VITESSE-CELERITE-HAUTEUR'               
+RUBRIQUE1 = 'NUMERICAL PARAMETERS, VELOCITY-CELERITY-HIGHT'                
+NIVEAU = 1                                                                 
+AIDE = '1: Diffusion de la forme div( nu grad(U) )                         
+        2: Diffusion de la forme 1/h div ( h nu grad(U) )'                 
+AIDE1= '1: Diffusion in the form div( nu grad(U) )                         
+        2: Diffusion in the form 1/h div ( h nu grad(U) )'                 
+                                                                           
+NOM = 'TYPE DES SOURCES'                                                   
+NOM1 = 'TYPE OF SOURCES'                                                   
+TYPE = ENTIER                                                              
+INDEX = 53                                                                 
+MNEMO = 'OPTSOU'                                                           
+CONTROLE = 1;2                                                             
+TAILLE = 0                                                                 
+DEFAUT = 1                                                                 
+DEFAUT1 =1                                                                 
+CHOIX = '1="Normal"';'2="Dirac"'                                           
+CHOIX1= '1="Normal"';'2="Dirac"'                                           
+RUBRIQUE = 'EQUATIONS, SOURCES'                                            
+RUBRIQUE1 = 'EQUATIONS, SOURCE TERMS'                                      
+NIVEAU = 2                                                                 
+AIDE = '1: Source portee par une base elements finis                       
+        2: Source portee  par une fonction de Dirac'                       
+AIDE1= '1: Source term multiplied by a finite element basis                
+        2: Source term multiplied by a Dirac function'                     
+
+/ NOUVEAUTES 5.0
+
+NOM = 'NOMBRE DE TABLEAUX PRIVES'
+NOM1 = 'NUMBER OF PRIVATE ARRAYS'
+TYPE = ENTIER
+INDEX = 54
+MNEMO = 'NPRIV'
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Nombre de tableaux mis a disposition de l utilisateur'
+AIDE1 = 'Number of arrays for own user programming'       
+
+NOM = 'LANGUE'
+NOM1 = 'LANGUAGE'
+TYPE = ENTIER
+INDEX = 55
+MNEMO = 'LNG'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 2
+RUBRIQUE = 'GENERAL'
+RUBRIQUE1 = 'GENERAL'
+NIVEAU = 1
+AIDE = '1 : FRANCAIS   2 : ANGLAIS'
+AIDE1 = '1: FRENCH   2: ENGLISH'       
+
+NOM = 'FICHIER DE REFERENCE'
+NOM1 = 'REFERENCE FILE'
+TYPE = CARACTERE
+INDEX = 37
+MNEMO = 'NOMREF, CANAL NREF'
+SUBMIT = 'NREF-READ-22;T2DREF;FACUL;BIN;LIT;SELAFIN'
+DEFAUT = ' '
+DEFAUT1 = ' '
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+NIVEAU = 1
+AIDE = 'Fichier de resultats de reference pour la validation. Les resultats a placer dans ce fichier seront a
+ecrire sur le canal 22.'
+AIDE1 = 'Binary-coded result file for validation. The results to be entered into this file shall be written
+on channel 22.' 
+
+NOM = 'FICHIER DES FRONTIERES LIQUIDES'
+NOM1 = 'LIQUID BOUNDARIES FILE'
+TYPE = CARACTERE
+INDEX = 38
+MNEMO = 'NOMLIQ, CANAL NIMP'
+SUBMIT = 'NIMP-READ-12;T2DIMP;FACUL;ASC;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+NIVEAU = 1
+AIDE = 'Fichier de variations en temps des conditions aux limites.
+Les donnees de ce fichier seront a lire sur le canal 12.'
+AIDE1 = 'Variations in time of boundary conditions. Data of this file are read
+on channel 12.' 
+
+NOM = 'COURANTS DE HOULE'
+NOM1 = 'WAVE DRIVEN CURRENTS'
+TYPE = LOGIQUE
+INDEX = 33
+MNEMO = 'COUROU'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Active la prise en compte des courants de houle'
+AIDE1 = 'Wave driven currents are taken into account. '
+
+NOM = 'NUMERO DE L''ENREGISTREMENT DANS LE FICHIER DE HOULE'
+NOM1 = 'RECORD NUMBER IN WAVE FILE'
+TYPE = ENTIER
+INDEX = 56
+MNEMO = 'NPTH'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Numero d enregistrement dans le fichier des courants de houle'
+AIDE1 = 'Record number to read in the wave driven currents file'
+
+/ NOUVEAUTES 5.1
+
+NOM = 'STRUCTURES VERTICALES'
+NOM1 = 'VERTICAL STRUCTURES'
+TYPE = LOGIQUE
+INDEX = 34
+MNEMO = 'VERTIC'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Prise en compte de la force de trainee de structures verticales
+(il faut alors remplir la subroutine DRAGFO)'
+AIDE1 = 'drag forces from vertical structures are taken into account.
+(subroutine DRAGFO must then be implemented) '
+
+NOM = 'SORTIE DES CONDITIONS INITIALES'
+NOM1 = 'OUTPUT OF INITIAL CONDITIONS'
+TYPE = LOGIQUE
+INDEX = 35
+MNEMO = 'OUTINI'
+TAILLE = 0
+DEFAUT = OUI
+DEFAUT1 = YES
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Si OUI, impression des conditions initiales dans les résultats'
+AIDE1 = 'If YES, output of initial conditions in the results'
+
+/ NOUVEAUTES 5.2
+
+NOM = 'DOSSIER DE COUPLAGE'
+NOM1 = 'COUPLING DIRECTORY'
+TYPE = CARACTERE
+INDEX = 39
+MNEMO = 'DOSSIER_COUPLAGE'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+NIVEAU = 1
+AIDE = 'Nom complet du dossier d echange des fichiers
+ pour couplage de codes'
+AIDE1 = 'Name with full path of the directory where the files will 
+ be exchanged for coupling' 
+
+NOM = 'COUPLAGE AVEC'
+NOM1 = 'COUPLING WITH'
+TYPE = CARACTERE
+INDEX = 40
+MNEMO = 'COUPLING'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+NIVEAU = 1
+AIDE = 'Liste des codes avec lesquels on couple Telemac-2D
+        INTER-SISYPHE : couplage interne avec Sisyphe
+        DELWAQ : sortie de fichiers de resultats pour Delwaq'
+AIDE1 = 'List of codes to be coupled with Telemac-2D
+        INTER-SISYPHE : internal coupling with Sisyphe
+        DELWAQ: will yield results file for Delwaq' 
+
+NOM = 'ESTIMATION DE PARAMETRE'
+NOM1 = 'PARAMETER ESTIMATION'
+TYPE = CARACTERE
+INDEX = 60
+MNEMO = 'ESTIME'
+DEFAUT = ' '
+DEFAUT1 = ' '
+CHOIX = '"FROTTEMENT"';'"FROTTEMENT, PERMANENT"'
+CHOIX1 = '"FRICTION"';'"FROTTEMENT, STEADY"'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+NIVEAU = 1
+AIDE = 'Liste des parametres a estimer, choix : FROTTEMENT
+        ou FROTTEMENT, PERMANENT'
+AIDE1 = 'List of parameter to be estimated, choice : FRICTION
+        or FRICTION, STEADY' 
+
+NOM = 'DEFINITION DE ZONES'
+NOM1 = 'DEFINITION OF ZONES'
+TYPE = LOGIQUE
+INDEX = 36
+MNEMO = 'DEFZON'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 = NO
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Declenche l''appel a def_zones, pour donner
+ un numero de zone a chaque point'
+AIDE1 = 'Triggers the call to def_zones
+ to give a zone number to every point'
+
+NOM = 'METHODE D''IDENTIFICATION'
+NOM1 = 'IDENTIFICATION METHOD'
+TYPE = ENTIER
+INDEX = 57
+MNEMO = 'OPTID'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+CHOIX = '0="plan d''experience"';
+'1="gradient simple"';
+'2="gradient conj"';
+'3="interp. de Lagrange"'
+CHOIX1 = '0="list of tests"'; 
+'1="gradient simple"';
+'2="conj gradient"';
+'3="Lagrange interp."'
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = '0 : plan d''experience 1 : gradient simple 
+        2 : gradient conj. 3 : interp. de Lagrange'
+AIDE1 = '0 : list of tests 1: gradient 
+        2 : conj. gradient 3 : lagrange interp.'
+
+NOM = 'PERIODES D''ANALYSE DE FOURIER'
+NOM1 = 'FOURIER ANALYSIS PERIODS'
+TYPE = REEL
+INDEX = 51
+MNEMO = 'PERIAF'
+TAILLE = 2
+RUBRIQUE = 'EQUATIONS, SOURCES'
+RUBRIQUE1 = 'EQUATIONS, SOURCE TERMS'
+NIVEAU = 1
+AIDE = 'Liste des periodes que l''on veut analyser'
+AIDE1 = 'List of periods to be analysed'
+
+NOM = 'LISTE DE POINTS'
+NOM1 = 'LIST OF POINTS'
+TYPE = INTEGER
+INDEX = 58
+MNEMO = 'LIST_PTS'
+TAILLE = 2
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Liste de points remarquables pour les impressions'
+AIDE1= 'List of remarkable points for printouts'
+
+NOM = 'NOMS DES POINTS'
+NOM1 = 'NAMES OF POINTS'
+TYPE = CARACTERE
+INDEX = 61
+MNEMO = 'NAMEPTS'
+TAILLE = 2
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'Noms des points remarquables pour les impressions'
+AIDE1= 'Names of remarkable points for printouts'
+
+NOM = 'FONCTION COUT'
+NOM1 = 'COST FUNCTION'
+TYPE = ENTIER
+INDEX = 59
+MNEMO = 'OPTCOST'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = '1 : calculee sur h, u , v  2 : calculee avec c, u , v'
+AIDE1 = '1: computed with h, u , v 2: computed with c, u , v'
+
+NOM = 'MAXIMUM D''ITERATIONS POUR L''IDENTIFICATION'
+NOM1 = 'MAXIMUM NUMBER OF ITERATIONS FOR IDENTIFICATION'
+TYPE = ENTIER
+INDEX = 60
+MNEMO = 'MAXEST'
+TAILLE = 0
+DEFAUT = 20
+DEFAUT1 = 20
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'chaque iteration comprend au moins un
+ calcul direct et un calcul adjoint'
+AIDE1 = 'every iteration implies at least a direct and
+ an adjoint computation'
+ 
+NOM = 'PERIODE DE COUPLAGE'
+NOM1 = 'COUPLING PERIOD'
+TYPE = ENTIER
+INDEX = 61
+MNEMO = 'PERCOU'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = 'pour eviter de faire le couplage a chaque pas de temps'
+AIDE1 = 'to avoid coupling at every time-step'
+ 
+NOM = 'PRECISIONS POUR L''IDENTIFICATION'
+NOM1 = 'TOLERANCES FOR IDENTIFICATION'
+TYPE = REEL
+INDEX = 52
+MNEMO = 'TOLEST'
+TAILLE = 4
+DEFAUT = 1.E-3;1.E-3;1.E-3;1.E-4
+DEFAUT1 = 1.E-3;1.E-3;1.E-3;1.E-4
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE = '4 nombres : précision absolue sur H, U, V,
+ et précision relative sur la fonction cout'
+AIDE1 = '4 numbers: absolute precision on H, U V,
+ and relative precision on the cost function'
+/
+/ NOUVEAUTES 5.3
+/
+NOM = 'SCHEMA EN VOLUMES FINIS'
+NOM1 = 'FINITE VOLUME SCHEME'
+TYPE = ENTIER
+INDEX = 62
+MNEMO = 'OPTVF'
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+CHOIX = '0="schema de Roe"';'1="cinetique ordre 1"';
+'2="cinetique ordre 2"'
+CHOIX1 = '0="Roe scheme"';'1="kinetic order 1"';
+'2="kinetic order 2"'
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE  = '0 : schema de Roe 1 : cinetique ordre 1  2 : cinetique ordre 2'
+AIDE1 = '0: Roe scheme     1: kinetic order 1     2: kinetic order 2 '
+/
+/ NOUVEAUTES 5.4 
+/
+NOM = 'FICHIER DES PARAMETRES DE SISYPHE'
+NOM1 = 'SISYPHE STEERING FILE'
+TYPE = CARACTERE
+INDEX = 62
+MNEMO = 'PAS DE MNEMO'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+AIDE = 'Fichier des parametres de Sisyphe en cas de couplage interne'
+AIDE1 = 'Sisyphe parameter file in cas of internal coupling'
+/
+/ NOUVEAUTES 5.5 
+/
+NOM = 'DONNEES POUR LE FROTTEMENT'
+NOM1 = 'FRICTION DATA'
+TYPE = LOGIQUE
+INDEX = 37
+MNEMO = 'FRICTB'
+DEFAUT = NON
+DEFAUT1 = NO
+NIVEAU = 1
+AIDE = 'Lois de frottements definies par zone'
+AIDE1 = 'Friction law defined by area'
+
+NOM = 'NOMBRE MAXIMUM DE DOMAINES DE FROTTEMENT'
+NOM1 = 'MAXIMUM NUMBER OF FRICTION DOMAINS'
+TYPE = INTEGER
+INDEX = 63
+MNEMO = 'NZONMX'
+DEFAUT = 10
+DEFAUT1 = 10
+NIVEAU = 1
+AIDE = 'nombre maximal de zones pouvant etre definies pour le
+frottement. Peut etre augmente si necessaire'
+AIDE1 = 'maximal number of zones defined for the friction. 
+Could be increased if needed'
+
+NOM = 'FICHIER DE DONNEES POUR LE FROTTEMENT'
+NOM1 = 'FRICTION DATA FILE'
+TYPE = CARACTERE
+INDEX = 63
+MNEMO = 'NOMCOF, CANAL NCOF'
+SUBMIT = 'NCOF-READ-35;T2DCOF;FACUL;ASC;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+NIVEAU = 1
+AIDE = 'fichier de donnees pour le frottement'
+AIDE1 = 'friction data file'
+
+NOM = 'VALEUR PAR DEFAUT DU MANNING POUR LA LOI DE COLEBROOK-WHITE'
+NOM1 = 'MANNING DEFAULT VALUE FOR COLEBROOK-WHITE LAW'
+TYPE = REEL
+INDEX = 53
+MNEMO = 'NDEF'
+DEFAUT = 0.02
+DEFAUT1 = 0.02
+NIVEAU = 1
+AIDE = 'valeur par defaut du manning pour la loi de frottement de 
+coolebrook-white (loi numero 7)'
+AIDE1 = 'Manning default value for the friction law of colebrook-white
+(law number 7)'
+
+NOM = 'FROTTEMENT POUR LA VEGETATION NON SUBMERGEE'
+NOM1 = 'NON-SUBMERGED VEGETATION FRICTION'
+TYPE = LOGIQUE
+INDEX = 38
+MNEMO = 'LINDNER'
+DEFAUT = NON
+DEFAUT1 = NO
+NIVEAU = 1
+AIDE = 'calcul du frottement du a la vegetation non submergee'
+AIDE1 = 'friction calculation of the non-submerged vegetation'
+
+NOM = 'DIAMETRE DES ELEMENTS DE FROTTEMENT'
+NOM1 = 'DIAMETER OF ROUGHNESS ELEMENTS'
+TYPE = REEL
+INDEX = 54
+MNEMO = 'DP'
+DEFAUT = 0.006
+DEFAUT1 = 0.006
+NIVEAU = 1
+AIDE = 'diametre des elements de frottements'
+AIDE1 = 'diameter of roughness element'
+
+NOM = 'ESPACEMENT DES ELEMENTS DE FROTTEMENT'
+NOM1 = 'SPACING OF ROUGHNESS ELEMENTS'
+TYPE = REEL
+INDEX = 55
+MNEMO = 'SP'
+DEFAUT = 0.14
+DEFAUT1 = 0.14
+NIVEAU = 1
+AIDE = 'espacement des elements de frottement'
+AIDE1 = 'spacing of rouhness element'
+
+NOM = 'IMPRESSION DU CUMUL DES FLUX'
+NOM1 = 'PRINTING CUMULATED FLOWRATES'
+TYPE = LOGIQUE
+INDEX = 39
+MNEMO = 'CUMFLO'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 =  NO
+AIDE = 'IMPRESSION DU FLUX CUMULE A TRAVERS LES SECTIONS DE CONTROLE'
+AIDE1 = 'PRINTING THE CUMULATED FLOWRATES THROUGH CONTROL SECTIONS'
+
+NOM = 'CALCUL COMPATIBLE DES FLUX'
+NOM1 = 'COMPATIBLE COMPUTATION OF FLUXES'
+TYPE = LOGIQUE
+INDEX = 40
+MNEMO = 'COMFLU'
+TAILLE = 0
+DEFAUT = NON
+DEFAUT1 =  NO
+AIDE = 'FLUX A TRAVERS LES SECTIONS DE CONTROLE, CALCUL COMPATIBLE
+AVEC L''IMPERMEABILITE SOUS FORME FAIBLE'
+AIDE1 = 'FLOWRATES THROUGH CONTROL SECTIONS, COMPUTATION COMPATIBLE
+WITH THE WEAK FORMULATION OF NO-FLUX BOUNDARY CONDITION'
+/
+/ NOUVEAUTES 5.6 
+/
+NOM = 'PROFONDEUR LIMITE POUR LE VENT'
+NOM1 = 'THRESHOLD DEPTH FOR WIND'
+TYPE = REEL
+INDEX = 56
+MNEMO = 'HWIND'
+DEFAUT = 1.
+DEFAUT1 = 1.
+NIVEAU = 1
+AIDE = 'Retire la force due au vent dans les petites profondeurs'
+AIDE1 = 'Wind is not taken into account for small depths'
+/
+NOM = 'SEUIL POUR LES PROFONDEURS NEGATIVES'
+NOM1 = 'THRESHOLD FOR NEGATIVE DEPTHS'
+TYPE = REEL
+INDEX = 57
+MNEMO = 'HNEG'
+DEFAUT = 0.
+DEFAUT1 = 0.
+NIVEAU = 1
+AIDE = 'En dessous du seuil, les hauteurs negatives sont lissees'
+AIDE1 = 'Below the threshold the negative depths are smoothed'
+/
+/ FOR COMPATIBILITY WITH TELEMAC-3D (FRENCH IN ENGLISH IS INTENTIONAL)
+/ SEE TREATMENT IN LECDON_TELEMAC2D
+/
+NOM  = 'PERIODE POUR LES SORTIES LISTING'
+NOM1 = 'PERIODE POUR LES SORTIES LISTING'
+TYPE = INTEGER
+INDEX = 64
+MNEMO = 'LISPRD'
+DEFAUT = 1
+DEFAUT1 = 1
+NIVEAU = 1
+AIDE = 'Determine la periode en nombre de pas de temps d''impression
+des ''VARIABLES A IMPRIMER'' (voir ce mot-cle) Pour la mise au point,
+il faut savoir que la sortie des resultats est effectuee
+systematiquement sur le fichier de retour d''execution du code
+(actuellement accessible par le menu 3.f de SPF sur IBM, et dans
+le fichier !CAS.SORTIE sur station de travail)'
+AIDE1 = 'Determines, in number of time steps, the printout period of
+the VARIABLES TO BE PRINTED
+The results are systematically printed out on the listing file
+(file CAS.SORTIE at the workstation).'
+/
+/
+NOM = 'COORDONNEES DE L''ORIGINE'
+NOM1 = 'ORIGIN COORDINATES'
+TYPE = ENTIER
+INDEX = 65
+MNEMO = 'I_ORIG,J_ORIG'
+TAILLE = 2
+DEFAUT  = 0;0
+DEFAUT1 = 0;0
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CONTROLE'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'CONTROL'
+NIVEAU = 2
+AIDE = 'Valeur en metres, utilise pour eviter les trops grands nombres, transmis
+dans le format Selafin mais pas d''autre traitement pour l''instant'
+AIDE1 = 'Value in metres, used to avoid large real numbers, 
+added in Selafin format, but so far no other treatment'
+/
+/ NOUVEAUTES 5.7 
+/
+NOM = 'PERIODE DE SORTIE POUR DELWAQ'
+NOM1 = 'DELWAQ PRINTOUT PERIOD'
+TYPE = ENTIER
+INDEX = 66
+MNEMO = 'WAQPRD'
+TAILLE = 0
+DEFAUT  = 1
+DEFAUT1 = 1
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CONTROLE'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'CONTROL'
+NIVEAU = 2
+AIDE = 'Periode de sortie des resultats pour Delwaq'
+AIDE1 = 'Printout period for Delwaq file'
+/
+NOM = 'FICHIER DELWAQ DES VOLUMES'
+NOM1 = 'VOLUMES DELWAQ FILE'
+TYPE = CARACTERE
+INDEX = 64
+MNEMO = 'NOMSOU, CANAL NSOU'
+SUBMIT = 'NSOU-WRITE-36;T2DDL1;FACUL;BIN;ECR;DELWAQPTS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de resultats pour le couplage avec Delwaq'
+AIDE1 = 'Results file for coupling with Delwaq'
+/
+NOM = 'FICHIER DELWAQ DES SURFACES DE FLUX'
+NOM1 = 'EXCHANGE AREAS DELWAQ FILE'
+TYPE = CARACTERE
+INDEX = 65
+MNEMO = 'NOSUIS, CANAL NSUIS'
+SUBMIT = 'NSUIS-WRITE-37;T2DDL2;FACUL;BIN;ECR;DELWAQSEG'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de resultats pour le couplage avec Delwaq'
+AIDE1 = 'Results file for coupling with Delwaq'
+/
+NOM = 'FICHIER DELWAQ DES FLUX VERTICAUX'
+NOM1 = 'VERTICAL FLUXES DELWAQ FILE'
+TYPE = CARACTERE
+INDEX = 66
+MNEMO = 'NOMCOU, CANAL NCOU'
+SUBMIT = 'NCOU-WRITE-38;T2DDL3;FACUL;BIN;ECR;DELWAQSEG'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de resultats pour le couplage avec Delwaq'
+AIDE1 = 'Results file for coupling with Delwaq'
+/
+NOM = 'FICHIER DELWAQ DE LA SALINITE'
+NOM1 = 'SALINITY DELWAQ FILE'
+TYPE = CARACTERE
+INDEX = 67
+MNEMO = 'NOMFRC, CANAL NFRC'
+SUBMIT = 'NFRC-WRITE-39;T2DDL4;FACUL;BIN;ECR;DELWAQPTS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de resultats pour le couplage avec Delwaq'
+AIDE1 = 'Results file for coupling with Delwaq'
+/
+NOM = 'FICHIER DELWAQ DES SURFACES DU FOND'
+NOM1 = 'BOTTOM SURFACES DELWAQ FILE'
+TYPE = CARACTERE
+INDEX = 68
+MNEMO = 'NOMINI, CANAL NINI'
+SUBMIT = 'NINI-WRITE-40;T2DDL5;FACUL;BIN;ECR;DELWAQMET'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de resultats pour le couplage avec Delwaq'
+AIDE1 = 'Results file for coupling with Delwaq'
+/
+NOM = 'FICHIER DELWAQ DES ECHANGES ENTRE NOEUDS'
+NOM1 = 'EXCHANGES BETWEEN NODES DELWAQ FILE'
+TYPE = CARACTERE
+INDEX = 69
+MNEMO = 'NOMVEB, CANAL NVEB'
+SUBMIT = 'NVEB-WRITE-41;T2DDL6;FACUL;BIN;ECR;DELWAQMET'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de resultats pour le couplage avec Delwaq'
+AIDE1 = 'Results file for coupling with Delwaq'
+/
+NOM = 'FICHIER DELWAQ DES DISTANCES ENTRE NOEUDS'
+NOM1 = 'NODES DISTANCES DELWAQ FILE'
+TYPE = CARACTERE
+INDEX = 70
+MNEMO = 'NORSED, CANAL NRSED'
+SUBMIT = 'NRSED-WRITE-42;T2DDL7;FACUL;BIN;ECR;DELWAQMET'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de resultats pour le couplage avec Delwaq'
+AIDE1 = 'Results file for coupling with Delwaq'
+/
+NOM = 'FICHIER DELWAQ DE LA TEMPERATURE'
+NOM1 = 'TEMPERATURE DELWAQ FILE'
+TYPE = CARACTERE
+INDEX = 72
+MNEMO = 'NOMSCO, CANAL NSCO'
+SUBMIT = 'NSCO-WRITE-43;T2DDL8;FACUL;BIN;ECR;DELWAQPTS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de resultats pour le couplage avec Delwaq'
+AIDE1 = 'Results file for coupling with Delwaq'
+/
+NOM = 'FICHIER DELWAQ DE LA VITESSE'
+NOM1 = 'VELOCITY DELWAQ FILE'
+TYPE = CARACTERE
+INDEX = 76
+MNEMO = 'NOMPAR, CANAL NPAR'
+SUBMIT = 'NPAR-WRITE-33;T2DDL9;FACUL;BIN;ECR;DELWAQPTS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de resultats pour le couplage avec Delwaq'
+AIDE1 = 'Results file for coupling with Delwaq'
+/
+NOM = 'FICHIER DELWAQ DE LA DIFFUSION'
+NOM1 = 'DIFFUSIVITY DELWAQ FILE'
+TYPE = CARACTERE
+INDEX = 77
+MNEMO = 'NOMPRI, CANAL NPARI'
+SUBMIT = 'NPARI-WRITE-34;T2DL10;FACUL;BIN;ECR;DELWAQPTS'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de resultats pour le couplage avec Delwaq'
+AIDE1 = 'Results file for coupling with Delwaq'
+/
+NOM = 'FICHIER DE COMMANDE DELWAQ'
+NOM1 = 'DELWAQ STEERING FILE'
+TYPE = CARACTERE
+INDEX = 71
+MNEMO = 'NOMCOB, CANAL NCOB'
+SUBMIT = 'NCOB-WRITE-44;T2DL11;FACUL;ASC;ECR;DELWAQHYD'
+DEFAUT = ' '
+DEFAUT1 = ' '
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+AIDE = 'Fichier de resultats pour le couplage avec Delwaq'
+AIDE1 = 'Results file for coupling with Delwaq'
+/
+NOM = 'COMPATIBILITE DU GRADIENT DE SURFACE LIBRE'
+NOM1 = 'FREE SURFACE GRADIENT COMPATIBILITY'
+TYPE = REEL
+INDEX = 58
+MNEMO = 'TETAZCOMP'
+TAILLE = 0
+DEFAUT = 1.
+DEFAUT1= 1.
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'DUREE DU CALCUL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'DURATION'
+NIVEAU = 1
+AIDE = 'Des valeurs inferieures a 1 suppriment les oscillations
+parasites'
+AIDE1 = 'Values less than 1 suppress spurious oscillations'
+/
+NOM = 'BORNES EN TEMPS POUR L''ANALYSE DE FOURIER'
+NOM1 = 'TIME RANGE FOR FOURIER ANALYSIS'
+TYPE = REEL
+INDEX = 59
+MNEMO = 'TAFBGN,TAFEND'
+TAILLE = 2
+DEFAUT = 0.;0.
+DEFAUT1= 0.;0.
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'DUREE DU CALCUL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'DURATION'
+NIVEAU = 1
+AIDE = 'Pour le calcul du marnage et de la phase de la maree'
+AIDE1 = 'For computing tidal range and phase of tide'
+/
+/ NOUVEAUTES 5.8 (SAUF DEUX FICHIERS POUR DELWAQ MIS CI-DESSUS)
+/
+NOM = 'NOMBRE DE TRACEURS'
+NOM1 = 'NUMBER OF TRACERS'
+TYPE = ENTIER
+INDEX = 67
+MNEMO = 'NTRAC'
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE = 'EQUATIONS, TRACEUR'
+RUBRIQUE1 = 'EQUATIONS';'TRACER'
+NIVEAU = 1
+COMPORT = 
+'Foreground ("EQUATIONS, TRACEUR")
+IS BRUT (brown)'
+AIDE = 'Définit le nombre de traceurs.'
+AIDE1 = 'Defines the number of tracers'
+/
+NOM = 'NOMS DES TRACEURS'
+NOM1 = 'NAMES OF TRACERS'
+TYPE = CARACTERE
+INDEX = 74
+MNEMO = 'NAMETRAC'
+TAILLE = 10
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+NIVEAU = 1
+COMPORT =
+'Foreground ("ENTREES-SORTIES, FICHIERS*NOMS")
+IS BRUT (red)'
+AIDE = 'Noms des traceurs en 32 caracteres, 16 pour le nom
+         16 pour l''unite'
+AIDE1 = 'Name of tracers in 32 characters, 16 for the name,
+         16 for the unit.'
+/
+NOM = 'SALINITE POUR DELWAQ'
+NOM1 = 'SALINITY FOR DELWAQ'
+TYPE = LOGIQUE
+INDEX = 41
+MNEMO = 'SALI_DEL'
+DEFAUT = NON
+DEFAUT1 = NO
+NIVEAU = 1
+AIDE = 'Decide de la sortie de la salinite pour Delwaq'
+AIDE1 = 'Triggers output of salinity for Delwaq'
+/
+NOM = 'TEMPERATURE POUR DELWAQ'
+NOM1 = 'TEMPERATURE FOR DELWAQ'
+TYPE = LOGIQUE
+INDEX = 42
+MNEMO = 'TEMP_DEL'
+DEFAUT = NON
+DEFAUT1 = NO
+NIVEAU = 1
+AIDE = 'Decide de la sortie de la temperature pour Delwaq'
+AIDE1 = 'Triggers output of temperature for Delwaq'
+/
+NOM = 'VITESSE POUR DELWAQ'
+NOM1 = 'VELOCITY FOR DELWAQ'
+TYPE = LOGIQUE
+INDEX = 43
+MNEMO = 'VELO_DEL'
+DEFAUT = NON
+DEFAUT1 = NO
+NIVEAU = 1
+AIDE = 'Decide de la sortie de la salinite pour Delwaq'
+AIDE1 = 'Triggers output of salinity for Delwaq'
+/
+NOM = 'DIFFUSION POUR DELWAQ'
+NOM1 = 'DIFFUSIVITY FOR DELWAQ'
+TYPE = LOGIQUE
+INDEX = 44
+MNEMO = 'DIFF_DEL'
+DEFAUT = NON
+DEFAUT1 = NO
+NIVEAU = 1
+AIDE = 'Decide de la sortie de la temperature pour Delwaq'
+AIDE1 = 'Triggers output of temperature for Delwaq'
+/
+/ NOUVEAUTES 5.9 
+/
+NOM = 'COURBES DE TARAGE'
+NOM1 = 'STAGE-DISCHARGE CURVES'
+TYPE = ENTIER
+INDEX = 68
+MNEMO = 'STA_DIS_CURVES'
+TAILLE = 10
+RUBRIQUE = 'CONDITIONS LIMITES'
+RUBRIQUE1 = 'BOUNDARY CONDITIONS'
+NIVEAU = 1
+AIDE = 'Indique si une courbe de tarage doit etre utilisee
+pour une frontiere 0:non 1:Z(Q) 2: Q(Z)'
+AIDE1 = 'Says if a discharge-elevation curve must be used
+for a given boundary :NO 1:Z(Q) 2: Q(Z)'
+/
+NOM = 'FICHIER DES COURBES DE TARAGE'
+NOM1 = 'STAGE-DISCHARGE CURVES FILE'
+TYPE = CARACTERE
+INDEX = 73
+MNEMO = 'NOMMAB, CANAL NMAB'
+TAILLE = 0
+SUBMIT = 'NMAB-READ-11;T2DMAB;FACUL;ASC;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+COMPORT =
+'Foreground ("ENTREES-SORTIES, FICHIERS*NOMS")
+IS VALEUR (red)'
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+AIDE = 'Nom du fichier contenant les courbes de tarage'
+AIDE1 = 'Name of the file containing stage-discharge curves'
+/
+NOM = 'FICHIER DES SOURCES'
+NOM1 = 'SOURCES FILE'
+TYPE = CARACTERE
+INDEX = 75
+MNEMO = 'NOMVEF, CANAL NVEF'
+TAILLE = 0
+SUBMIT = 'NVEF-READ-10;T2DVEF;FACUL;ASC;LIT;PARAL'
+DEFAUT = ' '
+DEFAUT1 = ' '
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS';'NOMS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES';'NAMES'
+COMPORT =
+'Foreground ("ENTREES-SORTIES, FICHIERS*NOMS")
+IS VALEUR (red)'
+NIVEAU = 1
+APPARENCE = 'LISTE IS FICHIER'
+AIDE = 'Nom du fichier contenant les informations variables
+en temps des sources'
+AIDE1 = 'Name of the file containing time-dependent
+information on sources'
+/
+NOM  = 'DEBUGGER'
+NOM1 = 'DEBUGGER'
+TYPE = INTEGER
+INDEX = 69
+MNEMO = 'DEBUG'
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+RUBRIQUE = 'PARAMETRES NUMERIQUES'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS'
+NIVEAU = 1
+AIDE= 'Pour imprimer la sequence des appels, mettre 1'
+AIDE1 = 'If 1, calls of subroutines will be printed in the listing'
+/
+NOM  = 'TRAITEMENT DES HAUTEURS NEGATIVES'
+NOM1 = 'TREATMENT OF NEGATIVE DEPTHS'
+TYPE = INTEGER
+INDEX = 70
+MNEMO = 'OPT_HNEG'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+RUBRIQUE = 'PARAMETRES NUMERIQUES'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS'
+NIVEAU = 1
+AIDE= 'Seulement avec OPTION DE TRAITEMENT DES BANCS DECOUVRANTS = 1
+       0 : pas de traitement 1 : lissage 2 : limitation des flux'
+AIDE1 = 'Only with OPTION FOR THE TREATMENT OF TIDAL FLATS=1
+       0: no treatment 1:smoothing 2:flux control'
+/
+NOM = 'FORMAT DU FICHIER DE REFERENCE'
+NOM1 = 'REFERENCE FILE FORMAT'
+TYPE = CARACTERE
+INDEX = 78
+MNEMO = '?????'
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+CHOIX = 'SERAFIN ';'SERAFIND';'MED     '
+NIVEAU = 2
+RUBRIQUE = 'ENTREES-SORTIES, FICHIERS'
+RUBRIQUE1 = 'INPUT-OUTPUT, FILES'
+AIDE = 'Format du fichier de resultats du calcul precedent.
+Les valeurs possibles sont :
+- SERAFIN : format standard simple precision pour Telemac; 
+- SERAFIND: format standard double precision pour Telemac;
+- MED     : format MED base sur HDF5'
+AIDE1 = 'Previous computation results file format.
+Possible values are:
+- SERAFIN : classical single precision format in Telemac; 
+- SERAFIND: classical double precision format in Telemac;
+- MED     : MED format based on HDF5'
+/
+/ NOUVEAUTES 6.0 
+/
+NOM = 'HAUTEUR DANS LES TERMES DE FROTTEMENT'
+NOM1 = 'DEPTH IN FRICTION TERMS'
+TYPE = ENTIER
+INDEX = 71
+MNEMO = 'HFROT'
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+CHOIX = '1="nodale"';'2="moyenne"'
+CHOIX1 = '1="nodal"';'2="average"'
+RUBRIQUE = 'PARAMETRES NUMERIQUES';'GENERAL'
+RUBRIQUE1 = 'NUMERICAL PARAMETERS';'GENERAL'
+NIVEAU = 1
+AIDE  = '1 : nodale 2 : moyenne'
+AIDE1 = '1: nodal   2: average'
+/
+/ POUR LES LANCEURS PERL :
+/
+NOM = 'LISTE DES FICHIERS'
+NOM1 = 'LIST OF FILES'
+TYPE = CARACTERE
+INDEX = 99
+MNEMO = ''
+TAILLE = 30
+DEFAUT = 'FICHIER DES PARAMETRES';
+         'DICTIONNAIRE';
+         'FICHIER FORTRAN';
+         'FICHIER DE GEOMETRIE';
+         'FICHIER DES CONDITIONS AUX LIMITES';
+         'FICHIER DES RESULTATS';
+         'FICHIER DU CALCUL PRECEDENT';
+         'FICHIER DES FONDS';
+         'FICHIER DE DONNEES BINAIRE 1';
+         'FICHIER DE DONNEES BINAIRE 2';
+         'FICHIER DE DONNEES FORMATE 1';
+         'FICHIER DE DONNEES FORMATE 2';
+         'FICHIER DE RESULTATS BINAIRE';
+         'FICHIER DE RESULTATS FORMATE';
+         'FICHIER DE REFERENCE';
+         'FICHIER DES FRONTIERES LIQUIDES';
+         'FICHIER DE DONNEES POUR LE FROTTEMENT';
+         'FICHIER DELWAQ DES VOLUMES';
+         'FICHIER DELWAQ DES SURFACES DE FLUX';
+         'FICHIER DELWAQ DES FLUX VERTICAUX';
+         'FICHIER DELWAQ DE LA SALINITE';
+         'FICHIER DELWAQ DES SURFACES DU FOND';
+         'FICHIER DELWAQ DES ECHANGES ENTRE NOEUDS';
+         'FICHIER DELWAQ DES DISTANCES ENTRE NOEUDS';
+         'FICHIER DELWAQ DE LA TEMPERATURE';
+         'FICHIER DELWAQ DE LA VITESSE';
+         'FICHIER DELWAQ DE LA DIFFUSION';
+         'FICHIER DE COMMANDE DELWAQ';
+         'FICHIER DES COURBES DE TARAGE';
+         'FICHIER DES SOURCES'
+DEFAUT1 ='STEERING FILE';
+         'DICTIONARY';
+         'FORTRAN FILE';
+         'GEOMETRY FILE';
+         'BOUNDARY CONDITIONS FILE';
+         'RESULTS FILE';
+         'PREVIOUS COMPUTATION FILE';
+         'BOTTOM TOPOGRAPHY FILE';
+         'BINARY DATA FILE 1';
+         'BINARY DATA FILE 2';
+         'FORMATTED DATA FILE 1';
+         'FORMATTED DATA FILE 2';
+         'BINARY RESULTS FILE';
+         'FORMATTED RESULTS FILE';
+         'REFERENCE FILE';
+         'LIQUID BOUNDARIES FILE';
+         'FRICTION DATA FILE';
+         'VOLUMES DELWAQ FILE';
+         'EXCHANGE AREAS DELWAQ FILE';
+         'VERTICAL FLUXES DELWAQ FILE';
+         'SALINITY DELWAQ FILE';
+         'VELOCITY DELWAQ FILE';
+         'DIFFUSIVITY DELWAQ FILE';
+         'BOTTOM SURFACES DELWAQ FILE';
+         'EXCHANGES BETWEEN NODES DELWAQ FILE';
+         'NODES DISTANCES DELWAQ FILE';
+         'TEMPERATURE DELWAQ FILE';
+         'DELWAQ STEERING FILE';
+         'STAGE-DISCHARGE CURVES FILE';
+         'SOURCES FILE'
+RUBRIQUE  = 'FICHIERS'
+RUBRIQUE1 = 'FILES'
+NIVEAU = 1
+AIDE = 'Noms des fichiers exploites par le code'
+AIDE1= 'File names of the used files'
+//
+//----Librairies du code-------------------------------------------
+//
+//Conventions de notation :
+//   VVV = version
+//   MMM = mode (debug ou non)
+//   PPP = plateforme
+//   LLL = extension d'une librairie ("a" ou "lib")
+//    |  = seperateur dans un path (/ sous Unix, \ sous NT)
+//
+//    ex : "telemac2d|tel2d_VVV|PPP|telemac2dMMMVVV.LLL"
+
+NOM = 'DESCRIPTION DES LIBRAIRIES'
+NOM1 = 'DESCRIPTION OF LIBRARIES'
+TYPE = CARACTERE
+INDEX = 54
+MNEMO = 'LINKLIBS'
+TAILLE = 6
+DEFAUT = 'telemac2d|tel2d_VVV|PPP|telemac2dMMMVVV.LLL';
+'sisyphe|sisyphe_VVV|PPP|sisypheMMMVVV.LLL';
+'special|special_VVV|PPP|specialMMMVVV.LLL';
+'bief|bief_VVV|PPP|biefMMMVVV.LLL';
+'damocles|damo_VVV|PPP|damoMMMVVV.LLL';
+'paravoid|paravoid_VVV|PPP|paravoidMMMVVV.LLL'
+
+
+DEFAUT1 = 'telemac2d|tel2d_VVV|PPP|telemac2dMMMVVV.LLL';
+'sisyphe|sisyphe_VVV|PPP|sisypheMMMVVV.LLL';
+'special|special_VVV|PPP|specialMMMVVV.LLL';
+'bief|bief_VVV|PPP|biefMMMVVV.LLL';
+'damocles|damo_VVV|PPP|damoMMMVVV.LLL';
+'paravoid|paravoid_VVV|PPP|paravoidMMMVVV.LLL'
+
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CALCUL'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATIONAL INFORMATION'
+NIVEAU = 1
+AIDE  = 'Description des librairies de T2D'
+AIDE1 = 'LIBRARIES description'
+
+//----Executable par defaut du code---------------------------------
+//
+//Conventions de notation :
+//   VVV = version
+//   MMM = mode (debug ou non)
+//   PPP = plateforme
+//    |  = separateur dans un path (/ sous Unix, \ sous NT)
+//
+//    ex : "telemac2d|tel2d_VVV|PPP|telemac2dMMMVVV.LLL"
+
+NOM = 'EXECUTABLE PAR DEFAUT'
+NOM1 = 'DEFAULT EXECUTABLE'
+TYPE = CARACTERE
+INDEX = 57
+MNEMO = 'EXEDEF'
+TAILLE = 1
+DEFAUT  = 'telemac2d|tel2d_VVV|PPP|telemac2dMMMVVV.exe'
+DEFAUT1 = 'telemac2d|tel2d_VVV|PPP|telemac2dMMMVVV.exe'
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CALCUL'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATIONAL INFORMATION'
+NIVEAU = 1
+AIDE  = 'Executable par defaut de T2D'
+AIDE1 = 'Default executable for T2D'
+
+NOM = 'EXECUTABLE PARALLELE PAR DEFAUT'
+NOM1 = 'DEFAULT PARALLEL EXECUTABLE'
+TYPE = CARACTERE
+INDEX = 58
+MNEMO = 'EXEDEFPARA'
+TAILLE = 1
+DEFAUT  = 'telemac2d|tel2d_VVV|PPP|telemac2dMMMVVV_MP.exe'
+DEFAUT1 = 'telemac2d|tel2d_VVV|PPP|telemac2dMMMVVV_MP.exe'
+RUBRIQUE = 'ENTREES-SORTIES, GENERALITES';'CALCUL'
+RUBRIQUE1 = 'INPUT-OUTPUT, INFORMATION';'COMPUTATIONAL INFORMATION'
+NIVEAU = 1
+AIDE  = 'Executable parallele par defaut de T2D'
+AIDE1 = 'Default parallel executable for T2D'
+

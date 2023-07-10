@@ -1,0 +1,76 @@
+/---------------------------------------------------------------------
+/ ARTEMIS Version v7p4 nov 2017
+/---------------------------------------------------------------------
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,FICHIERS
+/---------------------------------------------------------------------
+/
+GEOMETRY FILE                    : 'geo_beach.slf'
+BOUNDARY CONDITIONS FILE         : 'geo_beach.cli'
+FORTRAN FILE                     :  f90
+/
+TOMAWAC OUTER SPECTRAL FILE      : 'tom_plage.spe'
+TOMAWAC OUTER RESULT FILE        : 'tom_plage.slf'
+TOMAWAC LIQUID BOUNDARY FILE     : 'tom_plage.lqd'
+/
+RESULTS FILE                     : 'art_plage.slf'
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GENERALITES
+/---------------------------------------------------------------------
+/
+TITLE = 'ARTEMIS - Coupling with TOMAWAC'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GRAPHIQUES ET LISTING
+/---------------------------------------------------------------------
+/
+WAVE HEIGHTS SMOOTHING           : NO
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  :'HS,ZF,C,CG,QB,INC'
+/
+/---------------------------------------------------------------------
+/ EQUATIONS CONDITIONS INITIALES
+/---------------------------------------------------------------------/
+/
+INITIAL CONDITIONS               : 'CONSTANT ELEVATION'
+INITIAL WATER LEVEL              : 0.0
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES
+/---------------------------------------------------------------------
+/
+/--------------------------------------------------------------------
+/ OPTIONS
+/--------------------------------------------------------------------
+MATRIX STORAGE =3
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES,SOLVEUR
+/---------------------------------------------------------------------
+/
+SOLVER =8
+/SOLVER =9
+/PARALLEL PROCESSORS = 12
+/
+NESTING WITHIN TOMAWAC OUTER MODEL = 2
+INSTANT FOR READING TOMAWAC SPECTRUM = 150000.0
+COORDINATES OF THE REFERENCE F SPECTRUM = 2920. ; 475.
+/
+/---------------------------------------------------------------------
+/ PHYSICAL PARAMETERS
+/---------------------------------------------------------------------
+/
+BREAKING                         : NO
+/
+MULTIDIRECTIONAL RANDOM WAVE     : YES
+/
+NUMBER OF PERIODS                : 1
+MINIMUM SPECTRAL PERIOD          : 5.
+MAXIMUM SPECTRAL PERIOD          : 40.
+/
+NUMBER OF DIRECTIONS             : 10
+MINIMUM ANGLE OF PROPAGATION     : -135.0
+MAXIMUM ANGLE OF PROPAGATION     : 225.0
+/
+AUTOMATIC TETAP CALCULATION       : YES

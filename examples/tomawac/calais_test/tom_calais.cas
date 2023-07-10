@@ -1,0 +1,115 @@
+/********************************************************************/
+/             FICHIER DES PARAMETRES DE TOMAWAC                      /
+/   MODELE DE TRANSFERT DES ETATS DE MER DU LARGE (OU SONT MESURES   /
+/   LES ETATS DE MER PAR LA BOUEE) VERS L'ENTREE DU PORT.            /
+/********************************************************************/
+/   Les mots-cles a modifier (eventuellement) sont les suivants :    /
+/                                                                    /
+/   (1) dans la rubrique FICHIERS :                                  /
+/   - FICHIER DES PARAMETRES qui est le nom de ce fichier.           /
+/   - FICHIER DES RESULTATS 2D qui est le fichier resultat principal /
+/   - FICHIER DES RESULTATS PONCTUELS qui contient les spectres de   /
+/                                     houle en quelques points.      /
+/                                                                    /
+/   (2) dans la rubrique CONDITIONS AUX LIMITES :                    /
+/   - HAUTEUR SIGNIFICATIVE AUX LIMITES : Hmo au large (metres)      /
+/   - FREQUENCE DE PIC AUX LIMITES : Frequence de pic au large (Hz)  /
+/   - DIRECTION PRINCIPALE 1 AUX LIMITES : direction vers ou va la   /
+/          houle du large (en degres par rapport au Nord)            /
+/          Exemple : 135 correspond a une houle qui va vers le Sud-  /
+/                    Est (c'est a dire qui vient du Nord-Ouest).     /
+/                                                                    /
+/   (3) dans la rubrique CONDITIONS INITIALES :                      /
+/   - COTE INITIALE DU PLAN D'EAU AU REPOS : niveau marin par rapport/
+/          au Zero Hydrographique (metres)                           /
+/   et eventuellement :                                              /
+/   - FREQUENCE DE PIC INITIALE : meme valeur qu'aux limites         /
+/   - DIRECTION PRINCIPALE 1 INITIALE : meme valeur qu'aux limites   /
+/                                                                    /
+/   NE PAS TOUCHER AUX AUTRES MOTS-CLES QUI SONT CORRECTS A PRIORI.  /
+/                                                                    /
+/********************************************************************/
+/--------------------------------------------------------------------/
+/     FICHIERS
+/--------------------------------------------------------------------/
+GEOMETRY FILE = './exterieur_calais.geo'
+BOUNDARY CONDITIONS FILE = './exterieur_calais.conlim'
+2D RESULTS FILE = './exterieur_calais.r2d'
+PUNCTUAL RESULTS FILE = 'exterieur_calais.spe'
+1D SPECTRA RESULTS FILE = 'test1D.txt'
+/--------------------------------------------------------------------/
+/ DIVERS ENTREES-SORTIES
+/--------------------------------------------------------------------/
+TITLE = 'TRAVAUX MARITIMES - MODELE D APPROCHE DU PORT'
+PERIOD FOR GRAPHIC PRINTOUTS = 20
+VARIABLES FOR 2D GRAPHIC PRINTOUTS = HM0,FM01,FPR5,DMOY,WD,POW
+PERIOD FOR LISTING PRINTOUTS = 12
+ABSCISSAE OF SPECTRUM PRINTOUT POINTS =
+562828.;563484.;563782.;564284.;564666.;564942.;565105.
+ORDINATES OF SPECTRUM PRINTOUT POINTS =
+370989.;369092.;368262.;366749.;365362.;364449.;363925.
+/--------------------------------------------------------------------/
+/ DISCRETISATION DU SPECTRE DIRECTIONNEL
+/--------------------------------------------------------------------/
+MINIMAL FREQUENCY = 0.06
+FREQUENTIAL RATIO = 1.09
+NUMBER OF FREQUENCIES = 23
+NUMBER OF DIRECTIONS = 24
+/--------------------------------------------------------------------/
+/ DISCRETISATION TEMPORELLE
+/--------------------------------------------------------------------/
+TIME STEP = 10.
+NUMBER OF TIME STEP = 100
+/--------------------------------------------------------------------/
+/ CONDITIONS AUX LIMITES
+/--------------------------------------------------------------------/
+LIMIT SPECTRUM MODIFIED BY USER = NO
+TYPE OF BOUNDARY DIRECTIONAL SPECTRUM = 6
+/-------------- Caracteristiques de la houle au large (a modifier) :
+BOUNDARY SIGNIFICANT WAVE HEIGHT = 4.0
+BOUNDARY PEAK FREQUENCY = 0.10
+BOUNDARY MAIN DIRECTION 1 = 135.
+/-------------
+BOUNDARY PEAK FACTOR = 3.3
+BOUNDARY ANGULAR DISTRIBUTION FUNCTION = 3
+BOUNDARY WEIGHTING FACTOR FOR ADF = 1.0
+BOUNDARY DIRECTIONAL SPREAD 1 = 3.
+/--------------------------------------------------------------------/
+/ CONDITIONS INITIALES
+/--------------------------------------------------------------------/
+/-------------- Caracteristiques du niveau marin (a modifier) :
+INITIAL STILL WATER LEVEL = 5.1
+/-------------
+TYPE OF INITIAL DIRECTIONAL SPECTRUM = 6
+INITIAL SIGNIFICANT WAVE HEIGHT = 1.0
+INITIAL PEAK FREQUENCY = 0.10
+INITIAL PEAK FACTOR = 3.3
+INITIAL ANGULAR DISTRIBUTION FUNCTION = 3
+INITIAL WEIGHTING FACTOR FOR ADF = 1.0
+INITIAL MAIN DIRECTION 1 =135.
+INITIAL DIRECTIONAL SPREAD 1 = 3
+/--------------------------------------------------------------------/
+/ OPTIONS DU CALCUL
+/--------------------------------------------------------------------/
+INFINITE DEPTH = NO
+SPHERICAL COORDINATES = NO
+CONSIDERATION OF A STATIONARY CURRENT = NO
+/--------------------------------------------------------------------/
+/ TERMES SOURCES ET PUITS D ENERGIE
+/--------------------------------------------------------------------/
+CONSIDERATION OF SOURCE TERMS = YES
+/- - - - - - - - - - - - - - - - - - - -
+/ Terme-source de generation par le vent
+/- - - - - - - - - - - - - - - - - - - -
+CONSIDERATION OF A WIND = NO
+/- - - - - - - - - - - - - - - - - - - -
+/ Terme-puits de frottement sur le fond
+/- - - - - - - - - - - - - - - - - - - -
+BOTTOM FRICTION DISSIPATION = 1
+/- - - - - - - - - - - - - - - - - - - - - - - - - - -
+/ Terme-puits de deferlement en faible profondeur d'eau
+/- - - - - - - - - - - - - - - - - - - - - - - - - - -
+DEPTH-INDUCED BREAKING DISSIPATION = 1
+NUMBER OF BREAKING TIME STEPS = 4
+DEPTH-INDUCED BREAKING 1 (BJ) HM COMPUTATION METHOD = 2
+DEPTH-INDUCED BREAKING 1 (BJ) COEFFICIENT GAMMA1 = 1.2

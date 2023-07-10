@@ -1,0 +1,103 @@
+/----------------------------------------------------------------------
+/
+/ Steering file for the hydrodynamics: TELEMAC-2D
+/
+TITLE = 'MASS-EXCHANGES'
+/
+/----------------------------------------------------------------------
+/  FILES
+/----------------------------------------------------------------------
+/
+GEOMETRY FILE                = 'geo_longflume.slf'
+BOUNDARY CONDITIONS FILE     = 'geo_longflume.cli'
+RESULTS FILE                 = 'r2d_massexchanges.slf'
+/
+/----------------------------------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------------------------------
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  = 'U,V,H,B,S,T1'
+/
+GRAPHIC PRINTOUT PERIOD          = 60
+LISTING PRINTOUT PERIOD          = 60
+MASS-BALANCE                     = YES
+TIME STEP                        = 1.
+NUMBER OF TIME STEPS             = 10800
+INFORMATION ABOUT SOLVER         = YES
+/
+/----------------------------------------------------------------------
+/  TRACER(S)
+/----------------------------------------------------------------------
+/
+DIFFUSION OF TRACERS                 = NO
+/COEFFICIENT FOR DIFFUSION OF TRACERS = 0.
+/
+/----------------------------------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------------------------------
+/
+ORIGINAL DATE OF TIME      = 2016;12;2
+ORIGINAL HOUR OF TIME      = 0;0;0
+INITIAL TIME SET TO ZERO   = YES
+/
+COMPUTATION CONTINUED      = YES
+PREVIOUS COMPUTATION FILE  = 'ini_longflume.slf'
+/
+INITIAL VALUES OF TRACERS  = 2.E-2
+/
+/----------------------------------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------------------------------
+/
+PRESCRIBED FLOWRATES          = 0.0    ;  300
+PRESCRIBED ELEVATIONS         = 6.6265 ;  0.0
+VELOCITY PROFILES             = 1      ;  1
+/
+CONTINUITY CORRECTION      = YES
+/
+/ BOUND1 ( TEMPERATURE ); BOUND2 ...
+PRESCRIBED TRACERS VALUES  =     0.0   ;  2.E-2
+/
+/----------------------------------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------------------------------
+/
+TIDAL FLATS = NO
+/
+LAW OF BOTTOM FRICTION  = 4
+FRICTION COEFFICIENT    = 0.025
+/
+TURBULENCE MODEL        = 1
+/
+/ VELOCITY DIFFUSIVITY  = 1.
+/ OPTION FOR THE DIFFUSION OF VELOCITIES = 2
+/
+/----------------------------------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------------------------------
+/
+DISCRETIZATIONS IN SPACE        = 11;11
+TYPE OF ADVECTION               =  1;5;4
+SUPG OPTION                     =  1;0;1
+/
+FREE SURFACE GRADIENT COMPATIBILITY   = 0.9
+IMPLICITATION FOR DEPTH               = 1.0
+IMPLICITATION FOR VELOCITY            = 1.0
+/
+MASS-LUMPING ON H = 1
+H CLIPPING = YES
+/ MINIMUM VALUE OF DEPTH = 0.001
+/
+SOLVER ACCURACY                         = 1.E-8
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER = 250
+/
+/----------------------------------------------------------------------
+/  THERMIC PROCESS
+/----------------------------------------------------------------------
+/
+COUPLING WITH                = 'KHIONE'
+KHIONE STEERING FILE         = 'ice_massexchanges.cas'
+ASCII ATMOSPHERIC DATA FILE  = 't2d_massexchanges_meteo.lqd'
+/
+/----------------------------------------------------------------------
+/

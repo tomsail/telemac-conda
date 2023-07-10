@@ -1,0 +1,96 @@
+\chapter{Flow in a channel with slope and friction (friction)}
+
+\section{Description}
+
+This example shows that \telemac{2D} is able to simulate a flow in a channel
+with mild slope and friction.
+
+The configuration is a straight channel 410~km long and 450~m wide
+with a mild slope ($z = -1.8536585365.10^{-5}x-4$),
+see Figure \ref{t2d:Friction:fig:bottom}.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Bottom.png}
+ \caption{Bottom elevation.}
+ \label{t2d:Friction:fig:bottom}
+\end{figure}
+
+\subsection{Initial and boundary conditions}
+
+The computation is initialised with a constant elevation equal to -9~m
+and no velocity.
+
+The boundary conditions are:
+\begin{itemize}
+\item For the solid walls, a slip condition on channel banks is used for the
+velocities,
+\item On the bottom, a Strickler law with friction coefficient equal to
+70~m$^{1/3}$/s is prescribed,
+\item Upstream a flowrate equal to 6,000~m$^3$/s is prescribed,
+\item Downstream the water level is suggested to be equal to 0~m.
+\end{itemize}
+
+Boundary conditions types can be seen in Figure \ref{t2d:Friction:fig:BC}.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/BC.png}
+ \caption{Boundary conditions types.}
+ \label{t2d:Friction:fig:BC}
+\end{figure}
+
+\subsection{Mesh and numerical parameters}
+
+The mesh is made of 10,524 triangular elements (7,317 nodes),
+see zooms around inlet and outlet of the mesh in Figures
+\ref{t2d:Friction:fig:meshin} and \ref{t2d:Friction:fig:meshout}.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Meshin.png}
+ \caption{Zoom of the mesh at the inlet.}
+ \label{t2d:Friction:fig:meshin}
+\end{figure}
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Meshout.png}
+ \caption{Zoom of the mesh at the outlet.}
+ \label{t2d:Friction:fig:meshout}
+\end{figure}
+
+The simulated period is 55,000~s (around 15~h~17~min).
+
+To solve the advection, the HLLC finite volume scheme is used with a desired Courant number equal to 0.8.
+
+\subsection{Physical parameters}
+
+No diffusion is chosen for this computation (constant horizontal viscosity for
+velocity equal to 0.~m$^2$/s).
+
+\section{Results}
+
+The flow establishes a steady flow, see Figures \ref{t2d:Friction:freesurf} and
+\ref{t2d:Friction:velovect}.
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurface.png}
+\caption{Free surface elevation at final time step.}
+\label{t2d:Friction:freesurf}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.9\textwidth]}{../img/Velocity.png}
+\caption{Magnitude of velocity at final time step with vectors.}
+\label{t2d:Friction:velovect}
+\end{figure}
+
+% Comparison with the analytical solution to be done
+
+\section{Conclusions}
+
+This example shows that \telemac{2D} is able to simulate a flow
+in a channel with mild slope and friction.

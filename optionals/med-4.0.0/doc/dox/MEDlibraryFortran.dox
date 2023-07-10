@@ -1,0 +1,54 @@
+/**\ingroup MEDlibraryFortran
+   \fn subroutine mlbclo(integer cret)
+   \brief \MEDlibraryCloseBrief
+   \param cret \error
+   \see MEDlibraryClose
+   \details \MEDlibraryCloseDetails
+*/
+
+
+/**\ingroup MEDlibraryFortran
+   \fn subroutine mlbstv(character*(*) version , integer cret)
+   \brief \MEDlibraryStrVersionBrief
+   \param version \medversion
+   \param cret \error
+   \see MEDlibraryStrVersion
+   \details \MEDlibraryStrVersionDetails
+*/
+
+/**\ingroup MEDlibraryFortran
+   \fn subroutine mlbhsv(character*(*) version , integer cret)
+   \brief \MEDlibraryHdfStrVersionBrief
+   \param version \hdfversion
+   \param cret \error
+   \see MEDlibraryHdfStrVersion
+   \details \MEDlibraryHdfStrVersionDetails
+*/
+
+/**\ingroup MEDlibraryFortran
+   \fn subroutine  mlbnuv(integer major, integer minor, integer rel, integer cret)
+   \brief \MEDlibraryNumVersionBrief
+   \param major \major	
+   \param minor \minor
+   \param rel \release
+   \param cret \error
+   \see MEDlibraryNumVersion
+   \details \MEDlibraryNumVersionDetails
+*/
+
+/**\ingroup MEDlibraryFortran
+   \fn subroutine mlbhnv(integer major, integer minor, integer rel, integer cret)
+   \brief \MEDlibraryHdfNumVersionBrief
+   \param major \major	
+   \param minor \minor
+   \param rel \release
+   \param cret \error
+   \see MEDlibraryHdfNumVersion
+   \details \MEDlibraryHdfNumVersionDetails
+*/
+
+
+
+
+
+

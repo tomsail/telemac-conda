@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier:  Fichier source de MEDmodeAcces.hxx</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_4355a2d485e74099746b5ef7b7753b0d.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">MEDmodeAcces.hxx</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="a00780.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#ifndef MED_MODE_ACCES_HXX</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#define MED_MODE_ACCES_HXX</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">// extern &quot;C&quot; {</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// }</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a00780_a2d83a9d6677f42e2572510c1a14e58ed.html#a2d83a9d6677f42e2572510c1a14e58ed">   26</a></span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>   <a class="code" href="a00780_a2d83a9d6677f42e2572510c1a14e58ed.html#a2d83a9d6677f42e2572510c1a14e58ed">keyType</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a00780_a3b738aae65d83b23269ec308fa53f7ab.html#a3b738aae65d83b23269ec308fa53f7ab">   27</a></span>&#160;<span class="keyword">typedef</span> <a class="code" href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85">med_access_mode</a>  <a class="code" href="a00780_a3b738aae65d83b23269ec308fa53f7ab.html#a3b738aae65d83b23269ec308fa53f7ab">valueType</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a00539.html">   29</a></span>&#160;<span class="keyword">class </span><a class="code" href="a00539.html">MED_MODE_ACCES</a> : <span class="keyword">public</span> std::map&lt; keyType, valueType &gt; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">static</span> <a class="code" href="a00539.html">MED_MODE_ACCES</a>&amp; <a class="code" href="a00539_a1d3c80ca7f5255412e50a715c4cde265.html#a1d3c80ca7f5255412e50a715c4cde265">Instance</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">private</span> :</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a00539_a8adebdd2f2c50a2709fa8306a6d12db3.html#a8adebdd2f2c50a2709fa8306a6d12db3">   35</a></span>&#160;  <a class="code" href="a00539_a8adebdd2f2c50a2709fa8306a6d12db3.html#a8adebdd2f2c50a2709fa8306a6d12db3">MED_MODE_ACCES</a>(){};</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a00539_a2ad84ef6aa428d3408c39236bc98d2b2.html#a2ad84ef6aa428d3408c39236bc98d2b2">   36</a></span>&#160;  <a class="code" href="a00539_a2ad84ef6aa428d3408c39236bc98d2b2.html#a2ad84ef6aa428d3408c39236bc98d2b2">MED_MODE_ACCES</a>(<span class="keyword">const</span> <a class="code" href="a00539.html">MED_MODE_ACCES</a> &amp;){};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="a00539_af5a5125216d753ec89d51507fa708360.html#af5a5125216d753ec89d51507fa708360">~MED_MODE_ACCES</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> <a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">valueType</a> <a class="code" href="a00780_a164e08458e79a3449afad64d2d0f46d5.html#a164e08458e79a3449afad64d2d0f46d5">getModeAcces</a>(<a class="code" href="a00532.html">keyType</a>);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a>   <a class="code" href="a00780_a9a0c7c5d90ec931eb185612b91153b20.html#a9a0c7c5d90ec931eb185612b91153b20">setModeAcces</a>(<a class="code" href="a00532.html">keyType</a>,<a class="code" href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">valueType</a>);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba_html_abd29d7c6abaef5da2a5ed1b73464f0ba"><div class="ttname"><a href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a></div><div class="ttdeci">herr_t med_err</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00327">med.h:327</a></div></div>
+<div class="ttc" id="a00539_html"><div class="ttname"><a href="a00539.html">MED_MODE_ACCES</a></div><div class="ttdef"><b>Definition:</b> <a href="a00780_source.html#l00029">MEDmodeAcces.hxx:29</a></div></div>
+<div class="ttc" id="a00539_a1d3c80ca7f5255412e50a715c4cde265_html_a1d3c80ca7f5255412e50a715c4cde265"><div class="ttname"><a href="a00539_a1d3c80ca7f5255412e50a715c4cde265.html#a1d3c80ca7f5255412e50a715c4cde265">MED_MODE_ACCES::Instance</a></div><div class="ttdeci">static MED_MODE_ACCES &amp; Instance()</div></div>
+<div class="ttc" id="a00780_a2d83a9d6677f42e2572510c1a14e58ed_html_a2d83a9d6677f42e2572510c1a14e58ed"><div class="ttname"><a href="a00780_a2d83a9d6677f42e2572510c1a14e58ed.html#a2d83a9d6677f42e2572510c1a14e58ed">keyType</a></div><div class="ttdeci">unsigned long keyType</div><div class="ttdef"><b>Definition:</b> <a href="a00780_source.html#l00026">MEDmodeAcces.hxx:26</a></div></div>
+<div class="ttc" id="a00577_adcd0322de9fec3b5e199ffeda3f44c85_html_adcd0322de9fec3b5e199ffeda3f44c85"><div class="ttname"><a href="a00577_adcd0322de9fec3b5e199ffeda3f44c85.html#adcd0322de9fec3b5e199ffeda3f44c85">med_access_mode</a></div><div class="ttdeci">med_access_mode</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00118">med.h:118</a></div></div>
+<div class="ttc" id="a00780_a3b738aae65d83b23269ec308fa53f7ab_html_a3b738aae65d83b23269ec308fa53f7ab"><div class="ttname"><a href="a00780_a3b738aae65d83b23269ec308fa53f7ab.html#a3b738aae65d83b23269ec308fa53f7ab">valueType</a></div><div class="ttdeci">med_access_mode valueType</div><div class="ttdef"><b>Definition:</b> <a href="a00780_source.html#l00027">MEDmodeAcces.hxx:27</a></div></div>
+<div class="ttc" id="a00539_a2ad84ef6aa428d3408c39236bc98d2b2_html_a2ad84ef6aa428d3408c39236bc98d2b2"><div class="ttname"><a href="a00539_a2ad84ef6aa428d3408c39236bc98d2b2.html#a2ad84ef6aa428d3408c39236bc98d2b2">MED_MODE_ACCES::MED_MODE_ACCES</a></div><div class="ttdeci">MED_MODE_ACCES(const MED_MODE_ACCES &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="a00780_source.html#l00036">MEDmodeAcces.hxx:36</a></div></div>
+<div class="ttc" id="a00780_a9a0c7c5d90ec931eb185612b91153b20_html_a9a0c7c5d90ec931eb185612b91153b20"><div class="ttname"><a href="a00780_a9a0c7c5d90ec931eb185612b91153b20.html#a9a0c7c5d90ec931eb185612b91153b20">setModeAcces</a></div><div class="ttdeci">med_err setModeAcces(keyType, valueType)</div></div>
+<div class="ttc" id="a00780_a164e08458e79a3449afad64d2d0f46d5_html_a164e08458e79a3449afad64d2d0f46d5"><div class="ttname"><a href="a00780_a164e08458e79a3449afad64d2d0f46d5.html#a164e08458e79a3449afad64d2d0f46d5">getModeAcces</a></div><div class="ttdeci">valueType getModeAcces(keyType)</div></div>
+<div class="ttc" id="a00532_html"><div class="ttname"><a href="a00532.html">keyType</a></div><div class="ttdef"><b>Definition:</b> <a href="a00624_source.html#l00025">MEDfieldChecked.hxx:25</a></div></div>
+<div class="ttc" id="a00539_af5a5125216d753ec89d51507fa708360_html_af5a5125216d753ec89d51507fa708360"><div class="ttname"><a href="a00539_af5a5125216d753ec89d51507fa708360.html#af5a5125216d753ec89d51507fa708360">MED_MODE_ACCES::~MED_MODE_ACCES</a></div><div class="ttdeci">~MED_MODE_ACCES()</div></div>
+<div class="ttc" id="a00577_html"><div class="ttname"><a href="a00577.html">med.h</a></div></div>
+<div class="ttc" id="a00577_a23f7fa6d76886ed3c91dc33b59190dee_html_a23f7fa6d76886ed3c91dc33b59190dee"><div class="ttname"><a href="a00577_a23f7fa6d76886ed3c91dc33b59190dee.html#a23f7fa6d76886ed3c91dc33b59190dee">med_bool</a></div><div class="ttdeci">med_bool</div><div class="ttdef"><b>Definition:</b> <a href="a00577_source.html#l00257">med.h:257</a></div></div>
+<div class="ttc" id="a00539_a8adebdd2f2c50a2709fa8306a6d12db3_html_a8adebdd2f2c50a2709fa8306a6d12db3"><div class="ttname"><a href="a00539_a8adebdd2f2c50a2709fa8306a6d12db3.html#a8adebdd2f2c50a2709fa8306a6d12db3">MED_MODE_ACCES::MED_MODE_ACCES</a></div><div class="ttdeci">MED_MODE_ACCES()</div><div class="ttdef"><b>Definition:</b> <a href="a00780_source.html#l00035">MEDmodeAcces.hxx:35</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

@@ -1,0 +1,75 @@
+/----------------------------------------------------------------------/
+/  COUPLED TELEMAC3D AND GAIA                                          /
+/----------------------------------------------------------------------/
+/
+/ DEBUGGER=1
+/
+TITLE = 'Simple telemac3d coupling with gaia'
+/
+/----------------------------------------------------------------------/
+/ DATA
+/----------------------------------------------------------------------/
+GEOMETRY FILE            : 'geo_slope.slf'
+BOUNDARY CONDITIONS FILE : 'geo_slope.cli'
+/FORTRAN FILE             : 'tidal_flume_mud.f'
+RESULTS FILE             : 'gai_tidal_flats.slf'
+/
+/----------------------------------------------------------------------/
+/   SEDIMENT TRANSPORT
+/----------------------------------------------------------------------/
+INITIAL SUSPENDED SEDIMENTS CONCENTRATION VALUES = 0.0
+PRESCRIBED SUSPENDED SEDIMENTS CONCENTRATION VALUES  = 0.D0
+CLASSES TYPE OF SEDIMENT : CO
+/
+ADVECTION-DIFFUSION SCHEME WITH SETTLING VELOCITY = 1 / SET_DIF scheme
+/SUSPENSION FOR ALL SANDS = no
+/SUSPENSION TRANSPORT FORMULA FOR ALL SANDS  = 4 - does not work?
+/BED LOAD FOR ALL SANDS                     = yes
+/BED-LOAD TRANSPORT FORMULA FOR ALL SANDS   = 5
+/
+CLASSES SEDIMENT DENSITY = 2650.0
+/CLASSES SEDIMENT DIAMETERS = -9
+/CLASSES INITIAL FRACTION = 1.D0;0.D0
+CLASSES SETTLING VELOCITIES = 0.001
+/
+NUMBER OF LAYERS FOR INITIAL STRATIFICATION = 1
+LAYERS MASS TRANSFER = 0.D0
+SKIN FRICTION CORRECTION =0
+LAYERS CRITICAL EROSION SHEAR STRESS OF THE MUD = 0.01
+/only in 2D CRITICAL SHEAR STRESS FOR DEPOSITION = 1.e4
+LAYERS PARTHENIADES CONSTANT = 0.4E-4
+LAYERS MUD CONCENTRATION = 500.D0
+LAYERS NON COHESIVE BED POROSITY =  0.375
+/
+EFFECT OF WAVES                            = NO
+SLOPE EFFECT                               = YES
+FORMULA FOR SLOPE EFFECT                   = 1
+BETA                                       = 1.3
+/
+/----------------------------------------------------------------------/
+/ SOLUTION INFO                                                        /
+/----------------------------------------------------------------------/
+/ MORPHOLOGICAL FACTOR           = 1
+/----------------------------------------------------------------------/
+/ OUTPUTS
+/----------------------------------------------------------------------/
+VARIABLES FOR GRAPHIC PRINTOUTS ='U,V,H,B,CS1,SVZ1,N,P,E,1A1,1ES,C2DS1'
+MASS-BALANCE         = YES
+/----------------------------------------------------------------------/
+/ NUMERICAL STUFF
+/----------------------------------------------------------------------/
+FINITE VOLUMES       = NO
+THETA IMPLICITATION FOR SUSPENSION      = 0.5
+SCHEME FOR ADVECTION OF SUSPENDED SEDIMENTS = 13
+SCHEME OPTION FOR ADVECTION OF SUSPENDED SEDIMENTS = 1
+MAXIMUM NUMBER OF ITERATIONS FOR SOLVER FOR SUSPENSION = 50
+SOLVER FOR DIFFUSION OF SUSPENSION = 3
+/
+/----------------------------------------------------------------------/
+/  PHYSICAL PARAMETERS
+/----------------------------------------------------------------------/
+COEFFICIENT FOR HORIZONTAL DIFFUSION OF SUSPENDED SEDIMENTS    = 0.01
+COEFFICIENT FOR VERTICAL DIFFUSION OF SUSPENDED SEDIMENTS      = 1.E-6
+TIDAL FLATS                                   = YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS       = 1
+MINIMAL VALUE OF THE WATER HEIGHT             = 0.1

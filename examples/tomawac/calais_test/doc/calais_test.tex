@@ -1,0 +1,79 @@
+\chapter{Calais}
+%
+% - Purpose & Problem description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved and specify how the numerical solution will be validated
+%
+\section{Purpose}
+%
+This test case has been exhibited from an old version. It has got mainly one
+interest, to compare results from version 5P8 to the new version.  
+
+%
+\section{Description of the problem}
+We simulate waves around the harbour of Calais coming from offshore. 
+At the boundary, the significative heigth is 4m the frequency peak 0.1 and the
+direction of 135 degree.
+
+We discretize with 23 frequencies and 24 directions. The mesh is shown on
+picture \ref{figcalaismesh}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/mesh.png}
+ \caption{Mesh of the neighborood of Calais.}
+\label{figcalaismesh}
+\end{figure}
+
+\section{Results and Comments}
+
+If one run the validation with an old version of the code, one will see a
+difference of 11 degree on direction in results, 11 Watt on Power and 0.5 m
+on wave heigth. But as we can see on figure  \ref{figcalaishm0}, 
+\ref{figcalaishm0v6p0}, \ref{figcalaishm0v5p8},this is not the case when
+observing global results. Anyway those differences come from changes made in
+the characteristics, so now we take as the reference the results computed with
+version 7.2. 
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/hm0.png}
+ \caption{Wave height for last version.}
+\label{figcalaishm0}
+\end{figure}
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/hm0v6p0.png}
+ \caption{Wave height for V6p0 version.}
+\label{figcalaishm0v6p0}
+\end{figure}
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/hm0v5p8.png}
+ \caption{Wave height for V5p8 version.}
+\label{figcalaishm0v5p8}
+\end{figure}
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/direction.png}
+ \caption{Direction for last version.}
+\label{figcalaisdirection}
+\end{figure}
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/directionv6p0.png}
+ \caption{Direction for V6P0  version.}
+\label{figcalaisdirectionV6P0}
+\end{figure}
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/power.png}
+ \caption{Power for last version.}
+\label{figcalaispower}
+\end{figure}
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/powerv5p8.png}
+ \caption{Power for V5P8 version.}
+\label{figcalaispowerv5P8}
+\end{figure}

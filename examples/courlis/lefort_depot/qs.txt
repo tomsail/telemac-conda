@@ -1,0 +1,12 @@
+Cavalcade : apports en m3/ temps = 0.158215611 m3/s
+Excel : Lefort 2014 avec prise en compte des vides (V=Vs/(1-n))
+o Formule de Strickler Kp = 37.9 / 0.157947407  (2.6%) direct via Ks et Kr 
+o Kpeau = 25 0.166966056 (5.24%) direct via Ks et Kr 
+o via q* : 0.158134374 (0.05%)
+
+Apport sans vide : 0.118460555369359 m3/s soit 3.13920472 kg/m3
+
+n=0.25
+rho = 2 650kg/m3
+Q=100 m3/s
+

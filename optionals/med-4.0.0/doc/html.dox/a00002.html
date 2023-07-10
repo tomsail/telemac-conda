@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: parallel/generateDatas.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">parallel/generateDatas.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="a00591.html">med_utils.h</a>&quot;</span></div>
+<div class="line"></div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> <a name="a0"></a><a class="code" href="a00555_a0bbaba1d730b123d4b99dfc60d4a999f.html#a0bbaba1d730b123d4b99dfc60d4a999f">_identity</a>  (<span class="keywordtype">int</span> i)  { <span class="keywordflow">return</span> i; }</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> * <a name="a1"></a><a class="code" href="a00555_abfb96a5e05988075c686896750a49e48.html#abfb96a5e05988075c686896750a49e48">profilearray_global</a>;</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> <a name="a2"></a><a class="code" href="a00555_ac89bb4ff61111cc8106b8141709e730a.html#ac89bb4ff61111cc8106b8141709e730a">_withprofilearray</a>(<span class="keywordtype">int</span> i) {</div>
+<div class="line">  <span class="keywordflow">return</span> (<a class="code" href="a00555_abfb96a5e05988075c686896750a49e48.html#abfb96a5e05988075c686896750a49e48">profilearray_global</a>[i]-1);</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="comment">/*Les données générées, le sont uniquement aux endroits utilisés */</span></div>
+<div class="line"><span class="keywordtype">void</span> <a name="a3"></a><a class="code" href="a00555_aacb98bb0155d664e9d8a9626b9144bc3.html#aacb98bb0155d664e9d8a9626b9144bc3">generateFullIDatas</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> myrank, <span class="keyword">const</span> <span class="keywordtype">int</span> lastrank, <span class="keyword">const</span> <span class="keywordtype">int</span> sizeoftype,</div>
+<div class="line">                        <span class="keyword">const</span> <a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8d">med_storage_mode</a> profilemode, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> profilesize, <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> * <span class="keyword">const</span> profilearray,</div>
+<div class="line">                        <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> start, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> stride, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> count, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> blocksize, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> lastblocksize,</div>
+<div class="line">                        <span class="keyword">const</span> <span class="keywordtype">int</span> nentities, <span class="keyword">const</span> <span class="keywordtype">int</span> nvaluesperentity, <span class="keyword">const</span> <span class="keywordtype">int</span> nconstituentpervalue,</div>
+<div class="line">                        <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> ** valuesarray ) {</div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> _start=start-1,_blockstart = 0,_blocksize=blocksize,_allblocksize=0,_index=0;</div>
+<div class="line">  <a name="a4"></a><a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>  (*_profilearrayfunc)(int)=0;</div>
+<div class="line">  <span class="keywordtype">int</span> _blocknum=0,_i=0,_j=0,_k=0;</div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="a00555_abfb96a5e05988075c686896750a49e48.html#abfb96a5e05988075c686896750a49e48">profilearray_global</a> = profilearray;</div>
+<div class="line">  </div>
+<div class="line">  <span class="keywordflow">if</span> (profilesize) {</div>
+<div class="line">    <span class="keywordflow">if</span> ( profilearray == NULL ) { <a name="a5"></a><a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Error, profilesize &gt; 0 &amp;&amp; profilearray == 0&quot;</span>); }</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Using a profile...&quot;</span>);</div>
+<div class="line">    _profilearrayfunc = <a class="code" href="a00555_ac89bb4ff61111cc8106b8141709e730a.html#ac89bb4ff61111cc8106b8141709e730a">_withprofilearray</a>;</div>
+<div class="line">  } <span class="keywordflow">else</span> {</div>
+<div class="line">    _profilearrayfunc = <a class="code" href="a00555_a0bbaba1d730b123d4b99dfc60d4a999f.html#a0bbaba1d730b123d4b99dfc60d4a999f">_identity</a>;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">switch</span>(profilemode) {</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">case</span> <a name="a6"></a><a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8da75948cc18980c808e34f1c8177207197">MED_GLOBAL_STMODE</a> :</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/*       ISCRUTE(lastblocksize); */</span></div>
+<div class="line">    <span class="comment">/*En mode global on n&#39;a normalement pas besoin de prendre en compte les profils. Il ne peut pas y en avoir.</span></div>
+<div class="line"><span class="comment">      Celà n&#39;a pas de sens sauf si la sélection demandée est un seul block !</span></div>
+<div class="line"><span class="comment">      Tous les processus possèdent le tableau global. */</span></div>
+<div class="line">    *valuesarray = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) calloc(nentities*nvaluesperentity*nconstituentpervalue,sizeoftype);</div>
+<div class="line">    <span class="keywordflow">for</span> (_blocknum=0; _blocknum&lt; count; ++_blocknum) {</div>
+<div class="line">      _blockstart=_blocknum*stride;</div>
+<div class="line">      <span class="comment">/*        ISCRUTE(_blockstart); */</span></div>
+<div class="line">      <span class="keywordflow">if</span> ( (count &gt; 1) &amp;&amp; (_blocknum == (count-1) ) &amp;&amp; (myrank == lastrank) ) _blocksize=lastblocksize;</div>
+<div class="line">      <span class="comment">/*        ISCRUTE(_blocksize); */</span></div>
+<div class="line">      <span class="keywordflow">for</span> (_i=0; _i&lt;_blocksize; ++_i)</div>
+<div class="line">        <span class="keywordflow">for</span> (_j=0; _j &lt; nvaluesperentity; ++_j)</div>
+<div class="line">          <span class="keywordflow">for</span> (_k=0; _k &lt; nconstituentpervalue; ++_k) {</div>
+<div class="line">            _index = _profilearrayfunc(_start+_blockstart+_i)*nvaluesperentity*nconstituentpervalue</div>
+<div class="line">              +_j*nconstituentpervalue+_k;</div>
+<div class="line">            (*valuesarray)[_index]= (myrank+1)*1000+_blocknum*100+_i+0.1*_j+0.01*_k;</div>
+<div class="line">            <span class="comment">/*      ISCRUTE(_index); */</span></div>
+<div class="line">            <span class="comment">/*      RSCRUTE((*valuesarray)[_index]); */</span></div>
+<div class="line"></div>
+<div class="line">          }</div>
+<div class="line">    }</div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">case</span> <a name="a7"></a><a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8dae0059ae013bcbd618f9d688a4f15354c">MED_COMPACT_STMODE</a> :</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/*Idem avec ou sans profil*/</span></div>
+<div class="line">    <span class="keywordflow">if</span> ( (myrank == lastrank) ) _allblocksize=blocksize*count+lastblocksize; <span class="keywordflow">else</span> _allblocksize = blocksize*count;</div>
+<div class="line">    *valuesarray = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) calloc(_allblocksize*nvaluesperentity*nconstituentpervalue,sizeoftype);</div>
+<div class="line"></div>
+<div class="line">    _index = 0;</div>
+<div class="line">    <span class="keywordflow">for</span> (_blocknum=0; _blocknum&lt; count; ++_blocknum) {</div>
+<div class="line">      <span class="keywordflow">if</span> ( (count &gt; 1) &amp;&amp; (_blocknum == (count-1) ) &amp;&amp; (myrank == lastrank) ) _blocksize=lastblocksize;</div>
+<div class="line">      <span class="keywordflow">for</span> (_i=0; _i&lt;_blocksize; ++_i)</div>
+<div class="line">        <span class="keywordflow">for</span> (_j=0; _j &lt; nvaluesperentity; ++_j)</div>
+<div class="line">          <span class="keywordflow">for</span> (_k=0; _k &lt; nconstituentpervalue; ++_k) {</div>
+<div class="line">            (*valuesarray)[_index]= (myrank+1)*1000+_blocknum*100+_i+0.1*_j+0.01*_k;</div>
+<div class="line">            <span class="comment">/*      ISCRUTE(_index); */</span></div>
+<div class="line">            <span class="comment">/*      RSCRUTE((*valuesarray)[_index]); */</span></div>
+<div class="line">            _index++;</div>
+<div class="line">          }</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line">  <span class="keywordflow">default</span>:</div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line">  }</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> <a name="a8"></a><a class="code" href="a00555_aa5abc2daa1769bad363d8d7d935a3249.html#aa5abc2daa1769bad363d8d7d935a3249">generateNoIDatas</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> myrank, <span class="keyword">const</span> <span class="keywordtype">int</span> lastrank, <span class="keyword">const</span> <span class="keywordtype">int</span> sizeoftype,</div>
+<div class="line">                      <span class="keyword">const</span> <a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8d">med_storage_mode</a> storagemode, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> profilearraysize, <span class="keyword">const</span> <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> * <span class="keyword">const</span> profilearray,</div>
+<div class="line">                      <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> start, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> stride, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> count, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> blocksize, <span class="keyword">const</span> <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> lastblocksize,</div>
+<div class="line">                      <span class="keyword">const</span> <span class="keywordtype">int</span> nentities, <span class="keyword">const</span> <span class="keywordtype">int</span> nvaluesperentity, <span class="keyword">const</span> <span class="keywordtype">int</span> nconstituentpervalue,</div>
+<div class="line">                      <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> ** valuesarray ) {</div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="a00577_abc4b2f6b68a545b7b3441b0d3d860629.html#abc4b2f6b68a545b7b3441b0d3d860629">med_size</a> _start=start-1,_blockstart = 0,_blocksize=blocksize,_allblocksize=0,_index=0,_dim=0;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>  (*_profilearrayfunc)(int)=0;</div>
+<div class="line">  <span class="keywordtype">int</span> _blocknum=0,_i=0,_j=0,_k=0;</div>
+<div class="line">  <a class="code" href="a00555_abfb96a5e05988075c686896750a49e48.html#abfb96a5e05988075c686896750a49e48">profilearray_global</a> = profilearray;</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">if</span> (profilearraysize) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Using a profile...&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">if</span> ( profilearray == NULL ) {<a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Error, profilearraysize &gt; 0 &amp;&amp; profilearray == 0&quot;</span>); }</div>
+<div class="line">    _profilearrayfunc = <a class="code" href="a00555_ac89bb4ff61111cc8106b8141709e730a.html#ac89bb4ff61111cc8106b8141709e730a">_withprofilearray</a>;</div>
+<div class="line">  } <span class="keywordflow">else</span> {</div>
+<div class="line">    _profilearrayfunc = <a class="code" href="a00555_a0bbaba1d730b123d4b99dfc60d4a999f.html#a0bbaba1d730b123d4b99dfc60d4a999f">_identity</a>;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">switch</span>(storagemode) {</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">case</span> <a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8da75948cc18980c808e34f1c8177207197">MED_GLOBAL_STMODE</a> :</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/*En mode global on n&#39;a normalement pas besoin de prendre en compte les profils. Il ne peut pas y en avoir.</span></div>
+<div class="line"><span class="comment">      Celà n&#39;a pas de sens sauf si la sélection demandée est un seul block !</span></div>
+<div class="line"><span class="comment">      Tous les processus possèdent le tableau global. */</span></div>
+<div class="line">    *valuesarray = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) calloc(nentities*nvaluesperentity*nconstituentpervalue,sizeoftype);</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">for</span> (_dim=0; _dim&lt; nconstituentpervalue; ++_dim) {</div>
+<div class="line">      _blocksize = blocksize;</div>
+<div class="line">      <span class="keywordflow">for</span> (_blocknum=0; _blocknum&lt; count; ++_blocknum) {</div>
+<div class="line">        _blockstart=_blocknum*stride;</div>
+<div class="line">        <span class="keywordflow">if</span> ( (count &gt; 1) &amp;&amp; (_blocknum == (count-1) ) &amp;&amp; (myrank == lastrank) ) _blocksize=lastblocksize;</div>
+<div class="line">        <span class="keywordflow">for</span> (_i=0; _i&lt;_blocksize; ++_i)</div>
+<div class="line">          <span class="keywordflow">for</span> (_j=0; _j &lt; nvaluesperentity; ++_j) {</div>
+<div class="line">            _index = ( _dim*nentities</div>
+<div class="line">                       +_profilearrayfunc(_start+_blockstart+_i) )</div>
+<div class="line">              *nvaluesperentity + _j;</div>
+<div class="line">            (*valuesarray)[_index]= (myrank+1)*1000+_blocknum*100+_i+0.1*_j+0.01*_dim;</div>
+<div class="line">            <span class="comment">/*      ISCRUTE(_index); */</span></div>
+<div class="line">            <span class="comment">/*      RSCRUTE((*valuesarray)[_index]); */</span></div>
+<div class="line">          }</div>
+<div class="line">      }</div>
+<div class="line">    }</div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">case</span> <a class="code" href="a00577_a3f7b3a3c5ddcaba3fa1741a367503c8d.html#a3f7b3a3c5ddcaba3fa1741a367503c8dae0059ae013bcbd618f9d688a4f15354c">MED_COMPACT_STMODE</a> :</div>
+<div class="line">    <span class="keywordflow">if</span> ( (myrank == lastrank) ) _allblocksize=blocksize*count+lastblocksize; <span class="keywordflow">else</span> _allblocksize = blocksize*count;</div>
+<div class="line">    *valuesarray = (<a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> *) calloc(_allblocksize*nvaluesperentity*nconstituentpervalue,sizeoftype);</div>
+<div class="line"></div>
+<div class="line">    _index = 0;</div>
+<div class="line">    <span class="keywordflow">for</span> (_dim=0; _dim&lt; nconstituentpervalue; ++_dim) {</div>
+<div class="line">      _blocksize = blocksize;</div>
+<div class="line">      <span class="keywordflow">for</span> (_blocknum=0; _blocknum&lt; count; ++_blocknum) {</div>
+<div class="line">        <span class="keywordflow">if</span> ( (count &gt; 1) &amp;&amp; (_blocknum == (count-1) ) &amp;&amp; (myrank == lastrank) ) _blocksize=lastblocksize;</div>
+<div class="line">        <span class="keywordflow">for</span> (_i=0; _i&lt;_blocksize; ++_i)</div>
+<div class="line">          <span class="keywordflow">for</span> (_j=0; _j &lt; nvaluesperentity; ++_j) {</div>
+<div class="line">            (*valuesarray)[_index]= (myrank+1)*1000+_blocknum*100+_i+0.1*_j+0.01*_dim;</div>
+<div class="line">            <span class="comment">/*      ISCRUTE(_index); */</span></div>
+<div class="line">            <span class="comment">/*      RSCRUTE((*valuesarray)[_index]); */</span></div>
+<div class="line">            _index++;</div>
+<div class="line">          }</div>
+<div class="line">      }</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line">  <span class="keywordflow">default</span>:</div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line">  }</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

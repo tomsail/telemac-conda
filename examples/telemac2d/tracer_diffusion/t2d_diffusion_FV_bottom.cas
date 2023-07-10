@@ -1,0 +1,86 @@
+/-------------------------------------------------------------------/
+/                        TELEMAC-2D
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+/DEBUGGER = 1
+/
+FORTRAN FILE                    = 'user_fortran_bottom'
+GEOMETRY FILE                   = geo_flume_sym.slf
+BOUNDARY CONDITIONS FILE        = geo_flume_sym_dir.cli
+RESULTS FILE                    = r2d_flume.slf
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE : 'FLUME TRACER DIFFUSION FV'
+/
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,S,B,Q,F,H,T*,T1*,N,O'
+/
+GRAPHIC PRINTOUT PERIOD         = 1
+LISTING PRINTOUT PERIOD         = 1000
+/
+DURATION                        = 10
+VARIABLE TIME-STEP              = YES
+DESIRED COURANT NUMBER          = 0.9
+DESIRED FOURIER NUMBER          = 0.9
+/
+/MASS-BALANCE                    = YES
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS              = 'CONSTANT ELEVATION'
+INITIAL ELEVATION               = 1.0
+/
+/----------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------
+/
+PRESCRIBED FLOWRATES            = 0.0;0.0
+PRESCRIBED ELEVATIONS           = 1.0;1.0
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 0
+/
+DIFFUSION OF VELOCITY           = True
+VELOCITY DIFFUSIVITY            = 0.
+/
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+EQUATIONS                       = 'SAINT-VENANT FV'
+FINITE VOLUME SCHEME            = 5
+FINITE VOLUME SCHEME SPACE ORDER= 1
+FINITE VOLUME SCHEME TIME ORDER = 1
+H CLIPPING                      = NO
+/
+/----------------------------------------------
+/  TRACER
+/----------------------------------------------
+/
+NUMBER OF TRACERS               = 2
+NAMES OF TRACERS                = 'TRACER 1'; 'TRACER 2'
+/
+INITIAL VALUES OF TRACERS       = 0.; 0.
+PRESCRIBED TRACERS VALUES       = 0.0;0.0 ; 0.0;0.0
+/
+DIFFUSION OF TRACERS            = True
+COEFFICIENT FOR DIFFUSION OF TRACERS = 1.;1.
+MASS-BALANCE = YES
+/
+/----------------------------------------------
+/  TRACER ANALYTIC SOLUTION
+/----------------------------------------------
+/
+NUMBER OF PRIVATE ARRAYS = 2
+NAMES OF PRIVATE VARIABLES = 'SOL T1'; 'SOL T2'

@@ -1,0 +1,104 @@
+/
+/                   COUPLAGE SISYPHE-TELEMAC2D
+/           FICHIER DE DECLARATION DES MOTS CLES DU CODE
+/                           TELEMAC 2D
+/
+/ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+/
+/ Dell 2.8 GHz Linux, comp. pgi :    5 s version 5.7 JMH 09/05/2007
+/ HP C3700, compilateur HP      :  5.5 s version 5.7 CV  07/05/2007
+/ HP C3700, compilateur Nag     :    6 s version 5.7 JMH 09/05/2007
+/
+/ Dell 2.8 GHz Linux, comp. pgi :    5 s version 5.8 JMH 18/01/2008
+/ HP C3700, compilateur HP      :    7 s version 5.8 JMH 09/01/2008
+/ HP C3700, compilateur Nag     :   14 s version 5.8 JMH 23/01/2008
+/
+/ Version 5.9 (reference faite sur HP)
+/
+/ Difference entre compilateurs sur U due a un debut de tourbillon
+/ de Karman sur la pile de pont a la sortie.
+/
+/ HP C3700, compilateur HP        : 6 s version CV  24/12/2008
+/ Dell 2.8 GHz Linux, comp. Intel : 3 s version JMH 29/12/2008
+/
+/ Version 6.0
+/
+/ HP C3700, compilateur HP  : 11 s JMH 29/09/2009
+/ HP C3700, compilateur Nag : 18 s JMH 08/12/2009
+/ Dell 2.8 GHz Linux, Intel :  3 s JMH 10/12/2009
+/
+/ HP C3700, compilateur HP  : 7 s CV   02/06/2010
+/ Dell 2.8 GHz Linux, Intel :  4 s CV 10/05/2010
+/
+/ Version 6.1
+/
+/ HP C3700, compilateur HP  : 7 s JMH 26/04/2011 (reference refaite)
+/ Dell 2.8 GHz Linux, Intel : 2 s CV  21/03/2011
+/ HP C3700, compilateur Nag : 15s CV  31/03/2011
+/  HP Z600 Linux, comp. Intel: 2 s MS  21/07/2011 (reference refaite)
+/ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+/
+/  FICHIERS
+/ ----------
+/
+BOUNDARY CONDITIONS FILE  : geo_epi-en-riviere.cli
+GEOMETRY FILE             : geo_epi-en-riviere.slf
+RESULTS FILE              : r2d_epi-en-riviere.slf
+LIQUID BOUNDARIES FILE    : t2d_epi-en-riviere.qsl
+PREVIOUS COMPUTATION FILE : ini_epi-en-riviere.slf
+SISYPHE STEERING FILE     : sis_epi-en-riviere.cas
+/
+/ CALCULS
+/ +++++++
+/
+TITLE :'Epi en riviere'
+/
+COUPLING WITH : 'SISYPHE'
+COUPLING PERIOD FOR SISYPHE= 1
+/
+COMPUTATION CONTINUED : YES
+/ pour avoir les memes pas de temps que pour les sorties Sisyphe
+/  -- >REMISE A ZERO DU TEMPS = YES
+/
+/ ENTREE - SORTIES
+/ ++++++++++++++++
+TIME STEP = 2.5
+NUMBER OF TIME STEPS = 200
+GRAPHIC PRINTOUT PERIOD = 100
+LISTING PRINTOUT PERIOD = 100
+VARIABLES FOR GRAPHIC PRINTOUTS = U,V,H,S,B,K,E,D
+/
+MASS-BALANCE = YES
+/
+/ PARAMETRES NUMERIQUES
+/ ---------------------
+TIDAL FLATS = YES
+OPTION FOR THE TREATMENT OF TIDAL FLATS = 1
+CONTINUITY CORRECTION : YES
+TREATMENT OF NEGATIVE DEPTHS : 2
+MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES = 20
+MASS-LUMPING ON H : 1.
+TYPE OF ADVECTION = 1;5
+SUPG OPTION         = 1;0
+FREE SURFACE GRADIENT COMPATIBILITY : 0.9
+SOLVER : 7
+SOLVER OPTION : 3
+SOLVER ACCURACY = 1.E-6
+/
+/ TURBULENCE - LOI DE FROTTEMENT
+/---------------------------------
+LAW OF BOTTOM FRICTION = 3
+FRICTION COEFFICIENT = 50.
+TURBULENCE MODEL = 1
+VELOCITY DIFFUSIVITY = 0.1
+/
+/ CONDITIONS INITIALES - AUX LIMITES
+/ ----------------------------------
+PRESCRIBED FLOWRATES = 0.;1200.
+PRESCRIBED ELEVATIONS = 258.;0.
+INITIAL ELEVATION = 258.
+INITIAL CONDITIONS = 'CONSTANT ELEVATION'
+OPTION FOR LIQUID BOUNDARIES : 1;1
+/
+/ DEFAULT VALUE UNTIL V8P1 KEPT FOR NON REGRESSION
+TREATMENT OF THE LINEAR SYSTEM = 1

@@ -1,0 +1,91 @@
+/DEBUGGER = 1
+/======================================================================
+/ Sisyphe: Wesel-Xanten minimalistic nw97 Q(Wesel)
+/ The Rhine River, Rhein-km 812.5 - 821.5
+/======================================================================
+SECONDARY CURRENTS = YES
+SECONDARY CURRENTS ALPHA COEFFICIENT = 1.0
+/SECONDARY CURRENTS = NO
+BOUNDARY CONDITIONS FILE                     = geo_yen-exp.cli
+PRESCRIBED SOLID DISCHARGES                  = 0.0;0.0
+GEOMETRY FILE                                = geo_yen-exp.slf
+RESULTS FILE                                 = gai_cvsm_6.slf
+/----------------------------------------------
+/  GENERAL AND OUTPUT
+/----------------------------------------------
+TITLE : 'Yen-180-bend'
+VARIABLES FOR GRAPHIC PRINTOUTS =
+'U,V,S,E,H,B,KS,TOB,M,N,P,1A*,2A*,*ES,D50'
+/
+/----------------------------------------------
+/ SISYPHE NUMERICAL ALGORITHMS
+/----------------------------------------------
+/
+MASS-BALANCE                             = YES
+ZERO                                     = 1e-12
+/MINIMAL VALUE OF THE WATER HEIGHT        = 0.001
+/
+/----------------------------------------------
+/ PHYSICAL PARAMETERS - HYDRODYNAMICS
+/----------------------------------------------
+/
+/FRICTION COEFFICIENT = 65.
+/LAW OF BOTTOM FRICTION = 0
+/ 0: wird berechnet: ks = 3*D50
+/ 1: wird berechnet: ks : max(3*d50, ripple height)
+/
+/----------------------------------------------
+/ PHYSICAL PARAMETERS - BED LOAD
+/----------------------------------------------
+BED LOAD FOR ALL SANDS = YES
+SUSPENSION FOR ALL SANDS = NO
+BED-LOAD TRANSPORT FORMULA FOR ALL SANDS       = 1
+CLASSES SHIELDS PARAMETERS = 0.047;0.047;0.047;0.047;0.047
+LAYERS NON COHESIVE BED POROSITY          = 0.37500
+CLASSES TYPE OF SEDIMENT = NCO;NCO;NCO;NCO;NCO
+CLASSES SEDIMENT DENSITY = 2650.;2650.;2650.;2650.;2650.
+CLASSES SETTLING VELOCITIES = -9;-9;-9;-9;-9
+NUMBER OF LAYERS FOR INITIAL STRATIFICATION = 1
+/
+CLASSES SEDIMENT DIAMETERS =
+0.00031;0.00064;0.00103;0.00169;0.00336
+CLASSES INITIAL FRACTION       =
+0.2;0.2;0.2;0.2;0.2
+CONSTANT ACTIVE LAYER THICKNESS                  = NO
+ACTIVE LAYER THICKNESS                           = 0.10D0
+/
+SLOPE EFFECT = YES
+FORMULA FOR DEVIATION  = 2
+PARAMETER FOR DEVIATION = 0.85
+FORMULA FOR SLOPE EFFECT = 2
+FRICTION ANGLE OF THE SEDIMENT = 35
+/----------------------------------------------
+/ PHYSICAL PARAMETERS - CONTINUOUS VERTICAL SORTING MODEL
+/----------------------------------------------
+VERTICAL GRAIN SORTING MODEL = 1
+/   0 = Layer = HR-VSM (HIRANO + RIBBERINK)
+/   1 = C-VSM
+C-VSM MAXIMUM SECTIONS = 100
+/   Should be at least 4 + 4x Number of fractions,
+/   better > 100, tested up to 10000
+C-VSM FULL PRINTOUT PERIOD = 18000
+/   0 => GRAPHIC PRINTOUT PERIOD
+/   Anything greater 0 => Sets an own printout period for the CVSP
+/   useful to save disk space!!!
+C-VSM RESULTS FILE = 'vsp_res_6.slf'
+C-VSM RESULTS FILE FORMAT = SERAFIND
+C-VSM PRINTOUT SELECTION = '0'
+/C-VSM PRINTOUT SELECTION = -1
+/   e.g. 0|251|3514|1118|1750|2104|3316|1212
+/   Add any 2D Mesh Point numbers for .CSV-Ascii output of the CVSP
+/   Add -1 for "nothing" = Standard
+/   Add 0 for full CVSP output as Selafin3D files
+ACTIVE LAYER THICKNESS FORMULA = 6
+/   'MODEL FOR DYNMIC ACTIVE LAYER THICKNESS APROXIMATION’
+/   0 = CONSTANT (Uses Keyword: ACTIVE LAYER THICKNESS)
+/   1 = Hunziker & Guenther
+/   2 = Fredsoe & Deigaard (1992)
+/   3 = van RIJN (1993)
+/   4 = Wong (2006)
+/   5 = Malcharek (2003)
+/   6 = 3*d50 within last time steps ALT'

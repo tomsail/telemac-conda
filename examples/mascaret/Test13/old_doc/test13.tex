@@ -1,0 +1,102 @@
+\documentclass[a4paper,10pt]{article}
+
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P0}
+
+\subsection*{Validation des noyaux de calcul transitoire}
+
+\subsection*{\emph{Cas d'un modèle capacitif réservoir / évacuateur de crue}}
+
+\subsection*{Numéro du cas test : 13}
+
+\subsection*{Auteur : N. GOUTAL }
+
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+	Ce cas test a pour but de valider les noyaux de calcul transitoires dans le cas d'un modèle capacitif réservoir / évacuateur de crue. La configuration choisie est très particulière. L'onde d'entrée est une onde de crue très lente (24 heures), le bief est court et sa profondeur est élevée donc les termes d'accélération sont négligeables et la vitesse de propagation des perturbations est très rapide. De plus, le fond est supposé horizontal et il n'y a pas de frottement. Le bief représenté va donc se comporter comme un réservoir (dont les variables caractéristiques sont le débit d'entrée, le débit de sortie, et la cote de la surface), stockant de l'eau pendant la première partie de la crue (tant que la cote monte), puis la déstockant ensuite (à partir du moment où la cote descend), jusqu'à revenir à l'état initial. Les modèles les plus simples de propagation de crue sont basés sur cette schématisation (dont le résultat essentiel est la capacité d'où le terme de "modèle capacitif"). 
+
+
+
+\subsection*{Données géométriques}
+
+	Le calcul est réalisé dans une retenue rectangulaire de pente nulle, de longueur $4\mbox{ }km$, de largeur $1\mbox{ }km$ et de profondeur $20\mbox{ } m$. La géométrie du canal est décrite par 2 profils en travers situés aux abscisses $X = 0\mbox{ }m$ et $X = 4000\mbox{ } m$.
+
+\subsection*{Données physiques}
+
+Prise en compte du frottement : non.
+
+\begin{itemize} 
+ \item Conditions aux limites :
+  \begin{itemize}
+  \item Débit imposé à l'amont (onde de crue lente de période 24h)
+  \item Loi hauteur : débit à l'aval (simulation du fonctionnement d'un déversoir $Q = aH^{3/2}$) 
+  \end{itemize}
+ \item Conditions initiales :
+ 	\begin{itemize}
+ 	\item ligne d'eau correspondant à un écoulement par une cote constante égale à $30\mbox{ }m$ et un débit constant égal à $1118.03\mbox{ }m^3.s^{-1}$
+  \end{itemize}
+\end{itemize} 
+
+
+
+\subsection*{Données numériques}
+
+Le domaine a été divisé en 39 mailles de longueur constante égale à $100\mbox{ } m$.\\
+Le pas de planimétrage est homogène dans le domaine égal à $2\mbox{ } m$ (40 pas de planimétrage).\\
+Le pas de temps est de $300\mbox{ } s$ avec le noyau fluvial transitoire et le calcul est mené pendant 24 h.
+
+
+\subsection*{Résultats}
+
+Le modèle est un modèle de stockage. Une solution quasi-analytique peut être calculée (voir\footnote{A. Lebossé,\emph{Codes de calcul d'écoulement à surface libre filiaire "LIDO", "SARA" et "REZO"-Note de validation}, Rapport HE-43/92/065/B, 1992} pour le détail des calculs). On peut déterminer le temps d'atteinte du maximum dans la retenue. Ce point correspond à la pointe de débit aval et correspond également au moment où le débit amont devient inférieur au débit aval.\\ 
+La figure~\ref{fig1} présente les hydrogrammes en 3 points du bief ($X = 0\mbox{ }m$, $X = 2000\mbox{ }m$, $X = 4000\mbox{ }m$). Le temps d'obtention théorique du débit maximal $5800\mbox{ } m^3.s^{-1}$ à l'aval est de $43 200\mbox{ }s$. Le temps correspondant  calculé avec les 2 noyaux de calcul est $43 200\mbox{ }s$ pour un débit de $5800\mbox{ } m^3.s^{-1}$ et une cote horizontale égale à $39.99\mbox{ }m$ pour une cote analytique égale à $40\mbox{ }m$.\\
+On remarque que les pics des hydrogrammes sont assez rapprochés, ce qui montre bien que les perturbations se propagent très rapidement car dans ce cas la propagation est liée à la hauteur d'eau de la retenue.\\
+Les résultats ont été comparés (figure~\ref{fig2}) avec le noyau transcritique implicite. Le noyau transcritique est stable pour des pas de temps de $30\mbox{ }s$. Ce qui correspond à un nombre de Courant de 5. La comparaison entre les deux schémas est tout-à-fait satisfaisante 
+
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=12.5cm]{Figure1.eps}
+  \caption{Evolution temporelle du débit pour le noyau transitoire fluvial}
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=270,width=12.5cm]{Figure2.eps}
+  \caption{Evolution temporelle du débit pour $x= \mbox{ } 4000m$}
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+
+
+\subsection*{Conclusion}
+
+Le noyau de calcul transitoire fournit des résultats identiques aux versions précédentes. On vérifie bien que le temps d'obtention du débit maximal à l'amont  est identique à celui de la version précédente. De plus, les 2 schémas donnent des résultats similaires. 
+
+
+
+
+
+%
+% fin du document
+%
+\end{document}          

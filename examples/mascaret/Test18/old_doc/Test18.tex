@@ -1,0 +1,112 @@
+\documentclass[a4paper,10pt]{article}
+
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P0}
+
+\subsection*{Validation du noyau de calcul permanent et transcritique}
+
+\subsection*{\emph{Ecoulement torrentiel dans un déversoir}}
+
+\subsection*{Numéro du cas test : 18}
+
+\subsection*{Auteur : N. Goutal}
+
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+Ce cas test a pour but de valider le noyau de calcul en régime permanent et transcritique, dans le cas d'un écoulement fortement torrentiel avec un ressaut à l'aval déterminé par la condition limite aval. La longueur du canal est de $240\mbox{ } m$. Le débit est introduit par 18 apports latéraux en début de canal (zone à plus faible pente). 
+
+\subsection*{Données géométriques}
+
+Le canal est réalisé dans un canal à forte pente. Un premier tronçon d'une longueur de 60 m à une pente de $8 \%$ et le second d'une longueur de $1300\mbox{ } m$ une pente de $25 \%$. 
+Le tronçon aval est quasiment horizontal. 
+
+\subsection*{Données physiques}
+Prise en compte du frottement : oui
+\begin{itemize} 
+ \item Coefficient de Strickler, lit mineur :
+  \begin{itemize}
+  \item  $75\mbox{ }m^{1/3}.s^{-1}$ dans la première partie du canal ($0- 191\mbox{ }m$)
+  \item $5\mbox{ }m^{1/3}.s^{-1}$ dans la zone aval ($0- 191\mbox{ }m$)
+  \end{itemize}
+ \item Conditions aux limites : 
+  \begin{itemize}
+  \item Cote imposée à l'aval égale à $744.874\mbox{ } m $ 
+  \item Débit imposé à l'amont constant et égal à $6.13\mbox{ } m^3.s^{-1}$
+  \end{itemize}
+ \item Condition initiale : aucune
+ \item Débit d'apport : 18 débits d'apport linéique répartis entre $0$ et $60\mbox{ }m$ et égaux chacun à $4.06\mbox{ } m^3.s^{-1}$ 
+\end{itemize}
+
+\vspace{0.3cm}
+
+\subsection*{Données numériques}
+
+Le domaine a été divisé en plusieurs zones de maillage :
+
+\begin{itemize}
+ \item $0<x< 66 m\mbox{ }m$       $DX = 1\mbox{ }m$ 
+ \item $66<x<190\mbox{ }m$    $DX = 2\mbox{ }m$
+ \item $190<x< 240\mbox{ }m$ $DX = 4\mbox{ }m$
+\end{itemize}
+
+Le pas de planimétrage est homogène dans le domaine égal à $0.1\mbox{ }m$ 
+
+\subsection*{Résultats}
+
+Les figures suivantes comparent les différentes variables (Cotes, Débit et le nombre de Froude) obtenues avec le noyau permanent à celle obtenues avec le noyau  transitoire transcritique. Les deux noyaux donnent des résultats quasi - identiques. Le ressaut est bien positionné, la référence est le résultat du calcul avec le noyau transcritique. 
+Le noyau transcritique présente un pic de débit au droit du ressaut. Ce problème est présent dans tous les cas tests avec le noyau transcritique (voir test Ecoulement au dessus d'un seuil) . 
+
+\subsection*{Conclusion}
+
+Ce cas a permis de valider le noyau permanent pour des écoulements très torrentiels (nombre de Froude supérieur à 5). 
+
+
+
+
+\newpage
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure1.eps}
+  \caption{Comparaison des cotes calculées}
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure2.eps}
+  \caption{Comparaison des débits}
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Figure3.eps}
+  \caption{Comparaison des nombres de Froude}
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+
+%
+% fin du document
+%
+\end{document}          

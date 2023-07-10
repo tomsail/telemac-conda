@@ -1,0 +1,66 @@
+/-------------------------------------------------------------------/
+/                        TELEMAC-2D
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+/DEBUGGER = 1
+/
+FORTRAN FILE                    = 'user_fortran'
+BOUNDARY CONDITIONS FILE        = geo_cone.cli
+GEOMETRY FILE                   = geo_cone.slf
+RESULTS FILE                    = r2d_cone_diffusion.slf
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE : 'CONE TRACER DIFFUSION EF'
+/
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,S,B,Q,F,H,T*,T1*'
+/
+GRAPHIC PRINTOUT PERIOD         = 100
+LISTING PRINTOUT PERIOD         = 100
+/
+DURATION                        = 10
+TIME STEP                       = 0.01
+/
+/MASS-BALANCE                    = YES
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS              = 'CONSTANT ELEVATION'
+INITIAL ELEVATION               = 1.0
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 0
+/
+DIFFUSION OF VELOCITY           = True
+VELOCITY DIFFUSIVITY            = 0.
+/
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+H CLIPPING                      = NO
+/
+/----------------------------------------------
+/  TRACER
+/----------------------------------------------
+/
+NUMBER OF TRACERS               = 2
+NAMES OF TRACERS                = 'TRACER 1'; 'TRACER 2'
+/
+INITIAL VALUES OF TRACERS       = 0.; 0.
+/
+DIFFUSION OF TRACERS            = True
+COEFFICIENT FOR DIFFUSION OF TRACERS = 1.;1.
+MASS-BALANCE = YES
+/

@@ -1,0 +1,54 @@
+////////////////////////////////////////////////////////////////////////
+/// 1-computation environment
+/// 1.1-initialization
+TITLE = 'Non-Newtonian Pseudo-Biphasic'
+INITIAL CONDITIONS = 'CONSTANT ELEVATION'
+INITIAL ELEVATION = 1.0
+/// 1.1.1-input files
+GEOMETRY FILE = 'geo_pseudo_biphasic.slf'
+FORTRAN FILE = 'user_fortran_pb'
+BOUNDARY CONDITIONS FILE = 'geo_pseudo_biphasic.cli'
+/// 1.2-output files
+/// 1.2.1-results files
+GRAPHIC PRINTOUT PERIOD = 300
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,B,H,N,O,R,T*'
+NUMBER OF PRIVATE ARRAYS = 3
+RESULTS FILE = 'r2d_pseudo_biphasic.slf'
+/// 1.2.2-listing
+LISTING PRINTOUT PERIOD = 1200
+MASS-BALANCE = True
+////////////////////////////////////////////////////////////////////////
+/// 2-hydro
+/// 2.1-boundary conditions
+PRESCRIBED ELEVATIONS = 1.0;0.0;0.0
+PRESCRIBED FLOWRATES = 0.0;2.0;4.0
+/// 2.2-physical parameters hydro
+/// 2.2.1-friction
+LAW OF BOTTOM FRICTION = 3
+FRICTION COEFFICIENT = 70.0
+/// 2.2.2-non-newtonian
+NON-NEWTONIAN MODEL = 1
+NON-NEWTONIAN VISCOSITY = 10.0
+NON-NEWTONIAN YIELD STRESS = 250.0
+NON-NEWTONIAN FLUID DENSITY = 3000.0
+NON-NEWTONIAN PSEUDO-BIPHASIC MODEL = True
+/// 2.3-numerical parameters hydro
+EQUATIONS = 'SAINT-VENANT FV'
+FINITE VOLUME SCHEME = 5
+////////////////////////////////////////////////////////////////////////
+/// 3-general parameters
+/// 3.1-time
+DURATION = 900.0
+VARIABLE TIME-STEP = True
+DESIRED COURANT NUMBER = 0.8
+////////////////////////////////////////////////////////////////////////
+/// 4-numerical parameters
+/// 4.1-diffusion
+DIFFUSION OF VELOCITY = False
+////////////////////////////////////////////////////////////////////////
+/// 5-tracers
+/// 5.1-boundary conditions for tracers
+PRESCRIBED TRACERS VALUES = 0.0;0.0;0.5
+/// 5.2-setting
+INITIAL VALUES OF TRACERS = 0.0
+DIFFUSION OF TRACERS = False

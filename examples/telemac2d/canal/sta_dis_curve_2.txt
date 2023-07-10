@@ -1,0 +1,8 @@
+#
+# STAGE−DISCHARGE CURVE BOUNDARY 2
+#
+Q(2)  Z(2)
+m3/s  m
+49.   0.735
+50.   0.75
+51.   0.765

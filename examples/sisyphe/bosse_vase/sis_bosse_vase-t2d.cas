@@ -1,0 +1,82 @@
+/----------------------------------------------------------------------/
+/ TELEMAC-2D + SISYPHE: propagation of a bump with cohesive sediments  /
+/----------------------------------------------------------------------/
+/
+/----------------------------------------------------------------------/
+/  FILES                                                               /
+/----------------------------------------------------------------------/
+/
+/ --- GEOMETRY ---
+GEOMETRY FILE				= 'geo_bosse_vase-t2d.slf'
+BOUNDARY CONDITIONS FILE		= 'geo_bosse_vase-t2d.cli'
+/
+/ --- RESULTS ---
+RESULTS FILE FORMAT                     = SERAFIN
+RESULTS FILE				= 'sis_bosse_vase-t2d.slf'
+/
+/----------------------------------------------------------------------/
+/  GENERAL INFORMATIONS - OUTPUTS                                      /
+/----------------------------------------------------------------------/
+/
+TITLE = 'Propagation of a bump with cohesive sediments'
+VARIABLES FOR GRAPHIC PRINTOUTS = 
+'U,V,S,H,B,E,*ES,M,TOB,R,KS,TOB,MU,QS1,CS1'
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+COHESIVE SEDIMENTS = YES
+MUD CONSOLIDATION = NO
+BED LOAD  =  NO
+SUSPENSION =  YES
+/
+NUMBER OF SIZE-CLASSES OF BED MATERIAL = 1
+SEDIMENT DIAMETERS = 0.00006
+NUMBER OF LAYERS OF THE CONSOLIDATION MODEL = 10
+/
+INITIAL SUSPENSION CONCENTRATIONS     = 0.001
+CONCENTRATION PER CLASS AT BOUNDARIES = 0.001; 0.001
+/
+MUD CONCENTRATION PER LAYER :
+73.;106.;139.;172.;205.;238.;271.;300; 400; 500
+/
+/ -- EROSION FLUX --
+CRITICAL EROSION SHEAR STRESS OF THE MUD :
+0.00816605;0.0264398;0.05477861;0.0930092;0.14098592;
+0.19862961;0.29816415;0.46425147;0.68695285;0.82157461
+/
+/ -- DEPOSITION FLUX --
+/ see different cases
+/ no erosion no deposition
+/CRITICAL SHEAR VELOCITY FOR MUD DEPOSITION =  1000.D0
+/SETTLING VELOCITIES = 0.0
+/PARTHENIADES CONSTANT = 0.D-03
+/ only deposition
+/CRITICAL SHEAR VELOCITY FOR MUD DEPOSITION =  1000.D0
+/SETTLING VELOCITIES = 0.002
+/PARTHENIADES CONSTANT = 0.D-03
+/ only erosion 
+/CRITICAL SHEAR VELOCITY FOR MUD DEPOSITION =  1000.D0
+/SETTLING VELOCITIES = 0.000
+/PARTHENIADES CONSTANT = 0.1D-03
+/ erosion and deposition
+CRITICAL SHEAR VELOCITY FOR MUD DEPOSITION = 1000.D0
+SETTLING VELOCITIES = 0.002
+PARTHENIADES CONSTANT = 0.1D-03
+/
+/----------------------------------------------------------------------/
+/  NUMERICAL PARAMETERS                                                /
+/----------------------------------------------------------------------/
+/
+MASS-BALANCE                   = YES
+SOLVER ACCURACY                = 1.E-12
+MASS-LUMPING                   = YES
+ZERO                           = 1E-12
+TETA                           = 0.5
+TYPE OF ADVECTION              = 4
+SOLVER FOR SUSPENSION          = 1
+SOLVER ACCURACY FOR SUSPENSION = 1.E-10
+TREATMENT OF FLUXES AT THE BOUNDARIES = 2; 2
+/ -- Treatment of diffusion terms --
+DIFFUSION                                       = NO

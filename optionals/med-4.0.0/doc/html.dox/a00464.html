@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MED fichier: c/2.3.1/test10.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MED fichier
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.9.1 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Documentation&#160;MED</span></a></li>
+      <li><a href="pages.html"><span>Guides&#160;d'utilisation</span></a></li>
+      <li><a href="modules.html"><span>Guides&#160;de&#160;référence</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">c/2.3.1/test10.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><span class="comment">/*  This file is part of MED.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  COPYRIGHT (C) 1999 - 2019  EDF R&amp;D, CEA/DEN</span></div>
+<div class="line"><span class="comment"> *  MED is free software: you can redistribute it and/or modify</span></div>
+<div class="line"><span class="comment"> *  it under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment"> *  the Free Software Foundation, either version 3 of the License, or</span></div>
+<div class="line"><span class="comment"> *  (at your option) any later version.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  MED is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment"> *  but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment"> *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></div>
+<div class="line"><span class="comment"> *  GNU Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *  You should have received a copy of the GNU Lesser General Public License</span></div>
+<div class="line"><span class="comment"> *  along with MED.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"><span class="preprocessor">#define _a 0.446948490915965</span></div>
+<div class="line"><span class="preprocessor">#define _b 0.091576213509771</span></div>
+<div class="line"><span class="preprocessor">#define _p1 0.11169079483905</span></div>
+<div class="line"><span class="preprocessor">#define _p2 0.0549758718227661</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">/******************************************************************************</span></div>
+<div class="line"><span class="comment"> * - Nom du fichier : test10.c</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * - Description : ecriture de champs de resultats MED </span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> *****************************************************************************/</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00577.html">med.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#define MESGERR 1</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="a00591.html">med_utils.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#ifdef DEF_LECT_ECR</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_LECTURE_ECRITURE</span></div>
+<div class="line"><span class="preprocessor">#elif DEF_LECT_AJOUT</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_LECTURE_AJOUT</span></div>
+<div class="line"><span class="preprocessor">#else</span></div>
+<div class="line"><span class="preprocessor">#define MODE_ACCES MED_CREATION</span></div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#define USER_INTERLACE MED_FULL_INTERLACE</span></div>
+<div class="line"><span class="preprocessor">#define USER_MODE MED_COMPACT</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> <a name="a0"></a><a class="code" href="a00853_a3c04138a5bfe5d72780bb7e82a18e627.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">{</div>
+<div class="line">  <a class="code" href="a00577_abd29d7c6abaef5da2a5ed1b73464f0ba.html#abd29d7c6abaef5da2a5ed1b73464f0ba">med_err</a> ret=0;</div>
+<div class="line">  <a class="code" href="a00577_afa4ec8284026c8c5545e5333475fb65a.html#afa4ec8284026c8c5545e5333475fb65a">med_idt</a> fid;</div>
+<div class="line">  </div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Maillage support aux champs*/</span></div>
+<div class="line">  <span class="comment">/* Ces maillages sont vides*/</span></div>
+<div class="line">  <span class="keywordtype">char</span> maa1[MED_TAILLE_NOM+1]= <span class="stringliteral">&quot;maa1&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> maa2[MED_TAILLE_NOM+1]= <span class="stringliteral">&quot;maa2&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> * lien_maa2 = <span class="stringliteral">&quot;./testfoo.med&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> maa3[MED_TAILLE_NOM+1]= <span class="stringliteral">&quot;maa3&quot;</span>;</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Caractéristiques du champ n° 1 sur TRIA6 */</span></div>
+<div class="line">  <span class="keywordtype">char</span> nomcha1[MED_TAILLE_NOM+1]  = <span class="stringliteral">&quot;champ reel&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> comp1[2*MED_TAILLE_PNOM+1] = <span class="stringliteral">&quot;comp1           comp2           &quot;</span>;</div>
+<div class="line">                                   <span class="comment">/*12345678901234561234567890123456*/</span></div>
+<div class="line">  <span class="keywordtype">char</span> unit1[2*MED_TAILLE_PNOM+1] = <span class="stringliteral">&quot;unit1           unit2           &quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncomp1  = 2; </div>
+<div class="line">  <span class="comment">/* Caractéristiques du model n° 1 de localisation des points de gauss pour le champ n°1*/</span></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ngauss1_1 = 6;</div>
+<div class="line">  <span class="keywordtype">char</span> gauss1_1[MED_TAILLE_NOM+1]  = <span class="stringliteral">&quot;Model n1&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> refcoo1[12] = { -1.0,1.0, -1.0,-1.0, 1.0,-1.0, -1.0,0.0, 0.0,-1.0, 0.0,0.0 }; </div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Constantes */</span></div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> gscoo1_1[12] = { 2*<a name="a1"></a><a class="code" href="a00853_a411c254b9ecc678779ea0a0ff41880f5.html#a411c254b9ecc678779ea0a0ff41880f5">_b</a>-1, 1-4*<a class="code" href="a00853_a411c254b9ecc678779ea0a0ff41880f5.html#a411c254b9ecc678779ea0a0ff41880f5">_b</a>, 2*_b-1, 2*_b-1, 1-4*<a class="code" href="a00853_a411c254b9ecc678779ea0a0ff41880f5.html#a411c254b9ecc678779ea0a0ff41880f5">_b</a>, </div>
+<div class="line">                             2*_b-1, 1-4*<a name="a2"></a><a class="code" href="a00853_a66e8c69544bb616df4c032285a048027.html#a66e8c69544bb616df4c032285a048027">_a</a>, 2*_a-1, 2*_a-1, 1-4*<a class="code" href="a00853_a66e8c69544bb616df4c032285a048027.html#a66e8c69544bb616df4c032285a048027">_a</a>, 2*_a-1, 2*_a-1 }; </div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> wg1_1[6] = { 4*<a name="a3"></a><a class="code" href="a00853_a43574c809ac0f3c4b3055b8dbf3fcc63.html#a43574c809ac0f3c4b3055b8dbf3fcc63">_p2</a>, 4*<a class="code" href="a00853_a43574c809ac0f3c4b3055b8dbf3fcc63.html#a43574c809ac0f3c4b3055b8dbf3fcc63">_p2</a>, 4*<a class="code" href="a00853_a43574c809ac0f3c4b3055b8dbf3fcc63.html#a43574c809ac0f3c4b3055b8dbf3fcc63">_p2</a>, 4*<a name="a4"></a><a class="code" href="a00853_a61f8a0d9ca0645c5c5928f80f7500f33.html#a61f8a0d9ca0645c5c5928f80f7500f33">_p1</a>, 4*<a class="code" href="a00853_a61f8a0d9ca0645c5c5928f80f7500f33.html#a61f8a0d9ca0645c5c5928f80f7500f33">_p1</a>, 4*_p1 }; </div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>   nval1_1= 1*6; <span class="comment">/*1 valeurs et 6 points de gauss par valeur */</span></div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> valr1_1[1*6*2]  = {0.0,1.0, 2.0,3.0, 10.0,11.0, 12.0,13.0, 20.0,21.0, 22.0,23.0};  <span class="comment">/* 2 composantes*/</span></div>
+<div class="line">  <span class="comment">/* Caractéristiques du model n° 2 de localisation des points de gauss pour le champ n°1*/</span></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ngauss1_2 = 3;</div>
+<div class="line">  <span class="keywordtype">char</span> gauss1_2[MED_TAILLE_NOM+1]  = <span class="stringliteral">&quot;Model n2&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> gscoo1_2[6] = { -2.0/3,1.0/3, -2.0/3,-2.0/3, 1.0/3,-2.0/3  }; </div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> wg1_2[3] = { 2.0/3, 2.0/3, 2.0/3 }; </div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>   nval1_2= 2*3; <span class="comment">/*2 valeurs et 3 points de gauss par valeur */</span></div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> valr1_2[2*3*2]  = {0.0,1.0, 2.0,3.0, 10.0,11.0,   12.0,13.0, 20.0,21.0, 22.0,23.0};  <span class="comment">/* 2 composantes*/</span></div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> valr1_2p[2*3*2]  = {                              12.0,13.0, 20.0,21.0, 22.0,23.0};  <span class="comment">/* 2 composantes*/</span></div>
+<div class="line"> <span class="comment">/* Caractéristiques du model n° 3 sans points de gauss pour le champ n°1*/</span></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>   nval1_3= 6; <span class="comment">/*6 valeurs et pas de points de gauss */</span></div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> valr1_3[2*3*2]  = {0.0,1.0, 2.0,3.0, 10.0,11.0, 12.0,13.0, 20.0,21.0, 22.0,23.0};  <span class="comment">/* 2 composantes*/</span></div>
+<div class="line">  <a class="code" href="a00577_ab1eab99ca56ac95ce5b1c0e4ae0f095a.html#ab1eab99ca56ac95ce5b1c0e4ae0f095a">med_float</a> valr1_3p[2*2*2] = {         2.0,3.0, 10.0,11.0                                 };  <span class="comment">/* 2 composantes profil1 */</span></div>
+<div class="line">  </div>
+<div class="line">  <span class="comment">/* Caractéristiques du champ n° 2 */</span></div>
+<div class="line">  <span class="keywordtype">char</span> nomcha2[MED_TAILLE_NOM+1]  = <span class="stringliteral">&quot;champ entier&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> comp2[3*MED_TAILLE_PNOM+1] = <span class="stringliteral">&quot;comp1           comp2           comp3           &quot;</span>;</div>
+<div class="line">                                   <span class="comment">/*123456789012345612345678901234561234567890123456*/</span></div>
+<div class="line">  <span class="keywordtype">char</span> unit2[3*MED_TAILLE_PNOM+1] = <span class="stringliteral">&quot;unit1           unit2           unit3           &quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> ncomp2  = 3; </div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> nval2 = 5;   <span class="comment">/*5 valeurs */</span></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>   valr2[5*3  ]  = {0,1,2, 10,11,12, 20,21,22, 30,31,32, 40,41,42};              <span class="comment">/* 3 composantes*/</span></div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a>   valr2p[3*3  ] = {0,1,2,           20,21,22,           40,41,42};              <span class="comment">/* 3 composantes*/</span></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Profils utilisés */</span></div>
+<div class="line">  <span class="keywordtype">char</span> nomprofil1[MED_TAILLE_NOM+1]  = <span class="stringliteral">&quot;PROFIL(champ(1))&quot;</span>;</div>
+<div class="line">  <span class="keywordtype">char</span> nomprofil2[MED_TAILLE_NOM+1]  = <span class="stringliteral">&quot;PROFIL(champ2)&quot;</span>;</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> profil1[2] = { 2, 3 };</div>
+<div class="line">  <a class="code" href="a00577_a88dc15143f934cc7b771bc89f46372dc.html#a88dc15143f934cc7b771bc89f46372dc">med_int</a> profil2[3] = { 1, 3, 5 };</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* ouverture du fichier */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ((fid = MEDouvrir(<span class="stringliteral">&quot;test10.med&quot;</span>,<a name="a5"></a><a class="code" href="a00853_a29a43500a889d39744e184ece0d749be.html#a29a43500a889d39744e184ece0d749be">MODE_ACCES</a>)) &lt; 0){</div>
+<div class="line">    <a name="a6"></a><a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;ouverture du fichier : &quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> -1;</div>
+<div class="line">  }</div>
+<div class="line">  </div>
+<div class="line">  <span class="comment">/* creation de maa1 de dimension 3*/</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDmaaCr(fid,maa1,3,MED_NON_STRUCTURE,<span class="stringliteral">&quot;Maillage vide&quot;</span>) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à la création du maillage : &quot;</span>);<a name="a7"></a><a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa1);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* creation de maa3 de dimension 3*/</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDmaaCr(fid,maa3,3,MED_NON_STRUCTURE,<span class="stringliteral">&quot;Maillage vide&quot;</span>) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à la création du maillage : &quot;</span>);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa3);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line">    </div>
+<div class="line">  <span class="comment">/* creation du champ réel n°1 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDchampCr(fid,nomcha1,<a name="a8"></a><a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cdad44e111629f7a5811626b87c8b42b3ea">MED_FLOAT64</a>,comp1,unit1,ncomp1) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à la création du champ : &quot;</span>);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha1);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line">  </div>
+<div class="line">  <span class="comment">/* creation du champ entier n°2 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDchampCr(fid,nomcha2,<a name="a9"></a><a class="code" href="a00577_a5615eeaf85e0b3f40b74bdd24178f2cd.html#a5615eeaf85e0b3f40b74bdd24178f2cda85e4da6c28118e5123533970f8dae48d">MED_INT32</a>,comp2,unit2,ncomp2) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à la création du champ : &quot;</span>);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha2);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line">  </div>
+<div class="line">  <span class="comment">/* creation du lien au fichier distant contenant maa2 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDlienEcr(fid,lien_maa2,maa2) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à la création du lien : &quot;</span>);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(lien_maa2);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* creation de la localisation des points de Gauss modèle n°1 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDgaussEcr(fid, <a name="a10"></a><a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>, refcoo1, <a name="a11"></a><a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,</div>
+<div class="line">                  ngauss1_1, gscoo1_1, wg1_1, gauss1_1) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à la création du modèle n°1 : &quot;</span>);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(gauss1_1);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line">   <span class="comment">/* creation de la localisation des points de Gauss modèle n°2 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDgaussEcr(fid, <a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>, refcoo1, <a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,</div>
+<div class="line">                  ngauss1_2, gscoo1_2, wg1_2, gauss1_2) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à la création du modèle n°1 : &quot;</span>);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(gauss1_2);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">/* ecriture du champ n°1*/</span></div>
+<div class="line">  <span class="comment">/* enregistre uniquement les composantes n°2 de valr1_1, et n&#39;utilise ni pas de temps ni n° d&#39;ordre*/</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDchampEcr(fid,maa1,nomcha1,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)valr1_1,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,nval1_1,gauss1_1,</div>
+<div class="line">                   2,MED_NOPFL,MED_NO_PFLMOD,MED_MAILLE,<a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>,MED_NOPDT,<span class="stringliteral">&quot;&quot;</span>,0.0,MED_NONOR ) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du champ : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha1);<a name="a12"></a><a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NOPDT);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NONOR);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOPFL);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa1);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line">  </div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* enregistre uniquement les composantes n°1 de valr1_1, et n&#39;utilise ni pas de temps ni n° d&#39;ordre */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDchampEcr(fid,maa1,nomcha1,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)valr1_1,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,nval1_1,gauss1_1,</div>
+<div class="line">                      1,MED_NOPFL,MED_NO_PFLMOD,MED_MAILLE,<a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>,MED_NOPDT,<span class="stringliteral">&quot;&quot;</span>,0.0,MED_NONOR) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du champ : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha1);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NOPDT);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NONOR);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOPFL);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa1);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* enregistre uniquement les composantes n°1 de valr1_2, au pas de temps n°1(5.5), n&#39;utilise pas de n°d&#39;ordre*/</span></div>
+<div class="line">  <span class="comment">/* ce champ repose sur le maillage maa2 qui est distant */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDchampEcr(fid,maa2,nomcha1,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)valr1_2,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,nval1_2,gauss1_2,</div>
+<div class="line">                      1,MED_NOPFL,MED_NO_PFLMOD,MED_MAILLE,<a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>,1,<span class="stringliteral">&quot;ms&quot;</span>,5.5,MED_NONOR) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du champ : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha1);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(1);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NONOR);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOPFL);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa2);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* enregistre uniquement les composantes n°2 de valr1_2, au pas de temps n°1(5.5), n&#39;utilise pas de n°d&#39;ordre*/</span></div>
+<div class="line">  <span class="comment">/* ce champ repose sur le maillage maa1 qui est local */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDchampEcr(fid,maa1,nomcha1,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)valr1_1,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,nval1_1,gauss1_1,</div>
+<div class="line">                      2,MED_NOPFL,MED_NO_PFLMOD,MED_MAILLE,<a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>,1,<span class="stringliteral">&quot;ms&quot;</span>,5.5,MED_NONOR) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du champ : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha1);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(1);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NONOR);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOPFL);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa1);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">/* enregistre uniquement les composantes n°1 de valr1_1, au pas de temps n°1(5.5), et n°d&#39;itération n°2*/</span></div>
+<div class="line">    <span class="comment">/* ce champ repose sur le maillage maa3 qui est local */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDchampEcr(fid,maa3,nomcha1,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)valr1_2,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,nval1_2,gauss1_2,</div>
+<div class="line">                   1,MED_NOPFL,MED_NO_PFLMOD,MED_MAILLE,<a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>,1,<span class="stringliteral">&quot;ms&quot;</span>,5.5,2) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du champ : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha1);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(1);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(2);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOPFL);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa3);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line">  </div>
+<div class="line">  <span class="comment">/* Creation d&#39;un profil (selection  du deuxieme élément de valr1_1) */</span></div>
+<div class="line">  <span class="comment">/* On n&#39;utilise que la première valeur (2) du profil */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDprofilEcr(fid,profil1,1,nomprofil1) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du profil : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomprofil1);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* enregistre toutes les composantes du deuxième élément de valr1_1 (premier élément en stockage compact de valr1p),</span></div>
+<div class="line"><span class="comment">     au pas de temps n°2(5.6), et n°d&#39;itération n°2*/</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDchampEcr(fid,maa1, nomcha1,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)valr1_3p,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,nval1_3,MED_NOGAUSS,</div>
+<div class="line">                   MED_ALL,nomprofil1,<a name="a13"></a><a class="code" href="a00853_a4590bc240c9d6d928eecc7484553c2e7.html#a4590bc240c9d6d928eecc7484553c2e7">USER_MODE</a>,MED_MAILLE,<a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>,2,<span class="stringliteral">&quot;ms&quot;</span>,5.6,2) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du champ : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha1);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(2);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(2);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomprofil1);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa1);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOLIEN);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* enregistre toutes les composantes du deuxième élément de valr1_1 (premier élément en stockage compact de valr1p),</span></div>
+<div class="line"><span class="comment">     au pas de temps n°2(5.6), et n°d&#39;itération n°2 */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDchampEcr(fid,maa2, nomcha1,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)valr1_2p,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,nval1_2,gauss1_2,</div>
+<div class="line">                   MED_ALL,nomprofil1,<a class="code" href="a00853_a4590bc240c9d6d928eecc7484553c2e7.html#a4590bc240c9d6d928eecc7484553c2e7">USER_MODE</a>,MED_MAILLE,<a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>,2,<span class="stringliteral">&quot;ms&quot;</span>,5.6,2) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du champ : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha1);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(2);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(2);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomprofil1);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa1);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOLIEN);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  }; </div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* enregistre la composante n°2 du deuxième élément de valr1, au pas de temps n°2(5.7), et n°d&#39;itération n°2*/</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDchampEcr(fid,maa1,nomcha1,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)valr1_3p,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,nval1_3,MED_NOGAUSS,</div>
+<div class="line">                   2,nomprofil1,<a class="code" href="a00853_a4590bc240c9d6d928eecc7484553c2e7.html#a4590bc240c9d6d928eecc7484553c2e7">USER_MODE</a>,MED_MAILLE,<a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>,3,<span class="stringliteral">&quot;ms&quot;</span>,5.7,2) &lt; 0)  {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du champ : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha1);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(2);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(2);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomprofil1);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa1);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOLIEN);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">  <span class="comment">/* Ecriture du champ n° 2 */</span></div>
+<div class="line">  <span class="comment">/* TESTER EGALEMENT EN MODE FULL_INTERLACE EN MODIFIANT LA SIGNATURE DE LA ROUTINE */</span></div>
+<div class="line">    </div>
+<div class="line">  <span class="comment">/* enregistre la composante n°1 des éléments de valr2, et n&#39;utilise ni pas de temps ni n° d&#39;ordre */</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDchampEcr(fid,maa1,nomcha2,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)valr2,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,nval2,MED_NOGAUSS,</div>
+<div class="line">                  1,MED_NOPFL,MED_NO_PFLMOD,MED_ARETE,<a name="a14"></a><a class="code" href="a00577_a29927daaa1a87f2129295a68264ad526.html#a29927daaa1a87f2129295a68264ad526">MED_SEG2</a>,MED_NOPDT,<span class="stringliteral">&quot;&quot;</span>,0.0,MED_NONOR) &lt; 0)  {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du champ : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha2);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NOPDT);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NONOR);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOPFL);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa1);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOLIEN);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* enregistre la composante n°2 des éléments de valr2, et n&#39;utilise ni pas de temps ni n° d&#39;ordre */</span></div>
+<div class="line">  <span class="comment">/*        pour des raisons de complétude des tests on change le type d&#39;élément (aucun sens phys.))*/</span></div>
+<div class="line">  <span class="keywordflow">if</span> (MEDchampEcr(fid,maa1,nomcha2,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)valr2,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,nval2,MED_NOGAUSS,</div>
+<div class="line">                      2,MED_NOPFL,MED_NO_PFLMOD,MED_NOEUD,0,MED_NOPDT,<span class="stringliteral">&quot;&quot;</span>,0.0,MED_NONOR) &lt; 0)  {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du champ : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha2);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NOPDT);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NONOR);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOPFL);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa1);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOLIEN);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* enregistre la composante n°3 des éléments de valr2, et n&#39;utilise ni pas de temps ni n° d&#39;ordre */</span></div>
+<div class="line">  <span class="comment">/*        pour des raisons de complétude des tests on change le type d&#39;élément (aucun sens phys.))*/</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDchampEcr(fid,maa1,nomcha2,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)valr2,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,nval2,MED_NOGAUSS,</div>
+<div class="line">                   3,MED_NOPFL,MED_NO_PFLMOD,MED_FACE,<a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>,MED_NOPDT,<span class="stringliteral">&quot;&quot;</span>,0.0,MED_NONOR) &lt; 0 ) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du champ : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha2);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NOPDT);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NONOR);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOPFL);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa1);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOLIEN);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* Creation d&#39;un profil (selection  des éléments 1,3,5 de valr2) */</span></div>
+<div class="line">  <span class="comment">/* On utilise les trois valeurs du profil */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDprofilEcr(fid,profil2,3,nomprofil2) &lt; 0) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du profil : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomprofil2);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* enregistre la composante n°3 des éléments du profil2 de valr2, et n&#39;utilise ni pas de temps ni n° d&#39;ordre */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDchampEcr(fid,maa1,nomcha2,(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*)valr2p,<a class="code" href="a00853_ac09b07847abc434cc4a161e367e6b9b0.html#ac09b07847abc434cc4a161e367e6b9b0">USER_INTERLACE</a>,nval2,MED_NOGAUSS,</div>
+<div class="line">                      3,nomprofil2,<a class="code" href="a00853_a4590bc240c9d6d928eecc7484553c2e7.html#a4590bc240c9d6d928eecc7484553c2e7">USER_MODE</a>,MED_MAILLE,<a class="code" href="a00577_a85970ad0ffaf58419c2afa36e43b1ea3.html#a85970ad0ffaf58419c2afa36e43b1ea3">MED_TRIA6</a>,MED_NOPDT,<span class="stringliteral">&quot;&quot;</span>,0.0,MED_NONOR) &lt; 0 ) {</div>
+<div class="line">    <a class="code" href="a00591_a3756046b0a6a7e51b8eb544d0d77c17c.html#a3756046b0a6a7e51b8eb544d0d77c17c">MESSAGE</a>(<span class="stringliteral">&quot;Erreur à l&#39;écriture du champ : &quot;</span>);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(nomcha2);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NOPDT);<a class="code" href="a00591_a818470a84d2ad18a3fbb48170296cd95.html#a818470a84d2ad18a3fbb48170296cd95">ISCRUTE</a>(MED_NONOR);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOPFL);</div>
+<div class="line">    <a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(maa1);<a class="code" href="a00591_a257959db0a78623caa051d11ceb2f8cb.html#a257959db0a78623caa051d11ceb2f8cb">SSCRUTE</a>(MED_NOLIEN);</div>
+<div class="line">    ret = -1;</div>
+<div class="line">  };</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">/* fermeture du fichier */</span></div>
+<div class="line">  <span class="keywordflow">if</span> ( MEDfermer(fid) &lt; 0 ) ret=-1;</div>
+<div class="line">  </div>
+<div class="line">  <span class="keywordflow">return</span> ret;</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"></div>
+</div><!-- fragment --> </div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 10 Décembre 2018 18:40:43 pour MED fichier par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

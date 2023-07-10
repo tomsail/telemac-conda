@@ -1,0 +1,318 @@
+\chapter{Shoal: Submerged elliptical mound}
+%
+
+% - Purpose & Problem description:
+%     These first two parts give reader short details about the test case,
+%     the physical phenomena involved and specify how the numerical solution will be validated
+%
+\section{Purpose}
+The goal of this test-case is to check the behaviour of \tomawac in presence of
+refraction, shoaling and diffraction effects over a shoal.
+
+A shoal causes a concentration area of wave just behind it, what makes fail
+numerical models of refraction based on the radius theory. This test-case
+allows to verify simulations from \tomawac for refraction, shoaling and
+diffraction processes.
+
+\section{Reference experiments}
+The references of this test-case are the experiments of \cite{Vincent1989}.
+They worked on the refraction and the diffraction of irregular waves over a
+mound using a directional spectral wave generator and they measured the wave's
+height.
+
+\begin{figure}[h!]
+\label{shoalsetup}
+  \centering
+    \includegraphics[width=0.4\textwidth]{setup.jpg}
+      \includegraphics[width=0.55\textwidth]{bathy_shoal.jpg}
+      \caption{Set up of Vincent and Briggs experiments.}
+\end{figure}
+
+Different irregular wave conditions were tested, varying the narrowness and
+the directional spread of the spectrum. They used a TMA shallow-water spectrum
+(Bouws et al. 1985) and a wrapped normal spreading function which can be close
+to a Mitsuyasu directional spreading function.
+
+\begin{table}[H]
+\begin{center}
+%
+\caption{Test conditions for shoal test series, Vincent and Briggs experiments.}
+\label{tab:shoal_setupVB}
+%
+\begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill}}cccccccc}
+\toprule
+\toprule
+%
+\textbf{\minitab[c]{Test \\ number}} & \textbf{Case ID} & \textbf{Type} &
+\textbf{\minitab[c]{Period \\ (sec)}} & \textbf{\minitab[c]{Height \\ (cm)}} &
+$\bm \alpha$ & $\bm \gamma$ & \minitab[c]{$\bm \sigma_{\bm m}$ \\ \textbf{(deg)}}
+\\
+\midrule
+\multicolumn{8}{c}{\textbf{(a) Initial Series}}
+\\
+\midrule
+%
+1 & M1 & Mono & 1.30 & 5.50 & -- & -- & -- \\
+2 & N1 & Spec & 1.30 & 7.75 & 0.01440 & 2 & 10\\
+3 & B1 & Spec & 1.30 & 7.75 & 0.01440 & 2 & 30\\
+4 & N2 & Spec & 1.30 & 7.75 & 0.00440 & 20 & 10\\
+5 & B2 & Spec & 1.30 & 7.75 & 0.00440 & 20 & 30\\
+%
+\bottomrule
+\bottomrule
+\end{tabular*}
+%
+\end{center}
+\end{table}
+
+
+In this benchmark, only one type of wave condition is tested for the
+diffraction effects, the N1 one. But B1, B2, N1 and N2 are tested to evaluate
+the refraction and the shoaling.
+
+\section{Test-case description}
+The case is about spectral wave propagation on a submerged elliptical mound.
+The study will compare the spectral significant wave heights given by \tomawac
+simulations with measurements from \cite{Vincent1989}'s experiments.
+\subsection{Geometry of the domain and bathymetry}
+
+\begin{tabular}{ccc}
+Bassin & dimension:& 27.43~m * 18.3~m\\
+ &depth constant outside the shoal:& 0.4572~m\\
+\hline
+Elliptical shoal & major radius:& 3.96~m\\
+ & minor radius:& 3.05~m\\
+  & maximum height:& 0.305~m\\
+  & coordinates of the center:& (6.10,13.72)
+\end{tabular}
+
+\vspace{1cm}
+
+The elliptical shoal is defined by:
+\begin{center}
+
+\begin{tabular}{c|c}
+$a = (\frac{x}{3.96})+(\frac{y}{3.05})$ & if $a \geq 1$, $Zf = -0.4572$\\
+ & if $a < 1$, $Zf = -0.9144+0.762 \sqrt{1-0.64a}$
+\end{tabular}\\
+\end{center}
+\subsection{Meshes}
+\paragraph{Spatial discretization}
+Three meshes are used for the simulation:
+\begin{itemize}
+\item finer: Element size at the shoal 0.2~m \quad $\Delta x/\lambda$ = 0.09
+\item medium: Element size at the shoal 0.4~m \quad $\Delta x/\lambda$ = 0.18
+\item coarser: Element size at the shoal 0.8~m \quad $\Delta x/\lambda$ = 0.35
+\end{itemize}
+
+Where $\lambda$ is the wavelength.
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.4\textwidth]{mesh009.jpg}\\
+    \includegraphics[width=0.85\textwidth]{meshes018035.jpg}
+      \caption{The different meshes used.}
+\label{meshshoal}
+\end{figure}
+
+\paragraph{Spectro-angular discretization}
+\begin{itemize}
+\item 22 frequencies (0.35 - 2.85 Hz)
+\item logarithmic scale ($\Delta f/f = 0.1$)
+\item 36 directions
+\end{itemize}
+
+\subsection{Initial and Boundary conditions}
+The domain is initially at rest.
+The incident wave conditions are the following:
+\begin{itemize}
+\item the incident wave conditions are imposed at the boundary representative
+  of the wave generator. All the others are absorbing boundaries.
+\item Frequency spectrum: TMA shallow water spectrum
+\[S(f,\theta) = E(f)*D(\theta) \]
+\[E(f) = \frac{\alpha g^2}{(2\pi)^4}f^{-5} exp(-1.25(\frac{f_p}{f})^{4})*
+\gamma^{exp(-0.5(\frac{f-f_p}{\sigma f_p})^{2})}*\phi (f,d)
+\]
+\item Directional spreading function: gaussian type
+  \[D(\theta) = \frac{1}{\sqrt{2\pi}\sigma _m}exp[-\frac{(\theta -
+      \theta _m)^2}{2\sigma^2_m}]
+\]
+\end{itemize}
+Where:
+\begin{itemize}
+\item $\alpha$: Phillips constant
+\item $f_p$: peak frequency ($f_p = 0.769$ Hz)
+\item $\gamma $: peak factor
+\item $\sigma = \left\{ \begin{array}{rl}
+ 0.07 &\mbox{ if $f<f_p$} \\
+  0.09 &\mbox{ if $f>f_p$}
+       \end{array} \right.$
+\item $\phi (f,d)$ is a factor which allows the consideration of depth
+  effects:\\
+$\phi (f,d) = \left\{ \begin{array}{rl}
+ 0.5 w^2_p &\mbox{ if $w_d\le 1$} \\
+  1-0.5(2-w_d)^2 &\mbox{ if $1<w_d<2$}\\
+  1 &\mbox{ if $2 \le w_d$} \\
+       \end{array} \right.$\\
+       with $w_d = 2\pi f(d/g)^{1/2}$
+       \item$\theta _m$: mean wave direction at frequency f
+       \item $\sigma _m$: directional spreading parameter
+\end{itemize}
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.35\textwidth]{boundary_limit.png}
+      \caption{The boundary conditions.}
+\end{figure}
+
+\section{Numerical parameters}
+\begin{itemize}
+\item time steps:
+	\begin{enumerate}
+    \item $\Delta x / \lambda = 0.09  \rightarrow \Delta t = 0.005 $
+    \item $\Delta x / \lambda = 0.18  \rightarrow \Delta t = 0.025 $
+    \item $\Delta x / \lambda = 0.35  \rightarrow \Delta t = 0.1 $
+  \end{enumerate}
+\item CPU times: \\
+\begin{tabular}{cccc}
+ & $\Delta x / \lambda = 0.09 $ &$\Delta x / \lambda = 0.18 $&$\Delta x / \lambda = 0.35 $\\
+ B1 & -- & 1569 s & 209 s \\
+ B2 & -- & 1387 s & 211 s \\
+ N2 & -- & 1534 s & 239 s \\
+ N1 & 4027 s & 1359 s & 229 s\\
+
+\end{tabular}
+\end{itemize}
+
+\section{\tomawac Results }
+At first, simulations without diffraction effects are done in order to validate
+the propagation and refraction of the wave over this complex bathymetry. To
+compare the simulation results and the measurements of \cite{Vincent1989}, the
+significant wave heights have been normalized by the incident significant wave
+height.\\
+\begin{itemize}
+\item B1 and B2 tests (wide directional spreading):\\
+  A good matching can be seen in these tests (see Figure \ref{comparisonVB}).
+  After drawing the iso-wave-height compared to the \cite{Vincent1989}'s
+  measurements, the wave concentration zone is well represented. The
+  amplification factor goes over 1.3 for B1 and 1.4 for B2. As in measurements,
+  this amplification factor is a bit higher for B2 case (higher peak factor)
+  than for B1 case. But simulation factors are a little bit higher than those
+  measured.
+  
+  Moreover, the computations of normalized wave height along the transect 4
+  match quite well with the measurements (not shown here).
+\begin{figure}[H]
+  \centering
+  \begin{tabular}{cc}
+    \includegraphics[width=0.45\textwidth]{iso-B1.jpg}&
+    \includegraphics[width=0.45\textwidth]{iso-B2.jpg}\\
+  	\includegraphics[width=0.22\textwidth,angle=-90]{B1_m.JPG}
+ 	&
+    \includegraphics[width=0.22\textwidth,angle=-90]{B2_m.JPG}\\
+     \end{tabular}
+  \caption{Comparaison of normalized significant wave height iso-lines for
+    the B1 (left) and B2 (right) tests with the measurements from Vincent and
+    Briggs (coarser mesh).}
+\label{comparisonVB}
+\end{figure}
+
+\item N1 and N2 tests (narrow directional spreading):\\
+  These tests are not as good as the B ones because only one area of big wave
+  heights is shown while two are highlighted in measurements. Also the
+  amplification factors are bigger than those measured. It can be explained by
+  the lack of representation of the diffraction effects. But again, the results
+  along the transect 4 show a coherence of the simulation and the measurements.
+  (see Figure \ref{comparisonN2} for N2, and Figure \ref{comparisonN1} for N1).
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.5\textwidth]{iso-N2.jpg}
+    \includegraphics[width=0.3\textwidth,angle=-90]{N2-m.JPG}
+      \caption{Comparaison between normalised iso-line \tomawac results and Vincent measurements for the case N2 (coarser mesh).}
+\label {comparisonN2}
+\end{figure}
+\end{itemize}
+Subsequently, the computation will include diffraction effects.
+The diffraction coefficient $K_d$ is defined by the ratio of the spectral
+significant wave height to the spectral significant incident wave height,
+$K_d = \frac{H_{m0}}{H_{m0\_ inc}}$.
+
+Parametrical tests have shown the influence of two non-dimensional parameters:
+the ratio of the mesh size over the wavelength ($\Delta x / \lambda$) and the
+current number.
+The courant number Cr is: $Cr = \frac{C_g(f_p)\Delta t}{\Delta x}$.
+
+where $C_g(f_p)$ is the group velocity associated to the sea-state peak
+frequency, $\Delta t$ the simulation time step and $\Delta x$ the size of the
+smallest element of the mesh.
+The diffraction coefficients obtained during the simulations (changing Cr and
+$\Delta x / \lambda $) are compared with measurements \cite{Vincent1989} and
+the iso-Kd curves resulting from \tomawac simulations are superposed with the
+ones measured by Vincent and Briggs. (see Figure \ref{kdfilter}).
+
+
+\begin{figure}[!h]
+  \centering
+    \includegraphics[width=0.85\textwidth]{Kd.jpg}
+    \caption{Comparaison between \tomawac results and Vincent measurements:
+      measured and simulated values of the diffraction coefficient along the
+      transect 4 \textit{(see Table \ref{tab:shoal_setupVB})} of the model.}
+\label{kd4}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+\begin{tabular}{cc}
+    \includegraphics[width=0.49\textwidth]{iso-Kd_nodiff_dx035.jpg}
+    \includegraphics[width=0.49\textwidth]{iso-Kd_cr004-dx035.jpg}\\
+    \includegraphics[width=0.49\textwidth]{iso-Kd_nodiff_dx018.jpg}
+    \includegraphics[width=0.49\textwidth]{iso-Kd_cr0015_dx018.jpg}\\
+\end{tabular}
+\caption{Comparaison between \tomawac results and Vincent measurements: measured
+  and simulated iso-Kd curves over and behind the mound for the case N1.}
+\label {comparisonN1}
+\end{figure}
+
+
+As one can see in these two graphs (Figures \ref{kd4} \& \ref{comparisonN1}),
+the diffraction effects over the shoal are not well simulated by \tomawac due
+to a large build-up of energy. Indeed the larger Cr is and the finer the mesh
+is, the larger the numerical and the energy build-up are. Moreover with the
+coarser mesh ($\Delta x / \lambda = 0.35$) \tomawac is not able to capture the
+diffraction effects generated by the submerged shoal. In the Figure
+\ref{comparisonN1}, the simulation's curves are too flattened and the curves
+that have the shape closest to the measurements are the No diffraction ones.
+Also in the iso-Kd graph, the curves do not superimpose well when diffraction
+is taken into account, but for the case with only propagation and refraction
+the correspondance is correct. Indeed, we can see that the iso-line shapes are
+closest to the measured ones.
+
+Mainly, the build-up and the numerical noise are generated when a high
+resolution of the mesh is used and they are due to the meshfree algorithm
+(used to compute second derivatives during simulation).
+In order to improve the simulation of the diffraction effects, a spatial filter
+is built to limit the energy build-up. The effect of this filter can be seen on
+the diffraction coefficient Kd (see Figure \ref{kdfilter}). The noise and the
+energy build-up effects are reduced but it does not improve the quality of the
+results significantly.\\
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.85\textwidth]{kd_filter.jpg}
+    \caption{Comparaison between \tomawac results and Vincent measurements:
+      measured and simulated values using a filter of the diffraction
+      coefficient along the transect 4 of the model.}
+\label{kdfilter}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.85\textwidth]}{../img/results.png}
+      \caption{Wave height hm0 for the last calculation.}
+\label{resultshoal}
+\end{figure}
+
+\section{Conclusion}
+This benchmark test allows to compare simulations from \tomawac and experimental
+results. It follows that \tomawac provides a correct simulation of the
+propagation, shoaling and the refraction but the diffraction effects are
+limited and not really well represented. In order to improve the results, a
+smoothing filter can be applied on the spatial domain.

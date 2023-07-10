@@ -1,0 +1,167 @@
+\documentclass[oneside,10pt]{article}
+
+%%%%%%%%%%%%%
+%Mise en page
+%%%%%%%%%%%%%
+%\usepackage[margin=0cm,papersize={5.5cm,5cm}]{geometry}
+%%max: \usepackage[margin=0cm,papersize={16cm,24cm}]{geometry}
+\usepackage{nopageno}
+
+%---------------------------------------------------------------------------
+%Equations
+%---------------------------------------------------------------------------
+\usepackage{amsfonts,amsmath,amssymb,mathtools}
+\usepackage{bm} %pour avoir des symbol en gras quand ils ne sont pas défini dans mathbf
+\usepackage{amsbsy}
+%\usepackage{xargs}
+\renewcommand{\vec}[1]{\bm{#1}}
+%\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+%% You can define your own commands like this one for the average flow velocity notation:
+%\newcommand{\afv}[1]{\mathcal{h}#1\mathcal{i}}
+% or to have sums in dispaystyle:
+\newcommand{\dsum} {\displaystyle\sum}
+\setcounter{MaxMatrixCols}{10}
+
+\newcommand{\Grad}{\text{\bfseries{Grad}}}
+\newcommand{\Div}{\text{Div}}
+\newcommand{\Lap}{\text{Lap}}
+
+
+%%%%%%%%%%%%%
+%Pour les graphiques
+%%%%%%%%%%%%%
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows,external,calc,positioning,intersections}
+%\tikzexternalize[prefix=tikz/,only named=true]
+\tikzexternalize[only named=true]
+% rajouter " -shell-escape"  la commande pdflatex ou xelatex
+% l'option "only named=true" fait en sorte que seulement les figures avec un nom sont externalises
+% Pour definir le nom de l'image :
+% \tikzsetnextfilename{<file_name>}}
+
+%\usetikzlibrary{arrows,calc,positioning,intersections}
+%%%\tikzexternalize[prefix=tikz/,only named=true]
+%%\tikzexternalize[only named=true]
+%%% rajouter " -shell-escape"  la commande pdflatex ou xelatex
+%%% l'option "only named=true" fait en sorte que seulement les figures avec un nom sont externalises
+%%% Pour definir le nom de l'image :
+%%% \tikzsetnextfilename{<file_name>}}
+
+
+
+
+% pour avoir dash-dot
+  \tikzset{
+    dash-dot/.style={
+    dash pattern=on 4pt off 3pt on 1pt off 3pt,
+  },
+  }
+% pour avoir dash-dot-dot
+  \tikzset{
+    dash-dot-dot/.style={
+    dash pattern=on 4pt off 3pt on 1pt off 3pt on 1pt off 3pt,
+  },
+  }
+
+\usepackage{pgfplots}
+\usetikzlibrary{pgfplots.groupplots}
+	% Pour que ce soit compatible avec la version 1.6
+	\pgfplotsset{compat=1.6}
+	% pour les label des axes
+	\pgfplotsset{tick scale binop={\times}}
+%	% le style de la légende  
+%	\pgfplotsset{every axis legend/.append style={
+%		at={(0.9,0.9)},
+%		anchor=north east}}
+%	% pour avoir un espace separant les mille
+	\pgfkeys{/pgf/number format/.cd,fixed,
+		precision=4,
+		%use comma, %pour utiliser la virgule
+		set thousands separator={\,}}
+%	% position des label sur x et y
+%	\pgfplotsset{every axis x label/.style=
+%		{at={(ticklabel cs:0.5)},anchor=near ticklabel}}
+%	\pgfplotsset{every axis y label/.style=
+%		{at={(ticklabel cs:0.5)},anchor=near ticklabel}}
+%	% Modifier les marks
+%	\pgfplotsset{every mark/.append style={solid}}
+	% pour augmenter la taille des lignes
+	\pgfplotsset{every axis/.append style={
+		line width=1pt,
+		axis line style={line width=0.4pt},
+		tick style={line width=0.4pt}}}
+
+
+
+\definecolor{LHSVLightBlue}{cmyk}{0.99,0.29,0.00,0.12}
+\definecolor{LHSVDarkBlue}{cmyk}{1.00,0.35,0.00,0.20}
+\definecolor{EdfBlue}{RGB}{0,91,187}
+\definecolor{EdfDBlue}{RGB}{9,53,122}
+\definecolor{EdfLBlue}{RGB}{56,174,255}
+\definecolor{EdfOrange}{RGB}{255,160,47}
+\definecolor{EdfLOrange}{RGB}{243,157,0}
+\definecolor{EdfGreen}{RGB}{80,158,47}
+\definecolor{EdfDGreen}{RGB}{196,214,47}
+\definecolor{PantoneRed}{RGB}{232,17,45}
+\definecolor{PantonePurple}{RGB}{137,79,191}
+\definecolor{PantoneGreen}{RGB}{0,153,124}
+\definecolor{PantonePink}{RGB}{214,2,112}
+
+\begin{document}
+
+%------------------------------------
+\section{Mesh Illustration}
+%------------------------------------
+
+\tikzset{external/force remake=true}
+\tikzsetnextfilename{MeshIllustration}
+
+\begin{figure}[H]
+\begin{center}
+%
+		\begin{tikzpicture}[baseline]
+		\begin{groupplot}[
+    		group style={
+        	group name=MyPlots,
+        	group size=1 by 2,
+        	%xlabels at=edge bottom,
+        	%xticklabels at=edge bottom,
+			%x descriptions at=edge bottom,
+        	vertical sep=10pt
+    		},
+%% légende
+%		%legend pos=east,
+%		legend style={at={(1,0.5)},anchor=east},
+% Pour avoir les axes en dessus
+		enlargelimits=false,axis on top=true,
+% titres des axes
+		ylabel=$y$ (m),
+		%xlabel=$\dfrac{x}{L}$,
+% Option des axes
+%  		axis x line=none,
+  		%xticklabels={,,},
+%		axis x line=bottom,axis y line=left,
+%		every outer y axis line/.append style={<-},
+%		y dir=reverse,
+% largeur du graphiques
+		width=\linewidth,height=0.5\linewidth,%scale only axis,
+% max et min
+		xmin=-200,xmax=200,ymin=0,ymax=200
+		]
+		\nextgroupplot[xticklabels={,,}]
+			\addplot graphics [xmin=-200,xmax=200,ymin=0,ymax=200] {./OceanicMeshNoAxis.png};
+		%
+		\nextgroupplot[xlabel=$x$ (m)]
+			\addplot graphics [xmin=-200,xmax=200,ymin=0,ymax=200] {./CoastalMeshNoAxis.png};
+		%
+		\end{groupplot}
+		% Legend
+		\draw[color=EdfBlue,line width=3pt] (MyPlots c1r2.south west) ++ (0.05\linewidth,-1.5cm) -- ++ (1cm,0) node[anchor=west] {Oceanic Mesh};
+		\draw[color=PantoneRed,line width=3pt] (MyPlots c1r2.south west) ++ (0.55\linewidth,-1.5cm) -- ++ (1cm,0) node[anchor=west] {Coastal Mesh};
+		\end{tikzpicture}
+%
+\end{center}
+\end{figure}
+
+\end{document}

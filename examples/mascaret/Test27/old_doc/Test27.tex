@@ -1,0 +1,159 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{amsmath}
+%\usepackage[utf8]{inputenc} % pour les accents
+\usepackage[T1]{fontenc} % caracteres francais
+\usepackage{geometry} %les marges
+\usepackage[french]{babel} %langue principale
+\usepackage[dvips]{graphicx}
+\geometry{ hmargin=2cm, vmargin=2cm }
+
+\pagestyle{empty} %pas de numerotation de page
+
+%
+% Debut du document
+%
+\begin{document}
+
+\section*{FICHE DE VALIDATION DU LOGICIEL MASCARET V7P2}
+
+\subsection*{Validation du noyau fluvial transitoire}
+
+\subsection*{\emph{Onde de crue dans des casiers}}
+
+\subsection*{Numéro du cas test : 27}
+
+\subsection*{Auteur : Fabrice ZAOUI}
+
+\vspace{1cm}
+
+\subsection*{Description}
+
+Le cas test consiste à calculer le passage dans des champs d'inondation d'une onde de crue. Le modèle est fournie par la société ARTELIA. Il a été réalisé initialement avec le logiciel propriétaire \texttt{CARIMA}.
+Il comporte un bief unique qui définit le lit mineur et des casiers situés de part et d'autre qui définissent le lit majeur.
+
+\begin{figure}[h]
+ \begin{center}
+  \includegraphics[angle=0,width=7cm]{reseau.eps}
+  \caption{Modèle hydraulique}
+  \label{fig1}
+ \end{center}
+\end{figure}
+
+
+La version V7P2 du code a introduit un nouvel algorithme de résolution où le système des casiers et liaisons est directement implicité dans la matrice de résolution du noyau fluvial transitoire. Il s'agit de valider le calcul de l'évolution des cotes dans les casiers et la rivière par rapport au logiciel de référence \texttt{CARIMA}.
+
+\subsection*{Données géométriques}
+
+Le calcul est réalisé dans un canal de longueur $2.4\ km$ avec des liaisons rivières-casiers et casiers-casiers toutes de type chenal. 
+Douze casiers et 26 liaisons sont modélisés.
+
+
+\subsection*{Données physiques}
+
+\begin{itemize}
+  \item Conditions initiales :
+  \begin{itemize}
+     \item les casiers sont tous initialisés avec une hauteur d'eau nulle;
+     \item le débit est de $3\ m^3/s$ et la hauteur d'eau est constante le long du bief.
+  \end{itemize}
+  \item Conditions aux limites :
+  \begin{itemize}
+     \item un hydrogramme d'onde de crue est imposé en amont sur une durée de $3h30mn$ avec un pic de $100\ m^3/s$;
+     \item la condition sur l'extrémité aval du bief est une courbe de tarrage.
+  \end{itemize}
+\end{itemize}
+
+\subsection*{Données numériques}
+
+Le maillage utilisé comporte $100$ cellules ($\Delta x = 25\ m$ et $\Delta x = 5\ m$ en amont).
+
+Le pas de planimétrage est homogène dans le domaine égal à $0.25\ cm$.
+
+Le calcul est effectué sur une période de $126000\ s$ avec un pas de temps de $30\ s$.
+
+
+\subsection*{Résultats}
+
+Les figures \ref{fig2} à \ref{fig5} montrent une comparaison de l'évolution des cotes en quatre points du canal entre le noyau fluvial transitoire de \texttt{MASCARET} et les résultats du logiciel de référence \texttt{CARIMA}.
+
+De même, les figures \ref{fig6} à \ref{fig9} montrent une comparaison de l'évolution de la cote dans les casiers $1$,$5$,$7$ et $11$.
+
+Des différences existent sur les résultats entre les deux modèles \texttt{MASCARET} et \texttt{CARIMA}. Une des raisons est la différence de modélisation d'une liaison chenal entre
+les programme \texttt{CARIMA} et \texttt{MASCARET}. Au final les différences conduisent à une erreur relative ne dépassant pas $0.003$ sur les cotes du bief et $0.02$ sur les cotes des casiers. 
+
+\subsection*{Conclusion}
+
+Le nouvel algorithme de couplage direct des casiers et liaisons est validé par comparaison avec le code \texttt{CARIMA} par ailleurs très employé pour la modélisation par casiers des champs d'inondation.
+Il donne satisfaction sur les résultats d'autant plus que l'ancien algorithme ne converge pas sur ce cas particulier.
+
+\newpage
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Z300.eps}
+  \caption{Cote de la rivière au pk 0.3}
+  \label{fig2}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Z900.eps}
+  \caption{Cote de la rivière au pk 0.9}
+  \label{fig3}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Z1500.eps}
+  \caption{Cote de la rivière au pk 1.5}
+  \label{fig4}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{Z2100.eps}
+  \caption{Cote de la rivière au pk 2.1}
+  \label{fig5}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{ZG2.eps}
+  \caption{Cote du casier no. $1$}
+  \label{fig6}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{ZG4.eps}
+  \caption{Cote du casier no. $5$}
+  \label{fig7}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{ZG5.eps}
+  \caption{Cote du casier no. $7$}
+  \label{fig8}
+ \end{center}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[angle=270,width=15cm]{ZG7.eps}
+  \caption{Cote du casier no. $11$}
+  \label{fig9}
+ \end{center}
+\end{figure}
+
+%
+% fin du document
+%
+\end{document}          

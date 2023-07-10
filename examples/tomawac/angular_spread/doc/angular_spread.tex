@@ -1,0 +1,55 @@
+\chapter{Angular Spread}
+\section{Purpose}
+This test has been created to check a new functionnality in initial spectrum
+and boundary spectrum.
+Classically the function given at the boundary (or initial spectrum) is of the
+form:
+\bequ
+S(f,\theta) = J(f) G(\theta)
+\eequ
+with $f$ the frequency, $\theta$ the angular dependance, $J$ is often taken as
+a Jonswap function,
+and $G(\theta)$ is a function of $\cos$ for example in \cite{Mitsuyasu1975},
+\bequ
+G(\theta) = G_0 cos^{2s}\left(\frac{\theta-\theta_0}{2}\right)
+\eequ
+where $\theta_0$ denotes the principal wave direction, $G_0$ is a constant so
+that the integration of $G$ over $\theta$ is unity. $S$ is the spread parameter
+that sizes the angle of directions. In the three first option of {\it BOUNDARY}
+(or {\it INITIAL}) {\it ANGULAR DISTRIBUTION FUNCTION}, s is a constant. Here
+we check a fourth option proposed by Goda in \cite{Goda1975}, where s depends
+on frequency too.
+\bequ
+s= \left\{ \barr{l} s_{max} \left(\frac{f}{f_p} \right)^5: f\le f_p \\
+ s_{max} \left(\frac{f}{f_p} \right)^{-2.5}: f > f_p \earr\right.
+ \eequ
+ Where $f_p$ is the peak frequency, and $s_{max}$ should be 10, 25 and 75 for
+ wind waves, swell with short decay distance, and swell with long decay
+ distance. In our cas we take an intermediary value {\it GODA COEFFICIENT FOR
+   ANGULAR SPEADING = 35}. The default value is 25. 
+
+\section{Description of the problem}
+The problem is the same as the test case Shoal. 
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/mesh.png}
+ \caption{Mesh and bathymetry of the domain.}
+\label{meshangular_spread}
+\end{figure}
+
+\section{Results}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/hm0.png}
+ \caption{Wave heigth hm0.}
+\label{figresAngularSpred}
+\end{figure}
+
+\begin{figure} [!h]
+\centering
+\includegraphicsmaybe{[width=0.85\textwidth]}{../img/spectrum.png}
+ \caption{Spectrum imposed at the left bounday of the domain.}
+\label{figresAngularSpectrum}
+\end{figure}
+

@@ -1,0 +1,77 @@
+/---------------------------------------------------------------------
+/ ARTEMIS Version v7p0 juin 2014
+/ AGITATION DERRIERE UN BRISE LAME
+/---------------------------------------------------------------------
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,FICHIERS
+/---------------------------------------------------------------------
+/
+/
+RESULTS FILE              = 'r2d_g8m.slf'
+BOUNDARY CONDITIONS FILE  = 'geo_g8m.cli'
+FORTRAN FILE              =  f90
+GEOMETRY FILE             = 'geo_g8m.slf'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GENERALITES
+/---------------------------------------------------------------------
+/
+TITLE ='EXEMPLE UTILISATION : AGITATION DERRIERE BRISE LAME'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GRAPHIQUES ET LISTING
+/---------------------------------------------------------------------
+/
+WAVE HEIGHTS SMOOTHING          = NO
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  ='HS,ZF,C,CG,QB,INC'
+/
+/---------------------------------------------------------------------
+/ EQUATIONS CONDITIONS INITIALES
+/---------------------------------------------------------------------
+/
+INITIAL CONDITIONS = 'CONSTANT ELEVATION'
+/
+INITIAL WATER LEVEL        =0.
+/
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES
+/---------------------------------------------------------------------
+/
+/--------------------------------------------------------------------
+/ OPTIONS
+/--------------------------------------------------------------------
+MATRIX STORAGE = 3
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES,SOLVEUR
+/---------------------------------------------------------------------
+/
+SOLVER = 8
+/
+/---------------------------------------------------------------------
+/ PHYSICAL PARAMETERS
+/---------------------------------------------------------------------
+/
+BREAKING = YES
+/
+MULTIDIRECTIONAL RANDOM WAVE =  YES
+/
+GAMMA = 3.3
+/
+PEAK PERIOD : 1.68
+/
+MINIMUM SPECTRAL PERIOD : 0.6
+MAXIMUM SPECTRAL PERIOD : 8.
+/
+MINIMUM ANGLE OF PROPAGATION : -140.0
+MAXIMUM ANGLE OF PROPAGATION : -40.0
+/
+DIRECTION OF WAVE PROPAGATION : -90.0
+/
+S EXPONENT = 10
+/
+PRECONDITIONING : 2
+/

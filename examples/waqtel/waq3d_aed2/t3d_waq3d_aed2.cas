@@ -1,0 +1,62 @@
+/-------------------------------------------------------------------/
+/   TELEMAC-3D      -  cas test t3d_waq3d_aed2                      /
+/                          MJ August 2016                           /
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+GEOMETRY FILE            = geo_waq3d_aed2.slf
+BOUNDARY CONDITIONS FILE = geo_waq3d_aed2.cli
+3D RESULT FILE           = r3d_waq3d_aed2.slf
+2D RESULT FILE           = r2d_waq3d_aed2.slf
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+TITLE = 'AED2 coupling test case'
+VARIABLES FOR 2D GRAPHIC PRINTOUTS =
+U,V,H,S,TA1,TA3,TA8,TA9,TA10,TA13,TA15,TA16
+VARIABLES FOR 3D GRAPHIC PRINTOUTS =
+Z,U,V,W,TA1,TA3,TA8,TA9,TA10,TA13,TA15,TA16
+GRAPHIC PRINTOUT PERIOD = 200
+LISTING PRINTOUT PERIOD = 200
+MASS-BALANCE = YES
+TIME STEP = 1.
+NUMBER OF TIME STEPS = 1000
+/--------------------------------------------------
+/  VERTICAL MESH
+/--------------------------------------------------
+NUMBER OF HORIZONTAL LEVELS : 11
+/--------------------------------------------------
+/  SOURCE TERMS
+/--------------------------------------------------
+LAW OF BOTTOM FRICTION : 5
+FRICTION COEFFICIENT FOR THE BOTTOM : 0.001
+/--------------------------------------------------
+/  INITIAL CONDITIONS
+/--------------------------------------------------
+INITIAL CONDITIONS = 'CONSTANT ELEVATION'
+INITIAL ELEVATION  = 5.
+/--------------------------------------------------
+/  WATER QUALITY
+/--------------------------------------------------
+COUPLING WITH         = 'WAQTEL'
+WAQTEL STEERING FILE  = 'aed2_steer.cas'
+WATER QUALITY PROCESS = 13
+MAXIMUM NUMBER OF TRACERS = 30
+/ SALINITY AND TEMPERATURE WILL ALSO BE ADDED AUTOMATICALLY WITH 13
+/NUMBER OF TRACERS = 2
+/NAMES OF TRACERS : 'TEMPERATURE     DEGRE C ';'SALINITE        g/l'
+/ 25 INITIAL VALUES ARE MANDATORY, AS MANY AS THE NUMBER OF TRACERS
+/ COMPUTED IN AED2 + TEMPERATURE AND SALINITY, WHICH COME FIRST
+INITIAL VALUES OF TRACERS: 20.;0.;225.;1600.5;7.5;27.6;12.;0.3;5.;0.1;
+80.;80.;7.;7.;0.2;0.2;0.;0.;0.;0.;0.5;0.1;0.005;0.;0.
+/--------------------------------------------------
+/  TRACERS
+/--------------------------------------------------
+/COEFFICIENT FOR VERTICAL DIFFUSION OF TRACERS = 1.D-4
+/ EVERY SCHEME FOR ADVECTION OF TRACERS, SCHEME OPTION FOR ADVECTION OF TRACERS
+/ IS THE SAME AS THE FIRST ONE
+SCHEME FOR ADVECTION OF TRACERS = 5        / DEFAULT
+SCHEME OPTION FOR ADVECTION OF TRACERS = 4 / DEFAULT
+/ COMBO OF THE LAST 2 ONES => LIPS ADVECTION SCHEME

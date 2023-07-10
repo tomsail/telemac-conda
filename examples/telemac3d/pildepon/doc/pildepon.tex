@@ -1,0 +1,135 @@
+\chapter{Flow in a channel with 2 bridge piers (pildepon)}
+
+\section{Purpose}
+
+This example demonstrates the ability of \telemac{3D} to represent
+the impact of an obstacle on a channel flow.
+It also demonstrates the capability to represent unsteady eddies in a
+model with steady state boundary.
+
+\section{Description}
+
+The configuration is a 28.5~m long and 20~m wide prismatic channel with
+trapezoidal cross-section contains bridge-like obstacles in one cross-section
+made of two abutments and two circular 4~m diameter piles
+(See Figure \ref{t3d:pildepon:fig:Bottom}).
+The flow resulting from steady state boundary conditions is studied.
+The deepest water depth is 4~m.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/Bottom.png}
+ \caption{Bottom elevation.}
+ \label{t3d:pildepon:fig:Bottom}
+\end{figure}
+
+\subsection{Initial and Boundary Conditions}
+
+The computation is initialised with a constant elevation equal to 0~m
+and no velocity.
+
+The boundary conditions are:
+\begin{itemize}
+\item For the solid walls, a slip condition on channel banks is used for the
+velocities,
+\item On the bottom, a Strickler law with friction coefficient equal to
+40~m$^{1/3}$/s is prescribed,
+\item Upstream a flowrate equal to 62~m$^3$/s is prescribed,
+linearly increasing from 0 to 62~m$^3$/s during the first 20~s,
+\item Downstream the water level is equal to 0.~m (= initial elevation).
+\end{itemize}
+
+\subsection{Mesh and numerical parameters}
+
+The 2D mesh (Figure \ref{t3d:pildepon:fig:meshH})
+is made of 4,304 triangular elements (2,280 nodes).
+6 planes are regularly spaced on the vertical (see Figure \ref{t3d:pildepon:fig:meshV}).\\
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/MeshH.png}
+ \caption{Horizontal mesh.}
+ \label{t3d:pildepon:fig:meshH}
+\end{figure}
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphicsmaybe{[width=0.9\textwidth]}{../img/MeshV.png}
+ \caption{Initial vertical mesh.}
+ \label{t3d:pildepon:fig:meshV}
+\end{figure}
+
+2 computations are run: one with the hydrostatic hypothesis and one with
+non-hydrostatic version.
+
+To solve the advection, the method of characteristics is used for velocities.
+
+GMRES is used for solving the propagation and diffusion of velocities (option 7).
+The implicitation coefficients for depth and velocities are respectively equal
+to 0.6 and 1.
+
+The time step is 0.1~s for the hydrostatic version, 0.4~s for the
+non-hydrostatic version.
+The simulated period is 80~s for both cases.
+
+\subsection{Physical parameters}
+
+A mixing length model is used as vertical turbulence model combined with
+constant horizontal viscosity for velocity equal to 0.005~m$^2$/s.
+
+\section{Results}
+
+The obstacles create a contraction of the streamlines, and Karman
+vortices are observed behind the piers.
+The Karman vortices produce an asymmetry of the velocity field.
+This velocity field is unsteady behind the piers in the Karman vortices
+(see top of Figures \ref{t3d:pildepon:VeloHydro} and \ref{t3d:pildepon:VeloNH},
+where surface velocities are
+shown for the hydrostatic and non-hydrostatic simulations respectively).
+%At the bottom of the same figure a time profile of the depth-averaged
+%vertical velocity is given.
+%After a transition of about 150~s a periodic regime takes place.
+%Streamlines for positions where $x$ > -0.5~m (behind the piles) are
+%shown of figure 3.5.4 for the hydrostatic (a) and non-hydrostatic (b)
+%simulations.
+%The figures show that the Karman vortices are better represented by the
+%non-hydrostatic simulation, indicating the necessity to solve such
+%turbulence problems using the non-hydrostatic version of \telemac{3D}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityHHydro.png}
+  \caption{Velocity magnitude at the surface at final time step for the hydrostatic case.}
+  \label{t3d:pildepon:VeloHydro}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.9\textwidth]}{../img/VelocityHNH.png}
+  \caption{Velocity magnitude at the surface at final time step for the non-hydrostatic case.}
+  \label{t3d:pildepon:VeloNH}
+\end{figure}
+
+Figures \ref{t3d:pildepon:FreeSurfHydro} and \ref{t3d:pildepon:FreeSurfNH} show
+the free surface at final time step (=~80~s) for the hydrostatic and non-hydrostatic
+computations.
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurfaceHydro.png}
+  \caption{Free surface at final time step for the hydrostatic case.}
+  \label{t3d:pildepon:FreeSurfHydro}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.9\textwidth]}{../img/FreeSurfaceNH.png}
+  \caption{Free surface at final time step for the non-hydrostatic case.}
+  \label{t3d:pildepon:FreeSurfNH}
+\end{figure}
+
+\section{Conclusion}
+
+\telemac{3D} can be used to study the hydrodynamic impact of engineering
+works (like bridge piers), and to analyse unsteady flow, such as the
+Karman vortices.

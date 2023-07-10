@@ -1,0 +1,67 @@
+/**\ingroup MEDlinkFortran
+   \fn subroutine mlnliw(integer fid, character*(*) mname, character*(*) lname, integer cret)
+   \brief \MEDlinkWrBrief
+   \param fid \fid
+   \param mname \meshname
+   \param lname \link
+   \param cret \error
+   \see MEDlinkWr
+   \details \MEDlinkWrDetails
+*/
+
+
+/**\ingroup MEDlinkFortran
+   \fn subroutine mlnnln(integer fid, integer n, integer cret)
+   \brief \MEDnLinkBrief
+   \param fid \fid
+   \param n  \nlink
+   \param cret \error
+   \see MEDnLink
+   \details \MEDnLinkDetails
+*/
+
+
+/**\ingroup MEDlinkFortran
+   \fn subroutine  mlnlni(integer fid, integer it, character*(*) mname, integer lsize, integer cret)
+   \brief \MEDlinkInfoBrief 
+   \param fid \fid
+   \param it \linkit
+   \param mname \meshname
+   \param lsize \linksize
+   \param cret \error
+   \see MEDlinkInfo
+   \details \MEDlinkInfoDetails
+*/
+
+/**\ingroup MEDlinkFortran
+   \fn subroutine  mlnlai(integer fid, character*(*) mname, integer lsize, integer cret)
+   \brief \MEDlinkInfoByNameBrief 
+   \param fid \fid
+   \param mname \meshname
+   \param lsize \linksize
+   \param cret \error
+   \see MEDlinkInfoByName
+   \details \MEDlinkInfoByNameDetails
+*/
+
+
+
+/**\ingroup MEDlinkFortran
+   \fn subroutine mlnlir(integer fid, character*(*) mname, character*(*) lname, integer cret)
+   \brief \MEDlinkRdBrief
+   \param fid \fid
+   \param mname \meshname
+   \param lname \link
+   \param cret \error
+   \see MEDlinkRd
+   \details \MEDlinkRdDetails
+*/
+
+
+
+
+
+
+
+
+

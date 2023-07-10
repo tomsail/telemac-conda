@@ -1,0 +1,71 @@
+/-------------------------------------------------------------------/
+/   TELEMAC-2D   -  VALIDATION TEST CASE  -                         /
+/                       SOLITARY WAVE                               /
+/-------------------------------------------------------------------/
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+FORTRAN FILE                    = 'user_fortran'
+BOUNDARY CONDITIONS FILE        = geo_island.cli
+GEOMETRY FILE                   = geo_island.slf
+RESULTS FILE                    = r2d_island.slf
+MASS-BALANCE                    = YES
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE                           = 'CONICAL ISLAND'
+VARIABLES FOR GRAPHIC PRINTOUTS = 'U,V,S,B,H'
+GRAPHIC PRINTOUT PERIOD         = 20
+LISTING PRINTOUT PERIOD         = 100
+TIME STEP                       = 0.05
+/NUMBER OF TIME STEPS            = 4500
+/EQUATIONS                       = 'BOUSSINESQ'
+EQUATIONS                       = 'SAINT-VENANT FV'
+FINITE VOLUME SCHEME            = 5
+DESIRED COURANT NUMBER          = 0.8
+VARIABLE TIME-STEP              = YES
+DURATION                        = 20.
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+INITIAL CONDITIONS              = 'CONSTANT ELEVATION'
+INITIAL ELEVATION               = 0.32
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION          = 2
+FRICTION COEFFICIENT            = 100.
+TURBULENCE MODEL                = 1
+DIFFUSION OF VELOCITY           = NO
+/
+/----------------------------------------------
+/  BOUNDARY CONDITIONS
+/----------------------------------------------
+/
+PRESCRIBED ELEVATIONS           = 0.;0.32
+OPTION FOR LIQUID BOUNDARIES    = 2;2
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+/
+/PROPAGATION                     = YES
+/
+/  KEYWORDS COMMENTED BECAUSE FV SCHEMES ARE USED
+/
+/TREATMENT OF THE LINEAR SYSTEM  = 2
+/CONTINUITY CORRECTION           = YES
+/ADVECTION                       = NO
+/SOLVER                          = 7
+/SOLVER OPTION                   = 2
+/SOLVER ACCURACY                 = 1.E-6
+/MAXIMUM NUMBER OF ITERATIONS FOR SOLVER = 200
+/FREE SURFACE GRADIENT COMPATIBILITY = 0.9

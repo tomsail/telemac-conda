@@ -1,0 +1,75 @@
+/
+/ See Fortran file to have an example of subroutine meteo.
+/
+/-------------------------------------------------------------------/
+/   TELEMAC-2D  -  VALIDATION TEST OF WIND VARYING IN TIME AND      /
+/                            IN SPACE                               /
+/-------------------------------------------------------------------/
+/         TEST CASE PROVIDED BY CANADIAN USER P. PRODANOVIC         /
+/-------------------------------------------------------------------/
+/ Version 7.0
+/
+/ HP C3700 compilateur HP        :    1 s    21/09/2014
+/
+/----------------------------------------------
+/  COMPUTER INFORMATIONS
+/----------------------------------------------
+/
+FORTRAN FILE                    = 'user_fortran-bin'
+BOUNDARY CONDITIONS FILE        = geo_wind_txy.cli
+GEOMETRY FILE                   = geo_wind_txy.slf
+RESULTS FILE                    = r2d_wind_txy_bin.slf
+PREVIOUS COMPUTATION FILE       = ini_wind_txy.slf
+BINARY ATMOSPHERIC DATA FILE    = atm_wind_txy.slf
+FREE FORMAT FOR ATMOSPHERIC DATA FILE = YES
+
+ORIGINAL DATE OF TIME = 1900;1;1
+ORIGINAL HOUR OF TIME = 0;8;20
+/
+/----------------------------------------------
+/  GENERAL INFORMATIONS - OUTPUTS
+/----------------------------------------------
+/
+TITLE      = 'SET UP OF WIND VARYING IN TIME AND SPACE'
+VARIABLES FOR GRAPHIC PRINTOUTS              = 'U,V,H,S,X,Y'
+GRAPHIC PRINTOUT PERIOD                      = 1
+LISTING PRINTOUT PERIOD                      = 1
+TIME STEP                                    = 5.
+NUMBER OF TIME STEPS                         = 20
+MASS-BALANCE                                 = YES
+/
+/----------------------------------------------
+/  INITIAL CONDITIONS
+/----------------------------------------------
+/
+COMPUTATION CONTINUED                        = YES
+INITIAL TIME SET TO ZERO                     = YES
+/
+/----------------------------------------------
+/  PHYSICAL PARAMETERS
+/----------------------------------------------
+/
+LAW OF BOTTOM FRICTION                       = 0
+TURBULENCE MODEL                             = 1
+VELOCITY DIFFUSIVITY                         = 0.
+/
+/----------------------------------------------
+/  NUMERICAL PARAMETERS
+/----------------------------------------------
+/
+TYPE OF ADVECTION                            = 1;5
+SOLVER ACCURACY                              = 1.E-8
+IMPLICITATION FOR DEPTH                      = 0.5
+IMPLICITATION FOR VELOCITY                   = 0.5
+/
+/----------------------------------------------
+/  WIND
+/----------------------------------------------
+/
+WIND                                         = YES
+OPTION FOR WIND                              = 3
+COEFFICIENT OF WIND INFLUENCE                = 1.2615E-3
+/
+/ DEFAULT VALUE UNTIL V8P1 KEPT FOR NON REGRESSION
+COEFFICIENT OF WIND INFLUENCE VARYING WITH WIND SPEED = NO
+TREATMENT OF THE LINEAR SYSTEM               = 1

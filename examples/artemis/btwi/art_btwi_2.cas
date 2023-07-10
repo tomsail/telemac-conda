@@ -1,0 +1,81 @@
+/---------------------------------------------------------------------
+/ ARTEMIS Version v7p mars 2014
+/ BTWI CAS 2 + TEST PHASE AUTOMATIQUES SUR UN CAS APPLIQUE
+/---------------------------------------------------------------------
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,FICHIERS
+/---------------------------------------------------------------------
+/
+/
+RESULTS FILE               ='r2d_btwi_2.slf'
+/
+BOUNDARY CONDITIONS FILE   ='geo_btwi_2.cli'
+/
+GEOMETRY FILE              ='geo_btwi.slf'
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GENERALITES
+/---------------------------------------------------------------------
+/
+TITLE ='BTWI CAS 2'
+/
+/
+/---------------------------------------------------------------------
+/ ENTREES-SORTIES,GRAPHIQUES ET LISTING
+/---------------------------------------------------------------------
+/
+WAVE HEIGHTS SMOOTHING          = NO
+/
+VARIABLES FOR GRAPHIC PRINTOUTS  ='HS,ZF,QB'
+/
+/---------------------------------------------------------------------
+/ EQUATIONS CONDITIONS INITIALES
+/---------------------------------------------------------------------
+/
+INITIAL CONDITIONS          : 'CONSTANT ELEVATION'
+/
+INITIAL WATER LEVEL         : 1.2
+/
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES
+/---------------------------------------------------------------------
+/
+/--------------------------------------------------------------------/
+/ OPTIONS
+/--------------------------------------------------------------------/
+MATRIX STORAGE : 3
+/
+/
+/---------------------------------------------------------------------
+/ PARAMETRES NUMERIQUES,SOLVEUR
+/---------------------------------------------------------------------
+/
+SOLVER =8
+AUTOMATIC TETAP CALCULATION               : YES
+SUB-ITERATIONS ACCURACY FOR TETAP         =1E-1
+RELAXATION ON TETAP                       = 1.
+AUTOMATIC CALCULATION OF PHASE            : YES
+REFERENCE WATER DEPTH FOR AUTOMATIC PHASE = 5.2
+/PHASE REFERENCE COORDINATES               = 0.;0.
+/---------------------------------------------------------------------
+/ PHYSICAL PARAMETERS
+/---------------------------------------------------------------------
+/
+MONODIRECTIONAL RANDOM WAVE              : YES
+/
+GAMMA = 1.05
+PEAK PERIOD : 5.3
+MINIMUM SPECTRAL PERIOD : 2.94
+MAXIMUM SPECTRAL PERIOD : 11.
+DIRECTION OF WAVE PROPAGATION  : 67.
+NUMBER OF PERIODS = 10
+/
+BREAKING : YES
+/
+/---------------------------------------------------------------------
+/---------------------------------------------------------------------
+/
+/
+/
