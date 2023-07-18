@@ -2,8 +2,8 @@
 
 set -xeuo pipefail
 
-# build and install telemac
 source ./configs/pysource.template.sh
+# 
 compile_telemac.py
 
 #1: the config folder 
@@ -44,7 +44,6 @@ fi
 
 cp -r $HOMETEL/configs/* $PREFIX/configs     #1
 cp -r $HOMETEL/builds/* $PREFIX/builds       #2
-cp -r $HOMETEL/scripts/python3/* $PREFIX/bin #3
 cp -r $HOMETEL/scripts/* $PREFIX/scripts #3
 cp -r $HOMETEL/sources/* $PREFIX/sources #4
 
