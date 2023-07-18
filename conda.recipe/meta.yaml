@@ -1,5 +1,5 @@
 {% set name = "telemac" %}
-{% set version = "0.0.0" %}
+{% set version = "0.0.7" %}
 {% set build = 0 %}
 
 package:
@@ -8,47 +8,66 @@ package:
 
 source:
   url: https://github.com/tomsail/telemac-conda/archive/refs/tags/v8.4.tar.gz
-  # sha256: 6ee77a34b1b827463b7a61e00149b1781af7db340d329b8e36bdcd85ae545553
+  #sha256: 6ee77a34b1b827463b7a61e00149b1781af7db340d329b8e36bdcd85ae545553
 
 build:
-  noarch: python
   number: {{ build }}
   skip: true #[win]
-  merge_build_host: true
 
 outputs:
   - name: telemac
     build:
-      noarch: python
       script: build.sh
     
     requirements:
+      build:
+        - python =3.10
+        - numpy =1.23
+        - {{ compiler('fortran') }}
+        - openmpi
+        - openmpi-mpifort
+        - metis
+        - parmetis
+        - openblas
+        - liblapack
       host:
-        - python 3.10
-        - numpy 1.23
+        - python =3.10
+        - numpy =1.23
         - pip
         - git
-        - {{ compiler('cxx') }}
-        - {{ compiler('c') }}
         - {{ compiler('fortran') }}
+        - openmpi
+        - openmpi-mpifort
         - metis
         - parmetis
         - openblas
         - liblapack
       run:
-        - python 3.10
-        - numpy 1.23
+        - python =3.10
+        - numpy =1.23
+        - pip
+        - git
+        - {{ compiler('fortran') }}
+        - openmpi
+        - openmpi-mpifort
+        - metis
+        - parmetis
+        - openblas
+        - liblapack
         - scipy
         - netcdf4
         - mpi4py
         - matplotlib
-        - jupyter 
-        - jupyterlab 
         - mpi4py
-    # test:
-    #   imports:
-    #     - numpy
-    #     - data_utils.formats.selafin
+
+    test:
+      commands:
+        - echo $BUILD_PREFIX
+        - echo {{ environ.get('PREFIX') }}
+        - echo {{ environ.get('SRC_DIR') }}
+        - export HOMETEL={{ environ.get('SRC_DIR') }}
+        - python3 -c "import time; print('sleep');time.sleep(300)"
+        - source $HOMETEL/configs/pysource.template.sh
 
 about:
   home: https://gitlab.pam-retd.fr/otm/telemac-mascaret
@@ -59,4 +78,5 @@ about:
 
 extra:
   recipe-maintainers:
-#   - brey
+    - brey
+    - tomsail
