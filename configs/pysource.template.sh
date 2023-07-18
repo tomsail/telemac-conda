@@ -8,7 +8,7 @@
 # Path to telemac root dir
 export HOMETEL=$SRC_DIR
 # Adding python scripts to PATH
-export PATH=$HOMETEL/scripts/python3:.:$PATH
+export PATH=$HOMETEL/scripts/python3:$PATH
 # Configuration file
 export SYSTELCFG=$HOMETEL/configs/systel.cfg
 # Name of the configuration to use
@@ -30,7 +30,7 @@ export SYSTEL=$HOMETEL
 
 ### MPI -----------------------------------------------------------
 export MPIHOME=$HOMETEL/lib
-export PATH=$HOMETEL:$PREFIX:$PATH
+export PATH=$HOMETEL:$PATH
 export LD_LIBRARY_PATH=$MPIHOME/lib:$LD_LIBRARY_PATH
 ###
 ### EXTERNAL LIBRARIES -----------------------------------------------------------
