@@ -31,7 +31,7 @@ export SYSTEL=$HOMETEL
 ### MPI -----------------------------------------------------------
 export MPIHOME=$HOMETEL/lib
 export PATH=$HOMETEL:$PREFIX:$PATH
-export LD_LIBRARY_PATH=$PATH/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$MPIHOME/lib:$LD_LIBRARY_PATH
 ###
 ### EXTERNAL LIBRARIES -----------------------------------------------------------
 ###
