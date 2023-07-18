@@ -1,5 +1,5 @@
 {% set name = "telemac" %}
-{% set version = "0.1.0" %}
+{% set version = "0.0.7" %}
 {% set build = 0 %}
 
 package:
@@ -23,8 +23,6 @@ outputs:
       build:
         - python =3.10
         - numpy =1.23
-        - pip
-        - git
         - {{ compiler('fortran') }}
         - openmpi
         - openmpi-mpifort
@@ -57,17 +55,19 @@ outputs:
         - openblas
         - liblapack
         - scipy
-        - numpy 1.23
         - netcdf4
         - mpi4py
         - matplotlib
-        - jupyter 
-        - jupyterlab 
         - mpi4py
-    # test:
-    #   imports:
-    #     - numpy
-    #     - import data_utils.formats.selafin
+
+    test:
+      commands:
+        - echo $BUILD_PREFIX
+        - echo {{ environ.get('PREFIX') }}
+        - echo {{ environ.get('SRC_DIR') }}
+        - export HOMETEL={{ environ.get('SRC_DIR') }}
+        - python3 -c "import time; print('sleep');time.sleep(300)"
+        - source $HOMETEL/configs/pysource.template.sh
 
 about:
   home: https://gitlab.pam-retd.fr/otm/telemac-mascaret
