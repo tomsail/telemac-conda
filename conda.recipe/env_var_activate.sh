@@ -6,7 +6,7 @@
 ### TELEMAC settings -----------------------------------------------------------
 ###
 # Path to telemac root dir
-export HOMETEL=$SRC_DIR
+export HOMETEL=$CONDA_PREFIX
 # Adding python scripts to PATH
 export PATH=$HOMETEL/scripts/python3:$PATH
 # Configuration file

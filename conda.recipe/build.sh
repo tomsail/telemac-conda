@@ -2,6 +2,12 @@
 
 set -xeuo pipefail
 
+export CC=mpicc
+export CXX=mpicxx
+export FC=mpif90
+export F77=mpif77
+export F90=mpif90
+
 source ./configs/pysource.template.sh
 # 
 compile_telemac.py
@@ -47,4 +53,22 @@ cp -r $HOMETEL/builds/* $PREFIX/builds       #2
 cp -r $HOMETEL/scripts/* $PREFIX/scripts #3
 cp -r $HOMETEL/sources/* $PREFIX/sources #4
 
-cd $BUILD_PREFIX
+# AUTO activate /deactivate environments variables for TELEMAC
+cd $PREFIX
+export ACTIVATE=$PREFIX/etc/conda/activate.d
+if [ -d "$ACTIVATE" -a ! -h "$ACTIVATE" ]
+then
+   echo "$ACTIVATE already exists"
+else
+   mkdir $ACTIVATE
+fi 
+
+export DEACTIVATE=$PREFIX/etc/conda/deactivate.d
+if [ -d "$DEACTIVATE" -a ! -h "$DEACTIVATE" ]
+then
+   echo "$DEACTIVATE already exists"
+else
+   mkdir $DEACTIVATE
+fi 
+cp $SRC_DIR/conda.recipe/env_var_activate.sh $PREFIX/etc/conda/activate.d/env_vars.sh
+cp $SRC_DIR/conda.recipe/env_var_deactivate.sh $PREFIX/etc/conda/deactivate.d/env_vars.sh

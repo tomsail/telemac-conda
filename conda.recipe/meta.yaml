@@ -45,6 +45,15 @@ outputs:
         - openblas
         - liblapack
       run:
+        - python =3.10
+        - numpy =1.23
+        - {{ compiler('fortran') }}
+        - openmpi
+        - openmpi-mpifort
+        - metis
+        - parmetis
+        - openblas
+        - liblapack
         - scipy
         - netcdf4
         - mpi4py
