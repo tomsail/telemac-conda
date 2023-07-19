@@ -60,7 +60,6 @@ outputs:
         - netcdf4
         - mpi4py
         - matplotlib
-        - mpi4py
 
     test:
       commands:
