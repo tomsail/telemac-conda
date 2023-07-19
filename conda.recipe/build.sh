@@ -72,3 +72,5 @@ else
 fi 
 cp $SRC_DIR/conda.recipe/env_var_activate.sh $PREFIX/etc/conda/activate.d/env_vars.sh
 cp $SRC_DIR/conda.recipe/env_var_deactivate.sh $PREFIX/etc/conda/deactivate.d/env_vars.sh
+
+cd $BUILD_PREFIX
