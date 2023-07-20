@@ -10,7 +10,7 @@ To install the package:
 
 This package provides an operational working environment of openTELEMAC including: 
 * all the python scripts included in the path
-* all the TELEMAC binaries precompiled 
+* all the TELEMAC binaries precompiled dynamically (with working API)
 
 First release (current):
 * minimal version necessary for the latest openTELEMAC version **v8p4**
