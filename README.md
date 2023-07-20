@@ -8,11 +8,15 @@ To install the package:
 `conda install -c tomsail telemac`
 
 
+This package provides an operational working environment of openTELEMAC including: 
+* all the python scripts included in the path
+* all the TELEMAC binaries precompiled 
+
 First release (current):
 * minimal version necessary for the latest openTELEMAC version **v8p4**
 
 Second release: 
-* all the pre requisite libraries need for the latest TELEMAC solver that include 
+* all the optionals libraries needed for:
   * solver optimisation (MUMPS)
   * Salomé formats (MED) binaries
   * GOTM (General Ocean Turbulence Model)
