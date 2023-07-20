@@ -8,7 +8,7 @@ This package provides an operational working environment of openTELEMAC includin
 * all the TELEMAC binaries precompiled dynamically (with working API)
 
 ## Install the package 
-to install the package, we recommend to use mamba [see here why](https://github.com/mamba-org/mamba) and choose the channel tomsail where the package has been uploaded
+to install the package, we recommend to use mamba ([see here why](https://github.com/mamba-org/mamba)) and choose the channel tomsail where the package has been uploaded
 
     mamba install -c tomsail telemac
 
