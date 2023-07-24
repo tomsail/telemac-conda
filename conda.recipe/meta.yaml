@@ -71,6 +71,25 @@ outputs:
         - python3 -c "import time; print('sleep');time.sleep(300)"
         - source $HOMETEL/configs/pysource.template.sh
 
+outputs:
+  - name: telemac-examples
+    script: build.sh
+    files: 
+     - scripts
+     - sources 
+     - builds
+     - configs
+     - etc/conda/deactivate.d/env_var_telemac_activate.sh
+     - etc/conda/activate.d/env_var_telemac_activate.sh
+    
+    requirements:
+      build:
+        - {{ pin_subpackage("telemac", exact=True) }}
+      host:
+        - {{ pin_subpackage("telemac", exact=True) }}
+      run:
+        - {{ pin_subpackage("telemac", exact=True) }}
+
 about:
   home: https://gitlab.pam-retd.fr/otm/telemac-mascaret
   license: Apache-2
