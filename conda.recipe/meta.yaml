@@ -1,5 +1,5 @@
 {% set name = "telemac" %}
-{% set version = "0.1.6" %}
+{% set version = "0.1.7" %}
 {% set build = 0 %}
 
 package:
@@ -61,7 +61,6 @@ outputs:
         - mpi4py
         - matplotlib
 
-outputs:
   - name: telemac-examples
     script: build_examples.sh
     files: 
