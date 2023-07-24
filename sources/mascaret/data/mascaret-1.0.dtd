@@ -1,0 +1,753 @@
+<!ELEMENT fichierCas (parametresCas)>
+
+<!--- tous les elements sont-ils obligatoires-->
+<!ELEMENT parametresCas (
+  parametresGeneraux?,
+  parametresModelePhysique?,
+  parametresNumeriques?,
+  parametresTemporels?,
+  parametresGeometrieReseau?,
+  parametresConfluents?,
+  parametresPlanimetrageMaillage?,
+  parametresSingularite?,
+  parametresCasier?,
+  parametresApportDeversoirs?,
+  parametresCalage?,
+  parametresLoisHydrauliques?,
+  parametresConditionsInitiales?,
+  parametresImpressionResultats?,
+  parametresVariablesCalculees?,
+  parametresVariablesStockees?,
+  parametresCalageAuto?,
+  parametresTraceur?)
+>
+
+
+<!ELEMENT parametresGeneraux (
+  versionCode?,
+  code?,
+  fichMotsCles?,
+  dictionaire?,
+  progPrincipal?,
+  sauveModele?,
+  fichSauvModele?,
+  validationCode?,
+  typeValidation?,
+  presenceCasiers?,
+  bibliotheques?)
+>
+
+<!ELEMENT parametresModelePhysique (
+  perteChargeConf?,
+  compositionLits?,
+  conservFrotVertical?,
+  elevCoteArrivFront?,
+  interpolLinStrickler?,
+  debordement?)
+>
+
+<!ELEMENT parametresNumeriques (
+  calcOndeSubmersion?,
+  froudeLimCondLim?,
+  traitImplicitFrot?,
+  hauteurEauMini?,
+  implicitNoyauTrans?,
+  optimisNoyauTrans?,
+  perteChargeAutoElargissement?,
+  termesNonHydrostatiques?,
+  apportDebit?,
+  attenuationConvection?,
+  parametresNumeriqueCasier?)
+>
+
+<!ELEMENT parametresTemporels (
+  pasTemps?,
+  tempsInit?,
+  critereArret?,
+  nbPasTemps?,
+  tempsMax?,
+  pasTempsVar?,
+  nbCourant?,
+  coteMax?,
+  abscisseControle?,
+  biefControle?
+  )
+>
+
+<!ELEMENT parametresGeometrieReseau (
+  geometrie?,
+  listeBranches?,
+  listeNoeuds?,
+  extrLibres?)
+>
+
+<!ELEMENT parametresConfluents (
+  nbConfluents,
+  confluents?)
+>
+
+<!ELEMENT parametresPlanimetrageMaillage (
+  methodeMaillage?,
+  planim?,
+  maillage?)
+>
+
+<!ELEMENT parametresSingularite (
+  nbSeuils,
+  barragePrincipal?,
+  seuils?,
+  pertesCharges?)
+>
+
+<!ELEMENT parametresCasier (
+  nbCasiers,
+  optionPlanimetrage?,
+  optionCalcul?,
+  fichierGeomCasiers?,
+  cotesInitiale?,
+  pasPlanimetrage?,
+  nbCotesPlanimetrage?,
+  liaisons?
+  )>
+
+<!ELEMENT parametresApportDeversoirs (
+  debitsApports?,
+  deversLate?,
+  apportCasier?)
+>
+
+<!ELEMENT parametresCalage (
+  frottement?,
+  zoneStockage?)
+>
+
+<!ELEMENT parametresLoisHydrauliques (
+  nb,
+  lois?)
+>
+
+<!ELEMENT parametresConditionsInitiales (
+  repriseEtude?,
+  ligneEau?,
+  zonesSeches?
+  )>
+
+<!ELEMENT parametresImpressionResultats (
+  titreCalcul?,
+  impression?,
+  pasStockage?,
+  resultats?,
+  listing?,
+  fichReprise?,
+  rubens?,
+  stockage?,
+  casier?)
+>
+
+<!ELEMENT parametresVariablesCalculees (variablesCalculees)?>
+
+<!ELEMENT parametresVariablesStockees (variablesStockees)?>
+
+<!ELEMENT parametresCalageAuto (
+  parametres?,
+  zones?,
+  listeCrues?)
+>
+
+<!ELEMENT parametresTraceur (
+  presenceTraceurs,
+  nbTraceur,
+  parametresConvectionDiffusion?,
+  parametresNumeriquesQualiteEau?,
+  parametresImpressionTraceur?,
+  parametresConditionsLimitesTraceur?,
+  parametresConcentrationsInitialesTraceur?,
+  parametresSourcesTraceur?,
+  parametresLoisTraceur?
+  )>
+
+
+<!ELEMENT parametresNumeriqueCasier (
+  coefImplicationSystemeCasiers,
+  coefImplicationDansCouplage, 
+  nbMaxIterationDansCouplage)
+>
+
+<!ELEMENT geometrie (profilsAbscAbsolu|format|fichier)*>
+
+
+<!ELEMENT debordement (litMajeur,zoneStock)>
+
+<!ELEMENT impression (
+  impressionGeometrie,
+  impressionPlanimetrage,
+  impressionReseau,
+  impressionLoiHydraulique,
+  impressionligneEauInitiale,
+  impressionCalcul)
+>
+
+
+<!ELEMENT listeBranches (
+  nb,
+  numeros,
+  abscDebut,
+  abscFin,
+  numExtremDebut,
+  numExtremFin)
+>
+
+<!ELEMENT listeNoeuds (nb,noeuds?)>
+<!ELEMENT noeuds (noeud)*>
+<!ELEMENT noeud (num)>
+<!ELEMENT Nom (string)*>
+
+<!ELEMENT extrLibres (
+  nb,
+  num?,
+  numExtrem?,
+  noms?,
+  typeCond?,
+  numLoi?)
+>
+
+<!ELEMENT confluents (structureParametresConfluent)*>
+
+<!ELEMENT structureParametresConfluent (
+  nbAffluent,
+  nom?,
+  abscisses?,
+  ordonnees?,
+  angles?)
+>
+
+<!ELEMENT planim (
+  nbPas,
+  nbZones,
+  valeursPas?,
+  num1erProf?,
+  numDerProf?)
+>
+
+<!ELEMENT maillage (
+  modeSaisie,
+  fichMaillage?,
+  sauvMaillage?,
+  fichSauvMaillage?,
+  maillageClavier?)
+>
+
+<!ELEMENT maillageClavier (
+  nbSections,
+  numSection?,
+  branchesSection?,
+  absSection?,
+  nbPlages?,
+  num1erProfPlage?,
+  numDerProfPlage?,
+  pasEspacePlage?,
+  nbZones?,
+  numBrancheZone?,
+  absDebutZone?,
+  absFinZone?,
+  nbSectionZone?)
+>
+
+<!ELEMENT deversLate (
+  nbDeversoirs,
+  noms?,
+  type?,
+  numBranche?,
+  abscisse?,
+  longueur?,
+  coteCrete?,
+  coeffDebit?,
+  numLoi?,
+  deversoirsV5P2?)
+>
+
+<!ELEMENT barragePrincipal (
+  numBranche,
+  abscisse,
+  typeRupture,
+  coteCrete)
+>
+
+<!ELEMENT seuils (structureParametresSeuil)*>
+<!ELEMENT structureParametresSeuil (
+  nom,
+  type,
+  numBranche,
+  abscisse,
+  coteCrete,
+  coteCreteMoy,
+  coteRupture,
+  coeffDebit,
+  largVanne,
+  numLoi,
+  nbPtLoiSeuil?,
+  abscTravCrete?,
+  cotesCrete?,
+  epaisseur,
+  gradient)
+>
+
+<!ELEMENT pertesCharges (
+  nbPerteCharge,
+  numBranche?,
+  abscisses?,
+  coefficients?)
+>
+
+<!ELEMENT liaisons (
+  nbLiaisons,
+  types?,
+  nature?,
+  cote?,
+  largeur?,
+  longueur?,
+  rugosite?,
+  section?,
+  coefPerteCharge?,
+  coefDebitSeuil?,
+  coefActivation?,
+  coefDebitOrifice?,
+  typeOrifice?,
+  numCasierOrigine?,
+  numCasierFin?,
+  numBiefAssocie?,
+  abscBief?)
+>
+
+<!ELEMENT debitsApports (
+  nbQApport,
+  noms?,
+  numBranche?,
+  abscisses?,
+  longueurs?,
+  numLoi?)
+>
+
+<!ELEMENT deversoirsV5P2 (structureParametresDeversoirsV5P2)*>
+<!ELEMENT structureParametresDeversoirsV5P2 (
+  nom,
+  type,
+  numBranche,
+  abscisse,
+  longueur,
+  coteCrete?,
+  coeffDebit?,
+  numLoi?)
+>
+
+
+<!ELEMENT apportCasier (
+  nbApportPluie,
+  numCasier,
+  numLoi)
+>
+
+<!ELEMENT frottement (
+  loi,
+  nbZone,
+  numBranche?,
+  absDebZone?,
+  absFinZone?,
+  coefLitMin?,
+  coefLitMaj?)
+>
+
+<!ELEMENT zoneStockage (
+  nbProfils,
+  numProfil,
+  limGauchLitMaj,
+  limDroitLitMaj)
+>
+
+<!ELEMENT lois (structureParametresLoi)*>
+
+<!ELEMENT structureParametresLoi (
+  nom,
+  type,
+  donnees?)
+>
+
+<!ELEMENT donnees (
+  modeEntree,
+  fichier,
+  uniteTps,
+  nbPoints,
+  tps?,
+  cote?,
+  cote2?,
+  debit?,
+  nbDebitsDifferents?)
+>
+
+<!ELEMENT repriseEtude (
+  repriseCalcul?,
+  fichRepriseLec?,
+  formatBinFich?)
+>
+<!ELEMENT ligneEau (
+  LigEauInit,
+  modeEntree?,
+  fichLigEau?,
+  formatFichLig?,
+  nbPts,
+  branche?,
+  abscisse?,
+  cote?,
+  debit?,
+  coefMin?,
+  coefMaj?)
+>
+
+<!ELEMENT casier (
+  resultatCasier,
+  listingCasier,
+  resultatLiaison,
+  listingLiaison)
+>
+
+<!ELEMENT parametres (
+  modeCalageAuto,
+  pasGradient,
+  nbMaxIterations,
+  typeLit,
+  precision,
+  roInit,
+  methOptimisation,
+  nomFichResult,
+  nomFichListing)
+>
+
+<!ELEMENT zones (
+  nbZones,
+  absDebZone,
+  absFinZone,
+  coefLitMin,
+  coefLitMaj)
+>
+
+<!ELEMENT listeCrues (nbCrues,crues?)>
+<!ELEMENT crues (structureParametresCrueCalageAutomatique)*>
+<!ELEMENT structureParametresCrueCalageAutomatique (
+  debitAmont,
+  coteAval,
+  nbMesures,
+  absMesures,
+  coteMesures,
+  pondMesures,
+  nbApports,
+  absApports,
+  debitApports)
+>
+
+<!ELEMENT zonesSeches (nb,branche,absDebut,absFin)>
+<!ELEMENT pasStockage (premPasTpsStock,pasStock,pasImpression)>
+<!ELEMENT resultats (fichResultat?,fichResultat2?,formatBinFich?,postProcesseur?)>
+<!ELEMENT bibliotheques (bibliotheque)*>
+<!ELEMENT listing (fichListing)*>
+<!ELEMENT fichReprise (fichRepriseEcr?,formatBinFich?)>
+<!ELEMENT rubens (ecartInterBranch)>
+<!ELEMENT stockage (option,nbSite,branche?,abscisse?)>
+
+
+
+<!ELEMENT parametresConditionsLimitesTraceur (typeCondLimTracer,numLoiCondLimTracer)>
+<!ELEMENT parametresConcentrationsInitialesTraceur (
+  presenceConcInit,
+  modeEntree,
+  fichConcInit?,
+  nbPts,
+  branche?,
+  abscisse?,
+  listeConcentrations?)
+>
+<!ELEMENT listeConcentrations (structureParametresConcentrations)*>
+<!ELEMENT structureParametresConcentrations (concentrations)>
+
+<!ELEMENT parametresConvectionDiffusion (
+  convectionTraceurs,
+  optionConvection,
+  ordreSchemaConvec,
+  paramW,
+  LimitPente,
+  diffusionTraceurs,
+  optionCalculDiffusion,
+  coeffDiffusion1,
+  coeffDiffusion2)
+>
+<!ELEMENT parametresNumeriquesQualiteEau (
+  modeleQualiteEau,
+  fichParamPhysiqueTracer?,
+  fichMeteoTracer?,
+  frequenceCouplHydroTracer)
+>
+<!ELEMENT parametresImpressionTraceur (
+  fichListTracer,
+  concentInit,
+  loiTracer,
+  concentrations,
+  bilanTracer,
+  fichResultTracer,
+  formatFichResultat)
+>
+
+<!ELEMENT parametresSourcesTraceur (
+  nbSources,
+  noms,
+  typeSources,
+  numBranche,
+  abscisses,
+  longueurs,
+  numLoi)
+>
+<!ELEMENT parametresLoisTraceur (nbLoisTracer,loisTracer)>
+<!ELEMENT loisTracer (structureSParametresLoiTraceur)*>
+<!ELEMENT structureSParametresLoiTraceur (
+  nom?,
+  modeEntree,
+  fichier?,
+  uniteTps,
+  nbPoints,
+  tps?,
+  listeConcentrations?)
+>
+
+<!ELEMENT versionCode (#PCDATA)>
+<!ELEMENT code (#PCDATA)>
+<!ELEMENT fichMotsCles (#PCDATA)>
+<!ELEMENT dictionaire (#PCDATA)>
+<!ELEMENT progPrincipal (#PCDATA)>
+<!ELEMENT sauveModele (#PCDATA)>
+<!ELEMENT fichSauvModele (#PCDATA)>
+<!ELEMENT validationCode (#PCDATA)>
+<!ELEMENT typeValidation (#PCDATA)>
+<!ELEMENT presenceCasiers (#PCDATA)>
+<!ELEMENT bibliotheque (#PCDATA)>
+<!ELEMENT perteChargeConf (#PCDATA)>
+<!ELEMENT compositionLits (#PCDATA)>
+<!ELEMENT conservFrotVertical (#PCDATA)>
+<!ELEMENT elevCoteArrivFront (#PCDATA)>
+<!ELEMENT interpolLinStrickler (#PCDATA)>
+<!ELEMENT litMajeur (#PCDATA)>
+<!ELEMENT zoneStock (#PCDATA)>
+<!ELEMENT calcOndeSubmersion (#PCDATA)>
+<!ELEMENT froudeLimCondLim (#PCDATA)>
+<!ELEMENT traitImplicitFrot (#PCDATA)>
+<!ELEMENT hauteurEauMini (#PCDATA)>
+<!ELEMENT implicitNoyauTrans (#PCDATA)>
+<!ELEMENT optimisNoyauTrans (#PCDATA)>
+<!ELEMENT perteChargeAutoElargissement (#PCDATA)>
+<!ELEMENT termesNonHydrostatiques (#PCDATA)>
+<!ELEMENT apportDebit (#PCDATA)>
+<!ELEMENT attenuationConvection (#PCDATA)>
+<!ELEMENT coefImplicationSystemeCasiers (#PCDATA)>
+<!ELEMENT coefImplicationDansCouplage (#PCDATA)>
+<!ELEMENT nbMaxIterationDansCouplage (#PCDATA)>
+<!ELEMENT pasTemps (#PCDATA)>
+<!ELEMENT tempsInit (#PCDATA)>
+<!ELEMENT critereArret (#PCDATA)>
+<!ELEMENT nbPasTemps (#PCDATA)>
+<!ELEMENT tempsMax (#PCDATA)>
+<!ELEMENT pasTempsVar (#PCDATA)>
+<!ELEMENT nbCourant (#PCDATA)>
+<!ELEMENT coteMax (#PCDATA)>
+<!ELEMENT abscisseControle (#PCDATA)>
+<!ELEMENT biefControle (#PCDATA)>
+<!ELEMENT impressionGeometrie (#PCDATA)>
+<!ELEMENT impressionPlanimetrage (#PCDATA)>
+<!ELEMENT impressionReseau (#PCDATA)>
+<!ELEMENT impressionLoiHydraulique (#PCDATA)>
+<!ELEMENT impressionligneEauInitiale (#PCDATA)>
+<!ELEMENT impressionCalcul (#PCDATA)>
+<!ELEMENT fichier (#PCDATA)>
+<!ELEMENT format (#PCDATA)>
+<!ELEMENT profilsAbscAbsolu (#PCDATA)>
+<!ELEMENT titreCalcul (#PCDATA)>
+<!ELEMENT nb (#PCDATA)>
+<!ELEMENT numeros (#PCDATA)>
+<!ELEMENT abscDebut (#PCDATA)>
+<!ELEMENT abscFin (#PCDATA)>
+<!ELEMENT numExtremDebut (#PCDATA)>
+<!ELEMENT numExtremFin (#PCDATA)>
+<!ELEMENT num (#PCDATA)>
+<!ELEMENT numExtrem (#PCDATA)>
+<!ELEMENT string (#PCDATA)>
+<!ELEMENT typeCond (#PCDATA)>
+<!ELEMENT numLoi (#PCDATA)>
+<!ELEMENT nbConfluents (#PCDATA)>
+<!ELEMENT nbAffluent (#PCDATA)>
+<!ELEMENT nom (#PCDATA)>
+<!ELEMENT abscisses (#PCDATA)>
+<!ELEMENT ordonnees (#PCDATA)>
+<!ELEMENT angles (#PCDATA)>
+<!ELEMENT methodeMaillage (#PCDATA)>
+<!ELEMENT nbPas (#PCDATA)>
+<!ELEMENT nbZones (#PCDATA)>
+<!ELEMENT valeursPas (#PCDATA)>
+<!ELEMENT num1erProf (#PCDATA)>
+<!ELEMENT numDerProf (#PCDATA)>
+<!ELEMENT modeSaisie (#PCDATA)>
+<!ELEMENT fichMaillage (#PCDATA)>
+<!ELEMENT sauvMaillage (#PCDATA)>
+<!ELEMENT fichSauvMaillage (#PCDATA)>
+<!ELEMENT nbSections (#PCDATA)>
+<!ELEMENT numSection (#PCDATA)>
+<!ELEMENT branchesSection (#PCDATA)>
+<!ELEMENT absSection (#PCDATA)>
+<!ELEMENT nbPlages (#PCDATA)>
+<!ELEMENT num1erProfPlage (#PCDATA)>
+<!ELEMENT numDerProfPlage (#PCDATA)>
+<!ELEMENT pasEspacePlage (#PCDATA)>
+<!ELEMENT numBrancheZone (#PCDATA)>
+<!ELEMENT absDebutZone (#PCDATA)>
+<!ELEMENT absFinZone (#PCDATA)>
+<!ELEMENT nbSectionZone (#PCDATA)>
+<!ELEMENT nbSeuils (#PCDATA)>
+<!ELEMENT numBranche (#PCDATA)>
+<!ELEMENT abscisse (#PCDATA)>
+<!ELEMENT typeRupture (#PCDATA)>
+<!ELEMENT coteCrete (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT coteCreteMoy (#PCDATA)>
+<!ELEMENT coteRupture (#PCDATA)>
+<!ELEMENT coeffDebit (#PCDATA)>
+<!ELEMENT largVanne (#PCDATA)>
+<!ELEMENT nbPtLoiSeuil (#PCDATA)>
+<!ELEMENT abscTravCrete (#PCDATA)>
+<!ELEMENT cotesCrete (#PCDATA)>
+<!ELEMENT epaisseur (#PCDATA)>
+<!ELEMENT gradient (#PCDATA)>
+<!ELEMENT nbPerteCharge (#PCDATA)>
+<!ELEMENT coefficients (#PCDATA)>
+<!ELEMENT nbCasiers (#PCDATA)>
+<!ELEMENT optionPlanimetrage (#PCDATA)>
+<!ELEMENT optionCalcul (#PCDATA)>
+<!ELEMENT fichierGeomCasiers (#PCDATA)>
+<!ELEMENT cotesInitiale (#PCDATA)>
+<!ELEMENT pasPlanimetrage (#PCDATA)>
+<!ELEMENT nbCotesPlanimetrage (#PCDATA)>
+<!ELEMENT nbLiaisons (#PCDATA)>
+<!ELEMENT types (#PCDATA)>
+<!ELEMENT nature (#PCDATA)>
+<!ELEMENT cote (#PCDATA)>
+<!ELEMENT largeur (#PCDATA)>
+<!ELEMENT longueur (#PCDATA)>
+<!ELEMENT rugosite (#PCDATA)>
+<!ELEMENT section (#PCDATA)>
+<!ELEMENT coefPerteCharge (#PCDATA)>
+<!ELEMENT coefDebitSeuil (#PCDATA)>
+<!ELEMENT coefActivation (#PCDATA)>
+<!ELEMENT coefDebitOrifice (#PCDATA)>
+<!ELEMENT typeOrifice (#PCDATA)>
+<!ELEMENT numCasierOrigine (#PCDATA)>
+<!ELEMENT numCasierFin (#PCDATA)>
+<!ELEMENT numBiefAssocie (#PCDATA)>
+<!ELEMENT abscBief (#PCDATA)>
+<!ELEMENT nbQApport (#PCDATA)>
+<!ELEMENT noms (string)*>
+<!ELEMENT longueurs (#PCDATA)>
+<!ELEMENT nbDeversoirs (#PCDATA)>
+<!ELEMENT nbApportPluie (#PCDATA)>
+<!ELEMENT numCasier (#PCDATA)>
+<!ELEMENT loi (#PCDATA)>
+<!ELEMENT nbZone (#PCDATA)>
+<!ELEMENT absDebZone (#PCDATA)>
+<!ELEMENT coefLitMin (#PCDATA)>
+<!ELEMENT coefLitMaj (#PCDATA)>
+<!ELEMENT nbProfils (#PCDATA)>
+<!ELEMENT numProfil (#PCDATA)>
+<!ELEMENT limGauchLitMaj (#PCDATA)>
+<!ELEMENT limDroitLitMaj (#PCDATA)>
+<!ELEMENT modeEntree (#PCDATA)>
+<!ELEMENT uniteTps (#PCDATA)>
+<!ELEMENT nbPoints (#PCDATA)>
+<!ELEMENT tps (#PCDATA)>
+<!ELEMENT cote2 (#PCDATA)>
+<!ELEMENT debit (#PCDATA)>
+<!ELEMENT nbDebitsDifferents (#PCDATA)>
+<!ELEMENT repriseCalcul (#PCDATA)>
+<!ELEMENT fichRepriseLec (#PCDATA)>
+<!ELEMENT formatBinFich (#PCDATA)>
+<!ELEMENT LigEauInit (#PCDATA)>
+<!ELEMENT fichLigEau (#PCDATA)>
+<!ELEMENT formatFichLig (#PCDATA)>
+<!ELEMENT nbPts (#PCDATA)>
+<!ELEMENT branche (#PCDATA)>
+<!ELEMENT coefMin (#PCDATA)>
+<!ELEMENT coefMaj (#PCDATA)>
+<!ELEMENT absDebut (#PCDATA)>
+<!ELEMENT absFin (#PCDATA)>
+<!ELEMENT planimetrage (#PCDATA)>
+<!ELEMENT reseau (#PCDATA)>
+<!ELEMENT loiHydrau (#PCDATA)>
+<!ELEMENT ligneEauInit (#PCDATA)>
+<!ELEMENT calcul (#PCDATA)>
+<!ELEMENT premPasTpsStock (#PCDATA)>
+<!ELEMENT pasStock (#PCDATA)>
+<!ELEMENT pasImpression (#PCDATA)>
+<!ELEMENT fichResultat (#PCDATA)>
+<!ELEMENT fichResultat2 (#PCDATA)>
+<!ELEMENT postProcesseur (#PCDATA)>
+<!ELEMENT fichListing (#PCDATA)>
+<!ELEMENT fichRepriseEcr (#PCDATA)>
+<!ELEMENT ecartInterBranch (#PCDATA)>
+<!ELEMENT option (#PCDATA)>
+<!ELEMENT nbSite (#PCDATA)>
+<!ELEMENT resultatCasier (#PCDATA)>
+<!ELEMENT listingCasier (#PCDATA)>
+<!ELEMENT resultatLiaison (#PCDATA)>
+<!ELEMENT listingLiaison (#PCDATA)>
+<!ELEMENT variablesCalculees (#PCDATA)>
+<!ELEMENT variablesStockees (#PCDATA)>
+<!ELEMENT modeCalageAuto (#PCDATA)>
+<!ELEMENT pasGradient (#PCDATA)>
+<!ELEMENT nbMaxIterations (#PCDATA)>
+<!ELEMENT typeLit (#PCDATA)>
+<!ELEMENT precision (#PCDATA)>
+<!ELEMENT roInit (#PCDATA)>
+<!ELEMENT methOptimisation (#PCDATA)>
+<!ELEMENT nomFichResult (#PCDATA)>
+<!ELEMENT nomFichListing (#PCDATA)>
+<!ELEMENT nbCrues (#PCDATA)>
+<!ELEMENT debitAmont (#PCDATA)>
+<!ELEMENT coteAval (#PCDATA)>
+<!ELEMENT nbMesures (#PCDATA)>
+<!ELEMENT absMesures (#PCDATA)>
+<!ELEMENT coteMesures (#PCDATA)>
+<!ELEMENT pondMesures (#PCDATA)>
+<!ELEMENT nbApports (#PCDATA)>
+<!ELEMENT absApports (#PCDATA)>
+<!ELEMENT debitApports (#PCDATA)>
+<!ELEMENT presenceTraceurs (#PCDATA)>
+<!ELEMENT nbTraceur (#PCDATA)>
+<!ELEMENT convectionTraceurs (#PCDATA)>
+<!ELEMENT optionConvection (#PCDATA)>
+<!ELEMENT ordreSchemaConvec (#PCDATA)>
+<!ELEMENT paramW (#PCDATA)>
+<!ELEMENT LimitPente (#PCDATA)>
+<!ELEMENT diffusionTraceurs (#PCDATA)>
+<!ELEMENT optionCalculDiffusion (#PCDATA)>
+<!ELEMENT coeffDiffusion1 (#PCDATA)>
+<!ELEMENT coeffDiffusion2 (#PCDATA)>
+<!ELEMENT modeleQualiteEau (#PCDATA)>
+<!ELEMENT fichParamPhysiqueTracer (#PCDATA)>
+<!ELEMENT fichMeteoTracer (#PCDATA)>
+<!ELEMENT frequenceCouplHydroTracer (#PCDATA)>
+<!ELEMENT fichListTracer (#PCDATA)>
+<!ELEMENT concentInit (#PCDATA)>
+<!ELEMENT loiTracer (#PCDATA)>
+<!ELEMENT concentrations (#PCDATA)>
+<!ELEMENT bilanTracer (#PCDATA)>
+<!ELEMENT fichResultTracer (#PCDATA)>
+<!ELEMENT formatFichResultat (#PCDATA)>
+<!ELEMENT typeCondLimTracer (#PCDATA)>
+<!ELEMENT numLoiCondLimTracer (#PCDATA)>
+<!ELEMENT presenceConcInit (#PCDATA)>
+<!ELEMENT fichConcInit (#PCDATA)>
+<!ELEMENT nbSources (#PCDATA)>
+<!ELEMENT typeSources (#PCDATA)>
+<!ELEMENT nbLoisTracer (#PCDATA)>

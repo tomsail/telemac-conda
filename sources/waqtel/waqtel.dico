@@ -1,0 +1,2276 @@
+&DYN
+/ Description of a keyword
+/ NOM : French name
+/ NOM1 : English name
+/ TYPE : STRING, INTEGER, REAL, LOGICAL
+/ INDEX : Index of the keyword
+/ TAILLE : Number of values (0 means between 1 and n)
+/ (opt) SUBMIT : Chain for files
+/ DEFAUT : Defaut value in French
+/ DEFAUT1 : Defaut value in English
+/ MNEMO : Name of the variable in the code
+/ (opt) CONTROLE : min;max for the keyword value
+/ (opt) CHOIX : List of possible values in french
+/ (opt) CHOIX1 : List of possible values in english
+/ (opt) APPARENCE : Defined how the keyword is filled
+/   LIST, DYNLIST, TUPLE
+/ RUBRIQUE : Classification of the keyword 3 level max
+/ RUBRIQUE1 : RUBRIQUE but in English
+/ (opt) COMPOSE : Used for fudaa
+/ (opt) COMPORT : Used for fudaa
+/ NIVEAU : Level of the keyword (Level 0 is a mandatory keyword)
+/ AIDE : Help in French (LaTeX syntax)
+/ AIDE1 : Help in English (LaTeX syntax)
+/
+/ INTEGER INDEX USED: 1-1,3-6,8-14 OUT OF  12
+/ REAL INDEX USED: 2-2,8-8,11-12,21-22,25-26,29-29,31-34,36-36,39-39,42-42,45-46,51-51,54-54,57-57,60-60,63-63,66-66,69-69,71-71,73-73,75-75,77-79,81-81,85-85,90-90,93-93,95-95,97-97,99-99,104-104,106-106,109-109,111-111,113-113,115-119,121-121,125-125,127-127,129-129, OUT OF  56
+/ LOGICAL INDEX USED: 1-3 OUT OF   3
+/ STRING INDEX USED: 1-4,6-8,10-12,14-23 OUT OF  20
+/
+////////////////////////////////////////////////////////////////////////
+/// 1-COMPUTATION ENVIRONMENT
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+///// 1.1-GLOBAL
+////////////////////////////////////////////////////////////////////////
+NOM = 'TITRE DU CAS QE'
+NOM1 = 'WAQ CASE TITLE'
+TYPE = STRING
+INDEX = 2
+TAILLE = 1
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'TITWAQCAS'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'GLOBAL';''
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'GLOBAL';''
+COMPORT =
+'Foreground ("ENTREES-SORTIES, GENERALITES*CALCUL")
+IS BRUT (red)'
+NIVEAU = 1
+AIDE =
+'Titre du cas etudie. Ce titre sera inscrit dans les sorties.'
+AIDE1 =
+'Title of the case being considered.
+This title will be marked on the printouts.'
+/
+NOM = 'PROCESSEURS PARALLELES'
+NOM1 = 'PARALLEL PROCESSORS'
+TYPE = INTEGER
+INDEX = 6
+TAILLE = 1
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'NCSIZE'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'GLOBAL';''
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'GLOBAL';''
+NIVEAU = 1
+AIDE =
+'Nombre de processeurs en calcul parallele :
+\begin{itemize}
+\item 0 : 1 machine, compilation sans bibliotheque de parallelisme ;
+\item 1 : 1 machine, compilation avec bibliotheque de parallelisme ;
+\item 2 : 2 processeurs ou machines en parallele etc.
+\end{itemize}'
+AIDE1 =
+'Number of processors for parallel processing:
+\begin{itemize}
+\item 0: 1 machine, compiling without parallel library,
+\item 1: 1 machine, compiling with a parallel library,
+\item 2: 2 processors or machines in parallel etc.
+\end{itemize}'
+/
+////////////////////////////////////////////////////////////////////////
+///// 1.2-INPUT
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+/////// 1.2.1-DATA
+////////////////////////////////////////////////////////////////////////
+NOM = 'FICHIER DE GEOMETRIE'
+NOM1 = 'GEOMETRY FILE'
+TYPE = STRING
+INDEX = 8
+TAILLE = 0
+SUBMIT = 'WAQGEO-READ;WAQGEO;FACUL;BIN;LIT;SELAFIN-GEOM'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'WAQ\_FILES(WAQGEO)%NAME'
+APPARENCE =
+'LISTE IS FICHIER'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+NIVEAU = 2
+AIDE =
+'Fichier de geometrie, pareil que celui de TELEMAC.'
+AIDE1 =
+'Geometry file same as the TELEMAC one.'
+/
+NOM = 'FORMAT DU FICHIER DE GEOMETRIE'
+NOM1 = 'GEOMETRY FILE FORMAT'
+TYPE = STRING
+INDEX = 21
+TAILLE = 1
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+MNEMO = 'WAQ\_FILES(WAQGEO)%FMT'
+CHOIX =
+'SERAFIN ';
+'SERAFIND';
+'MED'
+CHOIX1 =
+'SERAFIN ';
+'SERAFIND';
+'MED'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+NIVEAU = 2
+AIDE =
+'Format du fichier de geometrie.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'Geometry file format.
+Possible choices are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+/
+NOM = 'FICHIER DES CONDITIONS AUX LIMITES'
+NOM1 = 'BOUNDARY CONDITIONS FILE'
+TYPE = STRING
+INDEX = 10
+TAILLE = 1
+SUBMIT = 'WAQCLI-READ;WAQCLI;OBLIG;ASC;LIT;CONLIM'
+MNEMO = 'WAQ\_FILES(WAQCLI)%NAME'
+APPARENCE =
+'LISTE IS FICHIER'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+NIVEAU = 1
+AIDE =
+'Nom du fichier contenant les types de conditions aux limites.
+Ce fichier est rempli de facon automatique par le mailleur au moyen de
+couleurs affectees aux noeuds des frontieres du domaine de calcul.'
+AIDE1 =
+'Name of the file containing the types of boundary conditions.
+This file is filled automatically by the mesh generator through
+colours that are assigned to the boundary nodes.'
+/
+NOM = 'FICHIER FORTRAN'
+NOM1 = 'FORTRAN FILE'
+TYPE = STRING
+INDEX = 7
+TAILLE = 1
+SUBMIT = 'INUTILE;INUTILE;FACUL;ASC;LIT;FORTRAN'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'NOMFOR'
+APPARENCE =
+'LISTE IS FICHIER'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+NIVEAU = 1
+AIDE =
+'Nom du fichier FORTRAN a soumettre.'
+AIDE1 =
+'Name of FORTRAN file to be submitted.'
+/
+NOM = 'FICHIER HYDRODYNAMIQUE'
+NOM1 = 'HYDRODYNAMIC FILE'
+TYPE = STRING
+INDEX = 14
+TAILLE = 0
+SUBMIT = 'WAQHYD-READ;WAQHYD;FACUL;BIN;LIT;SELAFIN'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'WAQ\_FILES(WAQHYD)%NAME'
+APPARENCE =
+'LISTE IS FICHIER'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+NIVEAU = 2
+AIDE =
+'Fichier des donnees hydrodynamiques provenant de TELEMAC.
+Lu mais pas utilise pour le moment.'
+AIDE1 =
+'Hydrodynamic data file coming from TELEMAC.
+Read but not used at the moment.'
+/
+NOM = 'FORMAT DU FICHIER HYDRODYNAMIQUE'
+NOM1 = 'HYDRODYNAMIC FILE FORMAT'
+TYPE = STRING
+INDEX = 22
+TAILLE = 1
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+MNEMO = 'WAQ\_FILES(WAQHYD)%FMT'
+CHOIX =
+'SERAFIN ';
+'SERAFIND';
+'MED'
+CHOIX1 =
+'SERAFIN ';
+'SERAFIND';
+'MED'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+NIVEAU = 2
+AIDE =
+'Format du fichier hydrodynamique.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'Hydrodynamic file format.
+Possible choices are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+/
+NOM = 'VALIDATION'
+NOM1 = 'VALIDATION'
+TYPE = LOGICAL
+INDEX = 3
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'WQVALID'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+NIVEAU = 2
+AIDE =
+'Option utilisee principalement pour le dossier de validation.
+Si ce mot-cle vaut OUI, les resultats du calcul vont alors etre
+compares aux valeurs du fichier de reference.
+Lu mais pas utilise pour le moment.'
+AIDE1 =
+'This option is primarily used for the validation
+documents. If this keyword is equal to YES, the REFERENCE FILE
+is then considered as a reference which the computation is
+going to be compared with.
+Read but not used at the moment.'
+/
+NOM = 'FICHIER DE REFERENCE'
+NOM1 = 'REFERENCE FILE'
+TYPE = STRING
+INDEX = 12
+TAILLE = 0
+SUBMIT = 'WAQREF-READ;WAQREF;FACUL;BIN;LIT;SELAFIN'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'WAQ\_FILES(WAQREF)%NAME'
+APPARENCE =
+'LISTE IS FICHIER'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+NIVEAU = 2
+AIDE =
+'Nom du fichier servant a valider le calcul.
+Si \telkey{VALIDATION} = OUI, les resultats du calcul vont etre
+comparees aux valeurs contenues dans ce fichier.
+La comparaison est effectuee par le sous-programme VALIDA.
+a implementer.'
+AIDE1 =
+'Name of the file used to validate the computation.
+If \telkey{VALIDATION} = YES, the results of the computation will
+be compared with the values of this file. The comparison is
+made by the subroutine BIEF\_VALIDA. (not implemented yet).'
+/
+NOM = 'FORMAT DU FICHIER DE REFERENCE'
+NOM1 = 'REFERENCE FILE FORMAT'
+TYPE = STRING
+INDEX = 23
+TAILLE = 1
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+MNEMO = 'WAQ\_FILES(WAQREF)%FMT'
+CHOIX =
+'SERAFIN ';
+'SERAFIND';
+'MED'
+CHOIX1 =
+'SERAFIN ';
+'SERAFIND';
+'MED'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'DONNEES'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'DATA'
+NIVEAU = 2
+AIDE =
+'Format du fichier hydrodynamique.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'Hydrodynamic file format.
+Possible choices are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+/
+////////////////////////////////////////////////////////////////////////
+/////// 1.2.2-AED2
+////////////////////////////////////////////////////////////////////////
+NOM = 'FICHIER DES PARAMETRES AED2'
+NOM1 = 'AED2 STEERING FILE'
+TYPE = STRING
+INDEX = 15
+TAILLE = 1
+SUBMIT = 'WAQAED2-READ;aed2.nml;FACUL;ASC;LIT;SCAL'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'WAQ\_FILES(WAQAED2)'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'AED2'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'AED2'
+NIVEAU = 1
+AIDE =
+'Nom du fichier contenant les parametres AED2 du calcul
+QE a realiser.'
+AIDE1 =
+'Name of the file containing AED2 parameters of the WAQ
+computation.'
+/
+NOM = 'FICHIER DES PARAMETRES PHYTOPLANCTON AED2'
+NOM1 = 'AED2 PHYTOPLANKTON STEERING FILE'
+TYPE = STRING
+INDEX = 16
+TAILLE = 1
+SUBMIT = 'WAQAED2P-READ;aed2_phyto_pars.nml;FACUL;ASC;LIT;SCAL'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'WAQ\_FILES(WAQAED2P)'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'AED2'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'AED2'
+NIVEAU = 1
+AIDE =
+'Nom du fichier contenant les parametres phytoplancton AED2 du
+calcul QE a realiser.'
+AIDE1 =
+'Name of the file containing AED2 phytoplankton parameters of
+the WAQ computation.'
+/
+NOM = 'FICHIER DES PARAMETRES ZOOPLANCTON AED2'
+NOM1 = 'AED2 ZOOPLANKTON STEERING FILE'
+TYPE = STRING
+INDEX = 17
+TAILLE = 1
+SUBMIT = 'WAQAED2Z-READ;aed2_zoop_pars.nml;FACUL;ASC;LIT;SCAL'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'WAQ\_FILES(WAQAED2Z)'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'AED2'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'AED2'
+NIVEAU = 1
+AIDE =
+'Nom du fichier contenant les parametres zooplancton AED2 du
+calcul QE a realiser.'
+AIDE1 =
+'Name of the file containing AED2 zooplankton parameters of the
+WAQ computation.'
+/
+NOM = 'FICHIER DES PARAMETRES PATHOGENES AED2'
+NOM1 = 'AED2 PATHOGEN STEERING FILE'
+TYPE = STRING
+INDEX = 18
+TAILLE = 1
+SUBMIT = 'WAQAED2PT-READ;aed2_pathogen_pars.nml;FACUL;ASC;LIT;SCAL'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'WAQ\_FILES(WAQAED2PT)'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'AED2'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'AED2'
+NIVEAU = 1
+AIDE =
+'Nom du fichier contenant les parametres pathogenes AED2 du
+calcul QE a realiser.'
+AIDE1 =
+'Name of the file containing AED2 pathogen parameters of the
+WAQ computation.'
+/
+NOM = 'FICHIER DES PARAMETRES BIVALVES AED2'
+NOM1 = 'AED2 BIVALVE STEERING FILE'
+TYPE = STRING
+INDEX = 19
+TAILLE = 1
+SUBMIT = 'WAQAED2B-READ;aed2_bivalve_pars.nml;FACUL;ASC;LIT;SCAL'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = 'WAQ\_FILES(WAQAED2B)'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'ENTREE';'AED2'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'INPUT';'AED2'
+NIVEAU = 1
+AIDE =
+'Nom du fichier contenant les parametres bivalves AED2 du
+calcul QE a realiser.'
+AIDE1 =
+'Name of the file containing AED2 bivalve parameters of the
+WAQ computation.'
+/
+////////////////////////////////////////////////////////////////////////
+///// 1.3-OUTPUT
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+/////// 1.3.1-RESULTS
+////////////////////////////////////////////////////////////////////////
+NOM = 'FICHIER DES RESULTATS'
+NOM1 = 'RESULTS FILE'
+TYPE = STRING
+INDEX = 6
+TAILLE = 0
+SUBMIT = 'WAQRES-WRITE;WAQRES;OBLIG;BIN;ECR;SELAFIN'
+MNEMO = 'WAQ\_FILES(WAQRES)%NAME'
+APPARENCE =
+'LISTE IS FICHIER'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'RESULTS'
+NIVEAU = 1
+AIDE =
+'Nom du fichier dans lequel seront ecrits les resultats avec
+une periodicite donnee par le mot cle
+\telkey{PERIODE POUR LES SORTIES QUALITE D EAU}.'
+AIDE1 =
+'Name of the file into which the computation results will be
+written, the periodicity being given by the keyword
+\telkey{WATER QUALITY PRINTOUT PERIOD}.'
+/
+NOM = 'FORMAT DU FICHIER DES RESULTATS'
+NOM1 = 'RESULTS FILE FORMAT'
+TYPE = STRING
+INDEX = 20
+TAILLE = 1
+DEFAUT = 'SERAFIN '
+DEFAUT1 = 'SERAFIN '
+MNEMO = 'WAQ\_FILES(WAQRES)%FMT'
+CHOIX =
+'SERAFIN ';
+'SERAFIND';
+'MED'
+CHOIX1 =
+'SERAFIN ';
+'SERAFIND';
+'MED'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'RESULTS'
+NIVEAU = 2
+AIDE =
+'Format du fichier des resultats.
+Les valeurs possibles sont :
+\begin{itemize}
+\item SERAFIN : format standard simple precision pour \tel ;
+\item SERAFIND: format standard double precision pour \tel ;
+\item MED     : format MED double precision base sur HDF5.
+\end{itemize}'
+AIDE1 =
+'Results file format.
+Possible choices are:
+\begin{itemize}
+\item SERAFIN : classical single precision format in \tel,
+\item SERAFIND: classical double precision format in \tel,
+\item MED     : MED double precision format based on HDF5.
+\end{itemize}'
+/
+NOM = 'PERIODE POUR LES SORTIES QUALITE D''EAU'
+NOM1 = 'WATER QUALITY PRINTOUT PERIOD'
+TYPE = INTEGER
+INDEX = 1
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'LEOPRD'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'RESULTS'
+NIVEAU = 0
+AIDE =
+'Periode pour les sorties graphiques QE.
+Lu mais pas utilise pour le moment.'
+AIDE1 =
+'Graphic outputs period for WAQ.
+Read but not used at the moment.'
+/
+NOM = 'VARIABLES POUR LES SORTIES QE'
+NOM1 = 'VARIABLES FOR WAQ PRINTOUTS'
+TYPE = STRING
+INDEX = 3
+TAILLE = 1
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = ''
+CHOIX =
+'';
+'editer !!!'
+CHOIX1 =
+'';
+'to edit !!!'
+APPARENCE =
+'LISTE IS EDITABLE'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'RESULTATS'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'RESULTS'
+NIVEAU = 1
+AIDE =
+'Noms des variables que l''utilisateur veut ecrire dans
+le fichier des resultats QE.
+Chaque variable est representee par une lettre.
+Ne semble pas utilise pour le moment.'
+AIDE1 =
+'Names of variables the user wants to write
+into the graphic results file.
+Does not seem to be used at the moment.'
+/
+////////////////////////////////////////////////////////////////////////
+/////// 1.3.2-LISTING
+////////////////////////////////////////////////////////////////////////
+NOM = 'BILAN DE MASSE'
+NOM1 = 'MASS-BALANCE'
+TYPE = LOGICAL
+INDEX = 1
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'WQBILMAS'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'LISTING'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'LISTING'
+NIVEAU = 1
+AIDE =
+'Determine si oui ou non le bilan de masse est realise.
+Lu mais pas utilise pour le moment.'
+AIDE1 =
+'Determines whether a check of the mass-balance over the domain
+is made or not.
+Read but not used at the moment.'
+/
+NOM = 'VARIABLES QE A IMPRIMER'
+NOM1 = 'WAQ VARIABLES TO BE PRINTED'
+TYPE = STRING
+INDEX = 4
+TAILLE = 1
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = ''
+APPARENCE =
+'LISTE IS EDITABLE'
+RUBRIQUE =
+'ENVIRONNEMENT DE CALCUL';'SORTIE';'LISTING'
+RUBRIQUE1 =
+'COMPUTATION ENVIRONMENT';'OUTPUT';'LISTING'
+NIVEAU = 2
+AIDE =
+'Nom des variables que l''utilisateur desire ecrire sur
+le listing. Memes possibilites que pour les sorties graphiques.
+Ne semble pas utilise pour le moment.'
+AIDE1 =
+'Names of variables the user wants to write on the listing.
+Each variable is represented by a letter in the same manner as
+it is done in the graphic results file.
+Does not seem to be used at the moment.'
+/
+////////////////////////////////////////////////////////////////////////
+/// 2-GENERAL PARAMETERS
+////////////////////////////////////////////////////////////////////////
+NOM = 'DEBUGGER'
+NOM1 = 'DEBUGGER'
+TYPE = INTEGER
+INDEX = 11
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'DEBUG'
+RUBRIQUE =
+'PARAMETRES GENERAUX';'';''
+RUBRIQUE1 =
+'GENERAL PARAMETERS';'';''
+NIVEAU = 1
+AIDE =
+'Pour imprimer la sequence des appels, mettre 1.'
+AIDE1 =
+'If 1, calls of subroutines will be printed in the listing.'
+/
+////////////////////////////////////////////////////////////////////////
+/// 3-HYDRODYNAMICS
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+///// 3.1-PHYSICAL PARAMETERS
+////////////////////////////////////////////////////////////////////////
+NOM = 'MASSE VOLUMIQUE DE L''EAU'
+NOM1 = 'WATER DENSITY'
+TYPE = REAL
+INDEX = 2
+TAILLE = 1
+DEFAUT = 999.972
+DEFAUT1 = 999.972
+MNEMO = 'RO0'
+RUBRIQUE =
+'HYDRODYNAMIQUE';'PARAMETRES PHYSIQUES';''
+RUBRIQUE1 =
+'HYDRODYNAMICS';'PHYSICAL PARAMETERS';''
+COMPORT =
+'Foreground ("PARAMETRES PHYSIQUES")
+IS BRUT (yellow)'
+NIVEAU = 1
+AIDE =
+'Fixe la valeur de la masse volumique de l''eau.'
+AIDE1 =
+'Sets the value of water density.'
+/
+NOM = 'VISCOSITE CINEMATIQUE EAU'
+NOM1 = 'KINEMATIC WATER VISCOSITY'
+TYPE = REAL
+INDEX = 8
+TAILLE = 1
+DEFAUT = 1.E-6
+DEFAUT1 = 1.E-6
+MNEMO = 'VCE'
+RUBRIQUE =
+'HYDRODYNAMIQUE';'PARAMETRES PHYSIQUES';''
+RUBRIQUE1 =
+'HYDRODYNAMICS';'PHYSICAL PARAMETERS';''
+NIVEAU = 3
+AIDE =
+'Definit la viscosite cinematique de l''eau.
+En m/s$^2$. Lu mais pas utilise pour le moment.'
+AIDE1 =
+'Specifies the water kinematic viscosity.
+En m/s$^2$. Read but not used at the moment.'
+/
+////////////////////////////////////////////////////////////////////////
+///// 3.2-SUSPENSION
+////////////////////////////////////////////////////////////////////////
+NOM = 'DISPERSION LONGITUDINALE'
+NOM1 = 'DISPERSION ALONG THE FLOW'
+TYPE = REAL
+INDEX = 11
+TAILLE = 0
+DEFAUT = 1.E-2
+DEFAUT1 = 1.E-2
+MNEMO = 'LDISP'
+RUBRIQUE =
+'HYDRODYNAMIQUE';'SUSPENSION';''
+RUBRIQUE1 =
+'HYDRODYNAMICS';'SUSPENSION';''
+NIVEAU = 1
+AIDE =
+'Lu mais pas utilise pour le moment.'
+AIDE1 =
+'Read but not used at the moment.'
+/
+NOM = 'DISPERSION TRANSVERSALE'
+NOM1 = 'DISPERSION ACROSS THE FLOW'
+TYPE = REAL
+INDEX = 12
+TAILLE = 0
+DEFAUT = 1.E-2
+DEFAUT1 = 1.E-2
+MNEMO = 'TDISP'
+RUBRIQUE =
+'HYDRODYNAMIQUE';'SUSPENSION';''
+RUBRIQUE1 =
+'HYDRODYNAMICS';'SUSPENSION';''
+NIVEAU = 1
+AIDE =
+'Lu mais pas utilise pour le moment.'
+AIDE1 =
+'Read but not used at the moment.'
+/
+////////////////////////////////////////////////////////////////////////
+/// 4-PHYSICAL PARAMETERS
+////////////////////////////////////////////////////////////////////////
+NOM = 'TAUX D''EVAPORATION'
+NOM1 = 'EVAPORATION RATE'
+TYPE = REAL
+INDEX = 137
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+MNEMO = 'EVAPORATION'
+RUBRIQUE =
+'PARAMETRES PHYSIQUES';'';''
+RUBRIQUE1 =
+'PHYSICAL PARAMETERS';'';''
+NIVEAU = 2
+AIDE =
+'Taux d evaporation - meme unite que la pluie en m$^3$/s/m$^2$.'
+AIDE1 =
+'Rate of evaporation - same unit as rainfall in m$^3$/s/m$^2$.'
+/
+////////////////////////////////////////////////////////////////////////
+/// 5-WAQ PARAMETERS
+////////////////////////////////////////////////////////////////////////
+NOM = 'METHODE DE CALCUL DU COEFFICIENT D''EXTINCTION DU RAY'
+NOM1 = 'METHOD OF COMPUTATION OF RAY EXTINCTION COEFFICIENT'
+TYPE = INTEGER
+INDEX = 12
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'MEXTINC'
+CHOIX =
+'1="FORMULE D ATKINS (1.7/SECCHI)"';
+'2="PAS DE MODELE D ECHANGES EAU-ATMOSPHERE"';
+'3="CONSTANTE DONNEE"'
+CHOIX1 =
+'1="ATKINS FORMULA"';
+'2="MOSS FORMULA"';
+'3="GIVEN CONSTANT"'
+RUBRIQUE =
+'PARAMETRES QE';'';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'';''
+NIVEAU = 0
+AIDE =
+'Choix de la methode de calcul du coefficient d extinction
+du rayonnement solaire dans l eau $k_e$ en m$^{-1}$. Les choix sont:
+\begin{itemize}
+\item 1 : formule d Atkins (1.7/Secchi) ;
+\item 2 : formule de Moss si la profondeur de Secchi est inconnue ;
+\item 3 : constante fournie par l utilisateur.
+\end{itemize}
+Pour EUTRO+BIOMASS et THERMIC en 3D.'
+AIDE1 =
+'Choice of the method of calculation of the extinction of
+sun ray in water $k_e$ in m$^{-1}$. The choices are :
+\begin{itemize}
+\item 1: Atkins formula (1.7/Secchi),
+\item 2: Moss formula if Secchi depth is unknown,
+\item 3: constant provided by the user with the keyword
+\telkey{LIGHT EXTINCTION COEFFICIENT}.
+\end{itemize}
+For EUTRO+BIOMASS and THERMIC in 3D.'
+/
+NOM = 'PROFONDEUR DE SECCHI'
+NOM1 = 'SECCHI DEPTH'
+TYPE = REAL
+INDEX = 45
+TAILLE = 1
+DEFAUT = 0.9
+DEFAUT1 = 0.9
+MNEMO = 'ZSD'
+RUBRIQUE =
+'PARAMETRES QE';'';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'';''
+NIVEAU = 1
+AIDE =
+'En m. Utilise pour EUTRO+BIOMAS et THERMIC en 3D.'
+AIDE1 =
+'In m. Used for EUTRO+BIOMAS, and THERMIC in 3D.'
+/
+NOM = 'COEFFICIENT D EXTINCTION DE LA LUMIERE'
+NOM1 = 'LIGHT EXTINCTION COEFFICIENT'
+TYPE = REAL
+INDEX = 46
+TAILLE = 1
+DEFAUT = 0.2
+DEFAUT1 = 0.2
+MNEMO = 'EXTINC'
+RUBRIQUE =
+'PARAMETRES QE';'';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'';''
+NIVEAU = 1
+AIDE =
+'En m$^{-1}$. Utilise pour EUTRO+BIOMAS et THERMIC en 3D.'
+AIDE1 =
+'In m$^{-1}$. Used for EUTRO+BIOMAS, and THERMIC in 3D.'
+/
+////////////////////////////////////////////////////////////////////////
+///// 5.1-EUTROPHICATION
+////////////////////////////////////////////////////////////////////////
+NOM = 'TEMPERATURE DE L''EAU'
+NOM1 = 'WATER TEMPERATURE'
+TYPE = REAL
+INDEX = 99
+TAILLE = 0
+DEFAUT = 7.
+DEFAUT1 = 7.
+MNEMO = 'WATTEMP'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';''
+NIVEAU = 1
+AIDE =
+'En $^{\circ}$C, temperature moyenne de l eau
+necessaire pour calculer les valeurs de $C_s$.'
+AIDE1 =
+'In $^{\circ}$C, mean temperature necessary for
+computing different values of $C_s$.'
+/
+////////////////////////////////////////////////////////////////////////
+/////// 5.1.1-O2
+////////////////////////////////////////////////////////////////////////
+NOM = 'RESPIRATION VEGETALE R'
+NOM1 = 'VEGETAL RESPIRATION R'
+TYPE = REAL
+INDEX = 97
+TAILLE = 0
+DEFAUT = 0.06
+DEFAUT1 = 0.06
+MNEMO = 'RESP'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'O2'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'O2'
+NIVEAU = 1
+AIDE =
+'En mgO$_2$/j/l. Variable $R$ dans la documentation.
+Pour O2 seulement.'
+AIDE1 =
+'In mgO$_2$/d/l. Variable $R$ in the documentation.
+For O2 only.'
+/
+NOM = 'CONSTANTE DE DEGRADATION DE LA CHARGE ORGANIQUE K1'
+NOM1 = 'CONSTANT OF DEGRADATION OF ORGANIC LOAD K1'
+TYPE = REAL
+INDEX = 90
+TAILLE = 0
+DEFAUT = 0.25
+DEFAUT1 = 0.25
+MNEMO = 'K1'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'O2'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'O2'
+NIVEAU = 1
+AIDE =
+'En j$^{-1}$. Pour O2 seulement.'
+AIDE1 =
+'In d$^{-1}$. For O2 only.'
+/
+NOM = 'CONSTANTE DE CINETIQUE DE NITRIFICATION K4'
+NOM1 = 'CONSTANT OF NITRIFICATION KINETIC K4'
+TYPE = REAL
+INDEX = 93
+TAILLE = 0
+DEFAUT = 0.35
+DEFAUT1 = 0.35
+MNEMO = 'K44'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'O2'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'O2'
+NIVEAU = 1
+AIDE =
+'En j$^{-1}$. Pour O2 seulement.'
+AIDE1 =
+'In d$^{-1}$. For O2 only.'
+/
+////////////////////////////////////////////////////////////////////////
+/////// 5.1.2-EUTRO AND O2
+////////////////////////////////////////////////////////////////////////
+NOM = 'DEMANDE BENTHIQUE'
+NOM1 = 'BENTHIC DEMAND'
+TYPE = REAL
+INDEX = 29
+TAILLE = 0
+DEFAUT = 0.1
+DEFAUT1 = 0.1
+MNEMO = 'DEMBEN'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET O2'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND O2'
+NIVEAU = 1
+AIDE =
+'En gO$_2$/m$^2$/j. Variable $BEN$ dans la documentation.
+Pour EUTRO+O2.'
+AIDE1 =
+'In gO$_2$/m$^2$/d. Variable $BEN$ in the documentation.
+For EUTRO+O2.'
+/
+NOM = 'PHOTOSYNTHESE P'
+NOM1 = 'PHOTOSYNTHESIS P'
+TYPE = REAL
+INDEX = 95
+TAILLE = 0
+DEFAUT = 1.
+DEFAUT1 = 1.
+MNEMO = 'PHOTO'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET O2'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND O2'
+NIVEAU = 1
+AIDE =
+'En mgO$_2$/j/l. Variable $P$ dans la documentation.
+Son ordre de grandeur est compris entre 0.3 et 9~mgO$_2$/j/l
+selon la nature du cours d eau.
+Pour EUTRO+O2.'
+AIDE1 =
+'In mgO$_2$/d/l. Variable $P$ in the documentation.
+Between 0.3 and 9~mgO$_2$/d/l depending on the type of river.
+For EUTRO+O2.'
+/
+NOM = 'CONCENTRATION DE SATURATION EN O2 DE L''EAU (CS)'
+NOM1 = 'O2 SATURATION DENSITY OF WATER (CS)'
+TYPE = REAL
+INDEX = 33
+TAILLE = 0
+DEFAUT = 11.
+DEFAUT1 = 11.
+MNEMO = 'O2SATU'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET O2'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND O2'
+NIVEAU = 1
+AIDE =
+'En mgO$_2$/l. Variable $C_s$ = 9~mgO$_2$/l at 20$^{\circ}$C.
+Pour EUTRO+O2.'
+AIDE1 =
+'In mgO$_2$/l. Variable $C_s$ = 9~mgO$_2$/l at 20$^{\circ}$C.
+For EUTRO+O2.'
+/
+NOM = 'FORMULE DE CALCUL DE K2'
+NOM1 = 'FORMULA FOR COMPUTING K2'
+TYPE = INTEGER
+INDEX = 3
+TAILLE = 0
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'FORMK2'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET O2'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND O2'
+NIVEAU = 1
+AIDE =
+'Donne le choix de calcul de la formule de $k_2$ de la
+reaeration naturelle, les options sont les suivantes :
+\begin{itemize}
+\item 0 : $k_2$ constant, valeur de $k_2$ = 0.9 ;
+\item 1 : formule de Tenessee Valley Authority ;
+\item 2 : formule de Owens et al. ;
+\item 3 : formule de Churchill et al. ;
+\item 4 : formule de O Connor \& Dobbins ;
+\item 5 : formule combinant les formules 2, 3 et 4.
+\end{itemize}
+Pour EUTRO+O2.'
+AIDE1 =
+'Gives how to compute the reaeration coefficient $k_2$
+options are:
+\begin{itemize}
+\item 0: $k_2$ constant, in this case $k_2$ = 0.9,
+\item 1: formula of The Tenessee Valley Authority,
+\item 2: formula of Owens et al.,
+\item 3: formula of Churchill et al.,
+\item 4: formula of O Connor \& Dobbins,
+\item 5: formula combining the formulae 2, 3 et 4.
+\end{itemize}
+For EUTRO+O2.'
+/
+NOM = 'COEFFICIENT DE REAERATION K2'
+NOM1 = 'K2 REAERATION COEFFICIENT'
+TYPE = REAL
+INDEX = 31
+TAILLE = 0
+DEFAUT = 0.9
+DEFAUT1 = 0.9
+MNEMO = 'K22'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET O2'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND O2'
+NIVEAU = 1
+AIDE =
+'Ou coefficient d echange gazeux eau-atmosphere a 20$^{\circ}$C
+En j$^{-1}$. Valeur comprise entre 0.1 et > 1.15~j$^{-1}$.
+Variable $k_2$ dans la documentation. Pour EUTRO+O2.'
+AIDE1 =
+'In d$^{-1}$. Value between 0.1 and > 1.15~d$^{-1}$.
+Variable $k_2$ in the documentation. For EUTRO+O2.'
+/
+NOM = 'FORMULE DE CALCUL DE CS'
+NOM1 = 'FORMULA FOR COMPUTING CS'
+TYPE = INTEGER
+INDEX = 5
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'FORMCS'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET O2'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND O2'
+NIVEAU = 1
+AIDE =
+'En j$^{-1}$, les options sont les suivantes :
+\begin{itemize}
+\item 0 : constante ;
+\item 1 : formule de Elmore \& Hayes ;
+\item 2 : formule de Montgomery.
+\end{itemize}
+Pour EUTRO+O2.'
+AIDE1 =
+'In d$^{-1}$, here are the available options:
+\begin{itemize}
+\item 0: constant,
+\item 1: Elmore \& Hayes formula,
+\item 2: Montgomery formula.
+\end{itemize}
+For EUTRO+O2.'
+/
+////////////////////////////////////////////////////////////////////////
+/////// 5.1.3-EUTRO AND BIOMASS
+////////////////////////////////////////////////////////////////////////
+NOM = 'TAUX DE CROISSANCE ALGALE MAXIMUM A 20C'
+NOM1 = 'MAXIMUM ALGAL GROWTH RATE AT 20C'
+TYPE = REAL
+INDEX = 42
+TAILLE = 1
+DEFAUT = 2.
+DEFAUT1 = 2.
+MNEMO = 'CMAX'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'Taux de croissance algale maximale a 20$^{\circ}$C.
+Pour EUTRO+BIOMASS.'
+AIDE1 =
+'Maximum algal growth rate at 20$^{\circ}$C.
+For EUTRO+BIOMASS.'
+/
+NOM = 'COEFFICIENTS DE TOXICITE POUR LES ALGUES'
+NOM1 = 'ALGAL TOXICITY COEFFICIENTS'
+TYPE = REAL
+INDEX = 63
+TAILLE = 2
+DEFAUT = 1.;0.
+DEFAUT1 = 1.;0.
+MNEMO = 'CTOXIC'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'$\alpha_1$ et $\alpha_2$ dans la documentation.
+$\alpha_i = 1$ signifie absence de toxicite. Pour EUTRO+BIOMASS.'
+AIDE1 =
+'$\alpha_1$ and $\alpha_2$ in the documentation.
+$\alpha_i = 1$ means no toxicity. For EUTRO+BIOMASS.'
+/
+NOM = 'COEFFICIENT DE TURBIDITE VEGETALE SANS PHYTO'
+NOM1 = 'VEGETAL TURBIDITY COEFFICIENT WITHOUT PHYTO'
+TYPE = REAL
+INDEX = 51
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+MNEMO = 'KPE'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'En m$^{-1}$. Pour EUTRO+BIOMASS.'
+AIDE1 =
+'In m$^{-1}$. For EUTRO+BIOMASS.'
+/
+NOM = 'PARAMETRE DE CALAGE DE LA FORMULE DE SMITH'
+NOM1 = 'PARAMETER OF CALIBRATION OF SMITH FORMULA'
+TYPE = REAL
+INDEX = 54
+TAILLE = 0
+DEFAUT = 120.
+DEFAUT1 = 120.
+MNEMO = 'IK'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'En W/m$^2$. Ordre de grandeur = 100~W/m$^2$.
+Pour EUTRO+BIOMASS.'
+AIDE1 =
+'In W/m$^2$. Around 100~W/m$^2$. For EUTRO+BIOMASS.'
+/
+NOM = 'DENSITE DE FLUX DU RAYONNEMENT SOLAIRE A LA SURFACE'
+NOM1 = 'SUNSHINE FLUX DENSITY ON WATER SURFACE'
+TYPE = REAL
+INDEX = 133
+TAILLE = 1
+DEFAUT = 0.
+DEFAUT1 = 0.
+MNEMO = 'I0'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'Densite de flux du rayonnement solaire a la surface de l eau
+en W/m$^2$. Pour EUTRO+BIOMASS.'
+AIDE1 =
+'Density of sunshine flux on the water surface
+in W/m$^2$. For EUTRO+BIOMASS.'
+/
+NOM = 'CONSTANTE DE DEMI-SATURATION EN PHOSPHATE'
+NOM1 = 'CONSTANT OF HALF-SATURATION WITH PHOSPHATE'
+TYPE = REAL
+INDEX = 57
+TAILLE = 0
+DEFAUT = 0.005
+DEFAUT1 = 0.005
+MNEMO = 'KP'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'En mgP/l. Environ 0.005~mgP/l. Pour EUTRO+BIOMASS.'
+AIDE1 =
+'In mgP/l. Around 0.005~mgP/l. For EUTRO+BIOMASS.'
+/
+NOM = 'CONSTANTE DE DEMI-SATURATION EN AZOTE'
+NOM1 = 'CONSTANT OF HALF-SATURATION WITH NITROGEN'
+TYPE = REAL
+INDEX = 60
+TAILLE = 0
+DEFAUT = 0.03
+DEFAUT1 = 0.03
+MNEMO = 'KN'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'En mgN/l. Environ 0.03~mgN/l. Pour EUTRO+BIOMASS.'
+AIDE1 =
+'In mgN/l. Around 0.03~mgN/l. For EUTRO+BIOMASS.'
+/
+NOM = 'TAUX DE RESPIRATION DE LA BIOMASSE ALGALE'
+NOM1 = 'RESPIRATION RATE OF ALGAL BIOMASS'
+TYPE = REAL
+INDEX = 66
+TAILLE = 0
+DEFAUT = 0.05
+DEFAUT1 = 0.05
+MNEMO = 'TRESPIR'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'En j$^{-1}$, a 20$^{\circ}$C. Variable $RP$ dans la
+documentation. Pour EUTRO+BIOMASS.'
+AIDE1 =
+'In d$^{-1}$, at 20$^{\circ}$C. Variable $RP$ in
+the documentation. For EUTRO+BIOMASS.'
+/
+NOM = 'COEFFICIENTS DE MORTALITE ALGALE A 20C'
+NOM1 = 'COEFFICIENTS OF ALGAL MORTALITY AT 20C'
+TYPE = REAL
+INDEX = 81
+TAILLE = 2
+DEFAUT = 0.1;0.003
+DEFAUT1 = 0.1;0.003
+MNEMO = 'CMORALG'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'Variables $M_1$ et $M_2$ dans la documentation.
+Pour EUTRO+BIOMASS.'
+AIDE1 =
+'Variables $M_1$ and $M_2$ in the documentation.
+For EUTRO+BIOMASS.'
+/
+NOM = 'PROPORTION DE PHOSPHORE DANS LES CELLULES DU PHYTO'
+NOM1 = 'PROPORTION OF PHOSPHORUS WITHIN PHYTO CELLS'
+TYPE = REAL
+INDEX = 69
+TAILLE = 0
+DEFAUT = 0.0025
+DEFAUT1 = 0.0025
+MNEMO = 'PROPHOC'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'En mgP/$\mu$gChlA. Variable $fp$ dans la documentation.
+Pour EUTRO+BIOMASS.'
+AIDE1 =
+'In mgP/$\mu$gChlA. Variable $fp$ in the documentation.
+For EUTRO+BIOMASS.'
+/
+NOM = 'POURCENTAGE DE PHOSPHORE ASSIMILABLE DANS LE PHYTO MORT'
+NOM1 = 'PERCENTAGE OF PHOSPHORUS ASSIMILABLE IN DEAD PHYTO'
+TYPE = REAL
+INDEX = 71
+TAILLE = 0
+DEFAUT = 0.5
+DEFAUT1 = 0.5
+MNEMO = 'DTP'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'En $\%$. Pour EUTRO+BIOMASS.'
+AIDE1 =
+'In $\%$. For EUTRO+BIOMASS.'
+/
+NOM = 'TAUX DE TRANSFORMATION DU POR EN PO4'
+NOM1 = 'RATE OF TRANSFORMATION OF POR TO PO4'
+TYPE = REAL
+INDEX = 73
+TAILLE = 0
+DEFAUT = 0.03
+DEFAUT1 = 0.03
+MNEMO = 'K320'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'Taux de transformation du phosphore degradable non assimilable
+par le phytoplancton (POR) en phosphore mineral dissous assimilable par
+le phyto (PO4) par le biais de la mineralisation bacterienne
+en j$^{-1}$.
+Variables $k_1$ pour BIOMAS et $k_{320}$ pour EUTRO (a 20$^{\circ}$C)
+dans la documentation. Pour EUTRO+BIOMASS.'
+AIDE1 =
+'Rate of transformation of degradable and non assimilable
+phosphorus (POR) to mineral dissolved assimilable phosphorus (PO4)
+by means of bacteria mineralization in d$^{-1}$.
+Variables $k_1$ for BIOMAS and $k_{320}$ for EUTRO (at 20$^{\circ}$C)
+in the documentation. For EUTRO+BIOMASS.'
+/
+NOM = 'TAUX DE TRANSFORMATION DU NOR EN NO3'
+NOM1 = 'RATE OF TRANSFORMATION OF NOR TO NO3'
+TYPE = REAL
+INDEX = 79
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+MNEMO = 'K360'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'Taux de transformation de l azote degradable
+non assimilable par le phytoplancton (NOR) en azote mineral dissous
+assimilable par le phytoplancton NO3 par le biais de la
+mineralisation bacterienne en j$^{-1}$.
+Variables $k_2$ pour BIOMAS et $k_{620}$ pour EUTRO (a 20$^{\circ}$C)
+dans la documentation. Pour EUTRO+BIOMASS.'
+AIDE1 =
+'Rate of transformation of degradable and non assimilable
+nitrogen (NOR) to mineral dissolved assimilable nitrogen (NO3)
+by bacteria mineralization in d$^{-1}$.
+Variables $k_2$ for BIOMAS and $k_{620}$ for EUTRO (at 20$^{\circ}$C)
+in the documentation. For EUTRO+BIOMASS.'
+/
+NOM = 'PROPORTION D''AZOTE DANS LES CELLULES DU PHYTO'
+NOM1 = 'PROPORTION OF NITROGEN WITHIN PHYTO CELLS'
+TYPE = REAL
+INDEX = 75
+TAILLE = 0
+DEFAUT = 0.0035
+DEFAUT1 = 0.0035
+MNEMO = 'PRONITC'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'En mgN/$\mu$gChlA. Variable $fn$ dans la documentation.
+Pour EUTRO+BIOMASS.'
+AIDE1 =
+'In mgN/$\mu$gChlA. Variable $fn$ in the documentation.
+For EUTRO+BIOMASS.'
+/
+NOM = 'POURCENTAGE D''AZOTE ASSIMILABLE DANS LE PHYTO MORT'
+NOM1 = 'PERCENTAGE OF NITROGEN ASSIMILABLE IN DEAD PHYTO'
+TYPE = REAL
+INDEX = 77
+TAILLE = 0
+DEFAUT = 0.5
+DEFAUT1 = 0.5
+MNEMO = 'PERNITS'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'En $\%$. Variable $dtn$ dans la documentation.
+Pour EUTRO+BIOMASS.'
+AIDE1 =
+'In $\%$. Variable $dtn$ in the documentation.
+For EUTRO+BIOMASS.'
+/
+NOM = 'VITESSE DE SEDIMENTATION DU PHOSPHORE ORGANIQUE'
+NOM1 = 'SEDIMENTATION VELOCITY OF ORGANIC PHOSPHORUS'
+TYPE = REAL
+INDEX = 36
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+MNEMO = 'WPOR'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'Vitesse de sedimentation du phosphore organique non algal
+en m/s. Pour EUTRO+BIOMASS.'
+AIDE1 =
+'Sedimentation velocity of non algal organic phosphorus
+in m/s. For EUTRO+BIOMASS.'
+/
+NOM = 'VITESSE DE SEDIMENTATION DE L''AZOTE NON ALGAL'
+NOM1 = 'SEDIMENTATION VELOCITY OF NON ALGAL NITROGEN'
+TYPE = REAL
+INDEX = 39
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+MNEMO = 'WNOR'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO ET BIOMASS'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO AND BIOMASS'
+NIVEAU = 1
+AIDE =
+'Vitesse de sedimentation de l azote organique non algal
+en m/s. Pour EUTRO+BIOMASS.'
+AIDE1 =
+'Sedimentation velocity of non algal organic nitrogen
+in m/s. For EUTRO+BIOMASS.'
+/
+////////////////////////////////////////////////////////////////////////
+/////// 5.1.4-EUTRO
+////////////////////////////////////////////////////////////////////////
+NOM = 'OXYGENE CONSOMME PAR NITRIFICATION'
+NOM1 = 'CONSUMED OXYGEN BY NITRIFICATION'
+TYPE = REAL
+INDEX = 26
+TAILLE = 0
+DEFAUT = 5.2
+DEFAUT1 = 5.2
+MNEMO = 'O2NITRI'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO'
+NIVEAU = 1
+AIDE =
+'En mgO$_2$/mgNH$_4$. Variable $n$ in the documentation.
+Pour EUTRO seulement.'
+AIDE1 =
+'In mgO$_2$/mgNH$_4$. Variable $n$ in the documentation.
+For EUTRO only.'
+/
+NOM = 'CONSTANTE DE LA CINETIQUE DE NITRIFICATION K520'
+NOM1 = 'CONSTANT FOR THE NITRIFICATION KINETIC K520'
+TYPE = REAL
+INDEX = 22
+TAILLE = 0
+DEFAUT = 0.35
+DEFAUT1 = 0.35
+MNEMO = 'K520'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO'
+NIVEAU = 1
+AIDE =
+'Constante de la cinetique de nitrification a 20$^{\circ}$C.
+En j$^{-1}$. Pour EUTRO seulement.'
+AIDE1 =
+'Constant for the nitrification kinetic at 20$^{\circ}$C.
+In d$^{-1}$. For EUTRO only.'
+/
+NOM = 'CONSTANTE DE DEGRADATION DE LA CHARGE ORGANIQUE K120'
+NOM1 = 'CONSTANT OF DEGRADATION OF ORGANIC LOAD K120'
+TYPE = REAL
+INDEX = 21
+TAILLE = 0
+DEFAUT = 0.35
+DEFAUT1 = 0.35
+MNEMO = 'K120'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO'
+NIVEAU = 1
+AIDE =
+'Constante de cinetique de degradation de la charge organique
+a 20$^{\circ}$C. En j$^{-1}$. Pour EUTRO seulement.'
+AIDE1 =
+'Constant of degradation kinetic of organic load
+at 20$^{\circ}$C. In d$^{-1}$. For EUTRO only.'
+/
+NOM = 'VITESSE DE SEDIMENTATION DE LA CHARGE ORGANIQUE'
+NOM1 = 'SEDIMENTATION VELOCITY OF ORGANIC LOAD'
+TYPE = REAL
+INDEX = 85
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+MNEMO = 'WLOR'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO'
+NIVEAU = 1
+AIDE =
+'En m/s. Pour EUTRO seulement.'
+AIDE1 =
+'In m/s. For EUTRO only.'
+/
+NOM = 'OXYGENE PRODUIT PAR PHOTOSYNTHESE'
+NOM1 = 'OXYGEN PRODUCED BY PHOTOSYNTHESIS'
+TYPE = REAL
+INDEX = 25
+TAILLE = 0
+DEFAUT = 0.15
+DEFAUT1 = 0.15
+MNEMO = 'O2PHOTO'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'EUTRO'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'EUTRO'
+NIVEAU = 1
+AIDE =
+'En mgO$_2$/$\mu$gChlA. Variable $f$ dans la documentation.
+Pour EUTRO seulement.'
+AIDE1 =
+'In mgO$_2$/$\mu$gChlA. Variable $f$ in the documentation.
+For EUTRO only.'
+/
+////////////////////////////////////////////////////////////////////////
+/////// 5.1.5-SOURCES
+////////////////////////////////////////////////////////////////////////
+NOM = 'FORMULE DE CALCUL DE RS'
+NOM1 = 'FORMULA FOR COMPUTING RS'
+TYPE = INTEGER
+INDEX = 4
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'FORMRS'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'SOURCES'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'SOURCES'
+NIVEAU = 1
+AIDE =
+'Donne le choix de calcul de la formule de RS de la
+reaeration naturelle au niveau des seuils,
+les options sont les suivantes :
+\begin{itemize}
+\item 0 : RS constant, valeur de RS = 1.0 ;
+\item 1 : formule de Gameson 1 ;
+\item 2 : formule de Gameson 2 ;
+\item 3 : formule de WRL1 ;
+\item 4 : formule de WRL2.
+\end{itemize}
+Lu mais pas utilise pour le moment.'
+AIDE1 =
+'Gives how to cumpute the weir reaeration coefficient RS
+options are:
+\begin{itemize}
+\item 0: RS constant, in this case RS = 1.0,
+\item 1: formula of Gameson 1,
+\item 2: formula of Gameson 2,
+\item 3: formula of WRL1,
+\item 4: formula of WRL2.
+\end{itemize}
+Read but not used at the moment.'
+/
+NOM = 'COEFFICIENT DE REAERATION DU SEUIL RS'
+NOM1 = 'WEIR REAERATION COEFFICIENT RS'
+TYPE = REAL
+INDEX = 32
+TAILLE = 0
+DEFAUT = 1.0
+DEFAUT1 = 1.0
+MNEMO = 'RSW'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'SOURCES'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'SOURCES'
+NIVEAU = 1
+AIDE =
+'En j$^{-1}$. Lu mais pas utilise pour le moment.'
+AIDE1 =
+'In d$^{-1}$. Read but not used at the moment.'
+/
+NOM = 'COEFFICIENTS A ET B POUR LA FORMULE DE RS'
+NOM1 = 'COEFFICIENTS A AND B FOR RS FORMULA'
+TYPE = REAL
+INDEX = 34
+TAILLE = 2
+DEFAUT = 1.2;0.7
+DEFAUT1 = 1.2;0.7
+MNEMO = 'ABRS'
+RUBRIQUE =
+'PARAMETRES QE';'EUTROPHISATION';'SOURCES'
+RUBRIQUE1 =
+'WAQ PARAMETERS';'EUTROPHICATION';'SOURCES'
+NIVEAU = 1
+AIDE =
+'Coefficients intervenant dans le calcul de RS :
+$a$ est entre 0.65 (eau tres polluee) et 1.8 (eau tres claire)
+et $b$ varie beaucoup (voir tableau dans la documentation).
+Lu mais pas utilise pour le moment.'
+AIDE1 =
+'Coefficients needed for the calculation of RS:
+$a$ is between 0.65 (very polluted water and 1.8 (very clear water)
+and $b$ varies a lot (see array in the documentation).
+Read but not used at the moment.'
+/
+////////////////////////////////////////////////////////////////////////
+///// 5.2-MICROPOL
+////////////////////////////////////////////////////////////////////////
+NOM = 'CONTRAINTE CRITIQUE DE SEDIMENTATION'
+NOM1 = 'SEDIMENTATION CRITICAL STRESS'
+TYPE = REAL
+INDEX = 109
+TAILLE = 0
+DEFAUT = 5.
+DEFAUT1 = 5.
+MNEMO = 'TAUS'
+RUBRIQUE =
+'PARAMETRES QE';'MICROPOL';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'MICROPOL';''
+NIVEAU = 1
+AIDE =
+'Tension de cisaillement critique de sedimentation
+en Pa. Pour MICROPOL seulement.'
+AIDE1 =
+'Sedimentation critical shear stress
+in Pa. For MICROPOL only.'
+/
+NOM = 'VITESSE DE CHUTE DES MES'
+NOM1 = 'SEDIMENT SETTLING VELOCITY'
+TYPE = REAL
+INDEX = 111
+TAILLE = 0
+DEFAUT = 6.E-6
+DEFAUT1 = 6.E-6
+MNEMO = 'VITCHU\_WAQ'
+RUBRIQUE =
+'PARAMETRES QE';'MICROPOL';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'MICROPOL';''
+NIVEAU = 1
+AIDE =
+'Vitesse de sedimentation en m/s. Variable $w$ dans la
+documentation. Pour MICROPOL seulement.'
+AIDE1 =
+'Sediment velocity in m/s. Variable $w$ in the documentation.
+For MICROPOL only.'
+/
+NOM = 'CONTRAINTE CRITIQUE DE REMISE EN SUSPENSION'
+NOM1 = 'CRITICAL STRESS OF RESUSPENSION'
+TYPE = REAL
+INDEX = 106
+TAILLE = 0
+DEFAUT = 1000.
+DEFAUT1 = 1000.
+MNEMO = 'TAUR'
+RUBRIQUE =
+'PARAMETRES QE';'MICROPOL';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'MICROPOL';''
+NIVEAU = 1
+AIDE =
+'Tension de cisaillement critique de remise en
+suspension en Pa. Variable $\tau_r$ dans la documentation.
+Pour MICROPOL seulement.'
+AIDE1 =
+'Sedimentation critical shear stress
+in Pa.  Variable $\tau_r$ in the documentation. For MICROPOL only.'
+/
+NOM = 'TAUX D''EROSION'
+NOM1 = 'EROSION RATE'
+TYPE = REAL
+INDEX = 104
+TAILLE = 0
+DEFAUT = 0.
+DEFAUT1 = 0.
+MNEMO = 'ERO'
+RUBRIQUE =
+'PARAMETRES QE';'MICROPOL';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'MICROPOL';''
+NIVEAU = 1
+AIDE =
+'Taux d erosion caracteristique des MES deposees
+ou encore appele constante de Partheniades.
+Variable $e$ dans la documentation.
+Pour MICROPOL seulement.'
+AIDE1 =
+' Characteristic erosion rate  of deposited SPM
+or also called Partheniades s constant.
+Variable $e$ in the documentation.
+For MICROPOL only.'
+/
+NOM = 'MODELE D''ECHANGES CINETIQUES'
+NOM1 = 'KINETIC EXCHANGE MODEL'
+TYPE = INTEGER
+INDEX = 14
+TAILLE = 1
+DEFAUT = 1
+DEFAUT1 = 1
+MNEMO = 'KIN\_MICROPOL'
+CHOIX =
+'1="MODELE CINETIQUE 1"';
+'2="MODELE CINETIQUE 2"'
+CHOIX1 =
+'1="KINETIC MODEL 1"';
+'2="KINETIC MODEL 2"'
+RUBRIQUE =
+'PARAMETRES QE';'MICROPOL';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'MICROPOL';''
+NIVEAU = 0
+AIDE =
+'Choix du modele d echanges entre les sediments et les micropolluants.
+\begin{itemize}
+\item 1 : modele cinetique reversible a une etape (un site specifique
+dans les sediments) ;
+\item 2 : modele cinetique reversible a deux etapes (un site d
+interactions faibles et un site d interactions fortes).
+\end{itemize}'
+AIDE1 =
+'Choice of the micropollutant-sediment exchange model.
+\begin{itemize}
+\item 1: one-step reversible kinetic model (only one specific
+site for interactions with sediments),
+\item 2: two-steps reversible kinetic model (one weak bounding
+site and one strong bounding site).
+\end{itemize}'
+/
+NOM = 'CONSTANTE CINETIQUE DE DESORPTION'
+NOM1 = 'CONSTANT OF DESORPTION KINETIC'
+TYPE = REAL
+INDEX = 117
+TAILLE = 0
+DEFAUT = 2.5E-7
+DEFAUT1 = 2.5E-7
+MNEMO = 'KDESORP'
+RUBRIQUE =
+'PARAMETRES QE';'MICROPOL';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'MICROPOL';''
+NIVEAU = 1
+AIDE =
+'En s$^{-1}$. Variable $k_{-1}$ dans la documentation.
+Pour MICROPOL seulement.'
+AIDE1 =
+'In s$^{-1}$. Variable $k_{-1}$ in the documentation.
+For MICROPOL only.'
+/
+NOM = 'COEFFICIENT DE DISTRIBUTION'
+NOM1 = 'COEFFICIENT OF DISTRIBUTION'
+TYPE = REAL
+INDEX = 115
+TAILLE = 0
+DEFAUT = 1775.
+DEFAUT1 = 1775.
+MNEMO = 'CDISTRIB'
+RUBRIQUE =
+'PARAMETRES QE';'MICROPOL';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'MICROPOL';''
+NIVEAU = 1
+AIDE =
+'En m$^3$/kg ou l/g. Variable $K_d$ dans la documentation.
+Pour MICROPOL seulement.'
+AIDE1 =
+'In m$^3$/kg or l/g. Variable $K_d$ in the documentation.
+For MICROPOL only.'
+/
+NOM = 'CONSTANTE DE DESINTEGRATION EXPONENTIELLE'
+NOM1 = 'EXPONENTIAL DESINTEGRATION CONSTANT'
+TYPE = REAL
+INDEX = 113
+TAILLE = 0
+DEFAUT = 1.13E-7
+DEFAUT1 = 1.13E-7
+MNEMO = 'CCSEDIM'
+RUBRIQUE =
+'PARAMETRES QE';'MICROPOL';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'MICROPOL';''
+NIVEAU = 1
+AIDE =
+'En s$^{-1}$, loi de decroissance exponentielle comme celle de
+la radioactivite. Variable $L$ dans la documentation.
+Pour MICROPOL seulement.'
+AIDE1 =
+'In s$^{-1}$, exponential decrease law like the one of
+radioactivity. Variable $L$ in the documentation. For MICROPOL only.'
+/
+NOM = 'CONSTANTE CINETIQUE DE DESORPTION 2'
+NOM1 = 'CONSTANT OF DESORPTION KINETIC 2'
+TYPE = REAL
+INDEX = 118
+TAILLE = 0
+DEFAUT = 2.5E-9
+DEFAUT1 = 2.5E-9
+MNEMO = 'KDESORP2'
+RUBRIQUE =
+'PARAMETRES QE';'MICROPOL';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'MICROPOL';''
+NIVEAU = 1
+AIDE =
+'En s$^{-1}$. Variable $k_{-2}$ dans la documentation.
+Pour MICROPOL seulement.'
+AIDE1 =
+'In s$^{-1}$. Variable $k_{-2}$ in the documentation.
+For MICROPOL only.'
+/
+NOM = 'COEFFICIENT DE DISTRIBUTION 2'
+NOM1 = 'COEFFICIENT OF DISTRIBUTION 2'
+TYPE = REAL
+INDEX = 116
+TAILLE = 0
+DEFAUT = 1775.
+DEFAUT1 = 1775.
+MNEMO = 'CDISTRIB2'
+RUBRIQUE =
+'PARAMETRES QE';'MICROPOL';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'MICROPOL';''
+NIVEAU = 1
+AIDE =
+'Sans dimension. Variable $K_{d2}$ dans la documentation.
+Pour MICROPOL seulement.'
+AIDE1 =
+'Dimensionless. Variable $K_{d2}$ in the documentation.
+For MICROPOL only.'
+/
+////////////////////////////////////////////////////////////////////////
+///// 5.3-THERMIC
+////////////////////////////////////////////////////////////////////////
+NOM = 'CHALEUR SPECIFIQUE DE L''EAU'
+NOM1 = 'WATER SPECIFIC HEAT'
+TYPE = REAL
+INDEX = 119
+TAILLE = 0
+DEFAUT = 4180.
+DEFAUT1 = 4180.
+MNEMO = 'CP\_EAU'
+RUBRIQUE =
+'PARAMETRES QE';'THERMIQUE';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'THERMIC';''
+NIVEAU = 1
+AIDE =
+'En J/kg/$^{\circ}$C. Pour THERMIC seulement.'
+AIDE1 =
+'In J/kg/$^{\circ}$C. For THERMIC only.'
+/
+NOM = 'COEFFICIENTS DE CALAGE DU RAYONNEMENT ATMOSPHERIQUE'
+NOM1 = 'COEFFICIENTS FOR CALIBRATING ATMOSPHERIC RADIATION'
+TYPE = REAL
+INDEX = 129
+TAILLE = 1
+DEFAUT = 0.97
+DEFAUT1 = 0.97
+MNEMO = 'EMA'
+RUBRIQUE =
+'PARAMETRES QE';'THERMIQUE';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'THERMIC';''
+NIVEAU = 1
+AIDE =
+'Variable $e_{\rm{air}}$ dans la documentation.
+Pour THERMIC seulement.'
+AIDE1 =
+'Variable $e_{\rm{air}}$ in the documentation.
+For THERMIC only.'
+/
+NOM = 'COEFFICIENT REPRESENTATIF DE LA COUVERTURE NUAGEUSE'
+NOM1 = 'COEFFICIENT OF CLOUDING RATE'
+TYPE = REAL
+INDEX = 127
+TAILLE = 1
+DEFAUT = 0.17
+DEFAUT1 = 0.17
+MNEMO = 'COEF\_K'
+RUBRIQUE =
+'PARAMETRES QE';'THERMIQUE';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'THERMIC';''
+NIVEAU = 1
+AIDE =
+'Coefficient qui depend du type de nuages :
+\begin{itemize}
+\item Cirrus = 0.04 ;
+\item Cirro stratus = 0.08 ;
+\item Alto cumulus = 0.17 ;
+\item Alto stratus = 0.2 ;
+\item Stratus = 0.24
+\end{itemize}
+Alto Cumulus (valeur moyenne) est utilise habituellement
+(T.V.A. 1972), valeur par defaut en 3D.
+En 3D, uniquement utilise avec la formule de Swinbank (1963)
+pour le calcul du rayonnement atmospherique.
+Variable $k$ dans la documentation. Pour THERMIC seulement.
+Ancienne valeur par defaut = 0.2 jusqu a la version V8P1.'
+AIDE1 =
+'Coefficient depending on the type of clouds:
+\begin{itemize}
+\item Cirrus = 0.04,
+\item Cirro stratus = 0.08,
+\item Alto cumulus = 0.17,
+\item Alto stratus = 0.2,
+\item Stratus = 0.24.
+\end{itemize}
+Alto Cumulus (mean value) is usually used (T.V.A. 1972),
+default value in 3D.
+In 3D, only used with Swinbank formula (1963)
+for the computation of the atmospheric radiation.
+Variable $k$ in the documentation.
+For THERMIC only.
+Old default value = 0.2 until release V8P1.'
+/
+NOM = 'COEFFICIENTS DE CALAGE DU RAYONNEMENT DU PLAN D''EAU'
+NOM1 = 'COEFFICIENTS FOR CALIBRATING SURFACE WATER RADIATION'
+TYPE = REAL
+INDEX = 131
+TAILLE = 1
+DEFAUT = 0.97
+DEFAUT1 = 0.97
+MNEMO = 'EMI\_EAU'
+RUBRIQUE =
+'PARAMETRES QE';'THERMIQUE';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'THERMIC';''
+NIVEAU = 1
+AIDE =
+'Il depend du site et des obstacles entourant le plan d eau.
+Pour une riviere etroite bordee d arbres, ca serait voisin de 0.97
+et pour un terrain largement decouvert, ca serait voisin de 0.92.
+Variable $e_{\rm{eau}}$ dans la documentation.
+Pour THERMIC seulement.'
+AIDE1 =
+'It depends on the location and the obstacles around the
+water. For a narrow river bordered with trees, it would be around
+0.97 and for a widely oopen field, it would be around 0.92.
+Variable $e_{\rm{eau}}$ in the documentation.
+For THERMIC only.'
+/
+NOM = 'CHALEUR SPECIFIQUE DE L''AIR'
+NOM1 = 'AIR SPECIFIC HEAT'
+TYPE = REAL
+INDEX = 121
+TAILLE = 0
+DEFAUT = 1005.
+DEFAUT1 = 1005.
+MNEMO = 'CP\_AIR'
+RUBRIQUE =
+'PARAMETRES QE';'THERMIQUE';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'THERMIC';''
+NIVEAU = 1
+AIDE =
+'En J/kg/$^{\circ}$C. Pour THERMIC seulement.'
+AIDE1 =
+'In J/kg/$^{\circ}$C. For THERMIC only.'
+/
+NOM = 'COEFFICIENTS DE LA FORMULE D''AERATION'
+NOM1 = 'COEFFICIENTS OF AERATION FORMULA'
+TYPE = REAL
+INDEX = 125
+TAILLE = 2
+DEFAUT = 0.002;0.0012
+DEFAUT1 = 0.002;0.0012
+MNEMO = 'CFAER'
+RUBRIQUE =
+'PARAMETRES QE';'THERMIQUE';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'THERMIC';''
+NIVEAU = 1
+AIDE =
+'Couple de coefficients de calage pour la fonction de vent
+dans les modeles d echanges eau-atmosphere.
+Leurs valeurs tres proches valent environ 0.0025.'
+AIDE1 =
+'Couple of calibration coefficients for the wind function
+of the atmosphere-water exchange models.
+Their close values are around 0.0025.'
+/
+NOM = 'MODELE D''ECHANGES EAU-ATMOSPHERE'
+NOM1 = 'ATMOSPHERE-WATER EXCHANGE MODEL'
+TYPE = INTEGER
+INDEX = 9
+TAILLE = 0
+DEFAUT = 0
+DEFAUT1 = 0
+MNEMO = 'ATMOSEXCH'
+CHOIX =
+'0="PAS DE MODELE D ECHANGES EAU-ATMOSPHERE"';
+'1="FORMULE LINEARISEE A LA SURFACE"';
+'2="MODELE A BILAN COMPLET"'
+CHOIX1 =
+'0="NO MODEL"';
+'1="LINEARISED FORMULA AT THE FREE SURFACE"';
+'2="MODEL WITH COMPLETE BALANCE"'
+RUBRIQUE =
+'PARAMETRES QE';'THERMIQUE';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'THERMIC';''
+NIVEAU = 2
+AIDE =
+'Choix du modele d echanges entre l eau et l atmosphere.
+\begin{itemize}
+\item 0 : pas de mode d echanges eau-atmosphere (defaut) ;
+\item formule linearisee a la surface (3D seulement) ;
+\item modele a bilan complet.
+\end{itemize}
+En 2D, si autre processus que THERMIC, laisser obligatoirement
+a 0.'
+AIDE1 =
+'Choice of the atmosphere-water exchange model.
+\begin{itemize}
+\item 0: no model (default),
+\item 1: linearised formula at the free surface,
+\item 2: model with complete balance.
+\end{itemize}
+In 2D, if another processus than THERMIC, mandatory to let to 0.'
+/
+NOM = 'COEFFICIENT DE CALAGE DU MODELE D''ECHANGES EAU-ATMOSPHERE'
+NOM1 = 'COEFFICIENT TO CALIBRATE THE ATMOSPHERE-WATER EXCHANGE MODEL'
+TYPE = REAL
+INDEX = 135
+TAILLE = 0
+DEFAUT = 0.0025
+DEFAUT1 = 0.0025
+MNEMO = 'C\_ATMOS'
+RUBRIQUE =
+'PARAMETRES QE';'THERMIQUE';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'THERMIC';''
+NIVEAU = 2
+AIDE =
+'Valeur du coefficient de calage pour la fonction de vent
+dans les modeles d echanges eau-atmosphere
+(formule linearisee a la surface ou bilan complet).
+Une valeur comprise entre 0.0017 et 0.0035 est conseillee.
+Seulement pour le THERMIC 3D.'
+AIDE1 =
+'Value of the calibration coefficient for the wind function
+of the atmosphere-water exchange models
+(linearised formula at the free surface or complete balance).
+A value between 0.0017 and 0.0035 is advised.
+Only for THERMIC 3D.'
+/
+NOM = 'FORMULE DU RAYONNEMENT ATMOSPHERIQUE'
+NOM1 = 'FORMULA OF ATMOSPHERIC RADIATION'
+TYPE = INTEGER
+INDEX = 13
+TAILLE = 1
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = 'IRAY\_ATM'
+CHOIX =
+'1="IDSO ET JACKSON (1969)"';
+'2="SWINBANK (1963)"';
+'3="BRUTSAERT (1975)"';
+'4="YAJIMA TONO DAM (2014)"'
+CHOIX1 =
+'1="IDSO AND JACKSON (1969)"';
+'2="SWINBANK (1963)"';
+'3="BRUTSAERT (1975)"';
+'4="YAJIMA TONO DAM (2014)"'
+RUBRIQUE =
+'PARAMETRES QE';'THERMIQUE';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'THERMIC';''
+NIVEAU = 2
+AIDE =
+'Formule au choix pour le calcul du rayonnement atmospherique.
+Voir GLM.
+\begin{itemize}
+\item 1 : Idso et Jackson (1969) ;
+\item 2 : Swibank (1963), defaut ;
+\item 3 : Brutsaert (1975) ;
+\item 4 : Yajima Tono Dam (2014).
+\end{itemize}
+Seulement pour le THERMIC 3D.'
+AIDE1 =
+'Formula to be chosen to compute the atmospheric radiation.
+See GLM.
+\begin{itemize}
+\item 1: Idso and Jackson (1969),
+\item 2: Swibank (1963), default,
+\item 3: Brutsaert (1975),
+\item 4: Yajima Tono Dam (2014).
+\end{itemize}
+Only for THERMIC 3D.'
+/
+NOM = 'CLARTE DU CIEL'
+NOM1 = 'LIGHTNESS OF THE SKY'
+TYPE = INTEGER
+INDEX = 10
+TAILLE = 1
+DEFAUT = 2
+DEFAUT1 = 2
+MNEMO = 'ISKYTYPE'
+CHOIX =
+'1="CIEL TRES CLAIR, TRES PUR"';
+'2="CIEL MOYENNEMENT CLAIR"';
+'3="CIEL D UNE ZONE INDUSTRIELLE, OPAQUE"'
+CHOIX1 =
+'1="VERY BRIGHT, PURE SKY"';
+'2="MODERATELY BRIGHT SKY"';
+'3="FOGGY LIKE THE SKY OF INDUSTRIAL AREA "'
+RUBRIQUE =
+'PARAMETRES QE';'THERMIQUE';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'THERMIC';''
+NIVEAU = 2
+AIDE =
+'Degre de clarte (purete) du ciel.
+Les choix possibles sont :
+\begin{itemize}
+\item ciel tres clair, tres pur ;
+\item ciel moyennement clair ;
+\item ciel d une zone industrielle, opaque.
+\end{itemize}
+Pour THERMIC en 3D seulement.'
+AIDE1 =
+'How the sky is bright (pure).
+Possible choices are:
+\begin{itemize}
+\item very bright, pure sky,
+\item moderately bright sky,
+\item foggy like the sky of industrial area.
+\end{itemize}
+For THERMIC in 3D only.'
+/
+NOM = 'RAYONNEMENT SOLAIRE LU DANS LE FICHIER METEO'
+NOM1 = 'SOLAR RADIATION READ IN METEO FILE'
+TYPE = LOGICAL
+INDEX = 2
+TAILLE = 1
+DEFAUT = NON
+DEFAUT1 = NO
+MNEMO = 'SOLRADMETEO'
+RUBRIQUE =
+'PARAMETRES QE';'THERMIQUE';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'THERMIC';''
+NIVEAU = 2
+AIDE =
+'Si la donnee meteo de rayonnement solaire est disponible,
+elle peut etre lue dans le
+\telkey{FICHIER ASCII DE DONNEES ATMOSPHERIQUES} de \telemac{2d} ou
+\telemac{3d} au lieu d etre calculee par le module d echanges
+eau-atmosphere en activant ce mot cle a OUI.
+Pour THERMIC en 3D seulement. This is mandatory in 2D.'
+AIDE1 =
+'If solar radiation data is available, it can be read in the
+\telkey{ASCII ATMOSPHERIC DATA FILE} of \telemac{2d} or \telemac{3d}
+instead of been computed by the heat exchange with atmosphere module
+by activating this keyword to YES.
+For THERMIC in 3D only. This is mandatory in 2D.'
+/
+////////////////////////////////////////////////////////////////////////
+///// 5.4-DEGRADATION
+////////////////////////////////////////////////////////////////////////
+NOM = 'LOI DE DEGRADATION DES TRACEURS'
+NOM1 = 'LAW OF TRACERS DEGRADATION'
+TYPE = INTEGER
+INDEX = 8
+TAILLE = 2
+DEFAUT = 0;0
+DEFAUT1 = 0;0
+MNEMO = 'LOITRAC'
+CHOIX =
+'0="PAS DE DEGRADATION"';
+'1="LOI EN F(T90)"';
+'2="CINETIQUE D ORDRE 1, CONSTANTE DE DEGRADATION EN HEURES"';
+'3="CINETIQUE D ORDRE 1, CONSTANTE DE DEGRADATION EN JOURS"';
+'4="LOI PROGRAMMEE PAR L UTILISATEUR"'
+CHOIX1 =
+'0="NO DEGRADATION"';
+'1="F(T90) LAW"';
+'2="FIRST ORDER KINETIC LAW, CONSTANT OF DEGRADATION IN HOURS"';
+'3="FIRST ORDER KINETIC LAW, CONSTANT OF DEGRADATION IN DAYS"';
+'4="LAW IMPLEMENTED BY USER"'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE =
+'PARAMETRES QE';'DEGRADATION';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'DEGRADATION';''
+NIVEAU = 0
+AIDE =
+'Prise en compte d''une loi de decroissance des traceurs. Valeur 0 si
+pas de prise en compte, 1 si loi 1... Pour chaque valeur entree, un
+nom de traceur correspondant doit etre present dans
+\telkey{NOMS DES TRACEURS}, auquel sera appliquee la loi.
+Les choix possibles sont :
+\begin{itemize}
+\item 0 : pas de degradation ;
+\item 1 : loi de degradation bacteriologique avec coefficient $T_{90}$ ;
+\item 2 : loi de degradation d ordre 1, constante de degradation
+en h$^{-1}$ ;
+\item 3 : loi de degradation d ordre 1, constante de degradation
+en jours$^{-1}$ ;
+\item 4 : loi programmee par l utilisateur.
+\end{itemize}'
+AIDE1 =
+'Take in account a law for tracers decrease. Value 0 if not taken into
+account, 1 if law 1... For each value entered, a corresponding name
+should be present in the keyword \telkey{NAMES OF TRACERS}, so that the
+decrease law is applied to the correct tracer(s).
+Possible choices are:
+\begin{itemize}
+\item 0: no degradation,
+\item 1: law for bacterial degradation with $T_{90}$ coefficient,
+\item 2: degradation law of first order, constant of tracer kinetic
+degradation in h$^{-1}$,
+\item 3: degradation law of first order, constant of tracer kinetic
+degradation in d$^{-1}$,
+\item 4: law implemented by user.
+\end{itemize}'
+/
+NOM = 'COEFFICIENT 1 DE LA LOI DE DEGRADATION DES TRACEURS'
+NOM1 = 'COEFFICIENT 1 FOR LAW OF TRACERS DEGRADATION'
+TYPE = REAL
+INDEX = 78
+TAILLE = 2
+MNEMO = 'COEF1TRAC'
+APPARENCE =
+'DYNLIST'
+RUBRIQUE =
+'PARAMETRES QE';'DEGRADATION';''
+RUBRIQUE1 =
+'WAQ PARAMETERS';'DEGRADATION';''
+NIVEAU = 1
+AIDE =
+'Coefficient 1 de la loi de decroissance des traceurs. Voir aussi la
+correspondance avec \telkey{NOMS DES TRACEURS} et l''aide du mot cle
+\telkey{LOI DE DEGRADATION DES TRACEURS}.'
+AIDE1 =
+'Coefficient 1 of law for tracers decrease. Check also the relation
+between the keywords \telkey{NAMES OF TRACERS} and
+\telkey{LAW OF TRACERS DEGRADATION}.'
+/
+////////////////////////////////////////////////////////////////////////
+/// 6-INTERNAL
+////////////////////////////////////////////////////////////////////////
+NOM = 'FICHIER DES PARAMETRES'
+NOM1 = 'STEERING FILE'
+TYPE = STRING
+INDEX = 1
+TAILLE = 1
+SUBMIT = 'INUTILE;WAQCAS;OBLIG;ASC;LIT;CAS'
+DEFAUT = ''
+DEFAUT1 = ''
+MNEMO = ''
+RUBRIQUE =
+'INTERNE';'';''
+RUBRIQUE1 =
+'INTERNAL';'';''
+NIVEAU = 1
+AIDE =
+'Nom du fichier contenant les parametres du calcul
+QE a realiser.'
+AIDE1 =
+'Name of the file containing parameters of the WAQ
+computation Written by the user.'
+/
+NOM = 'DICTIONNAIRE'
+NOM1 = 'DICTIONARY'
+TYPE = STRING
+INDEX = 11
+TAILLE = 1
+SUBMIT = 'INUTILE;WAQDICO;OBLIG;ASC;LIT;DICO'
+DEFAUT = 'waqtel.dico'
+DEFAUT1 = 'waqtel.dico'
+MNEMO = ''
+RUBRIQUE =
+'INTERNE';'';''
+RUBRIQUE1 =
+'INTERNAL';'';''
+NIVEAU = 100
+AIDE =
+'Dictionnaire des mots cles.'
+AIDE1 =
+'Key word dictionary.'
+/

@@ -1,0 +1,227 @@
+!                   ******************
+                    SUBROUTINE SET_DIF
+!                   ******************
+!
+     &(FC,VOLU2D,Z,NPOIN2,NPOIN3,DT,FLUX,
+     & NPLAN,WCHU,FLUDPT,FLUDP,FLUER,IPBOT,VISCTA)
+!
+!***********************************************************************
+! TELEMAC3D   V7P1
+!***********************************************************************
+!
+!brief    1D VERTICAL PROFILE MODEL FOR SETTLING & DIFFUSION
+!+        PLUS BED EXCHANGE DUE TO NET EROSION & DEPOSITION
+!+
+!+        SOLVED USING A TRIDIAGONAL MATRIX SOLVER (SEE TRID1D.F)
+!+
+!
+!history  T BENSON, D KELLY & C VILLARET (HRW)
+!+        23/01/2014
+!+        V7P0
+!+        First version.
+!+
+!history  T BENSON (HRW)
+!+        28/08/2015
+!+        V7P1
+!+        CRUSHED PLANES NOW DEALT WITH PROPERLY.
+!
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!| DT             |-->| TIME STEP
+!| FC             |<->| VARIABLE AFTER CONVECTION
+!| FLUER          |-->| EROSION FLUX (SEDIMENT)
+!| FLUDP          |-->| DEPOSITION FLUX  (SEDIMENT)
+!| FLUDPT         |-->| IMPLICIT PART OF DEPOSITION FLUX  (SEDIMENT)
+!| FLUX           |<->| GLOBAL FLUXES TO BE CHANGED
+!| FN             |-->| VARIABLE AT TIME N
+!| IPBOT          |-->| PLANE NUMBER OF LAST CRUSHED PLANE (0 IF NONE)
+!| NPLAN          |-->| NUMBER OF PLANES IN THE 3D MESH OF PRISMS
+!| NPOIN2         |-->| NUMBER OF POINTS IN 2D
+!| NPOIN3         |-->| NUMBER OF 3D POINTS
+!| VISCTA         |-->| VISCOSITY OF THE TRACER
+!| VOLU2D         |-->| INTEGRAL OF TEST FUNCTIONS IN 2D (SURFACE OF ELEMENTS)
+!| WCHU           |-->| SETTLING VELOCITY (SEDIMENT)
+!| Z              |-->| NODE ELEVATIONS OF THE 3D MESH
+!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!
+      USE BIEF
+      USE INTERFACE_TELEMAC3D, EX_SET_DIF => SET_DIF
+! TRAV1 IS NEW 1D BIEF_OBJ BLOCK OF WORK ARRAYS (NPLANx11)
+! THIS SHOULD BE AN INPUT ARGUMENT (REQUIRES EXTRA CVDF3D ARGUMENT)
+      USE DECLARATIONS_TELEMAC3D, ONLY: TRAV1
+!
+      USE DECLARATIONS_SPECIAL
+      IMPLICIT NONE
+!
+!+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+!
+      INTEGER, INTENT(IN)             :: NPOIN3,NPOIN2
+      INTEGER, INTENT(IN)             :: NPLAN
+!
+      INTEGER, INTENT(IN)             :: IPBOT(NPOIN2)
+!
+      DOUBLE PRECISION, INTENT(INOUT) :: FC(NPOIN3)
+!
+      DOUBLE PRECISION, INTENT(INOUT) :: FLUX
+      DOUBLE PRECISION, INTENT(IN)    :: DT,Z(NPOIN3)
+!
+      TYPE(BIEF_OBJ), INTENT(IN)      :: WCHU,FLUDPT,VOLU2D
+      TYPE(BIEF_OBJ), INTENT(INOUT)   :: FLUDP,FLUER
+      TYPE(BIEF_OBJ), INTENT(IN)      :: VISCTA
+!
+!+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+!
+      INTEGER IPOIN,I1,IPLAN,NPLAN_OK,IPB
+!
+      DOUBLE PRECISION :: MASSERO,MASSNET,MASSDEP,A,B
+!     POINTERS TO 1DV ARRAY BLOCK
+      TYPE(BIEF_OBJ),POINTER :: DZA,DZB,DZ
+      TYPE(BIEF_OBJ),POINTER :: AA,BB,CC,DD
+      TYPE(BIEF_OBJ),POINTER :: WS,EV,CONC,GAM
+!
+! A BLOCK OF VECTORS WAS PREVIOUSLY ALLOCATED WITH STATUT=0 IN
+! POINT_TELEMAC3D. POINTERS TO THIS BLOCK GET SET EACH CALL.
+!
+! SET POINTERS
+      DZA  => TRAV1%ADR(01)%P
+      DZB  => TRAV1%ADR(02)%P
+      DZ   => TRAV1%ADR(03)%P
+      AA   => TRAV1%ADR(04)%P
+      BB   => TRAV1%ADR(05)%P
+      CC   => TRAV1%ADR(06)%P
+      DD   => TRAV1%ADR(07)%P
+      WS   => TRAV1%ADR(08)%P
+      EV   => TRAV1%ADR(09)%P
+      CONC => TRAV1%ADR(10)%P
+      GAM  => TRAV1%ADR(11)%P
+!
+!++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!
+!     LOOP THROUGH HORIZONTAL JUST ONCE
+!
+      DO IPOIN = 1,NPOIN2
+!
+!       GET THE OFFSET TO THE FIRST UNCRUSHED PLANE (RANGE 0 TO NPLAN-1)
+        IPB=IPBOT(IPOIN)
+!       TIDAL FLATS (ALL PLANES CRUSHED)
+        IF(IPB.EQ.NPLAN-1) THEN
+          FLUER%R(IPOIN) = 0.D0
+          FLUDP%R(IPOIN) = 0.D0
+!         SKIP THIS NODE
+          CYCLE
+        ENDIF
+!
+!       NUMBER OF UNCRUSHED PLANES
+        NPLAN_OK=NPLAN-IPB
+!
+!       CALCULATE DZ VARIABLES: DZA,DZB,DZ (NPLAN_OK IN SIZE)
+!
+!       BOTTOM PLANE
+        DZA%R(1)  = 0.D0
+!      (START AT FIRST UNCRUSHED PLANE)
+        I1=IPOIN+IPB*NPOIN2
+        DZB%R(1)=Z(I1+NPOIN2)-Z(I1)
+        DZ%R(1)=0.5D0*DZB%R(1)
+!       INTERMEDIATE PLANES
+!      (LOOP THROUGH UNCRUSHED INTERMEDIATE PLANES)
+        IF (NPLAN_OK.GT.2) THEN
+          DO IPLAN=2,NPLAN_OK-1
+            I1=IPOIN+(IPB+IPLAN-1)*NPOIN2
+            DZA%R(IPLAN)=Z(I1)-Z(I1-NPOIN2)
+            DZB%R(IPLAN)=Z(I1+NPOIN2)-Z(I1)
+            DZ%R(IPLAN)=0.5D0*(DZA%R(IPLAN)+DZB%R(IPLAN))
+          ENDDO
+        ENDIF
+!       FINALLY THE SURFACE PLANE (N.B. ALWAYS NPLAN)
+        I1 = IPOIN+(NPLAN-1)*NPOIN2
+        DZA%R(NPLAN_OK)=Z(I1)-Z(I1-NPOIN2)
+        DZB%R(NPLAN_OK)=0.D0
+        DZ%R(NPLAN_OK)=0.5D0*DZA%R(NPLAN_OK)
+!
+!       NET EROSED MASS (N.B. BOTH S3D_FLUERAND S3D_FLUDPARE +VE VALUES)
+        MASSERO=FLUER%R(IPOIN)*DT
+!
+!       SETTLING AND VERTICAL DIFFUSION
+!
+!       FILL THE CONCENTRATION PROFILE ARRAY (RHS OF MATRIX)
+        DO IPLAN=1,NPLAN_OK
+          I1=IPOIN+(IPB+IPLAN-1)*NPOIN2
+          DD%R(IPLAN)=FC(I1)
+        ENDDO
+!       ADD THE EROSION FLUX SOURCE TERM
+        DD%R(1)=DD%R(1)+MASSERO/DZ%R(1)
+!
+!       VISCOSITY AND SETTLING VELOCITY ARRAYS
+!       DEAL WITH VISCOSITY SCHEME OPTION 2 (SEE VISCLM)
+        IF (VISCTA%DIMDISC.EQ.4111) THEN
+          DO IPLAN=1,NPLAN_OK
+            I1=IPOIN+(IPB+IPLAN-1)*NPOIN2
+            EV%R(IPLAN)=VISCTA%R(I1)
+            WS%R(IPLAN)=WCHU%R(I1)
+          ENDDO
+        ELSE
+          DO IPLAN=1,NPLAN_OK-1
+            I1=IPOIN+(IPB+IPLAN-1)*NPOIN2
+            EV%R(IPLAN)=0.5*(VISCTA%R(I1)+VISCTA%R(I1+NPOIN2))
+            WS%R(IPLAN)=WCHU%R(I1)
+          ENDDO
+          I1=IPOIN+(NPLAN-1)*NPOIN2
+          EV%R(NPLAN_OK)=EV%R(NPLAN_OK-1)
+          WS%R(NPLAN_OK)=WCHU%R(I1)
+        ENDIF
+!
+!       APPLY THE DEPOSITION RATE TO BOTTOM PLANE
+        WS%R(1)=FLUDPT%R(IPOIN)
+!
+! SETUP THE DIFFUSION PARAMETERS
+!
+!       BOTTOM PLANE
+        B=EV%R(1)/(DZ%R(1)*DZB%R(1))
+        BB%R(1)=1.D0+(WS%R(1)/DZ%R(1)+B)*DT
+        CC%R(1)=    -(WS%R(2)/DZ%R(1)+B)*DT
+!       INTERMEDIATE PLANES
+!      (AGAIN CHECK FOR CRUSHED PLANES)
+        IF(NPLAN_OK.GT.2) THEN
+          DO IPLAN=2,NPLAN_OK-1
+!           PARAMETERS A AND B
+            A=EV%R(IPLAN-1)/(DZ%R(IPLAN)*DZA%R(IPLAN))
+            B=EV%R(IPLAN  )/(DZ%R(IPLAN)*DZB%R(IPLAN))
+!           DIFFUSION MATRIX
+            AA%R(IPLAN)=-A*DT
+            BB%R(IPLAN)=1.D0+(WS%R(IPLAN)/DZ%R(IPLAN)+(A+B))*DT
+            CC%R(IPLAN)=-(WS%R(IPLAN+1)/DZ%R(IPLAN)+B)*DT
+          ENDDO
+        ENDIF
+!       SURFACE PLANE
+        A=EV%R(NPLAN_OK-1)/(DZ%R(NPLAN_OK)*DZA%R(NPLAN_OK))
+        AA%R(NPLAN_OK)=-A*DT
+        BB%R(NPLAN_OK)=1.D0+(WS%R(NPLAN_OK)/DZ%R(NPLAN_OK)+A)*DT
+!
+! MAIN SETTLING & DIFFUSION - DIRECT SOLVER
+!
+      CALL TRID1D(CONC%R,AA%R,BB%R,CC%R,DD%R,GAM%R,NPLAN_OK)
+!
+! OUTPUT THE FINAL CONCENTRATION PROFILE
+      DO IPLAN=1,NPLAN_OK
+        I1=IPOIN+(IPB+IPLAN-1)*NPOIN2
+        FC(I1)=CONC%R(IPLAN)
+      ENDDO
+!
+! OUTPUT THE IMPLICIT DEPOSITION FLUX
+      I1=IPOIN+IPB*NPOIN2
+      FLUDP%R(IPOIN)=FLUDPT%R(IPOIN)*FC(I1)
+!
+! DEPOSITED MASS
+      MASSDEP=FLUDPT%R(IPOIN)*FC(I1)*DT
+!
+!       MASS BALANCE
+        MASSNET=MASSERO-MASSDEP ! NET EROSION IS POSITIVE
+!
+!       UPDATE MASS FLUX OUT OF DOMAIN (+VE OUT, SO SUBTRACT)
+        FLUX=FLUX-MASSNET*VOLU2D%R(IPOIN)
+!
+      ENDDO  ! END OF NODE LOOP
+!
+!-----------------------------------------------------------------------
+!
+      RETURN
+      END

@@ -1,0 +1,64 @@
+#
+# Makefile for Unix.
+#
+include $(HOMETEL)/makefile.in
+# Get SRCS and LIBS
+include makefile.am
+#
+LIBRARY=
+EXE=
+
+# Get list of files
+TMP=$(SRCS:.f=.o)
+OBJS=$(TMP:.F=.o)
+
+LKLIB=$(LIBS) $(FC_LIBS)
+FFLAGS=$(FCFLAGS) -I$(DEST)/lib
+
+LIBRARIES=$(LIBRARY)
+EXES=$(EXE)
+#
+# Defining rules
+#
+
+all: $(LIBRARIES) $(EXES)
+
+$(LIBRARY):	$(OBJS)
+		@$(MESSAGE) "Archive $@ ..."
+		@$(LIB_NAM) $@ $^
+
+$(EXE):	$(OBJS)
+		@$(MESSAGE) "Link executable $@ ..."
+		@$(LD) $(LDFLAGS) -o $@ $^ $(LKLIB)
+
+clean:
+	  @$(MESSAGE) "Efface les objets, librairies, executables et core-file."
+		@rm -f $(OBJS) $(LIBRARIES) $(EXES) *.mod *.MOD *.g90 core
+
+install:	$(LIBRARIES) $(EXES)
+	  @for lib in $(LIBRARIES); do \
+		  rm -f $(DEST)/lib/$${lib};\
+	    cp -v $${lib} $(DEST)/lib;\
+	  done;
+	  @for exe in $(EXES); do \
+		  rm -f $(DEST)/bin/$${exe};\
+	    cp -v $${exe} $(DEST)/bin;\
+	  done;
+
+#------- Regles de compilation des sources FORTRAN
+
+.F.o:
+	@$(MESSAGE) "=> Compilation de $< :"
+	@$(FC) $(FFLAGS) $<
+	@if [ -r *.mod ]; then \
+	 cp -v *.mod $(DEST)/lib/.; /bin/rm *.mod; fi;
+	@if [ -r *.MOD ]; then \
+	 cp -v *.MOD $(DEST)/lib/.; /bin/rm *.MOD; fi;
+
+.f.o:
+	@$(MESSAGE) "=> Compilation de $< :"
+	@$(FC) $(FFLAGS) $<
+	@if [ -r *.mod ]; then \
+	 cp -v *.mod $(DEST)/lib/.; /bin/rm *.mod; fi;
+	@if [ -r *.MOD ]; then \
+	 cp -v *.MOD $(DEST)/lib/.; /bin/rm *.MOD; fi;
