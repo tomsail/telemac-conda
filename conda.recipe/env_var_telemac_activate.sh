@@ -47,5 +47,5 @@ export MUMPSHOME=$SYSTEL/lib
 export SCALAPACKHOME=$SYSTEL/LIBRARY/lic
 export BLACSHOME=$SYSTEL/lib
 ### METIS -------------------------------------------------------------
-export METISHOME=/usr/local
+export METISHOME=$HOMETEL/lib
 export LD_LIBRARY_PATH=$METISHOME/lib:$LD_LIBRARY_PATH
