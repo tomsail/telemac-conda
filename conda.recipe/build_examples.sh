@@ -53,9 +53,10 @@ cp -r $HOMETEL/builds/* $PREFIX/builds       #2
 cp -r $HOMETEL/scripts/* $PREFIX/scripts     #3
 cp -r $HOMETEL/sources/* $PREFIX/sources     #4
 
+cd $SRC_DIR
 # GET THE EXAMPLE FROM THE TELEMAC GIT, main branch
 git clone https://gitlab.pam-retd.fr/otm/telemac-mascaret.git --depth 1
-cp -r ./telemac-mascaret/examples/* $PREFIX/examples     #5
+cp -r $SRC_DIR/telemac-mascaret/examples/* $PREFIX/examples     #5
 
 # AUTO activate /deactivate environments variables for TELEMAC
 cd $PREFIX
