@@ -47,6 +47,14 @@ then
 else
    mkdir $SOURCES
 fi 
+#5 the examples folder 
+export EXAMPLES=$PREFIX/examples/
+if [ -d "$EXAMPLES" -a ! -h "$EXAMPLES" ]
+then
+   echo "$EXAMPLES already exists"
+else
+   mkdir $EXAMPLES
+fi 
 
 cp -r $HOMETEL/configs/* $PREFIX/configs     #1
 cp -r $HOMETEL/builds/* $PREFIX/builds       #2
