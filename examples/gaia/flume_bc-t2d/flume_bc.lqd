@@ -1,7 +1,0 @@
-#
-#  Boundary bedload file
-#
-T QG(2)
-s kg/s
-0.  0.
-1800. 0.000064528
