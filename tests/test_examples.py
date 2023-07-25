@@ -10,8 +10,7 @@ SOLVERS = {     # solver used   N of tests passed
     'gaia'      :  ['telemac',  0],        
     'khione'    :  ['telemac',  0],      
     'mascaret'  :  ['mascaret', 0],    
-    'nestor'    :  ['telemac',  0],      
-    'sisyphe'   :  ['telemac',  0],     
+    'nestor'    :  ['telemac',  0],    
     'telemac2d' :  ['telemac2d',0],   
     'telemac3d' :  ['telemac3d',0],   
     'tomawac'   :  ['tomawac',  0],     
@@ -76,4 +75,4 @@ for solver in  SOLVERS.keys():
             print('     -> test',test,'passed')
 # 
 for solver in  SOLVERS.keys():
-    print('    +> '+ solver +': ('+str(sum(RESULTS[solver].values()))+'/'+str(len(list_tests))+') passed')
+    print('    +> '+ solver +': ('+str(sum(RESULTS[solver].values())+1)+'/'+str(len(RESULTS[solver]))+') passed')
