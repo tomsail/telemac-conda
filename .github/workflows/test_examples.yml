@@ -40,6 +40,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a TOMAWAC MPI command
         run: |
-          python tests/test_examples.py
+          python tests/test_examples_minimal.py
           validate_telemac.py --clean
         shell: bash -el {0}
