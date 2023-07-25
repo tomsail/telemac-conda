@@ -38,7 +38,7 @@ jobs:
       #   run: echo Hello, world!
 
       # Runs a single command using the runners shell
-      - name: Run a TOMAWAC MPI command
+      - name: Run minimal validation
         run: |
           python tests/test_examples_minimal.py
           validate_telemac.py --clean
