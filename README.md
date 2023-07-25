@@ -1,7 +1,8 @@
-# TELEMAC-Conda 
-
-This is the repository for the conda package of the openTELEMAC system
+openTELEMAC conda package 
+=========================
+![CI](https://github.com/tomsail/telemac-conda/actions/workflows/test_examples.yml/badge.svg) 
 ![TELEMAC](http://www.opentelemac.org/media/kunena/attachments/75/openTELEMAC_hr.png)
+This is the repository for the conda package of the openTELEMAC system
 
 This package provides an operational working environment of openTELEMAC including: 
 * all the python scripts included in the path
