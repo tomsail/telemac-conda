@@ -5,16 +5,16 @@ import sys, os
 HOMETEL = os.getenv('HOMETEL')
 
 SOLVERS = {     # solver used   N of tests passed
-    'artemis'   :  ['artemis',  []],     
-    'courlis'   :  ['mascaret', []],     
-    'gaia'      :  ['telemac',  []],        
-    'khione'    :  ['telemac',  []],      
-    'mascaret'  :  ['mascaret', []],    
-    'nestor'    :  ['telemac',  []],    
-    'telemac2d' :  ['telemac2d',[]],   
-    'telemac3d' :  ['telemac3d',[]],   
-    'tomawac'   :  ['tomawac',  []],     
-    'waqtel'    :  ['waqtel',   []],      
+    'artemis'   :  [],     
+    'courlis'   :  [],     
+    'gaia'      :  [],        
+    'khione'    :  [],      
+    'mascaret'  :  [],    
+    'nestor'    :  [],    
+    'telemac2d' :  [],   
+    'telemac3d' :  [],   
+    'tomawac'   :  [],     
+    'waqtel'    :  [],      
 }
 
 # test if can run some tests
@@ -38,20 +38,6 @@ for solver in  SOLVERS.keys():
             RESULTS[solver][test] = 0
             for f in list_files:
                 if f.endswith('cas'):
-                    # ARTEMIS
-                    if solver == 'artemis':
-                        if f.startswith('art'):
-                            os.system('artemis.py '+f) 
-                    # COURLIS or MASCARET
-                    if solver in ['courlis', 'mascaret']:
-                        if f.endswith('xcas'):
-                            os.system('mascaret.py '+f)
-                    # GAIA, KHIONE, SISYPHE, NESTOR or WAQTEL
-                    if solver in ['gaia','khione', 'sisyphe','nestor','waqtel','telemac2d','telemac3d']:
-                        if f.startswith('t2d'):
-                            os.system('telemac2d.py '+f) 
-                        elif f.startswith('t3d'):
-                            os.system('telemac3d.py '+f) 
                     # TOMAWAC
                     if solver == 'tomawac':
                         if f.startswith('t3d'):
@@ -67,7 +53,7 @@ for solver in  SOLVERS.keys():
                                 os.system('tomawac.py '+f)
                     RESULTS[solver][test] = 1
                     print('     -> test',test,'passed')
-
+            
         except Exception as e: 
             print(e)
 # 
