@@ -10,14 +10,23 @@ export HOMETEL=$CONDA_PREFIX
 # Adding python scripts to PATH
 export PATH=$HOMETEL/scripts/python3:$PATH
 # Configuration file
-export SYSTELCFG=$HOMETEL/configs/systel.cfg
-# Name of the configuration to use
-export USETELCFG=S10.gfortran.dyn
-# Path to this file
-export SOURCEFILE=$HOMETEL/configs/pysource.template.sh
+if [[ $(uname) == Linux ]]; then
+   export SYSTELCFG=$HOMETEL/configs/systel.cfg
+   # Name of the configuration to use
+   export USETELCFG=S10.gfortran.dyn
+   # Path to this file
+   export SOURCEFILE=$HOMETEL/configs/pysource.template.sh
+fi
+#OSX
+if [[ $(uname) == Darwin ]]; then
+   export SYSTELCFG=$HOMETEL/configs/systel.macos.cfg
+   # Name of the configuration to use
+   export USETELCFG=gfort-mpich
+   export SOURCEFILE=$HOMETEL/configs/pysource.macos.sh
+fi
 ### Python
 # To force python to flush its output
-export PYTHONUNBUFFERED='true'                  
+export PYTHONUNBUFFERED='true'
 ### API
 export PYTHONPATH=$HOMETEL/scripts/python3
 export LD_LIBRARY_PATH=$HOMETEL/builds/$USETELCFG/wrap_api/lib:$HOMETEL/builds/$USETELCFG/lib
@@ -29,14 +38,14 @@ export PYTHONPATH=$HOMETEL/builds/$USETELCFG/wrap_api/lib:$PYTHONPATH
 export SYSTEL=$HOMETEL
 
 ### MPI -----------------------------------------------------------
-export MPIHOME=$HOMETEL/lib
+export MPIHOME=$HOMETEL
 export PATH=$HOMETEL/x86_64-conda-linux-gnu:$PATH
 export LD_LIBRARY_PATH=$MPIHOME/lib:$LD_LIBRARY_PATH
 ###
 ### EXTERNAL LIBRARIES -----------------------------------------------------------
 ###
 ### HDF5 -----------------------------------------------------------
-export HDF5HOME=$SYSTEL/lib
+export HDF5HOME=$SYSTEL
 export LD_RUN_PATH=$HDF5HOME
 ### MED  -----------------------------------------------------------
 export MEDHOME=$SYSTEL/optionals/med-4.0.0
@@ -47,5 +56,10 @@ export MUMPSHOME=$SYSTEL/lib
 export SCALAPACKHOME=$SYSTEL/LIBRARY/lic
 export BLACSHOME=$SYSTEL/lib
 ### METIS -------------------------------------------------------------
-export METISHOME=$HOMETEL/lib
+export METISHOME=$SYSTEL
 export LD_LIBRARY_PATH=$METISHOME/lib:$LD_LIBRARY_PATH
+### OSX Xcode
+if [[ $(uname) == Darwin ]]; then
+   export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
+   export LIBRARY_PATH="$LIBRARY_PATH:$SDKROOT/usr/lib"
+fi

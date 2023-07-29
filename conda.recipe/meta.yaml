@@ -1,14 +1,16 @@
 {% set name = "telemac" %}
-{% set version = "0.1.7" %}
+{% set version = "8.4" %}
 {% set build = 0 %}
+{% set mpi = "openmpi" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
+#  path: ../
   url: https://github.com/tomsail/telemac-conda/archive/refs/tags/v8.4.tar.gz
-  #sha256: 6ee77a34b1b827463b7a61e00149b1781af7db340d329b8e36bdcd85ae545553
+  sha256: 7326fc4181ed37ace6b289a789bca9f1e8371b7c6e1655dc9c69198c9cc512db
 
 build:
   number: {{ build }}
@@ -17,31 +19,26 @@ build:
 outputs:
   - name: telemac
     script: build.sh
-    files: 
+    build:
+      {% set mpi_prefix = "mpi_" + mpi %}
+      string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}
+      {% set build_pin = mpi_prefix + '_*' %}
+    files:
      - scripts
-     - sources 
+     - sources
      - builds
      - configs
      - etc/conda/deactivate.d/env_var_telemac_activate.sh
      - etc/conda/activate.d/env_var_telemac_activate.sh
-    
+
     requirements:
       build:
-        - python =3.10
-        - numpy =1.23
-        - {{ compiler('fortran') }}
-        - openmpi
-        - openmpi-mpifort
-        - metis
-        - parmetis
-        - openblas
-        - liblapack
       host:
         - python =3.10
         - numpy =1.23
         - {{ compiler('fortran') }}
-        - openmpi
-        - openmpi-mpifort
+        - {{ mpi }}
+        - {{ mpi }}-mpifort
         - metis
         - parmetis
         - openblas
@@ -50,8 +47,8 @@ outputs:
         - python =3.10
         - numpy =1.23
         - {{ compiler('fortran') }}
-        - openmpi
-        - openmpi-mpifort
+        - {{ mpi }}
+        - {{ mpi }}-mpifort
         - metis
         - parmetis
         - openblas
@@ -60,25 +57,6 @@ outputs:
         - netcdf4
         - mpi4py
         - matplotlib
-
-  - name: telemac-examples
-    script: build_examples.sh
-    files: 
-     - scripts
-     - sources 
-     - builds
-     - configs
-     - etc/conda/deactivate.d/env_var_telemac_activate.sh
-     - etc/conda/activate.d/env_var_telemac_activate.sh
-     - examples
-    
-    requirements:
-      build:
-        - {{ pin_subpackage("telemac", exact=True) }}
-      host:
-        - {{ pin_subpackage("telemac", exact=True) }}
-      run:
-        - {{ pin_subpackage("telemac", exact=True) }}
 
 about:
   home: https://gitlab.pam-retd.fr/otm/telemac-mascaret
