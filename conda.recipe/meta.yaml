@@ -34,8 +34,8 @@ outputs:
     requirements:
       build:
       host:
-        - python =3.10
-        - numpy =1.23
+        - python 
+        - numpy =1.21.6
         - {{ compiler('fortran') }}
         - {{ mpi }}
         - {{ mpi }}-mpifort
@@ -44,8 +44,8 @@ outputs:
         - openblas
         - liblapack
       run:
-        - python =3.10
-        - numpy =1.23
+        - python
+        - numpy =1.21.6
         - {{ compiler('fortran') }}
         - {{ mpi }}
         - {{ mpi }}-mpifort
