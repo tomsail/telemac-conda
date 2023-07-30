@@ -19,7 +19,7 @@ def set_frame_limits(mesh, margin=0.02):
     triangular mesh or regular x,y grid
     @param margin (float) percentage used to set frame margin (default: 0.02)
     """
-    if isinstance(mesh, mtri.triangulation.Triangulation):
+    if isinstance(mesh, mtri.Triangulation):
         x, y = mesh.x, mesh.y
     elif isinstance(mesh, tuple):
         x, y = mesh
@@ -294,7 +294,7 @@ def plot2d_scalar_map(fig, axe, mesh, data,
     cmap = cm.get_cmap(name=cmap_name, lut=None)
 
     # Plotting scalar color map
-    if isinstance(mesh, mtri.triangulation.Triangulation):
+    if isinstance(mesh, mtri.Triangulation):
         img = axe.tripcolor(mesh, data, shading=shading,
                             cmap=cmap, vmin=vmin, vmax=vmax,
                             **kwargs)
@@ -377,7 +377,7 @@ def plot2d_scalar_filled_contour(fig, axe, mesh, data,
         levels = np.linspace(vmin, vmax, nv)
 
     # Plotting scalar filled contour
-    if isinstance(mesh, mtri.triangulation.Triangulation):
+    if isinstance(mesh, mtri.Triangulation):
         if levels is not None:
             img = axe.tricontourf(mesh, data, levels, cmap=cmap, **kwargs)
         else:
@@ -463,7 +463,7 @@ def plot2d_scalar_contour(fig, axe, mesh, data,
         levels = np.linspace(vmin, vmax, nv)
 
     # Plotting scalar contour
-    if isinstance(mesh, mtri.triangulation.Triangulation):
+    if isinstance(mesh, mtri.Triangulation):
         if colors is None:
             if levels is not None:
                 img = axe.tricontour(mesh, data, levels, cmap=cmap, **kwargs)
@@ -561,7 +561,7 @@ def plot2d_vectors(fig, axe, mesh, data_x, data_y,
     cmap = cm.get_cmap(name=cmap_name, lut=None)
 
     # Defining vector locations (on regular grid or triangulation)
-    if isinstance(mesh, mtri.triangulation.Triangulation):
+    if isinstance(mesh, mtri.Triangulation):
         if grid_resolution is None:
             # Triangulation points
             x_i, y_i = mesh.x, mesh.y
@@ -677,7 +677,7 @@ def plot2d_streamlines(fig, axe, mesh, data_x, data_y,
     cmap = cm.get_cmap(name=cmap_name, lut=None)
 
     # Interpolate data_x and data_y on grid
-    if isinstance(mesh, mtri.triangulation.Triangulation):
+    if isinstance(mesh, mtri.Triangulation):
         data, (x_i, y_i) = interpolate_on_grid(
             mesh, [data_x, data_y],
             grid_xlim=grid_xlim, grid_ylim=grid_ylim,
