@@ -8,45 +8,52 @@ export FC=mpif90
 export F77=mpif77
 export F90=mpif90
 
-source ./configs/pysource.template.sh
-# 
+#linux
+if [[ $(uname) == Linux ]]; then
+   source ./configs/pysource.template.sh
+fi
+#OSX
+if [[ $(uname) == Darwin ]]; then
+   source ./configs/pysource.macos.sh
+fi
+
 compile_telemac.py
 
-#1: the config folder 
+#1: the config folder
 export CONFIGS=$PREFIX/configs/
 if [ -d "$CONFIGS" -a ! -h "$CONFIGS" ]
 then
    echo "$CONFIGS already exists"
 else
    mkdir $CONFIGS
-fi 
+fi
 
-#2: the builds folder 
+#2: the builds folder
 export BUILDS=$PREFIX/builds/
 if [ -d "$BUILDS" -a ! -h "$BUILDS" ]
 then
    echo "$BUILDS already exists"
 else
    mkdir $BUILDS
-fi 
+fi
 
-#3 the scripts folder 
+#3 the scripts folder
 export SCRIPTS=$PREFIX/scripts/
 if [ -d "$SCRIPTS" -a ! -h "$SCRIPTS" ]
 then
    echo "$SCRIPTS already exists"
 else
    mkdir $SCRIPTS
-fi 
+fi
 
-#4 the source folder 
+#4 the source folder
 export SOURCES=$PREFIX/sources/
 if [ -d "$SOURCES" -a ! -h "$SOURCES" ]
 then
    echo "$SOURCES already exists"
 else
    mkdir $SOURCES
-fi 
+fi
 
 cp -r $HOMETEL/configs/* $PREFIX/configs     #1
 cp -r $HOMETEL/builds/* $PREFIX/builds       #2
@@ -61,7 +68,7 @@ then
    echo "$ACTIVATE already exists"
 else
    mkdir $ACTIVATE
-fi 
+fi
 
 export DEACTIVATE=$PREFIX/etc/conda/deactivate.d
 if [ -d "$DEACTIVATE" -a ! -h "$DEACTIVATE" ]
@@ -69,7 +76,7 @@ then
    echo "$DEACTIVATE already exists"
 else
    mkdir $DEACTIVATE
-fi 
+fi
 cp $SRC_DIR/conda.recipe/env_var_telemac_activate.sh $PREFIX/etc/conda/activate.d/env_var_telemac_activate.sh
 cp $SRC_DIR/conda.recipe/env_var_telemac_deactivate.sh $PREFIX/etc/conda/deactivate.d/env_var_telemac_deactivate.sh
 

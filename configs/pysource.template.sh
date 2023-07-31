@@ -44,7 +44,7 @@ export LD_LIBRARY_PATH=$MEDHOME/lib:$LD_LIBRARY_PATH
 export PATH=$MEDHOME/bin:$PATH
 ### MUMPS -------------------------------------------------------------
 export MUMPSHOME=$SYSTEL/lib
-export SCALAPACKHOME=$SYSTEL/LIBRARY/lic
+export SCALAPACKHOME=$SYSTEL/lib
 export BLACSHOME=$SYSTEL/lib
 ### METIS -------------------------------------------------------------
 export METISHOME=$HOMETEL/lib
