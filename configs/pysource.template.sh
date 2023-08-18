@@ -31,7 +31,7 @@ export SYSTEL=$HOMETEL
 ### MPI -----------------------------------------------------------
 export MPIHOME=$HOMETEL/lib
 export PATH=$HOMETEL/x86_64-conda-linux-gnu:$PATH
-export LD_LIBRARY_PATH=$MPIHOME/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$MPIHOME:$LD_LIBRARY_PATH
 ###
 ### EXTERNAL LIBRARIES -----------------------------------------------------------
 ###
@@ -48,4 +48,3 @@ export SCALAPACKHOME=$SYSTEL/lib
 export BLACSHOME=$SYSTEL/lib
 ### METIS -------------------------------------------------------------
 export METISHOME=$HOMETEL/lib
-export LD_LIBRARY_PATH=$METISHOME/lib:$LD_LIBRARY_PATH
