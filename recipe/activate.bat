@@ -7,7 +7,7 @@ set _OLD_LD_LIBRARY_PATH=%LD_LIBRARY_PATH%
 :: Set TELEMAC specific environnement variables
 set HOMETEL=%CONDA_PREFIX%\Library\telemac-mascaret
 set SYSTELCFG=%HOMETEL%\configs\systel.cfg
-set USETELCFG=gnu.static
+set USETELCFG=gnu.dynamic
 
 :: Add TELEMAC binaries directory to PATH
 set PATH=%HOMETEL%\builds\%USETELCFG%\lib;%PATH%
