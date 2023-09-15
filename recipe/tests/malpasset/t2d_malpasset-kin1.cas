@@ -1,0 +1,46 @@
+/
+/ MALPASSET WITH KINETIC SCHEME (PRIMITIVE EQ.)
+/
+/-------------------------------------------------------------------/
+/   INPUT OUTPUT
+/-------------------------------------------------------------------/
+GEOMETRY FILE            = geo_malpasset-small.slf
+FORTRAN FILE             = 'user_fortran'
+BOUNDARY CONDITIONS FILE = geo_malpasset-small.cli
+RESULTS FILE             = r2d_malpasset-kin1.slf
+FORMATTED RESULTS FILE   = rfo_malpasset-kin1.txt
+FORMATTED RESULTS FILE 1 = mass.txt
+/
+/-------------------------------------------------------------------/
+/   GENERAL CONFIGURATION
+/-------------------------------------------------------------------/
+TITLE = 'KINETIC SCHEME (PRIMITIVE EQ.)'
+INITIAL CONDITIONS = 'SPECIAL'
+/
+DURATION = 4000.
+DESIRED COURANT NUMBER = 0.9
+TIME STEP = 1.
+GRAPHIC PRINTOUT PERIOD = 200
+LISTING PRINTOUT PERIOD = 2000
+VARIABLES FOR GRAPHIC PRINTOUTS = U,V,H,S,B
+/
+MASS-BALANCE = YES
+/--------------------------------------------------------------------/
+/   PHYSICAL OPTIONS
+/--------------------------------------------------------------------/
+/
+LAW OF BOTTOM FRICTION = 3
+FRICTION COEFFICIENT = 30.
+TURBULENCE MODEL = 1
+VELOCITY DIFFUSIVITY = 1.
+/--------------------------------------------------------------------/
+/   NUMERICAL OPTIONS
+/--------------------------------------------------------------------/
+EQUATIONS : 'SAINT-VENANT FV'
+/ 0 : ROE, 1 : KINETIC ORDER 1, 2 : KINETIC ORDER 2, 5: HLLC ordre 1
+FINITE VOLUME SCHEME : 1
+VARIABLE TIME-STEP : YES
+/  version 6.2 ends at iteration 246758...
+/
+TIDAL FLATS = YES
+DIFFUSION OF VELOCITY = NO

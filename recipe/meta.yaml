@@ -1,0 +1,81 @@
+{% set name = "telemac-mascaret" %}
+{% set version = "v8p4r0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  - git_url: https://gitlab.pam-retd.fr/otm/telemac-mascaret.git
+    git_rev: {{ version }}
+    folder: telemac-mascaret
+  # - url: https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/archive/{{ version }}/telemac-mascaret-{{ version }}.tar.bz2
+  #   folder: telemac-mascaret
+  #   sha256: ab5f5d480355d9286bd609f604d28765d56835d8da7d20514f9b16e70ce7cee8
+  - path: ../src
+
+build:
+  number: 0
+  # skip: true  # [not win]
+  script_env:
+   - TELEMAC_VERSION={{ version }}
+
+requirements:
+  build:
+    - m2-base
+    - m2w64-gcc
+    - m2w64-gcc-fortran
+    - m2w64-metis
+    - m2w64-toolchain
+    - matplotlib
+    - msmpi
+    - msmpi-compilers
+    - numpy <1.22.0
+    - python <3.11
+    - scipy <1.11
+  run:
+    - m2w64-gcc
+    - m2w64-gcc-fortran
+    - m2w64-metis
+    - m2w64-toolchain
+    - matplotlib
+    - msmpi
+    - msmpi-compilers
+    - numpy <1.22.0
+    - python <3.11
+    - scipy <1.11
+
+test:
+  files:
+    - tests/*  # [win]
+  requires:
+    - m2w64-gcc
+    - m2w64-gcc-fortran
+    - m2w64-metis
+    - m2w64-toolchain
+    - matplotlib
+    - msmpi
+    - msmpi-compilers
+    - numpy <1.22.0
+    - python <3.11
+    - scipy <1.11
+  commands:
+    - python -m config
+    - telemac-debug on
+    - python -m config
+    # - cd tests/malpasset
+    # - python -m telemac2d --ncsize=8 t2d_malpasset-fine.cas
+
+about:
+  home: http://www.opentelemac.org/
+  license: GPLv3
+  summary: Telemac-Mascaret
+  description: |
+    The TELEMAC-MASCARET system is an integrated suite of solvers for use in the
+    field of free-surface flow.
+  doc_url: https://gitlab.pam-retd.fr/otm/telemac-mascaret/
+  dev_url: https://gitlab.pam-retd.fr/otm/telemac-mascaret/
+
+extra:
+  recipe-maintainers:
+    - nicogodet

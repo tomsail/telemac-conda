@@ -1,0 +1,471 @@
+\chapter{Malpasset dambreak (malpasset)}
+
+\section{Purpose}
+
+This test illustrates that \telemac{2D} is able to simulate a real dam break flow
+on an initially dry domain. It also shows the propagation of the wave front
+and the evolution of the water surface and velocities in the valley downstream.
+It was used as a test case in the program ESPRIT for the europeen projet project
+PCECOWATER (Parallel Computing of Environment COastal and lake shallow WATER dynamics).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Description}
+
+This case is the simulation of the propagation of the wave following the break
+of the Malpasset dam (South-East of France).
+The accident occurred in December 1959.
+The model represents the reservoir upstream from the dam and the valley and
+flood plain downstream. \\
+
+The simulation is performed using the treatment of negative depths introduced
+since release 7.0 of \telemac{2D}.
+The historical simulation using the method of characteristics (named CHAR) has
+been kept.
+Nevertheless, the recommended numerical approach for such applications is any
+finite volume scheme or the NERD scheme for finite element method.
+
+\subsection{Geometry and mesh}
+The entire valley is approximately 18~km long and between 200~m (valley) and
+7~km wide (flood plain).
+The complete study is described in details in \cite{Hervouet2007}.
+The dam is modelled by a straight line between the points of coordinates
+(4,701.18~m ; 4,143.10~m) and (4,655.50~m ; 4,392.10~m).
+Its location is shown in Figure \ref{fig:malpasset:mesh_dam}.
+The size of the model is approximately  17~km $\times$ 9~km.
+A triangular mesh is built on this domain and is refined in the river valley
+(downstream from the dam) and on the banks.
+Two meshes are tested:
+\begin{itemize}
+\item \textbf{Regular mesh (Figure \ref{fig:malpasset:Mesh} - a):}
+which contains 26,000 triangular elements and 13,541 nodes with a maximum size
+ranging from 17 to 313~m.\\
+\item \textbf{Fine mesh (Figure \ref{fig:malpasset:Mesh} - b):}
+which contains 104,000 triangular elements and 53,081 nodes with a maximum size
+ranging from 8.5 to 156.5~m.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \textbf{a - Regular mesh}\par\medskip
+  \includegraphicsmaybe{[width=0.85\textwidth]}{../img/Mesh_small.png} \\
+  \textbf{b - Fine mesh}\par\medskip
+  \includegraphicsmaybe{[width=0.85\textwidth]}{../img/Mesh_large.png}
+  \caption{Malpasset case meshes.}
+  \label{fig:malpasset:Mesh}
+\end{figure}
+
+\begin{figure}[H] %Example
+  \centering
+  \includegraphicsmaybe{[width=0.7\textwidth]}{../img/Mesh_small_dam.png}
+  \caption{Dam location on the malpasset case.}
+  \label{fig:malpasset:mesh_dam}
+\end{figure}
+
+\subsection{Bathymetry}
+Old maps have been used to deduce the topography of the domain
+(Figure \ref{fig:malpasset:bathy}).
+In fact, the topography after the accident could not be used because of the
+dramatic changes that occurred.
+Therefore, the IGN map of Saint-Tropez, Number 3, of year 1931, was used.
+
+\begin{figure}[H] %Example
+  \centering
+  \includegraphicsmaybe{[width=1.0\textwidth]}{../img/bathymetry.png}
+  \caption{Bottom levels in the domain and reference points.}
+  \label{fig:malpasset:bathy}
+\end{figure}
+
+\subsection{Reference data}
+In order to evaluate the precision of the numerical schemes, the results are
+compared to data obtained from:
+a physical model (see \cite{Hervouet2007}) (Non-distorted, 1/400 scale) that was
+built in LNHE in 1964 (Gauges P6 to P14) and three electric transformers were
+destroyed by the wave and the times of electric shutdown were precisely recorded
+(Points A, B and C).
+The locations of these observation points are shown in Figure
+\ref{fig:malpasset:bathy}.
+The data used for verification are the following:
+\begin{itemize}
+\item Recorded time from A (5,550~m ; 4,400~m) to B (11,900~m ; 3,250~m): 1,140~s,
+\item Recorded time from A to C (13,000~m ; 2,700~m): 1,320~s,
+\item Maximum free surface elevations obtained from gauges.
+The values are converted to water depths (by deducing the bathymetry values) and
+summed up in Table \ref{tab:malpasset:MaxMeasures}.
+\end{itemize}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline Point Name & $x$-coordinate & $y$-coordinate & Distance to dam & Measured Max water depth \\
+    \hline P6 & 4,947 & 4,289 & 336 & 40.3\\
+    P7 & 5,717 & 4,407 & 1,320 & 14.6\\
+    P8 & 6,775 & 3,869 & 2,160 & 24.0\\
+    P9 & 7,128 & 3,162 & 3,420 & 12.8\\
+    P10 & 8,585 & 3,443 & 4,840 & 11.8 \\
+    P11 & 9,674 & 3,085 & 6,000 & 8.3\\
+    P12 & 10,939 & 3,044 & 7,220 & 10.1\\
+    P13 & 11,724 & 2,810 & 7,980 & 6.8 \\
+    P14 & 12,723 & 2,485 & 8,960 & 5.4\\
+    \hline
+  \end{tabular}
+  \caption{Maximum values of water depth on measurement points for the malpasset case
+  (everything in m).}
+  \label{tab:malpasset:MaxMeasures}
+\end{table}
+
+\subsection{Initial conditions}
+At the beginning of the simulation, the dam is assumed undamaged and the
+reservoir is full.
+There is no water in the downstream valley, and no velocity in all the domain.
+\subsection{Boundary conditions}
+The boundaries are solid everywhere and the channel banks considered as solid
+walls.
+There is no friction on the solid walls.
+The bottom is considered as a solid boundary with roughness.
+The Strickler formula with friction coefficient = 30~m$^{1/3}$/s is used.
+
+\subsection{Physical parameters}
+
+The characteristics of the case are the following:
+\begin{itemize}
+  \itemsep0em
+\item Observed mean wave velocity $U_0$ = 27~km.h$^{-1}$ = 7.5~m.s$^{-1}$,
+\item Initial water depth upstream of the dam $H_0$ = 55~m,
+\item Total duration of the event $T$ = 4,000~s,
+\item Valley length $L$ = 18~km,
+\item Maximum valley width $l_M$ = 7~km,
+\item Reynolds Number \textbf{$R_e = \dfrac{U_0 \times H_0}{\nu} =  4.12 \times 10^8$}
+where $\nu$ is the kinematic viscosity of water,
+\item Froude Number \textbf{$F_r = \dfrac{U_0}{\sqrt{g \times H_0}} = 0.32$}
+where $g$ is the gravity acceleration.
+\end{itemize}
+
+In the simulations, the Coriolis force and the wind effect are not taken into
+account.
+Besides, the viscosity is set as constant and equal to 1~m$^2$/s on horizontal
+directions.
+
+\subsection{Numerical parameters}
+\label{subsection:malpasset:cases}
+Duration of the simulation is set to 4,000~s.
+The use of coupled primitive equations
+(\telkey{TREATMENT OF THE LINEAR SYSTEM} = 1)
+is compared to the wave equation (\telkey{TREATMENT OF THE LINEAR SYSTEM} = 2).
+Initial and boundary conditions remain the same for all the cases, and are
+described in the first two sections.
+The solver accuracy used for the resolution of the linear system is
+of 10$^{-8}$ and with a maximum number of iterations equal to 200 for every finite
+element case.
+The solver used for the resolution of the linear system is the conjugate gradient
+for most of the finite element cases except with the primitive equations for which
+GMRES is necessary.
+For finite element cases, when using the wave equation, the type of element are
+linear for velocities and water depth whereas when using primitive equations the
+type of Element are quasi-bubble for velocities and linear for water depth.
+Quasi-bubble elements are used to avoid oscillations due to a violated inf-sup
+condition.
+The simulation parameters specific to each case are summed up in Table
+\ref{tab:malpasset:cases}.
+\begin{table}[H]
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+      \hline Name & Mesh & Equations & Advection scheme for velocities & Time-step / Desired CFL \\
+      \hline ERIA & Regular & Wave Eq. FE & ERIA scheme & 0.5~s / - \\
+      \hline NERD & Regular & Wave Eq. FE & Edge-based n-scheme & 0.5~s / - \\
+      \hline CHAR & Regular & Wave Eq. FE & Characteristics & 0.5~s / - \\
+      \hline PRIM & Regular & Saint-Venant FE & Characteristics & 0.5~s / - \\
+      \hline KIN1 & Regular & Saint-Venant FV & Kinetic order 1 & - / 0.9 \\
+      \hline HLLC & Regular & Saint-Venant FV & HLLC order 1 & - / 0.9 \\
+      \hline FINE & Fine & Saint-Venant FV & Kinetic order 1 & - / 0.9 \\
+      \hline
+    \end{tabular}
+  }
+  \caption{List of the simulation parameters used for the different cases tested.}
+  \label{tab:malpasset:cases}
+\end{table}
+
+\section{Results}
+\subsection{First observations - regular mesh}
+
+Figure \ref{fig:malpasset:WD_cin1} illustrates the progression of the flood
+wave after the dam break.
+The propagation of the wave front is very fast.
+The water depth increases rapidly in the valley downstream from the dam location.
+The wave spreads in the plain when arriving to the sea.
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD0_kin1_firstobs.png}\\
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD200_kin1_firstobs.png}\\
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD400_kin1_firstobs.png}\\
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD600_kin1_firstobs.png}
+  \caption{Evolution of the water depth with the KIN1 scheme.}
+  \label{fig:malpasset:WD_cin1}
+\end{figure}
+
+\subsection{First observations - fine mesh}
+
+Figure \ref{fig:malpasset:WD_fine} illustrates the progression of the flood
+wave after the dam break on the fine mesh with the KIN1 scheme.
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD0_fine_firstobs.png}\\
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD200_fine_firstobs.png}\\
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD400_fine_firstobs.png}\\
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD600_fine_firstobs.png}
+  \caption{Evolution of the water depth with the KIN1 scheme on fine mesh.}
+  \label{fig:malpasset:WD_fine}
+\end{figure}
+
+\subsection{Computation time}
+
+Simulation times for each of these cases with sequential and parallel runs
+(using 4 processors) are shown in Figure~\ref{fig:malpasset:cputime}
+\footnote{Keep in mind that these times
+are specific to the validation run and the type of processors that were used for this purpose.}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphicsmaybe{[width=0.7\textwidth]}{../img/cpu_times.png}
+  \caption{CPU times.}
+  \label{fig:malpasset:cputime}
+\end{figure}
+
+\subsection{Comparison of schemes}
+
+In Figures \ref{fig:malpasset:WD_all1} and \ref{fig:malpasset:WD_all2},
+water depth is plotted after 400~s of simulation.
+Depending on the system of equation and on the method of resolution, wave
+propagates at different speeds.
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD400_eria.png}\\
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD400_nerd.png}
+  \caption{Water depth at $t$ = 400~s for different cases of the malpasset example.}
+  \label{fig:malpasset:WD_all1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD400_char.png}\\
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD400_prim.png}\\
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD400_kin1.png}\\
+  \includegraphicsmaybe{[width=0.95\textwidth]}{../img/WD400_hllc.png}
+  \caption{Water depth at $t$ = 400~s for different cases of the malpasset example.}
+  \label{fig:malpasset:WD_all2}
+\end{figure}
+
+In Figures \ref{fig:malpasset:velocities}, the velocity field after 100~s of
+simulation is presented in the vicinity of the dam.
+Contrary to the \telemac{2D} validation manual in release v8.1,
+with the wave equation option and P1-P1 discretization, there are less visible
+numerical oscillations on both water depth and velocity by
+using a smaller time step (0.5~s rather than 1~s) and
+\telkey{MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES} so that this maximum
+number is not reached lead to no spurious oscillation.
+Using primitive equation with quasi bubble elements on velocity allows to also
+obtain correct results, at a higher cost.
+However numerical oscillations are still visible.
+
+\begin{figure}[H]
+%\begin{minipage}[t]{0.5\textwidth}
+% \centering
+% \includegraphicsmaybe{[width=\textwidth]}{../img/WDVelocity100_eria.png}
+%\end{minipage}
+%\begin{minipage}[t]{0.5\textwidth}
+% \centering
+% \includegraphicsmaybe{[width=\textwidth]}{../img/Velocity100_eria.png}
+%\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/WDVelocity100_nerd.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Velocity100_nerd.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/WDVelocity100_char.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Velocity100_char.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/WDVelocity100_prim.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Velocity100_prim.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/WDVelocity100_kin1.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Velocity100_kin1.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/WDVelocity100_hllc.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/Velocity100_hllc.png}
+\end{minipage}
+  \caption{Water depth (left) and velocities (right) after 100~s on the malpasset case.}
+  \label{fig:malpasset:velocities}
+\end{figure}
+
+
+\subsection{Accuracy of the water depth}
+
+The maximum values of water depth are extracted for each gauge for all the
+schemes and compared to reference data in Figure \ref{tab:malpasset:max}.
+
+\begin{figure}[H]
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/WD_vs_observations_ERIA.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/WD_vs_observations_NERD.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/WD_vs_observations_CHAR.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/WD_vs_observations_PRIM.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/WD_vs_observations_KIN1.png}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=\textwidth]}{../img/WD_vs_observations_HLLC.png}
+\end{minipage}
+  \caption{Comparison of maximum water depth recorded to lab data at different locations.}
+  \label{tab:malpasset:max}
+\end{figure}
+
+%The scheme that is the most accurate is the finite volume scheme.
+Every scheme gives rather the same results for this criterion.
+However, for all the schemes the numerical results are far from observations.
+The following interpretation can be found in reference \cite{Hervouet2007}.\\
+
+\textit{
+« The discrepancies on the free surface elevation at the nine gauges, between 1-D and 2-D solutions, and the physical model, remain large and are questionable. However, the results are good as soon as the wave reaches the floodplain, the difference at gauge 14 being 14 cm with a total depth of 5.4 m. It is clear from the sensitivity study done with TELEMAC-2D that the differences are not entirely due to an inaccurate solution of the Shallow water equations. As a matter of fact, numerical and physical parameters have little influence on the maximum free surface elevation, but not in a range that would allow a possible perfect match. Several other factors could be responsible for the error such as:
+\begin{itemize}
+\itemsep0em
+\item the physical model itself, because a 1/400 scale gives a 4m difference for
+a 1cm error on measurments;
+\item the Shallow Water equations are an approximation and their assumptions,
+such as the hydrostatics pressure, cannot be fully verified in this case
+- a test with Boussinesq or Serre equations would be of the utmost interest to
+clarify this point;
+\item the dam failure scenario, which was probably not absolutely instantaneous;
+\item the debris flow and sediment transport, which was not taken into account
+in this study»
+\end{itemize}
+}
+
+\subsection{Accuracy of the wave propagation}
+
+Next, the wave propagation time computed with \telemac{2D} is compared to
+reference data in Figure \ref{tab:malpasset:timepropagation}.
+Globally, the estimated propagation time is lower than the observed one.
+Further more, be it for the A-C or the A-B transit, the differences remain low.
+The most satisfiying results are the ones observed for the KIN1, HLLC and ERIA
+schemes.
+But characteristics and NERD results are OK.
+
+\begin{figure}[H]
+\begin{minipage}[t]{\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/propagation_AtoB.png}
+\end{minipage}
+\begin{minipage}[t]{\textwidth}
+ \centering
+ \includegraphicsmaybe{[width=0.8\textwidth]}{../img/propagation_AtoC.png}
+\end{minipage}
+  \caption{Comparison of propagation time delta between A and B (up) and A and C (down).}
+  \label{tab:malpasset:timepropagation}
+\end{figure}
+
+
+\subsection{Comparison on profiles}
+Here, the schemes are compared on profiles upstream
+(Figure \ref{fig:malpasset:upstreamProfile}) and downstream (Figure
+\ref{fig:malpasset:downstreamProfile}) of the dam.
+The locations of these profiles are the following:
+\begin{itemize}
+\itemsep0em
+\item Upstream of the dam: (4,634.0; 4,132.84) to (4,589.81; 4,393.22),
+\item Downstream of the dam: (4,884.95; 4,161.82) to (4,846.39; 4,362.44).
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.8\textwidth]}{../img/WaterDepth_Dam_amont.png}
+  \caption{Profiles of water depth upstream of the dam at last iteration of the malpasset case.}
+  \label{fig:malpasset:upstreamProfile}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphicsmaybe{[width=0.8\textwidth]}{../img/WaterDepth_Dam_aval.png}
+  \caption{Profiles of water depth downstream of the dam at last iteration of the malpasset case.}
+  \label{fig:malpasset:downstreamProfile}
+\end{figure}
+
+Except coupled primite equations, every other scheme gives rather the same
+results for this criterion.
+
+\subsection{Positivity of the water depth}
+
+The positivity of the used schemes can be checked for all cases.
+In order to achieve this, the minimum value of the water depth during the whole
+simulation, and on all the points of the mesh, is transcribed in Figure
+\ref{fig:malpasset:minmax}.
+In the case of finite volume schemes, positivity is ensured without additionnal
+treatment.
+With finite element schemes, the positivity is ensured with a treatment of
+negative depths during simulation (\telkey{TREATMENT OF NEGATIVE DEPTHS} = 2
+for characteristics + NERD schemes and 3 for ERIA scheme).
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.8\textwidth]}{../img/minT.png}
+\caption{Minimum values of water depths.}
+\label{fig:malpasset:minmax}
+\end{figure}
+
+\subsection{Mass conservation}
+
+Mass conservation can be checked by calculating the volume in the domain during
+time (as the density is constant in time and space).
+The lost volume is calculated as $V_{initial} - V_{final}$.
+Figure \ref{fig:malpasset:lostvol} shows that all used schemes are mass
+conservative.
+Mass is conserved for sequential runs as well as parallel ones.
+%except for the characteristics???
+
+\begin{figure}[H]
+\centering
+\includegraphicsmaybe{[width=0.8\textwidth]}{../img/lost_volume.png}
+\includegraphicsmaybe{[width=0.8\textwidth]}{../img/lost_volume_error.png}
+\caption{Lost volume during simulation.}
+\label{fig:malpasset:lostvol}
+\end{figure}
+
+\section{Conclusion}
+\telemac{2D} is capable of simulating the propagation of a dam break wave in a
+river valley initially dry.
