@@ -18,7 +18,10 @@ build:
   number: 0
   # skip: true  # [not win]
   script_env:
-   - TELEMAC_VERSION={{ version }}
+    - TELEMAC_VERSION={{ version }}
+  skip_compile_pyc:
+    - "*/examples/*"
+    - "*/notebooks/*"
 
 requirements:
   build:
@@ -97,6 +100,20 @@ outputs:
         - numpy <1.22.0
         - python <3.11
         - scipy <1.11
+  
+  - name: {{ name }}-examples
+    script: build-examples.bat
+    version: {{ version }}
+    requirements:
+      run: 
+        - {{ name }}
+
+  - name: {{ name }}-documentation
+    script: build-documentation.bat
+    version: {{ version }}
+    requirements:
+      run: 
+        - {{ name }}
 
 about:
   home: http://www.opentelemac.org/
