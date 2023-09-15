@@ -39,6 +39,7 @@ requirements:
     - m2w64-metis
     - m2w64-toolchain
     - matplotlib
+    - mpi4py
     - msmpi
     - msmpi-compilers
     - numpy <1.22.0
@@ -54,6 +55,7 @@ test:
     - m2w64-metis
     - m2w64-toolchain
     - matplotlib
+    - mpi4py
     - msmpi
     - msmpi-compilers
     - numpy <1.22.0
