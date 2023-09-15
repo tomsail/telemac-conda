@@ -68,6 +68,36 @@ test:
     # - cd tests/malpasset
     # - python -m telemac2d --ncsize=8 t2d_malpasset-fine.cas
 
+outputs: 
+  - name: {{ name }}
+    script: build-output.bat
+    version: {{ version }}
+    requirements:
+      build:
+        - m2-base
+        - m2w64-gcc
+        - m2w64-gcc-fortran
+        - m2w64-metis
+        - m2w64-toolchain
+        - matplotlib
+        - msmpi
+        - msmpi-compilers
+        - numpy <1.22.0
+        - python <3.11
+        - scipy <1.11
+      run:
+        - m2w64-gcc
+        - m2w64-gcc-fortran
+        - m2w64-metis
+        - m2w64-toolchain
+        - matplotlib
+        - mpi4py
+        - msmpi
+        - msmpi-compilers
+        - numpy <1.22.0
+        - python <3.11
+        - scipy <1.11
+
 about:
   home: http://www.opentelemac.org/
   license: GPLv3
