@@ -12,21 +12,18 @@ source:
   - path: ../src
 
 build:
-  number: 0
-  # skip: true  # [not win]
+  number: 1
   script_env:
     - TELEMAC_VERSION={{ version }}
 
 requirements:
   build:
-    - m2-base
     - m2w64-gcc
     - m2w64-gcc-fortran
     - m2w64-metis
+    - m2w64-msmpi
     - m2w64-toolchain
     - matplotlib
-    - msmpi
-    - msmpi-compilers
     - numpy <1.22.0
     - python <3.11
     - scipy <1.11
@@ -34,11 +31,10 @@ requirements:
     - m2w64-gcc
     - m2w64-gcc-fortran
     - m2w64-metis
+    - m2w64-msmpi
     - m2w64-toolchain
     - matplotlib
     - mpi4py
-    - msmpi
-    - msmpi-compilers
     - numpy <1.22.0
     - python <3.11
     - scipy <1.11
@@ -50,11 +46,10 @@ test:
     - m2w64-gcc
     - m2w64-gcc-fortran
     - m2w64-metis
+    - m2w64-msmpi
     - m2w64-toolchain
     - matplotlib
     - mpi4py
-    - msmpi
-    - msmpi-compilers
     - numpy <1.22.0
     - python <3.11
     - scipy <1.11
