@@ -32,9 +32,20 @@ copy  %SYSTELCFG% %LIBRARY_PREFIX%\telemac-mascaret\configs
 :: Copy python scripts
 mkdir %LIBRARY_PREFIX%\telemac-mascaret\scripts\python3
 xcopy %HOMETEL%\scripts\python3 %LIBRARY_PREFIX%\telemac-mascaret\scripts\python3 /E /H /C /I
+:: Replace VnV command 
+:: mpirun is just an alias for mpiexec, replace with mpiexec
+sed -i 's/mpirun/mpiexec/g' %LIBRARY_PREFIX%\telemac-mascaret\scripts\python3\vvytel\vnv_api.py
+:: On Windows, better to call `python -m module` rather than rely on file association
+sed -i 's/template.py/python -m template/g' %LIBRARY_PREFIX%\telemac-mascaret\scripts\python3\vvytel\vnv_api.py
+:: Fixes "module 'matplotlib.tri' has no attribute 'triangulation'"
+sed -i 's/mtri.triangulation.Triangulation/mtri.Triangulation/g' %LIBRARY_PREFIX%\telemac-mascaret\scripts\python3\postel\plot2d.py
 
 :: Copy TELEMAC command to enable/disable debug mode
 copy %SRC_DIR%\telemac-debug.bat %SCRIPTS%\
+
+:: Trick to solve "mpirun not found"
+FOR /F "tokens=*" %%i in (' "where mpiexec" ') do SET MPIEXEC_PATH=%%~dpi
+copy %MPIEXEC_PATH%\mpiexec.exe %MPIEXEC_PATH%\mpirun.exe
 
 setlocal EnableDelayedExpansion
 
