@@ -6,12 +6,9 @@ package:
   version: {{ version }}
 
 source:
-  - git_url: https://gitlab.pam-retd.fr/otm/telemac-mascaret.git
-    git_rev: {{ version }}
+  - url: https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/archive/{{ version }}/telemac-mascaret-{{ version }}.tar.gz
     folder: telemac-mascaret
-  # - url: https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/archive/{{ version }}/telemac-mascaret-{{ version }}.tar.bz2
-  #   folder: telemac-mascaret
-  #   sha256: ab5f5d480355d9286bd609f604d28765d56835d8da7d20514f9b16e70ce7cee8
+    sha256: cfa2c05e41b28ba8aaea19b4b483e6d848bb08f823c8526c0824953a1cb4d564
   - path: ../src
 
 build:
