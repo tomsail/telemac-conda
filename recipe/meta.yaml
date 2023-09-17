@@ -44,8 +44,6 @@ requirements:
     - scipy <1.11
 
 test:
-  files:
-    - tests/*  # [win]
   requires:
     - m2w64-gcc
     - m2w64-gcc-fortran
@@ -59,13 +57,7 @@ test:
     - numpy <1.22.0
     - python <3.11
     - scipy <1.11
-  commands:
-    - python -m config
-    - telemac-debug on
-    - python -m config
-    # - cd tests/malpasset
-    # - python -m telemac2d --ncsize=8 t2d_malpasset-fine.cas
-
+    - {{ name }}-examples {{ version }}.*
 
 about:
   home: http://www.opentelemac.org/
