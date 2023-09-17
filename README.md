@@ -2,8 +2,88 @@
 
 ![TELEMAC](http://www.opentelemac.org/media/kunena/attachments/75/openTELEMAC_hr.png)
 
-[![Current version](https://anaconda.org/nicogodet/telemac-mascaret/badges/version.svg)](https://anaconda.org/nicogodet/telemac-mascaret/badges/version.svg)
-[![Platforms](https://anaconda.org/nicogodet/telemac-mascaret/badges/platforms.svg)](https://anaconda.org/nicogodet/telemac-mascaret/badges/platforms.svg)
+## Current build status
+
+<table>
+    
+  <tr>
+    <td>Anaconda.org</td>
+    <td>
+      <details>
+        <summary>
+          <a href="https://anaconda.org/nicogodet/telemac-mascaret">
+            <img src="https://anaconda.org/nicogodet/telemac-mascaret/badges/version.svg">
+          </a>
+        </summary>
+        <table>
+          <thead><tr><th>Dependencies</th><th>Version</th><th>Last update</th></tr></thead>
+          <tbody><tr>
+              <td>m2w64-msmpi</td>
+              <td>
+                <a href="https://anaconda.org/nicogodet/m2w64-msmpi">
+                  <img src="https://anaconda.org/nicogodet/m2w64-msmpi/badges/version.svg">
+                </a>
+              </td>
+              <td>
+                <a href="https://anaconda.org/nicogodet/m2w64-msmpi">
+                  <img src="https://anaconda.org/nicogodet/m2w64-msmpi/badges/latest_release_date.svg">
+                </a>
+              </td>
+            </tr><tr>
+              <td>m2w64-scalapack</td>
+              <td>
+                <a href="https://anaconda.org/nicogodet/m2w64-scalapack">
+                  <img src="https://anaconda.org/nicogodet/m2w64-scalapack/badges/version.svg">
+                </a>
+              </td>
+              <td>
+                <a href="https://anaconda.org/nicogodet/m2w64-scalapack">
+                  <img src="https://anaconda.org/nicogodet/m2w64-scalapack/badges/latest_release_date.svg">
+                </a>
+              </td>
+            </tr><tr>
+              <td>m2w64-mumps</td>
+              <td>
+                <a href="https://anaconda.org/nicogodet/m2w64-mumps">
+                  <img src="https://anaconda.org/nicogodet/m2w64-mumps/badges/version.svg">
+                </a>
+              </td>
+              <td>
+                <a href="https://anaconda.org/nicogodet/m2w64-mumps">
+                  <img src="https://anaconda.org/nicogodet/m2w64-mumps/badges/latest_release_date.svg">
+                </a>
+              </td>
+            </tr><tr>
+              <td>telemac-mascaret-examples</td>
+              <td>
+                <a href="https://anaconda.org/nicogodet/telemac-mascaret-examples">
+                  <img src="https://anaconda.org/nicogodet/telemac-mascaret-examples/badges/version.svg">
+                </a>
+              </td>
+              <td>
+                <a href="https://anaconda.org/nicogodet/telemac-mascaret-examples">
+                  <img src="https://anaconda.org/nicogodet/telemac-mascaret-examples/badges/latest_release_date.svg">
+                </a>
+              </td>
+            </tr><tr>
+              <td>telemac-mascaret-documentation</td>
+              <td>
+                <a href="https://anaconda.org/nicogodet/telemac-mascaret-documentation">
+                  <img src="https://anaconda.org/nicogodet/telemac-mascaret-documentation/badges/version.svg">
+                </a>
+              </td>
+              <td>
+                <a href="https://anaconda.org/nicogodet/telemac-mascaret-documentation">
+                  <img src="https://anaconda.org/nicogodet/telemac-mascaret-documentation/badges/latest_release_date.svg">
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </details>
+    </td>
+  </tr>
+</table>
 
 ## Introduction
 
@@ -43,16 +123,36 @@ On Windows, it is recommended to use [Miniforge3](https://github.com/conda-forge
 
 ## Current implemented features
 
-- Static build
-- Parallel computing using `msmpi` (from [conda-forge](https://anaconda.org/conda-forge/msmpi)) and `msmpi-compilers` for `mpif90` command (from [nicogodet anaconda repo](https://anaconda.org/nicogodet/msmpi-compilers))
+### Build
+
+- Static build (not currently packaged)
+- Dynamic build with API
+
+### Lib
+
+- Parallel computing using `m2w64-msmpi` (from [nicogodet anaconda repo](https://anaconda.org/nicogodet/m2w64-msmpi))
+- MUMPS (scalapack) support using `m2w64-scalapack` (from [nicogodet anaconda repo](https://anaconda.org/nicogodet/m2w64-scalapack)) and `m2w64-mumps` (from [nicogodet anaconda repo](https://anaconda.org/nicogodet/m2w64-mumps))
+
+### Custom commands
+
 - Command switch to use debug build `telemac-debug [on/off]`
+
+### Extra
+
+- Provide `telemac-mascaret-examples` package
+
+   ```console
+   mamba install -c nicogodet telemac-mascaret-examples
+   ```
+
+- Provide `telemac-mascaret-documentation` package
+
+   ```console
+   mamba install -c nicogodet telemac-mascaret-documentation
+   ```
 
 ## TO-DO
 
-- Dynamic build
 - HDF5 and MED support
-- MUMPS (openblas, scalapack) support
 - aed2 support
 - gotm support
-- Provide `telemac-mascaret-examples` package
-- Provide `telemac-mascaret-documentation` package

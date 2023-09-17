@@ -67,7 +67,7 @@ about:
     The TELEMAC-MASCARET system is an integrated suite of solvers for use in the
     field of free-surface flow.
   doc_url: https://gitlab.pam-retd.fr/otm/telemac-mascaret/
-  dev_url: https://gitlab.pam-retd.fr/otm/telemac-mascaret/
+  dev_url: https://github.com/nicogodet/telemac-mascaret-feedstock
 
 extra:
   recipe-maintainers:
