@@ -1,8 +1,4 @@
 @echo off
-:: Backup PATH, PYTHONPATH and LD_LIBRARY_PATH
-set _OLD_PATH=%PATH%
-set _OLD_PYTHONPATH=%PYTHONPATH%
-set _OLD_LD_LIBRARY_PATH=%LD_LIBRARY_PATH%
 
 :: Set TELEMAC specific environnement variables
 set HOMETEL=%CONDA_PREFIX%\Library\telemac-mascaret
