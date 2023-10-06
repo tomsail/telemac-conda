@@ -1,6 +1,8 @@
-# TELEMAC-MASCARET Conda Package
-
+openTELEMAC conda package 
+=========================
+![CI](https://github.com/tomsail/telemac-conda/actions/workflows/test_examples.yml/badge.svg) 
 ![TELEMAC](http://www.opentelemac.org/media/kunena/attachments/75/openTELEMAC_hr.png)
+This is the repository for the conda package of the openTELEMAC system
 
 ## Current build status
 
@@ -156,3 +158,37 @@ On Windows, it is recommended to use [Miniforge3](https://github.com/conda-forge
 - HDF5 and MED support
 - aed2 support
 - gotm support
+
+To check that the environment is correctly installed, first activate your conda environment :
+
+    mamba activate telemac
+then try to compile the binaries from the sources: 
+
+    compile_telemac.py
+
+### Run an example 
+For the sake of space, this package does **not** comport the examples, notebooks and documentation.
+
+We suggest to download the latest tag **v8p4** on the [openTELEMAC repository](https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/tree/v8p4r0?ref_type=tags): 
+
+    git clone https://gitlab.pam-retd.fr/otm/telemac-mascaret.git`
+    git checkout -b v8p4r0`
+    git pull origin v8p4r0`
+
+go to any example and run it: 
+
+    cd examples/tomawac/Manche
+    tomawac.py tom_manches.cas
+
+# Production Plan : 
+First release (current):
+* minimal version necessary for the latest openTELEMAC version **v8p4**
+
+Second release: 
+* all the optionals libraries needed for:
+  * solver optimisation (MUMPS)
+  * Salomé formats (MED) binaries
+  * GOTM (General Ocean Turbulence Model)
+  * BLAS / LAPACK libraries
+
+For more information check out the [wiki](https://github.com/tomsail/telemac-conda/wiki)
