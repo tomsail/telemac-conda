@@ -1,0 +1,1044 @@
+Release V8P4R0 (01/12/2022)
+===========================
+
+Python: all Python MASCARET and COURLIS cases now run properly on Windows.
+
+COURLIS: fix for SARAP kernel that is doing a first timestep with zero
+duration for its initialization that was problematic for COURLIS (the call
+of COURLIS is now deactivated in this case)
+
+GAIA: in case of active layer+consolidation no sliding is possible for
+active layer. Sliding will be possible from layer 2.
+
+GAIA: fix bug with bed model in case of active layer and consolidation.
+
+GAIA: fix for time used to compute erosion between layers.
+
+GAIA: fix for mud concentration, confused with mud concentration of
+active layer in some cases.
+
+Python: all notebooks now run properly on Windows. The following test
+cases have also been fixed to run on Windows:
+- vnv_build_srf.py
+- vnv_mascaret_convert_xcas_cas.py
+- vnv_api_mascaret.py
+- vnv_hermes.py
+While also fixed, vnv_api.py and vnv_coupling.py do not run on Windows yet
+because of other issues. The same applies to other test cases that are still
+failing.
+
+TELEMAC-2D: change the keyword INITIAL LENGTHS OF BREACHES to
+INITIAL WIDTHS OF BREACHES to be coherent with literature and manual.
+
+Courlis: fix inconsistencies on keywords between dico_courlis.txt
+ and mascaret.dico
+
+GAIA: fix update of thickness and bottom after suspension and sliding.
+
+Python: add tif processing and tif to slf fonctionnality
+
+Python: fix bug with interpolation.
+add nearest interpolation when tri interp returns NaN
+
+Python: fix a crash occuring on Windows when using run_refine from
+stbtel_refine.py.
+
+GAIA: fix sources terms (Qsce*Tsce) of advection-diffusion eq. were not
+included in the resolution of the equation
+
+Python: Add an option to points_in_poly and set_data_in_poly to have a
+tolerance to determine if a point is in a polygon.
+
+Python: fix temporary folder was not deleted in HPC runs
+
+GAIA: fix wrong use of AC and DCLA
+
+Python: fix problem in TelemacCas Python class for long path file string in
+steering file.
+
+Python: it is now possible to make a local refinement with converter.py
+refine option by giving a GIS file containing one polygon (.shp file for
+example)
+
+STBTEL: Algorithm to detect nodes inside a given polygon has been replaced
+ by bief inpoly function to avoid limitation for concave polygons.
+
+TELEMAC-2D: fix no prescribed tracer value to be given for secondary currents
+at open boundaries
+
+TELEMAC-2D: fix update of UCONV and VCONV when ADVECTION = NO
+
+Python:
+- manip_telfile.py: merge function now works properly, sorts time records and
+avoids duplicates.
+- TelApy: use the size function instead of shape to obtain the overall size of
+knolg in l2g.
+- TelemacFile: fix wrong boundary point detection in add_bnd.
+- clc.py: update URL of Corinne Land Cover servers.
+
+TELEMAC-3D: add tracer viscosity computation for Spalart-Allmaras model
+
+TELEMAC-3D: Prandtl number available for k-omega and Smagorinski models
+
+TOMAWAC: Allocate wind array in point_tomawac.f when there is a formatted
+file for the wind.
+
+TOMAWAC: Initialize current in case of tide in case there would not be any
+current in tidal file
+
+Python: the compilation system has been fixed to use a more standard way of
+linking library. This fixes Linux binaries generation in dynamic mode and
+removes the need to specify "dyn" or "static" as a build option.
+
+TELEMAC-3D: Transform 3 keywords to arrays:
+- ACCURACY FOR DIFFUSION OF TRACERS
+- MAXIMUM NUMBER OF ITERATIONS FOR DIFFUSION OF TRACERS
+- OPTION OF SOLVER FOR DIFFUSION OF TRACERS
+
+Python: GRETEL method for merging data can now be specified through runcode.py.
+
+TOMAWAC: fix results of coupling with TELEMAC3D change with graphic output
+period
+
+Python: new --project option to specify the project to use for an HPC job.
+
+WAQTEL: fix wrong 3D equations in WAQTEL for O2, BIOMASS and EUTRO
+
+TELEMAC-2D/TELEMAC3D: fix possible negative values under square roots for
+culverts
+
+TOMAWAC: Define area of Porous media and vegetation through polygones read in a
+text file, add keywords in dictionnary to define vegetation characteristics
+
+TELEMAC-2D/TELEMAC-3D: new constituents 2Q1 and M3 taken into account
+for TPXO9v5 tidal solution + fix S1 formulae
+
+TELEMAC-3D: new keywords for RESTART MODE as done in 2D:
+  - RESTART FILE PRINTOUT PERIOD
+  - RECORD NUMBER IN RESTART FILE
+
+TELEMAC-2D/TELEMAC-3D: new default value for RECORD NUMBER FOR RESTART
+= -1 (old default value = 0) to enable to use initial conditions
+
+TELEMAC-2D: RESTART MODE for perfect restart as in 3D
+
+TELEMAC-2D: Adding new infiltration model : Green-Ampt and Horton in runoff routines
+
+TOMAWAC: Cache Optimisation for qdscur.f (opposing current)
+
+TOMAWAC: coupling TELEMAC-3D and TOMAWAC with tel2tom, test cases added in
+3Dcoupling.
+
+TELEMAC-2D: fix sources defined by regions in parallel when belonging to
+several subdomains
+
+TOMAWAC: When TOMAWAC is coupled with TELEMAC-2D or TELEMAC-3D the wind taken
+into account in TOMAWAC is the one coming from TELEMAC-2D or TELEMAC-3D
+
+TELEMAC-2D: fix parallel/sequential differences with tidal flats
+and no friction
+
+WAQTEL: two-step reversible kinetics model in WAQTEL-MICROPOL
+  - Adds the keyword KINETIC EXCHANGE MODEL to choose between one or two steps kinetic exchanges
+  - Adds new tracers when kinetic 2 model is chosen
+  - Updates the way WAQTEL NAMETRAC is called in TELEMAC-2D/3D
+  - Adds new test cases for kinetic 2 exchanges in 2D and 3D
+
+TOMAWAC : Take into account keyword : TIME INCREMENT NUMBER IN TELEMAC FILE.
+last time step otherwise
+
+All modules: fix double precision needed in DATE_MJD2SEC (time relative in input files)
+
+TELEMAC-2D: fix Huthoff vegetation friction law (minimum between water depth and vegetation depth)
+
+TELEMAC-2D: change DRAGFO to user subroutine (sources + dragforce example)
+
+TELEMAC-2D: fix friction laws defined by areas (FRICTION DATA = YES) with Finite Volumes
+
+WAQTEL: updated source code for sediment transport in MICROPOL 3D
+  - Adds suspended sediment and bed sediment exchanges with diffusion source term in the bottom layer
+  - Corrects the suspended sediment tracer to effectively fall trough the layers with the corresponding velocity
+  - Adds new test cases for sedimentation and erosion
+  - Fixes pollutant tracers for transport in suspended and bed sediments
+  - Adds new test cases for pollutant-sediment interactions
+
+TELEMAC-2D: fix Dirac sources or culverts belonging to several subdomains in parallel
+
+TELEMAC-3D: fix TRACERS VERTICAL PROFILES = 0 possible if tracer is not sediment
+
+TOMAWAC: set TOMAWAC constants in declarations_tomawac.
+
+TELEMAC-2D: fix sources of tracers with Leo Postma advection scheme (= 3)
+
+TOMAWAC: Add developments on reflection in Tomawac, documentation and one test case
+
+GAIA: bug fix Soulsby Slope effect (SLOPEFF=2) available for all threshold formulas (before only MPM)
+
+TELEMAC-3D/WAQTEL: fix negative concentrations with TELEMAC-3D/WAQTEL coupling
+
+GAIA: fix final GAIA balance written at last time step even if not a multiple of
+LISTING PRINTOUT PERIOD
+
+TELEMAC-3D: fix RESTART FILE not well written if NUMBER OF TIME STEPS is not a
+multiple of GRAPHIC PRINTOUT PERIOD
+
+TOMAWAC : Correction of a bug occuring in a COMPUTATION CONTINUED case with
+          current.
+
+WAQTEL: updated example test cases and documentation for MICROPOL (2D):
+  - Added 5 test cases to assess each set of equations for sorption, desorption, decay and sedimentation
+  - Updated documentation with units and more thorough explanations
+
+PYTHON: several issues are fixed
+ - The ASCII banner now correctly displays the version when using released sources
+ - TELEMAC-MASCARET can be compiled on Windows in dynamic mode
+ - User Fortran DLLs are unloaded on Windows
+ - stbtel_converter.py is not crashing anymore on Windows
+
+TELEMAC-2D: inserting hybrid vegetation law
+ - updating the vegetation test case to include hybrid vegetation law
+
+TELEMAC-2D: bug fix Lindner subroutine
+ - lambda needs to be calculated including CF, because it is used in the iteration procedure.
+
+TELEMAC-3D: Fix writing 2D RESULT FILE in longitude/latitude
+
+MASCARET: python scripts have been added to convert DAMOCLES steering file into
+  XML MASCARET steering files (and vice versa) (added actually in V8P3R0)
+ - A new MASCARET-TRACER-COURLIS dictionnary including all tags and keyword has been added
+ - Python script mascaret_cas.py has been modified for the conversion (based on TelemacCas
+Python class)
+ - mascaret.py (runcode.py) running script has been also adapted to run a calculation equally
+with a DAMOCLES steering file or a XML steering file (only for MASCARET-TRACER, COURLIS is
+still using only DAMOCLES steering file)
+
+MASCARET: New scheme option for SARAP kernel (added actually in V8P3R0)
+ - XML tag: "decentrement"
+ - DAMOCLES keyword: UNCENTERED SCHEME
+
+COURLIS: 3 bedload formulas have been added (added actually in V8P3R0)
+ - Lefort 2014, Recking 2013 and Recking 2015
+ - New keyword: BEDLOAD TRANSPORT LAW (+ 2 keywords for Recking 2015)
+
+COURLIS: Documentation has been added (added actually in V8P3R0)
+ - User documentation
+ - Reference documentation (based on MASCARET-TRACER-COURLIS new dictionary)
+ - Theory documentation (WIP)
+
+COURLIS: New option in bedload module for boundary condition, equilibrium bedload
+  discharge at upstream defined by a slope and the selected bedload formulas (added
+  actually in V8P3R0). Two new keywords:
+ - UPSTREAM SEDIMENT CONCENTRATION FROM EQUILIBRIUM SLOPE
+ - UPSTREAM EQUILIBRIUM SLOPE
+
+Release V8P3R0 (06/12/2021)
+===========================
+
+GAIA: fix CSRATIO computation, now allocated as block of vectors.
+
+TELEMAC-2D: Non-newtonian models implemented.
+ - New keywords: NON-NEWTONIAN MODEL, BINGHAM OPTION,
+NON-NEWTONIAN VISCOSITY, NON-NEWTONIAN YIELD STRESS,
+NON-NEWTONIAN LAMINAR RESISTANCE PARAMETER K,
+NON-NEWTONIAN PSEUDO-BIPHASIC MODEL, NON-NEWTONIAN FLUID DENSITY,
+HERSCHEL-BULKLEY POWER-LAW INDEX.
+ - New test cases: nn_newt directory testing the implementation
+of the model and its accuracy vs analytical solution and the
+implementation of a pseudo biphasic model
+ - This feature is only available in the finite volume kernel of
+TELEMAC-2D because of instabilities at the wet/dry interfaces
+with finite elements
+
+TELEMAC-2D: finite volume update.
+Splitting volfin in two parts to compute the good time step,
+used in some source terms and Thompson boundary conditions.
+
+GAIA: change and fix the convention for wave and current direction in GAIA:
+in degree and trigonometrical (wrt x-axis). New keyword (TRIGONOMETRICAL
+CONVENTION IN WAVE FILE) to define if the nautical or the trigonometrical
+convention is used in the TOMAWAC results file (to be defined only in case
+of reading this file without COUPLING WITH = TOMAWAC).
+
+KHIONE: major update
+  - Coupling with TELEMAC-3D (tracers and thermal budget)
+  - Mass-exchanges between suspended frazil ice and ice cover in 2D
+    with new test case (mass_exchanges-t2d) and user documentation
+  - Ice cover dynamics in 2D (part 1: advection of ice cover thickness
+    and surface fraction + thermal expansion and decay)
+  - New logic for flux limitors in frazil explicit sources
+  - New test case for border ice (saint_lawrence-t2d)
+  - New test cases with comparison to experimental data
+    for both mono-class and multi-class models i.e. racetrack_carstens-t2d
+    and racetrack_tsanghanley-t2d
+  - Seeding rate changed from volumic to surfacic
+  - New default value for keywords: FRAZIL CRYSTALS RADIUS,
+    MINIMUM NUMBER OF FRAZIL CRYSTALS, FRAZIL SEEDING RATE
+  - Ice cover pressure gradient momentum source term
+  - Ice cover friction composite law
+  - Radiative flux penetration as a function of turbidity
+    (when coupling with TELEMAC-3D)
+
+GAIA: fix options for bed roughness predictor. Inconsistency between dictionary
+and subroutine.
+
+TELEMAC-2D: new laws for breaching processes. A description is given in the user
+doc. The breach test case has been updated with these new laws.
+
+TELEMAC-2D/TELEMAC-3D: new keyword to define if the format of an ASCII or BINARY
+ATMOSPHERIC DATA FILE is free to be handled outside the METEO_TELEMAC module
+
+WAQTEL: fix bug of degradation law combined with another WAQTEL module in 2D
+
+TELEMAC-2D: finite volume update.
+  - New schemes available to solve diffusion problems with the finite volume framework:
+      1. Explicit P1 finite element with mass lumping (default),
+      2. TFP (Two Point Flux) finite volume scheme,
+      3. RTFP (Reconstructed Two Point Flux) finite volume scheme.
+  - The new schemes are available for both velocity and tracers and can be selected with the keywords:
+      - 'FINITE VOLUME SCHEME FOR VELOCITY DIFFUSION'
+      - 'FINITE VOLUME SCHEME FOR TRACER DIFFUSION'
+  - Implementation of a Fourier condition on time step to satisfy the diffusion
+    stability condition (similar to the CFL condition).
+    Can be adjusted with the new keyword 'DESIRED FOURIER NUMBER' (1. by default).
+  - New keyword: 'OPTION FOR DIRICHLET CONDITION IN FV DIFFUSION' allowing choosing
+    weak or strong imposition of the Dirichlet condition in the diffusion flux.
+  - Two versions are implemented for the RTPF scheme reconstructions which can be
+    selected via the new keyword 'OPTION FOR THE RTPF SCHEME RECONSTRUCTIONS'
+      1. Reconstructions with subcell gradients (default),
+      2. Reconstructions with cell gradients.
+  - Update of the finite volume documentation.
+  - New test cases for the validation of the finite volume diffusion schemes:
+    cone_diffusion, tracer_diffusion, tracer_diffusion_convergence.
+  - Fix major bug on inlet boundary condition for the advection schemes.
+
+TELEMAC-2D/TELEMAC-3D: new keyword STAGE-DISCHARGE CURVES RELAXATION COEFFICIENT
+
+GAIA: fix bug in active layer concentration for mud.
+
+TOMAWAC: changing lecdon_tomawac to have more than 72 characters to define variables of output (250).
+
+PYTHON: tel2tom deals with exclusion of contour in the construction of interpolation. New tests cases added to test it in case littoral.
+
+PYTHON: the boundary file was not transmitted to tel2tom which makes partel stop in parallel. An error in interpolation was made in pretel.
+
+TOMAWAC: Type INTEGER for variable HDC could not stock number of hours in a date. It has been changed to KIND=K8.
+
+TEL2TOM fix solves a segfault (probably only important with one processor).
+
+TELEMAC-3D: fix bug for CHECKING THE MESH = YES with prisms
+
+TELEMAC-3D: fix arguments mismatch for advection of sediment with settling velocity
+
+All modules with binary meteo data: error of index when initialising BINARY ATMOSPHERIC DATA FILE
+in METEO_TELEMAC module
+
+GAIA: fix call to PREP_ADVECTION_GAIA in TELEMAC2D with good array of advection
+schemes ICONVFT
+
+TELEMAC-2D, TELEMAC-3D, GAIA, WAQTEL, KHIONE: fix no check between
+number of tracers and MAXIMUM NUMBER OF TRACERS
+
+GAIA: fix for suspension in 2D. Advection field for suspension is now selected
+according to SOLSYS.
+
+WAQTEL: fix bug wrong reading of the 2nd component of the keywords 2 keywords
+COEFFICIENTS OF ALGAL MORTALITY AT 20C and ALGAL TOXICITY COEFFICIENTS
+(for BIOMASS and EUTRO models)
+
+all modules with meteo data: fix bug for y component of wind in METEO_TELEMAC module
+
+ARTEMIS : fix bug reading of the correct names of variables in a tomawac output spectrum results file.
+
+GAIA: fix bug reading PRESCRIBED SUSPENDED SEDIMENTS CONCENTRATION VALUES
+in 2D and 3D and when reading COEFFICIENT FOR HORIZONTAL / VERTICAL DIFFUSION
+OF SUSPENDED SEDIMENTS in 3D
+
+GAIA: fix bug arising in cases where TELEMAC-3D is coupled with GAIA for
+bedload and other tracers are activated in TELEMAC-3D
+
+WAQTEL: fix bug reading of COEFFICIENTS OF AERATION FORMULA (THERMIC module)
+
+TOMAWAC: a new output is able, the white capping rate through the keyword BETAWC
+
+GAIA: fix deallocation issue with advection velocity
+
+PYTHON: equivalent of diff_selafin.py now possible for all telemac file formats in run_telfile.py diff_ascii
+
+
+Release V8P2R0 (01/12/2020)
+===========================
+
+WAQTEL: fix the initialisation of AED2 extinction coefficient for crushed nodes
+
+TELEMAC-2D: fix bug in sources when given by regions and only velocity is
+assigned
+
+GAIA: fix bug in restart mode concerning CO sediments
+
+WAQTEL: fix the bug of negative concentrations when coupling TELEMAC-3D with AED2
+
+WAQTEL: erosion flux computation with MAX not ANTI_DIRAC function when
+wetting/drying for MICROPOL module
+
+WAQTEL: 2 bottom tracers are to be not advected nor diffused with MICROPOL
+module
+
+WAQTEL: swap of indices between keywords SEDIMENTATION CRITICAL STRESS and
+CRITICAL STRESS OF RESUSPENSION for MICROPOL module
+
+WAQTEL: light extinction coefficient can be directly given as constant
+(THERMIC, BIOMASS + EUTRO models)
+
+TELEMAC-2D: New version of WEIRS TYPE = 2 weirs, fully parallelized with Tracer.
+
+GAIA: new keywords for sediments, CVSM model added to Gaia, new listing output
+for sediments mass balance (and tracers), new test cases, new postel function
+to extract sediment mass information, new structure for the user doc but still
+work in progress.
+
+DOCUMENTATION: Updated doxygen for sources and Python. Notebooks will also be
+avaialble in html format (documentation/notebooks/index.html)
+
+PARAVIEW: New version of Paraview plugin now handling double precision and
+fixes the issue with VELOCITY vectors and handling more vectors.
+
+TELEMAC-2D/TELEMAC-3D: Time reference in all Telemac2d/3d time related files:
+You can add #REFDATE in the ascii files and the date will be added to the times
+in the files when used in Telemac2d/3d. For SERAFIN/MED it will use the date in
+the file.
+
+PYTHON: New functionalities for pre-treatment (mainly in folder pretel):
+  - New set of functions to write/modify a file (See notebook
+    data_manip/extraction/telemac_file.ipynb)
+  - Python version of the MATLAB script that computes weight to interpolate
+    between two mesh (for Tel2Tom coupling)
+  - Adding support for fiona in the shapefile_reader function:
+  - Extraction of contour (Shapefile) from a mesh file (with and without
+    boundary file) works when you have islands, separated domains... (see notebook pretel/extract_contour.ipynb)
+  - Converter shapefile to ascii/i2s(See notebook data/manip/extraction/shape_file_reader.ipynb):
+  - New structure/scripts for interpolation (list of points on mesh) (see notebook pretel/interpolation*).
+  - Difference between steering files (See notebook execution/steering_file.ipynb)
+  - Corine Land Cover extraction (See notebook pretel/corine_land_cover.ipynb)
+  - Check time coherance in inputs files (See notebook execution/steering_file.ipynb)
+  - Mesh Quality in run_selafin.py check:
+        Check for isolated point.
+        Compute Circle ratios.
+        Number of elements around a node.
+        Elements angles.
+        Over-constrained nodes.
+
+TELEMAC-2D: keyword COEFFICIENT FOR DIFFUSION OF TRACERS is now an array not a
+single value (i.e. one value per tracer) like in 3D
+
+TELEMAC-2D/TELEMAC-3D/SISYPHE/GAIA: new default values for:
+MAXIMUM NUMBER OF ITERATIONS FOR ADVECTION SCHEMES = 50 (old default value = 10)
+MAXIMUM NUMBER OF ITERATIONS FOR POSITIVE THICKNESS = 50 (old default value = 10)
+
+WAQTEL: keyword COEFFICIENT OF CLOUDING RATE now available for heat exchange
+with atmospheric (THERMIC) module in 3D + new default value = 0.17, old = 0.2
+
+TELEMAC-2D/TELEMAC-3D/WAQTEL/KHIONE: flexible format for ASCII ATMOSPHERIC
+DATA FILE + new module for meteo variables METEO_TELEMAC
+
+TOMAWAC/TELEMAC2D : push into the trunk the coupling between tomawac and
+telemac2d called tel2tom, it allows coupling on different meshes. To use it
+just change the value of coupling with 'tomawac2' in the telemac2d keyword
+
+ARTEMIS: Deleted keywords
+  - DISCRETIZATION IN SPACE
+  - LAW OF BOTTOM FRICTION
+  - MINIMUM VALUE FOR H
+  - RELAXATION COEFFICIENT
+  - GEOMETRY FILE BINARY
+  - RESULTS FILE BINARY
+  - GEOMETRY FILE STANDARD
+  - RESULTS FILE STANDARD
+  - USER CRAY
+  - PRIORITY
+  - ACCOUNT NUMBER
+  - BIDON STRING
+  - LIBRARIES
+
+WAQTEL/TELEMAC-3D: fix missing light extinction coefficient in the coupling with
+AED2, to be added to other extinction coefficients computed by AED2
+
+WAQTEL/TELEMAC-3D: fix one single call of penetration of solar radiation
+when coupling TELEMAC-3D with AED2
+
+WAQTEL/TELEMAC-3D: fix wrong indices of WAQPROCESS for check or error messages
+
+WAQTEL: fix a bug with linearised formula for heat exchange model:
+no penetration of solar radiation with this linearised formula (only located
+at the surface)
+
+TELEMAC-3D: fix a bug with BINARY BOUNDARY DATA FILE, local indices have to be
+used, not global indices with working arrays T3_01
+
+TELEMAC-3D: new keyword to change the number of tracer used for AMR
+(MESH TRANSFORMATION = 5)
+
+WAQTEL: new keyword to read the solar radiation in the meteo file instead of
+computing it in the heat exchange with atmosphere module in 3D
+
+TELEMAC-2D/TELEMAC-3D: possibility to use x and y origin coordinates stored
+in the geometry file to decrease the number of digits of coordinates
+when modelling tide.
+The tidal computations automatically take into account this offset for
+UTM + Lambert projections for JMJ+OSU (e.g. TPXO) databases
+Deleted keyword: ORIGIN COORDINATES
+
+TELEMAC-2D/TELEMAC-3D new keywords to define the minimum water depth by which
+divisions of transports are done for boundary and initial conditions if using
+OSU tidal solutions (e.g. TPXO) + possibility to start with 0 velocity
+or velocity computed by OSU tidal solutions
+
+TELEMAC-3D: UBOR2D and VBORD2D arrays not filled in correctly
+for Thompson Boundary Conditions in 3D
+
+TELEMAC-3D: COEFFICIENT TO CALIBRATE TIDAL VELOCITIES really taken into account
+when modelling tide in 3D (all tidal databases)
+
+WAQTEL: possibility to use a wind function with 2 calibrating coefficients
+with ATMOSPHERE-WATER EXCHANGE MODEL = 2 in 3D
+
+WAQTEL: new degradation laws for 2D and 3D (classical 1st order degradation law,
+not only bacterial T90 laws) + possibility of user defined degradation law
+
+TELEMAC-3D: fix the reading of STAGE-DISCHARGE CURVES FILE in 3D
+
+KHIONE: fix static border ice criteria, fix clogging model,
+new logic for ice processes, remove ice cover dynamics obsolete developments,
+remove coupling with waqtel, add new keywords for frazil ice thermal growth
+and thermal budget, new semi-implicit source for frazil thermal growth,
+new multiclass frazil ice model with thermal growth and decay,
+secondary nucleation, flocculation, precipitation, salinity effects and turbulence
+
+TELEMAC-2D: adding a variable ADR_TRAC (address of tracers) for TELEMAC-2D
+rather than using multiple hard-coded values
+
+TELEMAC-3D: fix keeping longitude/latitude coordinates writing with TELEMAC-3D
+
+TELEMAC-2D+TELEMAC-3D: new keyword to tell if bottom smoothings are to be done
+after or before user modifications of bottom:
+BOTTOM SMOOTHINGS AFTER USER MODIFICATIONS
+
+TELEMAC-3D: velocity components + tracers values at the free surface as
+variables for graphic printouts of the 2D RESULT FILE
+
+PARALLEL: new generic function:
+Function that had the same functionalities but different argument types can now be called using the same function.
+For example instead of using p_imax, p_dmax you use p_max for both case.
+  - P_IMAX, P_DMAX => P_MAX
+  - P_IMIN, P_DMIN => P_MIN
+  - P_ISUM, P_DSUM => P_SUM
+  - MPI_ADDRESS1, MPI_ADDRESS2, MPI_ADDRESS3 => MPI_ADDRESS
+  - P_IMAX_ARRAY, P_DMAX_ARRAY => P_MAX_ARRAY
+  - P_MPI_ALLTOALLV_I, P_MPI_ALLTOALLV_OIL, P_MPI_ALLTOALLV_ALG, P_MPI_ALLTOALLV_CHARAC => P_MPI_ALLTOALLV
+  - P_DREAD, P_IREAD, P_IREADI8, P_IREADI => P_READ
+  - P_DWRIT, P_IWRIT, P_IWRITI8, P_IWRITI => P_WRITE
+
+TELEMAC-2D: new vegetation friction laws
+
+Python: New script manip_cas.py to check/sort you steering file
+
+TELEMAC-2D: fix restart mode with tracers (T1 was missing)
+
+TELEMAC-3D: fix the overwriting of TELEMAC-3D boundary conditions when coupling
+with TOMAWACT3D
+
+TELEMAC-3D: fix for RESTART FILE with NON-HYDROSTATIC VERSION = NO
+
+TELEMAC-2D: new default values for 3 keywords:
+  - TREATMENT OF THE LINEAR SOLVER = 2 (i.e. wave equation, old = 1: coupled),
+  - COEFFICIENT OF WIND INFLUENCE VARYING WITH WIND SPEED = YES,
+  - COEFFICIENT OF WIND INFLUENCE = 1.55E-6 (rather than 0.).
+
+TELEMAC-2D: New finite volume architecture
+
+TELEMAC-2D: new keyword to calibrate the 2D mixing length turbulence model
+  - MIXING LENGTH MODEL COEFFICIENTS
+
+TELEMAC-3D: new default value for keyword COEFFICIENT OF WIND INFLUENCE VARYING
+WITH WIND SPEED = YES (old = NO)
+
+TELEMAC-3D: new keywords
+  - MINIMUM VOLUME OF 3D ELEMENTS
+  - MINIMUM DISTANCE BETWEEN PLANES CLOSE TO THE BOTTOM
+  - MINIMUM DISTANCE BETWEEN PLANES CLOSE TO THE FREE SURFACE
+  - THRESHOLD HEIGHT BEFORE CRUSHED ELEMENTS
+
+TELEMAC-3D: fix the reading of BINARY BOUNDARY DATA FILE and the computation
+of HBOR using it in BORD3D
+
+TELEMAC-3D: fix the bad initialisation of wave variables transmitted to GAIA
+in case of triple coupling TELEMAC-3D+TOMAWAC+GAIA
+
+TELEMAC-3D: fix of wrong argument when calling CVDF3D with Spalart-Allmaras or
+DES turbulence models, now connected to a k-epsilon model parameter
+
+TELEMAC-3D: Deleted keywords
+  - 3D RESULT FILE BINARY
+  - 2D RESULT FILE BINARY
+
+TELEMAC-2D: Deleted keywords
+  - PSI SCHEME OPTION
+  - PROPAGATION OPTION
+  - UPWIND COEFFICIENTS
+  - TIME STEP REDUCTION FOR K-EPSILON MODEL
+  - COUPLING DIRECTORY
+
+TOMAWAC:
+  - Changing name of variables in spectrum file now FXXXXXPT2DXXXXXX (for
+example F00001PT2D000303)
+  - BAJ modeling does not include non linear quadruplet anymore.
+
+Doc: Adding html version of notebooks in documentation/notebooks. In trunk run
+doc_telemac.py -M notebooks to generate it. In release it will be there.
+Run firefox $HOMETEL/documentation/notebooks/index.html to see it.
+
+KHIONE: fix a wrong call of VECTOR in border_icover
+
+WAQTEL: fix an unexpected division by 0 in calcs2d_micropol (OVD)
+
+MASCARET: Make editable the laws of singularity and add variables in api:
+ControlSection and MaxcontrolZ
+
+TELAPY: Add python files and examples for mascaret/telemac-2d coupling
+        Add python files and examples for mscaret/telemac-2d drivers for
+	  data assimilation and UQ
+
+TELEMAC3D: COUPLING WITH changing default from 'NOTHING' to ''
+
+TELEMAC 3D: Fix missing PARCOM (volumetric explicit source terms) if LIPS advection
+scheme is used.
+
+ALL: Removing SERAFIN? file format option
+
+TELEMAC 3D: Fix missing term (volumetric sources) in the computation of the balance
+for the tracers. This fixes wrong thermal balance in case of exchanges with atmosphere.
+
+GAIA: fix a bug when sliding in parallel computations
+
+TELEMAC-2D: Drogues can be defined using a polygon file and in the geometry file.
+Drogues can be output to a binary (PCL) file which can be read by BlueKenue.
+
+TELEMAC-2D: Algae classes can be defined and different Algae properties can be defined
+for each class. The Algae can start to move after a specified time has elapsed.
+Alternatively Algae can start to move after being dislodged after a critical bed
+wave orbital velocity has been reached.
+
+TELAPY: New function mpi_get, mpi_get_array (and set equivalent) to get array
+over global mesh
+
+TELAPY: New functions read/write for TelemacFile to modify a file.
+See notebook notebooks/telapy/telemac_file.ipynb for examples.
+
+Release V8P1R0 (04/12/2019)
+===========================
+
+WAQTEL: fix the differences between source code and documentation for EUTRO, MICROPOL(2D)
+
+TELEMAC-3D: rewriting of one loop for Automatic Mesh Refinement (aka AMR or
+MESH TRANFORMATION = 5) to reduce the differences between sequential and parallel
+
+WAQTEL: fix the wrong formula for air specific moisture in CALCS2D_THERMIC
+
+WAQTEL: fix the Churchill formula for the computation of the reaeration coefficient K2
+for O2 and EUTRO
+
+TELEMAC-3D: fix inconsistency between boundary conditions in the matrix
+(mass-lumped form) and in the right-hand side (lateral and free surface boundary
+conditions was impacted).
+
+WAQTEL: new theory guide + user manual completed
+
+WAQTEL/AED2: fix the bug of wrong computation of array BENTH4AED2
++ wrong location of the fluxes transmitted to TELEMAC-3D
+
+TELEMAC-2D/TELEMAC-3D/WAQTEL: fix the bug of expected format when using at the same time
+WAQTEL + WIND = YES + OPTION FOR WIND = 2 with an ASCII ATMOSPHERIC DATA FILE
+
+TELEMAC-2D/TELEMAC-3D: fix the bug of unexpected choice for ZONE NUMBER IN GEOGRAPHIC SYSTEM
+
+TELEMAC-3D: New density law: Jackett et al. (2006)
+
+TELEMAC-2D: New keyword COEFFICIENT OF WIND INFLUENCE VARYING WITH WIND SPEED
+
+TELEMAC-2D/TELEMAC-3D: TPXO module: S1 constituent taken into account (for TPXO9)
+
+PYTHON3: New validation system now using Python instead of xml structure. For
+more information read the chapter "Validation" in the developer_guide
+
+PYTHON3: New post treatment module postel. All the documentation can be found
+in the notebooks to run them you jupyter notebooks and to lanuch the command
+"jupyter notebook $HOMETEL/notebooks/index.ipynb"
+
+WAQTEL: fix the bug for degradation law in 3D (WATER QUALITY PROCESS = 17)
+
+TELEMAC-3D: Coupling of TELEMAC-3D with GOTM (standard GOTM)
+
+TELEMAC-3D/SISYPHE: fix the bug of writing of results at the wrong graphic output
+
+TELEMAC-3D/WAQTEL: fix the bug of wrong formula for the linearised formula
+at the free surface for ATMOSPHERE-WATER EXCHANGE MODEL = 1
+
+TELEMAC-3D: fix a bug with TKE computation with Spalart Allmaras turbulence model
+
+GAIA : introduction of this new module, that aims at replacing both SISYPHE and SEDI3D.
+  The goal is to have:
+    - one sediment module only, instead of 2
+    - one bed model for 2D and 3D, without limitations on the number of classes of
+      sand and mud
+    - the suspension fluxes computed in TELEMAC2D or TELEMAC3D depending on the
+      dimension (resolution of a tracer equation)
+    - all the sediment evolutions written in terms of mass (instead of volume)
+    - no more standalone option for the 2D hydrodynamics inside the sediment module
+  In this first version of GAIA, the major developments were:
+    - to write the 2D/3D bed model based on the sediment fluxes writtent in
+      terms of mass
+    - to use that bed model and in 2D and 3D
+    - to make it compatible with wave effects when coupling with waves
+    - to implement the suspension in 2D inside TELEMAC2D, and modify it in 3D to
+      comply with GAIA
+    - to introduce the coupling between NESTOR and GAIA
+  At this stage, SISYPHE and SEDI3D can still be used in the system, but we advise the users
+  to switch and start using GAIA as soon as possible. Indeed, the plan is to remove SISYPHE
+  and SEDI3D from TELEMAC after one year of transition with GAIA.
+
+TOMAWAC : The components of the stokes drift, the wave enhanced mixing,
+the wave dissipation due to bottom friction and wave breaking,
+the modified friction coefficient due to waves are now calculated in respectively,
+uvstokes, fdissk, fbott3d, fdiss3d and fric3d subroutines. This calculation allow to
+have a full coupling with telemac3d through a vortex force formalism : COUPLING WITH TOMAWACT3D
+
+TOMAWAC : A new tests case has been added to test this new functionnality :
+          - 3Dcoupling
+
+TELEMAC3D : - The variables calculated by tomawac are taken into account for a real 3D coupling.
+            - 3 new output graphic variables are avalaible US, VS, WS the thress components of stokes velocity.
+	    - One new keyword BOTTOM FRICTION DUE TO WAVES, it allows to take into account the momentum lost by waves due to bottom friction.
+
+TELEMAC-3D: add one missing choice for output variables in telemac3d.dico
+  - TAIR: air temperature (degree C).
+
+TELEMAC-3D: Deleted keywords
+  - SOLVER FOR VERTICAL VELOCITY
+  - ACCURACY FOR VERTICAL VELOCITY
+  - MAXIMUM NUMBER OF ITERATIONS FOR VERTICAL VELOCITY
+  - PRECONDITIONING FOR VERTICAL VELOCITY
+
+TELEMAC-3D: New default values for keywords
+  - LAW OF BOTTOM FRICTION = 5 (old = 0 or 2), now mandatory to be given
+  - FRICTION COEFFICIENT FOR THE BOTTOM = 0.01 (old = 60.), now mandatory to be given if any law of bottom friction
+  - FRICTION COEFFICIENT FOR LATERAL SOLID BOUNDARIES = 0.01 (old = 60.)
+  - SCHEME FOR ADVECTION OF VELOCITIES        = 5 (old = 1)
+  - SCHEME FOR ADVECTION OF K-EPSILON         = 5 (old = 1)
+  - SCHEME OPTION FOR ADVECTION OF VELOCITIES = 4 (old = 1)
+  - SCHEME OPTION FOR ADVECTION OF TRACERS    = 4 (old = 1)
+  - SCHEME OPTION FOR ADVECTION OF K-EPSILON  = 4 (old = 1)
+  - IMPLICITATION FOR VELOCITIES = 0.55 (old = 1.)
+  - SOLVER FOR PROPAGATION = 7 (old = 1)
+  - SOLVER FOR PPE         = 7 (old = 1)
+  - ACCURACY FOR PROPAGATION             = 1.E-8 (old = 1.E-6)
+  - ACCURACY FOR DIFFUSION OF VELOCITIES = 1.E-8 (old = 1.E-5)
+  - ACCURACY FOR PPE                     = 1.E-8 (old = 1.E-4)
+  - ACCURACY FOR DIFFUSION OF K-EPSILON  = 1.E-8 (old = 1.E-6)
+  - ACCURACY FOR DIFFUSION OF SEDIMENT   = 1.E-8 (old = 1.E-6)
+  - OPTION OF SOLVER FOR PROPAGATION               = 5 (old = 3)
+  - OPTION OF SOLVER FOR DIFFUSION OF VELOCITIES   = 5 (old = 3)
+  - OPTION OF SOLVER FOR PPE                       = 5 (old = 3)
+  - OPTION OF SOLVER FOR DIFFUSION OF K-EPSILON    = 5 (old = 3)
+  - OPTION OF SOLVER FOR DIFFUSION OF TRACERS      = 5 (old = 3)
+  - OPTION OF SOLVER FOR DIFFUSION OF THE SEDIMENT = 5 (old = 3)
+
+SISYPHE: fix the bug of Finite Volumes in parallel
+
+PYTHON: Now for some of the keywords that have restriction on their value
+  (CHOIX or CHOIX1 in dictionary) the python script are checking that what you
+  gave in your steering file is appropriate.
+
+ALL: user fortran
+  All user fortran have been replaced (except telemac2d/bord.f and sisyphe/conlit.f)
+  by the same function prefixed with user_ by default they are empty (no code).
+  You can still use the old ones but all the examples have been updated.
+  Correspondance:
+  - ARTEMIS:
+      art_corfon -> user_art_corfon.f
+      borh.F -> user_borh.f
+      condih.f -> user_condih_particular.f
+               -> user_condih.f
+      fwspec.f -> user_fwspec.f
+      utimp_art.f -> user_utimp_art.f
+  - TELEMAC2D:
+      analytical_solution.f -> user_analytical_solution.f
+      bord.f -> user_bord.f
+      condin.f -> user_condin.f
+               -> user_condin_h.f
+               -> user_condin_trac.f
+               -> user_condin_uv.f
+      corfon.f -> user_corfon.f
+      corpor.f -> user_corpor.f
+      corstr.f -> user_corstr.f
+      debsce.f -> user_debsce.f
+      def_zones.f -> user_def_zones.f
+      flot.f -> user_flot.f
+      href.f -> user_href.f
+      lagran.f -> user_lagran.f
+      maskob.f -> user_maskob.f
+      mesures.f -> user_mesures.f
+      nomvar_telemac2d.f -> user_nomvar_telemac2d.f
+      preres_telemac2d.f -> user_preres_telemac2d.f
+      q.f -> user_q.f
+      sl.f -> user_sl.f
+      source_telemac2d.f -> user_source_telemac2d.f
+      trsce.f -> user_trsce.f
+      utimp_telemac2d.f -> user_utimp_telemac2d.f
+      vit.f -> user_vit.f
+      vusce.f -> user_vusce.f
+      vvsce.f -> user_vvsce.f
+  - SISYPHE:
+      cgl.f -> user_cgl.f
+      condim_sisyphe.f -> user_condim_sisyphe.f
+      conlit.f -> user_conlit.f
+      cvsp_db.f -> user_cvsp_db.f
+      init_compo.f -> user_init_compo.f
+      init_compo_coh.f -> user_init_compo_coh.f
+      maskab.f -> user_maskab.f
+      mean_grain_size.f -> user_mean_grain_size.f
+      noerod.f -> user_noerod.f
+      predes.f -> user_predes.f
+      qgl.f -> user_qgl.f
+      qsform.f -> user_qsform.f
+  - TELEMAC3D:
+      bord3d.f -> user_bord3d.f
+      condi3d_h.f -> user_condi3d_h.f
+      condi3d_kep.f -> user_condi3d_kep.f
+      condi3d_p.f -> user_condi3d_p.f
+      condi3d_trac.f -> user_condi3d_trac.f
+      condi3d_uvw.f -> user_condi3d_uvw.f
+      driuti.f -> user_driuti.f
+      flot3d.f -> user_flot3d.f
+      impsed.f -> user_impsed.f
+      kepini.f -> user_kepini.f
+      limi3d.f -> user_limi3d.f
+      mesh_transf.f -> user_mesh_transf.f
+      preres_telemac3d.f -> user_preres_telemac3d.f
+      q3.f -> user_q3.f
+      sl3.f -> user_sl3.f
+      source.f -> user_source.f
+      t3d_debsce.f -> user_t3d_debsce.f
+      t3d_corfon.f -> user_t3d_corfon.f
+      t3d_trsce.f -> user_t3d_trsce.f
+      tr3.f -> user_tr3.f
+      tra_prof_z.f -> user_tra_prof_z.f
+      utimp.f -> user_utimp.f
+      vel_prof_z -> suer_vel_prof_z.f
+      vit3.f -> user_vit3.f
+  - TOMAWAC:
+      anacos.f -> user_anacos.f
+      anamar.f -> user_anamar.f
+      anaven.f -> user_anaven.f
+      couuti.f -> user_current.f
+      dump2d.f -> user_dump2d.f
+      limwac.f -> user_limwac.f
+      maruti.f -> user_tide.f
+      tom_corfon.f -> user_tom_corfon.f
+      venuti.f -> user_wind.f
+  - BIEF:
+      corlat.f -> user_corlat.f
+      corrxy.f -> user_corrxy.f
+      strche.f -> user_strche.f
+
+Release V8P0R0 (19/12/2018)
+===========================
+
+- Python3: Adding handling of MED format in vvytel now xml can handle both
+  serafin and MED format
+- Python: Work in progress new folder for scripts (scripts/python3) contains
+  Python3 compatible scripts. All the scripts have been reorganised and renames
+  to follow PEP8 convention. A new set of examples in examples/python3 show how
+  to use them. Also a notebook exist showing how to use the postel module
+  (Post-Treatment module).
+  The folder scripts/python27 is kept for backward compatibility.
+  All new development will be in the python3 folder.
+- TelApy: Adding API for TELEMAC-3D
+- TELEMAC-3D: New Spalart-Allmaras turbulence model. Together with a DES option which uses also Spalart-Allmaras model.
+- TELEMAC-3D: new default values for 4 keywords:
+  - NON-HYDROSTATIC VERSION = YES,
+  - LAW OF BOTTOM FRICTION = 0 (rather than 2, Chezy law),
+  - ACCURACY FOR DIFFUSION OF TRACERS = 1.E-8 (rather than 1.E-6),
+  - COEFFICIENT OF WIND INFLUENCE = 1.55E-6 (rather than 0.).
+- TELEMAC-3D: fix the uncorrect reading of private arrays when present in the GEOMETRY FILE (bug since V7P2).
+- TELEMAC-3D: fix the reading of the binary boundary data file.
+- TELEMAC-3D with AED2 coupling: partial fixes (wrong loops to sweep arrays, computation of the real number of the bottom layer...).
+- SISYPHE: Implementation of the Wilcock and Crowe formula for sediment closure relationship
+- SISYPHE: Add new test case (WC_BOMC4) to validate the Wilcock and Crowe formula; including python scripts. This test case also illustrates how to recirculate sediment in a straight channel (typically used in experimental flumes).
+- SISYPHE: Add new section in documentation plus several improvements
+
+Release V7P3R0 (22/12/17)
+===========================
+
+- all modules: FORTRAN FILE can be a folder that contains several files,
+  not a single file (but still possible)
+- TELEMAC-2D/TELEMAC-3D: fix the culvert formulation 1 so that
+  it falls back to the siphon formulation in that specific case.
+- TELEMAC-2D/TELEMAC-3D: sources can also be assigned with global node numbers
+- TELEMAC-2D/TELEMAC-3D: Lambert 93 projection when modelling tide.
+- TELEMAC-2D/TELEMAC-3D: Adding 7 extra harmonic constituents,
+  for FES2014 tidal database (M3, M8, Msf, N4, S1, Sa, SSa).
+- TELEMAC-3D: remove the option DIFFUS. This option was meant
+  to remove the diffusion but it actually did not
+  remove the diffusion on U,V. Besides, it could happen that when using
+  DIFFUS=NO the source terms were not included in W and the tracers.
+  We thus chose to remove this option altogether. From now on, to
+  disable the diffusion the user can only set a zero diffusion coefficient.
+- TELEMAC-3D: remove the option OPTDIF to keep only one formulation
+  (OPTDIF could take the values 1 or 2 but the
+  option 2 did not seem to bring improvements compared to the option 1.
+  It was was not used in any test-case, neither documented so we only kept
+  the option 1 in the code)
+- TELEMAC-3D: modular CONDIM and BORD3D subroutines (initial conditions
+  and boundary conditions). Simplification of the CONDIM subroutine
+  (initial conditions + mesh transformation), now split into several
+  subroutines which do various and separated treatments (e.g. initial
+  conditions for water depths, velocities, tracers... or mesh
+  transformation different from the classical sigma transformation).
+  The user only needs to fill one short file per variable. No need to
+  keep the whole CONDIM subroutine.
+  For BORD3D, every specific treatment is implemented in a separate
+  subroutine USER_BORD3D called by BORD3D (see examples to fill).
+- ARTEMIS: Creation of free surface elevation (time/space varying) files.
+- ARTEMIS: Removing the need to code within BORH (using LECLIM and
+the BOUNDARY CONDITION FILE instead).
+- ARTEMIS: Automated calculation of the phase for incident boundaries
+  (in PHBOR), starting from the "node of attack" of the offshore wave,
+  iteratively computed along both sides away from the attack node
+  along the rest of the incident boundary.
+- STBTEL: Now refining the boundary conditions as well as the mesh
+  Available through the script convertert.py as well
+- Addons: Adding vim-syntax for .cas and .dico files
+- TELEMAC-2D: change computation of wall distance (used in
+  Spalart-Allmaras turbulence model). The wall distance (WDIST) is now
+  computed in parallel with a laplacian operator.
+- TELEMAC-2D: new framework for automatic convergence studies
+- TELEMAC-3D: coupling with the water quality library AED2.
+- TOMAWAC: Automatic imposed spectrum on nested mesh.
+- TOMAWAC: In order to better take into account boundary conditions Limwac is called at the end of the loop in time instead of beginning.
+- TELEMAC-2D: I/O criteria of result file now homogenous with FE or FV (steered by time-step and
+period for graphic output)
+- TELEMAC-2D: Activation of source terms for FV (Mass and Momentum): so far only partially
+implemented for mass source terms.
+- TELEMAC-2D: New turbulence model (Spalart-Allmaras)
+
+New keywords:
+All modules:
+For Automatic Differentiation (AD)
+- AD NUMBER OF DERIVATIVES (AD NOMBRE DE DERIVEES)
+- AD NAMES OF DERIVATIVES (AD NOMS DES DERIVEES)
+- AD NUMBER OF DIRECTIONS (AD NOMBRE DE DIRECTIONS)
+- AD SYMBOLIC LINEAR SOLVER (AD SOLVEUR LINEAIRE SYMBOLIQUE)
+- AD LINEAR SOLVER RESET DERIVATIVES
+(AD REMISE A ZERO DES DERIVEES DU SOLVEUR LINEAIRE)
+- AD LINEAR SOLVER DERIVATIVE CONVERGENCE
+(AD CONVERGENCE DES DERIVEES POUR LE SOLVEUR LINEAIRE)
+
+TELEMAC-2D/TELEMAC-3D:
+Keyword to assign global node numbers to sources:
+GLOBAL NUMBERS OF SOURCE NODES (NUMEROS GLOBAUX DES NOEUDS DES SOURCES)
+Keyword to give the coordinates of the result file in longitude-latitude
+if the geometry file is also given in longitude-latitude:
+RESULT FILE IN LONGITUDE-LATITUDE (FICHIER RESULTAT EN LONGITUDE-LATITUDE)
+File to provide for the conversion in Lambert 93 for tides. It is
+located in the tide examples of T2D (gr3df97a.txt):
+LAMBERT 93 CONVERSION FILE (FICHIER DE CONVERSION LAMBERT 93)
+
+TELEMAC-3D:
+New keyword to compute the wind drag coefficient more accurately (FAIR):
+- COEFFICIENT OF WIND INFLUENCE VARYING WITH WIND SPEED
+(COEFFICIENT D INFLUENCE DU VENT DEPENDANT DE LA VITESSE DU VENT)
+
+SISYPHE:
+SECONDARY CURRENTS FILE (FICHIER DE COURANTS SECONDAIRES)
+
+ARTEMIS:
+FREE SURFACE ANIMATION (ANIMATION DE LA SURFACE LIBRE)
+AMPLITUDE AND PHASE FILE (FICHIER DES PHASES ET AMPLITUDES)
+AMPLITUDE AND PHASE FILE FORMAT
+(FORMAT DU FICHIER DES PHASES ET AMPLITUDES)
+
+TOMAWAC:
+- FILE WITH COORDINATES OF SPECTRA TO IMPOSE
+- FILE WITH COORDINATES OF SPECTRA TO WRITE
+- IMPOSED SPECTRA FILE
+- IMPOSED SPECTRA FILE FORMAT
+- TAKING INTO ACCOUNT SOURCE TERMS ON IMPOSED BOUNDARIES
+- TIME SHIFT OF IMPOSED SPECTRA FILE
+- TIME UNIT OF IMPOSED SPECTRA FILE
+
+Deleted keywords:
+TELEMAC-3D:
+- OPTION FOR THE DIFFUSION (OPTION POUR LA DIFFUSION), mnemo OPTDIF
+- DIFFUSION STEP (ETAPE DE DIFFUSION), mnemo DIFFUS
+- PROPAGATION STEP (ETAPE DE PROPAGATION), mnemo PROP
+
+TOMAWAC:
+- BINARY FILE 1 BINARY
+- CURRENTS FILE BINARY
+- DEFAULT EXECUTABLE
+- DEFAULT PARALLEL EXECUTABLE
+- DESCRIPTION OF LIBRARIES
+- GEOMETRY FILE BINARY
+- GLOBAL RESULT FILE BINARY
+- PREVIOUS COMPUTATION FILE BINARY
+- PUNCTUAL RESULTS FILE BINARY
+- TIDAL WATER LEVEL FILE BINARY
+- WINDS FILE BINARY
+
+Documentation:
+TELEMAC-3D:
+- New theory guide for TELEMAC-3D. The previous release notes were removed
+and shall be re-introduced in future versions to track version-specific changes.
+
+Release V7P2R0 (31 Dec 2016)
+===========================
+
+Features
+---------------------
+
+- TELEMAC-2D: Add Spalart-Allmaras turbulence model.
+- TelApy: Add the first structure for PYTHON API of TELEMAC.
+- TELEMAC-3D: Add a new advection scheme (less diffusive scheme
+  as in TELEMAC-2D).
+- TELEMAC: Add possibility to prescribe space and time varying meteo
+  conditions based on a file (ASCII ATMOSPHERIC DATA FILE and
+  BINARY ATMOSPHERIC DATA FILE keywords).
+- SISYPHE: Liquid boundaries file for bed load discharge.
+- Replacing DredgeSim with Nestor.
+- TELEMAC-2D: Add a new rainfall-runoff model. An example of use is given in
+  the pluie test case.
+- Automatic detection of Little/Big Endian for Serafin File
+  (needs FORTRAN Gnu extension).
+- TELEMAC-2D: Adding a deall_telemac2d subroutine that dallocates all that was
+  allocated by point_telemac2d. Same thing for bief_all* and do on. This is
+  mainly for API as in normal run the Fortran is cleaning on its own.
+- TELEMAC-2D and 3D: new option for culvert modeling, change in the culvert parameters file.
+- Adding NEWS file that contains the major modifications in the code.
+- Integration of the MASCARET source code into the TELEMAC-MASCARET system
+  (script mascaret.py to run code).
+- TELEMAC-2D and 3D: possibility to read space-time varying meteo data from a
+  binary file.
+- TELEMAC-3D: possiblity to read space-time varying open boundary conditions
+  from a binary file.
+
+Addons
+---------------------
+
+- New version of ParaView plugin (SerafinReader) which allows to read Serafin
+  file in Paraview.
+
+Documentation
+---------------------
+
+- New developer guide in documentation/Misc/developer_guide.
+- LaTeX documentation in folder documentation.
+
