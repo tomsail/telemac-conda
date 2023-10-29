@@ -14,7 +14,7 @@ copy %SRC_DIR%\systel.cfg %HOMETEL%\configs\
 sed -i "/^modules:/a version:    %TELEMAC_VERSION%" %SYSTELCFG%
 
 :: Compile all configs (currently: gnu.static gnu.static.debug)
-python -m compile_telemac -j8
+python -m compile_telemac -j8 -v
 if errorlevel 1 exit 1
 
 :: Copy builds
