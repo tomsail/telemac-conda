@@ -1,7 +1,7 @@
 @echo off
 
 :: Set TELEMAC specific environnement variables
-set HOMETEL=%CONDA_PREFIX%\Library\telemac-mascaret
+set HOMETEL=%CONDA_PREFIX%\Library\opentelemac
 set SYSTELCFG=%HOMETEL%\configs\systel.cfg
 set USETELCFG=gnu.dynamic
 

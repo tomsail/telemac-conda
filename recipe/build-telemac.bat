@@ -1,5 +1,5 @@
 :: TELEMAC home directory
-set HOMETEL=%SRC_DIR%\telemac-mascaret
+set HOMETEL=%SRC_DIR%\opentelemac
 :: Configuration file
 set SYSTELCFG=%HOMETEL%\configs\systel.cfg
 
@@ -13,32 +13,32 @@ copy %SRC_DIR%\systel.cfg %HOMETEL%\configs\
 :: Set TELEMAC version in systel.cfg
 sed -i "/^modules:/a version:    %TELEMAC_VERSION%" %SYSTELCFG%
 
-:: Compile all configs (currently: gnu.static gnu.static.debug)
-python -m compile_telemac -j8 -v
+:: Compile all configs (currently: gnu.dynamic gnu.dynamic.debug)
+python -m compile_telemac -j8
 if errorlevel 1 exit 1
 
 :: Copy builds
-mkdir %LIBRARY_PREFIX%\telemac-mascaret\builds
-xcopy %HOMETEL%\builds %LIBRARY_PREFIX%\telemac-mascaret\builds /E /H /C /I
+mkdir %LIBRARY_PREFIX%\opentelemac\builds
+xcopy %HOMETEL%\builds %LIBRARY_PREFIX%\opentelemac\builds /E /H /C /I
 
 :: Copy sources
-mkdir %LIBRARY_PREFIX%\telemac-mascaret\sources
-xcopy %HOMETEL%\sources %LIBRARY_PREFIX%\telemac-mascaret\sources /E /H /C /I
+mkdir %LIBRARY_PREFIX%\opentelemac\sources
+xcopy %HOMETEL%\sources %LIBRARY_PREFIX%\opentelemac\sources /E /H /C /I
 
 :: Copy configs
-mkdir %LIBRARY_PREFIX%\telemac-mascaret\configs
-copy  %SYSTELCFG% %LIBRARY_PREFIX%\telemac-mascaret\configs
+mkdir %LIBRARY_PREFIX%\opentelemac\configs
+copy  %SYSTELCFG% %LIBRARY_PREFIX%\opentelemac\configs
 
 :: Copy python scripts
-mkdir %LIBRARY_PREFIX%\telemac-mascaret\scripts\python3
-xcopy %HOMETEL%\scripts\python3 %LIBRARY_PREFIX%\telemac-mascaret\scripts\python3 /E /H /C /I
+mkdir %LIBRARY_PREFIX%\opentelemac\scripts\python3
+xcopy %HOMETEL%\scripts\python3 %LIBRARY_PREFIX%\opentelemac\scripts\python3 /E /H /C /I
 :: Replace VnV command 
 :: mpirun is just an alias for mpiexec, replace with mpiexec
-sed -i 's/mpirun/mpiexec/g' %LIBRARY_PREFIX%\telemac-mascaret\scripts\python3\vvytel\vnv_api.py
+sed -i 's/mpirun/mpiexec/g' %LIBRARY_PREFIX%\opentelemac\scripts\python3\vvytel\vnv_api.py
 :: On Windows, better to call `python -m module` rather than rely on file association
-sed -i 's/template.py/python -m template/g' %LIBRARY_PREFIX%\telemac-mascaret\scripts\python3\vvytel\vnv_api.py
+sed -i 's/template.py/python -m template/g' %LIBRARY_PREFIX%\opentelemac\scripts\python3\vvytel\vnv_api.py
 :: Fixes "module 'matplotlib.tri' has no attribute 'triangulation'"
-sed -i 's/mtri.triangulation.Triangulation/mtri.Triangulation/g' %LIBRARY_PREFIX%\telemac-mascaret\scripts\python3\postel\plot2d.py
+sed -i 's/mtri.triangulation.Triangulation/mtri.Triangulation/g' %LIBRARY_PREFIX%\opentelemac\scripts\python3\postel\plot2d.py
 
 :: Copy TELEMAC command to enable/disable debug mode
 copy %SRC_DIR%\telemac-debug.bat %SCRIPTS%\

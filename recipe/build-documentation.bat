@@ -1,6 +1,3 @@
-:: TELEMAC home directory
-set HOMETEL=%SRC_DIR%\telemac-mascaret
-
-:: Copy sources
-mkdir %LIBRARY_PREFIX%\telemac-mascaret\documentation
-xcopy %HOMETEL%\documentation\*.pdf %LIBRARY_PREFIX%\telemac-mascaret\documentation /E /H /C /I
+:: Copy documentation
+mkdir %LIBRARY_PREFIX%\opentelemac\documentation
+xcopy %SRC_DIR%\opentelemac\documentation\*.pdf %LIBRARY_PREFIX%\opentelemac\documentation /E /H /C /I

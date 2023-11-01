@@ -1,8 +1,5 @@
-:: TELEMAC home directory
-set HOMETEL=%SRC_DIR%\telemac-mascaret
-
-:: Copy sources
-mkdir %LIBRARY_PREFIX%\telemac-mascaret\examples
-mkdir %LIBRARY_PREFIX%\telemac-mascaret\notebooks
-xcopy %HOMETEL%\examples %LIBRARY_PREFIX%\telemac-mascaret\examples /E /H /C /I
-xcopy %HOMETEL%\notebooks %LIBRARY_PREFIX%\telemac-mascaret\notebooks /E /H /C /I
+:: Copy examples ad notebooks
+mkdir %LIBRARY_PREFIX%\opentelemac\examples
+mkdir %LIBRARY_PREFIX%\opentelemac\notebooks
+xcopy %SRC_DIR%\opentelemac\examples %LIBRARY_PREFIX%\opentelemac\examples /E /H /C /I
+xcopy %SRC_DIR%\opentelemac\notebooks %LIBRARY_PREFIX%\opentelemac\notebooks /E /H /C /I

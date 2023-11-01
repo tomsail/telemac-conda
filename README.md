@@ -11,8 +11,8 @@
     <td>
       <details>
         <summary>
-          <a href="https://anaconda.org/nicogodet/telemac-mascaret">
-            <img src="https://anaconda.org/nicogodet/telemac-mascaret/badges/version.svg">
+          <a href="https://anaconda.org/nicogodet/opentelemac">
+            <img src="https://anaconda.org/nicogodet/opentelemac/badges/version.svg">
           </a>
         </summary>
         <table>
@@ -105,8 +105,8 @@ On Windows, it is recommended to use [Miniforge3](https://github.com/conda-forge
 2. In Miniforge Prompt:
 
    ```console
-   mamba create -n telemac-mascaret -c nicogodet telemac-mascaret
-   mamba activate telemac-mascaret
+   mamba create -n opentelemac -c nicogodet opentelemac
+   mamba activate opentelemac
    ```
 
 3. Depending on your `.py` file association settings, it is recommended to run TELEMAC module using:
