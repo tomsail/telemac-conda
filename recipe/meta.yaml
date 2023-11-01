@@ -37,10 +37,13 @@ outputs:
         - m2-base
         - m2w64-metis
         - m2w64-msmpi
-        # - t2d-msmpi
-        # - m2w64-mumps =5.2.1
-        # - m2w64-scalapack
+        - mumps-otm =5.2.1
+        - scalapack-otm
+        - hdf5-otm
+        - med-otm
+        - aed2-otm
         - m2w64-toolchain
+        - m2w64-dlfcn
         - matplotlib
         - numpy <1.22.0
         - python <3.11
@@ -48,10 +51,13 @@ outputs:
       run:
         - m2w64-metis
         - m2w64-msmpi
-        # - t2d-msmpi
-        # - m2w64-mumps =5.2.1
-        # - m2w64-scalapack
+        - mumps-otm =5.2.1
+        - scalapack-otm
+        - hdf5-otm
+        - med-otm
+        - aed2-otm
         - m2w64-toolchain
+        - m2w64-dlfcn
         - matplotlib
         - numpy <1.22.0
         - python <3.11
