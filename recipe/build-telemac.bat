@@ -41,7 +41,7 @@ sed -i 's/template.py/python -m template/g' %LIBRARY_PREFIX%\opentelemac\scripts
 sed -i 's/mtri.triangulation.Triangulation/mtri.Triangulation/g' %LIBRARY_PREFIX%\opentelemac\scripts\python3\postel\plot2d.py
 
 :: Copy TELEMAC command to enable/disable debug mode
-copy %SRC_DIR%\telemac-debug.bat %SCRIPTS%\
+copy %RECIPE_DIR%\scripts\telemac-debug.bat %SCRIPTS%\
 
 :: Trick to solve "mpirun not found"
 FOR /F "tokens=*" %%i in (' "where mpiexec" ') do SET MPIEXEC_PATH=%%~dpi
@@ -53,5 +53,5 @@ setlocal EnableDelayedExpansion
 :: This will allow them to be run on environment activation.
 for %%F in (activate deactivate) DO (
     if not exist %PREFIX%\etc\conda\%%F.d mkdir %PREFIX%\etc\conda\%%F.d
-    copy %RECIPE_DIR%\%%F.bat %PREFIX%\etc\conda\%%F.d\%PKG_NAME%_%%F.bat
+    copy %RECIPE_DIR%\scripts\%%F.bat %PREFIX%\etc\conda\%%F.d\%PKG_NAME%_%%F.bat
 )
