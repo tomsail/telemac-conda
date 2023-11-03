@@ -5,6 +5,7 @@
 {% set numpy = numpy or '1.21' %}    # Default to 1.21 if not specified
 {% set mpi = "openmpi" %}     # Default to "openmpi" if not specified
 
+
 package:
   name: {{ name|lower }}
   version: {{ version }}
