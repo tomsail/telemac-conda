@@ -1,6 +1,7 @@
 {% set name = "opentelemac" %}
 {% set version = "v8p4r0" %}
-{% set build = 0 %}
+{% set build = 2 %}
+{% set mpi = "openmpi" %}
 
 package:
   name: {{ name|lower }}
@@ -13,6 +14,9 @@ source:
   - path: ../src
 
 build:
+  {% set mpi_prefix = "mpi_" + mpi %}
+  string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}
+  {% set build_pin = mpi_prefix + '_*' %}
   number: {{ build }}
   script_env:
     - TELEMAC_VERSION={{ version }}
@@ -23,45 +27,76 @@ build:
 outputs: 
   - name: {{ name }}-examples
     build:
-      script: "%RECIPE_DIR%/build-examples.bat"
+      script: "%RECIPE_DIR%/build-examples.bat" #[win]
+      script: "$RECIPE_DIR/build-examples.sh" #[not win]
 
   - name: {{ name }}-documentation
     build:
-      script: "%RECIPE_DIR%/build-documentation.bat"
+      script: "%RECIPE_DIR%/build-documentation.bat" #[win]
+      script: "$RECIPE_DIR/build-documentation.sh" #[not win]
   
   - name: {{ name }}
     build:
-      script: "%RECIPE_DIR%/build-telemac.bat"
+      script: "%RECIPE_DIR%/build-telemac.bat" #[win]
     requirements:
-      build:
-        - m2-base
-        - m2w64-metis
-        - m2w64-msmpi
-        - mumps-otm =5.2.1
-        - scalapack-otm
-        - hdf5-otm
+      host:
+        - m2-base #[win]
+        - m2w64-metis #[win]
+        - m2w64-msmpi #[win]
+        # - t2d-msmpi #[win]
+        # - m2w64-mumps =5.2.1 #[win]
+        # - m2w64-scalapack #[win]
+        - m2w64-toolchain #[win]
+        - {{ compiler('fortran') }} #[not win]
+        - {{ mpi }} #[not win]
+        - {{ mpi }}-mpifort #[not win]
+        - {{ compiler('gcc') }} #[not win]
+        - {{ compiler('gxx') }} #[not win]
+        - binutils #[not win]
+        - hdf5 <1.11 #[not win]
+        - metis #[not win]
+        - libmed #[not win]
+        - mumps-mpi #[not win]
+        - scalapack #[not win]
+        - parmetis #[not win]
+        - gotm-otm
         - med-otm
         - aed2-otm
-        - m2w64-toolchain
-        - m2w64-dlfcn
         - matplotlib
         - numpy <1.22.0
         - python <3.11
         - scipy <1.11
       run:
-        - m2w64-metis
-        - m2w64-msmpi
-        - mumps-otm =5.2.1
-        - scalapack-otm
-        - hdf5-otm
+        - m2w64-metis #[win]
+        - m2w64-msmpi #[win]
+        # - t2d-msmpi #[win]
+        # - m2w64-mumps =5.2.1 #[win]
+        # - m2w64-scalapack #[win]
+        - m2w64-toolchain #[win]
+        - {{ compiler('fortran') }} #[not win]
+        - {{ mpi }} #[not win]
+        - {{ mpi }}-mpifort #[not win]
+        - {{ compiler('gcc') }} #[not win]
+        - binutils #[not win]
+        - hdf5 <1.11 #[not win]
+        - metis #[not win]
+        - libmed #[not win]
+        - mumps-mpi #[not win]
+        - scalapack #[not win]
+        - parmetis #[not win]
+        - gotm-otm
         - med-otm
         - aed2-otm
-        - m2w64-toolchain
-        - m2w64-dlfcn
         - matplotlib
+        - mpi4py
         - numpy <1.22.0
         - python <3.11
         - scipy <1.11
+        - jupyterlab
+        - ipympl
+        - ipykernel
+    # test:
+    #   script: run_test.bat
 
 about:
   home: http://www.opentelemac.org/
@@ -76,3 +111,5 @@ about:
 extra:
   recipe-maintainers:
     - nicogodet
+    - brey
+    - tomsail
