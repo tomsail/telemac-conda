@@ -9,7 +9,7 @@ This is the repository for the conda package of the openTELEMAC system
 <table>
     
   <tr>
-    <td>Anaconda.org</td>
+    <td> Windows </td>
     <td>
       <details>
         <summary>
@@ -20,39 +20,15 @@ This is the repository for the conda package of the openTELEMAC system
         <table>
           <thead><tr><th>Dependencies</th><th>Version</th><th>Last update</th></tr></thead>
           <tbody><tr>
-              <td>m2w64-msmpi</td>
+              <td>opentelemac</td>
               <td>
-                <a href="https://anaconda.org/nicogodet/m2w64-msmpi">
-                  <img src="https://anaconda.org/nicogodet/m2w64-msmpi/badges/version.svg">
+                <a href="https://anaconda.org/nicogodet/opentelemac">
+                  <img src="https://anaconda.org/nicogodet/opentelemac/badges/version.svg">
                 </a>
               </td>
               <td>
-                <a href="https://anaconda.org/nicogodet/m2w64-msmpi">
-                  <img src="https://anaconda.org/nicogodet/m2w64-msmpi/badges/latest_release_date.svg">
-                </a>
-              </td>
-            </tr><tr>
-              <td>m2w64-scalapack</td>
-              <td>
-                <a href="https://anaconda.org/nicogodet/m2w64-scalapack">
-                  <img src="https://anaconda.org/nicogodet/m2w64-scalapack/badges/version.svg">
-                </a>
-              </td>
-              <td>
-                <a href="https://anaconda.org/nicogodet/m2w64-scalapack">
-                  <img src="https://anaconda.org/nicogodet/m2w64-scalapack/badges/latest_release_date.svg">
-                </a>
-              </td>
-            </tr><tr>
-              <td>m2w64-mumps</td>
-              <td>
-                <a href="https://anaconda.org/nicogodet/m2w64-mumps">
-                  <img src="https://anaconda.org/nicogodet/m2w64-mumps/badges/version.svg">
-                </a>
-              </td>
-              <td>
-                <a href="https://anaconda.org/nicogodet/m2w64-mumps">
-                  <img src="https://anaconda.org/nicogodet/m2w64-mumps/badges/latest_release_date.svg">
+                <a href="https://anaconda.org/nicogodet/opentelemac">
+                  <img src="https://anaconda.org/nicogodet/opentelemac/badges/latest_release_date.svg">
                 </a>
               </td>
             </tr><tr>
@@ -77,6 +53,58 @@ This is the repository for the conda package of the openTELEMAC system
               <td>
                 <a href="https://anaconda.org/nicogodet/opentelemac-documentation">
                   <img src="https://anaconda.org/nicogodet/opentelemac-documentation/badges/latest_release_date.svg">
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </details>
+    </td>
+  </tr><tr>
+    <td> Ubuntu </td>
+    <td>
+      <details>
+        <summary>
+          <a href="https://anaconda.org/tomsail/opentelemac">
+            <img src="https://anaconda.org/tomsail/opentelemac/badges/version.svg">
+          </a>
+        </summary>
+        <table>
+          <thead><tr><th>Dependencies</th><th>Version</th><th>Last update</th></tr></thead>
+          <tbody><tr>
+              <td>opentelemac</td>
+              <td>
+                <a href="https://anaconda.org/tomsail/opentelemac">
+                  <img src="https://anaconda.org/tomsail/opentelemac/badges/version.svg">
+                </a>
+              </td>
+              <td>
+                <a href="https://anaconda.org/tomsail/opentelemac">
+                  <img src="https://anaconda.org/tomsail/opentelemac/badges/latest_release_date.svg">
+                </a>
+              </td>
+            </tr><tr>
+              <td>opentelemac-examples</td>
+              <td>
+                <a href="https://anaconda.org/tomsail/opentelemac-examples">
+                  <img src="https://anaconda.org/tomsail/opentelemac-examples/badges/version.svg">
+                </a>
+              </td>
+              <td>
+                <a href="https://anaconda.org/tomsail/opentelemac-examples">
+                  <img src="https://anaconda.org/tomsail/opentelemac-examples/badges/latest_release_date.svg">
+                </a>
+              </td>
+            </tr><tr>
+              <td>opentelemac-documentation</td>
+              <td>
+                <a href="https://anaconda.org/tomsail/opentelemac-documentation">
+                  <img src="https://anaconda.org/tomsail/opentelemac-documentation/badges/version.svg">
+                </a>
+              </td>
+              <td>
+                <a href="https://anaconda.org/tomsail/opentelemac-documentation">
+                  <img src="https://anaconda.org/tomsail/opentelemac-documentation/badges/latest_release_date.svg">
                 </a>
               </td>
             </tr>
