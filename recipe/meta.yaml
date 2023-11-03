@@ -59,7 +59,7 @@ outputs:
         - mumps-mpi #[not win]
         - scalapack #[not win]
         - parmetis #[not win]
-        - gotm-otm
+        - gotm-otm #[not win]
         - med-otm
         - aed2-otm
         - matplotlib
@@ -84,7 +84,7 @@ outputs:
         - mumps-mpi #[not win]
         - scalapack #[not win]
         - parmetis #[not win]
-        - gotm-otm
+        - gotm-otm #[not win]
         - med-otm
         - aed2-otm
         - matplotlib
