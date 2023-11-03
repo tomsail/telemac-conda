@@ -181,14 +181,17 @@ go to any example and run it:
     tomawac.py tom_manches.cas
 
 # Production Plan : 
-First release (current):
+First release (done):
 * minimal version necessary for the latest openTELEMAC version **v8p4**
 
-Second release: 
+Second release (current): 
 * all the optionals libraries needed for:
   * solver optimisation (MUMPS)
-  * Salomé formats (MED) binaries
   * GOTM (General Ocean Turbulence Model)
   * BLAS / LAPACK libraries
+  * AED2 
+
+Third release: 
+  * Salomé formats (MED) 
 
 For more information check out the [wiki](https://github.com/tomsail/telemac-conda/wiki)
