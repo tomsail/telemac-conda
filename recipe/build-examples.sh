@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # TELEMAC home directory
-export HOMETEL=$SRC_DIR/telemac-mascaret
+export HOMETEL=$SRC_DIR/opentelemac
 # Copy sources
 
 #5 the examples and notebooks folder
