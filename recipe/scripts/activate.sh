@@ -1,5 +1,5 @@
 # Path to telemac root dir
-export HOMETEL=$CONDA_PREFIX/telemac-mascaret
+export HOMETEL=$CONDA_PREFIX/opentelemac
 # Adding python scripts to PATH
 # Configuration file
 if [[ $(uname) == Linux ]]; then
