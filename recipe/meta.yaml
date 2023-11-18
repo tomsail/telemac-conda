@@ -1,7 +1,6 @@
 {% set name = "opentelemac" %}
-{% set version = "v8p4r0" %}
-{% set build = 2 %}
-{% set mpi = "openmpi" %}
+{% set version = "v8p4r1" %}
+{% set build = 0 %}
 
 package:
   name: {{ name|lower }}
@@ -10,12 +9,9 @@ package:
 source:
   - url: https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/archive/{{ version }}/telemac-mascaret-{{ version }}.tar.gz
     folder: opentelemac
-    sha256: cfa2c05e41b28ba8aaea19b4b483e6d848bb08f823c8526c0824953a1cb4d564
-  - path: ../src
+    sha256: b48a0ee5cb43a68bc7255357544810ea67ea918a5ffd7fd61eeed41be4cf7b71
 
 build:
-  {% set mpi_prefix = "mpi_" + mpi %}
-  string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}
   {% set build_pin = mpi_prefix + '_*' %}
   number: {{ build }}
   script_env:
@@ -27,66 +23,74 @@ build:
 outputs: 
   - name: {{ name }}-examples
     build:
-      script: "%RECIPE_DIR%/build-examples.bat" #[win]
-      script: "$RECIPE_DIR/build-examples.sh" #[not win]
+      script: "%RECIPE_DIR%/build-examples.bat" # [win]
+      script: "$RECIPE_DIR/build-examples.sh"   # [not win]
 
   - name: {{ name }}-documentation
     build:
-      script: "%RECIPE_DIR%/build-documentation.bat" #[win]
-      script: "$RECIPE_DIR/build-documentation.sh" #[not win]
+      script: "%RECIPE_DIR%/build-documentation.bat" # [win]
+      script: "$RECIPE_DIR/build-documentation.sh"   # [not win]
   
   - name: {{ name }}
-    build:
-      script: "%RECIPE_DIR%/build-telemac.bat" #[win]
     requirements:
       host:
-        - m2-base #[win]
-        - m2w64-metis #[win]
-        - m2w64-msmpi #[win]
-        # - t2d-msmpi #[win]
-        # - m2w64-mumps =5.2.1 #[win]
-        # - m2w64-scalapack #[win]
-        - m2w64-toolchain #[win]
-        - {{ compiler('fortran') }} #[not win]
-        - {{ mpi }} #[not win]
-        - {{ mpi }}-mpifort #[not win]
-        - {{ compiler('gcc') }} #[not win]
-        - {{ compiler('gxx') }} #[not win]
-        - binutils #[not win]
-        - hdf5 <1.11 #[not win]
-        - metis #[not win]
-        - libmed #[not win]
-        - mumps-mpi #[not win]
-        - scalapack #[not win]
-        - parmetis #[not win]
-        - gotm-otm #[not win]
+        # Windows
+        - m2-sed                    # [win]
+        - m2w64-metis               # [win]
+        - m2w64-toolchain           # [win]
+        - m2w64-dlfcn               # [win]
+        - m2w64-msmpi               # [win]
+        - mumps-otm                 # [win]
+        - scalapack-otm             # [win]
+        # Linux / MacOS
+        - {{ compiler('fortran') }} # [not win]
+        - openmpi                   # [not win]
+        - openmpi-mpifort           # [not win]
+        - {{ compiler('gcc') }}     # [not win]
+        - {{ compiler('gxx') }}     # [not win]
+        - binutils                  # [not win]
+        - hdf5 <1.11                # [not win]
+        - metis                     # [not win]
+        - libmed                    # [not win]
+        - mumps-mpi                 # [not win]
+        - scalapack                 # [not win]
+        - parmetis                  # [not win]
+        - gotm-otm                  # [not win]
+        # Vendors
         - med-otm
         - aed2-otm
+        # Python
         - matplotlib
         - numpy <1.22.0
         - python <3.11
         - scipy <1.11
       run:
-        - m2w64-metis #[win]
-        - m2w64-msmpi #[win]
-        # - t2d-msmpi #[win]
-        # - m2w64-mumps =5.2.1 #[win]
-        # - m2w64-scalapack #[win]
-        - m2w64-toolchain #[win]
-        - {{ compiler('fortran') }} #[not win]
-        - {{ mpi }} #[not win]
-        - {{ mpi }}-mpifort #[not win]
-        - {{ compiler('gcc') }} #[not win]
-        - binutils #[not win]
-        - hdf5 <1.11 #[not win]
-        - metis #[not win]
-        - libmed #[not win]
-        - mumps-mpi #[not win]
-        - scalapack #[not win]
-        - parmetis #[not win]
-        - gotm-otm #[not win]
+        # Windows
+        - m2-sed                    # [win]
+        - m2w64-metis               # [win]
+        - m2w64-toolchain           # [win]
+        - m2w64-dlfcn               # [win]
+        - m2w64-msmpi               # [win]
+        - mumps-otm                 # [win]
+        - scalapack-otm             # [win]
+        # Linux / MacOS
+        - {{ compiler('fortran') }} # [not win]
+        - openmpi                   # [not win]
+        - openmpi-mpifort           # [not win]
+        - {{ compiler('gcc') }}     # [not win]
+        - {{ compiler('gxx') }}     # [not win]
+        - binutils                  # [not win]
+        - hdf5 <1.11                # [not win]
+        - metis                     # [not win]
+        - libmed                    # [not win]
+        - mumps-mpi                 # [not win]
+        - scalapack                 # [not win]
+        - parmetis                  # [not win]
+        - gotm-otm                  # [not win]
+        # Vendors
         - med-otm
         - aed2-otm
+        # Python
         - matplotlib
         - mpi4py
         - numpy <1.22.0

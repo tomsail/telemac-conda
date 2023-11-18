@@ -12,10 +12,10 @@ export PYTHONPATH=$HOMETEL/scripts/python3 #:$PYTHONPATH
 rm -rf $HOMETEL/configs/*
 #linux
 if [[ $(uname) == Linux ]]; then
-   cp $SRC_DIR/systel.linux.cfg $SYSTELCFG
+   cp $RECIPE_DIR/configs/systel.linux.cfg $SYSTELCFG
 #OSX
 elif [[ $(uname) == Darwin ]]; then
-   cp $SRC_DIR/systel.macos.cfg $SYSTELCFG
+   cp $RECIPE_DIR/configs/systel.macos.cfg $SYSTELCFG
    export USETELCFG=gfort-mpich
 fi
 # Set TELEMAC version in systel.cfg

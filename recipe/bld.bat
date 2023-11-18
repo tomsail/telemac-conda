@@ -9,7 +9,7 @@ set PYTHONPATH=%HOMETEL%\scripts\python3;%PYTHONPATH%
 
 :: Copy systel.cfg in configs directory
 del /S /Q %HOMETEL%\configs\*
-copy %SRC_DIR%\systel.windows.cfg %HOMETEL%\configs\systel.cfg
+copy %RECIPE_DIR%\configs\systel.windows.cfg %HOMETEL%\configs\systel.cfg
 :: Set TELEMAC version in systel.cfg
 sed -i "/^modules:/a version:    %TELEMAC_VERSION%" %SYSTELCFG%
 
