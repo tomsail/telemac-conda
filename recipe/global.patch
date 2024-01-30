@@ -1,0 +1,958 @@
+diff --git a/examples/telemac2d/init/vnv_init.py b/examples/telemac2d/init/vnv_init.py
+index 88cd26838..42be17020 100644
+--- a/examples/telemac2d/init/vnv_init.py
++++ b/examples/telemac2d/init/vnv_init.py
+@@ -185,7 +185,7 @@ class VnvStudy(AbstractVnvStudy):
+         # Comparison with the last time frame of the reference file.
+         self.check_epsilons('vnv_cin-src-seq:T2DRES',
+                             'vnv_cin-seq:T2DRES',
+-                            eps=[0.021, 0.016, 0.039, 0.039, 1.E-15, 2.E-4, 90.])
++                            eps=[0.021, 0.017, 0.039, 0.039, 1.E-15, 2.E-4, 90.])
+ 
+         # Comparison with the last time frame of the reference file.
+         self.check_epsilons('vnv_cin-src-par:T2DRES',
+diff --git a/scripts/python3/pretel/extract_contour.py b/scripts/python3/pretel/extract_contour.py
+index 9572723dc..04da5be6f 100644
+--- a/scripts/python3/pretel/extract_contour.py
++++ b/scripts/python3/pretel/extract_contour.py
+@@ -2,6 +2,8 @@
+ import numpy as np
+ import matplotlib.path as mpltPath
+ from data_manip.extraction.telemac_file import TelemacFile
++from utils.progressbar import ProgressBar
++
+ 
+ def detecting_boundaries(connectivity_table, npoints):
+     """
+@@ -17,69 +19,36 @@ def detecting_boundaries(connectivity_table, npoints):
+     @return bnd_points (np.array of shape (number of boundary points, 1)) a
+     numpy array wich contains indexes of all boundary points of the mesh
+     """
++    # Building adjacency list from connectivity table
++    adjacency_list = {i: [] for i in range(npoints)}
++    for row in connectivity_table:
++        for i in range(3):
++            adjacency_list[row[i]].extend(row[np.arange(3) != i])
++
+     buf = []
+     connectivity_bnd_elt = []
+ 
+-    div = (npoints - npoints % 10) // 10
+-    if div == 0:
+-        div = 1
+-
+-    if np.__version__ < '1.19.0':
+-        import collections
+-
+-        for i in range(npoints):
+-            if i % div == 0:
+-                print(i // div * 10, '%')
+-
+-            connectivity_rows = collections.Counter(
+-                connectivity_table[
+-                    np.where((connectivity_table[:, 0] == i)
+-                             + (connectivity_table[:, 1] == i)
+-                             + (connectivity_table[:, 2] == i))
+-                    ].flatten())
+-
+-
+-            temp = np.array(
+-                list(connectivity_rows.keys()))[np.where(
+-                    np.array(list(connectivity_rows.values())) == 1)].tolist()
+-            buf.extend(temp)
+-
+-            if temp != []:
+-                #to handle overconstrained element
+-                if i in temp:
+-                    temp.remove(i)
+-                temp.append(i)
+-                connectivity_bnd_elt.append(temp)
+-
+-    else:
+-        for i in range(npoints):
+-            if i % div == 0:
+-                print(i // div * 10, '%')
+-
+-            connectivity_rows = connectivity_table[
+-                np.where((connectivity_table[:, 0] == i)
+-                         + (connectivity_table[:, 1] == i)
+-                         + (connectivity_table[:, 2] == i))
+-                ].flatten()
+-
+-            uniq, count = np.unique(connectivity_rows, return_counts=True)
+-            temp = uniq[np.where(count == 1)].tolist()
+-            buf.extend(temp)
++    pbar = ProgressBar(npoints)
++    for i in range(npoints):
++        pbar.update(i)
++        # Directly accessing the connections for each point
++        connections = adjacency_list[i]
+ 
+-            if temp != []:
+-                #to handle overconstrained element
+-                if i in temp:
+-                    temp.remove(i)
+-                temp.append(i)
+-                connectivity_bnd_elt.append(temp)
++        uniq, count = np.unique(connections, return_counts=True)
++        temp = uniq[count == 1].tolist()
++        buf.extend(temp)
+ 
++        if temp:
++            if i in temp:
++                temp.remove(i)
++            temp.append(i)
++            connectivity_bnd_elt.append(temp)
+ 
+-    buf = np.array(buf)
+-    connectivity_bnd_elt = np.array(connectivity_bnd_elt)
+-
++    pbar.finish()
+     bnd_points = np.unique(buf)
+ 
+-    return connectivity_bnd_elt, bnd_points
++    return np.array(connectivity_bnd_elt), bnd_points
++
+ 
+ def detecting_boundaries_with_bnd_file(connectivity_bnd_table, bnd_points):
+     """
+@@ -215,7 +184,45 @@ def sorting_boundary(tel, first_pt_idx, connectivity_bnd_elt, clockwise=True):
+ 
+     return bnd
+ 
+-def sorting_boundaries(tel, bnd_points, connectivity_bnd_elt):
++def create_shifted_paths(path):
++    """
++    Function that duplicate paths across the -180/180 meridian.
++    This allows to find right inside / outside points in sorting_boundary function
++
++    @param path (mpltPath.Path) a mpltPath.Path object
++    @return left_path (mpltPath.Path) a mpltPath.Path object
++    @return right_path (mpltPath.Path) a mpltPath.Path object
++    """
++    left_path_vertices = path.vertices.copy()
++    right_path_vertices = path.vertices.copy()
++
++    # Shift for the left path
++    left_path_vertices[:, 0] = np.where(left_path_vertices[:, 0] >= -50,
++                                        left_path_vertices[:, 0] - 360,
++                                        left_path_vertices[:, 0])
++    # Shift for the right path
++    right_path_vertices[:, 0] = np.where(right_path_vertices[:, 0] < -50,
++                                         right_path_vertices[:, 0] + 360,
++                                         right_path_vertices[:, 0])
++    # -50 because of eurasia: we don't want to ahve path that jump across the -180/180°
++    # so we choose a meridian that does not touch separate the left from the right part
++    left_path = mpltPath.Path(left_path_vertices)
++    right_path = mpltPath.Path(right_path_vertices)
++
++    return left_path, right_path
++
++def has_meridian_crossing(path):
++    """
++    Check if the path crosses the -180/180 meridian.
++    Returns True if it crosses, False otherwise.
++    """
++    for point1, point2 in zip(path.vertices[:-1], path.vertices[1:]):
++        if abs(point1[0] - point2[0]) > 180:
++            return True
++    return False
++
++
++def sorting_boundaries(tel, bnd_points, connectivity_bnd_elt, global_ = False):
+     """
+     Sort boundaries in the case there is islands and detect
+     the case of separated domains
+@@ -242,7 +249,6 @@ def sorting_boundaries(tel, bnd_points, connectivity_bnd_elt):
+     first_pt_idx = get_first_point(tel, bnd_points)
+     boundaries.append(sorting_boundary(tel, first_pt_idx, connectivity_bnd_elt))
+     if len(boundaries[0]) - 1 == len(bnd_points):
+-        print("No islands")
+         return boundaries, np.array([]), np.array([])
+ 
+     left_bnd_elt = connectivity_bnd_elt
+@@ -250,6 +256,7 @@ def sorting_boundaries(tel, bnd_points, connectivity_bnd_elt):
+ 
+     poly = np.column_stack((tel.meshx[boundaries[0]], tel.meshy[boundaries[0]]))
+     path = mpltPath.Path(poly)
++
+     for i in range(len(boundaries[j])):
+         left_bnd_elt = np.delete(left_bnd_elt, np.where(
+             (left_bnd_elt[:, 0] == boundaries[0][i]) |
+@@ -261,10 +268,23 @@ def sorting_boundaries(tel, bnd_points, connectivity_bnd_elt):
+     left_pts = np.column_stack((tel.meshx[left_pts_idx],
+                                 tel.meshy[left_pts_idx]))
+ 
+-    left_pts_idx_inside = left_pts_idx[path.contains_points(left_pts)]
++    if global_ and has_meridian_crossing(path):
++        # For inside points: Union of left and right points
++        left_path, right_path = create_shifted_paths(path)
++        left_pts_idx_inside1 = left_pts_idx[left_path.contains_points(left_pts)]
++        left_pts_idx_inside2 = left_pts_idx[right_path.contains_points(left_pts)]
++        left_pts_idx_inside = np.append(left_pts_idx_inside1, left_pts_idx_inside2)
++
++        # For outside points: Intersection of left and right points
++        left_pts_idx_outside_left = left_pts_idx[~left_path.contains_points(left_pts)]
++        left_pts_idx_outside_right = left_pts_idx[~right_path.contains_points(left_pts)]
++        left_pts_idx_outside = np.intersect1d(left_pts_idx_outside_left, left_pts_idx_outside_right)
++    else:
++        left_pts_idx_inside = left_pts_idx[
++            path.contains_points(left_pts)]
++        left_pts_idx_outside = left_pts_idx[
++            np.invert(path.contains_points(left_pts))]
+ 
+-    left_pts_idx_outside = left_pts_idx[
+-        np.invert(path.contains_points(left_pts))]
+     if left_pts_idx_outside.size > 0:
+         left_bnd_elt_outside = left_bnd_elt[
+             np.where(left_bnd_elt[:, 2] == left_pts_idx_outside)]
+@@ -298,11 +318,8 @@ def sorting_boundaries(tel, bnd_points, connectivity_bnd_elt):
+             left_pts_idx_inside = left_bnd_elt_inside[:, 2]
+ 
+ 
+-
+-
+         return boundaries, left_pts_idx_outside, left_bnd_elt_outside
+ 
+-    print("No Islands")
+ 
+     return boundaries, left_pts_idx_outside, left_bnd_elt_outside
+ 
+diff --git a/scripts/python3/pretel/generate_atm.py b/scripts/python3/pretel/generate_atm.py
+index 4a77bc00b..3699a4a21 100644
+--- a/scripts/python3/pretel/generate_atm.py
++++ b/scripts/python3/pretel/generate_atm.py
+@@ -32,6 +32,7 @@ from data_manip.formats.selafin import Selafin
+ from data_manip.extraction.parser_selafin import \
+                   subset_variables_slf, get_value_history_slf
+ from pretel.meshes import xys_locate_mesh
++from utils.geometry import get_weights, interp
+ 
+ # _____             ________________________________________________
+ # ____/ MAIN CALL  /_______________________________________________/
+@@ -77,7 +78,6 @@ def generate_atm(geo_file, slf_file, atm_file, ll2utm):
+             'seem to exist: {}\n\n'.format(geo_file))
+ 
+ # Find corresponding (x,y) in corresponding new mesh
+-    print('   +> getting hold of the GEO file')
+     geo = Selafin(geo_file)
+     if ll2utm is not None:
+         zone = int(ll2utm[:-1])
+@@ -98,7 +98,6 @@ def generate_atm(geo_file, slf_file, atm_file, ll2utm):
+     slf.set_kd_tree()
+     slf.set_mpl_tri()
+ 
+-    print('   +> support extraction')
+     # Extract triangles and weights in 2D
+     support2d = []
+     ibar = 0
+@@ -153,7 +152,6 @@ def generate_atm(geo_file, slf_file, atm_file, ll2utm):
+     atm.npoin3 = geo.npoin2*atm.nplan
+     atm.nelem2 = geo.nelem2
+ 
+-    print('   +> setting connectivity')
+     if atm.nplan > 1:
+         atm.nelem3 = geo.nelem2*(atm.nplan-1)
+         atm.ikle2 = geo.ikle2
+@@ -181,7 +179,9 @@ def generate_atm(geo_file, slf_file, atm_file, ll2utm):
+     atm.meshx = geo.meshx
+     atm.meshy = geo.meshy
+ 
+-    print('   +> writing header')
++    in_xy = np.vstack((slf.meshx,slf.meshy)).T
++    out_xy = np.vstack((atm.meshx,atm.meshy)).T
++    vert, wgts, u_x, g_x = get_weights(in_xy, out_xy)
+     # Write header
+     atm.datetime = slf.datetime
+     atm.append_header_slf()
+@@ -189,7 +189,6 @@ def generate_atm(geo_file, slf_file, atm_file, ll2utm):
+ # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ # ~~~~ writes ATM core ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+-    print('   +> setting variables')
+     # TIME and DATE extraction
+     atm.tags['times'] = slf.tags['times']
+     # VARIABLE extraction
+@@ -199,10 +198,10 @@ def generate_atm(geo_file, slf_file, atm_file, ll2utm):
+     # Read / Write data, one time step at a time to support large files
+     pbar = ProgressBar(maxval=len(slf.tags['times'])).start()
+     for time in range(len(slf.tags['times'])):
+-
+-        data = get_value_history_slf(slf.file, slf.tags, [time], support3d,
+-                                     slf.nvar, slf.npoin3, slf.nplan, vrs)
+-        # special cases ?
++        z = slf.get_values(time)
++        data = []
++        for i, v in zip(*vrs) : 
++            data = np.append(data,[interp(z[i], vert, wgts, u_x, g_x)])        # special cases ?
+         atm.append_core_time_slf(time)
+         atm.append_core_vars_slf(np.reshape(np.transpose(\
+                   np.reshape(np.ravel(data),
+diff --git a/scripts/python3/utils/geometry.py b/scripts/python3/utils/geometry.py
+index bb1a8abb4..7e15fd228 100644
+--- a/scripts/python3/utils/geometry.py
++++ b/scripts/python3/utils/geometry.py
+@@ -32,6 +32,8 @@ r"""
+ # ~~> dependencies towards standard python
+ import math
+ import numpy as np
++from scipy.spatial import Delaunay
++from scipy.spatial import cKDTree
+ 
+ # _____                   __________________________________________
+ # ____/ Global Variables /_________________________________________/
+@@ -41,6 +43,31 @@ import numpy as np
+ # ____/ General Toolbox /__________________________________________/
+ #
+ 
++def get_weights(in_xy, out_xy, d=2):
++    t = Delaunay(in_xy) # triangulate output mesh
++    s = t.find_simplex(out_xy) 
++    vert = np.take(t.simplices, np.maximum(s, 0), axis=0)  # Use max to avoid negative indices
++    t_ = np.take(t.transform, np.maximum(s, 0), axis=0)
++    delta = out_xy - t_[:, d]
++    bary = np.einsum('njk,nk->nj', t_[:, :d, :], delta)
++    wgts = np.hstack((bary, 1 - bary.sum(axis=1, keepdims=True)))
++    # Points outside the out_xy
++    out_idx_out = s < 0  
++    if np.any(out_idx_out):
++        # For points outside, find nearest neighbors
++        tree = cKDTree(in_xy)
++        _, in_idx_out = tree.query(out_xy[out_idx_out])
++    else : 
++        in_idx_out = None
++    return vert, wgts, out_idx_out, in_idx_out
++
++
++def interp(values, vtx, wts, out_idx_out, in_idx_out):
++    res = np.einsum('nj,nj->n', np.take(values, vtx), wts)
++    if in_idx_out is not None:
++        res[out_idx_out] = values[in_idx_out]
++    return res
++
+ 
+ def is_ccw(t_1, t_2, t_3):
+     """@brief Checks if the element is conterclockwise oriented or not
+diff --git a/sources/api/api.cmdf b/sources/api/api.cmdf
+index f2a1be7e6..b8614a8f5 100644
+--- a/sources/api/api.cmdf
++++ b/sources/api/api.cmdf
+@@ -1196,9 +1196,9 @@ files: friction_def.f
+   diffusion_flux_fv.f
+   gradnodt.f
+   diffusion_fv.f
++  flux_kin.f
+   cdl_cin.f
+   flux_hllc.f
+-  flux_kin.f
+   flux_roe.f
+   flux_tchamen.f
+   limiter.f
+diff --git a/sources/telemac2d/cdl_cin.f b/sources/telemac2d/cdl_cin.f
+index faf888053..cce8c5a3b 100644
+--- a/sources/telemac2d/cdl_cin.f
++++ b/sources/telemac2d/cdl_cin.f
+@@ -51,7 +51,7 @@
+       USE DECLARATIONS_TELEMAC2D, ONLY: NPOIN,NPTFR,HBOR,GRAV,
+      &                            MESH,EPS_FV,NUMLIQ,
+      &                            NFRLIQ,NDEBIT,T2D_FILES,T2DIMP,
+-     &                            LIUBOR
++     &                            LIUBOR,VNX1,VNY1,YESNOFR
+       USE DECLARATIONS_TELEMAC, ONLY: KDIR,KNEU,KENT
+       USE INTERFACE_PARALLEL, ONLY : P_SUM
+       IMPLICIT NONE
+@@ -66,17 +66,18 @@
+ !
+ !+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ !
+-      INTEGER IS,K,NIT,IFRLIQ
++      INTEGER IS,K,NIT,IFRLIQ,IDRY
+ !
+       DOUBLE PRECISION RA3,RA32,RA33, ALP,ALP2,ALP3,SG,SQ2
+-      DOUBLE PRECISION VNX,VNY,VNX1,VNY1,VNL,H,U,V,RUN
+-      DOUBLE PRECISION FLUH(NPTFR),FLUU(NPTFR),FLUV(NPTFR)
++      DOUBLE PRECISION VNX,VNY,XNN,YNN,VNL,H,U,V,RUN
++      DOUBLE PRECISION FLX(NPTFR,3),FLXG(3),FLXG_DW(3)
+       DOUBLE PRECISION AUX,FLUTMP,RH,HRH,UNN,VNN
+       DOUBLE PRECISION FHPLUS,FUPLUS,FHMOINS,FUMOINS
+       DOUBLE PRECISION A,A1,A2,A3,ALPHA0,ALPHA1,ALPHA2,C,VP1,VP2 ,VP3
+       DOUBLE PRECISION HG ,RHG,HRHG,UG,VG,DEST,RVG,CA1,AM
+       DOUBLE PRECISION UIN,VIN,HUIN,HVIN
+       DOUBLE PRECISION OUTFLOW,Q2(NFRLIQ)
++      DOUBLE PRECISION HG_DW,UG_DW,VG_DW,U1_DW,V1_DW,U10,VNL1,XNN1,YNN1
+ !
+       SQ2   = SQRT(2.D0)
+       SG    = SQRT(GRAV)
+@@ -86,9 +87,6 @@
+       ALP   = 0.5D0/RA3
+       ALP2  = 0.5D0 *ALP
+       ALP3  = ALP/3.D0
+-!
+-      FLUENT=0.D0
+-      FLUSORT=0.D0
+ !
+ !     CORRECTION OF U/VBOR IF NECESSARY
+ !
+@@ -127,11 +125,41 @@
+           IS=MESH%NBOR%I(K)
+ !
+ !         INITIALIZATION
+-          VNX1=MESH%XNEBOR%R(K)
+-          VNY1=MESH%YNEBOR%R(K)
++          FLUENT  = 0.D0
++          FLUSORT = 0.D0
++          FLX(K,1)= 0.D0
++          FLX(K,2)= 0.D0
++          FLX(K,3)= 0.D0
++          FLXG(1) = 0.D0
++          FLXG(2) = 0.D0
++          FLXG(3) = 0.D0
++          FLXG_DW(1) = 0.D0
++          FLXG_DW(2) = 0.D0
++          FLXG_DW(3) = 0.D0
++!
++!         INDICATOR FOR DRY CELLS
++          IDRY=0
++!
++!         NORMALIZED NORMAL
++          XNN=MESH%XNEBOR%R(K)
++          YNN=MESH%YNEBOR%R(K)
++!
++!         NON NORMALIZED NORMAL
+           VNX=MESH%XNEBOR%R(K+NPTFR)
+           VNY=MESH%YNEBOR%R(K+NPTFR)
+           VNL=SQRT(VNX**2+VNY**2)
++!
++!         NORMALS TO SOLID HALF EDGE
++!         (LIQUID NEXT TO SOLID BND)
++          IF(YESNOFR(K)) THEN
++            VNL1=SQRT(VNX1(K)**2+VNY1(K)**2)
++            XNN1=VNX1(K)/VNL1
++            YNN1=VNY1(K)/VNL1
++          ELSE
++            VNL1=0.D0
++            XNN1=0.D0
++            YNN1=0.D0
++          ENDIF
+ !
+           H   = UA(1,IS)
+           IF(H.GT.EPS_FV) THEN
+@@ -142,6 +170,7 @@
+             U = 0.D0
+             V = 0.D0
+             RH = 0.D0
++            IDRY=IDRY+1
+           ENDIF
+ !
+ !         **************************************************
+@@ -150,9 +179,9 @@
+ !         **************************************************
+           IF(LIMPRO(K,1).EQ.KNEU) THEN
+             AUX=0.5D0*GRAV*H**2
+-            FLUH(K) = 0.D0
+-            FLUU(K) = AUX*VNX
+-            FLUV(K) = AUX*VNY
++            FLXG(1) = 0.D0
++            FLXG(2) = AUX*VNX
++            FLXG(3) = AUX*VNY
+ !
+ !         **************************************************
+ !         LIQUID BOUNDARIES
+@@ -169,8 +198,8 @@
+               FHPLUS = 0.D0
+               FUPLUS = 0.D0
+             ELSE
+-              UNN= +VNX1*U+VNY1*V
+-              VNN= -VNY1*U+VNX1*V
++              UNN= +XNN*U+YNN*V
++              VNN= -YNN*U+XNN*V
+               A=MIN(RA3,MAX(-RA3,-UNN/RH))
+               A2 =A * A
+               A3 =A2 * A
+@@ -206,6 +235,7 @@
+                   VG=0.D0
+                   FHMOINS = 0.D0
+                   FUMOINS = 0.D0
++                  IDRY = IDRY + 1
+                 ELSE
+                   IF (VP2*VP3.LE.0.D0) THEN
+ !
+@@ -225,8 +255,8 @@
+                       HUIN = H*UIN
+                       HVIN = H*VIN
+ !
+-                      DEST = HUIN*VNX1+HVIN*VNY1
+-                      RVG  =-HUIN*VNY1+HVIN*VNX1
++                      DEST = HUIN*XNN+HVIN*YNN
++                      RVG  =-HUIN*YNN+HVIN*XNN
+ !
+                       A1 = DEST-FHPLUS
+                       CA1= SQ2*A1/(SG*HG*RHG)
+@@ -245,15 +275,42 @@
+ !
+                   ENDIF
+ !
+-                  GOTO 220
++!                 CALCULATION OF F-(HG,UG,VG)
++                  A=MIN(RA3,MAX(-RA3,-UG/RHG))
++                  A2 =A * A
++                  A3 =A2 * A
++                  ALPHA0=ALP*(A+RA3)
++                  ALPHA1=ALP2*(A2-RA32)
++                  ALPHA2=ALP3*(A3+RA33)
++!
++                  FHMOINS = HG*UG*ALPHA0 + HRHG*ALPHA1
++                  FUMOINS = UG*(FHMOINS + HRHG*ALPHA1)
++     &                    + HG*HG*ALPHA2
++!
+                 ENDIF
+-                GOTO 200
++!
++!               CALCUL DES FLUX ET ROTATION INVERSE
++                FLXG(1) = (FHPLUS +FHMOINS)
++                FLXG(2) = (FUPLUS +FUMOINS)
++!
++                IF (FLXG(1).GE.0.D0) THEN
++                  FLXG(3) = VNN*FLXG(1)
++                ELSE
++                  FLXG(3) = VG*FLXG(1)
++                ENDIF
++!
++                FLUTMP = FLXG(2)
++                FLXG(2) = +XNN*FLUTMP-YNN*FLXG(3)
++                FLXG(3) = +YNN*FLUTMP+XNN*FLXG(3)
+ !
+ !             SUPERCRITICAL OUTFLOW
+ !             ---------------------
+ !             THE OUTFLOW IS TORRENTIAL SO WE HAVE NO NEED FOR THE GIVEN H
+               ELSE
+-                GOTO 100
++                RUN     = H*UNN
++                FLXG(1) =  RUN
++                FLXG(2) =  (U *RUN + 0.5D0*GRAV*H**2* VNX)
++                FLXG(3) =  (V *RUN + 0.5D0*GRAV*H**2* VNY)
+               ENDIF
+ !
+ !           ==================================
+@@ -266,8 +323,8 @@
+               HUIN = H*UIN
+               HVIN = H*VIN
+ !
+-              DEST=HUIN*VNX1+HVIN*VNY1
+-              RVG =-HUIN*VNY1+HVIN*VNX1
++              DEST=HUIN*XNN+HVIN*YNN
++              RVG =-HUIN*YNN+HVIN*XNN
+ !             WARNING: SIGN CHANGE / INRIA REPORT
+               A1 = -DEST+FHPLUS
+               A2 = -UNN - 2.D0*SG*RH
+@@ -292,76 +349,102 @@
+                   VG=0.D0
+                   FHMOINS = 0.D0
+                   FUMOINS = 0.D0
++                  IDRY = IDRY + 1
+                 ELSE
+                   UG=-AM*A2/(AM-2.D0)
+                   VG=RVG/HG
+-                  GOTO 220
++!
++!                 CALCULATION OF F-(HG,UG,VG)
++                  A=MIN(RA3,MAX(-RA3,-UG/RHG))
++                  A2 =A * A
++                  A3 =A2 * A
++                  ALPHA0=ALP*(A+RA3)
++                  ALPHA1=ALP2*(A2-RA32)
++                  ALPHA2=ALP3*(A3+RA33)
++!
++                  FHMOINS = HG*UG*ALPHA0 + HRHG*ALPHA1
++                  FUMOINS = UG*(FHMOINS + HRHG*ALPHA1)
++     &                    + HG*HG*ALPHA2
++!
+                 ENDIF
+               ENDIF
+-              GOTO 200
++!
++!             CALCUL DES FLUX ET ROTATION INVERSE
++              FLXG(1) = (FHPLUS +FHMOINS)
++              FLXG(2) = (FUPLUS +FUMOINS)
++!
++              IF (FLXG(1).GE.0.D0) THEN
++                FLXG(3) = VNN*FLXG(1)
++              ELSE
++                FLXG(3) = VG*FLXG(1)
++              ENDIF
++!
++              FLUTMP=FLXG(2)
++              FLXG(2) = +XNN*FLUTMP-YNN*FLXG(3)
++              FLXG(3) = +YNN*FLUTMP+XNN*FLXG(3)
+ !
+ !           ===============================
+ !           CRITICAL OUTFLOW
+ !           ===============================
+             ELSE
+-!
+-              GOTO 100
++              RUN     = H*UNN
++              FLXG(1) =  RUN
++              FLXG(2) =  (U *RUN + 0.5D0*GRAV*H**2* VNX)
++              FLXG(3) =  (V *RUN + 0.5D0*GRAV*H**2* VNY)
+ !
+             ENDIF
+-            GOTO 1000
+-!
+-!
+-!           CALCULATION OF F-(HG,UG,VG)
+ !
+- 220        CONTINUE
+-!
+-            A=MIN(RA3,MAX(-RA3,-UG/RHG))
+-            A2 =A * A
+-            A3 =A2 * A
+-            ALPHA0=ALP*(A+RA3)
+-            ALPHA1=ALP2*(A2-RA32)
+-            ALPHA2=ALP3*(A3+RA33)
+-!
+-            FHMOINS = HG*UG*ALPHA0 + HRHG*ALPHA1
+-            FUMOINS = UG*(FHMOINS + HRHG*ALPHA1)
+-     &      + HG*HG*ALPHA2
+-!
+-!           CALCUL DES FLUX ET ROTATION INVERSE
+-!
+- 200        CONTINUE
+-            FLUH(K)=(FHPLUS +FHMOINS)*VNL
+-            FLUU(K)=(FUPLUS +FUMOINS)*VNL
+-!
+-            IF (FLUH(K).GE.0.D0) THEN
+-              FLUV(K)= VNN*FLUH(K)
+-            ELSE
+-              FLUV(K)= VG*FLUH(K)
++!           ============================================
++!           WALL BOUNDARY CONDITION ON HALF EDGES
++!           (LIQUID NODES CONNECTED TO SOLID BOUNDARIES)
++!           ============================================
++            IF(YESNOFR(K)) THEN
++              HG_DW = H
++              U1_DW = U
++              V1_DW = V
++
++!             ROTATION
++              U10 = U1_DW
++              U1_DW  = XNN1*U10+YNN1*V1_DW
++              V1_DW  =-YNN1*U10+XNN1*V1_DW
++
++!             PUT NORMAL COMPONENT = 0
++              U1_DW = 0.D0
++              UG_DW = U1_DW
++              VG_DW = V1_DW
++
++!             INVERSE ROTATION
++              U10 = U1_DW
++              U1_DW = -YNN1*V1_DW
++              V1_DW =  XNN1*V1_DW
++              UG_DW = -YNN1*VG_DW
++              VG_DW =  XNN1*VG_DW
++
++              CALL FLUX_KIN(H,HG_DW,U1_DW,UG_DW,
++     &                      V1_DW,VG_DW,XNN1,YNN1,FLXG_DW)
++
+             ENDIF
+ !
+-            FLUTMP=FLUU(K)
+-            FLUU(K) = +VNX1*FLUTMP-VNY1*FLUV(K)
+-            FLUV(K) = +VNY1*FLUTMP+VNX1*FLUV(K)
+-!
+-!           CORRECTION OF THE TIME STEP
+-!
+-            GOTO 1000
+-100         CONTINUE
+-            RUN     = H*UNN
++          ENDIF
+ !
+-            FLUH(K) =  RUN* VNL
+-            FLUU(K) =  (U *RUN + 0.5D0*GRAV*H**2* VNX)*VNL
+-            FLUV(K) =  (V *RUN + 0.5D0*GRAV*H**2* VNY)*VNL
++!         **************************************************
++!         COMPUTE THE FLUX
++!         **************************************************   
++          FLX(K,1) = VNL*FLXG(1) + VNL1*FLXG_DW(1)
++          FLX(K,2) = VNL*FLXG(2) + VNL1*FLXG_DW(2)
++          FLX(K,3) = VNL*FLXG(3) + VNL1*FLXG_DW(3)
+ !
+-1000        CONTINUE
+-          ENDIF
+         ENDDO
+       ENDIF
+-
+ !
++!     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++!     FINAL BALANCE
++!     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++!     FOR PARALLELISM
+       IF(NCSIZE.GT.1)THEN
+-        CALL PARCOM_BORD(FLUH,1,MESH)
+-        CALL PARCOM_BORD(FLUU,1,MESH)
+-        CALL PARCOM_BORD(FLUV,1,MESH)
++        CALL PARCOM_BORD(FLX(:,1),1,MESH)
++        CALL PARCOM_BORD(FLX(:,2),1,MESH)
++        CALL PARCOM_BORD(FLX(:,3),1,MESH)
+       ENDIF
+ !
+       IF(NPTFR.GT.0)THEN
+@@ -369,18 +452,20 @@
+           IS=MESH%NBOR%I(K)
+ !
+           IF(NCSIZE.GT.1)THEN
+-            OUTFLOW  = FLUH(K)*MESH%IFAC%I(IS)
++            OUTFLOW  = FLX(K,1)*MESH%IFAC%I(IS)
+           ELSE
+-            OUTFLOW  = FLUH(K)
++            OUTFLOW  = FLX(K,1)
+           ENDIF
+-          IF(LIMPRO(K,1).EQ.KDIR)  FLUSORT = FLUSORT + OUTFLOW
+-          IF(LIMPRO(K,2).EQ.KDIR)  FLUENT  = FLUENT  + OUTFLOW
+-!RA
+-          FLBOR%R(K)=OUTFLOW
+-!
+-          CE(IS,1)  = CE(IS,1) - FLUH(K)
+-          CE(IS,2)  = CE(IS,2) - FLUU(K)
+-          CE(IS,3)  = CE(IS,3) - FLUV(K)
++          IF(FLX(K,1).LE.0.D0)THEN ! INLET
++            FLUENT = FLUENT + OUTFLOW
++          ELSE                     ! OUTLET
++            FLUSORT = FLUSORT + OUTFLOW
++          ENDIF
++          FLBOR%R(K) = OUTFLOW
++!
++          CE(IS,1)  = CE(IS,1) - FLX(K,1)
++          CE(IS,2)  = CE(IS,2) - FLX(K,2)
++          CE(IS,3)  = CE(IS,3) - FLX(K,3)
+ !
+         ENDDO
+       ENDIF
+diff --git a/sources/telemac2d/cdl_fv.f b/sources/telemac2d/cdl_fv.f
+index ccb06b539..27c950e0b 100644
+--- a/sources/telemac2d/cdl_fv.f
++++ b/sources/telemac2d/cdl_fv.f
+@@ -401,7 +401,7 @@
+             V1_DW =  XNN1*V1_DW
+             UG_DW = -YNN1*VG_DW
+             VG_DW =  XNN1*VG_DW
+-            ENDIF
++          ENDIF
+ !
+         ENDIF
+ !
+diff --git a/sources/telemac2d/telemac2d.cmdf b/sources/telemac2d/telemac2d.cmdf
+index 3a054596b..edf1b338f 100644
+--- a/sources/telemac2d/telemac2d.cmdf
++++ b/sources/telemac2d/telemac2d.cmdf
+@@ -1083,9 +1083,9 @@ files: friction_def.f
+   diffusion_flux_fv.f
+   gradnodt.f
+   diffusion_fv.f
++  flux_kin.f
+   cdl_cin.f
+   flux_hllc.f
+-  flux_kin.f
+   flux_roe.f
+   flux_tchamen.f
+   limiter.f
+diff --git a/sources/telemac2d/telemac2d.dico b/sources/telemac2d/telemac2d.dico
+index 4c019cfa0..c354e2b54 100644
+--- a/sources/telemac2d/telemac2d.dico
++++ b/sources/telemac2d/telemac2d.dico
+@@ -3968,14 +3968,14 @@ NIVEAU = 1
+ AIDE =
+ 'Choix possibles :
+ \begin{itemize}
+-\item calculee sur $h$, $u$, $v$ ;
+-\item calculee avec $c$, $u$ , $v$.
++\item 1 : calculee sur $h$, $u$, $v$ ;
++\item 2 : calculee avec $c$, $u$ , $v$.
+ \end{itemize}'
+ AIDE1 =
+ 'Possible choices:
+ \begin{itemize}
+-\item computed with $h$, $u$, $v$,
+-\item computed with $c$, $u$, $v$.
++\item 1: computed with $h$, $u$, $v$,
++\item 2: computed with $c$, $u$, $v$.
+ \end{itemize}'
+ /
+ NOM = 'METHODE D''IDENTIFICATION'
+@@ -4419,16 +4419,16 @@ NIVEAU = 0
+ AIDE =
+ 'Choix des equations a resoudre :
+ \begin{itemize}
+-\item Saint-Venant Elements Finis ;
+-\item Saint-Venant Volumes Finis ;
+-\item Boussinesq 20 caracteres.
++\item SAINT-VENANT EF : Saint-Venant Elements Finis ;
++\item SAINT-VENANT VF : Saint-Venant Volumes Finis ;
++\item BOUSSINESQ : Boussinesq 20 caracteres.
+ \end{itemize}'
+ AIDE1 =
+ 'Choice of equations to solve:
+ \begin{itemize}
+-\item Shallow Water Finite Elements,
+-\item Shallow Water Finite Volumes,
+-\item Boussinesq 20 Characters.
++\item SAINT-VENANT FE: Shallow Water Finite Elements,
++\item SAINT-VENANT FV: Shallow Water Finite Volumes,
++\item BOUSSINESQ: Boussinesq 20 Characters.
+ \end{itemize}'
+ /
+ NOM = 'TRAITEMENT DU SYSTEME LINEAIRE'
+@@ -6265,11 +6265,21 @@ RUBRIQUE1 =
+ 'NUMERICAL PARAMETERS';'ADVECTION INFO';''
+ NIVEAU = 0
+ AIDE =
+-'Utilise pour les schemas SUPG, PSI et N, avec option 2, on ne retrouve
++'Choix possibles:
++\begin{itemize}
++\item 1 : Priorite aux valeurs imposees ;
++\item 2 : Priorite aux flux.
++\end{itemize}
++Utilise pour les schemas SUPG, PSI et N, avec option 2, on ne retrouve
+ pas exactement les valeurs imposees des traceurs, mais le flux est
+ correct. Une seule meme valeur pour toutes les frontieres liquides.'
+ AIDE1 =
+-'Used so far only with the SUPG, PSI and N schemes. With option 2,
++'Possible choices:
++\begin{itemize}
++\item 1: Priority to prescribed values,
++\item 2: Priority to fluxes.
++\end{itemize}
++Used so far only with the SUPG, PSI and N schemes. With option 2,
+ Dirichlet prescribed values are not obeyed, but the fluxes are correct.
+ One single and same value for every liquid boundary.'
+ /
+@@ -6447,8 +6457,8 @@ AIDE =
+ AIDE1 =
+ 'Choice of the finite volume diffusion model:
+ \begin{itemize}
+-\item 1: explicit P1 finite element ;
+-\item 2: two points flux ;
++\item 1: explicit P1 finite element,
++\item 2: two points flux,
+ \item 3: reconstructed two points flux.
+ \end{itemize}'
+ /
+@@ -6485,8 +6495,8 @@ AIDE =
+ AIDE1 =
+ 'Choice of the finite volume diffusion model:
+ \begin{itemize}
+-\item 1: explicit P1 finite element ;
+-\item 2: two points flux ;
++\item 1: explicit P1 finite element,
++\item 2: two points flux,
+ \item 3: reconstructed two points flux.
+ \end{itemize}'
+ /
+@@ -8964,10 +8974,20 @@ RUBRIQUE1 =
+ NIVEAU = 0
+ AIDE =
+ 'Pour les particules : flotteurs, hydrocarbures.
++Choix possibles :
++\begin{itemize}
++\item 0 : pas de modele ;
++\item 1 : mouvement brownien.
++\end{itemize}
+ Si aucune turbulence n est activee, la diffusion stochastique n est pas
+ prise en compte pendant le transport de particules.'
+ AIDE1 =
+ 'Meant for particles: drogues, oil spills.
++Possible choices:
++\begin{itemize}
++\item 0: no model,
++\item 1: brownian movement.
++\end{itemize}
+ If no turbulence is activated, this stochastic diffusion is not
+ considered during the particle transport.'
+ /
+@@ -9067,16 +9087,16 @@ NIVEAU = 0
+ AIDE =
+ 'Methode de traitement des seuils. Deux Solutions:
+ \begin{itemize}
+-\item horizontal avec meme nombre de noeuds amont/aval
++\item 1 : horizontal avec meme nombre de noeuds amont/aval
+ (Solution historique avec le sous-programme \telfile{BORD}) ;
+-\item generale (nouvelle solution avec pts sources).
++\item 2 : generale (nouvelle solution avec pts sources).
+ \end{itemize}'
+ AIDE1 =
+ 'Method for treatment of weirs. Two options:
+ \begin{itemize}
+-\item horizontal with same number of nodes upstream/downstream
++\item 1: horizontal with same number of nodes upstream/downstream
+ (Historical solution with the \telfile{BORD} subroutine),
+-\item general (new solution with sources points).
++\item 2: general (new solution with sources points).
+ \end{itemize}'
+ /
+ NOM = 'FICHIER DE SORTIE DES DEBITS DES SEUILS'
+@@ -9663,13 +9683,25 @@ RUBRIQUE1 =
+ 'TIDES';'BOUNDARY CONDITIONS';''
+ NIVEAU = 0
+ AIDE =
+-'Pour JMJ, renseigner la localisation du fichier bdd\_jmj et geofin
++'Choix possibles :
++\begin{itemize}
++\item 1 : JMJ ;
++\item 2 : TPXO ;
++\item 3 : divers (LEGOS-NEA, FES20XX, PREVIMER...).
++\end{itemize}
++Pour JMJ, renseigner la localisation du fichier bdd\_jmj et geofin
+ dans les mots-cles \telkey{BASE ASCII DE DONNEES DE MAREE} et
+ \telkey{FICHIER DU MODELE DE MAREE}.
+ Pour TPXO, LEGOS-NEA, FES20XX et PREVIMER, l''utilisateur doit
+ telecharger les fichiers de constantes harmoniques sur internet.'
+ AIDE1 =
+-'For JMJ, indicate the location of the files bdd\_jmj and geofin with
++'Possible choices:
++\begin{itemize}
++\item 1: JMJ,
++\item 2: TPXO,
++\item 3: miscellaneous (LEGOS-NEA, FES20XX, PREVIMER...).
++\end{itemize}
++For JMJ, indicate the location of the files bdd\_jmj and geofin with
+ keywords \telkey{ASCII DATABASE FOR TIDE} and \telkey{TIDAL MODEL FILE}.
+ For TPXO, LEGOS-NEA,
+ FES20XX and PREVIMER, the user has to download files of harmonic
+@@ -10521,9 +10553,17 @@ RUBRIQUE1 =
+ 'INTERNAL';'';''
+ NIVEAU = 1
+ AIDE =
+-'1 : FRANCAIS   2 : ANGLAIS'
++'Choix possibles :
++\begin{itemize}
++\item 1 : francais ;
++\item 2 : anglais.
++\end{itemize}'
+ AIDE1 =
+-'1: FRENCH   2: ENGLISH'
++'Possible choices:
++\begin{itemize}
++\item 1: French,
++\item 2: English.
++\end{itemize}'
+ /
+ NOM = 'FICHIER DES PARAMETRES'
+ NOM1 = 'STEERING FILE'
+diff --git a/sources/utils/partel/partel.F b/sources/utils/partel/partel.F
+index b6c0ab0c0..6f276802e 100644
+--- a/sources/utils/partel/partel.F
++++ b/sources/utils/partel/partel.F
+@@ -637,6 +637,13 @@
+           CALL HASH_TABLE_INSERT(GELEGL,EF,I,NELEM_P(I))
+         ENDIF
+       ENDDO
++!
++      DO I = 1, NPOIN
++        IRAND(I) = 0
++      ENDDO
++      DO I = 1, NPTFR
++        IRAND(NBOR(I)) = 1
++      ENDDO!
+ !
+       CALL COMPUTE_BOUNDARY_AND_INTERFACE(NPARTS,NDP_2D,NPOIN_P,
+      &                                    NPTFR_P, ELELG,

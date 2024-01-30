@@ -1,6 +1,9 @@
 {% set name = "opentelemac" %}
-{% set version = "v8p4r1" %}
+{% set version = "main" %}
 {% set build = 0 %}
+{% set python = python or '3.10' %}  # Default to 3.10 if not specified
+{% set numpy = numpy or '1.21' %}    # Default to 1.21 if not specified
+{% set mpi = "openmpi" %}     # Default to "openmpi" if not specified
 
 package:
   name: {{ name|lower }}
@@ -9,10 +12,15 @@ package:
 source:
   - url: https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/archive/{{ version }}/telemac-mascaret-{{ version }}.tar.gz
     folder: opentelemac
-    sha256: b48a0ee5cb43a68bc7255357544810ea67ea918a5ffd7fd61eeed41be4cf7b71
+    sha256: 45468b850c8271c21f7d6ef7017945c297dfc3b670c3cde706d71124189d6396
+    patches:
+      - global.patch
 
 build:
-  {% set build_pin = mpi_prefix + '_*' %}
+  {% set mpi_prefix = "mpi_" + mpi %}
+  {% set py_prefix = "py_" + python %}
+  {% set np_prefix = "np_" + numpy %}
+  string: {{ mpi_prefix }}_{{ py_prefix }}_{{ np_prefix }}_{{ build }}
   number: {{ build }}
   script_env:
     - TELEMAC_VERSION={{ version }}
@@ -44,12 +52,12 @@ outputs:
         - scalapack-otm             # [win]
         # Linux / MacOS
         - {{ compiler('fortran') }} # [not win]
-        - openmpi                   # [not win]
-        - openmpi-mpifort           # [not win]
+        - {{ mpi }}                 # [not win]
+        - {{ mpi }}-mpifort         # [not win]
         - {{ compiler('gcc') }}     # [not win]
         - {{ compiler('gxx') }}     # [not win]
         - binutils                  # [not win]
-        - hdf5 <1.11                # [not win]
+        - hdf5                      # [not win]
         - metis                     # [not win]
         - libmed                    # [not win]
         - mumps-mpi                 # [not win]
@@ -61,9 +69,9 @@ outputs:
         - aed2-otm
         # Python
         - matplotlib
-        - numpy <1.22.0
-        - python <3.11
-        - scipy <1.11
+        - numpy {{ numpy }}*
+        - python {{ python }}
+        - scipy
       run:
         # Windows
         - m2-sed                    # [win]
@@ -75,12 +83,12 @@ outputs:
         - scalapack-otm             # [win]
         # Linux / MacOS
         - {{ compiler('fortran') }} # [not win]
-        - openmpi                   # [not win]
-        - openmpi-mpifort           # [not win]
+        - {{ mpi }}                 # [not win]
+        - {{ mpi }}-mpifort         # [not win]
         - {{ compiler('gcc') }}     # [not win]
         - {{ compiler('gxx') }}     # [not win]
         - binutils                  # [not win]
-        - hdf5 <1.11                # [not win]
+        - hdf5                      # [not win]
         - metis                     # [not win]
         - libmed                    # [not win]
         - mumps-mpi                 # [not win]
@@ -93,12 +101,9 @@ outputs:
         # Python
         - matplotlib
         - mpi4py
-        - numpy <1.22.0
-        - python <3.11
-        - scipy <1.11
-        - jupyterlab
-        - ipympl
-        - ipykernel
+        - numpy {{ numpy }}*
+        - python {{ python }}
+        - scipy
     # test:
     #   script: run_test.bat
 
