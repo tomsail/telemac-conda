@@ -1,5 +1,10 @@
 openTELEMAC conda package 
 =========================
+## DISCLAIMER: This git is not maintained anymore
+
+[Link of the Official Feedstock](https://github.com/conda-forge/opentelemac-feedstock/)
+
+---
 ![CI](https://github.com/tomsail/telemac-conda/actions/workflows/test_examples.yml/badge.svg) 
 ![TELEMAC](http://www.opentelemac.org/media/kunena/attachments/75/openTELEMAC_hr.png)
 This is the repository for the conda package of the openTELEMAC system
